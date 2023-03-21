@@ -21,5 +21,8 @@
 	현재 테스트용 유저 정보 : <%= test.toString() %>
 	 --%>
 	<%@ include file="myroom.jsp" %>
+	
+	
+	<script src="../resource/js/common.js"></script>
 </body>
 </html>
