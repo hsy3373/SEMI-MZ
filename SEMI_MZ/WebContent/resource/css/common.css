@@ -6,3 +6,7 @@
 }
 
 * {font-family: 'DOSSaemmul', serif;}
+
+:root{
+    --fontsize1 : 10px;
+}
