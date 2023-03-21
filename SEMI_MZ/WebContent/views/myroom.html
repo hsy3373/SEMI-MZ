@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../resource/css/myroom.css" rel="stylesheet" type="text/css">
+    <link href="../resource/css/common.css" rel="stylesheet" type="text/css">
+    
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    
+    
+
+    <title>Document</title>
+</head>
+<body>
+    	<!-- 마이룸 -->
+        <div class="myroom">
+            <div class="icon-closet">
+                <!-- 옷장 클릭시 페이지 이동 -->
+                <a href="closet.jsp">
+                    <img id="closet" src="../resource/img/icon/옷장.png">
+                    <img id="closet-hover" src="../resource/img/icon/옷장_hover.png">
+                </a>
+            </div>
+            <div class="icon-tree">
+                <!-- 나무 클릭시 모달창 -->
+                <img id="tree" src="../resource/img/icon/tree.png">
+                <img id="tree-hover" src="../resource/img/icon/tree_hover.png">
+            </div>
+            <div class="user">
+                <input type="checkbox" name="heart-ck" id="heart">
+                <label class="font" for="heart">12</label>
+                <img id="user-skin" src="../resource/img/user/skin01/fs.png">
+            </div>
+            
+        </div>
+        
+        <!-- 모달창 -->
+        <div class="board-wrap">
+            <div class="board-modal">
+                <!-- 방명록리스트 -->
+                <div class="board-list">
+                    <div class="x-btn"><img class="x-btn" src="../resource/img/icon/엑스 버튼.png"></div>
+                    <div class="board-content">
+                        <table class="board-list-area">
+                            <tr>
+                                <td id="board-no">1</td>
+                                <td id="board-title"><img id="apple" src="../resource/img/icon/사과.png">제목</td>
+                                <td class="board-user">유저</td>
+                                <td class="board-user">작성일</td>
+                            </tr>
+                            <tr>
+                                <td id="board-no">1</td>
+                                <td id="board-title"><img id="apple" src="../resource/img/icon/사과.png">제목</td>
+                                <td class="board-user">유저</td>
+                                <td class="board-user">작성일</td>
+                            </tr>
+                            <tr>
+                                <td id="board-no">1</td>
+                                <td id="board-title"><img id="apple" src="../resource/img/icon/사과.png">제목</td>
+                                <td id="board-user">유저</td>
+                                <td id="board-date">작성일</td>
+                            </tr>
+                            <tr>
+                                <td id="board-no">1</td>
+                                <td id="board-title"><img id="apple" src="../resource/img/icon/사과.png">제목</td>
+                                <td id="board-user">유저</td>
+                                <td id="board-date">작성일</td>
+                            </tr>
+                            <tr>
+                                <td id="board-no">1</td>
+                                <td id="board-title"><img id="apple" src="../resource/img/icon/사과.png">제목</td>
+                                <td id="board-user">유저</td>
+                                <td id="board-date">작성일</td>
+                            </tr>
+                            <tr>
+                                <td id="board-no">1</td>
+                                <td id="board-title"><img id="apple" src="../resource/img/icon/사과.png">제목</td>
+                                <td id="board-user">유저</td>
+                                <td id="board-date">작성일</td>
+                            </tr>
+                            <tr>
+                                <td id="board-no">1</td>
+                                <td id="board-title"><img id="apple" src="../resource/img/icon/사과.png">제목</td>
+                                <td id="board-user">유저</td>
+                                <td id="board-date">작성일</td>
+                            </tr>
+                            <tr>
+                                <td id="board-no">1</td>
+                                <td id="board-title"><img id="apple" src="../resource/img/icon/사과.png">제목</td>
+                                <td id="board-user">유저</td>
+                                <td id="board-date">작성일</td>
+                            </tr>
+                        </table>
+                        <!-- 페이징바 -->
+                        <div class="pageing-area"></div>
+                    </div>
+                </div>
+                
+                <!-- 방명록 상세 -->
+                <div class="board-detail">
+                    <!-- back 버튼 -->
+                    <div class="back-btn"><img class="back-btn" src="../resource/img/icon/back2_btn.png"></div>
+                    <div class="board-detail-area">
+                        <div class="board-detail-content">
+                            <div id="board-detail-user">
+                                <div class="friend">
+                                    <img class="friend" id="friend-skin" src="../resource/img/user/skin01/fs.png">
+                                </div>
+                            </div>
+                            <div id="board-detail-table"></div>
+                        </div>
+                        <button>삭제</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        
+        
+        
+        <script>
+        $(function(){
+            /* 방명록 모달창 띄우기 */
+            $(".icon-tree").click(function(e){
+                $(".board-wrap").show();
+                $(".board-modal").show();
+                $(".board-list").show();
+                $(".board-detail").hide();
+            })
+            
+            /* 방명록 상세페이지 모달창 띄우기 */
+            $(".board-content tr").click(function(){
+                $(".board-list").hide();
+                $(".board-detail").show();
+                
+                /* 공지사항 번호가져오기 */
+                let bno = $(this).children().eq(0).text();
+                
+                // location.href = "${ contextPath }/datail.bo?bno="+bno;
+            })
+            
+            /* x버튼 or 바깥 클릭시 모달창 사라짐 */
+            $("body").on("click", function(e) { 
+                if(e.target.className == 'x-btn' || e.target.className == 'board-wrap'){
+                    $(".board-wrap").hide();
+                }
+            })
+
+            /* back버튼 클릭시 방명록리스트 모달창 보여짐 */
+            $(".back-btn").click(function(e){
+                $(".board-wrap").show();
+                $(".board-modal").show();
+                $(".board-list").show();
+                $(".board-detail").hide();
+                
+            })
+
+        });
+        
+        </script>
+</body>
+</html>

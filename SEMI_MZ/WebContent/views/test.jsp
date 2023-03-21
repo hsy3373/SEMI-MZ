@@ -16,11 +16,12 @@
 <title>Insert title here</title>
 </head>
 <body>
-	test용 페이지 <br>
+<%-- 	test용 페이지 <br>
 	현재 테스트용 유저아이디 : <%= test.getUserId() %> <br>
 	현재 테스트용 유저 정보 : <%= test.toString() %>
-	 <br> <br>
-	<a href="./myroom.jsp">마이룸</a>
+	 <br> <br> --%>
+	<!-- <a href="./myroom.jsp">마이룸</a> -->
+	<%@ include file="myroom.jsp" %>
 	 
 	
 	<script src="../resource/js/common.js"></script>

@@ -1,15 +1,15 @@
-@charset "UTF-8";
 /* 마이룸 css - 지의 */
-body{margin: 0;}
-/* 마이룸 기본 틀 */
-.myroom{
-    width: 1300px;
-    height: 800px;
-    margin: auto;
-    position: relative;
-    background-color: black;
+@charset "UTF-8";
+@font-face {
+    font-family: "DOSSaemmul";
+    src: url("../font/DOSSaemmul.ttf") format("truetype");
+    font-weight: normal;
 }
-/* .myroom{
+* {font-family: 'DOSSaemmul', serif;}
+
+body{margin: 0;}
+/* ----------------------- 마이룸 기본 틀 ----------------------- */
+.myroom{
     width: 1300px;
     height: 800px;
     margin: auto;
@@ -18,20 +18,9 @@ body{margin: 0;}
     background-repeat: no-repeat;
     background-position: center;    
     position: relative;
-} */
-.myroom::before{
-    content: "";
-    /* background: url('/src/resource/img/background/background_myroom.png');
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center; */
-    background:url('../img/background/background_myroom.png') no-repeat center/contain;    position: absolute;
-    top: 0px;
-    left: 0px;
-    right: 0px;
-    bottom: 0px;
 }
-/* 옷장 */
+
+/* 옷장 아이콘 */
 .icon-closet #closet{
     position: absolute;
     top: 55%;
@@ -48,7 +37,7 @@ body{margin: 0;}
 .icon-closet:hover #closet-hover{display:block}
 
 
-/* 나무 */
+/* 나무 아이콘 */
 .icon-tree>#tree{
     position: absolute;
     top: 50%;
@@ -97,32 +86,107 @@ input[type=checkbox] {
 }
 
 
-/* 모달 */
-#modal.modal-overlay {
+/* ----------------------- 팝업창 ----------------------- */
+.board-wrap {
+    display: flex;
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
-    position: absolute;
-    left: 0;
-    top: 0;
-    display: none;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background: rgba(255, 255, 255, 0.3);
-
+    background-color: rgba(0, 0, 0, 0.4);
 }
-#modal .modal-window {
-	background:url('../img/icon/방명록.png') no-repeat center/contain;
-    width: 800px;
+
+.board-modal{
+    display: flex;
+	position: relative;
+	width: 800px;
     height: 500px;
-    position: absolute;
-    margin: auto;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	background:url('../img/icon/방명록.png') no-repeat center/contain;
 }
 
-#modal .x-btn {
-    position: absolute;
-    top: -1%;
-    right: -2.2%;
-    cursor: pointer;
-    scale: 0.56;
+.board-list{
+    display: none;
 }
+
+.board-detail{
+    display: flex;
+}
+
+.board-content{
+    position: absolute;
+    width: 600px;
+	top: 48%;
+	left: 50%;
+	transform: translate(-48%, -50%);
+}
+
+td{padding-top: 8px;}
+#board-title{width: 452px;}
+#apple{
+    width: 18px;
+    margin-right: 10px;
+}
+.board-user{
+    width: 60px;
+}
+#board-no{display: none;}
+
+
+/* x 버튼 */
+.board-modal .x-btn {
+    position: absolute;
+    width: 48px;
+    top: 2%;
+    right: -0.2%;
+    cursor: pointer;   
+}
+/* back 버튼 */
+.board-detail .back-btn {
+    position: absolute;
+    width: 48px;
+    top: 2%;
+    right: -0.2%;
+    cursor: pointer;  
+}
+
+
+/* ----------------------- 방명록 상세페이지 ----------------------- */
+.board-detail *{
+    border: 1px solid red;
+    box-sizing: border-box;
+}
+.board-detail-area{
+    width: 600px;
+    height: 340px;
+    position: absolute;
+    top: 52%;
+    left: 50%;
+    transform: translate(-51%, -50%);
+    text-align: center;
+
+}
+.board-detail-area>div{
+    height: 310px;
+}
+
+.board-detail-area>button{
+    height: 30px;
+    display: inline-block;
+}
+
+.board-detail-content{
+    display: flex;
+}
+#board-detail-user{
+    width: 200px;
+    position: relative;
+}
+#board-detail-user .friend{
+    position: absolute;
+    
+}
+#board-detail-table{width: 400px;}

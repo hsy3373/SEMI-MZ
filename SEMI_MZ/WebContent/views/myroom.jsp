@@ -9,10 +9,18 @@
 <c:set var="contextPath" value="<%= request.getContextPath() %>"/>
 <link href="${ contextPath }/resource/css/myroom.css" rel="stylesheet" type="text/css">
 <link href="${ contextPath }/resource/css/common.css" rel="stylesheet" type="text/css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!-- Popper JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+
 <title>My Room</title>
 </head>
 </head>
 <body>
+	<!-- 마이룸 -->
     <div class="myroom">
         <div class="icon-closet">
             <!-- 옷장 클릭시 페이지 이동 -->
@@ -33,33 +41,34 @@
             <img id="user-skin" src="${ contextPath }/resource/img/user/skin01/fs.png">
         </div>
         
-        
+	</div>
+	
 	<!-- 모달창 -->
-
-    <button type="button" id="btn-modal">모달 창 열기 버튼</button>
-
-    <div id="modal" class="modal-overlay">
-        <div class="modal-window">
-            <div class="x-btn"><img src="${ contextPath }/resource/img/icon/엑스 버튼.png"></div>
-            <div class="board-content">
-
-            </div>
-        </div>
+    <div class="board-modal">
+    	<div class="board">
+		    <div class="x-btn"><img class="x-btn" src="${ contextPath }/resource/img/icon/엑스 버튼.png"></div>
+		    <div class="board-content"></div>
+	    </div>
     </div>
+    
+    
     <script>
+    $(function(){
     	/* 모달창 띄우기 */
-	    const modal = document.getElementById("modal");
-	    const btnModal = document.getElementById("btn-modal");
-	    btnModal.addEventListener("click", () => {
-	        modal.style.display = "flex";
-	    })
-	    
-	    /* 엑스버튼 */
-/* 	    const closeBtn = modal.querySelector(".close-area");
-		closeBtn.addEventListener("click", e => {
-		    modal.style.display = "none"
-		}) */
+    	$(".icon-tree").click(function(e){
+    		$(".board-modal").show();
+    	})
+    	
+    	/* x버튼 or 바깥 클릭시 모달창 사라짐 */
+   	    $("body").on("click", function(e) { 
+	        if(e.target.className == 'x-btn' || e.target.className == 'board-modal'){
+	            $(".board-modal").hide();
+	        }
+	   	 })
+      
+    	
+    })
+    
     </script>
-    </div>
 </body>
 </html>
