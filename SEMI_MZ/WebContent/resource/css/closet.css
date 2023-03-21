@@ -1,0 +1,72 @@
+@charset "UTF-8";
+/* 마이룸(옷장) css - 지의 */
+body{margin: 0;}
+/* 옷장 뒷배경 */
+.myroom{
+    width: 1300px;
+    height: 800px;
+    margin: auto;
+    position: relative;
+    background-color: black;
+}
+.myroom::before{
+    content: "";
+    /* background: url('/src/resource/img/background/background_myroom.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center; */
+    background:url('/src/resource/img/background/background_myroom2.png') no-repeat center/contain;
+    opacity: 0.5;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+}
+
+/* 유저 */
+#user-skin{
+    position: absolute;
+    width: 115px;
+    top: 45%;
+    left: 23%;
+}
+
+/* 옷장 */
+.closet #furniture{
+    position: absolute;
+    top: 15%;
+    left: 45%;
+    width: 500px;
+}
+
+/* 뒤로가기 버튼 */
+#back-btn{
+    position: absolute;
+    right: 12%;
+    scale: 0.6;
+}
+
+/* 잔여코인 */
+.coin #coin-label{
+    position: absolute;
+    top: 7%;
+    left: 45%;
+    width: 160px;
+    height: 60px;
+}
+.closet-btn #my-skin{
+    position: absolute;
+    top: 8.5%;
+    left: 65.5%;
+    width: 100px;
+    height: 45px;
+}
+.closet-btn #store{
+    position: absolute;
+    top: 8.5%;
+    left: 74%;
+    width: 100px;
+    height: 45px;
+}
+

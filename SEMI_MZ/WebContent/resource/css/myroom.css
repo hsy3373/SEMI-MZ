@@ -1,0 +1,79 @@
+@charset "UTF-8";
+/* 마이룸 css - 지의 */
+body{margin: 0;}
+/* 마이룸 기본 틀 */
+.myroom{
+    width: 1300px;
+    height: 800px;
+    margin: auto;
+    background-color: black;
+    background-image: url('../img/background/background_myroom.png');
+    background-repeat: no-repeat;
+    background-position: center;    
+    position: relative;
+}
+
+/* 옷장 */
+.icon_closet #closet{
+    position: absolute;
+    top: 55%;
+    left: 18%;
+}
+.icon_closet #closet-hover{
+    position: absolute;
+    top: 55%;
+    left: 18%;
+}
+/* 옷장 호버 */
+.icon_closet #closet-hover{display:none;}
+.icon_closet:hover #closet{display:none;}
+.icon_closet:hover #closet-hover{display:block}
+
+
+/* 나무 */
+.icon_tree>#tree{
+    position: absolute;
+    top: 50%;
+    right: 16%;
+}
+.icon_tree>#tree-hover{
+    position: absolute;
+    top: 50%;
+    right: 16%;
+}
+/* 나무 호버 */
+.icon_tree #tree-hover{display:none;}
+.icon_tree:hover #tree{display:none;}
+.icon_tree:hover #tree-hover{display:block}
+
+/* 유저 */
+#user-skin{
+    position: absolute;
+    width: 80px;
+    top: 70%;
+    left: 48%;
+}
+/* 호감도 */
+input[type="checkbox"]+label {
+    position: absolute;
+    top: 66%;
+    left: 48%;
+    display: block;
+    width: 24px;
+    height: 24px;
+    background: url('/src/resource/img/icon/하트2.png') no-repeat 0 0px / contain;
+    cursor: pointer; 
+    padding-left: 36px; 
+}
+input[type='checkbox']:checked+label {
+    background: url('/src/resource/img/icon/빈하트.png') no-repeat 0 1px / contain;
+}
+/* 기본 체크박스대신 이미지가 와야하므로 감추기 */
+input[type=checkbox] {
+    display:none;
+}
+.user label{
+    color: white;
+    font-size: 25px;
+    font-weight: 400;
+}
