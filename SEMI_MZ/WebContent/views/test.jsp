@@ -17,5 +17,8 @@
 	test용 페이지 <br>
 	현재 테스트용 유저아이디 : <%= test.getUserId() %> <br>
 	현재 테스트용 유저 정보 : <%= test.toString() %>
+	
+	
+	<script src="../resource/js/common.js"></script>
 </body>
 </html>
