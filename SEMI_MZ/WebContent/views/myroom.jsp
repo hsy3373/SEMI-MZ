@@ -1,36 +1,31 @@
-<!-- 마이룸 html -지의 -->
+<!-- 지의 마이룸 -->
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- css -->
-    <link rel="stylesheet" href="/src/resource/css/myroom.css">
-
-    <!-- js -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
-    <script src="/src/resource/js/jquery-3.6.3.js"></script>
-    <script src="/src/resource/js/closet.js"></script>
-    <title>My room</title>
+<meta charset="UTF-8">
+<link href="${ contextPath }/resource/css/myroom.css" rel="stylesheet" type="text/css">
+<title>My Room</title>
+</head>
 </head>
 <body>
     <div class="myroom">
         <div class="icon_closet">
             <!-- 옷장 클릭시 페이지 이동 -->
-            <a href="closet.html">
-                <img id="closet" src="/src/resource/img/icon/옷장.png" alt="옷장">
-                <img id="closet-hover" src="/src/resource/img/icon/옷장_hover.png" alt="옷장호버">
+            <a href="closet.jsp">
+                <img id="closet" src="${ contextPath }/resource/img/icon/옷장.png">
+                <img id="closet-hover" src="${ contextPath }/resource/img/icon/옷장_hover.png">
             </a>
         </div>
         <div class="icon_tree">
-            <img id="tree" src="/src/resource/img/icon/tree.png" alt="방명록나무">
-            <img id="tree-hover" src="/src/resource/img/icon/tree_hover.png" alt="방명록나무호버">
+            <img id="tree" src="${ contextPath }/resource/img/icon/tree.png">
+            <img id="tree-hover" src="${ contextPath }/resource/img/icon/tree_hover.png">
         </div>
         <div class="user">
             <input type="checkbox" name="heart-ck" id="heart"><label for="heart">12</label>
 
-            <img id="user-skin" src="/src/resource/img/user/skin01/fs.png" alt="유저캐릭터">
+            <img id="user-skin" src="${ contextPath }/resource/img/user/skin01/fs.png">
         </div>
     </div>
 </body>
