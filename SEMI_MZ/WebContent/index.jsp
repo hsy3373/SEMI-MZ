@@ -14,7 +14,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-hello 안녕
-<%= test.getUserId() %>
+
+<%@ include file="views/realmain.jsp" %>
+
 </body>
 </html>
