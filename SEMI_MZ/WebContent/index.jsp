@@ -6,6 +6,7 @@
 <meta charset="UTF-8">
 
 <title>Insert title here</title>
+<link href="./resource/css/common.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 	<h2 align="center">M-Zone에 오신 것을 환영합니다!</h2>

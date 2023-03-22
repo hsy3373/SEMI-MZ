@@ -14,6 +14,7 @@
 <c:set var="contextPath" value="<%= request.getContextPath() %>"/>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link href="./resource/css/common.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 	test용 페이지 <br>
