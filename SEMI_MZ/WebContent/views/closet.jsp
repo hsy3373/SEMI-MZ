@@ -1,41 +1,37 @@
-<!-- 마이룸(옷장) html - 지의 -->
+<!-- 지의 옷장 -->
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- css -->
-    <link rel="stylesheet" href="/src/resource/css/closet.css">
-
-    <!-- js -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
-    <script src="/src/resource/js/jquery-3.6.3.js"></script>
-    <script src="/src/resource/js/closet.js"></script>
-    <title>상점</title>
+<meta charset="UTF-8">
+<c:set var="contextPath" value="<%= request.getContextPath() %>"/>
+<link href="${ contextPath }/resource/css/closet.css" rel="stylesheet" type="text/css">
+<title>옷장</title>
 </head>
 <body>
     <div class="myroom">
         <!-- 유저 -->
         <div class="user">
-            <img id="user-skin" src="/src/resource/img/user/skin01/fs.png" alt="유저캐릭터">
+            <img id="user-skin" src="${ contextPath }/resource/img/user/skin01/fs.png" alt="유저캐릭터">
         </div>
         <!-- 옷장 -->
         <div class="closet">
-            <img id="furniture" src="/src/resource/img/icon/빈옷장.png">
+            <img id="furniture" src="${ contextPath }/resource/img/icon/빈옷장.png">
         </div>
         <!-- 뒤로가기 버튼 -->
         <a href="myroom.html">
-            <img id="back-btn" src="/src/resource/img/icon/back2_btn.png">
+            <img id="back-btn" src="${ contextPath }/resource/img/icon/back2_btn.png">
         </a>
         <!-- 잔여 코인 -->
         <div class="coin">
-            <img id="coin-label" src="/src/resource/img/icon/라벨2.png">
+            <img id="coin-label" src="${ contextPath }/resource/img/icon/라벨2.png">
         </div>
         <!-- 보유캐릭터 상점 -->
         <div class="closet-btn">
-            <img id="my-skin" src="/src/resource/img/icon/기본버튼.png">
-            <img id="store" src="/src/resource/img/icon/기본버튼.png">
+            <img id="my-skin" src="${ contextPath }/resource/img/icon/기본버튼.png">
+            <img id="store" src="${ contextPath }/resource/img/icon/기본버튼.png">
         </div>
     </div>
 </body>
