@@ -232,23 +232,23 @@ let changeChatColor = function () {
       );
       document.documentElement.style.setProperty(
         '--chat-btn-background',
-        'rgba(45, 174, 254, 0.486)'
+        ' rgb(19, 140, 215, 0.4)'
       );
       document.documentElement.style.setProperty(
         '--chat-btn-border',
-        ' rgba(0, 0, 0, 0.329)'
+        ' rgba(0, 0, 0, 0.35)'
       );
       document.documentElement.style.setProperty(
         '--chat-text-color',
         ' rgba(0, 0, 0, 0.8)'
       );
     } else {
-      document.documentElement.style.setProperty('--chat-background', 'white');
+      document.documentElement.style.setProperty('--chat-background', '#fffffff2');
       document.documentElement.style.setProperty(
         '--chat-btn-background',
-        ' rgb(45, 174, 254)'
+        ' rgb(19, 140, 215, 0.75)'
       );
-      document.documentElement.style.setProperty('--chat-btn-border', 'black');
+      document.documentElement.style.setProperty('--chat-btn-border', '#00000087');
       document.documentElement.style.setProperty('--chat-text-color', ' black');
     }
   });
