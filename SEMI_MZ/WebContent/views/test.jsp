@@ -8,7 +8,6 @@ request.getContextPath(); %>
 <!DOCTYPE html>
 <html>
   <head>
-    <c:set var="contextPath" value="<%= request.getContextPath() %>" />
     <meta charset="UTF-8" />
     <title>Insert title here</title>
     <link href="./resource/css/common.css" rel="stylesheet" type="text/css" />
@@ -26,4 +25,3 @@ request.getContextPath(); %>
     <script src="../resource/js/common.js"></script>
   </body>
 </html>
-    

@@ -307,7 +307,7 @@ let getChatRoomList = function () {
   $.ajax({
     type: 'post',
     url: path + '/chatting',
-    data: { recevier: 'friend' },
+    data: {},
     success: (result) => {
       console.log(result, '결과');
     },
@@ -329,6 +329,9 @@ window.onload = function () {
   textareaEnterKey();
   getChatRoomList();
   $('#btn-send').click(getChatRoomList);
+
+  sessionStorage.setItem('key', '테스트용');
+  console.log(sessionStorage.getItem('key'));
 };
 
 //-----------------------------
