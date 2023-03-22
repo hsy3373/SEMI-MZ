@@ -135,9 +135,31 @@
 				        </div>
 				    </div>
 			    	<!-- 삭제 버튼 -->
-					<button class="alert-toggle board-delete-btn">삭제</button>
+					<button class="alert-toggle board-delete-btn button">삭제</button>
 				</div>
 			</div>  
+
+
+			<!-- ============================= 방명록 작성 ============================= -->
+			<div class="board-write">
+				<!-- x 버튼 -->
+				<div class="x-btn"><img class="x-btn" src="../resource/img/icon/엑스 버튼.png"></div>
+				<!-- 제목부분(상세 제목이랑 동일) -->
+				<div class="board-detail-title">방명록제목작성페이지안녕하세요</div>
+				<!-- 작성란 전체 감싼 div -->
+				<div class="board-write-area">
+					<!-- 방명록 작성란 -->
+					<!-- onclick="this.select();" : 클릭시 자동으로 선택됨 -->
+					<textarea name="board-write-content" id="board-write-content" cols="62" rows="8" onclick="this.select();"></textarea>
+					<!-- 비밀글 체크박스 -->
+					<div class="board-write-ck">
+						<input type="checkbox" id="board-ck">
+						<label for="board-ck">비밀글</label>
+					</div>
+					
+					<button class="button board-write-btn">작성</button>
+				</div>
+			</div> 
 		</div>
 	</div>
 
@@ -148,15 +170,13 @@
 		다른버튼으로 변경이나 추가싶으면 board-delete-btn 클래스명만 변경하면 됨
 		alert.css파일 '삭제버튼'이라고 주석달아논 곳도 변경해줘야 됨
 	-->
-	<button class="alert-toggle board-delete-btn">삭제</button>
 
-	
 	<!-- alert 창 -->
     <div class="alert">
       <h3>삭제하시겠습니까?</h3>
       <div>
-	      <button id="alert-ok">확인</button>
-	      <button id="alert-cancel">취소</button> 
+	      <button class="button" id="alert-ok">확인</button>
+	      <button class="button" id="alert-cancel">취소</button> 
       </div>
     </div>
     <div class="alert-overlay"></div>

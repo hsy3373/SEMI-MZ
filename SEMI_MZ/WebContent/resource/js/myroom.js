@@ -9,11 +9,13 @@ $(function(){
         $(".board-modal").show();
         $(".board-list").show();
         $(".board-detail").hide();
+        $(".board-write").hide();
     })
     
     /* 방명록 상세페이지 모달창 띄우기 */
     $(".board-content tr").click(function(){
         $(".board-list").hide();
+        $(".board-write").hide();
         $(".board-detail").show();
         
         /* 공지사항 번호가져오기 */
@@ -33,6 +35,7 @@ $(function(){
     $(".back-btn").click(function(e){
         $(".board-list").show();
         $(".board-detail").hide();
+        $(".board-write").hide();
         
     })
     
