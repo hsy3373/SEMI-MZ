@@ -2,11 +2,8 @@
 
 @font-face {
     font-family: "DOSSaemmul";
-<<<<<<< HEAD
-    src: url("/src/resource/DOSSaemmul.ttf") format("truetype");
-=======
     src: url("../font/DOSSaemmul.ttf") format("truetype");
->>>>>>> main
+
     font-weight: normal;
 }
 * {font-family: 'DOSSaemmul', serif;}
