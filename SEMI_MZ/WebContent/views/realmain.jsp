@@ -8,7 +8,15 @@
 <head>
 <meta charset="UTF-8">
 <title>mainPage</title>
-</head>
+<script src="//code.jquery.com/jquery-3.4.1.min.js"></script>
+<script>
+	$(function(){
+		$( 'button.logo-img-btn' ).click( function() {
+			$('.mz-logo').css('display','none');
+			$('.login').slideDown(1000);
+		});
+	})
+</script>
 <style>
 
 	@font-face {
@@ -21,6 +29,9 @@
 	body{
         margin: 0;
     }
+    
+  
+    
     
     div, table, tr, td, th{
         box-sizing: border-box;
@@ -43,6 +54,8 @@
         background-image: url(<%= contextPath %>/resource/img/login_img/로그인판.png);
         background-size: 400px 600px;
         background-repeat: no-repeat;
+        display:none;
+       
     }
     .login-box{
         color: white;
@@ -138,6 +151,9 @@
 
         background-color: rgba(0, 0, 0, 0.4);
       }
+      
+     
+      
       .modal-background{
         border: 0px solid red;
         width: 880px;
@@ -179,30 +195,100 @@
         justify-content: center;
       }
     
+    	
+    .s-modal-back{
+        width: 400px;
+        height: 230px;
+        background-size: 400px 200px;
+        background-position: center bottom;
+    	background-image: url(<%= contextPath %>/resource/img/icon/modal_pop.png);
+    	background-repeat: no-repeat;
+        margin: 300px auto;
+    }
+    .modal4-table{
+    	width: 400px;
+    	margin: auto;
+    }
+    .smodal-th{
+    	padding-left: 350px;
+    }
+    .smodal-xbtn{
+    	background-color: rgba(0, 0, 0, 0);
+    	border: none;
+    	width: 100%"
+    }
+   .smodal-tb{
+    	font-size: 20px;
+    	color: white;
+    } 
+   
     
     
+    .rqpwd-input{
+   		width: 210px;
+        height: 27px;
+        margin-left: 50px;
+        margin-top: 30px;
+        color: white;
+        font-size: 20px;
+        border-top: 0; border-left: 0; border-right: 0;
+        border-bottom: 2px dashed white;
+        background-color: rgba(255, 0, 0, 0);
+        }
+    .rqpwd-input:focus{
+    	 outline: none;
+    }
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-
+    .subpwd-btn{
+    	width: 70px;
+    	height:35px;
+    	margin-right: 30px;
+    	margin-top: 30px;
+    	border: none;
+    	background-size: 70px 35px;
+    	background-image: url(<%= contextPath %>/resource/img/icon/기본버튼.png);
+    	background-color: rgba(0, 0, 0, 0);
+    	background-repeat: no-repeat;
+    	font-size:15px;
+    	font-weight: 900;
+    }
+    .subpwd-btn:hover{
+    	transform: scale(0.970);
+        cursor: pointer;
+    }
+    .mz-logo{
+    	margin-top: 220px;
+    }
+	.logo-img-btn{
+		width:450px;
+		height:350px;
+    	border: none;
+		background-color: rgba(0, 0, 0, 0.05);
+    	margin-left: 410px;
+		border-radius: 10%;
+	}
+	.logo-img-btn:hover{
+        cursor: pointer;
+        transform: scale(0.95);
+    }
+	.logo-img-btn>img{
+		width:100%;
+		height:100%;
+	}
 </style>
+
+
+
+
+
+</head>
+
+
 <body>
 	<div class="wrap">
+		<div class="mz-logo">
+			<button type="button" class="logo-img-btn"><img src="<%= contextPath %>/resource/img/login_img/mz_logo.png"></button>
+		</div>
 		<div class="login">
 			<table class="login-box">
 				<tr style="font-size:30px; cursor: default;">
@@ -228,7 +314,7 @@
 			
 			<table class="other-login">
                 <tr><th><button type="button" class="kakao-btn other-btn enroll-modal"></button></th></tr>
-                <tr><th><button type="button" class="google-btn other-btn"></button></th></tr>
+                <tr><th><button type="button" class="google-btn other-btn rqpwd-modal"></button></th></tr>
                 
                 <tr>
                     <th colspan="3" style="padding-top: 10px;">
@@ -239,29 +325,29 @@
 		</div>
 	</div>
 
-	<div class="modal">
+	<div class="modal modal1">
         <div class="modal_body">
             <div class="modal-background">
                 <div class="modal-header">아이디 / 비밀번호 찾기</div>
-                <div class="modal-out-btn"><img src="<%= contextPath %>/resource/img/icon/엑스 버튼.png" class="x-btn"></div>
+                <div class="modal-out-btn"><img src="<%= contextPath %>/resource/img/icon/엑스 버튼.png" class="x-btn x-btn1"></div>
                 <div class="modal-textarea">
                     <table class="display-center">
                         <tr><th>회원가입 시에 사용한 계정을 선택해주세요.</th></tr>
                         <tr><th style="color: rgba(119, 117, 117, 0.918);">-----------------------------------------</th></tr>
-                        <tr><th><div class="kakao-btn other-btn"></div></th></tr>
+                        <tr><th><button type="button" class="kakao-btn other-btn"></button></th></tr>
                         <tr></tr>
-                        <tr><th><div class="google-btn other-btn"></div></th></tr>
+                        <tr><th><button type="button" class="google-btn other-btn changepwd-modal"></button></th></tr>
                     </table>
                 </div>
             </div>
         </div>
       </div>
 	
-	<div class="modal">
+	<div class="modal modal2">
         <div class="modal_body">
             <div class="modal-background">
                 <div class="modal-header">회원가입</div>
-                <div class="modal-out-btn"><img src="<%= contextPath %>/resource/img/icon/엑스 버튼.png" class="x-btn"></div>
+                <div class="modal-out-btn"><img src="<%= contextPath %>/resource/img/icon/엑스 버튼.png" class="x-btn x-btn2"></div>
                 <div class="modal-textarea">
                     <table class="display-center">
                         <tr></tr>
@@ -272,29 +358,133 @@
         </div>
       </div>
 	
-	
+	<div class="modal modal3">
+        <div class="modal_body">
+            <div class="modal-background">
+                <div class="modal-header">비밀번호 재설정</div>
+                <div class="modal-out-btn"><img src="<%= contextPath %>/resource/img/icon/엑스 버튼.png" class="x-btn x-btn3"></div>
+                <div class="modal-textarea">
+                    <table class="display-center">
+                        <tr></tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+      </div>
+      
+     <div class="modal modal4">
+     	<div class="s-modal-back">
+     		<div class="smodal-th"><button class="smodal-xbtn"><img src="<%= contextPath %>/resource/img/icon/엑스 버튼.png" class="x-btn x-btn4"></button></div>
+     		<table class="modal4-table">
+     			<tr class="smodal-tb"><th colspan="2">비밀번호 입력</th></tr>
+     			<tr class="smodal-tf">
+     				<td><input type="password" class="rqpwd-input"></td>
+     				<td><button type="button" class="subpwd-btn chg-inf-modal">확인</button></td>
+     			</tr>
+     		</table>
+     	</div>
+     </div>
+     
+     <div class="modal modal5">
+        <div class="modal_body">
+            <div class="modal-background">
+                <div class="modal-header">내 정보 변경</div>
+                <div class="modal-out-btn"><img src="<%= contextPath %>/resource/img/icon/엑스 버튼.png" class="x-btn x-btn5"></div>
+                <div class="modal-textarea">
+                    <table class="display-center">
+                        <tr></tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+      </div>
+      
 	
 	
 	<script>
-		const modal = document.querySelector('.modal');
 		
+		
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+		const modal1 = document.querySelector('.modal1');
+	    const modal2 = document.querySelector('.modal2');
+	    const modal3 = document.querySelector('.modal3');
+	    const modal4 = document.querySelector('.modal4');
+	    const modal5 = document.querySelector('.modal5');
+	    
 	    const findModal = document.querySelector('.find-modal');
 	    const enrollModal = document.querySelector('.enroll-modal');
-	
-	
+	    const changePwdModal = document.querySelector('.changepwd-modal');
+	    const rqPwdModal = document.querySelector('.rqpwd-modal');
+	    const changeInfModal = document.querySelector('.chg-inf-modal');
 	    
-	    document.querySelector('.x-btn').addEventListener('click', () => {
-	      modal.style.display = 'none';
-	    })
+	    document.querySelector('.x-btn1').addEventListener('click', () => {
+	      modal1.style.display = 'none';
+	    });
+	    
+	    document.querySelector('.x-btn2').addEventListener('click', () => {
+	      modal2.style.display = 'none';
+	    });
+	    
+	    document.querySelector('.x-btn3').addEventListener('click', () => {
+	      modal3.style.display = 'none';
+	      modal1.style.display = 'none';
+	    });
+	    
+	    document.querySelector('.x-btn4').addEventListener('click', () => {
+		      modal4.style.display = 'none';
+		    });
+	    
+	    document.querySelector('.x-btn5').addEventListener('click', () => {
+		      modal5.style.display = 'none';
+		      modal4.style.display = 'none';
+		    });
+	    
+	    
 	
 	    findModal.addEventListener('click', () => {
-	      modal.style.display = 'block';
+	      modal1.style.display = 'block';
 	    });
 	
 	    enrollModal.addEventListener('click', () => {
-	      modal.style.display = 'block';
+	      modal2.style.display = 'block';
 	    });
+	    
+	    changePwdModal.addEventListener('click', () => {
+		      modal3.style.display = 'block';
+		    });
+	    
+	    rqPwdModal.addEventListener('click', () => {
+		      modal4.style.display = 'block';
+		    });
+	    
+	    changeInfModal.addEventListener('click', () => {
+		      modal5.style.display = 'block';
+		    });
+	 
 	
+	    
+	    
+	    
+	    
+	    
+	    
+	   
+	    
+	    
+	    
+	    
+	    
+	    
+	    
 	</script>
 	
 	

@@ -20,7 +20,7 @@
 	현재 테스트용 유저아이디 : <%= test.getUserId() %> <br>
 	현재 테스트용 유저 정보 : <%= test.toString() %>
 	 --%>
-	<%@ include file="myroom.jsp" %>
+	<%@ include file="realmain.jsp" %>
 	
 	
 	<script src="../resource/js/common.js"></script>
