@@ -1,0 +1,107 @@
+/* 유저 정보창 css - 가영 */
+
+/*정보창*/
+.user-info-view{
+	z-index: 1;
+	width: 57.5%;
+	height: 62%;
+	transform: translate(36%, 19%);
+	position: relative;
+}
+
+/*닉네임*/
+.nicknmae{
+	z-index: 2;
+	top: 15%;
+    left: 40.1%;
+	width: 19.3%;
+	height: 5%;
+	font-weight: bold;
+    font-size: 28px;
+    text-align: center;
+    line-height: 194%;
+    position: absolute;
+}
+
+/*호감도*/
+.heart{
+    z-index: 2;
+    position: absolute;
+    top: 26%;
+    left: 31.2%;
+    width: 7%;
+    height: 4%;
+}
+
+/*호감도 준 상태*/
+input[type="checkbox"]+label {
+    background: url('../img/icon/하트.png') no-repeat 0 1px / contain;
+    background-size: 47%;
+    cursor: pointer; 
+    padding-left: 45px; 
+    padding-top: 1px;
+}
+
+/*호감도 안 준 상태*/
+input[type='checkbox']:checked+label {
+    background: url('../img/icon/빈하트.png') no-repeat 0 2px / contain;
+    background-size: 44%;
+}
+
+/* 기본 체크박스 숨기기*/
+input[type=checkbox] {
+    display:none;
+}
+
+/*유저 캐릭터*/
+.user{
+	z-index: 2;
+	position: absolute;
+	top: 30%;
+	left: 29%;
+	width: 11%;
+	height: 18%;
+}
+.user img{
+	width: 100%;
+	height: 100%;
+}
+
+/*성별*/
+.gender{
+    z-index: 2;
+    position: absolute;
+    left: 33.9%;
+    top: 51%;
+    width: 1.5%;
+}
+
+/*자기소개*/
+.introduce{
+	position: absolute;
+	z-index: 2;
+	width: 24%;
+	height: 18.5%;
+	top: 23.3%;
+	left: 44.9%;
+	overflow-y: scroll;
+	padding: 0.8rem 1rem;
+	line-height: 133%;
+}
+
+/*자기소개 스크롤바 감추기*/
+.introduce::-webkit-scrollbar{display: none;}
+
+/*친구추가 버튼*/
+.plus{
+    z-index: 2;
+    position: absolute;
+    background: none;
+    border: 0;
+    width: 15%;
+    top: 41.9%;
+    left: 43%;
+}
+.plus img{
+    width: 100%;
+}
