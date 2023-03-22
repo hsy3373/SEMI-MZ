@@ -1,6 +1,7 @@
 /**[han]
  * 채팅관련 영역
  */
+import { getContextPath } from "./common";
 
 let ip = ["192.168.30.180"];
 
@@ -72,28 +73,6 @@ function Message(sender, receiver, msg) {
   this.msg = msg;
   // return this; <- 눈에 보이진 않지만 묵시적으로 추가되어있음
 }
-
-//------------------ 채팅방 리스트, 내용 불러오기 ------------------
-
-let getChatRoomList = function(){
-  $.ajax({
-    url: "chatting",
-    data : { "recevier" :  },
-    success : (result) => {
-      console.log(result);
-      let resultStr = "회원번호 : "+ result.userNo + "<br>"
-              + "이름 : " + result.userName + "<br>"
-              + "id : " + result["userId"] + "<br>"
-              + "address : " + result["address"] + "<br>";
-      $("#output3").html(resultStr);
-    },
-    error : function(req, status, error){
-      console.log(req, status, error);
-    }
-  });
-  
-}
-
 
 // ----------------- 채팅 영역 높이 변경 이벤트 --------------------
 
@@ -311,8 +290,37 @@ let eventEnterKey = function () {
   });
 };
 
+//------------------ 채팅방 리스트, 내용 불러오기 ajax 구역 ------------------
+
+// //현재 contextPath js용 데이터로 가져오는 로직
+// let getContextPath = function () {
+//   let hostIndex = location.href.indexOf(location.host) + location.host.length;
+//   let contextPath = location.href.substring(
+//     hostIndex,
+//     location.href.indexOf("/", hostIndex + 1)
+//   );
+//   return contextPath;
+// };
+
+let getChatRoomList = function (contextPath) {
+  let path = `${contextPath}/chatting`;
+  console.log(path);
+  $.ajax({
+    type: "post",
+    url: path,
+    data: { recevier: "friend" },
+    success: (result) => {
+      console.log(result);
+    },
+    error: function (req, status, error) {
+      console.log(req, status, error);
+    },
+  });
+};
+
 // ----------------- init 구역 ---------------------
 
+let contextPath = getContextPath();
 window.onload = function () {
   resizeChatarea();
   resizeSendarea();
@@ -321,4 +329,6 @@ window.onload = function () {
   changeChatColor();
   eventEnterKey();
   textareaEnterKey();
+  getChatRoomList(contextPath);
+  $("#btn-send").click(getChatRoomList);
 };

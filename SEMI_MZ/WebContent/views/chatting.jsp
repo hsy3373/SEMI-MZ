@@ -62,6 +62,6 @@ request.getContextPath(); Member loginUser =
     <script></script>
 
     <script src="../resource/js/common.js"></script>
-    <script src="../resource/js/chatting.js"></script>
+    <script type="module" src="../resource/js/chatting.js"></script>
   </body>
 </html>
