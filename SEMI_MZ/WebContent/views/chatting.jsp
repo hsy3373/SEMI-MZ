@@ -13,17 +13,13 @@ request.getContextPath(); Member loginUser =
       rel="stylesheet"
       type="text/css"
     />
-    <link
-    href="../resource/css/common.css"
-    rel="stylesheet"
-    type="text/css"
-  />
+    <link href="../resource/css/common.css" rel="stylesheet" type="text/css" />
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
     <style>
       body {
-        background-image: url('../resource/img/background/background_main.png');
+        background-image: url("../resource/img/background/background_main.png");
       }
     </style>
   </head>
@@ -41,7 +37,7 @@ request.getContextPath(); Member loginUser =
             <div class="chat-room-item">abcdefgh</div>
             <div class="chat-room-item">3친구닉네임</div>
             <div class="chat-room-item">4친구닉네임</div>
-            <div class="chat-room-item">5친구닉네임</div>
+            <div class="chat-room-item">5친구</div>
           </div>
           <div class="chat-arrow">
             <button><</button>
