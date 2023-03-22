@@ -4,7 +4,7 @@
 
 /*채팅용 변수*/
 :root {
-  --chat-btn-background: rgba(45, 174, 254, 0.486);
+  --chat-btn-background: rgb(19, 140, 215, 0.4);
   --chat-btn-border: rgba(0, 0, 0, 0.329);
   --chat-btn-background-active: rgb(32, 129, 189);
   --chat-background: rgba(255, 255, 255, 0.288);
@@ -49,12 +49,14 @@
   display: grid;
   grid-template-columns: 60px 1fr 60px;
   grid-template-rows: 30px;
+  font-size: smaller;
 }
 
 .chat-room-list {
   grid-area: 1/2/2/3;
   display: flex;
   overflow: hidden;
+  align-self: center;
 }
 
 .chat-all-user {
@@ -95,13 +97,15 @@
   border-radius: 4px 4px 0px 0px;
 
   min-width: 50px;
+  width: 0.2%;
   height: 30px;
   color: white;
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
 
-  text-align: center;
+  text-align : center;
+  line-height : 180%;
 }
 
 .selected-chat {
@@ -115,11 +119,21 @@
 
 /* ------------------ 채팅 내역 영역 ----------------------*/
 .chat-item-area {
+  box-sizing: border-box;
+  margin-top: 1px; 
+  border-left: 1px solid var(--chat-btn-border);
+  border-right: 1px solid var(--chat-btn-border);
   width: 100%;
   height: 100%;
   background-color: var(--chat-background);
   overflow: auto;
   color: var(--chat-text-color);
+  
+} 
+
+.chat-item-area > * {
+  width: 95%;
+  margin: 10px auto;
 }
 
 .chat-item-area::-webkit-scrollbar {
@@ -137,6 +151,9 @@
 
 /*------------------ 채팅 보내기 영역 ----------------*/
 .div-send {
+  
+  border: 1px solid var(--chat-btn-border);
+  border-top: 0px;
   box-sizing: border-box;
   background-color: var(--chat-background);
   display: flex;
@@ -155,6 +172,7 @@
   color: var(--chat-text-color);
   resize: none;
   margin-left: 8px;
+  font-size: medium;
 }
 
 #btn-send {
@@ -165,4 +183,6 @@
   width: 10%;
   height: 90%;
   margin-right: 4%;
+  align-self: center;
+  text-align: center;
 }

@@ -13,6 +13,11 @@ request.getContextPath(); Member loginUser =
       rel="stylesheet"
       type="text/css"
     />
+    <link
+    href="../resource/css/common.css"
+    rel="stylesheet"
+    type="text/css"
+  />
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
