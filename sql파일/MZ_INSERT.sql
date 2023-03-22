@@ -85,6 +85,12 @@ INSERT INTO LOGIN_API VALUES('test', '카카오', '가상의 키');
 INSERT INTO LOGIN_API VALUES('friend', '구글', '가상의 키');
 INSERT INTO LOGIN_API VALUES('admin', '관리자', '관리자');
 
+
+-- CHATTINGROOM
+
+INSERT INTO CHATTINGROOM VALUES( 'test' , 'friend' );
+INSERT INTO CHATTINGROOM VALUES( 'friend' , 'test' );
+
 -- CHATTING
 
 INSERT INTO CHATTING VALUES(SEQ_CHAT.NEXTVAL, 'test' , 'friend' , '1111', SYSDATE);
