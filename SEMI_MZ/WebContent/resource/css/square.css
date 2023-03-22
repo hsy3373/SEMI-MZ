@@ -1,3 +1,5 @@
+
+/*모달용 css*/
 .modal {
     position: absolute;
     top: 0;
@@ -19,6 +21,8 @@
 
 }
 
+
+/*친구목록 모달 */
 .modal-background {
     /* border: 1px solid red; */
     width: 238px;
@@ -50,10 +54,13 @@ border: 1px solid rebeccapurple;
     padding-bottom: 9px;
 }
 
+/*창크기 변경시 생기는 여백 오토로 잡기*/
 .display-center {
     margin: auto;
 }
 
+
+/*환경설정 모달*/
 .modal_button1 {
     background-image: url(../img/icon/기본텍스트버튼2.png);
     width: 304px;
@@ -76,3 +83,10 @@ border: 1px solid rebeccapurple;
 h1{
     text-align: center;
 }
+
+.modal-out-btn2{
+    position: absolute;
+    top: 430px;
+    right: 20px;
+}
+

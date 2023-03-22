@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -42,26 +43,21 @@
       </div>
 
     <!--모달창 : 환경설정 -->
-    <div class="modal modal2">
-        <div class="modal_body">
-           <div class="modal_button1">
+    <div class="modal modal2" >
+        <div class="modal_body" id="Preferences">
+            <div class="modal-out-btn2"><img src="../resource/img/icon/엑스 버튼.png" class="x-btn x-btn2"></div>
+            <div class="modal_button1">
             <h1>내 정보 변경</h1>
-           </div>
-           <div class="modal_button2">
+            </div>
+            <div class="modal_button2">
             <h1> 로그아웃 </h1>
-           </div>
+            </div>
         </div>
       </div>
 
     
     <script>
-        //이거하던중 
-    // const modal = document.querySelector('.modal_button1')
-        
-    // window.addEventListener('click', (e) => {
-    //     console.log(e)
-    //     e.target === modal ? console.log(true) : console.log(false) 
-    // })
+       
     </script>
 
 
