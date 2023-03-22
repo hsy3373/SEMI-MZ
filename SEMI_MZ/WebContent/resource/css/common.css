@@ -1,8 +1,14 @@
 /* 전체 공통 css 구역 (ex. 폰트, 전체 화면 크기 등)*/
 @font-face {
-    font-family: "DOSSaemmul";
-    src: url("../font/DOSSaemmul.ttf") format("truetype");
-    font-weight: normal;
+  font-family: "DOSSaemmul";
+  src: url("../font/DOSSaemmul.ttf") format("truetype");
+  font-weight: normal;
 }
 
-* {font-family: 'DOSSaemmul', serif;}
+* {
+  font-family: "DOSSaemmul", serif;
+}
+
+body {
+  margin: 0px;
+}
