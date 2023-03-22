@@ -1,5 +1,5 @@
 /* 유저 정보창 css - 가영 */
-
+.wrap{width:1300px; height:800px;}
 /*정보창*/
 .user-info-view{
 	z-index: 1;
@@ -77,15 +77,34 @@
 /*자기소개 스크롤바 감추기*/
 .introduce::-webkit-scrollbar{display: none;}
 
-/*친구추가 버튼*/
-.plus{
-    z-index: 2;
-    position: absolute;
-    background: none;
+/*하단 버튼*/
+button{
+	background: none;
     border: 0;
-    width: 14.4%;
-    top: 50.2%;
-    left: 43.45%;
     cursor: pointer;
-    background-image: url('../img/icon/친구추가.png');
+    color: white;
+    height: 100%;
+    font-size: 17px;
 }
+.button{
+	z-index: 2;
+    position: absolute;
+    border: 0;
+    top: 88.1%;
+    left: 49.5%;
+    display: inline-block;
+    width: 21.3%;
+    height: 4%;
+}
+.button2{
+	z-index: 2;
+    position: absolute;
+    border: 0;
+    top: 96.6%;
+    left: 49.5%;
+    display: inline-block;
+    width: 21.3%;
+    height: 4%;
+}
+.plus, .chatting{float: left;}
+.friend-home, .report{float: right;}
