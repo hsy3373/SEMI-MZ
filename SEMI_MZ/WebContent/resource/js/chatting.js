@@ -44,7 +44,7 @@ socket.onmessage = function (e) {
   // 			}
 };
 
-// 3. 웹 소켓 서버세어 메세지를 전송하는 함수
+// 3. 웹 소켓 서버에서 메세지를 전송하는 함수
 const sendMsg = () => {
   // 전송할 메세지 전처리
   // 전처리한 메세지를 전송하는 방법 : socket.send(데이터); -> 데이터가 서버로 전송됨
@@ -72,6 +72,8 @@ function Message(sender, receiver, msg) {
   this.msg = msg;
   // return this; <- 눈에 보이진 않지만 묵시적으로 추가되어있음
 }
+
+//------------------ 채팅방 리스트, 내용 불러오기 ------------------
 
 // ----------------- 채팅 영역 높이 변경 이벤트 --------------------
 
@@ -294,7 +296,7 @@ let eventEnterKey = function () {
 window.onload = function () {
   resizeChatarea();
   resizeSendarea();
-  start();
+  //start();
   clickChatRoom();
   changeChatColor();
   eventEnterKey();
