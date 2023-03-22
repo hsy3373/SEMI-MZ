@@ -13,6 +13,7 @@ ctx = canvas.getContext("2d");
 canvas.width = 1300;
 canvas.height = 800;
 document.getElementById("mainSquare").appendChild(canvas);
+//const myhome2 = document.getElementById("myhome2")
 
 let noticeBoard, myhome, squarebackground, Listbutton, friendList;
 
@@ -36,9 +37,10 @@ function loadImage(){
     friendList = new Image();
     friendList.src = "../resource/img/icon/친구목록 버튼.png"
 
-
    
 }
+
+
 
 //캐릭터 세팅 (추후 DB로 변경예정)
 let userbd = new Image();
@@ -82,6 +84,7 @@ function render(){
     ctx.drawImage(Listbutton, 1220,730, 50,50)
     ctx.drawImage(friendList, 1160,730,50,50)
     ctx.drawImage(user, uesrX, uesrY,50,50);
+    //ctx.drawImage(myhome2,200, 200, 220,220.5);
 
 }
 
@@ -102,6 +105,86 @@ function setupKeyboard(){
    
     
 }
+
+//클릭에 부여하는 이벤트
+canvas.addEventListener("click", function(event){
+
+    //내가 클릭한 좌표 얻어오기
+    const clickX = event.offsetX;
+    const clickY = event.offsetY;
+
+    //img 안을 클릭할 경우 이벤트 : my home
+    if(clickX >= 895 && clickX <= 1110 && clickY >= 10 && clickY <= 226 ){
+        console.log("home 이벤트 부여")
+    }
+
+    //img 안을 클릭할 경우 이벤트 : noticeBoard
+    if(clickX >= 1030 && clickX <= 1140 && clickY >= 411 && clickY <= 442 ){
+        console.log("notice 이벤트 부여")
+    }
+
+    //img 안을 클릭할 경우 이벤트 :gamegone 
+    if(clickX >= 240 && clickX <= 400 && clickY >= 200 && clickY <= 350 ){
+        console.log("gamegone 이벤트 부여")
+    }
+
+    //img 안을 클릭할 경우 이벤트 :Listbutton 
+    if(clickX >= 1220 && clickX <= 1270 && clickY >= 730 && clickY <= 780 ){
+        //console.log("Listbutton 이벤트 부여")
+        modal2.style.display = 'block';
+        
+    }
+
+    //img 안을 클릭할 경우 이벤트 :friendList 
+    if(clickX >= 1160 && clickX <= 1210 && clickY >= 730 && clickY <= 780 ){
+        //console.log("friendList 이벤트 부여")
+        modal1.style.display = 'block';
+    }
+    
+    console.log(clickX,clickY);
+
+})
+
+
+//모달 이벤트
+const modal1 = document.querySelector('.modal1'); //친구목록
+const modal2 = document.querySelector('.modal2'); //환경설정
+const logoutButton = document.querySelector('.modal_button2'); //로그아웃버튼
+const mydateButton = document.querySelector('.modal_button1'); //내정보 변경
+
+document.querySelector('.x-btn1').addEventListener('click', () => {
+    modal1.style.display = 'none';
+});
+
+logoutButton.addEventListener('click', () => {
+    console.log("로그아웃 이벤트 부여")
+});
+
+mydateButton.addEventListener('click', () => {
+    console.log("내정보변경  이벤트 부여")
+});
+
+
+
+
+
+//마우스 호버 이벤트 : jsp에서 선언하고 마우스 호버이벤트 
+canvas.addEventListener("mousemove", function(event){
+
+    //내가 클릭한 좌표 얻어오기
+    const clickX = event.offsetX;
+    const clickY = event.offsetY;
+
+    //img 안을 들어올 경우
+    if(clickX >= 892 && clickX <= 1111 && clickY >= 10 && clickY <= 226 ){
+        ctx.drawImage(myhome, 891,6, 250, 250.5);
+        console.log("집안으로 들어옴")
+    }
+
+    
+
+})
+
 
 
 
@@ -170,67 +253,87 @@ function update(){
         uesrY = 0;
     }
 
-    //오류있음. 시간날떄 체크 
+    //미묘하게 버벅거리는 부분 있음  
 
     //유저 맵 블락 : 중앙 계단 오른쪽 
     if(uesrX <= 1250 && uesrX >= 920 ){
-        if(uesrY >= 494 && uesrY <= 710){
-           
-            if(user == userfd){
-                uesrY = 484
-            }else if(user == userbd){
-                uesrY = 720
-            }else if(user == userrd){
-                uesrX = 910;
-            }
+
+        if(uesrY >= 494 && uesrY <= 510){
+            uesrY = 490
         }
-        
+
+        if(uesrY >= 690 && uesrY <= 710){
+            uesrY = 715
+        }
+
+        if(uesrX <= 1000 && uesrY >= 494 && uesrY <= 710 ){
+            uesrX = 915;
+        }
+
     }
 
     //맵 블락 : 중앙 계단 왼쪽 
-    if(uesrX <= 862 && uesrX >= 490 ){
-        if(uesrY >= 494 && uesrY <= 710){
-            if(user == userfd){
-                uesrY = 484
-            }else if(user == userbd){
-                uesrY = 720
-            }else if(user == userld){
-                uesrX = 867;
-            }else if(user == userrd){
-                uesrX = 480
-            }
+    if(uesrX <= 862 && uesrX >= 490){
+
+        if(uesrY >= 494 && uesrY <= 510){
+            uesrY = 490
+        }
+
+        if(uesrY >= 690 && uesrY <= 710){
+            uesrY = 715
+        }
+
+        if(uesrX >= 850 && uesrX <= 862 && uesrY >= 494 && uesrY <= 710 ){
+            uesrX = 867;
+        }
+
+        if(uesrX <= 800 && uesrY >= 494 && uesrY <= 710 ){
+            uesrX = 480;
+        }
+
+    }
+
+     //맵 블락 : 절벽 왼쪽 
+     if(uesrX <= 432 && uesrX >= 0){
+
+        if(uesrY >= 510 && uesrY <= 526){
+            uesrY = 530
+        }
+
+        if(uesrY >= 366 && uesrY <= 400){
+            uesrY = 360
+        }
+
+        if(uesrX <= 432 &&  uesrX >= 420 && uesrY >= 366 && uesrY <= 526 ){
+            uesrX = 427;
         }
     }
 
+    
      //맵 블락 : 절벽 오른쪽
-     if(uesrX <= 571 && uesrX >= 487 ){
-        if(uesrY >= 424 && uesrY <= 496){
-            if(user == userfd){
-                uesrY = 420
-            }else if(user == userbd){
-                uesrY = 490
-            }else if(user == userld){
-                uesrX = 575
-            }else if(user == userrd){
-                uesrX = 480
-            }
+
+     if(uesrX <= 571 && uesrX >= 480){
+
+        if(uesrY >= 500 && uesrY <= 535){
+            uesrY = 540
         }
-    } 
 
-     //맵 블락 : 절벽 왼쪽 
-     if(uesrX <= 432 && uesrX >= 0 ){
-        if(uesrY >= 366 && uesrY <= 526){
-            if(user == userfd){
-                uesrY = 356
-            }else if(user == userbd){
-                uesrY = 516
-            }else if(user == userld){
-                uesrX = 427
-            }
+        if(uesrY >= 424 && uesrY <= 440){
+            uesrY = 420
         }
-    } 
+
+        if(uesrX >= 565 && uesrX <= 571 && uesrY >= 424 && uesrY <= 535 ){
+            uesrX = 575;
+        }
+
+        if(uesrX >= 480 && uesrX <= 490 && uesrY >= 424 && uesrY <= 535 ){
+            uesrX = 480;
+        }
+     }
 
 
+
+    
 
 
 
