@@ -1,11 +1,16 @@
 package mz;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.google.gson.Gson;
+
+import mz.member.model.vo.Member;
 
 /**
  * Servlet implementation class AjaxChatting
@@ -34,12 +39,15 @@ public class AjaxChatting extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String content = request.getParameter("content");
-		int bno = Integer.parseInt(request.getParameter("bno"));
-		int userNo = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
-		int result = new BoardService().insertReply(content, bno, userNo);
+		String recevier = request.getParameter("recevier");
+		String userId = ((Member)request.getSession().getAttribute("loginUser")).getUserId();
 		
-		response.getWriter().print(result);
+		System.out.println(recevier + "  " + userId);
+		
+		
+		response.setContentType("application/json; charset=UTF-8");
+
+		new Gson().toJson(userId, response.getWriter());
 	}
 
 }

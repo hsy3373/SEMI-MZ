@@ -75,6 +75,26 @@ function Message(sender, receiver, msg) {
 
 //------------------ 채팅방 리스트, 내용 불러오기 ------------------
 
+let getChatRoomList = function(){
+  $.ajax({
+    url: "chatting",
+    data : { "recevier" :  },
+    success : (result) => {
+      console.log(result);
+      let resultStr = "회원번호 : "+ result.userNo + "<br>"
+              + "이름 : " + result.userName + "<br>"
+              + "id : " + result["userId"] + "<br>"
+              + "address : " + result["address"] + "<br>";
+      $("#output3").html(resultStr);
+    },
+    error : function(req, status, error){
+      console.log(req, status, error);
+    }
+  });
+  
+}
+
+
 // ----------------- 채팅 영역 높이 변경 이벤트 --------------------
 
 // 사용자 드래그를 통한 채팅 전체 영역 높이 변경
