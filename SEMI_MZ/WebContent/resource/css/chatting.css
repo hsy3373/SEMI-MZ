@@ -14,8 +14,8 @@
 /*------------채팅 전체 감싸는 영역, 드래그로 채팅 영역 지정용 클래스들---------*/
 .chat-container {
   position: absolute;
-  bottom: 20;
-  left: 20;
+  bottom: 20px;
+  left: 20px;
   display: flex;
   flex-direction: column;
   height: 400px;
@@ -163,14 +163,29 @@
 
 #text-send {
   width: 80%;
-  height: 30px;
+  min-height: 30px;
   background-color: var(--chat-background);
   border: 1px solid var(--chat-btn-border);
   border-radius: 4px;
   color: var(--chat-text-color);
   resize: none;
   margin-left: 8px;
+  padding-top: 6px;
+  padding-left: 6px;
   font-size: medium;
+}
+
+#text-send::-webkit-scrollbar {
+  width: 15px;
+}
+#text-send::-webkit-scrollbar-thumb {
+  background-color: var(--chat-btn-background);
+  border-radius: 10px;
+}
+#text-send::-webkit-scrollbar-track {
+  background-color: var(--chat-btn-background);
+  border-radius: 10px;
+  box-shadow: inset 0px 0px 8px rgba(255, 255, 255, 0.548);
 }
 
 #btn-send {

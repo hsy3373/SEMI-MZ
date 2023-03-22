@@ -14,7 +14,7 @@ request.getContextPath(); %>
     <link href="./resource/css/common.css" rel="stylesheet" type="text/css" />
   </head>
   <body>
-    <%-- test용 페이지 <br />
+    test용 페이지 <br />
     현재 테스트용 유저아이디 : <%= test.getUserId() %> <br />
     현재 테스트용 유저 정보 : <%= test.toString() %> <br />
     <br />
@@ -26,3 +26,4 @@ request.getContextPath(); %>
     <script src="../resource/js/common.js"></script>
   </body>
 </html>
+    

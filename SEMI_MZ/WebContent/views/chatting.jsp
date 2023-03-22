@@ -19,13 +19,11 @@ request.getContextPath(); Member loginUser =
 
     <style>
       body {
-        background-image: url("../resource/img/background/background_main.png");
+        background-image: url('../resource/img/background/background_main.png');
       }
     </style>
   </head>
   <body>
-    <%= loginUser %>
-
     <div class="chat-container">
       <div class="left"></div>
       <div class="resizer" id="dragMe"></div>
@@ -59,9 +57,7 @@ request.getContextPath(); Member loginUser =
       </div>
     </div>
 
-    <script></script>
-
-    <script src="../resource/js/common.js"></script>
+    <script type="module" src="../resource/js/common.js"></script>
     <script type="module" src="../resource/js/chatting.js"></script>
   </body>
 </html>
