@@ -8,6 +8,7 @@
 * {font-family: 'DOSSaemmul', serif;}
 :root{
     --fontsize14 : 14px;
+    --fontsize16 : 16px;
     --fontsize20 : 20px;
     --fontweight200: 200;
     --fontweight400: 400;
@@ -103,7 +104,7 @@ input[type=checkbox] {
 
 /* ----------------------- 모달배경 ----------------------- */
 .board-wrap {
-    display: none;
+    display: flex;
     position: absolute;
     top: 0;
     left: 0;
@@ -112,7 +113,7 @@ input[type=checkbox] {
     background-color: rgba(0, 0, 0, 0.4);
 }
 .board-modal{
-    display: none;
+    display: flex;
 	position: relative;
 	width: 800px;
     height: 500px;
@@ -177,7 +178,11 @@ input[type=checkbox] {
 
 
 /* ----------------------- 방명록 상세 ----------------------- */
-
+.board-detail *{
+    box-sizing: border-box;
+    /* border: 1px solid red; */
+}
+.board-detail{display: flex;}
 /* back 버튼 */
 .back-btn {
     position: absolute;
@@ -201,12 +206,6 @@ input[type=checkbox] {
     left: 50%;
     transform: translate(-50%, -50%);
 }
-.board-detail *{
-    box-sizing: border-box;
-    /* border: 1px solid red; */
-}
-.board-detail{display: none;}
-
 .board-detail-area{
     width: 600px;
     height: 340px;
@@ -231,8 +230,8 @@ input[type=checkbox] {
 
 /* 방명록 내용 테이블 */
 .board-detail-area>div{
-    font-size: var(--fontsize14);
-    font-weight: var(--fontweight200);
+    font-size: var(--fontsize16);
+    font-weight: var(--fontweight400);
 }
 .board-detail-content{
     height: 280px;
@@ -250,14 +249,14 @@ input[type=checkbox] {
 .detail-table-date{
     height: 10%;
     text-align: right;
-    padding: 10px 10px 5px 0;
+    padding: 5px 10px;
 }
 .detail-table-text{
     height: 90%;
     width: 100%;
     overflow-y: scroll; /* 스크롤 처리 */
     padding: 10px 10px;
-    line-height: 130%;
+    line-height: 148%;
     text-align: left;
     border: 0.2px dotted gray;
     border-radius: 10px;
@@ -265,16 +264,3 @@ input[type=checkbox] {
 /* 스크롤 안보이게 */
 ::-webkit-scrollbar{display: none;}
 
-/* 삭제 버튼 */
-.board-delete-btn{
-    width: 80px;
-    height: 34px;
-    display: inline-block;
-    padding-top: 5px;
-    margin-top: 15px;
-    background-color: #fa453e;
-    border: 2.5px solid #bf2d28;
-    border-radius: 15px;
-    font-size: var(--fontsize14);
-    font-weight: var(--fontweight900);
-}

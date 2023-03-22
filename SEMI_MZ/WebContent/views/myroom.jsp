@@ -10,10 +10,15 @@
 	<!-- css link -->
     <link href="../resource/css/myroom.css" rel="stylesheet" type="text/css">
     <link href="../resource/css/common.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="../resource/css/alert.css">
+    
     <!-- jQuery library -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>    <!-- Popper JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="../resource/js/myroom.js"></script> 
+    
+
+    
 
 <title>My Room</title>
 </head>
@@ -129,12 +134,36 @@
 				            </div>
 				        </div>
 				    </div>
-				    <button class="board-delete-btn">삭제</button>
+			    	<!-- 삭제 버튼 -->
+					<button class="alert-toggle board-delete-btn">삭제</button>
 				</div>
 			</div>  
 		</div>
 	</div>
-	
 
+	<!-- 삭제 버튼(각자 추가해야하는 위치에 추가하면 됨) -->
+	<!-- 
+		삭제 버튼(각자 추가해야하는 위치에 추가하면 됨)
+		alert-toggle 은 삭제 x
+		다른버튼으로 변경이나 추가싶으면 board-delete-btn 클래스명만 변경하면 됨
+		alert.css파일 '삭제버튼'이라고 주석달아논 곳도 변경해줘야 됨
+	-->
+	<button class="alert-toggle board-delete-btn">삭제</button>
+
+	
+	<!-- alert 창 -->
+    <div class="alert">
+      <h3>삭제하시겠습니까?</h3>
+      <div>
+	      <button id="alert-ok">확인</button>
+	      <button id="alert-cancel">취소</button> 
+      </div>
+    </div>
+    <div class="alert-overlay"></div>
+
+
+	<!-- alert script -->
+	<!--  -->
+    <script src="../resource/js/alert.js"></script>
 </body>
 </html>

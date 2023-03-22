@@ -1,3 +1,7 @@
+/*
+ *	작성자 : 노지의
+ *	마이룸  JS
+ */
 $(function(){
     /* 방명록 모달창 띄우기 */
     $(".icon-tree").click(function(e){
@@ -31,14 +35,11 @@ $(function(){
         $(".board-detail").hide();
         
     })
-
+    
     /* 방명록 삭제 버튼 */
-    $(".board-delete-btn").click(function(){
-        if(confirm("삭제하시겠습니까?")){
-            location.href = "${ contextPath }/delete.bo?bno=<%= b.getBoardNo() %>";
-        } else{
-            return;
-        }
+    $("#alert-ok").click(function(){
+		/*location.href = "${ contextPath }/delete.bo?bno=<%= b.getBoardNo() %>";*/
     })
+
 
 });
