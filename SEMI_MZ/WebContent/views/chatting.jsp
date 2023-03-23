@@ -19,7 +19,7 @@ request.getContextPath(); Member loginUser =
 
     <style>
       body {
-        background-image: url('../resource/img/background/background_main.png');
+        background-image: url("../resource/img/background/background_main.png");
       }
     </style>
   </head>
@@ -42,7 +42,12 @@ request.getContextPath(); Member loginUser =
             <button>></button>
           </div>
         </div>
-        <div class="chat-item-area"></div>
+        <div class="chat-item-area">
+          <!-- 로딩 바 -->
+          <div class="loadingAni">
+            <div class="loader10"></div>
+          </div>
+        </div>
       </div>
       <div class="div-send">
         <textarea
