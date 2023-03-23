@@ -90,6 +90,7 @@
                 <div class="board-detail">
                     <!-- back 버튼 -->
                     <div class="back-btn"><img class="back-btn" src="../resource/img/icon/back2_btn.png"></div>
+                    <!-- 제목부분(작성 제목이랑 동일) -->
                     <div class="board-detail-title">방명록제목작성페이지안녕하세요</div>
                     <div class="board-detail-area">
                         <div class="board-detail-content">
@@ -126,7 +127,27 @@
                         </div>
                         <button class="board-delete-btn">삭제</button>
                     </div>
-                </div>  
+                </div> 
+
+                <!-- 방명록 작성 -->
+                <div class="board-write">
+                    <!-- x 버튼 -->
+                    <div class="x-btn"><img class="x-btn" src="../resource/img/icon/엑스 버튼.png"></div>
+                    <!-- 제목부분(상세 제목이랑 동일) -->
+                    <div class="board-detail-title">방명록제목작성페이지안녕하세요</div>
+                    <!-- 작성란 전체 감싼 div -->
+                    <div class="board-write-area">
+                        <!-- 방명록 작성란 -->
+                        <textarea name="board-write-content" id="board-write-content" cols="80" rows="16"></textarea>
+                        <!-- 비밀글 체크박스 -->
+                        <div class="board-write-ck">
+                            <input type="checkbox" id="board-ck">
+                            <label for="board-ck">비밀글</label>
+                        </div>
+                        
+                        <button class="button board-write-btn">작성</button>
+                    </div>
+                </div> 
             </div>
         </div>
 
