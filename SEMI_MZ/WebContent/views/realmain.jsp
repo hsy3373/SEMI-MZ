@@ -218,7 +218,9 @@
         transform: scale(0.970);
         cursor: pointer;
       }
-      
+      .empty-space{
+      	height:30px;
+      }
       .display-center{
         margin-top: 150px;
         display: flex;
@@ -289,19 +291,21 @@
    
 	
 	.change-info-table{
-	border: 1px solid red;
-		
+		border: 1px solid red;
+		display: flex;
+		justify-content:center;
 		
 	}
 	
 	.change-info-table *{
 		border: 1px solid red;
+		
 	}
 	
 
 	
 	.under-text{
-		font-size: 10px;
+		font-size: 12px;
 		
 	}
 	
@@ -316,23 +320,29 @@
 	}
 	
 	
-	.tb-wid{
+	.th1-wid{
+		width:120px;
+		text-align:left;
+	}
+	.td3-wid{
 		width:100px;
 	}
+	.th1-hgt{
+		height: 30px;
+	}
+	
 	
 	.modal-textarea{
 		border: 1px solid red;
-		width:500px;
-		height:410px;
+		width:640px;
+		height:380px;
 		margin: auto;
-		
 	}
+	::-webkit-scrollbar{display: none;}
 	
-	td-wid{
-		width:450px;
+	.scroll-fix{
+		overflow-y: 
 	}
-	
-	
 	
 	
 	
@@ -351,6 +361,7 @@
 			<button type="button" class="logo-img-btn"><img src="../resource/img/login_img/mz_logo.png"></button>
 		</div>
 		<div class="login">
+			<form>
 			<table class="login-box">
 				<tr style="font-size:30px; cursor: default;">
                     <th>ID</th>
@@ -383,6 +394,7 @@
                     </th>
                 </tr>
             </table>
+            </form>
 		</div>
 	</div>
 
@@ -392,6 +404,7 @@
                 <div class="modal-header">아이디 / 비밀번호 찾기</div>
                 <div class="modal-out-btn"><img src="<%= contextPath %>/resource/img/icon/엑스 버튼.png" class="x-btn x-btn1"></div>
                 <div class="modal-textarea">
+                	<form>
                     <table class="display-center">
                         <tr><th>회원가입 시에 사용한 계정을 선택해주세요.</th></tr>
                         <tr><th style="color: rgba(119, 117, 117, 0.918);">-----------------------------------------</th></tr>
@@ -399,6 +412,7 @@
                         <tr></tr>
                         <tr><th><button type="button" class="google-btn other-btn changepwd-modal"></button></th></tr>
                     </table>
+                    </form>
                 </div>
             </div>
         </div>
@@ -409,11 +423,13 @@
             <div class="modal-background">
                 <div class="modal-header">회원가입</div>
                 <div class="modal-out-btn"><img src="<%= contextPath %>/resource/img/icon/엑스 버튼.png" class="x-btn x-btn2"></div>
+                <div class="empty-space"></div>
                 <div class="modal-textarea">
-                    <table class="display-center">
-                        <tr></tr>
-                    </table>
-
+                	<form>
+	                    <table class="display-center">
+	                        <tr></tr>
+	                    </table>
+					</form>
                 </div>
             </div>
         </div>
@@ -424,10 +440,13 @@
             <div class="modal-background">
                 <div class="modal-header">비밀번호 재설정</div>
                 <div class="modal-out-btn"><img src="<%= contextPath %>/resource/img/icon/엑스 버튼.png" class="x-btn x-btn3"></div>
+                <div class="empty-space"></div>
                 <div class="modal-textarea">
-                    <table class="display-center">
-                        <tr></tr>
-                    </table>
+                	<form>
+	                    <table class="display-center">
+	                        <tr></tr>
+	                    </table>
+	                </form>
                 </div>
             </div>
         </div>
@@ -436,6 +455,7 @@
      <div class="modal modal4">
      	<div class="s-modal-back">
      		<div class="smodal-th"><button class="smodal-xbtn"><img src="<%= contextPath %>/resource/img/icon/엑스 버튼.png" class="x-btn x-btn4"></button></div>
+     		<form>
      		<table class="modal4-table">
      			<tr class="smodal-tb"><th colspan="2">비밀번호 입력</th></tr>
      			<tr class="smodal-tf">
@@ -443,6 +463,7 @@
      				<td><button type="button" class="subpwd-btn chg-inf-modal">확인</button></td>
      			</tr>
      		</table>
+     		</form>
      	</div>
      </div>
      
@@ -451,78 +472,68 @@
             <div class="modal-background">
                 <div class="modal-header">내 정보 변경</div>
                 <div class="modal-out-btn"><img src="<%= contextPath %>/resource/img/icon/엑스 버튼.png" class="x-btn x-btn5"></div>
+                <div class="empty-space"></div>
                 <div class="modal-textarea">
-                    <table class="display-center change-info-table">
+                <form>
+                    <table class="change-info-table">
                     	<tr>
-                        	<td colspan="3" class="td-wid">아이디</td>
-                        	
-                        </tr>
-                        <tr>
-                        	<td colspan="3"><input type="password" class="inputbox" placeholder="유저 아이디" readonly></td>
-                        </tr>
-                        <tr>
-                        	<td colspan="3">닉네임 변경</td>
-                        	
-                        </tr>
-                        <tr>
-                        	<td colspan="2"><input type="text" class="inputbox" placeholder="닉네임"></td>
-                        	
-                        	<td><button type="button">중복확인</button></td>
-                        </tr>
-                        <tr class="under-text">
-                        	<td colspan="3">- 2~8자의 영문, 한글, 숫자 그리고 특수기호 중 '_' 사용 가능</td>
-                        	
-                        </tr>
-                        <tr>
-                        	<td colspan="3">성별</td>
-                        </tr>
-                        <tr>
-                        	<td colspan="3">
-                        		<input type="checkbox">
-                        	</td>
-                        </tr>
-                        <tr>
-                        	<td></td>
-                        	<td></td>
-                        	<td></td>
-                        </tr>
-                        <tr>
-                        	<td></td>
-                        	<td></td>
-                        	<td></td>
-                        </tr>
-                        <tr>
-                        	<td></td>
-                        	<td></td>
-                        	<td></td>
-                        </tr>
-                        <tr>
-                        	<td></td>
-                        	<td></td>
-                        	<td></td>
-                        </tr>
-                        <tr>
-                        	<td></td>
-                        	<td></td>
-                        	<td></td>
-                        </tr>
-                        <tr>
-                        	<td></td>
-                        	<td></td>
-                        	<td></td>
-                        </tr>
-                        <tr>
-                        	<td></td>
-                        	<td></td>
-                        	<td></td>
-                        </tr>
-                        <tr>
-                        	<td></td>
-                        	<td></td>
+                        	<th class="th1-wid">아이디</th>
+                        	<td><input type="text" class="inputbox" placeholder="유저 아이디" readonly></td>
                         	<td></td>
                         </tr>
                         
+                        <tr>
+                        	<th class="th1-wid">닉네임 변경</th>
+                        	<td><input type="text" class="inputbox" placeholder="닉네임"></td>
+                        	<td class="td3-wid"><button type="button">중복확인</button></td>
+                        </tr>
+                        <tr class="under-text">
+                        	<td></td>
+                        	<td> 영문, 한글, 숫자, 특수기호(_) 사용하여 2~8자까지 가능</td>
+                        	<td></td>
+                        </tr>
+                        
+                        <tr>
+                        	<th class="th1-wid">비밀번호 변경</th>
+                        	<td><input type="password" class="inputbox" placeholder="비밀번호"></td>
+                        	<td></td>
+                        </tr>
+                        <tr class="under-text">
+                        	<td></td>
+                        	<td>영문, 숫자, 특수기호 포함 8~16자 입력 가능</td>
+                        	<td></td>
+                        </tr>
+                        <tr>
+                        	<th class="th1-wid">비밀번호 확인</th>
+                        	<td><input type="password" class="inputbox" placeholder="비밀번호 확인"></td>
+                        	<td></td>
+                        </tr>
+                        
+                        <tr>
+                        	<th class="th1-wid th1-hgt">성별</th>
+                        	<td>
+                        		<input type="radio" id="W" name="gender" value="W">
+        						<label for="W">여</label>
+                        		<input type="radio" id="M" name="gender" value="M">
+        						<label for="M">남</label>
+        						<input type="radio" id="N" name="gender" value="N" checked>
+        						<label for="N">비공개</label>
+                        	</td>
+                        	<td></td>
+                        </tr>
+                        
+                        <tr>
+                        	<th class="th1-wid">자기소개</th>
+                        	<td>
+                        		<textarea class="scroll-fix" name="selfInfo" cols="50" rows="8" style="resize:none;" placeholder="비밀번호 확인"></textarea>
+                        	</td>
+                        	<td></td>
+                        </tr>
+                        <tr>
+                        	<th colspan="3">정보 수정 / 회원 탈퇴</td>
+                        </tr>
                     </table>
+                    </form>
                 </div>
             </div>
         </div>
