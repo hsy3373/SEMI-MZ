@@ -20,7 +20,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
 </head>
 <body>
 	
-	<%@ include file="realmain.jsp" %>
+	<%@ include file="main.jsp" %>
 	
 	<!--  <br> <br>
 	<a href="./myroom.jsp">마이룸</a> -->
