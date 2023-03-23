@@ -5,7 +5,7 @@ pageEncoding="UTF-8"%>
   <head>
     <meta charset="UTF-8" />
 
-    <title>Insert title here</title>
+    <title>M-Zone</title>
     <link href="./resource/css/common.css" rel="stylesheet" type="text/css" />
     <style>
       .index-logo {
@@ -23,7 +23,7 @@ pageEncoding="UTF-8"%>
     </div>
     <script>
       window.onload = function (event) {
-        popupWindow = window.open(
+        window.open(
           '<%= request.getContextPath()%>/views/test.jsp',
           'windowName',
           'resizeable'
