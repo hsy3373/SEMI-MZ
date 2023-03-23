@@ -18,7 +18,16 @@
 	})
 </script>
 <style>
-
+	:root{
+		--backcolor0:rgba(0, 0, 0, 0);
+		--iptext-width: 350px;
+		--iptext-height: 25px;
+		--hiptext-width: 350px;
+		
+	}
+	
+	
+	
 	@font-face {
     font-family: "DOSSaemmul";
     src: url(<%= contextPath %>/resource/font/DOSSaemmul.ttf) format("truetype");
@@ -41,10 +50,31 @@
     .wrap{
         width: 1300px;
         height: 800px;
-        background-image: url(<%= contextPath %>/resource/img/login_img/login_background_구름o.png);
+        background-image: url(../resource/img/login_img/login_background_구름o.png);
         background-size: contain;
         margin: auto;
     }
+    
+    .mz-logo{
+    	margin-top: 220px;
+    	display:none;
+    }
+	.logo-img-btn{
+		width:450px;
+		height:350px;
+    	border: none;
+		background-color: rgba(0, 0, 0, 0.05);
+    	margin-left: 410px;
+		border-radius: 10%;
+	}
+	.logo-img-btn:hover{
+        cursor: pointer;
+        transform: scale(0.95);
+    }
+	.logo-img-btn>img{
+		width:100%;
+		height:100%;
+	}
     
     .login{
         width: 400px;
@@ -54,7 +84,7 @@
         background-image: url(<%= contextPath %>/resource/img/login_img/로그인판.png);
         background-size: 400px 600px;
         background-repeat: no-repeat;
-        display:none;
+        <!-- display:none; -->
        
     }
     .login-box{
@@ -106,7 +136,7 @@
         background-image: url(<%= contextPath %>/resource/img/login_img/kakao_login_medium_wide.png);
         background-repeat: no-repeat;
         border: none;
-        background-color: rgba(0, 0, 0, 0);
+        background-color: var(--backcolor0);
     }
     .other-btn:hover{
         transform: scale(0.975);
@@ -120,13 +150,13 @@
         background-size: 310px 50px;
         backgrond-repeat: no-repeat;
         border: none;
-        background-color: rgba(0, 0, 0, 0);
+        background-color: var(--backcolor0);
     }
     .kakao-btn:hover, .google-btn:hover{
         cursor: pointer;
     }
     .find-text{
-        background-color: rgba(0, 0, 0, 0);
+        background-color: var(--backcolor0);
         color:white;
         font-size: 14px;
         font-weight: 600;
@@ -213,7 +243,7 @@
     	padding-left: 350px;
     }
     .smodal-xbtn{
-    	background-color: rgba(0, 0, 0, 0);
+    	background-color: var(--backcolor0);
     	border: none;
     	width: 100%"
     }
@@ -247,7 +277,7 @@
     	border: none;
     	background-size: 70px 35px;
     	background-image: url(<%= contextPath %>/resource/img/icon/기본버튼.png);
-    	background-color: rgba(0, 0, 0, 0);
+    	background-color: var(--backcolor0);
     	background-repeat: no-repeat;
     	font-size:15px;
     	font-weight: 900;
@@ -256,25 +286,56 @@
     	transform: scale(0.970);
         cursor: pointer;
     }
-    .mz-logo{
-    	margin-top: 220px;
-    }
-	.logo-img-btn{
+   
+	
+	.change-info-table{
+	border: 1px solid red;
+		
+		
+	}
+	
+	.change-info-table *{
+		border: 1px solid red;
+	}
+	
+
+	
+	.under-text{
+		font-size: 10px;
+		
+	}
+	
+	.inputbox{
+		width: var(--iptext-width);
+		height: var(--iptext-height);
+	}
+	
+	.h-inputbox{
+		width: var(--hiptext-width);
+		height: var(--iptext-height);
+	}
+	
+	
+	.tb-wid{
+		width:100px;
+	}
+	
+	.modal-textarea{
+		border: 1px solid red;
+		width:500px;
+		height:410px;
+		margin: auto;
+		
+	}
+	
+	td-wid{
 		width:450px;
-		height:350px;
-    	border: none;
-		background-color: rgba(0, 0, 0, 0.05);
-    	margin-left: 410px;
-		border-radius: 10%;
 	}
-	.logo-img-btn:hover{
-        cursor: pointer;
-        transform: scale(0.95);
-    }
-	.logo-img-btn>img{
-		width:100%;
-		height:100%;
-	}
+	
+	
+	
+	
+	
 </style>
 
 
@@ -287,7 +348,7 @@
 <body>
 	<div class="wrap">
 		<div class="mz-logo">
-			<button type="button" class="logo-img-btn"><img src="<%= contextPath %>/resource/img/login_img/mz_logo.png"></button>
+			<button type="button" class="logo-img-btn"><img src="../resource/img/login_img/mz_logo.png"></button>
 		</div>
 		<div class="login">
 			<table class="login-box">
@@ -391,8 +452,76 @@
                 <div class="modal-header">내 정보 변경</div>
                 <div class="modal-out-btn"><img src="<%= contextPath %>/resource/img/icon/엑스 버튼.png" class="x-btn x-btn5"></div>
                 <div class="modal-textarea">
-                    <table class="display-center">
-                        <tr></tr>
+                    <table class="display-center change-info-table">
+                    	<tr>
+                        	<td colspan="3" class="td-wid">아이디</td>
+                        	
+                        </tr>
+                        <tr>
+                        	<td colspan="3"><input type="password" class="inputbox" placeholder="유저 아이디" readonly></td>
+                        </tr>
+                        <tr>
+                        	<td colspan="3">닉네임 변경</td>
+                        	
+                        </tr>
+                        <tr>
+                        	<td colspan="2"><input type="text" class="inputbox" placeholder="닉네임"></td>
+                        	
+                        	<td><button type="button">중복확인</button></td>
+                        </tr>
+                        <tr class="under-text">
+                        	<td colspan="3">- 2~8자의 영문, 한글, 숫자 그리고 특수기호 중 '_' 사용 가능</td>
+                        	
+                        </tr>
+                        <tr>
+                        	<td colspan="3">성별</td>
+                        </tr>
+                        <tr>
+                        	<td colspan="3">
+                        		<input type="checkbox">
+                        	</td>
+                        </tr>
+                        <tr>
+                        	<td></td>
+                        	<td></td>
+                        	<td></td>
+                        </tr>
+                        <tr>
+                        	<td></td>
+                        	<td></td>
+                        	<td></td>
+                        </tr>
+                        <tr>
+                        	<td></td>
+                        	<td></td>
+                        	<td></td>
+                        </tr>
+                        <tr>
+                        	<td></td>
+                        	<td></td>
+                        	<td></td>
+                        </tr>
+                        <tr>
+                        	<td></td>
+                        	<td></td>
+                        	<td></td>
+                        </tr>
+                        <tr>
+                        	<td></td>
+                        	<td></td>
+                        	<td></td>
+                        </tr>
+                        <tr>
+                        	<td></td>
+                        	<td></td>
+                        	<td></td>
+                        </tr>
+                        <tr>
+                        	<td></td>
+                        	<td></td>
+                        	<td></td>
+                        </tr>
+                        
                     </table>
                 </div>
             </div>
