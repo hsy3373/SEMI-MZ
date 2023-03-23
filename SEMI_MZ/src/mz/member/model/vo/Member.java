@@ -3,15 +3,15 @@ package mz.member.model.vo;
 import java.sql.Date;
 
 public class Member {
-	String userId;		//	USER_ID	VARCHAR2(20 BYTE)
-	String userPwd;		//	USER_PWD	NVARCHAR2(300 CHAR)
-	String nicName;		//	NICKNAME	NVARCHAR2(8 CHAR)
-	String status;		//	STATUS	CHAR(1 BYTE)
-	int skinId;			//	SKIN_ID	NUMBER
-	int coin;			//	COIN	NUMBER(4,0)
-	String info;		//	SELF_INFO	VARCHAR2(300 BYTE)
-	String gender;		//	GENDER	CHAR(1 BYTE)
-	Date date;			//	ENROLL_DATE	DATE
+	private String userId;		//	USER_ID	VARCHAR2(20 BYTE)
+	private String userPwd;		//	USER_PWD	NVARCHAR2(300 CHAR)
+	private String nicName;		//	NICKNAME	NVARCHAR2(8 CHAR)
+	private String status;		//	STATUS	CHAR(1 BYTE)
+	private int skinId;			//	SKIN_ID	NUMBER
+	private int coin;			//	COIN	NUMBER(4,0)
+	private String info;		//	SELF_INFO	VARCHAR2(300 BYTE)
+	private String gender;		//	GENDER	CHAR(1 BYTE)
+	private Date date;			//	ENROLL_DATE	DATE
 	
 	
 	public Member() {
