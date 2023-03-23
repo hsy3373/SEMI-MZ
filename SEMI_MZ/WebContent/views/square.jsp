@@ -21,8 +21,8 @@
     <!--모달창 : 친구목록 -->
     <div class="modal modal1">
         <div class="modal_body">
+            <div class="modal-out-btn"><img src="../resource/img/icon/엑스 버튼.png" class="x-btn x-btn1"></div>
             <div class="modal-background">
-                <div class="modal-out-btn"><img src="../resource/img/icon/엑스 버튼.png" class="x-btn x-btn1"></div>
                 <div class="modal-textarea">
                     <table class="display-center"> 
                         <!--데이터 베이스에서 받아서 적용할 에정 : 10명까지 -->
@@ -47,10 +47,10 @@
         <div class="modal_body" id="Preferences">
             <div class="modal-out-btn2"><img src="../resource/img/icon/엑스 버튼.png" class="x-btn x-btn2"></div>
             <div class="modal_button1">
-            <h1>내 정보 변경</h1>
+            <a>내 정보 변경</a>
             </div>
             <div class="modal_button2">
-            <h1> 로그아웃 </h1>
+            <a> 로그아웃 </a>
             </div>
         </div>
       </div>

@@ -1,4 +1,7 @@
 
+/* 광장 css : 작성자 윤지영 */
+
+
 /*모달용 css*/
 .modal {
     position: absolute;
@@ -23,6 +26,8 @@
 
 
 /*친구목록 모달 */
+
+/*친구목록 img*/
 .modal-background {
     /* border: 1px solid red; */
     width: 238px;
@@ -35,23 +40,26 @@
     left: 1001px;
 }
 
-.modal-out-btn {
-    display: flex;
-    justify-content: right;
-}
+/*친구목록 나가기 버튼*/
+.modal-out-btn{
+    position: absolute;
+    top: 300px;
+    left: 1200px;
 
+}
+    
 .x-btn {
     width: 55px;
     height: 55px;
 }
 
-/* .modal-textarea{
-border: 1px solid rebeccapurple;
-확인용 
-}  */
+/*친구목록 text */
+.modal-textarea{
+    margin-top: 30px;
+}
 
 .display-center td {
-    padding-bottom: 9px;
+    padding-bottom: 10px;
 }
 
 /*창크기 변경시 생기는 여백 오토로 잡기*/
@@ -60,30 +68,44 @@ border: 1px solid rebeccapurple;
 }
 
 
+/* .modal-textarea{
+border: 1px solid rebeccapurple;
+확인용 
+}  */
+
+
 /*환경설정 모달*/
-.modal_button1 {
-    background-image: url(../img/icon/기본텍스트버튼2.png);
-    width: 304px;
-    height: 104px;
-    position: absolute;
-    top: 600px;
-    left: 950px;
-}
 
-
-.modal_button2 {
+/*내정보 변경 버튼*/
+.modal_button1{
     background-image: url(../img/icon/기본텍스트버튼2.png);
     width: 304px;
     height: 104px;
     position: absolute;
     top: 490px;
     left: 950px;
-}
-
-h1{
     text-align: center;
 }
 
+/*로그아웃 버튼*/
+.modal_button2{
+    background-image: url(../img/icon/기본텍스트버튼2.png);
+    width: 304px;
+    height: 104px;
+    position: absolute;
+    top: 600px;
+    left: 950px;
+    text-align: center;
+}
+
+a{
+    line-height: 100px;
+    font-size: 40px;
+    font-weight: 300;
+}
+
+
+/*종료 버튼*/
 .modal-out-btn2{
     position: absolute;
     top: 430px;
