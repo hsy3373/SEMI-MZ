@@ -1,0 +1,214 @@
+@charset "UTF-8";
+:root{
+    --fontsize14 : 14px;
+    --fontsize16 : 16px;
+    --fontsize20 : 20px;
+    --fontweight200: 200;
+    --fontweight400: 400;
+    --fontweight600: 600;
+    --fontweight900: 900;
+    --userskin80: 80px;
+    --friendskin80:80px;
+}
+
+
+
+/* ----------------------- 방명록 모달배경 ----------------------- */
+.board-wrap {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+.board-modal{
+    display: none;
+	position: relative;
+	width: 800px;
+    height: 500px;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	background:url('../img/icon/방명록.png') no-repeat center/contain;
+}
+
+
+/* ----------------------- 방명록 리스트 ----------------------- */
+.board-list{display: none;}
+/* x 버튼 */
+.board-list .x-btn {
+    position: absolute;
+    top: 2%;
+    right: -0.2%;
+    width: 48px;
+    cursor: pointer;  
+}
+#board-no{display: none;}
+#apple{
+    width: 18px;
+    margin-right: 10px;
+}
+.board-content{
+    position: absolute;
+    width: 600px;
+    top: 47%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.board-list-area {
+    border-collapse: separate;
+    border-spacing: 0px 5px;
+    margin-top: 15px;
+}
+.board-list-area td {
+    border: solid 1px #c9c7be;
+    border-style: solid none;
+    padding: 5px 15px;
+    /* background-color: cyan; */
+    font-weight: var(--fontweight600);
+}
+.board-list-area td:first-child {
+    border-left-style: solid;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+.board-list-area td:last-child {
+    border-right-style: solid;
+    border-bottom-right-radius: 10px;
+    border-top-right-radius: 10px;
+}
+#board-title{width: 320px;}
+.board-userid{
+    width: 180px;
+    text-align: right;
+}
+.board-date{
+    width: 100px; text-align: right;
+}
+
+
+
+/* ----------------------- 방명록 상세, 작성 제목부분 ----------------------- */
+.board-detail *{
+    box-sizing: border-box;
+    /* border: 1px solid red; */
+}
+/* 방명록 제목 */
+.board-detail-title{
+    font-size: var(--fontsize20);
+    font-weight: var(--fontweight900);;
+    text-align: center;
+    padding : 28px 0;
+    width: 360px;
+    height: 70px;
+    background: url('../img/icon/라벨.png') no-repeat 0 1px / cover;
+    background-size: 360px 70px;
+    position: absolute;
+    top: -3%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* ----------------------- 방명록 상세 ----------------------- */
+.board-detail{display: none;}
+/* back 버튼 */
+.board-detail .back-btn {
+    position: absolute;
+    top: 2%;
+    right: -0.2%;
+    width: 48px;
+    cursor: pointer;
+}
+.board-detail-area{
+    width: 600px;
+    height: 340px;
+    position: absolute;
+    top: 53%;
+    left: 50%;
+    transform: translate(-51%, -50%);
+    text-align: center;
+    font-size: 16px;
+}
+/* 친구 캐릭터 스킨 */
+.board-detail-friend{
+    width: 30%;
+    padding: 100px 0;
+}
+.friend-skin{width: var(--friendskin80);}
+.friend-id{
+    font-size: var(--fontsize20);
+    font-weight: var(--fontweight600);
+    margin-top: 10px;
+}
+
+/* 방명록 내용 테이블 */
+.board-detail-area>div{
+    font-size: var(--fontsize16);
+    font-weight: var(--fontweight400);
+}
+.board-detail-content{
+    height: 280px;
+    box-sizing: border-box;
+    width: 100%;
+}
+.board-detail-content>div{
+    float: left;
+    height: 100%;
+}
+.board-detail-table{
+    width: 70%;
+    height: 100%;
+}
+.detail-table-date{
+    height: 10%;
+    text-align: right;
+    padding: 5px 10px;
+}
+.detail-table-text{
+    height: 90%;
+    width: 100%;
+    overflow-y: scroll; /* 스크롤 처리 */
+    padding: 10px 10px;
+    line-height: 148%;
+    text-align: left;
+    border: 0.2px dotted gray;
+    border-radius: 10px;
+}
+/* 스크롤 안보이게 */
+::-webkit-scrollbar{display: none;}
+
+
+/* ----------------------- 방명록 작성 ----------------------- */
+.board-write{display: none;}
+.board-write-area{
+    width: 600px;
+    height: 340px;
+    margin: auto;
+	text-align: center;
+}
+.board-write-ck{text-align: right; margin: 10px 20px 0 0;}
+#board-write-content{
+	margin-top: 116px;
+	resize: none;
+	padding: 20px 20px;
+	font-size: var(--fontsize16);
+	line-height: 148%;
+}
+.board-write .x-btn{
+    position: absolute;
+    top: 2%;
+    right: -0.2%;
+    width: 48px;
+    cursor: pointer;  
+}
+
+/* 작성버튼 컬러 */
+.board-write-btn{
+    background-color: #ffbc2b;
+    border: 2.5px solid #c7952a;
+    margin: 0;
+}
+
+/* 원형 버튼 크기 */
