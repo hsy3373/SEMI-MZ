@@ -10,9 +10,10 @@
 <head>
 <meta charset="UTF-8">
 <title>광장</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <link href="../resource/css/common.css" rel="stylesheet" type="text/css">
 <link href="../resource/css/square.css" rel="stylesheet" type="text/css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 
 </head>
 <body>
@@ -21,7 +22,20 @@
 	
 	</div>
         
-    
+
+    <!--모달창 분리를 위해 버튼도 따로뻄-->
+    <div class="button_area">
+        <div class="friendList">
+            <img src="../resource/img/icon/친구목록 버튼.png" style=" width: 50px;" > 
+        </div>
+    </div>
+    <div class="button_area">
+        <div class="Listbutton">
+            <img src="../resource/img/icon/목록 버튼.png" style=" width: 50px;">
+        </div>
+    </div>
+
+
     <!--모달창 : 친구목록 -->
     <div class="modal modal1">
         <div class="modal_body">
@@ -59,19 +73,29 @@
         </div>
       </div>
 
+
+
+   		<!--${loginUser.nicName}  -->
+   		
     
     <!-- 확인용 ^^ --> 
 	<%
 		//System.out.print(contextPath);
 		System.out.print(loginUser);
+		//Member [userId=test, userPwd=test, nicName=NIC_test, status=Y, skinId=0, coin=500, info=, gender=N, date=2023-03-20]
 	%>
 	
 	<script>
 		//console.log(contextPath);
+       
+		//유저네임 
+		var username = '${loginUser.nicName}';
+		//유저 skin
+		var userSkin = Number('${loginUser.skinId}')+1;
 		
-		let name = loginUser.getNicName();
 		
-		console.log(name);
+		
+		//console.log(userSkin);
 	</script>
     
    

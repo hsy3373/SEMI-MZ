@@ -2,6 +2,27 @@
 /* 광장 css : 작성자 윤지영 */
 
 
+/*버튼 css*/
+.button_area{
+    width: 1300px;
+    position: relative;
+    margin: auto;
+}
+
+.friendList{
+    position: absolute;
+    bottom: 18px;
+    right: 90px;
+}
+
+
+.Listbutton{
+    position: absolute;
+    bottom: 18px;
+    right: 30px;
+}
+
+
 /*모달용 css*/
 .modal {
     position: absolute;

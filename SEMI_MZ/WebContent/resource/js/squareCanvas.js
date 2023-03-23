@@ -14,7 +14,7 @@ canvas.width = 1300;
 canvas.height = 800;
 document.getElementById("mainSquare").appendChild(canvas);
 
-let noticeBoard, myhome, squarebackground, Listbutton, friendList;
+let noticeBoard, myhome, squarebackground;
 
 //모달 떠있는 동안 움직임 stop
 let modalstop = false;
@@ -33,43 +33,43 @@ function loadImage(){
     gamezone = new Image();
     gamezone.src = "../resource/img/icon/gamezone.png"
 
-    Listbutton = new Image();
-    Listbutton.src = "../resource/img/icon/목록 버튼.png"
+    //Listbutton = new Image();
+    //Listbutton.src = "../resource/img/icon/목록 버튼.png"
 
-    friendList = new Image();
-    friendList.src = "../resource/img/icon/친구목록 버튼.png"
+    //friendList = new Image();
+    //friendList.src = "../resource/img/icon/친구목록 버튼.png"
 
-   
 }
 
 
 //유저 네임 세팅 
+//console.log(username) 
+//console.log(userSkin)
 
+//캐릭터 세팅 
+// let userbd = new Image();
+// userbd.src = "../resource/img/user/skin"+userSkin+"/bd.png"
 
-//캐릭터 세팅 (추후 DB로 변경예정)
-let userbd = new Image();
-userbd.src = "../resource/img/user/skin01/bd.png"
+// let userbs = new Image();
+// userbs.src = "../resource/img/user/skin"+userSkin+"/bs.png"
 
-let userbs = new Image();
-userbs.src = "../resource/img/user/skin01/bs.png"
+// let userfd = new Image();
+// userfd.src = "../resource/img/user/skin"+userSkin+"/fd.png"
 
-let userfd = new Image();
-userfd.src = "../resource/img/user/skin01/fd.png"
+// let userfs = new Image();
+// userfs.src = "../resource/img/user/skin"+userSkin+"/fs.png"
 
-let userfs = new Image();
-userfs.src = "../resource/img/user/skin01/fs.png"
+// let userld = new Image();
+// userld.src = "../resource/img/user/skin"+userSkin+"/ld.png"
 
-let userld = new Image();
-userld.src = "../resource/img/user/skin01/ld.png"
+// let userls = new Image();
+// userls.src = "../resource/img/user/skin"+userSkin+"/ls.png"
 
-let userls = new Image();
-userls.src = "../resource/img/user/skin01/ls.png"
+// let userrd = new Image();
+// userrd.src = "../resource/img/user/skin"+userSkin+"/rd.png"
 
-let userrd = new Image();
-userrd.src = "../resource/img/user/skin01/rd.png"
-
-let userrs = new Image();
-userrs.src = "../resource/img/user/skin01/rs.png"
+// let userrs = new Image();
+// userrs.src = "../resource/img/user/skin"+userSkin+"/rs.png"
 
 
 //캐릭터 좌표(스타팅 x,y)
@@ -77,7 +77,7 @@ let uesrX = canvas.width - 400
 let uesrY = canvas.height - 70;
 
 //유저 이미지 지정
-let user = userfs;
+//let user = userfs;
 
 //이미지 랜더링
 function render(){
@@ -85,9 +85,11 @@ function render(){
     ctx.drawImage(myhome, 891,6, 220,220.5);
     ctx.drawImage(noticeBoard,960, 350, 271,140.5 )
     ctx.drawImage(gamezone, 230,200,180,146.4)
-    ctx.drawImage(Listbutton, 1220,730, 50,50)
-    ctx.drawImage(friendList, 1160,730,50,50)
-    ctx.drawImage(user, uesrX, uesrY,50,50);
+    //ctx.drawImage(Listbutton, 1220,730, 50,50)
+    //ctx.drawImage(friendList, 1160,730,50,50)
+    // ctx.drawImage(user, uesrX, uesrY,50,50);
+    ctx.font = '12px Sans-Serif'
+    ctx.fillText(username, uesrX+2, uesrY+60);
     
 }
 
@@ -132,23 +134,38 @@ canvas.addEventListener("click", function(event){
         console.log("gamegone 이벤트 부여")
     }
 
-    //img 안을 클릭할 경우 이벤트 :Listbutton 
-    if(clickX >= 1220 && clickX <= 1270 && clickY >= 730 && clickY <= 780 ){
-        //console.log("Listbutton 이벤트 부여")
-        modal2.style.display = 'block';
+    // //img 안을 클릭할 경우 이벤트 :Listbutton 
+    // if(clickX >= 1220 && clickX <= 1270 && clickY >= 730 && clickY <= 780 ){
+    //     //console.log("Listbutton 이벤트 부여")
+    //     modal2.style.display = 'block';
         
-    }
+    // }
 
-    //img 안을 클릭할 경우 이벤트 :friendList 
-    if(clickX >= 1160 && clickX <= 1210 && clickY >= 730 && clickY <= 780 ){
-        //console.log("friendList 이벤트 부여")
-        modal1.style.display = 'block';
-    }
+    // //img 안을 클릭할 경우 이벤트 :friendList 
+    // if(clickX >= 1160 && clickX <= 1210 && clickY >= 730 && clickY <= 780 ){
+    //     //console.log("friendList 이벤트 부여")
+    //     modal1.style.display = 'block';
+    // }
     
     console.log(clickX,clickY);
 
 })
 
+
+//버튼이벤트
+//버튼세팅 
+const friendList = document.querySelector('.friendList'); //친구목록버튼
+const Listbutton = document.querySelector('.Listbutton'); //환경설정버튼
+
+//버튼 클릭 : 친구목록
+friendList.addEventListener('click', () => {
+    modal1.style.display = 'block';
+});
+
+//버튼 클릭 : 환경설정
+Listbutton.addEventListener('click', () => {
+    modal2.style.display = 'block';
+});
 
 //모달 이벤트
 
