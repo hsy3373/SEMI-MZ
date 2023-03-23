@@ -15,13 +15,16 @@
     --fontweight600: 600;
     --fontweight900: 900;
 }
-
-/* body{
-    font-size: var(--fontsize16);
-} */
-
-
-
+/* button 태그 */
+.button{
+    border-radius: 15px;
+    width: 80px;
+    height: 34px;
+    display: inline-block;
+    padding-top: 5px;
+    font-size: var(--fontsize14);
+    font-weight: var(--fontweight900);
+}
 body{margin: 0;}
 /* ----------------------- 마이룸 기본 틀 ----------------------- */
 .myroom{
@@ -77,7 +80,7 @@ body{margin: 0;}
     left: 48%;
 }
 /* 호감도 */
-input[type="checkbox"]+label {
+input[name="heart-ck"]+label {
     position: absolute;
     top: 66%;
     left: 48%;
@@ -88,11 +91,11 @@ input[type="checkbox"]+label {
     cursor: pointer; 
     padding-left: 36px; 
 }
-input[type='checkbox']:checked+label {
+input[name="heart-ck"]:checked+label {
     background: url('../img/icon/빈하트.png') no-repeat 0 1px / contain;
 }
 /* 기본 체크박스대신 이미지가 와야하므로 감추기 */
-input[type=checkbox] {
+.user input[type=checkbox] {
     display:none;
 }
 .user .font{
@@ -104,7 +107,7 @@ input[type=checkbox] {
 
 /* ----------------------- 모달배경 ----------------------- */
 .board-wrap {
-    display: flex;
+    display: block;
     position: absolute;
     top: 0;
     left: 0;
@@ -113,7 +116,7 @@ input[type=checkbox] {
     background-color: rgba(0, 0, 0, 0.4);
 }
 .board-modal{
-    display: flex;
+    display: block;
 	position: relative;
 	width: 800px;
     height: 500px;
@@ -122,8 +125,9 @@ input[type=checkbox] {
 	transform: translate(-50%, -50%);
 	background:url('../img/icon/방명록.png') no-repeat center/contain;
 }
-.board-list{display: none;}
+
 /* ----------------------- 방명록 리스트 ----------------------- */
+.board-list{display: none;}
 /* x 버튼 */
 .x-btn {
     position: absolute;
@@ -177,19 +181,10 @@ input[type=checkbox] {
 
 
 
-/* ----------------------- 방명록 상세 ----------------------- */
+/* ----------------------- 방명록 상세, 작성 제목부분 ----------------------- */
 .board-detail *{
     box-sizing: border-box;
     /* border: 1px solid red; */
-}
-.board-detail{display: flex;}
-/* back 버튼 */
-.back-btn {
-    position: absolute;
-    width: 48px;
-    top: 2%;
-    right: -0.2%;
-    cursor: pointer;  
 }
 /* 방명록 제목 */
 .board-detail-title{
@@ -205,6 +200,17 @@ input[type=checkbox] {
     top: -3%;
     left: 50%;
     transform: translate(-50%, -50%);
+}
+
+/* ----------------------- 방명록 상세 ----------------------- */
+.board-detail{display: none;}
+/* back 버튼 */
+.back-btn {
+    position: absolute;
+    width: 48px;
+    top: 2%;
+    right: -0.2%;
+    cursor: pointer;  
 }
 .board-detail-area{
     width: 600px;
@@ -264,3 +270,27 @@ input[type=checkbox] {
 /* 스크롤 안보이게 */
 ::-webkit-scrollbar{display: none;}
 
+
+/* ----------------------- 방명록 작성 ----------------------- */
+.board-write{display: block;}
+.board-write-area{
+    width: 600px;
+    height: 340px;
+    margin: auto;
+	text-align: center;
+}
+.board-write-ck{text-align: right; margin: 10px 20px 0 0;}
+#board-write-content{
+	margin-top: 116px;
+	resize: none;
+	padding: 20px 20px;
+	font-size: var(--fontsize16);
+	line-height: 148%;
+}
+
+/* 작성버튼 컬러 */
+.board-write-btn{
+    background-color: #ffbc2b;
+    border: 2.5px solid #c7952a;
+    margin: 0;
+}
