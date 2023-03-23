@@ -1,25 +1,26 @@
 /* 유저 정보창 css - 가영 */
-.wrap{width:1300px; height:800px;}
+
 /*정보창*/
 .user-info-view{
 	z-index: 1;
 	width: 57.5%;
 	height: 62%;
-	transform: translate(36%, 20%);
+	transform: translate(38%, 11%);
 	position: relative;
 }
+.user-info-view img{width:100%;}
 
 /*닉네임*/
 .nickname{
 	z-index: 2;
-	top: 18%;
-    left: 40.1%;
+	top: 20.7%;
+    left: 41.1%;
     width: 19.3%;
     height: 6%;
 	font-weight: bold;
     font-size: 28px;
     text-align: center;
-    line-height: 188%;
+    line-height: 197%;
     position: absolute;
 }
 
@@ -27,25 +28,29 @@
 .heart{
     z-index: 2;
     position: absolute;
-    top: 31.6%;
+    top: 33.5%;
     left: 31.5%;
     width: 2.5%;
+    cursor: pointer;
 }
 .heart-off{width: 100%;}
+
+/*호감도 갯수*/
 .heart-int{
 	z-index: 2;
     position: absolute;
-    top: 31.1%;
-    left: 34.5%;
+    top: 33.1%;
+    left: 34.6%;
     color: white;
     font-size: 33px;
+    cursor: pointer;
 }
 
 /*유저 캐릭터*/
 .user{
 	z-index: 2;
 	position: absolute;
-	top: 37%;
+	top: 40%;
     left: 29%;
 	width: 11%;
 }
@@ -56,7 +61,7 @@
     z-index: 2;
     position: absolute;
     left: 33.9%;
-    top: 59%;
+    top: 61.8%;
     width: 1.5%;
 }
 .gender img{width: 100%;}
@@ -67,8 +72,8 @@
 	z-index: 2;
 	width: 24%;
     height: 22.5%;
-    top: 27.8%;
-    left: 44.8%;
+    top: 30.7%;
+    left: 45.9%;
 	overflow-y: scroll;
 	padding: 0.8rem 1rem;
 	line-height: 133%;
@@ -86,25 +91,41 @@ button{
     height: 100%;
     font-size: 17px;
 }
-.button{
+
+/*친구추가, 친구삭제, 놀러가기 버튼*/
+.btns1{
 	z-index: 2;
     position: absolute;
     border: 0;
-    top: 88.1%;
-    left: 49.5%;
+    top: 59.6%;
+    left: 48.8%;
     display: inline-block;
-    width: 21.3%;
+    width: 20.6%;
     height: 4%;
 }
-.button2{
+
+/*1:1채팅, 신고하기 버튼*/
+.btns2{
 	z-index: 2;
     position: absolute;
     border: 0;
-    top: 96.6%;
-    left: 49.5%;
+    top: 66%;
+    left: 48.9%;
     display: inline-block;
-    width: 21.3%;
+    width: 20.4%;
     height: 4%;
 }
-.plus, .chatting{float: left;}
+.plus, .delete, .chatting{float: left;}
 .friend-home, .report{float: right;}
+
+/*닫기 버튼*/
+.x-btn{
+	z-index: 2;
+    position: absolute;
+    top: 22.7%;
+    left: 75.1%;
+    width: 3%;
+    height: 4.9%;
+    cursor: pointer;
+}
+.x-btn img{width:100%;}

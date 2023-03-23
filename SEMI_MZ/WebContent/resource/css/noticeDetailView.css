@@ -1,0 +1,55 @@
+@charset "UTF-8";
+/* 공지사항 게시판 상세보기css - 가영*/
+
+/*공지사항 상세보기창*/
+.detail-view{
+	position: relative;
+    z-index: 1;
+    transform: translate(39%, 11%);
+    width: 57%;
+    height: 484px;
+}
+.detail-view img{
+	width: 100%;
+    height: 100%;
+}
+.notice-name{
+	position: absolute;
+    z-index: 2;
+    top: 17.3%;
+    left: 43.1%;
+    width: 15.2%;
+    height: 5.8%;
+    text-align: center;
+    line-height: 52px;
+    font-size: 30px;
+}
+
+/*공지사항 리스트*/
+.notice-list{
+	position: absolute;
+    z-index: 2;
+    top: 29%;
+    left: 26%;
+    line-height: 30px;
+    list-style: none;
+}
+.notice-list li{
+	padding: 0;
+    margin-bottom: 5px;
+    border-bottom: 1px solid tan;
+    cursor: pointer;
+}
+.notice-list li:before{
+	content: ">";
+	display: inline-block;
+	vertical-align: middle;
+	padding: 0px 5px 4px 0px;
+}
+.notice-list li:hover{
+	background: #000;
+	color: #000;
+	width: 100%;
+	border-radius: 30px;
+	background: #EC4D36;
+}
