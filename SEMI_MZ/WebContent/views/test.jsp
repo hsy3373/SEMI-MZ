@@ -25,7 +25,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
 	 <br> <br>
 	<!-- <a href="./myroom.jsp">마이룸</a>
 	 <a href="userinfo.jsp">정보창</a> -->
-	 <%@ include file="../views/noticeDetailView.jsp" %>
+	 <%@ include file="../views/myroom.jsp" %>
 	
 	<script src="../resource/js/common.js"></script>
 </body>
