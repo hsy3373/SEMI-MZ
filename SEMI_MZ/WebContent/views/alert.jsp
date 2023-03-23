@@ -12,14 +12,16 @@
 </head>
 <body>
 
-	<!-- 삭제 버튼(각자 추가해야하는 위치에 추가하면 됨) -->
 	<!-- 
 		삭제 버튼(각자 추가해야하는 위치에 추가하면 됨)
-		alert-toggle 은 삭제 x
-		다른버튼으로 변경이나 추가싶으면 board-delete-btn 클래스명만 변경하면 됨
-		alert.css파일 '삭제버튼'이라고 주석달아논 곳도 변경해줘야 됨
+		alert-toggle button 은 삭제 x
+		다른버튼으로 변경이나 색상싶으면 클래스명부여 하면됨
+		alert.css파일 '삭제 버튼'이라고 주석달아논 곳도 변경해줘야 됨
+		(현재 board-delete-btn는 css 색상변경만 된것 / css파일 참고면 됩니다)
 	-->
-	<button class="alert-toggle board-delete-btn">삭제</button>
+	<!-- alert창 실행시키기위한 외부 버튼
+		(각자 추가해야하는 위치에 추가하고 텍스트(삭제) 및 (class="board-delete-btn")변경하면됨) -->
+	<button class="alert-toggle button board-delete-btn">삭제</button>
 
 
 	<!-- alert 창 -->
@@ -28,7 +30,9 @@
 		따로 빼실거면 위에 링크 걸면 됩니당
 	 -->
     <div class="alert">
-      <h3>삭제하시겠습니까?</h3>
+		<!-- alert창 내부 문구 -->
+		<h3>삭제하시겠습니까?</h3>
+		<!-- alert창 내부 문구 -->
       <div>
 	      <button id="alert-ok">확인</button>
 	      <button id="alert-cancel">취소</button> 
