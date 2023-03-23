@@ -1,7 +1,10 @@
+<%@ page import="mz.member.model.vo.Member" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
-
+<%
+	String contextPath = request.getContextPath();
+	Member loginUser = (Member) session.getAttribute("loginUser");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,14 +12,15 @@
 <title>광장</title>
 <link href="../resource/css/common.css" rel="stylesheet" type="text/css">
 <link href="../resource/css/square.css" rel="stylesheet" type="text/css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 </head>
 <body>
 	<!-- 광장 메인 jsp 작성 : 윤지영 -->
 	<div id="mainSquare" style="display: flex; justify-content : center;">
+	
+	</div>
         
-    </div>
-
     
     <!--모달창 : 친구목록 -->
     <div class="modal modal1">
@@ -56,10 +60,22 @@
       </div>
 
     
-    <script>
-       
-    </script>
-
+    <!-- 확인용 ^^ --> 
+	<%
+		//System.out.print(contextPath);
+		System.out.print(loginUser);
+	%>
+	
+	<script>
+		//console.log(contextPath);
+		
+		let name = loginUser.getNicName();
+		
+		console.log(name);
+	</script>
+    
+   
+	
 
     <!--이미지선언-->
     <img id="myhome2" src="../resource/img/icon/home.png" style="display: none;">

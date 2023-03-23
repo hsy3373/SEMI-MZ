@@ -43,6 +43,8 @@ function loadImage(){
 }
 
 
+//유저 네임 세팅 
+
 
 //캐릭터 세팅 (추후 DB로 변경예정)
 let userbd = new Image();
@@ -95,8 +97,8 @@ let keysDown = {};
 function setupKeyboard(){
     document.addEventListener("keydown", function(event){
         keysDown[event.keyCode] = true
-        console.log(uesrX)
-        console.log(uesrY)
+        //console.log(uesrX)
+        //console.log(uesrY)
     });
 
     document.addEventListener("keyup", function(event){
