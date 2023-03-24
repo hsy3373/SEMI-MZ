@@ -1,4 +1,4 @@
-package mz.chatting.service;
+package mz.chatting.model.service;
 
 public class ChatService {
 
