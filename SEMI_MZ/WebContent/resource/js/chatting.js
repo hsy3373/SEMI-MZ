@@ -5,45 +5,46 @@ import { getContextPath } from "./common.js";
 
 let ip = ["192.168.30.180", "192.168.0.2"];
 
-const socket = new WebSocket(`ws://${ip[1]}/mzone/chatting.do`);
+const socket = new WebSocket(`ws://${ip[0]}:8082${getContextPath()}/websocket`);
+console.log(socket, "소켓");
 socket.onopen = function (e) {
   console.log("접속성공");
   console.log(e);
 };
 
 // 2. 웹 소켓 서버에서 sendText, sendObject메소드를 실행하면 실행되는 함수
-socket.onmessage = function (e) {
-  console.log("메세지 수신");
-  // 수신된 데이터를 받으려면 이벤트 객체(e)의 data속성을 이용
-  console.log(e);
-  console.log(e.data);
+// socket.onmessage = function (e) {
+//   console.log("메세지 수신");
+//   // 수신된 데이터를 받으려면 이벤트 객체(e)의 data속성을 이용
+//   console.log(e);
+//   console.log(e.data);
 
-  //Object형태의 String데이터를 객체로 변환해주기 (JSONObject)
-  console.log(JSON.parse(e.data));
+//   //Object형태의 String데이터를 객체로 변환해주기 (JSONObject)
+//   console.log(JSON.parse(e.data));
 
-  let msg = JSON.parse(e.data);
-  if (msg["sender"] == $("#sender").val()) {
-    $("#msgContainer").append(
-      $("<p>")
-        .text("<" + msg["sender"] + ">" + msg["msg"])
-        .css("text-align", "right")
-    );
-  } else {
-    $("#msgContainer").append(
-      $("<p>")
-        .text("<" + msg["sender"] + ">" + msg["msg"])
-        .css("text-align", "left")
-    );
-  }
+//   let msg = JSON.parse(e.data);
+//   if (msg["sender"] == $("#sender").val()) {
+//     $("#msgContainer").append(
+//       $("<p>")
+//         .text("<" + msg["sender"] + ">" + msg["msg"])
+//         .css("text-align", "right")
+//     );
+//   } else {
+//     $("#msgContainer").append(
+//       $("<p>")
+//         .text("<" + msg["sender"] + ">" + msg["msg"])
+//         .css("text-align", "left")
+//     );
+//   }
 
-  // 			let msg = e.data.split(",");
-  // 				console.log(msg);
-  // 			if(msg[0] == $("#sender").val()){
-  // 				$("#msgContainer").append($("<p>").text("<"+msg[0]+">"+msg[2]).css("text-align","right"));
-  // 			}else{
-  // 				$("#msgContainer").append($("<p>").text("<"+msg[0]+">"+msg[2]).css("text-align","left"));
-  // 			}
-};
+//   // 			let msg = e.data.split(",");
+//   // 				console.log(msg);
+//   // 			if(msg[0] == $("#sender").val()){
+//   // 				$("#msgContainer").append($("<p>").text("<"+msg[0]+">"+msg[2]).css("text-align","right"));
+//   // 			}else{
+//   // 				$("#msgContainer").append($("<p>").text("<"+msg[0]+">"+msg[2]).css("text-align","left"));
+//   // 			}
+// };
 
 // 3. 웹 소켓 서버에서 메세지를 전송하는 함수
 const sendMsg = () => {
@@ -265,12 +266,17 @@ let changeChatColor = function () {
 
 //--------------- enter 입력 관련 처리 ---------------
 
+// todo!!! 이후 방명록 작성화면에서 충돌이 날 수 있으니 합칠때 다시 로직 변경해야함!!!
+
+// 채팅창 내부 textarea 안에서 엔터가 눌렸을 경우 처리
 let textareaEnterKey = function () {
   document
     .getElementById("text-send")
     .addEventListener("keydown", function (e) {
+      // 엔터키면 보내기 후 내용 없애기, shift+enter 면 줄바꿈 처리
       if (e.key == "Enter") {
         if (!e.shiftKey) {
+          // db와 소켓에 채팅내용 전달하는 로직 구성해야 함
           e.preventDefault(); // 기본 동작 막기
           document.getElementById("text-send").value = "";
           handleResizeHeight();
@@ -279,6 +285,7 @@ let textareaEnterKey = function () {
     });
 };
 
+// 윈도우 화면에서 엔터가 눌렸을 경우 처리
 let eventEnterKey = function () {
   window.addEventListener("keyup", function (e) {
     if (e.key == "Enter") {
@@ -349,8 +356,8 @@ window.onload = function () {
   textareaEnterKey();
   getChattings("friend");
   getChatRoomList();
-  $("#btn-send").click(function(){
-  	getChattings("friend");
+  $("#btn-send").click(function () {
+    getChattings("friend");
   });
 
   sessionStorage.setItem("key", "테스트용");

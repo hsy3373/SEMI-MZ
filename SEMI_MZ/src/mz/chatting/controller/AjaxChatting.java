@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.websocket.Session;
 
 import com.google.gson.Gson;
 
@@ -49,6 +50,8 @@ public class AjaxChatting extends HttpServlet {
 		String userId = ((Member)request.getSession().getAttribute("loginUser")).getUserId();
 		
 		System.out.println(recevier + "  " + userId);
+		System.out.println("ajax 쪽에서 불림 "+ request.getSession());
+		System.out.println("ajax 쪽에서 불림 "+ request.getSession().getId());
 		
 		
 		if(recevier != null) {
