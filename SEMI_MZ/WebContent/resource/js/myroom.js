@@ -3,6 +3,7 @@
  *	마이룸  JS
  */
 $(function(){
+	/* -------------------- 방명록 -------------------- */
     /* 방명록 모달창 띄우기 */
     $(".icon-tree").click(function(e){
         $(".board-wrap").show();
@@ -25,7 +26,8 @@ $(function(){
     })
     
     /* x버튼 or 바깥 클릭시 모달창 사라짐 */
-    $("body").on("click", function(e) { 
+    $("body").on("click", function(e) {
+        console.log(e.target);
         if(e.target.className == 'x-btn' || e.target.className == 'board-wrap'){
             $(".board-wrap").hide();
         }
@@ -43,6 +45,13 @@ $(function(){
     $("#alert-ok").click(function(){
 		/*location.href = "${ contextPath }/delete.bo?bno=<%= b.getBoardNo() %>";*/
     })
+    
+    /* 방명록 작성 이벤트 */
 
 
+	/* -------------------- 옷장 -------------------- */
+	    /* 방명록 모달창 띄우기 */
+    $(".icon-closet").click(function(e){
+        $(".closet-wrap").show();
+    })
 });
