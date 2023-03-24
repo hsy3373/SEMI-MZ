@@ -24,9 +24,9 @@ pageEncoding="UTF-8"%>
     <script>
       window.onload = function (event) {
         window.open(
-          '<%= request.getContextPath()%>/views/test.jsp',
-          'windowName',
-          'resizeable'
+          "<%= request.getContextPath()%>/views/test.jsp",
+          "windowName",
+          "resizeable"
         );
       };
     </script>
