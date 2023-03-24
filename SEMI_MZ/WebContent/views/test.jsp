@@ -16,7 +16,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="contextPath" value="<%= request.getContextPath() %>"/>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link href="./resource/css/common.css" rel="stylesheet" type="text/css">
+<link href="../resource/css/common.css" rel="stylesheet" type="text/css">
 </head>
 <body>
  	test용 페이지 <br>
@@ -24,9 +24,9 @@ uri="http://java.sun.com/jsp/jstl/core" %>
 	현재 테스트용 유저 정보 : <%= test.toString() %>
 	 <br> <br>
 	<!-- <a href="./myroom.jsp">마이룸</a>
-	 <a href="userinfo.jsp">정보창</a> -->
-	 <%@ include file="../views/myroom.jsp" %>
+	<a href="userInfo.jsp">정보창</a> -->
+	<%@ include file="../views/report.jsp" %>
 	
-	<script src="../resource/js/common.js"></script>
+	<script type="module" src="../resource/js/common.js"></script>
 </body>
 </html>

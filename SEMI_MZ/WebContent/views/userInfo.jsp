@@ -38,6 +38,6 @@
 			<img alt="닫기 버튼" src="../resource/img/icon/엑스 버튼.png">
 		</div>
 	</div>
-	<script src="../resource/js/common.js"></script>
+	<script type="module" src="../resource/js/common.js"></script>
 </body>
 </html>

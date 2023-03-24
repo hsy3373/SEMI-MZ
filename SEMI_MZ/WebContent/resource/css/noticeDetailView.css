@@ -58,18 +58,18 @@
 .date{
     position: absolute;
     z-index: 2;
-    top: 33.5%;
-    left: 66%;
+    top: 31.7%;
+    left: 66.2%;
 }
 .title{
     position: absolute;
     z-index: 2;
     border: solid 1px gray;
-    top: 37%;
+    top: 34.5%;
     left: 43.1%;
     width: 29.25%;
     height: 5%;
-    line-height: 32px;
+    line-height: 38px;
     padding-left: 8px;
     border-radius: 6px;
 }
@@ -77,23 +77,24 @@
     position: absolute;
     z-index: 2;
     border: solid 1px gray;
-    top: 43%;
+    top: 40.5%;
     left: 43.1%;
-    width: 28.45%;
-    height: 38.1%; 
+    width: 28.7%;
+    height: 26.1%; 
     border-radius: 6px;  
-    padding: 4px 9px 0px 9px;
+    padding: 0.5rem 0.5rem;
     overflow-y: scroll;
     line-height: 20px;
     font-size: 14px;
+    text-align: justify;
 }
-.content::-webkit-scrollbar{display: none;}
+::-webkit-scrollbar{display: none;}
 
 /*닫기 버튼*/
 .x-btn{
 	z-index: 2;
     position: absolute;
-    top: 15.5%;
+    top: 18.1%;
     left: 75.3%;
     width: 3.2%;
     cursor: pointer;
