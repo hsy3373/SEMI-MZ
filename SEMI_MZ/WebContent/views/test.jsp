@@ -26,6 +26,6 @@ uri="http://java.sun.com/jsp/jstl/core" %>
 	<a href="./myroom.jsp">마이룸</a> -->
 	 
 	
-	<script src="../resource/js/common.js"></script>
+	<script type="module" src="../resource/js/common.js"></script>
 </body>
 </html>
