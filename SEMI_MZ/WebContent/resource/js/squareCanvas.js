@@ -12,7 +12,7 @@ canvas = document.createElement("canvas");
 ctx = canvas.getContext("2d");
 canvas.width = 1300;
 canvas.height = 800;
-document.getElementById("mainSquare").appendChild(canvas);
+document.getElementById("main-square").appendChild(canvas);
 
 let noticeBoard, myhome, squarebackground;
 
@@ -47,29 +47,29 @@ function loadImage(){
 //console.log(userSkin)
 
 //캐릭터 세팅 
-// let userbd = new Image();
-// userbd.src = "../resource/img/user/skin"+userSkin+"/bd.png"
+let userbd = new Image();
+userbd.src = "../resource/img/user/skin"+userSkin+"/bd.png"
 
-// let userbs = new Image();
-// userbs.src = "../resource/img/user/skin"+userSkin+"/bs.png"
+let userbs = new Image();
+userbs.src = "../resource/img/user/skin"+userSkin+"/bs.png"
 
-// let userfd = new Image();
-// userfd.src = "../resource/img/user/skin"+userSkin+"/fd.png"
+let userfd = new Image();
+userfd.src = "../resource/img/user/skin"+userSkin+"/fd.png"
 
-// let userfs = new Image();
-// userfs.src = "../resource/img/user/skin"+userSkin+"/fs.png"
+let userfs = new Image();
+userfs.src = "../resource/img/user/skin"+userSkin+"/fs.png"
 
-// let userld = new Image();
-// userld.src = "../resource/img/user/skin"+userSkin+"/ld.png"
+let userld = new Image();
+userld.src = "../resource/img/user/skin"+userSkin+"/ld.png"
 
-// let userls = new Image();
-// userls.src = "../resource/img/user/skin"+userSkin+"/ls.png"
+let userls = new Image();
+userls.src = "../resource/img/user/skin"+userSkin+"/ls.png"
 
-// let userrd = new Image();
-// userrd.src = "../resource/img/user/skin"+userSkin+"/rd.png"
+let userrd = new Image();
+userrd.src = "../resource/img/user/skin"+userSkin+"/rd.png"
 
-// let userrs = new Image();
-// userrs.src = "../resource/img/user/skin"+userSkin+"/rs.png"
+let userrs = new Image();
+userrs.src = "../resource/img/user/skin"+userSkin+"/rs.png"
 
 
 //캐릭터 좌표(스타팅 x,y)
@@ -77,7 +77,7 @@ let uesrX = canvas.width - 400
 let uesrY = canvas.height - 70;
 
 //유저 이미지 지정
-//let user = userfs;
+let user = userfs;
 
 //이미지 랜더링
 function render(){
@@ -87,7 +87,7 @@ function render(){
     ctx.drawImage(gamezone, 230,200,180,146.4)
     //ctx.drawImage(Listbutton, 1220,730, 50,50)
     //ctx.drawImage(friendList, 1160,730,50,50)
-    // ctx.drawImage(user, uesrX, uesrY,50,50);
+    ctx.drawImage(user, uesrX, uesrY,50,50);
     ctx.font = '12px Sans-Serif'
     ctx.fillText(username, uesrX+2, uesrY+60);
     
@@ -150,52 +150,6 @@ canvas.addEventListener("click", function(event){
     console.log(clickX,clickY);
 
 })
-
-
-//버튼이벤트
-//버튼세팅 
-const friendList = document.querySelector('.friendList'); //친구목록버튼
-const Listbutton = document.querySelector('.Listbutton'); //환경설정버튼
-
-//버튼 클릭 : 친구목록
-friendList.addEventListener('click', () => {
-    modal1.style.display = 'block';
-});
-
-//버튼 클릭 : 환경설정
-Listbutton.addEventListener('click', () => {
-    modal2.style.display = 'block';
-});
-
-//모달 이벤트
-
-//모달 세팅
-const modal1 = document.querySelector('.modal1'); //친구목록
-const modal2 = document.querySelector('.modal2'); //환경설정
-const logoutButton = document.querySelector('.modal_button2'); //로그아웃버튼
-const mydateButton = document.querySelector('.modal_button1'); //내정보 변경
-const Preferences = document.getElementById("Preferences");
-
-//X버튼 종료이벤트 : 친구목록 
-document.querySelector('.x-btn1').addEventListener('click', () => {
-    modal1.style.display = 'none';
-});
-
-
-//X버튼 종료이벤트 : 환경설정 
-document.querySelector('.x-btn2').addEventListener('click', () => {
-    modal2.style.display = 'none';
-});
-
-//로그아웃창 연결
-logoutButton.addEventListener('click', () => {
-    console.log("로그아웃 이벤트 부여")
-});
-
-//내정보 변경 연결
-mydateButton.addEventListener('click', () => {
-    console.log("내정보변경  이벤트 부여")
-});
 
 
 //마우스 호버 이벤트 : 미구현

@@ -12,70 +12,20 @@
 <title>광장</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <link href="../resource/css/common.css" rel="stylesheet" type="text/css">
-<link href="../resource/css/square.css" rel="stylesheet" type="text/css">
 
 
 </head>
 <body>
 	<!-- 광장 메인 jsp 작성 : 윤지영 -->
-	<div id="mainSquare" style="display: flex; justify-content : center;">
-	
+	<div id="main-square" style="display: flex; justify-content : center;">
 	</div>
         
 
-    <!--모달창 분리를 위해 버튼도 따로뻄-->
-    <div class="button_area">
-        <div class="friendList">
-            <img src="../resource/img/icon/친구목록 버튼.png" style=" width: 50px;" > 
-        </div>
-    </div>
-    <div class="button_area">
-        <div class="Listbutton">
-            <img src="../resource/img/icon/목록 버튼.png" style=" width: 50px;">
-        </div>
-    </div>
+    <!--버튼 모달 jps 가져옴 : 윤지영-->
+    <%@ include file="./buttonList.jsp" %>
 
-
-    <!--모달창 : 친구목록 -->
-    <div class="modal modal1">
-        <div class="modal_body">
-            <div class="modal-out-btn"><img src="../resource/img/icon/엑스 버튼.png" class="x-btn x-btn1"></div>
-            <div class="modal-background">
-                <div class="modal-textarea">
-                    <table class="display-center"> 
-                        <!--데이터 베이스에서 받아서 적용할 에정 : 10명까지 -->
-                        <tr><td>친구1 :</td><td>접속중</td><td>놀러가기</td></tr>
-                        <tr><td>친구1 :</td><td>접속중</td><td>놀러가기</td></tr>
-                        <tr><td>친구1 :</td><td>접속중</td><td>놀러가기</td></tr>
-                        <tr><td>친구1 :</td><td>접속중</td><td>놀러가기</td></tr>
-                        <tr><td>친구1 :</td><td>접속중</td><td>놀러가기</td></tr>
-                        <tr><td>친구1 :</td><td>접속중</td><td>놀러가기</td></tr>
-                        <tr><td>친구1 :</td><td>접속중</td><td>놀러가기</td></tr>
-                        <tr><td>친구1 :</td><td>접속중</td><td>놀러가기</td></tr>
-                        <tr><td>친구1 :</td><td>접속중</td><td>놀러가기</td></tr>
-                        <tr><td>친구1 :</td><td>접속중</td><td>놀러가기</td></tr>
-                    </table> 
-                </div> 
-            </div>
-        </div>
-      </div>
-
-    <!--모달창 : 환경설정 -->
-    <div class="modal modal2" >
-        <div class="modal_body" id="Preferences">
-            <div class="modal-out-btn2"><img src="../resource/img/icon/엑스 버튼.png" class="x-btn x-btn2"></div>
-            <div class="modal_button1">
-            <a>내 정보 변경</a>
-            </div>
-            <div class="modal_button2">
-            <a> 로그아웃 </a>
-            </div>
-        </div>
-      </div>
-
-
-
-   		<!--${loginUser.nicName}  -->
+   
+   	<!--${loginUser.nicName}  -->
    		
     
     <!-- 확인용 ^^ --> 

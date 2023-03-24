@@ -1,9 +1,9 @@
 
-/* 광장 css : 작성자 윤지영 */
+/* 광장 모달버튼 css : 작성자 윤지영 */
 
 
 /*버튼 css*/
-.button_area{
+.button-area{
     width: 1300px;
     position: relative;
     margin: auto;
@@ -98,7 +98,7 @@ border: 1px solid rebeccapurple;
 /*환경설정 모달*/
 
 /*내정보 변경 버튼*/
-.modal_button1{
+.modal-button1{
     background-image: url(../img/icon/기본텍스트버튼2.png);
     width: 304px;
     height: 104px;
@@ -109,7 +109,7 @@ border: 1px solid rebeccapurple;
 }
 
 /*로그아웃 버튼*/
-.modal_button2{
+.modal-button2{
     background-image: url(../img/icon/기본텍스트버튼2.png);
     width: 304px;
     height: 104px;
