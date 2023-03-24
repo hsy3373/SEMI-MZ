@@ -2,8 +2,8 @@
 /*==================== css 변수 =======================*/
 	:root{
 			--backcolor0:rgba(0, 0, 0, 0);
-			--iptext-width: 350px;
-			--iptext-height: 25px;
+			--iptext-width: 374px;
+			--iptext-height: 28px;
 			--hiptext-width: 350px;
 			
 		}
@@ -34,7 +34,7 @@
 /*==================== 메인로고 =======================*/    
     .mz-logo{
     	margin-top: 220px;
-    	display:block;  /*나중에 block*/  
+    	display:none;  /*나중에 block으로 변경*/  
     }
 	.logo-img-btn{
 		width:450px;
@@ -61,7 +61,7 @@
         background-image: url(../img/login_img/로그인판.png);
         background-size: 400px 600px;
         background-repeat: no-repeat;
-         display:none; /* 로그인판 나중에는 none으로 설정*/
+        /*display:none;  로그인판 나중에는 none으로 설정*/
     }
 /*==================== 1. 기본로그인 =======================*/    
     .login-box{
@@ -194,7 +194,6 @@
       	height:30px;
       }
       .display-center{
-        margin-top: 150px;
         display: flex;
         justify-content: center;
       }
@@ -224,7 +223,6 @@
     	font-size: 20px;
     	color: white;
     } 
-   
     .rqpwd-input{
    		width: 210px;
         height: 27px;
@@ -239,7 +237,6 @@
     .rqpwd-input:focus{
     	 outline: none;
     }
-    
     .subpwd-btn{
     	width: 70px;
     	height:35px;
@@ -257,41 +254,29 @@
     	transform: scale(0.970);
         cursor: pointer;
     }
-   
-	
+/*==================== 내정보변경 모달 =======================*/   
 	.change-info-table{
-		border: 1px solid red;
+		border: 0px solid red;
 		display: flex;
 		justify-content:center;
-		
 	}
-	
 	.change-info-table *{
-		border: 1px solid red;
-		
+		border: 0px solid red;
 	}
-	
-
-	
 	.under-text{
 		font-size: 12px;
-		
+        font-weight: 600;
 	}
-	
 	.inputbox{
 		width: var(--iptext-width);
 		height: var(--iptext-height);
+        font-size: 14;
+        background-color: rgba(255, 255, 255, 0.5);
 	}
-	
-	.h-inputbox{
-		width: var(--hiptext-width);
-		height: var(--iptext-height);
-	}
-	
-	
 	.th1-wid{
 		width:120px;
 		text-align:left;
+        font-size: 14px;
 	}
 	.td3-wid{
 		width:100px;
@@ -299,29 +284,68 @@
 	.th1-hgt{
 		height: 30px;
 	}
-	
-	
 	.modal-textarea{
-		border: 1px solid red;
+		border: 0px solid red;
 		width:640px;
 		height:380px;
 		margin: auto;
 	}
-	
+	.self-info{
+        background-color: rgba(255, 255, 255, 0.5);
+    }
 	::-webkit-scrollbar{display: none;}
+	.scroll-fix{overflow: y}
 	
-	.scroll-fix{
-		overflow-y: 
-	}
-	
+    .ncheck-btn{
+        background-color: #cac8c8;
+        border: 2px solid #999999;
+        padding: 3px 5px;
+        cursor: pointer;
+        font-weight: 600;
+        transition-duration: 0.3s;
+    }
 	#cge-btn{
-	background-color: #c8e8c3;
-    border: 2.5px solid #a1c49b;
+        background-color: #c8e8c3;
+        border: 2.5px solid #a1c49b;
+        padding: 5px 10px;
+        cursor: pointer;
+        font-weight: 600;
+        transition-duration: 0.3s;
 	}
-
 	#sec-btn{
-	background-color: #ededed;
-    border: 2.5px solid #cfd1cf;
+        color: white;
+        background-color: #f84545;
+        border: 2.5px solid #ff0303;
+        padding: 3px 5px;
+        cursor: pointer;
+        transition-duration: 0.3s;
 	}
-	
-	
+    .ncheck-btn:hover,#cge-btn:hover,#sec-btn:hover{
+        transform: scale(0.97);
+    }
+    .readonly{
+        outline: none;
+        cursor: auto;
+    }
+/*==================== 회원가입 모달 =======================*/   
+.display-center{  /*테이블 클래스*/
+    border: 0px solid red;
+}
+.enroll-table{
+    margin-top: 50px;
+}
+
+#enroll-btn{
+    background-color: #c8e8c3;
+        border: 2.5px solid #a1c49b;
+        padding: 10px 30px;
+        cursor: pointer;
+        font-weight: 600;
+        transition-duration: 0.3s;
+}
+#enroll-btn:hover{
+    transform: scale(0.97);
+}
+
+
+

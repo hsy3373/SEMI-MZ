@@ -11,6 +11,7 @@
 <!-- css link -->
 <link href="../resource/css/main.css" rel="stylesheet" type="text/css">
 <link href="../resource/css/common.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="../resource/css/alert.css">
 
 <!-- script link / jQuery library -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
@@ -80,7 +81,7 @@
                 <div class="modal-out-btn"><img src="../resource/img/icon/엑스 버튼.png" class="x-btn x-btn1"></div>
                 <div class="modal-textarea">
                 	<form>
-                    <table class="display-center">
+                    <table class="display-center" style="margin-top: 150px;">
                         <tr><th>회원가입 시에 사용한 계정을 선택해주세요.</th></tr>
                         <tr><th style="color: rgba(119, 117, 117, 0.918);">-----------------------------------------</th></tr>
                         <tr><th><button type="button" class="kakao-btn other-btn"></button></th></tr>
@@ -101,8 +102,48 @@
                 <div class="empty-space"></div>
                 <div class="modal-textarea">
                 	<form>
-	                    <table class="display-center">
-	                        <tr></tr>
+	                    <table class="display-center enroll-table">
+	                        <tr>
+								<th class="th1-wid">- 아이디</th>
+								<td><input type="text" class="inputbox" placeholder="아이디"></td>
+								<td class="td3-wid"><button type="button" class="ncheck-btn">중복확인</button></td>
+							</tr>
+							<tr class="under-text">
+								<td></td>
+								<td>영문, 숫자 사용하여 5~20자 공백없이 가능</td>
+								<td></td>
+							</tr>
+							<tr></tr><tr></tr><tr></tr><tr></tr><tr></tr><tr></tr>
+							<tr>
+								<th class="th1-wid">- 닉네임</th>
+								<td><input type="text" class="inputbox" placeholder="닉네임"></td>
+								<td class="td3-wid"><button type="button" class="ncheck-btn">중복확인</button></td>
+							</tr>
+							<tr class="under-text">
+								<td></td>
+								<td>영문, 한글, 숫자, 특수기호(_) 사용하여 2~8자까지 공백없이 가능</td>
+								<td></td>
+							</tr>
+							<tr></tr><tr></tr><tr></tr><tr></tr><tr></tr><tr></tr>
+							<tr>
+								<th class="th1-wid">- 비밀번호</th>
+								<td><input type="password" class="inputbox" placeholder="비밀번호"></td>
+								<td></td>
+							</tr>
+							<tr>
+								<th class="th1-wid"></th>
+								<td><input type="password" class="inputbox" placeholder="비밀번호 확인"></td>
+								<td></td>
+							</tr>
+							<tr class="under-text">
+								<td></td>
+								<td>영문, 숫자, 특수기호 포함 8~16자 입력 가능</td>
+								<td></td>
+							</tr>
+							<tr class="empty-space"></tr>
+							<tr>
+								<th colspan="3"><button id="enroll-btn">회원 가입</button></th>
+							</tr>
 	                    </table>
 					</form>
                 </div>
@@ -118,9 +159,30 @@
                 <div class="empty-space"></div>
                 <div class="modal-textarea">
                 	<form>
-	                    <table class="display-center">
-	                        <tr></tr>
-	                    </table>
+	                    <table class="display-center" style="margin-top:50px;">
+							<tr><th colspan="3">이용 중인 아이디 : //사용자아이디표시//</th></tr>
+							<tr><th colspan="3" style="color: rgba(119, 117, 117, 0.918);">-------------------------------------------------------------</th></tr>
+							<tr class="empty-space"></tr>
+							<tr>
+								<th class="th1-wid">- 새 비밀번호</th>
+								<td><input type="password" class="inputbox" placeholder="비밀번호"></td>
+								<td></td>
+							</tr>
+							<tr>
+								<th class="th1-wid"></th>
+								<td><input type="password" class="inputbox" placeholder="비밀번호 확인"></td>
+								<td></td>
+							</tr>
+							<tr class="under-text">
+								<td></td>
+								<td>영문, 숫자, 특수기호 포함 8~16자 입력 가능</td>
+								<td></td>
+							</tr>
+							<tr style="height:90px"></tr>
+							<tr>
+								<th colspan="3"><button id="enroll-btn">비밀번호 재설정</button></th>
+							</tr>
+						</table>
 	                </form>
                 </div>
             </div>
@@ -152,40 +214,40 @@
                 <form>
                     <table class="change-info-table">
                     	<tr>
-                        	<th class="th1-wid">아이디</th>
-                        	<td><input type="text" class="inputbox" placeholder="유저 아이디" readonly></td>
+                        	<th class="th1-wid">- 아이디</th>
+                        	<td><input type="text" class="inputbox readonly" placeholder="유저 아이디" readonly></td>
                         	<td></td>
                         </tr>
-                        
+                        <tr></tr><tr></tr>
                         <tr>
-                        	<th class="th1-wid">닉네임 변경</th>
+                        	<th class="th1-wid">- 닉네임 변경</th>
                         	<td><input type="text" class="inputbox" placeholder="닉네임"></td>
-                        	<td class="td3-wid"><button type="button">중복확인</button></td>
+                        	<td class="td3-wid"><button type="button" class="ncheck-btn">중복확인</button></td>
                         </tr>
                         <tr class="under-text">
                         	<td></td>
-                        	<td> 영문, 한글, 숫자, 특수기호(_) 사용하여 2~8자까지 가능</td>
+                        	<td> 영문, 한글, 숫자, 특수기호(_) 사용하여 2~8자까지 공백없이 가능</td>
                         	<td></td>
                         </tr>
-                        
+                        <tr></tr><tr></tr><tr></tr><tr></tr>
                         <tr>
-                        	<th class="th1-wid">비밀번호 변경</th>
+                        	<th class="th1-wid">- 비밀번호 변경</th>
                         	<td><input type="password" class="inputbox" placeholder="비밀번호"></td>
                         	<td></td>
                         </tr>
-                        <tr class="under-text">
-                        	<td></td>
-                        	<td>영문, 숫자, 특수기호 포함 8~16자 입력 가능</td>
-                        	<td></td>
-                        </tr>
                         <tr>
-                        	<th class="th1-wid">비밀번호 확인</th>
+							<th class="th1-wid"></th>
                         	<td><input type="password" class="inputbox" placeholder="비밀번호 확인"></td>
                         	<td></td>
                         </tr>
-                        
+						<tr class="under-text">
+							<td></td>
+							<td>영문, 숫자, 특수기호 포함 8~16자 입력 가능</td>
+							<td></td>
+						</tr>
+                        <tr></tr><tr></tr>
                         <tr>
-                        	<th class="th1-wid th1-hgt">성별</th>
+                        	<th class="th1-wid th1-hgt">- 성별</th>
                         	<td>
                         		<input type="radio" id="W" name="gender" value="W">
         						<label for="W">여</label>
@@ -198,17 +260,16 @@
                         </tr>
                         
                         <tr>
-                        	<th class="th1-wid">자기소개</th>
+                        	<th class="th1-wid">- 자기소개</th>
                         	<td>
-                        		<textarea class="scroll-fix" name="selfInfo" cols="50" rows="8" style="resize:none;" placeholder="비밀번호 확인"></textarea>
+                        		<textarea class="scroll-fix self-info" name="selfInfo" cols="50" rows="8" style="resize:none;" placeholder="자기소개 작성란"></textarea>
                         	</td>
                         	<td></td>
                         </tr>
                         <tr>
-                        	<th colspan="3">
-                        		<button id="cge-btn">정보수정</button>
-	      						<button id="sec-btn">회원탈퇴</button>
-                        	</td>
+							<td></td>
+                        	<th><button id="cge-btn">정보수정</button></th>
+							<td style="text-align: right;"><button id="sec-btn" class="alert-toggle button">회원탈퇴</button></td>
                         </tr>
                     </table>
                     </form>
@@ -222,12 +283,28 @@
 	
 	
 	
+
+
+
+
+
+<!-- ============================ alert 창 ================================= -->      
+	<div class="alert">
+		<!-- alert창 내부 문구 -->
+		<h3>정말 탈퇴하시겠습니까?</h3>
+		<!-- alert창 내부 문구 -->
+	<div>
+		<button id="alert-ok">확인</button>
+		<button id="alert-cancel">취소</button> 
+	</div>
+	</div>
+	<div class="alert-overlay"></div>
+
+
+
+	<script src="../resource/js/alert.js"></script>
 	
-      <script src="../resource/js/main.js"></script> 
-	
-	
-	
-	
+    <script src="../resource/js/main.js"></script> 
 	
 </body>
 </html>`
