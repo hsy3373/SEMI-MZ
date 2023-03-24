@@ -7,7 +7,7 @@
  */
  /* --------------- alert창 실행시키기위한 외부 버튼 --------------- */
  /*  클래스명 button 기본 베이스 */
- .button {
+.button {
      border-radius: 15px;
      width: 80px;
      height: 34px;
@@ -26,30 +26,32 @@
      font-size: var(--fontsize14);
      font-weight: var(--fontweight900);
     }
-/* 삭제 버튼 */
+
+/* 삭제(지의 방명록) */
 .board-delete-btn{
     background-color: #fa453e;
     border: 2.5px solid #bf2d28;
     margin-top: 15px;
+
 }
 
 /* --------------- alert 창관련 css --------------- */
 /* --------------- alert 창안에서 버튼 --------------- */
 /* 확인 버튼 */
 .alert-ok{
-   background-color: #c8e8c3;
+	background-color: #c8e8c3;
     border: 2.5px solid #a1c49b;
 }
 /* 취소 버튼 */
 .alert-cancel{
-   background-color: #ededed;
+	background-color: #ededed;
     border: 2.5px solid #cfd1cf;
 }
-.alert-ok:hover, .alert-cancel:hover{
-	transform: scale(0.97);
-	cursor: pointer;
-}
-
+/* 버튼 클릭시 커서포인터, 버튼크기 살짝 작아지는 호버효과 */
+.alert-ok:hover, .alert-cancel:hover, .alert-toggle:hover{
+    transform: scale(0.97);
+    cursor: pointer;
+ }
 /* 전체 틀 */
 .alert {
   width: 25%;
