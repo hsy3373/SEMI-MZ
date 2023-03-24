@@ -43,8 +43,10 @@
         <div class="myroom_user">
             <input type="checkbox" name="heart-ck" id="heart">
             <label class="font" for="heart">12</label>
-            <img class="user-skin" src="../resource/img/user/skin01/fs.png">
-        </div>       
+            <img class="user-skin" src="../resource/img/user/skin1/fs.png">
+        </div>
+		<button class="alert-toggle board-delete-btn2 button" id="test1">수정</button>
+		<button class="alert-toggle board-delete-btn button" id="test2" >삭제</button>
     </div>
 	
 	<!-- ============================= 방명록 모달 ============================= -->
@@ -105,7 +107,7 @@
 				<div class="board-detail-area">
 				    <div class="board-detail-content">
 				        <div class="board-detail-friend">
-			                <img class="friend-skin" src="../resource/img/user/skin01/fs.png">
+			                <img class="friend-skin" src="../resource/img/user/skin2/fs.png">
 				            <div class="friend-id">swldml 노</div>
 				        </div>
 				        <div class="board-detail-table">
@@ -134,7 +136,7 @@
 				        </div>
 				    </div>
 			    	<!-- 삭제 버튼 -->
-					<button class="alert-toggle board-delete-btn button">삭제</button>
+					<!-- <button class="alert-toggle board-delete-btn button" id="test2" >삭제</button> -->
 				</div>
 			</div>  
 
@@ -164,31 +166,51 @@
 
     <!-- ============================= 옷장, 상점 모달 ============================= -->
 	<div class="closet-wrap">
+		<!-- 옷장 상점 기본 베이스 배경 -->
         <img class="fur-img" src="../resource/img/icon/빈옷장.png">
         <img class="coin-label-img" src="../resource/img/icon/라벨2.png">
         <img class="coin-img" src="../resource/img/icon/coin.png">
+		<!-- back 버튼 -->
+		<img class="x-btn" src="../resource/img/icon/엑스 버튼.png">
+
         <div class="closet-modal">
-			
+			<img class="user-skin" id src="../resource/img/user/skin1/fs.png">
+            <!-- 잔여 코인 -->
+            <div class="coin">
+                <p class="coin-text font">16000</p>
+            </div>
+			<div>
+				<div id="1"></div>
+				<div id="2"></div>
+				<div id="3"></div>
+				<div id="4"></div>
+				<div id="5"></div>
+				<div id="7"></div>
+			</div>
         </div>
+		<div class="store-modal">
+
+		</div>
         
 	</div>
 
-
-
-
-
-
 	<!-- ============================= alert ============================= -->
-    <div class="alert">
-      <h3>삭제하시겠습니까?</h3>
-      <div>
-	      <button class="button" id="alert-ok">확인</button>
-	      <button class="button" id="alert-cancel">취소</button> 
-      </div>
-    </div>
-    <div class="alert-overlay"></div>
+	<div class="alert">
+		<!--  id="alert-hidden" -->
+		<h3 id="alert-text"></h3>
+		<div>
+			<button class="button alert-ok" id="alert-ok">확인</button>
+			<button class="button alert-cancel">취소</button> 
+		</div>
+	</div>
+	<div class="alert-overlay"></div>
+
 	<!-- alert script -->
-    <script src="../resource/js/alert.js"></script>
-	<script src="../resource/js/myroom.js"></script> 
+    <script type="module" src="../resource/js/alert.js"></script>
+
+
+	<script src="../resource/js/myroom.js"></script>
+    <script type="module" src="../resource/js/common.js"></script>
+
 </body>
 </html>

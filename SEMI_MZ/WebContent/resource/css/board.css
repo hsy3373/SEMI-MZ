@@ -62,11 +62,11 @@
     border-spacing: 0px 5px;
     margin-top: 15px;
 }
+.board-list-area tr {cursor: pointer;}
 .board-list-area td {
     border: solid 1px #c9c7be;
     border-style: solid none;
     padding: 5px 15px;
-    /* background-color: cyan; */
     font-weight: var(--fontweight600);
 }
 .board-list-area td:first-child {
@@ -85,16 +85,14 @@
     text-align: right;
 }
 .board-date{
-    width: 100px; text-align: right;
+    width: 100px;
+    text-align: right;
 }
 
 
 
 /* ----------------------- 방명록 상세, 작성 제목부분 ----------------------- */
-.board-detail *{
-    box-sizing: border-box;
-    /* border: 1px solid red; */
-}
+.board-detail *{box-sizing: border-box;}
 /* 방명록 제목 */
 .board-detail-title{
     font-size: var(--fontsize20);
@@ -210,5 +208,3 @@
     border: 2.5px solid #c7952a;
     margin: 0;
 }
-
-/* 원형 버튼 크기 */

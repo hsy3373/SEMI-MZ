@@ -29,7 +29,8 @@ $(function(){
     $("body").on("click", function(e) {
         console.log(e.target);
         if(e.target.className == 'x-btn' || e.target.className == 'board-wrap'){
-            $(".board-wrap").hide();
+            $(".board-wrap").hide(); // 방명록 모달 닫힘
+            $(".closet-wrap").hide(); // 옷장 모달 닫힘
         }
     })
 
@@ -38,13 +39,10 @@ $(function(){
         $(".board-list").show();
         $(".board-detail").hide();
         $(".board-write").hide();
-        
     })
     
     /* 방명록 삭제 버튼 */
-    $("#alert-ok").click(function(){
-		/*location.href = "${ contextPath }/delete.bo?bno=<%= b.getBoardNo() %>";*/
-    })
+
     
     /* 방명록 작성 이벤트 */
 
