@@ -24,12 +24,13 @@ uri="http://java.sun.com/jsp/jstl/core" %>
     <br />
     --%>
 
-    <a href="./myroom.jsp">마이룸</a> <br />
+    <!-- <a href="./myroom.jsp">마이룸</a> <br />
     <br />
     <a href="./chatting.jsp">채팅</a>
     <br />
     <br />
-    <a href="./square.jsp">광장</a>
+    <a href="./square.jsp">광장</a> -->
+    <%@ include file="../views/report.jsp" %>
 
     <script type="module" src="../resource/js/common.js"></script>
   </body>

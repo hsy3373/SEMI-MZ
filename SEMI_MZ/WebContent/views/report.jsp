@@ -10,12 +10,14 @@
 </head>
 <body>
 	<div class="report">
-        <img src="../resource/img/icon/신고하기창.png" alt="">
+        <img class="report-img" src="../resource/img/icon/신고하기창.png" alt="">
+        <img class="report-backimg" src="../resource/img/icon/기본버튼2.png" alt="">
         <div class="report-nickname">신고 대상 닉네임</div>
         <div class="user-nickname">박가영입니다람쥐</div>
         <div class="report-content">신고 내용 작성</div>
         <textarea name="report-content-text" id="report-content-text" cols="30" rows="10"></textarea>
-        <img class="bimg" src="../resource/img/icon/기본버튼2.png" alt="">
+        <button type="submit" class="report-btn">신고하기</button>
+        <button type="reset" class="reset-btn">취소</button>
     </div>
 </body>
 </html>
