@@ -3,6 +3,8 @@
  * 유저 정보창 js
  */
 
+import { getContextPath } from './common.js';
+
 let open = document.querySelector(".user1");
 let close = document.querySelector(".x-btn");
 let modal = document.querySelector(".user-info");

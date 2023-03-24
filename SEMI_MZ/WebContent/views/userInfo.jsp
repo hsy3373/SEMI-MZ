@@ -1,5 +1,7 @@
+<%@page import="mz.member.model.vo.Member"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<% Member %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -40,5 +42,6 @@
 	</div>
 	<button class="user1">유저캐릭터</button>
 	<script src="../resource/js/userInfo.js"></script>
+	<script type="module" src="../resource/js/common.js"></script>
 </body>
 </html>
