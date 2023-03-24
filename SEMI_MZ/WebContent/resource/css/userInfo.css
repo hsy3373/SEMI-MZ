@@ -1,11 +1,17 @@
-/* 유저 정보창 css - 가영 */
+@charset "UTF-8";
 
-/*정보창*/
+/* 유저 정보창 css - 가영 */
+.hidden{display: none;}
+/*정보창 화면*/
+.user-info{
+	width: 1300px;
+	height: 800px;
+}
 .user-info-view{
 	z-index: 1;
 	width: 57.5%;
 	height: 62%;
-	transform: translate(38%, 11%);
+	transform: translate(38.5%, 20%);
 	position: relative;
 }
 .user-info-view img{width:100%;}
@@ -13,10 +19,10 @@
 /*닉네임*/
 .nickname{
 	z-index: 2;
-	top: 20.7%;
-    left: 41.1%;
+	top: 17.7%;
+    left: 41.6%;
     width: 19.3%;
-    height: 6%;
+    height: 6.3%;
 	font-weight: bold;
     font-size: 28px;
     text-align: center;
@@ -28,8 +34,8 @@
 .heart{
     z-index: 2;
     position: absolute;
-    top: 33.5%;
-    left: 31.5%;
+    top: 32.5%;
+    left: 33%;
     width: 2.5%;
     cursor: pointer;
 }
@@ -39,8 +45,8 @@
 .heart-int{
 	z-index: 2;
     position: absolute;
-    top: 33.1%;
-    left: 34.6%;
+    top: 32.1%;
+    left: 36.2%;
     color: white;
     font-size: 33px;
     cursor: pointer;
@@ -50,8 +56,8 @@
 .user{
 	z-index: 2;
 	position: absolute;
-	top: 40%;
-    left: 29%;
+	top: 38%;
+    left: 30.5%;
 	width: 11%;
 }
 .user img{width: 100%;}
@@ -60,8 +66,8 @@
 .gender{
     z-index: 2;
     position: absolute;
-    left: 33.9%;
-    top: 61.8%;
+    left: 35.5%;
+    top: 58.8%;
     width: 1.5%;
 }
 .gender img{width: 100%;}
@@ -70,18 +76,19 @@
 .introduce{
 	position: absolute;
 	z-index: 2;
-	width: 24%;
+	width: 24.5%;
     height: 22.5%;
-    top: 30.7%;
+    top: 27.7%;
     left: 45.9%;
 	overflow-y: scroll;
 	padding: 0.8rem 1rem;
-	line-height: 133%;
+	line-height: 22px;
 	text-align: justify;
+	font-size: 14px;
 }
 
-/*자기소개 스크롤바 감추기*/
-.introduce::-webkit-scrollbar{display: none;}
+/*스크롤바 감추기*/
+::-webkit-scrollbar{display: none;}
 
 /*하단 버튼*/
 button{
@@ -98,8 +105,8 @@ button{
 	z-index: 2;
     position: absolute;
     border: 0;
-    top: 59.6%;
-    left: 48.8%;
+    top: 56.6%;
+    left: 49%;
     display: inline-block;
     width: 20.6%;
     height: 4%;
@@ -110,8 +117,8 @@ button{
 	z-index: 2;
     position: absolute;
     border: 0;
-    top: 66%;
-    left: 48.9%;
+    top: 63%;
+    left: 49%;
     display: inline-block;
     width: 20.4%;
     height: 4%;
@@ -123,8 +130,8 @@ button{
 .x-btn{
 	z-index: 2;
     position: absolute;
-    top: 22.7%;
-    left: 75.1%;
+    top: 19.7%;
+    left: 75.4%;
     width: 3%;
     height: 4.9%;
     cursor: pointer;
