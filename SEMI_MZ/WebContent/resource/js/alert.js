@@ -19,12 +19,12 @@ function openAlert() {
   /*
    * 확인버튼
    * ★★★★★★★★★★ 일단 아무런 기능없이 닫히게 해놨어요! 구현시 꼭 본인한테 맞춰서 코드 변경해주셔야해요! ★★★★★★★★★★
-   */ 
-  var okBtn = alert.querySelector('#alert-ok');
+  var okBtn = alert.querySelector('#alert-ok1');
   okBtn.addEventListener('click', closeAlert);
+  */ 
 
   // 취소버튼
-  var cancelBtn = alert.querySelector('#alert-cancel');
+  var cancelBtn = alert.querySelector('.alert-cancel');
   cancelBtn.addEventListener('click', closeAlert);
 
   // 모달 및 오버레이 표시

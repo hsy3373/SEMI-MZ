@@ -268,7 +268,7 @@
                         <tr>
                         	<th class="th1-wid">- 자기소개</th>
                         	<td>
-                        		<textarea class="scroll-fix self-info" name="selfInfo" cols="50" rows="8" style="resize:none;" placeholder="자기소개 작성란"></textarea>
+                        		<textarea class="scroll-fix self-info" name="selfInfo" cols="53" rows="8" style="resize:none;" placeholder="자기소개 작성란"></textarea>
                         	</td>
                         	<td></td>
                         </tr>
@@ -296,21 +296,21 @@
 
 <!-- ============================ alert 창 ================================= -->      
 <div class="alert">
-	<h3>삭제하시겠습니까?</h3>
+	<h3>정말 탈퇴하시겠습니까?</h3>
 	<div>
-	   <button class="button" id="alert-ok" onclick="document.querySelector('#test').submit();">확인</button>
-	   <button class="button" id="alert-cancel">취소</button> 
+	   <button class="button alert-ok" id="alert-ok1" onclick="document.querySelector('#test').submit();">확인</button>
+	   <button class="button alert-cancel">취소</button> 
 	</div>
   </div>
   <div class="alert-overlay"></div>
  <!-- alert script -->
+ <script src="../resource/js/main.js"></script> 
   <script src="../resource/js/alert.js"></script>
 
 
 
 	
 	
-    <script src="../resource/js/main.js"></script> 
 	
 </body>
 </html>

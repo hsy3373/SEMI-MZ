@@ -80,8 +80,9 @@
 	});
 
 
-	/*  */
-
+	/* 탈퇴 alert창 */
+	var okBtn = alert.querySelector('#alert-ok1');
+	okBtn.addEventListener('click', closeAlert);
 
 
 	

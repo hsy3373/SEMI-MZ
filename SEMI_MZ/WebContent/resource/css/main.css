@@ -5,7 +5,7 @@
 			--iptext-width: 374px;
 			--iptext-height: 28px;
 			--hiptext-width: 350px;
-			
+			--iptext-outline-color: #f5bc60;
 		}
 /*==================== 전체 폰트 =======================*/	
 	@font-face {
@@ -272,7 +272,9 @@
 		height: var(--iptext-height);
         font-size: 14;
         background-color: rgba(255, 255, 255, 0.5);
+        outline-color: var(--iptext-outline-color);
 	}
+
 	.th1-wid{
 		width:120px;
 		text-align:left;
@@ -292,6 +294,10 @@
 	}
 	.self-info{
         background-color: rgba(255, 255, 255, 0.5);
+    }
+    .self-info:focus{
+        
+        outline-color: var(--iptext-outline-color);
     }
 	::-webkit-scrollbar{display: none;}
 	.scroll-fix{overflow: y}

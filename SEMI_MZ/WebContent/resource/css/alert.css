@@ -17,10 +17,6 @@
      font-weight: var(--fontweight900);
      
    }
-#alert-ok:hover, #alert-cancel:hover{
-	transform: scale(0.97);
-	cursor: pointer;
-}
 /* 메인용 버튼 수정 베이스(혜린) */
  .button2 {
      width: 80px;
@@ -40,14 +36,18 @@
 /* --------------- alert 창관련 css --------------- */
 /* --------------- alert 창안에서 버튼 --------------- */
 /* 확인 버튼 */
-#alert-ok{
+.alert-ok{
    background-color: #c8e8c3;
     border: 2.5px solid #a1c49b;
 }
 /* 취소 버튼 */
-#alert-cancel{
+.alert-cancel{
    background-color: #ededed;
     border: 2.5px solid #cfd1cf;
+}
+.alert-ok:hover, .alert-cancel:hover{
+	transform: scale(0.97);
+	cursor: pointer;
 }
 
 /* 전체 틀 */
