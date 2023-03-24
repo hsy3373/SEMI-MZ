@@ -12,21 +12,25 @@ uri="http://java.sun.com/jsp/jstl/core" %>
 %>
 <!DOCTYPE html>
 <html>
-<head>
-<c:set var="contextPath" value="<%= request.getContextPath() %>"/>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<link href="../resource/css/common.css" rel="stylesheet" type="text/css">
-</head>
-<body>
- 	test용 페이지 <br>
-	현재 테스트용 유저아이디 : <%= test.getUserId() %> <br>
-	현재 테스트용 유저 정보 : <%= test.toString() %>
-	 <br> <br>
-	<!-- <a href="./myroom.jsp">마이룸</a>
-	<a href="userInfo.jsp">정보창</a> -->
-	<%@ include file="../views/report.jsp" %>
-	
-	<script type="module" src="../resource/js/common.js"></script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <title>M-Zone</title>
+    <link href="../resource/css/common.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+    <%-- test용 페이지 <br />
+    현재 테스트용 유저아이디 : <%= test.getUserId() %> <br />
+    현재 테스트용 유저 정보 : <%= test.toString() %> <br />
+    <br />
+    --%>
+
+    <a href="./myroom.jsp">마이룸</a> <br />
+    <br />
+    <a href="./chatting.jsp">채팅</a>
+    <br />
+    <br />
+    <a href="./square.jsp">광장</a>
+
+    <script type="module" src="../resource/js/common.js"></script>
+  </body>
 </html>
