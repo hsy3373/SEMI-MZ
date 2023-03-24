@@ -12,7 +12,7 @@ import javax.servlet.annotation.WebFilter;
 /**
  * Servlet Filter implementation class EncodingFilter
  */
-@WebFilter("/*")// 모든 요청에 대해 Filter가 먼저 작업할 수 있도록 모든 경로의 url을 포함시킴
+@WebFilter("/예시")// 모든 요청에 대해 Filter가 먼저 작업할 수 있도록 모든 경로의 url을 포함시킴
 public class EncodingFilter implements Filter {
 
     /**
@@ -33,7 +33,8 @@ public class EncodingFilter implements Filter {
 	 * @see Filter#doFilter(ServletRequest, ServletResponse, FilterChain)
 	 */
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-
+		
+		System.out.println("필터 불림");
 		// 서블릿이 호출되기 전, 전처리 작업할 코드 작성
 		request.setCharacterEncoding("UTF-8");
 		
