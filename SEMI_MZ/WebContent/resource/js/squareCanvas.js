@@ -3,6 +3,10 @@
  * 광장에 들어가는 캔버스 관련 JS
  */
 
+/* js 가져오기  */
+import { getContextPath } from './common.js'; 
+
+
 //캔버스 세팅
 let canvas
 let ctx;
@@ -14,7 +18,7 @@ canvas.width = 1300;
 canvas.height = 800;
 document.getElementById("main-square").appendChild(canvas);
 
-let noticeBoard, myhome, squarebackground;
+let noticeBoard, myhome, squarebackground, gamezone;
 
 //모달 떠있는 동안 움직임 stop
 let modalstop = false;
@@ -73,8 +77,8 @@ userrs.src = "../resource/img/user/skin"+userSkin+"/rs.png"
 
 
 //캐릭터 좌표(스타팅 x,y)
-let uesrX = canvas.width - 400
-let uesrY = canvas.height - 70;
+export let uesrX = canvas.width - 400
+export let uesrY = canvas.height - 70;
 
 //유저 이미지 지정
 let user = userfs;
@@ -121,7 +125,11 @@ canvas.addEventListener("click", function(event){
 
     //img 안을 클릭할 경우 이벤트 : my home
     if(clickX >= 895 && clickX <= 1110 && clickY >= 10 && clickY <= 226 ){
+        let path = getContextPath()
         console.log("home 이벤트 부여")
+        console.log(path+"/gohome")
+        location.href = path+"/gohome";
+       
     }
 
     //img 안을 클릭할 경우 이벤트 : noticeBoard
@@ -309,7 +317,8 @@ function update(){
     //충돌이벤트 구현
      if (uesrX <= 1020  && uesrX >= 960 && uesrY <= 200 && uesrY >= 191 ) {
         console.log('home이벤트')
-        //캐릭터 좌표 어떻게 처리할지 정하기 : 홈으로 페이지 전환
+
+        gohome();
     }
 
     if (uesrX <= 1130  && uesrX >= 1000 && uesrY <= 463 && uesrY >= 426 ) {
@@ -393,16 +402,66 @@ function update(){
 }
 
 
+
+
+//웹소켓으로 연결하기
+	// 웹소켓 서버 생성 : 학원 192.168.30.171
+    let path = getContextPath()
+	const socket = new WebSocket("ws://192.168.30.171:8083/"+path+"/multiAccess");
+		
+	//소켓 설정
+    socket.onopen = function (e) {
+        console.log("접속성공");
+        console.log(e);
+    }
+    
+    //웝소켓서버에서 sendObjcet 메소드를 실행하면 실행되는 함수 
+    socket.onmessage = function (e) {
+        console.log('메세지 감지');
+        console.log(e);
+        console.log(e.data);
+        console.log(JSON.parse(e.data));			
+    }
+		
+    //데이터 전송 JSON
+	const sendMsg = () =>{
+		
+		let msg = {
+            uesrX : uesrX,
+            uesrY : uesrY,
+            userSkin : userSkin,
+            userId : userId
+        }; 
+		
+		
+	socket.send(JSON.stringify(msg));
+		//문자열 객체 데이터로 바꿔줌 [object Object] -> JSON 에러 해결 
+		
+	
+    };
+	
+
+
 //랜더링 프레임으로 호출
 function main() {
         
     if(!modalstop){
         update(); //좌표값 업데이트
         render(); //업데이트 된 좌표값으로 재 랜더링
-        requestAnimationFrame(main) // 프레임에 맞춰서 반복호출
+        sendMsg();
+        requestAnimationFrame(main); // 프레임에 맞춰서 반복호출
+        
     }
-   
+
+    	
+	
+    
 }
+
+
+	
+
+
 
 
 //시작  호출 
