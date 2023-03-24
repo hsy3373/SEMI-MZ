@@ -197,10 +197,19 @@
      			<tr class="smodal-tb"><th colspan="2">비밀번호 입력</th></tr>
      			<tr class="smodal-tf">
      				<td><input type="password" class="rqpwd-input"></td>
-     				<td><button type="button" class="subpwd-btn chg-inf-modal">확인</button></td>
+     				<td><button type="button" class="subpwd-btn chg-inf-modal">확인</button></td>.
      			</tr>
      		</table>
+
+
+			 <button id="sec-btn" class="alert-toggle button">회원탈퇴</button>
+
+
      		</form>
+			
+
+
+
      	</div>
      </div>
 <!-- ============================ 내정보변경 모달 ================================= -->     
