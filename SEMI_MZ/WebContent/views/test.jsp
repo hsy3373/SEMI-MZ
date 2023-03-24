@@ -30,8 +30,6 @@ uri="http://java.sun.com/jsp/jstl/core" %>
     <br />
     <br />
     <a href="./square.jsp">광장</a>
-    <br />
-    <a href="./userInfo.jsp">유저정보</a>
 
     <script type="module" src="../resource/js/common.js"></script>
   </body>

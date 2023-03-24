@@ -32,9 +32,16 @@ public class Member {
 		this.date = date;
 	}
 	
-	
+	// 가영 - userInfo
+	public Member(String userId, String nicName, int skinId, String info, String gender) {
+		super();
+		this.userId = userId;
+		this.nicName = nicName;
+		this.skinId = skinId;
+		this.info = info;
+		this.gender = gender;
+	}
 
-	
 
 	@Override
 	public String toString() {

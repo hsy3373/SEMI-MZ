@@ -1,0 +1,79 @@
+@charset "UTF-8";
+/* 마이룸(옷장) css - 지의 */
+:root{
+    --fontsize14 : 14px;
+    --fontsize16 : 16px;
+    --fontsize20 : 20px;
+    --fontweight200: 200;
+    --fontweight400: 400;
+    --fontweight600: 600;
+    --fontweight900: 900;
+    --userskin80: 80px;
+    --friendskin80:80px;
+}
+
+/* 원형 버튼 크기 */
+.circle-btn {
+    width: 48px;
+    cursor: pointer;  
+}
+
+/* ----------------------- 옷장, 상점 모달배경 ----------------------- */
+.closet-wrap {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+.fur-img{
+    position: absolute;
+    top: 15%;
+    left: 45%;
+    width: 500px;
+}
+.coin-label-img{
+    position: absolute;
+    top: 7%;
+    left: 45%;
+    width: 160px;
+    height: 60px;
+}
+.coin-img{	
+    position: absolute;
+    top: 7%;
+    left: 45%;
+    width: 25px;
+    height: 25px;
+}
+
+/* ----------------------- 옷장 모달 ----------------------- */
+
+
+
+
+/* 뒤로가기 버튼 */
+#back-btn{
+    position: absolute;
+    right: 12%;
+    scale: 0.6;
+}
+
+/* 코인 */
+.coin{
+    position: absolute;
+    top: 9.4%;
+    left: 47%;
+	display: flex;
+}
+.coin .coin-text{margin: 4px 0 0 10px;}
+
+
+#store{
+    position: absolute;
+    top: 8.5%;
+    left: 74%;
+}
+
