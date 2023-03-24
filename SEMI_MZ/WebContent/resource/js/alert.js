@@ -38,4 +38,3 @@ function closeAlert() {
   alert.style.display = 'none';
   alertOverlay.style.display = 'none';
 }
-

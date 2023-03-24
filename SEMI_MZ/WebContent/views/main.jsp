@@ -202,9 +202,6 @@
      		</table>
 
 
-			 <button id="sec-btn" class="alert-toggle button">회원탈퇴</button>
-
-
      		</form>
 			
 
@@ -220,7 +217,7 @@
                 <div class="modal-out-btn"><img src="../resource/img/icon/엑스 버튼.png" class="x-btn x-btn5"></div>
                 <div class="empty-space"></div>
                 <div class="modal-textarea">
-                <form>
+                <form id="test">
                     <table class="change-info-table">
                     	<tr>
                         	<th class="th1-wid">- 아이디</th>
@@ -278,7 +275,7 @@
                         <tr>
 							<td></td>
                         	<th><button id="cge-btn">정보수정</button></th>
-							<td style="text-align: right;"><button id="sec-btn" class="alert-toggle button">회원탈퇴</button></td>
+							<td style="text-align: right;"><button type="button" id="sec-btn" class="alert-toggle button2">회원탈퇴</button></td>
                         </tr>
                     </table>
                     </form>
@@ -298,22 +295,22 @@
 
 
 <!-- ============================ alert 창 ================================= -->      
-	<div class="alert">
-		<!-- alert창 내부 문구 -->
-		<h3>정말 탈퇴하시겠습니까?</h3>
-		<!-- alert창 내부 문구 -->
+<div class="alert">
+	<h3>삭제하시겠습니까?</h3>
 	<div>
-		<button id="alert-ok">확인</button>
-		<button id="alert-cancel">취소</button> 
+	   <button class="button" id="alert-ok" onclick="document.querySelector('#test').submit();">확인</button>
+	   <button class="button" id="alert-cancel">취소</button> 
 	</div>
-	</div>
-	<div class="alert-overlay"></div>
+  </div>
+  <div class="alert-overlay"></div>
+ <!-- alert script -->
+  <script src="../resource/js/alert.js"></script>
 
 
 
-	<script src="../resource/js/alert.js"></script>
+	
 	
     <script src="../resource/js/main.js"></script> 
 	
 </body>
-</html>`
+</html>

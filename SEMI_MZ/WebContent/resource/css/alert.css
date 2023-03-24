@@ -15,6 +15,20 @@
      padding-top: 5px;
      font-size: var(--fontsize14);
      font-weight: var(--fontweight900);
+     
+   }
+#alert-ok:hover, #alert-cancel:hover{
+	transform: scale(0.97);
+	cursor: pointer;
+}
+/* 메인용 버튼 수정 베이스(혜린) */
+ .button2 {
+     width: 80px;
+     height: 34px;
+     display: inline-block;
+     padding-top: 5px;
+     font-size: var(--fontsize14);
+     font-weight: var(--fontweight900);
     }
 /* 삭제 버튼 */
 .board-delete-btn{
@@ -27,12 +41,12 @@
 /* --------------- alert 창안에서 버튼 --------------- */
 /* 확인 버튼 */
 #alert-ok{
-	background-color: #c8e8c3;
+   background-color: #c8e8c3;
     border: 2.5px solid #a1c49b;
 }
 /* 취소 버튼 */
 #alert-cancel{
-	background-color: #ededed;
+   background-color: #ededed;
     border: 2.5px solid #cfd1cf;
 }
 
@@ -70,6 +84,5 @@ h3 {
     text-align: center;
 }
 .alert div {
-    text-align: center;	
+    text-align: center;   
 }
-
