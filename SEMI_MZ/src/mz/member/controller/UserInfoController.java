@@ -16,7 +16,7 @@ import mz.member.model.vo.Member;
 /**
  * Servlet implementation class UserInfoController
  */
-@WebServlet("/userInfo.co")
+@WebServlet("/userInfo.me")
 public class UserInfoController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
