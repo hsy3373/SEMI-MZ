@@ -1,5 +1,5 @@
 @charset "UTF-8";
-/*==================== css 변수 =======================*/
+/*==================== css 변수설정 =======================*/
 	:root{
 			--backcolor0:rgba(0, 0, 0, 0);
 			--iptext-width: 374px;
@@ -191,7 +191,7 @@
         cursor: pointer;
       }
       .empty-space{
-      	height:30px;
+      	height:25px;
       }
       .display-center{
         display: flex;
@@ -338,7 +338,8 @@
     border: 0px solid red;
 }
 .enroll-table{
-    margin-top: 50px;
+    margin-top: 0px;
+    border: 0px solid red;
 }
 
 #enroll-btn{
@@ -352,6 +353,17 @@
 #enroll-btn:hover{
     transform: scale(0.97);
 }
+.check-right{
+    text-align:right;
+    font-size: 13px;;
+}
+.agree-text{
+    background-color: rgba(255, 255, 255, 0.5);
+    font-family: 'Noto Sans KR', sans-serif !important;
 
+}
+.agree-text:focus{
+    outline-color: var(--iptext-outline-color);
+}
 
 

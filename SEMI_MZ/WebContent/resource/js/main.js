@@ -83,8 +83,9 @@
 	/* 탈퇴 alert창 */
 	var okBtn = alert.querySelector('#alert-ok1');
 	okBtn.addEventListener('click', closeAlert);
-
-
+	/* 회원가입완료 alert창 */
+	var okBtn = alert.querySelector('#alert-ok2');
+	okBtn.addEventListener('click', closeAlert);
 	
 	
 	

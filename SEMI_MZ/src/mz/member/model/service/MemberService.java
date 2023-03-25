@@ -1,0 +1,56 @@
+package mz.member.model.service;
+
+import java.sql.Connection;
+
+import mz.common.JDBCTemplate;
+import mz.member.model.dao.MemberDao;
+import mz.member.model.vo.Member;
+
+// 김혜린
+// 회원가입
+public class MemberService {
+
+	public int insertMember(Member m) {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		
+		int result = new MemberDao().insertMember(conn, m);
+		
+		if(result > 0) { // 회원가입 성공
+			JDBCTemplate.commit(conn);
+		}else { // 회원가입 실패
+			JDBCTemplate.rollback(conn);
+		}
+		JDBCTemplate.close(conn);
+		
+		return result;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+}

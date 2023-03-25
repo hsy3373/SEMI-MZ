@@ -53,7 +53,7 @@
     cursor: pointer;
  }
 /* 전체 틀 */
-.alert {
+.alert{
   width: 25%;
   border-radius: 4px;
   margin-left: auto;
