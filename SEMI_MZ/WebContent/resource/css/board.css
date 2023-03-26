@@ -53,14 +53,25 @@
 .board-list-area {
     border-collapse: separate;
     border-spacing: 0px 5px;
+    width: 100%;
 }
 .board-list-area tr {cursor: pointer;}
 .board-list-area td {
     border: solid 1px #c9c7be;
     border-style: solid none;
-    padding: 5px 15px;
+    padding: 5px 8px;
     font-weight: var(--fontweight600);
 }
+/* #board-title{width: 320px;} */
+.board-userid{
+    width: 130px;
+    text-align: right;
+}
+.board-date{
+    width: 80px;
+    text-align: right;
+}
+/* tr태그 라운드 처리 */
 .board-list-area td:first-child {
     border-left-style: solid;
     border-top-left-radius: 10px;
@@ -71,20 +82,17 @@
     border-bottom-right-radius: 10px;
     border-top-right-radius: 10px;
 }
-#board-title{width: 320px;}
-.board-userid{
-    width: 180px;
-    text-align: right;
-}
-.board-date{
-    width: 100px;
-    text-align: right;
-}
+
+
+/* .board-send-list td:first-child{border: none;}
+.board-send-list td:last-child{border: none;} */
 /* 페이징바 */
 .pageing-area{
     text-align: center;
     line-height: 40px;
 }
+/* 글쓰기 버튼 */
+#writing-btn{text-align: right; border: none;}
 
 
 
@@ -170,14 +178,14 @@
 
 
 /* ============================= 친구한테 쓴 방명록 목록 ============================= */
-.board-send-list{display: block;}
+.board-send-list{display: none;}
 
 
 
 /* ======================= 친구한테 쓴 방명록 상세 ======================= */
 /* ============================= 방명록 작성 ============================= */
 .board-send-detail{display: none;}
-.board-write{display: none;}
+.board-write{display: block;}
 .board-write-area{
     width: 600px;
     height: 340px;

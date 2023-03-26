@@ -48,6 +48,26 @@ $(function(){
     
     /* 방명록 작성 이벤트 */
 
+    // 친구한테 쓴 방명록 리스트 -> 내용클릭시
+    // $(".board-send-list tr").click(function(){
+    //     $(".board-list").hide();
+    //     $(".board-write").hide();
+    //     $(".board-detail").hide();
+    //     $(".board-send-list").hide();
+    //     $(".board-send-detail").show();
+    // });
+    $(".board-write-btn").click(function(){
+        $(".board-list").hide();
+        $(".board-write").hide();
+        $(".board-detail").hide();
+        $(".board-send-list").hide();
+        $(".board-write").show();
+    });
+
+    $(".board-send-detail .back-btn").click(function(e){
+        $(".board-send-list").show();
+        $(".board-send-detail").hide();
+    })
 
 	/* ==================================== 옷방 ==================================== */
 	/* 옷방 모달창 띄우기 */

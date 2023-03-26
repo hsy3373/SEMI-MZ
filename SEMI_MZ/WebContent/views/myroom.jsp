@@ -90,38 +90,38 @@
 	            <div class="board-content">
 	                <table class="board-list-area">
 	                    <tr>
-	                        <td id="board-title"><img class="apple" src="../resource/img/icon/사과.png">제목</td>
-	                        <td class="board-userid">노지의노지의노</td>
+	                        <td id="board-title"><img class="apple" src="../resource/img/icon/사과.png">방명록제목열다섯글자가나다라마</td>
+	                        <td class="board-userid">내닉네임여덜글자</td>
 	                        <td class="board-date">2023-03-22</td>
 	                    </tr>
 	                    <tr>
 	                        <td id="board-title"><img class="apple" src="../resource/img/icon/사과.png">제목</td>
-	                        <td class="board-userid">노지의노지의노</td>
+	                        <td class="board-userid">내닉네임여덜글자</td>
 	                        <td class="board-date">2023-03-22</td>
 	                    </tr>
 	                    <tr>
 	                        <td id="board-title"><img class="apple" src="../resource/img/icon/사과.png">제목</td>
-	                        <td class="board-userid">노지의노지의노</td>
+	                        <td class="board-userid">내닉네임여덜글자</td>
 	                        <td class="board-date">2023-03-22</td>
 	                    </tr>
 	                    <tr>
 	                        <td id="board-title"><img class="apple" src="../resource/img/icon/사과.png">제목</td>
-	                        <td class="board-userid">노지의노지의노</td>
+	                        <td class="board-userid">내닉네임여덜글자</td>
 	                        <td class="board-date">2023-03-22</td>
 	                    </tr>
 	                    <tr>
 	                        <td id="board-title"><img class="apple" src="../resource/img/icon/사과.png">제목</td>
-	                        <td class="board-userid">노지의노지의노</td>
+	                        <td class="board-userid">내닉네임여덜글자</td>
 	                        <td class="board-date">2023-03-22</td>
 	                    </tr>
 	                    <tr>
 	                        <td id="board-title"><img class="apple" src="../resource/img/icon/사과.png">제목</td>
-	                        <td class="board-userid">노지의노지의노</td>
+	                        <td class="board-userid">내닉네임여덜글자</td>
 	                        <td class="board-date">2023-03-22</td>
 	                    </tr>
 	                    <tr>
 	                        <td id="board-title"><img class="apple" src="../resource/img/icon/사과.png">제목</td>
-	                        <td class="board-userid">노지의노지의노</td>
+	                        <td class="board-userid">내닉네임여덜글자</td>
 	                        <td class="board-date">2023-03-22</td>
 	                    </tr>
 	
@@ -178,12 +178,11 @@
 			<!-- ============================= 친구한테 쓴 방명록 리스트 ============================= -->
 			<div class="board-send-list">
 				<img class="x-btn" src="../resource/img/icon/엑스 버튼.png">
-				<!-- <button class="button board-write-btn" id="board-write">글쓰기</button> -->
+				
 	            <div class="board-content">
 	                <table class="board-list-area">
 	                    <tr>
-	                        <td id="board-title"><img class="apple" src="../resource/img/icon/사과.png">제목</td>
-	                        <td class="board-date">2023-03-22</td>
+	                        <td colspan="2" id="writing-btn"><button class="button board-write-btn" id="board-write">글쓰기</button></td>
 	                    </tr>
 	                    <tr>
 	                        <td id="board-title"><img class="apple" src="../resource/img/icon/사과.png">제목</td>
