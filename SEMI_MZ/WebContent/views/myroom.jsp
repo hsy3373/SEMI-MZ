@@ -1,7 +1,7 @@
 <!-- 지의 마이룸 -->
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<!-- <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> -->
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,12 +10,16 @@
 	<!-- css link -->
     <link href="../resource/css/myroom.css" rel="stylesheet" type="text/css">
     <link href="../resource/css/common.css" rel="stylesheet" type="text/css">
+    <link href="../resource/css/board.css" rel="stylesheet" type="text/css">
+	<link href="../resource/css/closet.css" rel="stylesheet" type="text/css">
+    <!-- <link href="../resource/css/closet.css" rel="stylesheet" type="text/css"> -->
     <link rel="stylesheet" href="../resource/css/alert.css">
     
     <!-- jQuery library -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>    <!-- Popper JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>    
+	<!-- Popper JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    <script src="../resource/js/myroom.js"></script> 
+    
     
 
     
@@ -27,23 +31,20 @@
 	<!-- ============================= 마이룸 ============================= -->
     <div class="myroom">
         <div class="icon-closet">
-            <!-- 옷장 클릭시 페이지 이동 -->
-            <a href="closet.jsp">
-                <img id="closet" src="${ contextPath }/resource/img/icon/옷장.png">
-                <img id="closet-hover" src="${ contextPath }/resource/img/icon/옷장_hover.png">
-            </a>
+            <!-- 옷장 클릭시 모달창 -->
+	        <img id="closet" src="../resource/img/icon/옷장.png">
+	        <img id="closet-hover" src="../resource/img/icon/옷장_hover.png">
         </div>
         <div class="icon-tree">
             <!-- 나무 클릭시 모달창 -->
             <img id="tree" src="../resource/img/icon/tree.png">
             <img id="tree-hover" src="../resource/img/icon/tree_hover.png">
         </div>
-        <div class="user">
+        <div class="myroom_user">
             <input type="checkbox" name="heart-ck" id="heart">
             <label class="font" for="heart">12</label>
-            <img id="user-skin" src="../resource/img/user/skin01/fs.png">
-        </div>
-        
+            <img class="user-skin" src="../resource/img/user/skin01/fs.png">
+        </div>       
     </div>
 	
 	<!-- ============================= 방명록 모달 ============================= -->
@@ -51,7 +52,7 @@
 		<div class="board-modal">
 			<!-- ============================= 방명록 리스트 ============================= -->
 	        <div class="board-list">
-	            <div class="x-btn"><img class="x-btn" src="../resource/img/icon/엑스 버튼.png"></div>
+	            <img class="x-btn" src="../resource/img/icon/엑스 버튼.png">
 	            <div class="board-content">
 	                <table class="board-list-area">
 	                    <tr>
@@ -99,14 +100,12 @@
 			<!-- ============================= 방명록 상세 ============================= -->
 			<div class="board-detail">
 				<!-- back 버튼 -->
-				<div class="back-btn"><img class="back-btn" src="../resource/img/icon/back2_btn.png"></div>
+				<img class="back-btn" src="../resource/img/icon/back2_btn.png">
 				<div class="board-detail-title">방명록제목작성페이지안녕하세요</div>
 				<div class="board-detail-area">
 				    <div class="board-detail-content">
 				        <div class="board-detail-friend">
-				            <div class="friend-skin">
-				                <img src="../resource/img/user/skin01/fs.png">
-				            </div>
+			                <img class="friend-skin" src="../resource/img/user/skin01/fs.png">
 				            <div class="friend-id">swldml 노</div>
 				        </div>
 				        <div class="board-detail-table">
@@ -143,7 +142,7 @@
 			<!-- ============================= 방명록 작성 ============================= -->
 			<div class="board-write">
 				<!-- x 버튼 -->
-				<div class="x-btn"><img class="x-btn" src="../resource/img/icon/엑스 버튼.png"></div>
+				<img class="x-btn" src="../resource/img/icon/엑스 버튼.png">
 				<!-- 제목부분(상세 제목이랑 동일) -->
 				<div class="board-detail-title">방명록제목작성페이지안녕하세요</div>
 				<!-- 작성란 전체 감싼 div -->
@@ -163,15 +162,23 @@
 		</div>
 	</div>
 
-	<!-- 삭제 버튼(각자 추가해야하는 위치에 추가하면 됨) -->
-	<!-- 
-		삭제 버튼(각자 추가해야하는 위치에 추가하면 됨)
-		alert-toggle 은 삭제 x
-		다른버튼으로 변경이나 추가싶으면 board-delete-btn 클래스명만 변경하면 됨
-		alert.css파일 '삭제버튼'이라고 주석달아논 곳도 변경해줘야 됨
-	-->
+    <!-- ============================= 옷장, 상점 모달 ============================= -->
+	<div class="closet-wrap">
+        <img class="fur-img" src="../resource/img/icon/빈옷장.png">
+        <img class="coin-label-img" src="../resource/img/icon/라벨2.png">
+        <img class="coin-img" src="../resource/img/icon/coin.png">
+        <div class="closet-modal">
+			
+        </div>
+        
+	</div>
 
-	<!-- alert 창 -->
+
+
+
+
+
+	<!-- ============================= alert ============================= -->
     <div class="alert">
       <h3>삭제하시겠습니까?</h3>
       <div>
@@ -180,10 +187,8 @@
       </div>
     </div>
     <div class="alert-overlay"></div>
-
-
 	<!-- alert script -->
-	<!--  -->
     <script src="../resource/js/alert.js"></script>
+	<script src="../resource/js/myroom.js"></script> 
 </body>
 </html>

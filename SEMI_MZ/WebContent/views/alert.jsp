@@ -21,7 +21,7 @@
 	-->
 	<!-- alert창 실행시키기위한 외부 버튼
 		(각자 추가해야하는 위치에 추가하고 텍스트(삭제) 및 (class="board-delete-btn")변경하면됨) -->
-	<button class="alert-toggle button board-delete-btn">삭제</button>
+	<button class="alert-toggle button" id="board-delete-btn">삭제</button>
 
 
 	<!-- alert 창 -->
@@ -29,17 +29,15 @@
 		저는 이 alert창 아래 스크립트태그랑 묶어서 제 jsp 페이지 하단에 박아놨어요!
 		따로 빼실거면 위에 링크 걸면 됩니당
 	 -->
-    <div class="alert">
-		<!-- alert창 내부 문구 -->
+	 <div class="alert">
 		<h3>삭제하시겠습니까?</h3>
-		<!-- alert창 내부 문구 -->
-      <div>
-	      <button id="alert-ok">확인</button>
-	      <button id="alert-cancel">취소</button> 
-      </div>
-    </div>
-    <div class="alert-overlay"></div>
-
+		<div>
+			<!-- ★★★★★★★★★ id 값 겹치면 x -> 변경 필수!!!!!!!★★★★★★★★★ -->
+			<button class="button alert-ok" id="alert-ok">확인</button>
+			<button class="button alert-cancel">취소</button> 
+		</div>
+	  </div>
+	  <div class="alert-overlay"></div>
 
 	<!-- alert script 경로 -->
 	<!-- 이 태그가  head에 위치해있으니까 안먹어서 저는 제 jsp 페이지 맨 하단에 뒀습니다 -->
