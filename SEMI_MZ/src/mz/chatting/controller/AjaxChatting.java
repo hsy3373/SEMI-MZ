@@ -56,9 +56,9 @@ public class AjaxChatting extends HttpServlet {
 		
 		if(recevier != null) {
 			// 특정 상대의 아이디 값을 포함해서 요청이 들어왔을 경우
-			// 해당 상대와의 채팅 내역 가져오기(한번에.. 오십개쯤?)
-
-			ArrayList<Chat> list = new ChatService().getChattings(userId, recevier);
+			// 해당 상대와의 채팅 내역 가져오기(maxNo부터 시작해서 한번에 오십개)
+			int maxNo = Integer.parseInt(request.getParameter("maxNo"));
+			ArrayList<Chat> list = new ChatService().getChattings(userId, recevier, maxNo);
 			new Gson().toJson(list, response.getWriter());
 			
 		}else {

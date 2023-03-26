@@ -63,7 +63,7 @@ public class ChatDao {
 		return list;
 	}
 	
-	public ArrayList<Chat> getChattings(Connection conn, String userId, String recevier){
+	public ArrayList<Chat> getChattings(Connection conn, String userId, String recevier, int maxNo){
 		ArrayList<Chat> list = new ArrayList<>();
 		
 		
@@ -78,6 +78,7 @@ public class ChatDao {
 			pstmt.setString(2, recevier);
 			pstmt.setString(3, recevier);
 			pstmt.setString(4, userId);
+			pstmt.setInt(5, maxNo);
 			
 			rset = pstmt.executeQuery();
 			

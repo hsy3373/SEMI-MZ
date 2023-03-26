@@ -17,9 +17,13 @@
 	
 	<entry key="getChattings">
 		SELECT *
-		FROM CHATTING 
-		WHERE (USER_ID, RECEIVE_ID) IN(( ? , ? ),( ? , ? ))
-		ORDER BY CREATE_DATE, CHAT_NO
+		FROM (	SELECT *
+				FROM CHATTING 
+				WHERE (USER_ID, RECEIVE_ID) IN(( ? , ? ),( ? , ? ))
+					AND CHAT_NO > ?
+					AND CREATE_DATE > SYSDATE-7
+				ORDER BY CREATE_DATE, CHAT_NO )
+		WHERE ROWNUM &lt;= 50
 	</entry>
 
 

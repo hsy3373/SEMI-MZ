@@ -49,7 +49,8 @@
   display: grid;
   grid-template-columns: 60px 1fr 60px;
   grid-template-rows: 30px;
-  font-size: smaller;
+  font-size: medium;
+  box-sizing: border-box;
 }
 
 .chat-room-list {
@@ -91,7 +92,6 @@
 
 .chat-room-item,
 .chat-all-user {
-  padding: 0px 4px;
   background-color: var(--chat-btn-background);
   border: 1px solid var(--chat-btn-border);
   border-radius: 4px 4px 0px 0px;
@@ -100,9 +100,6 @@
   width: 20%;
   height: 30px;
   color: white;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
 
   text-align: center;
   line-height: 180%;
@@ -115,6 +112,27 @@
   min-width: 50px;
   width: fit-content;
   padding: 0px 8px;
+}
+
+.chat-room-item {
+  display: grid;
+  grid-template-columns: auto 20px;
+}
+
+.room-name {
+  padding-left: 4px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  grid-area: 1/1/2/2;
+}
+
+.delete-room {
+  grid-area: 1/2/2/3;
+  text-align: center;
+  align-self: center;
+  justify-self: center;
+  width: 14px;
 }
 
 /* ------------------ 채팅 내역 영역 ----------------------*/
@@ -146,6 +164,10 @@
   background-color: rgba(45, 174, 254, 0.486);
   border-radius: 10px;
   box-shadow: inset 0px 0px 5px rgba(255, 255, 255, 0.26);
+}
+
+.my-chat {
+  color: #007eff;
 }
 
 /*------------------ 채팅 보내기 영역 ----------------*/
@@ -227,7 +249,7 @@
 }
 
 .loader10:before {
-  content: "";
+  content: '';
   position: absolute;
   top: 0px;
   left: calc(var(--circleDistance) * -1);
@@ -248,7 +270,7 @@
 }
 
 .loader10:after {
-  content: "";
+  content: '';
   position: absolute;
   top: 0px;
   left: var(--circleDistance);

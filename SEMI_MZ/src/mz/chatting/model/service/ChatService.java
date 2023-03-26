@@ -20,9 +20,9 @@ public class ChatService {
 		return list;
 	}
 	
-	public ArrayList<Chat> getChattings(String userId, String recevier){
+	public ArrayList<Chat> getChattings(String userId, String recevier, int maxNo){
 		Connection conn = getConnection();
-		ArrayList<Chat> list = new ChatDao().getChattings(conn, userId, recevier);
+		ArrayList<Chat> list = new ChatDao().getChattings(conn, userId, recevier, maxNo);
 		close(conn);
 		
 		return list;

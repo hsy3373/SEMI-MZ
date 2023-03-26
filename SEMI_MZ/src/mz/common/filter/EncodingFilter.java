@@ -12,7 +12,7 @@ import javax.servlet.annotation.WebFilter;
 /**
  * Servlet Filter implementation class EncodingFilter
  */
-@WebFilter("/예시")// 모든 요청에 대해 Filter가 먼저 작업할 수 있도록 모든 경로의 url을 포함시킴
+@WebFilter("/*")// 모든 요청에 대해 Filter가 먼저 작업할 수 있도록 모든 경로의 url을 포함시킴
 public class EncodingFilter implements Filter {
 
     /**
