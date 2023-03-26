@@ -43,10 +43,11 @@
 		//유저 skin
 		var userSkin = Number('${loginUser.skinId}')+1;	
 		//console.log(userSkin);
-
 		var userId = '${loginUser.userId}';
 
 		
+	
+	
 	</script>
 	  	
 	<script type="module" src="<%=contextPath%>/resource/js/common.js"></script>
@@ -60,6 +61,8 @@
 	import {uesrX , uesrY} from '<%=contextPath%>/resource/js/squareCanvas.js';
     
 	
+
+
 
 	</script>
 
