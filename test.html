@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+        let UserDate = [];
+        UserDate.push({ uesrX: '900', uesrY: '730', userSkin: '1', userId: 'test' })
+        UserDate.push({ uesrX: '900', uesrY: '733', userSkin: '1', userId: 'test' })
+        UserDate.push({ uesrX: '900', uesrY: '734', userSkin: '1', userId: 'test2' })
+        UserDate.push({ uesrX: '900', uesrY: '735', userSkin: '2', userId: 'test2' })
+        UserDate.push({ uesrX: '900', uesrY: '736', userSkin: '1', userId: 'test' })
+        UserDate.push({ uesrX: '900', uesrY: '730', userSkin: '1', userId: 'test' })
+        UserDate.push({ uesrX: '900', uesrY: '730', userSkin: '3', userId: 'test' })
+
+
+
+        console.log(UserDate)
+
+
+        let FilterUsers = UserDate.filter(
+            (arr, index, callback) =>
+                index === callback.findLastIndex(t =>
+                    t.userId === arr.userId
+                )
+        )
+
+        console.log(FilterUsers)
+
+
+
+    </script>
+
+</body>
+
+</html>

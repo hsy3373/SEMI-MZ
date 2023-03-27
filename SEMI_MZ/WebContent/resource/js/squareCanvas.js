@@ -42,7 +42,7 @@ function loadImage() {
 
     //friendList = new Image();
     //friendList.src = "../resource/img/icon/친구목록 버튼.png"
-
+   
 }
 
 
@@ -51,6 +51,7 @@ function loadImage() {
 //console.log(userSkin)
 
 //캐릭터 세팅 
+
 let userbd = new Image();
 userbd.src = "../resource/img/user/skin" + userSkin + "/bd.png"
 
@@ -74,6 +75,7 @@ userrd.src = "../resource/img/user/skin" + userSkin + "/rd.png"
 
 let userrs = new Image();
 userrs.src = "../resource/img/user/skin" + userSkin + "/rs.png"
+
 
 
 //캐릭터 좌표(스타팅 x,y)
@@ -126,10 +128,9 @@ canvas.addEventListener("click", function (event) {
 
     //img 안을 클릭할 경우 이벤트 : my home
     if (clickX >= 895 && clickX <= 1110 && clickY >= 10 && clickY <= 226) {
-        let path = getContextPath()
         console.log("home 이벤트 부여")
-        console.log(path + "/gohome")
-        location.href = path + "/gohome";
+        gohome();
+      
 
     }
 
@@ -318,8 +319,8 @@ function update() {
     //충돌이벤트 구현
     if (uesrX <= 1020 && uesrX >= 960 && uesrY <= 200 && uesrY >= 191) {
         console.log('home이벤트')
-
         gohome();
+        
     }
 
     if (uesrX <= 1130 && uesrX >= 1000 && uesrY <= 463 && uesrY >= 426) {
@@ -402,13 +403,22 @@ function update() {
 
 }
 
+//집으로 이동하는 함수
+const gohome = () => {
+    let path = getContextPath()
+    console.log(path + "/gohome")
+    location.href = path + "/gohome";
+
+} 
 
 
 
+let UsersData = []; // 유저들 데이터 담아줄 배열
+let FilterUsers = [];//필터링된 유저 1개 만큼 담아줄 배열
 // 웹소켓으로 연결하기
 // 웹소켓 서버 생성 : 학원 192.168.30.171
 let path = getContextPath()
-const socket = new WebSocket("ws://192.168.35.13:8083" + path + "/multiAccess");
+const socket = new WebSocket("ws://192.168.30.171:8083" + path + "/multiAccess");
 //집 : 192.168.35.13
 
 
@@ -421,19 +431,37 @@ socket.onopen = function (e) {
 
 //웝소켓서버에서 sendObjcet 메소드를 실행하면 실행되는 함수 
 socket.onmessage = function (e) {
-    console.log('메세지 감지');
-    console.log(e);
-    console.log(e.data);
-    console.log(JSON.parse(e.data));
+    // console.log('메세지 감지');
+    // console.log(e);
+    // console.log(e.data);
 
-    
+    UsersData.push(JSON.parse(e.data)); // String -> 배열 변환  
+    //console.log(UsersData)  //object
+
+    //userData에 담겨있는 userId 값 기준으로 필터링 : 마지막 값만 남김 
+    FilterUsers = UsersData.filter(
+        (arr, index, callback) =>
+            index === callback.findLastIndex(t =>
+                t.userId === arr.userId
+            )
+    )
+
+    UsersData = FilterUsers; // Userdate 정보를 Fileter 정보로 바꿔주기 
+
+    //console.log(FilterUsers);
+
+   
 }
+
+
+
 
 
 
 //데이터 전송 JSON
 const sendMsg = () => {
 
+    //유저객체 넣어주기 
     let User = new UserData(uesrX, uesrY, userSkin, userId);
     
     socket.send(JSON.stringify(User));
@@ -441,13 +469,18 @@ const sendMsg = () => {
 
 }
 
-
+//넘겨줄 데이터 유저 좌표, 유저스킨, 유저아이디
 function UserData(uesrX, uesrY, userSkin, userId) {
     this.uesrX = uesrX;
     this.uesrY = uesrY;
     this.userSkin = userSkin;
     this.userId = userId;
 }
+
+
+
+
+
 
 
 
@@ -467,7 +500,9 @@ function main() {
 }
 
 
-
+  //JSON 배열 중복 id 값 제거 
+ // item을 loaclstroage에 저장
+ 
 
 
 

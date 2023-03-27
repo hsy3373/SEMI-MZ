@@ -1,7 +1,9 @@
 package mz.square;
 
+import java.io.IOException;
 import java.util.Set;
 
+import javax.websocket.EncodeException;
 import javax.websocket.EndpointConfig;
 import javax.websocket.OnMessage;
 import javax.websocket.OnOpen;
@@ -38,6 +40,21 @@ public class SquareServer {
 		//Session.getOpenSession()
 		// -> 현재 웹소켓에서 접속해서 유지되고 있는(open)모든 session 값을 반환해줌
 		Set<Session> clients = session.getOpenSessions();
+		
+		for(Session s : clients) {
+			
+			//나중에 나를 제외해서 뿌려주기 
+			UserData u = (UserData)s.getUserProperties().get("User");
+			
+			try {
+				s.getBasicRemote().sendObject(User);
+			} catch (IOException | EncodeException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			
+		}
 		
 	}
 	
