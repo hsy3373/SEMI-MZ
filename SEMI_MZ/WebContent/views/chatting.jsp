@@ -31,18 +31,38 @@ request.getContextPath(); Member loginUser =
         <div class="chat-room-container">
           <div class="selected-chat chat-all-user" id="chat-all-user">전체</div>
           <div class="chat-room-list">
-            <div class="chat-room-item">일이삼사오육칠팔</div>
-            <div class="chat-room-item">abcdefgh</div>
-            <div class="chat-room-item">3친구닉네임</div>
-            <div class="chat-room-item">4친구닉네임</div>
-            <div class="chat-room-item">5친구</div>
+            <div class="chat-room-item">
+              <div class="room-name">일이삼사오육칠팔</div>
+              <div class="delete-room">X</div>
+            </div>
+            <div class="chat-room-item">
+              <div class="room-name"></div>
+              <div class="delete-room">X</div>
+            </div>
+            <div class="chat-room-item">
+              <div class="room-name"></div>
+              <div class="delete-room">X</div>
+            </div>
+            <div class="chat-room-item">
+              <div class="room-name"></div>
+              <div class="delete-room">X</div>
+            </div>
+            <div class="chat-room-item">
+              <div class="room-name"></div>
+              <div class="delete-room">X</div>
+            </div>
           </div>
           <div class="chat-arrow">
-            <button><</button>
-            <button>></button>
+            <button id="chat-prev"><</button>
+            <button id="chat-next">></button>
           </div>
         </div>
-        <div class="chat-item-area"></div>
+        <div class="chat-item-area">
+          <!-- 로딩 바 -->
+          <div class="loadingAni">
+            <div class="loader10"></div>
+          </div>
+        </div>
       </div>
       <div class="div-send">
         <textarea
@@ -57,7 +77,11 @@ request.getContextPath(); Member loginUser =
       </div>
     </div>
 
+    <script type="text/javascript">
+      console.log('테스트 js11');
+    </script>
     <script type="module" src="../resource/js/common.js"></script>
     <script type="module" src="../resource/js/chatting.js"></script>
+    <!-- <script type="module" src="../resource/js/test.js"></script> -->
   </body>
 </html>
