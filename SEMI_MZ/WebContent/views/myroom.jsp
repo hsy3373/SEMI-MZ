@@ -222,7 +222,7 @@
 				<!-- back 버튼 -->
 				<img class="back-btn" src="../resource/img/icon/back2_btn.png">
 				<!-- 작성란 전체 감싼 form -->
-				<form action="<%= contextPath %>/update.bo" class="board-write-area" id="board-update-form" method="post" >
+				<form action="${contextPath}/update.bo" class="board-write-area" id="board-update-form" method="post" >
 				
 					<!-- 제목부분(상세 제목이랑 동일) -->
 					<div class="board-detail-title">
@@ -270,7 +270,7 @@
 				<!-- x 버튼 -->
 				<img class="x-btn" src="../resource/img/icon/엑스 버튼.png">
 				<!-- 작성란 전체 감싼 form -->
-				<form action="<%= contextPath %>/insert.bo" class="board-write-area" id="board-enroll-form" method="post" >
+				<form action="${contextPath }/insert.bo" class="board-write-area" id="board-enroll-form" method="post" >
 					
 					<!-- 제목부분(상세 제목이랑 동일) -->
 					<div class="board-detail-title">

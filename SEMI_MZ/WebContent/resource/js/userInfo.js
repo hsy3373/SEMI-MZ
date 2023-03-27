@@ -5,17 +5,13 @@
 
 /*import { getContextPath } from './common.js';*/
 
-let open = document.querySelector(".user1");
-let close = document.querySelector(".x-btn");
-let modal = document.querySelector(".user-modal");
-
-function init() {
-	open.addEventListener("click", function() {
-		modal.classList.remove(".hidden");
-	});
-	close.addEventListener("click", function() {
-		modal.classList.add(".hidden");
-	});
+let open = () => {
+	document.querySelector(".modal").classList.remove("hidden");
 }
 
-init();
+let close = () => {
+	document.querySelector(".modal").classList.add("hidden");
+}
+
+document.querySelector(".user1").addEventListener("click", open);
+document.querySelector(".x-btn").addEventListener("click", close);

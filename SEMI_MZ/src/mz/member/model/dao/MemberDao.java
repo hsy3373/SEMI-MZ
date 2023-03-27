@@ -1,5 +1,7 @@
 package mz.member.model.dao;
 
+import static mz.common.JDBCTemplate.*;
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -48,7 +50,7 @@ public class MemberDao {
 			
 			rset = pstmt.executeQuery();
 			
-			if(rset.next()) {
+			while(rset.next()) {
 				m = new Member(rset.getString("USER_ID"),
 						       rset.getString("NICKNAME"),
 						       rset.getInt("SKIN_ID"),

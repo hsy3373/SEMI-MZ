@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
-	<entry key="loginMember">
+	<entry key="selectMember">
 		SELECT USER_ID,
 			   NICKNAME,
 			   SKIN_ID,
@@ -9,6 +9,5 @@
 			   GENDER
 		FROM MEMBER
 		WHERE USER_ID = ?
-		  AND USER_PWD =?
 	</entry>
 </properties>

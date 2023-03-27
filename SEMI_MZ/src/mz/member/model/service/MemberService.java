@@ -15,11 +15,10 @@ public class MemberService {
 		
 		Connection conn = getConnection();
 		
-		Notice n = new NoticeDao().selectNotice(conn, nno);
+		Member m = new MemberDao().selectMember(conn, userId);
 		
-		// DML 문이 아니기때문에 트랜젝션 처리 x
 		close(conn);
 		
-		return n;
+		return m;
 	}
 }

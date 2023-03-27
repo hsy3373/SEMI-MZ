@@ -2,18 +2,23 @@
 
 /* 유저 정보창 css - 가영 */
 
-/* .hidden{display: none;} */
+.hidden{display: none;}
 
 /*정보창 화면*/
 .info-wrap{
 	magin: auto;
+	width: 1300px;
+	height: 800px;
+    background-image: url("../img/background/background_main.png");
+    background-repeat: no-repeat;
+    position: relative;
 }
-.info-madal, .user-info{
+.user-info{
 	z-index: 1;
 	width: 57.5%;
 	height: 62%;
 	transform: translate(38.5%, 20%);
-	position: relative;
+	position: absolute;
 }
 #info-view{width:100%;}
 
@@ -138,3 +143,11 @@ button{
     cursor: pointer;
 }
 .x-btn img{width:100%;}
+
+.user1, .test{
+	z-index: 2;
+    position: absolute;
+    top: 8%;
+    left: 49%;
+    font-size: x-large;
+}

@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-pageEncoding="UTF-8" import="mz.member.model.vo.Member"%> <%@ taglib prefix="c"
-uri="http://java.sun.com/jsp/jstl/core" %>
+pageEncoding="UTF-8" import="mz.member.model.vo.Member"%> 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
 	/* 테스트용 유저 객체 */ 
@@ -25,13 +24,14 @@ uri="http://java.sun.com/jsp/jstl/core" %>
     <br /> --%>
     
 
-    <!-- <a href="./myroom.jsp">마이룸</a> <br />
+    <a href="./myroom.jsp">마이룸</a> <br />
     <br />
     <a href="./chatting.jsp">채팅</a>
     <br />
     <br />
-    <a href="./square.jsp">광장</a> -->
-    <%@ include file="../views/userInfo.jsp" %>
+    <a href="./square.jsp">광장</a>
+    <br>
+    <a href="./userInfo.jsp">유저정보창</a>
 
     <script type="module" src="../resource/js/common.js"></script>
   </body>
