@@ -9,23 +9,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.gson.Gson;
-
 import mz.board.model.service.BoardService;
 import mz.board.model.vo.Board;
-import mz.board.model.vo.PageInfo;
-
 /**
- * Servlet implementation class BoardListController
+ * Servlet implementation class BoardListController2
  */
 @WebServlet("/list.bo")
 public class BoardListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+       
     /**
-     * Default constructor. 
+     * @see HttpServlet#HttpServlet()
      */
     public BoardListController() {
+        super();
         // TODO Auto-generated constructor stub
     }
 
@@ -33,7 +30,6 @@ public class BoardListController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
 //		// 페이징처리
 //		int listCount;		// 현재 게시판의 총 게시글 갯수
 //		int currentPage = 1;	// 현재 페이지(사용자가 요청한 페이지)
@@ -84,10 +80,7 @@ public class BoardListController extends HttpServlet {
 		
 		Gson gson = new Gson();
 			
-		gson.toJson(list, response.getWriter());
-
-		
-		
+		gson.toJson(list, response.getWriter());	
 		
 	}
 
