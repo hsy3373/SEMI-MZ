@@ -9,10 +9,10 @@ import mz.member.model.vo.Member;
 
 public class MemberService {
 	
-	public Member loginMember(String userId, String userPwd) {
+	public Member selectMember(String userId) {
 		Connection conn = JDBCTemplate.getConnection();
 		
-		Member m = new MemberDao().loginMember(conn, userId, userPwd);
+		Member m = new MemberDao().selectMember(conn, userId);
 		
 		try {
 			conn.close();

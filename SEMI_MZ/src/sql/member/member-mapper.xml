@@ -10,6 +10,5 @@
 		FROM MEMBER
 		WHERE USER_ID = ?
 		  AND USER_PWD =?
-		  AND STATUS = 'Y'   
 	</entry>
 </properties>

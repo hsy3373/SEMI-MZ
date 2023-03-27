@@ -31,7 +31,7 @@ public class MemberDao {
 		}
 	}
 	
-	public Member loginMember(Connection conn, String userId, String userPwd) {
+	public Member selectMember(Connection conn, String userId) {
 		
 		Member m = null;
 		
@@ -39,13 +39,12 @@ public class MemberDao {
 		
 		PreparedStatement pstmt = null;
 		
-		String sql = prop.getProperty("loginMember");
+		String sql = prop.getProperty("selectMember");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setString(1, userId);
-			pstmt.setString(2, userPwd);
 			
 			rset = pstmt.executeQuery();
 			

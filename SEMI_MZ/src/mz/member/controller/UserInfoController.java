@@ -44,9 +44,12 @@ public class UserInfoController extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		
 		String userId = request.getParameter("userId");
-		String userPwd = request.getParameter("userPwd");
 		
-		Member loginUser = new MemberService().loginMember(userId, userPwd);
+		Member m = new MemberService().selectMember(userId);
+		
+		response.setContentType("application/json; charset=UTF-8");
+		
+		new Gson().toJson(m, response.getWriter());
 	}
 
 }
