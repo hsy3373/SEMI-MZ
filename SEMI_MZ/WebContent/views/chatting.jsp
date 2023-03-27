@@ -81,7 +81,8 @@ request.getContextPath(); Member loginUser =
       console.log("테스트 js11");
     </script>
     <script type="module" src="../resource/js/common.js"></script>
-    <script type="module" src="../resource/js/chatting.js"></script>
+    <script type="module" src="../resource/js/chat/chatData.js"></script>
+    <script type="module" src="../resource/js/chat/chatFront.js"></script>
     <!-- <script type="module" src="../resource/js/test.js"></script> -->
   </body>
 </html>
