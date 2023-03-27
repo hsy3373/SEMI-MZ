@@ -17,7 +17,7 @@
 
 /* ============================= 방명록 모달배경 ============================= */
 .board-wrap {
-    display: block;
+    display: none;
     position: absolute;
     top: 0;
     left: 0;
@@ -26,7 +26,7 @@
     background-color: rgba(0, 0, 0, 0.4);
 }
 .board-modal{
-    display: block;
+    display: none;
 	position: relative;
 	width: 800px;
     height: 500px;
@@ -185,7 +185,7 @@
 /* ======================= 친구한테 쓴 방명록 상세 ======================= */
 /* ============================= 방명록 작성 ============================= */
 .board-send-detail{display: none;}
-.board-write{display: block;}
+.board-write{display: none;}
 .board-write-area{
     width: 600px;
     height: 340px;
@@ -227,22 +227,24 @@
 }
 
 /* back 버튼 */
-/* 방명록 상세          / 친구한테 쓴 방명록 상세 */
-.board-detail .back-btn,.board-send-detail .back-btn {
+/* 방명록 상세          / 친구한테 쓴 방명록 상세        / 방명록 작성  */
+.board-detail .back-btn, .board-send-detail .back-btn, .board-write .back-btn{
     position: absolute;
     top: 2%;
     right: -0.2%;
     width: 48px;
+    height: 48px;
     cursor: pointer;
 }
 
 /* x 버튼 */
-/* 방명록 리스트    / 방명록 작성         / 친구한테 쓴 방명록 리스트 */
-.board-list .x-btn, .board-write .x-btn, .board-send-list .x-btn{
+/* 방명록 리스트    / 친구한테 쓴 방명록 리스트 */
+.board-list .x-btn, .board-send-list .x-btn{
     position: absolute;
     top: 2%;
     right: -0.2%;
     width: 48px;
+    height: 48px;
     cursor: pointer;  
 }
 

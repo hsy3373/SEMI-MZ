@@ -1,7 +1,10 @@
 <!-- 지의 마이룸 -->
-<!-- <%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> -->
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%
+	String contextPath = request.getContextPath();
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -78,9 +81,18 @@
         </div>
 
 		<!--버튼 모달 jps 가져옴 : 노지의-->
-		<!-- <%@ include file="./buttonListMyroom.jsp" %> -->
+		<%@ include file="./buttonListMyroom.jsp" %>
     </div>
-	
+	<!-- 내가 유저아이디와 로그인유저아이디 비교 -->
+	<!-- 
+		광장에서 집아이콘으로 들어갔을 때
+	 -->
+
+	 <!-- 
+		친구목록에서 친구네놀러가기 클릭할때
+		bno 처럼 userId값을 받아오면 됨
+	  -->
+
 	<!-- ============================= 방명록 모달 ============================= -->
 	<div class="board-wrap">
 		<div class="board-modal">
@@ -89,10 +101,25 @@
 	            <img class="x-btn" src="../resource/img/icon/엑스 버튼.png">
 	            <div class="board-content">
 	                <table class="board-list-area">
-	                    <tr>
+<!-- 	                    <tr>
 	                        <td id="board-title"><img class="apple" src="../resource/img/icon/사과.png">방명록제목열다섯글자가나다라마</td>
 	                        <td class="board-userid">내닉네임여덜글자</td>
-	                        <td class="board-date">2023-03-22</td>
+	                        <td class="board-date">2023-03-28</td>
+	                    </tr>
+	                    <tr>
+	                        <td id="board-title"><img class="apple" src="../resource/img/icon/사과.png">제목</td>
+	                        <td class="board-userid">유저2</td>
+	                        <td class="board-date">2023-03-25</td>
+	                    </tr>
+	                    <tr>
+	                        <td id="board-title"><img class="apple" src="../resource/img/icon/사과.png">제목</td>
+	                        <td class="board-userid">유저9</td>
+	                        <td class="board-date">2023-03-25</td>
+	                    </tr>
+	                    <tr>
+	                        <td id="board-title"><img class="apple" src="../resource/img/icon/사과.png">제목</td>
+	                        <td class="board-userid">유저5</td>
+	                        <td class="board-date">2023-03-23</td>
 	                    </tr>
 	                    <tr>
 	                        <td id="board-title"><img class="apple" src="../resource/img/icon/사과.png">제목</td>
@@ -108,27 +135,12 @@
 	                        <td id="board-title"><img class="apple" src="../resource/img/icon/사과.png">제목</td>
 	                        <td class="board-userid">내닉네임여덜글자</td>
 	                        <td class="board-date">2023-03-22</td>
-	                    </tr>
-	                    <tr>
-	                        <td id="board-title"><img class="apple" src="../resource/img/icon/사과.png">제목</td>
-	                        <td class="board-userid">내닉네임여덜글자</td>
-	                        <td class="board-date">2023-03-22</td>
-	                    </tr>
-	                    <tr>
-	                        <td id="board-title"><img class="apple" src="../resource/img/icon/사과.png">제목</td>
-	                        <td class="board-userid">내닉네임여덜글자</td>
-	                        <td class="board-date">2023-03-22</td>
-	                    </tr>
-	                    <tr>
-	                        <td id="board-title"><img class="apple" src="../resource/img/icon/사과.png">제목</td>
-	                        <td class="board-userid">내닉네임여덜글자</td>
-	                        <td class="board-date">2023-03-22</td>
-	                    </tr>
+	                    </tr> -->
 	
 	                </table>
 	                <!-- 페이징바 -->
 	                <div class="pageing-area">
-						페이징바
+
 					</div>
 	            </div>
 	        </div>
@@ -182,29 +194,31 @@
 	            <div class="board-content">
 	                <table class="board-list-area">
 	                    <tr>
-	                        <td colspan="2" id="writing-btn"><button class="button board-write-btn" id="board-write">글쓰기</button></td>
+	                        <td colspan="2" id="writing-btn">
+								<button class="button board-write-btn" id="board-write">글쓰기</button>
+							</td>
 	                    </tr>
-	                    <tr>
+	                    <tr class="board-send-list-tr">
 	                        <td id="board-title"><img class="apple" src="../resource/img/icon/사과.png">제목</td>
 	                        <td class="board-date">2023-03-22</td>
 	                    </tr>
-	                    <tr>
+	                    <tr class="board-send-list-tr">
 	                        <td id="board-title"><img class="apple" src="../resource/img/icon/사과.png">제목</td>
 	                        <td class="board-date">2023-03-22</td>
 	                    </tr>
-	                    <tr>
+	                    <tr class="board-send-list-tr">
 	                        <td id="board-title"><img class="apple" src="../resource/img/icon/사과.png">제목</td>
 	                        <td class="board-date">2023-03-22</td>
 	                    </tr>
-	                    <tr>
+	                    <tr class="board-send-list-tr">
 	                        <td id="board-title"><img class="apple" src="../resource/img/icon/사과.png">제목</td>
 	                        <td class="board-date">2023-03-22</td>
 	                    </tr>
-	                    <tr>
+	                    <tr class="board-send-list-tr">
 	                        <td id="board-title"><img class="apple" src="../resource/img/icon/사과.png">제목</td>
 	                        <td class="board-date">2023-03-22</td>
 	                    </tr>
-	                    <tr>
+	                    <tr class="board-send-list-tr">
 	                        <td id="board-title"><img class="apple" src="../resource/img/icon/사과.png">제목</td>
 	                        <td class="board-date">2023-03-22</td>
 	                    </tr>
@@ -222,7 +236,7 @@
 				<!-- back 버튼 -->
 				<img class="back-btn" src="../resource/img/icon/back2_btn.png">
 				<!-- 작성란 전체 감싼 form -->
-				<form action="<%= contextPath %>/update.bo" class="board-write-area" id="board-update-form" method="post" >
+				<form action="${ contextPath }/update.bo" class="board-write-area" id="board-update-form" method="post" >
 				
 					<!-- 제목부분(상세 제목이랑 동일) -->
 					<div class="board-detail-title">
@@ -267,10 +281,10 @@
 			
 			<!-- ============================= 방명록 작성 ============================= -->
 			<div class="board-write">
-				<!-- x 버튼 -->
-				<img class="x-btn" src="../resource/img/icon/엑스 버튼.png">
+				<!-- back 버튼 -->
+				<img class="back-btn" src="../resource/img/icon/back2_btn.png">
 				<!-- 작성란 전체 감싼 form -->
-				<form action="<%= contextPath %>/insert.bo" class="board-write-area" id="board-enroll-form" method="post" >
+				<form action="${ contextPath }/insert.bo" class="board-write-area" id="board-enroll-form" method="post" >
 					
 					<!-- 제목부분(상세 제목이랑 동일) -->
 					<div class="board-detail-title">
@@ -422,9 +436,37 @@
 	</div>
 	<div class="alert-overlay"></div>
 
-
 	<script src="../resource/js/myroom.js"></script>
     <script type="module" src="../resource/js/alert.js"></script>
     <script type="module" src="../resource/js/common.js"></script>
+    
+    
+	<script>
+    // 방명록 리스트 조회
+	function boardList(){
+		$.ajax({
+			url : "<%= contextPath %>/list.bo",
+			success : function(list){
+				console.log(list)
+				// 서버로부터 전달받은 리스트를 반복문을 통해 댓글 목록으로 변환
+				let result = ""; 
+				for(let i of list){
+					result += "<tr>"
+						       + "<td id='board-title'><img class='apple' src=''../resource/img/icon/사과.png'>" + i.boardTitle + "</td>"
+						       + "<td class='board-userid'>" + i.userId + "</td>"
+						       + "<td class='board-date'>" + i.createDate + "</td>"
+							+"</tr>";
+				}
+				$(".board-list .board-list-area").html(result);
+			},
+			error : function(){
+				console.log("게시글 목록 조회 실패")
+			}
+		})
+	}
+	boardList();
+	
+    
+    </script>
 </body>
 </html>

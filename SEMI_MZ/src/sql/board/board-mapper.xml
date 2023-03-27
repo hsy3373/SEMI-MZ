@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<!-- 전체 게시글 갯수 조회 -->
+	<entry key="selectListCount">
+		SELECT COUNT(*) AS COUNT
+		  FROM BOARD;
+	</entry>
+	
+	<!-- 전체 게시글 조회 -->
+<!-- 	<entry key="selectBoardList">
+		SELECT *
+		FROM(
+			SELECT ROWNUM RNUM , A.*
+			FROM (
+					SELECT
+						  BOARD_NO,
+						  USER_ID,
+						  RECEIVE_ID,
+						  BOARD_TITLE,
+						  BOARD_CONTENT,
+						  SECRET,
+						  CREATE_DATE
+					FROM BOARD B
+					JOIN MEMBER USING (USER_ID)
+					ORDER BY CREATE_DATE DESC
+				)A
+			)
+		WHERE RNUM BETWEEN ? AND ?
+	</entry> -->
+	<entry key="selectBoardList">
+		SELECT
+			  BOARD_NO,
+			  USER_ID,
+			  RECEIVE_ID,
+			  BOARD_TITLE,
+			  BOARD_CONTENT,
+			  SECRET,
+			  CREATE_DATE
+		FROM BOARD B
+		JOIN MEMBER USING (USER_ID)
+		ORDER BY CREATE_DATE DESC
+
+	</entry>
+</properties>
