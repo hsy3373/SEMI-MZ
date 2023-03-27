@@ -69,14 +69,14 @@
 #skin{width: 100%;}
 
 /*성별*/
-.gender{
+.user-gender{
     z-index: 2;
     position: absolute;
     left: 35.5%;
     top: 58.8%;
     width: 1.5%;
 }
-.gender img{width: 100%;}
+#gender{width: 100%;}
 
 /*자기소개*/
 .introduce{

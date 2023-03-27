@@ -42,8 +42,12 @@ public class UserInfoController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String userId = request.getParameter("userId");
+		String nickName = request.getParameter("nicName");
+		int skinId = Integer.parseInt(request.getParameter("skinId"));
+		String gender = request.getParameter("gender");
+		String info = request.getParameter("info");
 		
-		Member m = new MemberService().selectMember(userId);
+		Member m = new MemberService().selectMember(userId, nickName, skinId, gender, info);
 		
 		response.setContentType("application/json; charset=UTF-8");
 		

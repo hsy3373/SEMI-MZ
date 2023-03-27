@@ -33,7 +33,7 @@ public class MemberDao {
 		}
 	}
 	
-	public Member selectMember(Connection conn, String userId) {
+	public Member selectMember(Connection conn, String userId, String nickName, int skinId, String gender, String info) {
 		
 		Member m = null;
 		
