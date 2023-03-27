@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+
+<!-- [han] -->
+<properties>
+
+	<entry key="getChatRooms">
+		SELECT
+		    RECEIVE_ID
+		FROM
+		    CHATTINGROOM
+		WHERE
+		    USER_ID = ?
+		ORDER BY
+		    RECEIVE_ID
+	</entry>
+	
+	<entry key="getChattings">
+		SELECT *
+		FROM (	SELECT *
+				FROM CHATTING 
+				WHERE (USER_ID, RECEIVE_ID) IN(( ? , ? ),( ? , ? ))
+					AND CHAT_NO > ?
+					AND CREATE_DATE > SYSDATE-7
+				ORDER BY CREATE_DATE, CHAT_NO )
+		WHERE ROWNUM &lt;= 50
+	</entry>
+
+
+
+</properties>

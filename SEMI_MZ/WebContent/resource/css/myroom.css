@@ -11,19 +11,10 @@
     --fontweight900: 900;
     --userskin80: 80px;
     --friendskin80:80px;
-}
-/* button 태그 */
-.button{
-    border-radius: 15px;
-    width: 80px;
-    height: 34px;
-    display: inline-block;
-    padding-top: 5px;
-    font-size: var(--fontsize14);
-    font-weight: var(--fontweight900);
+    --white:#ffffff;
 }
 
-/* ----------------------- 마이룸 기본 틀 ----------------------- */
+/* ================================== 마이룸 기본 배경 ================================== */
 .myroom{
     width: 1300px;
     height: 800px;
@@ -35,48 +26,67 @@
     position: relative;
 }
 
-/* 옷장 아이콘 */
+/* ================================== 옷장 ================================== */
 .icon-closet #closet{
-    position: absolute;
-    top: 55%;
-    left: 18%;
-    
-}
-.icon-closet #closet-hover{
     position: absolute;
     top: 55%;
     left: 18%;
 }
 /* 옷장 호버 */
-.icon-closet #closet-hover{display:none;}
-.icon-closet:hover #closet{display:none;}
-.icon-closet:hover #closet-hover{display:block}
-
-
-/* 나무 아이콘 */
-.icon-tree>#tree{
-    position: absolute;
-    top: 50%;
-    right: 16%;
+#closet:hover{
+    transform: scale(0.97);
+    cursor: pointer;
 }
-.icon-tree>#tree-hover{
+
+/* ================================== 나무 ================================== */
+.icon-tree{
     position: absolute;
-    top: 50%;
-    right: 16%;
+	top: 45%;
+    right: 20%;
 }
 /* 나무 호버 */
-.icon-tree #tree-hover{display:none;}
-.icon-tree:hover #tree{display:none;}
-.icon-tree:hover #tree-hover{display:block}
+.icon-tree:hover{
+    transform: scale(0.97);
+    cursor: pointer;
 
-/* 유저 */
+}
+/* 방명록 내용 위치 */
+.myroom-board{
+    position: absolute;
+    top: 18%;
+    left: 5%;
+}
+.myroom-board-list{
+    width: 220px;
+    table-layout: fixed;
+}
+/* 방명록 폰트 설정 */
+.myroom-board-list td{font-size: var(--fontsize14); color: var(--white);}
+/* 방명록 제목 */
+.myroom-board-title{
+    width: 120px;
+    text-overflow: ellipsis; /* 말줄임표(...) 표시 */
+    overflow: hidden; /* 글자 자름 */
+    white-space: nowrap; /* 줄바꿈 방지 */
+}
+/* 방명록 작성자 */
+.myroom-board-user{
+    width: 100px;
+    text-align: right;
+}
+.myroom-board .apple{
+    width: 18px;
+    margin-right: 0;
+}
+
+/* ================================== 유저 ================================== */
 .user-skin{width: var(--userskin80);}
 .myroom_user .user-skin{
     position: absolute;
     top: 70%;
     left: 48%;
 }
-/* 호감도 */
+/* ================================== 호감도 ================================== */
 input[name="heart-ck"]+label {
     position: absolute;
     top: 66%;

@@ -16,6 +16,18 @@ public class Chat {
 		// TODO Auto-generated constructor stub
 	}
 
+	
+
+	public Chat(int chatNo, String userId, String receiveId, String content, Date date) {
+		super();
+		this.chatNo = chatNo;
+		this.userId = userId;
+		this.receiveId = receiveId;
+		this.content = content;
+		this.date = date;
+	}
+
+
 
 	@Override
 	public String toString() {
