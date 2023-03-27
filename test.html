@@ -9,20 +9,32 @@
 </head>
 
 <body>
+    <div id="main-square"></div>
 
     <script>
+
+        let canvas
+        let ctx;
+
+
+        canvas = document.createElement("canvas");
+        ctx = canvas.getContext("2d");
+        canvas.width = 1300;
+        canvas.height = 800;
+        document.getElementById("main-square").appendChild(canvas);
+
         let UserDate = [];
-        UserDate.push({ uesrX: '900', uesrY: '730', userSkin: '1', userId: 'test' })
-        UserDate.push({ uesrX: '900', uesrY: '733', userSkin: '1', userId: 'test' })
-        UserDate.push({ uesrX: '900', uesrY: '734', userSkin: '1', userId: 'test2' })
-        UserDate.push({ uesrX: '900', uesrY: '735', userSkin: '2', userId: 'test2' })
-        UserDate.push({ uesrX: '900', uesrY: '736', userSkin: '1', userId: 'test' })
-        UserDate.push({ uesrX: '900', uesrY: '730', userSkin: '1', userId: 'test' })
-        UserDate.push({ uesrX: '900', uesrY: '730', userSkin: '3', userId: 'test' })
+        UserDate.push({ uesrX: '900', uesrY: '730', userSkin: '2', userId: 'test' })
+        UserDate.push({ uesrX: '900', uesrY: '733', userSkin: '3', userId: 'test3' })
+        UserDate.push({ uesrX: '900', uesrY: '734', userSkin: '4', userId: 'test2' })
+        UserDate.push({ uesrX: '900', uesrY: '735', userSkin: '5', userId: 'test2' })
+        UserDate.push({ uesrX: '900', uesrY: '736', userSkin: '6', userId: 'test4' })
+        UserDate.push({ uesrX: '900', uesrY: '730', userSkin: '7', userId: 'test5' })
+        UserDate.push({ uesrX: '900', uesrY: '730', userSkin: '3', userId: 'test6' })
 
 
 
-        console.log(UserDate)
+        console.log(UserDate);
 
 
         let FilterUsers = UserDate.filter(
@@ -32,7 +44,20 @@
                 )
         )
 
-        console.log(FilterUsers)
+        console.log(FilterUsers);
+
+        for (let i = 0; i < FilterUsers.length; i++) {
+            let userbd+i = new Image();
+            userbd.src = "SEMI_MZ/WebContent/resource/img/user/" + FilterUsers[i].userSkin + "/bd.png"
+             
+        }
+
+       
+
+        for (let i = 0; i < FilterUsers.length; i++) {
+            ctx.drawImage(user+i, FilterUsers[i].uesrX, FilterUsers[i].uesrY)
+            ctx.fillText(FilterUsers[i].userId, uesrX + 2, uesrY + 60);
+        }
 
 
 
