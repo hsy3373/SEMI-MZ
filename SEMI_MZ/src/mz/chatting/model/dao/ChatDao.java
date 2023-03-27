@@ -36,6 +36,8 @@ public class ChatDao {
 	}
 	
 	
+//	------------------------------ select 구간 -------------------------------
+	
 	public ArrayList<String> getChatRooms(Connection conn , String userId){
 		ArrayList<String> list = new ArrayList<>();
 		
@@ -102,4 +104,99 @@ public class ChatDao {
 		return list;
 	}
 
+//---------------------------------insert 구간 -------------------------------------	
+	
+	public int insertChatRoom(Connection conn, String userId, String receiver) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("insertChatRoom");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userId);
+			pstmt.setString(2, receiver);
+			pstmt.setString(3, receiver);
+			pstmt.setString(4, userId);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+	
+	public int insertChat(Connection conn, Chat chat) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("insertChat");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, chat.getUserId());
+			pstmt.setString(2, chat.getReceiveId());
+			pstmt.setString(3, chat.getContent());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+	
+	
+	
+//---------------------------------delete 구간 -------------------------------------
+	
+	
+	public int deleteChatRoom(Connection conn, String userId, String receiver) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("deleteChatRoom");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userId);
+			pstmt.setString(2, receiver);
+
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

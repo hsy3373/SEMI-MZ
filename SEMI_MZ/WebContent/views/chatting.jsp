@@ -19,7 +19,7 @@ request.getContextPath(); Member loginUser =
 
     <style>
       body {
-        background-image: url('../resource/img/background/background_main.png');
+        background-image: url("../resource/img/background/background_main.png");
       }
     </style>
   </head>
@@ -78,7 +78,7 @@ request.getContextPath(); Member loginUser =
     </div>
 
     <script type="text/javascript">
-      console.log('테스트 js11');
+      console.log("테스트 js11");
     </script>
     <script type="module" src="../resource/js/common.js"></script>
     <script type="module" src="../resource/js/chatting.js"></script>

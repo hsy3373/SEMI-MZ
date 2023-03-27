@@ -26,6 +26,17 @@ public class Chat {
 		this.content = content;
 		this.date = date;
 	}
+	
+	
+	
+
+
+	public Chat(String userId, String receiveId, String content) {
+		super();
+		this.userId = userId;
+		this.receiveId = receiveId;
+		this.content = content;
+	}
 
 
 
