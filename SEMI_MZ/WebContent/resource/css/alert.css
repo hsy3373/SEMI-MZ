@@ -16,10 +16,17 @@
   font-size: var(--fontsize14);
   font-weight: var(--fontweight900);
 }
-/* 삭제 버튼 */
+
+/* 방명록 삭제(지의) */
 .board-delete-btn {
   background-color: #fa453e;
   border: 2.5px solid #bf2d28;
+  margin-top: 15px;
+}
+/* 방명록 수정(지의) */
+.board-update-btn {
+  background-color: #fab83e;
+  border: 2.5px solid #b8872c;
   margin-top: 15px;
 }
 
@@ -35,10 +42,16 @@
   background-color: #ededed;
   border: 2.5px solid #cfd1cf;
 }
-
+/* 버튼 클릭시 커서포인터, 버튼크기 살짝 작아지는 호버효과 */
+.alert-ok:hover,
+.alert-cancel:hover,
+.alert-toggle:hover {
+  transform: scale(0.97);
+  cursor: pointer;
+}
 /* 전체 틀 */
 .alert {
-  width: 25%;
+  width: 300px;
   border-radius: 4px;
   margin-left: auto;
   margin-right: auto;
