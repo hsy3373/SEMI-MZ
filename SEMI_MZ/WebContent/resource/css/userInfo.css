@@ -1,20 +1,21 @@
 @charset "UTF-8";
 
 /* 유저 정보창 css - 가영 */
-.hidden{display: none;}
+
+/* .hidden{display: none;} */
+
 /*정보창 화면*/
-.user-info{
-	width: 1300px;
-	height: 800px;
+.info-wrap{
+	magin: auto;
 }
-.user-info-view{
+.info-madal, .user-info{
 	z-index: 1;
 	width: 57.5%;
 	height: 62%;
 	transform: translate(38.5%, 20%);
 	position: relative;
 }
-.user-info-view img{width:100%;}
+#info-view{width:100%;}
 
 /*닉네임*/
 .nickname{
@@ -39,7 +40,7 @@
     width: 2.5%;
     cursor: pointer;
 }
-.heart-off{width: 100%;}
+#heart-off{width: 100%;}
 
 /*호감도 갯수*/
 .heart-int{
@@ -53,14 +54,14 @@
 }
 
 /*유저 캐릭터*/
-.user{
+.user-skin{
 	z-index: 2;
 	position: absolute;
 	top: 38%;
     left: 30.5%;
 	width: 11%;
 }
-.user img{width: 100%;}
+#skin{width: 100%;}
 
 /*성별*/
 .gender{
