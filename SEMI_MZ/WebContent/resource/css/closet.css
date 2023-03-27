@@ -1,9 +1,13 @@
+/*
+ * 노지의
+ * 마이룸(옷장, 상점) CSS
+ */
 @charset "UTF-8";
-/* 마이룸(옷장) css - 지의 */
 :root{
     --fontsize14 : 14px;
     --fontsize16 : 16px;
     --fontsize20 : 20px;
+    --fontsize24 : 24px;
     --fontweight200: 200;
     --fontweight400: 400;
     --fontweight600: 600;
@@ -18,9 +22,9 @@
     cursor: pointer;  
 }
 
-/* ----------------------- 옷장, 상점 모달배경 ----------------------- */
+/* ============================= 옷장, 상점 공통 모달 ============================= */
 .closet-wrap {
-    display: block;
+    display: none;
     position: absolute;
     top: 0;
     left: 0;
@@ -43,37 +47,106 @@
 }
 .coin-img{	
     position: absolute;
-    top: 7%;
-    left: 45%;
+    top: 9%;
+    left: 47%;
     width: 25px;
     height: 25px;
 }
-
-/* ----------------------- 옷장 모달 ----------------------- */
-
-
-
-
-/* 뒤로가기 버튼 */
-#back-btn{
+/* 엑스 버튼 */
+.closet-wrap .x-btn{
     position: absolute;
-    right: 12%;
-    scale: 0.6;
+    width: 48px;
+    top: 2%;
+    right: 14%;
+    cursor: pointer;
 }
 
-/* 코인 */
+/* ============================= 옷장 모달 ============================= */
+/* .closet-modal *{border: 1px solid red;} */
+.view-skin{
+    position: absolute;
+    top: 38%;
+    left: 25%;
+}
+.view-skin *{box-sizing: border-box;}
+.closet-modal .user-skin, .store-modal .user-skin{
+    width: 120px;
+    height: 100%;
+}
+/* 버튼 공통 디자인 클래스 */
+.closet-btn{
+    position: absolute;
+    width: 90px;
+    height: 40px;
+    background: #f0ede6;
+    border: 2px solid #665d49;
+    cursor: pointer;
+    font-size: var(--fontsize16);
+    font-weight: var(--fontweight900);
+    letter-spacing: 1px;
+}
+/* 착용 버튼 */
+.closet-wear, .closet-buy{
+    top: 58%;
+    left: 26%;
+}
+/* 옷장버튼 */
+.dress-btn{top: 9%; left: 67.5%;}
+.store-btn{top: 9%; left: 75%;}
+
+
+/* 내 코인 */
 .coin{
     position: absolute;
-    top: 9.4%;
-    left: 47%;
-	display: flex;
+    top: 9.3%;
+    left: 50%;
+    font-size: var(--fontsize24);
 }
-.coin .coin-text{margin: 4px 0 0 10px;}
-
-
-#store{
+/* 스킨들 들어있는 큰 박스 틀 */
+.closet-skins{
     position: absolute;
-    top: 8.5%;
-    left: 74%;
-}
+    top: 19%;
+    left: 48%;
+    width: 400px;
 
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    grid-row-gap: 33px;
+    grid-column-gap: 50px;
+}
+/* .closet-item *{border: 1px solid red;} */
+/* 각각의 스킨박스 */
+.closet-item{
+    /* border: 1px solid red; */
+    box-sizing: border-box;
+    width: 100px;
+    height: 100px;
+    text-align: center;
+    position: relative;
+}
+.closet-item div{box-sizing: border-box;}
+/* 스킨 가격 or 보유중 라벨 */
+.closet-price{
+    background: url(../img/icon/라벨2.png) no-repeat center/cover;
+    background-size: 100px 30px;
+    height: 30px;
+    padding-top: 8px;
+    font-weight: var(--fontweight900);
+    display: none;
+}
+/* 스킨목록 캐릭터이미지크기 */
+.closet-skin{
+    height: 60px;
+    margin-top: 10px;
+    position: absolute;
+    bottom: 0px; /* 하단에 이미지 고정 */
+    left: 18%;
+}
+.closet-skin img{height: 100%;}
+
+
+
+
+
+.store-modal{display: none;}
