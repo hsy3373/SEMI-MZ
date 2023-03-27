@@ -469,21 +469,27 @@ ul li.on a {color: #fff;}
 	<script>
     // 방명록 리스트 조회
 	// 페이징 처리 준비
-	let totalData;				//총 데이터 수
-	let dataPerPage = 7; 			//한 페이지에 나타낼 글 수
-	let pageCount = 10; 		//페이징에 나타낼 페이지 수
-	let globalCurrentPage=1; 	//현재 페이지
-	let dataList; 				//표시하려하는 데이터 리스트
+	let listCount;				// 현재 게시판의 총 게시글 갯수
+	let boardLimit = 7; 		// 한 페이지에 나타낼 게시글 수
+	let pageLimit = 5; 			// 페이지 하단에 보여질 페이징바의 페이지 최대 갯수(패이지 목록들 몇개단위로 출력할건지)
+	let currentPage = 1; 		// 현재 페이지(사용자가 요청한 페이지)
+	let BoardList; 				// 표시하려하는 방명록 리스트
+	let maxPage; 				// 가장 마지막 페이지가 몇번 페이지인지(총 페이지 수)
+	
+	
+
+	let startPage; 		// 페이지 하단에 보여질 페이징바의 시작 수
+	let endPage; 		// 페이지 하단에 보여질 페이징바의 끝 수
 
 
 	$(function(){
 		$.ajax({ // ajax로 데이터 가져오기
-			url : "<%= contextPath %>/list.bo",
+			url : "<%= contextPath %>/list.bo?",
 			dataType: "json",
 			success : function(list){
-				//totalData(총 데이터 수) 구하기
-				totalData = list.length;
-				console.log("총데이터수 : " + totalData);
+				//listCount(총 게시글 수)
+				listCount = list.length;
+				console.log("총 게시글 수 : " + listCount);
 				
 				for(let i = 0; i < list.length; i++){
 					console.log(list[i].userId + ", " + list[i].boardTitle +  ", " + list[i].createDate );
@@ -492,10 +498,10 @@ ul li.on a {color: #fff;}
 		});
 		
 		//글 목록 표시 호출 (테이블 생성)
-		displayData(1, dataPerPage);
+		displayData(1, boardLimit);
 		
 		//페이징 표시 호출
-		paging(totalData, dataPerPage, pageCount, 1);
+		paging(listCount, boardLimit, pageLimit, 1);
 		
 	});
 		
@@ -503,24 +509,24 @@ ul li.on a {color: #fff;}
 	
 	
 	// 글 목록 표시 함수
-	//현재 페이지(currentPage)와 페이지당 글 개수(dataPerPage) 반영
- 	function displayData(currentPage, dataPerPage) {
+	// 현재 페이지(currentPage)와 페이지당 글 개수(boardLimit) 반영
+ 	function displayData(currentPage, boardLimit) {
 
-		let chartHtml = "";
+		let str = "";
 
 		//Number로 변환하지 않으면 아래에서 +를 할 경우 스트링 결합이 되어버림.. 
 		currentPage = Number(currentPage);
-		dataPerPage = Number(dataPerPage);
+		boardLimit = Number(boardLimit);
 	  
-		for (let i = (currentPage - 1) * dataPerPage; i < (currentPage - 1) * dataPerPage + dataPerPage; i++) {
+		for (let i = (currentPage - 1) * boardLimit; i < (currentPage - 1) * boardLimit + boardLimit; i++) {
 			console.log(i.userId);
-			chartHtml += "<tr>"
+			str += "<tr>"
 					       + "<td id='board-title'><img class='apple' src='../resource/img/icon/사과.png'>" + i.boardTitle + "</td>"
 					       + "<td class='board-userid'>" + i.userId + "</td>"
 					       + "<td class='board-date'>" + i.createDate + "</td>"
 						+"</tr>";
 	  	}
-	  	$(".board-list .board-list-area").html(chartHtml);
+	  	$(".board-list .board-list-area").html(str);
 	}
  	displayData();
 
@@ -528,23 +534,22 @@ ul li.on a {color: #fff;}
  	
 	
 	// 페이징 표시 함수
-	function paging(totalData, dataPerPage, pageCount, currentPage) {
+	function paging(listCount, boardLimit, pageLimit, currentPage) {
 		console.log("currentPage : " + currentPage);
 		
-		totalPage = Math.ceil(totalData / dataPerPage); //총 페이지 수
+		maxPage = Math.ceil(listCount / boardLimit); //총 페이지 수
 		  
-		if(totalPage<pageCount){
-		  pageCount=totalPage;
+		if(maxPage<pageLimit){
+		  pageLimit=maxPage;
 		}
-	  
-		let pageGroup = Math.ceil(currentPage / pageCount); // 페이지 그룹
-		let last = pageGroup * pageCount; //화면에 보여질 마지막 페이지 번호
+		let pageGroup = Math.ceil(currentPage / pageLimit); // 페이지 그룹
+		let last = pageGroup * pageLimit; //화면에 보여질 마지막 페이지 번호
 	
-		if (last > totalPage) {
-		  last = totalPage;
+		if (last > maxPage) {
+		  last = maxPage;
 		}
 	
-		let first = last - (pageCount - 1); //화면에 보여질 첫번째 페이지 번호
+		let first = last - (pageLimit - 1); //화면에 보여질 첫번째 페이지 번호
 		let next = last + 1;
 		let prev = first - 1;
 	
@@ -563,13 +568,13 @@ ul li.on a {color: #fff;}
 			}
 		}
 	
-		if (last < totalPage) {
+		if (last < maxPage) {
 			pageHtml += "<li><a href='#' id='next'> 다음 </a></li>";
 	}
 
 	$("#pagingul").html(pageHtml);
 	let displayCount = "";
-	displayCount = "현재 1 - " + totalPage + " 페이지 / " + totalData + "건";
+	displayCount = "현재 1 - " + maxPage + " 페이지 / " + listCount + "건";
 	$("#displayCount").text(displayCount);
 	
 	
@@ -582,11 +587,11 @@ ul li.on a {color: #fff;}
 		if ($id == "prev") selectedPage = prev;
 		
 		//전역변수에 선택한 페이지 번호를 담는다...
-		globalCurrentPage = selectedPage;
+		currentPage = selectedPage;
 		//페이징 표시 재호출
-		paging(totalData, dataPerPage, pageCount, selectedPage);
+		paging(listCount, boardLimit, pageLimit, selectedPage);
 		//글 목록 표시 재호출
-		displayData(selectedPage, dataPerPage);
+		displayData(selectedPage, boardLimit);
 		});
 	}
 
