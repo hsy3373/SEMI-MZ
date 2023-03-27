@@ -38,7 +38,7 @@
   border: 2.5px solid #a1c49b;
 }
 /* 취소 버튼 */
-.alert-cancel {
+#alert-cancel {
   background-color: #ededed;
   border: 2.5px solid #cfd1cf;
 }
