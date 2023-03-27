@@ -1,5 +1,4 @@
 @charset "UTF-8";
-/*==================== css 변수설정 =======================*/
 	:root{
 			--backcolor0:rgba(0, 0, 0, 0);
 			--iptext-width: 374px;
@@ -7,6 +6,7 @@
 			--hiptext-width: 350px;
 			--iptext-outline-color: #f5bc60;
 		}
+    
 /*==================== 전체 폰트 =======================*/	
 	@font-face {
     font-family: "DOSSaemmul";
@@ -360,6 +360,7 @@
 .agree-text{
     background-color: rgba(255, 255, 255, 0.5);
     font-family: 'Noto Sans KR', sans-serif !important;
+    font-size: 8px !important;
 
 }
 .agree-text:focus{

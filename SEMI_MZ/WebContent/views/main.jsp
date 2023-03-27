@@ -114,7 +114,7 @@
 							</tr>
 							<tr class="under-text">
 								<td></td>
-								<td>영문, 숫자 사용하여 5~20자 공백없이 가능</td>
+								<td><span id="idcheck-txt">영문, 숫자, 특수기호(_) 사용하여 5~20자 공백없이 가능</span></td>
 								<td></td>
 							</tr>
 							<tr></tr><tr></tr><tr></tr><tr></tr><tr></tr><tr></tr>
@@ -148,7 +148,7 @@
 							<tr>
 								<th class="th1-wid">- 이용약관 동의</th>
 								<td>
-									<textarea class="scroll-fix agree-text" name="enroll-agree" cols="52" rows="5" style="resize:none;" readonly>
+									<textarea class="scroll-fix agree-text" name="enroll-agree" cols="54" rows="5" style="resize:none;" readonly>
 이용약관
 제1조 (목적)
 이 약관은 (주)M-ZONE(이하 “회사”라 합니다)이 제공하는 메타버스 및 메타버스 관련 제반 서비스의 이용에 대해 회사와 회원의 권리, 의무 및 책임사항, 기타 필요한 사항을 규정함을 목적으로 합니다.
@@ -435,7 +435,7 @@
 								<td></td>
 							</tr>
 							<tr>
-								<th colspan="3"><button type="button" id="enroll-btn" class="alert-toggle">회원 가입</button></th>
+								<th colspan="3"><button type="button" id="enroll-btn" class="alert-toggle" disabled>회원 가입</button></th>
 							</tr>
 	                    </table>
 					</form>
@@ -645,9 +645,11 @@
 
 
 
- <!-- alert script -->
- <!-- <script src="../resource/js/validation.js"></script> -->
+ <!--유효성 script -->
+ <script src="../resource/js/validation.js"></script>
+ <!--alert script -->
  <script src="../resource/js/alert.js"></script>
+ <!-- 메인 script(modal) -->
  <script src="../resource/js/main.js"></script> 
 
 
