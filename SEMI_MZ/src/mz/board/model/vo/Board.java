@@ -9,7 +9,7 @@ public class Board {
 	private String boardTitle;		//	BOARD_TITLE 		NVARCHAR2(15 CHAR)
 	private String boardContent;	//	BOARD_CONTENT 		NVARCHAR2(500 CHAR)
 	private String secret;			//	SECRET 				CHAR(1 BYTE)
-	private Date date;				//	CREATE_DATE 		DATE
+	private Date createDate;		//	CREATE_DATE 		DATE
 	
 	public Board() {
 		super();
@@ -24,7 +24,7 @@ public class Board {
 		this.boardTitle = boardTitle;
 		this.boardContent = boardContent;
 		this.secret = secret;
-		this.date = date;
+		this.createDate = date;
 	}
 	
 	// 방명록 리스트 조회
@@ -32,7 +32,7 @@ public class Board {
 		super();
 		this.userId = userId;
 		this.boardTitle = boardTitle;
-		this.date = date;
+		this.createDate = date;
 	}
 
 	public int getBoardNo() {
@@ -84,17 +84,17 @@ public class Board {
 	}
 
 	public Date getDate() {
-		return date;
+		return createDate;
 	}
 
 	public void setDate(Date date) {
-		this.date = date;
+		this.createDate = date;
 	}
 
 	@Override
 	public String toString() {
 		return "Board [boardNo=" + boardNo + ", userId=" + userId + ", receiveId=" + receiveId + ", boardTitle="
-				+ boardTitle + ", boardContent=" + boardContent + ", secret=" + secret + ", date=" + date + "]";
+				+ boardTitle + ", boardContent=" + boardContent + ", secret=" + secret + ", date=" + createDate + "]";
 	}
 	
 }

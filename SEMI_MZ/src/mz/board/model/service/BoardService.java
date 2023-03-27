@@ -7,7 +7,6 @@ import java.util.ArrayList;
 
 import mz.board.model.dao.BoardDao;
 import mz.board.model.vo.Board;
-import mz.board.model.vo.PageInfo;
 
 public class BoardService {
 

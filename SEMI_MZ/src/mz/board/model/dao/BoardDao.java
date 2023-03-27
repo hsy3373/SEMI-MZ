@@ -14,7 +14,6 @@ import java.util.InvalidPropertiesFormatException;
 import java.util.Properties;
 
 import mz.board.model.vo.Board;
-import mz.board.model.vo.PageInfo;
 
 public class BoardDao {
 
@@ -62,17 +61,6 @@ public class BoardDao {
 		String sql = prop.getProperty("selectBoardList");
 		try {
 			pstmt = conn.prepareStatement(sql);
-			/*
-			 * boardLimit이 10이라고 가정
-			 * currentPage 1을 요청시 -> 1 ~ 10
-			 * currentPage 2을 요청시 -> 11 ~ 20
-			 * currentPage n을 요청시 -> 시작값 : (currentPage - 1) * boardLimit + 1 ~ 종료값 : 시작값 + boardLimit - 1
-			 */
-//			int startRow = (pi.getCurrentPage() -1) * pi.getBoardLimit() + 1;
-//			int endRow = startRow + pi.getBoardLimit() - 1;
-//			
-//			pstmt.setInt(1, startRow);
-//			pstmt.setInt(2, endRow);
 			
 			rset = pstmt.executeQuery();
 			
