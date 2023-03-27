@@ -24,42 +24,97 @@
         document.getElementById("main-square").appendChild(canvas);
 
         let UserDate = [];
-        UserDate.push({ uesrX: '900', uesrY: '730', userSkin: '2', userId: 'test' })
-        UserDate.push({ uesrX: '900', uesrY: '733', userSkin: '3', userId: 'test3' })
-        UserDate.push({ uesrX: '900', uesrY: '734', userSkin: '4', userId: 'test2' })
-        UserDate.push({ uesrX: '900', uesrY: '735', userSkin: '5', userId: 'test2' })
-        UserDate.push({ uesrX: '900', uesrY: '736', userSkin: '6', userId: 'test4' })
-        UserDate.push({ uesrX: '900', uesrY: '730', userSkin: '7', userId: 'test5' })
-        UserDate.push({ uesrX: '900', uesrY: '730', userSkin: '3', userId: 'test6' })
+        UserDate.push({ uesrX: '80', uesrY: '730', userSkin: '2', userId: 'test' })
+        UserDate.push({ uesrX: '930', uesrY: '733', userSkin: '3', userId: 'test3' })
+        UserDate.push({ uesrX: '120', uesrY: '34', userSkin: '4', userId: 'test2' })
+        UserDate.push({ uesrX: '230', uesrY: '235', userSkin: '5', userId: 'test2' })
+        UserDate.push({ uesrX: '540', uesrY: '436', userSkin: '6', userId: 'test4' })
+        UserDate.push({ uesrX: '650', uesrY: '440', userSkin: '7', userId: 'test5' })
+        UserDate.push({ uesrX: '10', uesrY: '730', userSkin: '3', userId: 'test6' })
 
 
 
         console.log(UserDate);
 
 
-        let FilterUsers = UserDate.filter(
-            (arr, index, callback) =>
-                index === callback.findLastIndex(t =>
-                    t.userId === arr.userId
-                )
-        )
+        // let FilterUsers = UserDate.filter(
+        //     (arr, index, callback) =>
+        //         index === callback.findLastIndex(t =>
+        //             t.userId === arr.userId
+        //         )
+        // )
 
-        console.log(FilterUsers);
+        // console.log(FilterUsers);
 
-        for (let i = 0; i < FilterUsers.length; i++) {
-            let userbd+i = new Image();
-            userbd.src = "SEMI_MZ/WebContent/resource/img/user/" + FilterUsers[i].userSkin + "/bd.png"
-             
+        let skinImages = {};
+        for (let i = 0; i < UserDate.length; i++) {
+            let img = new Image();
+            img.src = "SEMI_MZ/WebContent/resource/img/user/skin" + UserDate[i].userSkin + "/bd.png"
+            skinImages[i] = img;
         }
 
-       
+        console.log(skinImages);
 
-        for (let i = 0; i < FilterUsers.length; i++) {
-            ctx.drawImage(user+i, FilterUsers[i].uesrX, FilterUsers[i].uesrY)
-            ctx.fillText(FilterUsers[i].userId, uesrX + 2, uesrY + 60);
+
+        // for (let user of UserDate) {
+        //     let x = parseInt(user.uesrX);
+        //     let y = parseInt(user.uesrY);
+        //     let skin = parseInt(user.userSkin);
+        //     let id = user.userId;
+
+
+        //     let img = skinImages[i];
+        //     img.onload = function () {
+        //         ctx.drawImage(img, x, y, 50, 50);
+        //         ctx.fillText(id, x + 50 / 2, y + 50 + 14);
+        //     };
+
+        // }
+
+        for (let i = 0; i < UserDate.length; i++) {
+            let user = UserDate[i];
+            let x = parseInt(user.uesrX);
+            let y = parseInt(user.uesrY);
+            let skin = parseInt(user.userSkin);
+            let id = user.userId;
+
+            let img = skinImages[i];
+            img.onload = function () {
+                ctx.drawImage(img, x, y, 50, 50);
+                ctx.fillText(id, x + 50 / 2, y + 50 + 14);
+            };
         }
 
 
+        canvas.addEventListener('click', function (e) {
+
+            
+            let x = e.clientX;
+            let y = e.clientY;
+
+            console.log(x)
+            console.log(y)
+
+            for (let user of UserDate) {
+                let ux = parseInt(user.uesrX);
+                let uy = parseInt(user.uesrY);
+                let skin = parseInt(user.userSkin);
+                let id = user.userId;
+
+                let imgX = ux - 25;
+                let imgY = uy - 25;
+
+                if (x >= imgX && x <= imgX + 50 && y >= imgY && y <= imgY + 50) {
+                    window.sessionStorage.setItem('clickedUserId', id);
+                    break;
+                }
+            }
+
+            console.log(sessionStorage)
+
+
+
+        })
 
     </script>
 
