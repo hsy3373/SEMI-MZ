@@ -8,31 +8,26 @@
  /* --------------- alert창 실행시키기위한 외부 버튼 --------------- */
  /*  클래스명 button 기본 베이스 */
 .button {
-     border-radius: 15px;
-     width: 80px;
-     height: 34px;
-     display: inline-block;
-     padding-top: 5px;
-     font-size: var(--fontsize14);
-     font-weight: var(--fontweight900);
-     
-   }
-/* 메인용 버튼 수정 베이스(혜린) */
- .button2 {
-     width: 80px;
-     height: 34px;
-     display: inline-block;
-     padding-top: 5px;
-     font-size: var(--fontsize14);
-     font-weight: var(--fontweight900);
-    }
+    border-radius: 15px;
+    width: 80px;
+    height: 34px;
+    display: inline-block;
+    padding-top: 5px;
+    font-size: var(--fontsize14);
+    font-weight: var(--fontweight900);
+}
 
-/* 삭제(지의 방명록) */
+/* 방명록 삭제(지의) */
 .board-delete-btn{
     background-color: #fa453e;
     border: 2.5px solid #bf2d28;
     margin-top: 15px;
-
+}
+/* 방명록 수정(지의) */
+.board-update-btn{
+    background-color: #fab83e;
+    border: 2.5px solid #b8872c;
+    margin-top: 15px;
 }
 
 /* --------------- alert 창관련 css --------------- */
@@ -53,8 +48,8 @@
     cursor: pointer;
  }
 /* 전체 틀 */
-.alert{
-  width: 25%;
+.alert {
+  width: 300px;
   border-radius: 4px;
   margin-left: auto;
   margin-right: auto;
@@ -85,6 +80,4 @@ h3 {
     margin-bottom: 45px;
     text-align: center;
 }
-.alert div {
-    text-align: center;   
-}
+.alert div {text-align: center;	}
