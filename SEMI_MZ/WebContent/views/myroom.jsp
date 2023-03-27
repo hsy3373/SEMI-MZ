@@ -134,13 +134,13 @@
 	                    <tr>
 	                        <td id="board-title"><img class="apple" src="../resource/img/icon/사과.png">제목</td>
 	                        <td class="board-userid">내닉네임여덜글자</td>
-	                        <td class="board-date">2023-03-22</td>
+	                        <td class="board-date">2023-03-22</td> 
 	                    </tr> -->
 	
 	                </table>
 	                <!-- 페이징바 -->
 	                <div class="pageing-area">
-
+						페이징바
 					</div>
 	            </div>
 	        </div>
@@ -452,7 +452,7 @@
 				let result = ""; 
 				for(let i of list){
 					result += "<tr>"
-						       + "<td id='board-title'><img class='apple' src=''../resource/img/icon/사과.png'>" + i.boardTitle + "</td>"
+						       + "<td id='board-title'><img class='apple' src='../resource/img/icon/사과.png'>" + i.boardTitle + "</td>"
 						       + "<td class='board-userid'>" + i.userId + "</td>"
 						       + "<td class='board-date'>" + i.createDate + "</td>"
 							+"</tr>";
@@ -465,8 +465,6 @@
 		})
 	}
 	boardList();
-	
-    
     </script>
 </body>
 </html>
