@@ -9,6 +9,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.InvalidPropertiesFormatException;
 import java.util.Properties;
@@ -30,29 +32,6 @@ public class BoardDao {
 		}
 	}
 	
-	public int selectListCount(Connection conn) {
-
-		int listCount = 0;
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		String sql = prop.getProperty("selectListCount");
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			
-			rset = pstmt.executeQuery();
-			
-			listCount = rset.getInt("COUNT");
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(rset);
-			close(pstmt);
-		}
-		return listCount;
-	}
-	
 	public ArrayList<Board> selectBoardList(Connection conn){
 		
 		ArrayList<Board> list = new ArrayList<>();
@@ -64,10 +43,13 @@ public class BoardDao {
 			
 			rset = pstmt.executeQuery();
 			
+            DateFormat df = new SimpleDateFormat("yyyy-MM-dd");  
+			
 			while(rset.next()) {
-				Board b = new Board(rset.getString("USER_ID"),
+				Board b = new Board(rset.getInt("BOARD_NO"),
+									rset.getString("USER_ID"),
 									rset.getString("BOARD_TITLE"),
-									rset.getDate("CREATE_DATE"));
+									df.format(rset.getDate("CREATE_DATE")));
 				list.add(b);
 			}
 			

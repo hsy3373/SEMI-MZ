@@ -38,17 +38,18 @@
 
 
 /* ============================= 방명록 리스트 ============================= */
-.board-list{display: none;}
+.board-list{
+    display: none;
+     padding-top: 96px;
+}
 .apple{
     width: 18px;
     margin-right: 10px;
 }
 .board-content{
-    position: absolute;
+    margin: auto;
     width: 600px;
-    top: 53%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    line-height: 20px;
 }
 .board-list-area {
     border-collapse: separate;
@@ -90,6 +91,10 @@
 .pageing-area{
     text-align: center;
     line-height: 40px;
+    position: fixed;
+    left: 50%;
+    bottom: 50px;
+    transform: translate(-50%, 10px);
 }
 /* 글쓰기 버튼 */
 #writing-btn{text-align: right; border: none;}

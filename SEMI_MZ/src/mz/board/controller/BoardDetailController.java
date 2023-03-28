@@ -1,7 +1,6 @@
 package mz.board.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,17 +12,18 @@ import com.google.gson.Gson;
 
 import mz.board.model.service.BoardService;
 import mz.board.model.vo.Board;
+
 /**
- * Servlet implementation class BoardListController2
+ * Servlet implementation class BoardDetailController
  */
-@WebServlet("/boardList")
-public class BoardListController extends HttpServlet {
+@WebServlet("/boardDetail")
+public class BoardDetailController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public BoardListController() {
+    public BoardDetailController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,15 +32,16 @@ public class BoardListController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+		int boardNo = Integer.parseInt(request.getParameter("boardNo"));
 		
 		response.setContentType("application/json; charset=UTF-8");
-
-		ArrayList<Board> list = new BoardService().selectBoardList();
+		
+		Board b = new BoardService().boardDetail(boardNo);
 		
 		Gson gson = new Gson();
-			
-		gson.toJson(list, response.getWriter());	
 		
+		gson.toJson(b, response.getWriter());
 	}
 
 	/**

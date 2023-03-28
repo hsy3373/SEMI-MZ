@@ -9,16 +9,6 @@ import mz.board.model.dao.BoardDao;
 import mz.board.model.vo.Board;
 
 public class BoardService {
-
-	public int selectListCount() {
-		Connection conn = getConnection();
-		
-		int listCount = new BoardDao().selectListCount(conn);
-		
-		close(conn);
-		
-		return listCount;
-	}
 	
 	public ArrayList<Board> selectBoardList(){
 		Connection conn = getConnection();
@@ -28,6 +18,12 @@ public class BoardService {
 		close(conn);
 		
 		return list;
+	}
+	
+	public Board boardDetail() {
+		Connection conn = getConnection();
+		
+		Board b = new BoardDao().
 	}
 }
 

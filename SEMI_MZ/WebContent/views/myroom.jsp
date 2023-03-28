@@ -1,10 +1,10 @@
 <!-- 지의 마이룸 -->
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<!-- <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
 	String contextPath = request.getContextPath();
-%>
+%> -->
 <!DOCTYPE html>
 <html>
 <head>
@@ -124,48 +124,13 @@ ul li.on a {color: #fff;}
 			<div class="board-list">
 				<img class="x-btn" src="../resource/img/icon/엑스 버튼.png">
 				<div class="board-content">
-				<span id="displayCount"></span>
 					<table class="board-list-area">
-						<!-- 	                    <tr>
-	                        <td id="board-title"><img class="apple" src="../resource/img/icon/사과.png">방명록제목열다섯글자가나다라마</td>
-	                        <td class="board-userid">내닉네임여덜글자</td>
-	                        <td class="board-date">2023-03-28</td>
-	                    </tr>
-	                    <tr>
-	                        <td id="board-title"><img class="apple" src="../resource/img/icon/사과.png">제목</td>
-	                        <td class="board-userid">유저2</td>
-	                        <td class="board-date">2023-03-25</td>
-	                    </tr>
-	                    <tr>
-	                        <td id="board-title"><img class="apple" src="../resource/img/icon/사과.png">제목</td>
-	                        <td class="board-userid">유저9</td>
-	                        <td class="board-date">2023-03-25</td>
-	                    </tr>
-	                    <tr>
-	                        <td id="board-title"><img class="apple" src="../resource/img/icon/사과.png">제목</td>
-	                        <td class="board-userid">유저5</td>
-	                        <td class="board-date">2023-03-23</td>
-	                    </tr>
-	                    <tr>
-	                        <td id="board-title"><img class="apple" src="../resource/img/icon/사과.png">제목</td>
-	                        <td class="board-userid">내닉네임여덜글자</td>
-	                        <td class="board-date">2023-03-22</td>
-	                    </tr>
-	                    <tr>
-	                        <td id="board-title"><img class="apple" src="../resource/img/icon/사과.png">제목</td>
-	                        <td class="board-userid">내닉네임여덜글자</td>
-	                        <td class="board-date">2023-03-22</td>
-	                    </tr>
-	                    <tr>
-	                        <td id="board-title"><img class="apple" src="../resource/img/icon/사과.png">제목</td>
-	                        <td class="board-userid">내닉네임여덜글자</td>
-	                        <td class="board-date">2023-03-22</td> 
-	                    </tr> -->
-
+						<!-- list.bo 로 조회해옴 -->
+						
 					</table>
 					<!-- 페이징바 -->
 					<div class="pageing-area">
-						<ul id="pagingul"></ul>		
+						<ul id="pagingul"></ul>
 					</div>
 				</div>
 			</div>
@@ -464,138 +429,7 @@ ul li.on a {color: #fff;}
 	<script src="../resource/js/myroom.js"></script>
 	<script type="module" src="../resource/js/alert.js"></script>
 	<script type="module" src="../resource/js/common.js"></script>
+	<script src="../resource/js/boardMe.js"></script>
 
-
-	<script>
-    // 방명록 리스트 조회
-	// 페이징 처리 준비
-	let listCount;				// 현재 게시판의 총 게시글 갯수
-	let boardLimit = 7; 		// 한 페이지에 나타낼 게시글 수
-	let pageLimit = 5; 			// 페이지 하단에 보여질 페이징바의 페이지 최대 갯수(패이지 목록들 몇개단위로 출력할건지)
-	let currentPage = 1; 		// 현재 페이지(사용자가 요청한 페이지)
-	let BoardList; 				// 표시하려하는 방명록 리스트
-	let maxPage; 				// 가장 마지막 페이지가 몇번 페이지인지(총 페이지 수)
-	
-	
-
-	let startPage; 		// 페이지 하단에 보여질 페이징바의 시작 수
-	let endPage; 		// 페이지 하단에 보여질 페이징바의 끝 수
-
-
-	$(function(){
-		$.ajax({ // ajax로 데이터 가져오기
-			url : "<%= contextPath %>/list.bo?",
-			dataType: "json",
-			success : function(list){
-				//listCount(총 게시글 수)
-				listCount = list.length;
-				console.log("총 게시글 수 : " + listCount);
-				
-				for(let i = 0; i < list.length; i++){
-					console.log(list[i].userId + ", " + list[i].boardTitle +  ", " + list[i].createDate );
-				}
-			}
-		});
-		
-		//글 목록 표시 호출 (테이블 생성)
-		displayData(1, boardLimit);
-		
-		//페이징 표시 호출
-		paging(listCount, boardLimit, pageLimit, 1);
-		
-	});
-		
-
-	
-	
-	// 글 목록 표시 함수
-	// 현재 페이지(currentPage)와 페이지당 글 개수(boardLimit) 반영
- 	function displayData(currentPage, boardLimit) {
-
-		let str = "";
-
-		//Number로 변환하지 않으면 아래에서 +를 할 경우 스트링 결합이 되어버림.. 
-		currentPage = Number(currentPage);
-		boardLimit = Number(boardLimit);
-	  
-		for (let i = (currentPage - 1) * boardLimit; i < (currentPage - 1) * boardLimit + boardLimit; i++) {
-			console.log(i.userId);
-			str += "<tr>"
-					       + "<td id='board-title'><img class='apple' src='../resource/img/icon/사과.png'>" + i.boardTitle + "</td>"
-					       + "<td class='board-userid'>" + i.userId + "</td>"
-					       + "<td class='board-date'>" + i.createDate + "</td>"
-						+"</tr>";
-	  	}
-	  	$(".board-list .board-list-area").html(str);
-	}
- 	displayData();
-
- 	
- 	
-	
-	// 페이징 표시 함수
-	function paging(listCount, boardLimit, pageLimit, currentPage) {
-		console.log("currentPage : " + currentPage);
-		
-		maxPage = Math.ceil(listCount / boardLimit); //총 페이지 수
-		  
-		if(maxPage<pageLimit){
-		  pageLimit=maxPage;
-		}
-		let pageGroup = Math.ceil(currentPage / pageLimit); // 페이지 그룹
-		let last = pageGroup * pageLimit; //화면에 보여질 마지막 페이지 번호
-	
-		if (last > maxPage) {
-		  last = maxPage;
-		}
-	
-		let first = last - (pageLimit - 1); //화면에 보여질 첫번째 페이지 번호
-		let next = last + 1;
-		let prev = first - 1;
-	
-		let pageHtml = "";
-	
-		if (prev > 0) {
-		  pageHtml += "<li><a href='#' id='prev'> 이전 </a></li>";
-		}
-	
-		//페이징 번호 표시 
-		for (var i = first; i <= last; i++) {
-			if (currentPage == i) {
-				pageHtml += "<li class='on'><a href='#' id='" + i + "'>" + i + "</a></li>";
-			} else {
-				pageHtml += "<li><a href='#' id='" + i + "'>" + i + "</a></li>";
-			}
-		}
-	
-		if (last < maxPage) {
-			pageHtml += "<li><a href='#' id='next'> 다음 </a></li>";
-	}
-
-	$("#pagingul").html(pageHtml);
-	let displayCount = "";
-	displayCount = "현재 1 - " + maxPage + " 페이지 / " + listCount + "건";
-	$("#displayCount").text(displayCount);
-	
-	
-	//페이징 번호 클릭 이벤트 
-	$("#pagingul li a").click(function () {
-		let $id = $(this).attr("id");
-		selectedPage = $(this).text();
-		
-		if ($id == "next") selectedPage = next;
-		if ($id == "prev") selectedPage = prev;
-		
-		//전역변수에 선택한 페이지 번호를 담는다...
-		currentPage = selectedPage;
-		//페이징 표시 재호출
-		paging(listCount, boardLimit, pageLimit, selectedPage);
-		//글 목록 표시 재호출
-		displayData(selectedPage, boardLimit);
-		});
-	}
-
-	
-    </script>
 </body>
 </html>

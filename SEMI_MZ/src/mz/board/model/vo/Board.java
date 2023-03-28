@@ -1,7 +1,5 @@
 package mz.board.model.vo;
 
-import java.sql.Date;
-
 public class Board {
 	private int boardNo;			//	BOARD_NO			NUMBER
 	private String userId;			//	USER_ID 			VARCHAR2(20 BYTE)
@@ -9,14 +7,14 @@ public class Board {
 	private String boardTitle;		//	BOARD_TITLE 		NVARCHAR2(15 CHAR)
 	private String boardContent;	//	BOARD_CONTENT 		NVARCHAR2(500 CHAR)
 	private String secret;			//	SECRET 				CHAR(1 BYTE)
-	private Date createDate;		//	CREATE_DATE 		DATE
+	private String createDate;		//	CREATE_DATE 		DATE
 	
 	public Board() {
 		super();
 	}
 
 	public Board(int boardNo, String userId, String receiveId, String boardTitle, String boardContent, String secret,
-			Date date) {
+			String createDate) {
 		super();
 		this.boardNo = boardNo;
 		this.userId = userId;
@@ -24,15 +22,17 @@ public class Board {
 		this.boardTitle = boardTitle;
 		this.boardContent = boardContent;
 		this.secret = secret;
-		this.createDate = date;
+		this.createDate = createDate;
 	}
 	
-	// 방명록 리스트 조회
-	public Board(String userId, String boardTitle, Date date) {
+	
+
+	public Board(int boardNo, String userId, String boardTitle, String createDate) {
 		super();
+		this.boardNo = boardNo;
 		this.userId = userId;
 		this.boardTitle = boardTitle;
-		this.createDate = date;
+		this.createDate = createDate;
 	}
 
 	public int getBoardNo() {
@@ -83,18 +83,21 @@ public class Board {
 		this.secret = secret;
 	}
 
-	public Date getDate() {
+	public String getCreateDate() {
 		return createDate;
 	}
 
-	public void setDate(Date date) {
-		this.createDate = date;
+	public void setCreateDate(String createDate) {
+		this.createDate = createDate;
 	}
 
 	@Override
 	public String toString() {
 		return "Board [boardNo=" + boardNo + ", userId=" + userId + ", receiveId=" + receiveId + ", boardTitle="
-				+ boardTitle + ", boardContent=" + boardContent + ", secret=" + secret + ", date=" + createDate + "]";
+				+ boardTitle + ", boardContent=" + boardContent + ", secret=" + secret + ", createDate=" + createDate
+				+ "]";
 	}
+
+
 	
 }
