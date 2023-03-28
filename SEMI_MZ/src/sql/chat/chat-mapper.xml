@@ -20,12 +20,37 @@
 		FROM (	SELECT *
 				FROM CHATTING 
 				WHERE (USER_ID, RECEIVE_ID) IN(( ? , ? ),( ? , ? ))
-					AND CHAT_NO > ?
+					AND CHAT_NO &lt; ?
 					AND CREATE_DATE > SYSDATE-7
-				ORDER BY CREATE_DATE, CHAT_NO )
+				ORDER BY CREATE_DATE DESC, CHAT_NO DESC )
 		WHERE ROWNUM &lt;= 50
+		ORDER BY ROWNUM DESC
+	</entry>
+	<entry key="getChattingsNew">
+		SELECT *
+		FROM (	SELECT *
+				FROM CHATTING 
+				WHERE (USER_ID, RECEIVE_ID) IN(( ? , ? ),( ? , ? ))
+					AND CREATE_DATE > SYSDATE-7
+				ORDER BY CREATE_DATE DESC, CHAT_NO DESC )
+		WHERE ROWNUM &lt;= 50
+		ORDER BY ROWNUM DESC
+	</entry>
+
+	
+	<entry key="insertChatRoom">
+		INSERT INTO CHATTINGROOM VALUES( ? , ? );
+		INSERT INTO CHATTINGROOM VALUES( ? , ? );
+	</entry>
+
+	<entry key="insertChat">
+		INSERT INTO CHATTING VALUES(SEQ_CHAT.NEXTVAL, ? , ? , ?, SYSDATE)
 	</entry>
 
 
-
+	<entry key="deleteChatRoom">
+		DELETE FROM CHATTINGROOM
+			WHERE  USER_ID = ? 
+				AND RECEIVE_ID = ?
+	</entry>
 </properties>
