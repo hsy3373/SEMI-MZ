@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-pageEncoding="UTF-8" import="mz.member.model.vo.Member"%> <% String path =
-request.getContextPath(); Member loginUser =
-(Member)session.getAttribute("loginUser"); %>
+	pageEncoding="UTF-8" import="mz.member.model.vo.Member"%>
+<%
+	String path = request.getContextPath();
+	Member loginUser = (Member) session.getAttribute("loginUser");
+%>
 <!DOCTYPE html>
 <html>
   <head>
