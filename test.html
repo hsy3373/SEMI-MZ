@@ -24,32 +24,60 @@
         document.getElementById("main-square").appendChild(canvas);
 
         let UserDate = [];
-        UserDate.push({ uesrX: '80', uesrY: '730', userSkin: '2', userId: 'test' })
-        UserDate.push({ uesrX: '930', uesrY: '733', userSkin: '3', userId: 'test3' })
-        UserDate.push({ uesrX: '120', uesrY: '34', userSkin: '4', userId: 'test2' })
-        UserDate.push({ uesrX: '230', uesrY: '235', userSkin: '5', userId: 'test2' })
-        UserDate.push({ uesrX: '540', uesrY: '436', userSkin: '6', userId: 'test4' })
-        UserDate.push({ uesrX: '650', uesrY: '440', userSkin: '7', userId: 'test5' })
-        UserDate.push({ uesrX: '10', uesrY: '730', userSkin: '3', userId: 'test6' })
+        UserDate.push({ uesrX: '900', uesrY: '730', userSkin: '0', userId: 'test', userName: '아주평아', keyboardCode: "ArrowUp" })
+        UserDate.push({ uesrX: '90', uesrY: '73', userSkin: '3', userId: 'test3', userName: 'nvvvse', keyboardCode: "ArrowUp" })
+        UserDate.push({ uesrX: '120', uesrY: '34', userSkin: '4', userId: 'test2', userName: 'Nserrrr', keyboardCode: "ArrowLeft" })
+        UserDate.push({ uesrX: '230', uesrY: '235', userSkin: '3', userId: 'test2', userName: '김수수수리', keyboardCode: "ArrowRight" })
+        UserDate.push({ uesrX: '540', uesrY: '436', userSkin: '6', userId: 'test4', userName: '리리사사', keyboardCode: "ArrowRight" })
+        UserDate.push({ uesrX: '650', uesrY: '440', userSkin: '7', userId: 'test5', userName: '베베바바', keyboardCode: "ArrowLeft" })
+        UserDate.push({ uesrX: '10', uesrY: '730', userSkin: '23', userId: 'test6', userName: '베리', keyboardCode: "ArrowDown" })
 
 
+        //console.log(UserDate);
 
-        console.log(UserDate);
 
+        let FilterUsers = UserDate.filter(
+            (arr, index, callback) =>
+                index === callback.findLastIndex(t =>
+                    t.userId === arr.userId
+                )
+        )
 
-        // let FilterUsers = UserDate.filter(
-        //     (arr, index, callback) =>
-        //         index === callback.findLastIndex(t =>
-        //             t.userId === arr.userId
-        //         )
-        // )
+        console.log(FilterUsers);
 
-        // console.log(FilterUsers);
-
+        //유저 img 배열만들기
         let skinImages = {};
-        for (let i = 0; i < UserDate.length; i++) {
+        let moveMotion = true;
+        for (let i = 0; i < FilterUsers.length; i++) {
+            let imgMotion;
+
+
+            switch ( FilterUsers[i].keyboardCode) {
+                case "ArrowDown":
+                    imgMotion = "f"
+                    break;
+                case "ArrowLeft":
+                    imgMotion = "l"
+                    break;
+                case "ArrowRight":
+                    imgMotion = "r"
+                    break;
+                case "ArrowUp":
+                    imgMotion = "b"
+                    break;
+
+            }
+
+
+            if (moveMotion) {
+                imgMotion += "d"
+            } else {
+                imgMotion += "s"
+            }
+
+
             let img = new Image();
-            img.src = "SEMI_MZ/WebContent/resource/img/user/skin" + UserDate[i].userSkin + "/bd.png"
+            img.src = "SEMI_MZ/WebContent/resource/img/user/skin" + FilterUsers[i].userSkin + "/"+imgMotion+".png"
             skinImages[i] = img;
         }
 
@@ -71,49 +99,44 @@
 
         // }
 
-        for (let i = 0; i < UserDate.length; i++) {
-            let user = UserDate[i];
+        //만든 유저 img 하나씩 뽑아서 캔버스에 draw
+        for (let i = 0; i < FilterUsers.length; i++) {
+            let user = FilterUsers[i];
             let x = parseInt(user.uesrX);
             let y = parseInt(user.uesrY);
-            let skin = parseInt(user.userSkin);
-            let id = user.userId;
+            let username = user.userName;
 
             let img = skinImages[i];
             img.onload = function () {
                 ctx.drawImage(img, x, y, 50, 50);
-                ctx.fillText(id, x + 50 / 2, y + 50 + 14);
+                ctx.fillText(username, x + 4, y + 60);
             };
         }
 
 
+        //클릭이벤트로 해당 userid 넘겨주기
         canvas.addEventListener('click', function (e) {
 
-            
+
             let x = e.clientX;
             let y = e.clientY;
 
             console.log(x)
             console.log(y)
 
-            for (let user of UserDate) {
+            for (let user of FilterUsers) {
                 let ux = parseInt(user.uesrX);
                 let uy = parseInt(user.uesrY);
                 let skin = parseInt(user.userSkin);
                 let id = user.userId;
 
-                let imgX = ux - 25;
-                let imgY = uy - 25;
-
-                if (x >= imgX && x <= imgX + 50 && y >= imgY && y <= imgY + 50) {
+                if (x >= ux && x <= ux + 50 && y >= uy && y <= uy + 50) {
                     window.sessionStorage.setItem('clickedUserId', id);
                     break;
                 }
             }
 
             console.log(sessionStorage)
-
-
-
         })
 
     </script>

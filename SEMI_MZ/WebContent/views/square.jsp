@@ -39,9 +39,9 @@
 		//console.log(contextPath);
        
 		//유저네임 
-		var username = '${loginUser.nicName}';
+		var userName = '${loginUser.nicName}';
 		//유저 skin
-		var userSkin = Number('${loginUser.skinId}')+1;	
+		var userSkin = '${loginUser.skinId}';	
 		//console.log(userSkin);
 		var userId = '${loginUser.userId}';
 

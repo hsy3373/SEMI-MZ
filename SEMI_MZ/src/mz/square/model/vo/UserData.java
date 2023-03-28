@@ -6,11 +6,27 @@ public class UserData {
 	private String uesrY;
 	private String userSkin;
 	private String userId;
+	private String userName;
+	private String keyboardCode;
 	
 	public UserData() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
+	
+
+	public UserData(String uesrX, String uesrY, String userSkin, String userId, String userName, String keyboardCode) {
+		super();
+		this.uesrX = uesrX;
+		this.uesrY = uesrY;
+		this.userSkin = userSkin;
+		this.userId = userId;
+		this.userName = userName;
+		this.keyboardCode = keyboardCode;
+	}
+
+
 
 	public String getUesrX() {
 		return uesrX;
@@ -20,12 +36,12 @@ public class UserData {
 		this.uesrX = uesrX;
 	}
 
-	public String getUserY() {
+	public String getUesrY() {
 		return uesrY;
 	}
 
-	public void setUserY(String userY) {
-		this.uesrY = userY;
+	public void setUesrY(String uesrY) {
+		this.uesrY = uesrY;
 	}
 
 	public String getUserSkin() {
@@ -44,10 +60,28 @@ public class UserData {
 		this.userId = userId;
 	}
 
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	public String getKeyboardCode() {
+		return keyboardCode;
+	}
+
+	public void setKeyboardCode(String keyboardCode) {
+		this.keyboardCode = keyboardCode;
+	}
+
 	@Override
 	public String toString() {
-		return "UserData [uesrX=" + uesrX + ", userY=" + uesrY + ", userSkin=" + userSkin + ", userId=" + userId + "]";
+		return "UserData [uesrX=" + uesrX + ", uesrY=" + uesrY + ", userSkin=" + userSkin + ", userId=" + userId
+				+ ", userName=" + userName + ", keyboardCode=" + keyboardCode + "]";
 	}
+
 	
 	
 	

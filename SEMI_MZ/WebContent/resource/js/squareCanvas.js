@@ -42,12 +42,12 @@ function loadImage() {
 
     //friendList = new Image();
     //friendList.src = "../resource/img/icon/친구목록 버튼.png"
-   
+
 }
 
 
 //유저 네임 세팅 
-//console.log(username) 
+//console.log(userName) 
 //console.log(userSkin)
 
 //캐릭터 세팅 
@@ -65,10 +65,10 @@ let userfs = new Image();
 userfs.src = "../resource/img/user/skin" + userSkin + "/fs.png"
 
 let userld = new Image();
-userld.src = "../resource/img/user/skin" + userSkin + "/ld.png"
+userld.src = "../resource/img/user/skin"+userSkin+ "/ld.png"
 
 let userls = new Image();
-userls.src = "../resource/img/user/skin" + userSkin + "/ls.png"
+userls.src = "../resource/img/user/skin"+userSkin+ "/ls.png"
 
 let userrd = new Image();
 userrd.src = "../resource/img/user/skin" + userSkin + "/rd.png"
@@ -95,7 +95,7 @@ function render() {
     //ctx.drawImage(friendList, 1160,730,50,50)
     ctx.drawImage(user, uesrX, uesrY, 50, 50);
     ctx.font = '12px Sans-Serif'
-    ctx.fillText(username, uesrX + 2, uesrY + 60);
+    ctx.fillText(userName, uesrX + 2, uesrY + 60);
 
 }
 
@@ -105,9 +105,9 @@ let keysDown = {};
 function setupKeyboard() {
     document.addEventListener("keydown", function (event) {
         keysDown[event.keyCode] = true
-        //console.log(uesrX)
-        //console.log(uesrY)
-        sendMsg();
+
+        console.log(event.key)
+        sendMsg(event.key);
     });
 
     document.addEventListener("keyup", function (event) {
@@ -130,7 +130,7 @@ canvas.addEventListener("click", function (event) {
     if (clickX >= 895 && clickX <= 1110 && clickY >= 10 && clickY <= 226) {
         console.log("home 이벤트 부여")
         gohome();
-      
+
 
     }
 
@@ -320,7 +320,7 @@ function update() {
     if (uesrX <= 1020 && uesrX >= 960 && uesrY <= 200 && uesrY >= 191) {
         console.log('home이벤트')
         gohome();
-        
+
     }
 
     if (uesrX <= 1130 && uesrX >= 1000 && uesrY <= 463 && uesrY >= 426) {
@@ -409,7 +409,7 @@ const gohome = () => {
     console.log(path + "/gohome")
     location.href = path + "/gohome";
 
-} 
+}
 
 
 
@@ -426,7 +426,7 @@ const socket = new WebSocket("ws://192.168.30.171:8083" + path + "/multiAccess")
 socket.onopen = function (e) {
     console.log("접속성공");
     console.log(e);
-    
+
 }
 
 //웝소켓서버에서 sendObjcet 메소드를 실행하면 실행되는 함수 
@@ -436,7 +436,7 @@ socket.onmessage = function (e) {
     // console.log(e.data);
 
     UsersData.push(JSON.parse(e.data)); // String -> 배열 변환  
-    //console.log(UsersData)  //object
+    console.log(UsersData)  //object
 
     //userData에 담겨있는 userId 값 기준으로 필터링 : 마지막 값만 남김 
     FilterUsers = UsersData.filter(
@@ -446,11 +446,13 @@ socket.onmessage = function (e) {
             )
     )
 
-    UsersData = FilterUsers; // Userdate 정보를 Fileter 정보로 바꿔주기 
-
+    
+    UsersData = FilterUsers; // Userdate 정보를 Fileter 정보로 바꿔주기  : 잠깐 필터생략 (추후 다시 사용해야함 )
     //console.log(FilterUsers);
 
-   
+     //userrender 함수 호출 
+     usersreder();
+
 }
 
 
@@ -459,27 +461,120 @@ socket.onmessage = function (e) {
 
 
 //데이터 전송 JSON
-const sendMsg = () => {
+const sendMsg = (keyboardCode) => {
 
-    //유저객체 넣어주기 
-    let User = new UserData(uesrX, uesrY, userSkin, userId);
-    
+    //유저객체 넣어주기 : 랜더링에 필요한 정보들 : x, y , skin, id , name, code;
+    let User = new UserData(uesrX, uesrY, userSkin, userId, userName, keyboardCode);
+    console.log(User)
+
     socket.send(JSON.stringify(User));
     //문자열 객체 데이터로 바꿔줌 
 
 }
 
 //넘겨줄 데이터 유저 좌표, 유저스킨, 유저아이디
-function UserData(uesrX, uesrY, userSkin, userId) {
+function UserData(uesrX, uesrY, userSkin, userId, userName, keyboardCode) {
     this.uesrX = uesrX;
     this.uesrY = uesrY;
     this.userSkin = userSkin;
     this.userId = userId;
+    this.userName = userName;
+    this.keyboardCode = keyboardCode;
 }
 
 
 
 
+let skinImages = {};
+
+function usersreder() {
+
+    
+    let moveMotion = true;
+
+    for (let i = 0; i < FilterUsers.length; i++) {
+        let imgMotion ="";
+        switch (FilterUsers[i].keyboardCode) {
+            case "ArrowDown":
+                imgMotion = "f"
+                break;
+            case "ArrowLeft":
+                imgMotion = "l"
+                break;
+            case "ArrowRight":
+                imgMotion = "r"
+                break;
+            case "ArrowUp":
+                imgMotion = "b"
+                break;
+            default :
+                return;
+
+        }
+
+
+        if (moveMotion) {
+            imgMotion += "d"
+        } else {
+            imgMotion += "s"
+        }
+
+        console.log(imgMotion);
+      
+
+        let img = new Image();
+        img.src = "../resource/img/user/skin" + FilterUsers[i].userSkin + "/"+imgMotion+".png"
+        skinImages[i] = img;
+
+    }
+   
+    
+
+    console.log(skinImages);
+
+
+    //만든 유저 img 하나씩 뽑아서 캔버스에 draw
+    // for (let i = 0; i < FilterUsers.length; i++) {
+    //     let user = FilterUsers[i];
+    //     let x = parseInt(user.uesrX);
+    //     let y = parseInt(user.uesrY);
+    //     let username = user.userName;
+
+    //     let img = skinImages[i];
+    //     img.onload = function () {
+    //         ctx.drawImage(img, x, y, 50, 50);
+    //         ctx.font = '12px Sans-Serif'
+    //         ctx.fillText(username, x + 4, y + 60);
+    //     };
+    // }
+
+
+}
+
+
+ //클릭이벤트로 해당 userid 넘겨주기
+ canvas.addEventListener('click', function (e) {
+
+
+    let x = e.clientX; //클릭좌표값
+    let y = e.clientY; //클릭좌표값
+
+    console.log(x)
+    console.log(y)
+
+    for (let user of FilterUsers) { //랜더링된 filter user 정보 받아서 좌표값 체크
+        let ux = parseInt(user.uesrX);
+        let uy = parseInt(user.uesrY);
+        let id = user.userId; 
+
+        if (x >= ux && x <= ux + 50 && y >= uy && y <= uy + 50) {
+            window.sessionStorage.setItem('clickedUserId', id);
+            break; //sesion에 clickUserId로 id 값 넘겨주기
+        }
+    }
+
+    console.log(sessionStorage)
+})
 
 
 
@@ -493,6 +588,26 @@ function main() {
         render(); //업데이트 된 좌표값으로 재 랜더링
         requestAnimationFrame(main); // 프레임에 맞춰서 반복호출
 
+        
+
+    }
+
+
+    
+
+     //만든 유저 img 하나씩 뽑아서 캔버스에 draw 
+    for (let i = 0; i < FilterUsers.length; i++) {
+        let user = FilterUsers[i];
+        let x = parseInt(user.uesrX);
+        let y = parseInt(user.uesrY);
+        let username = user.userName;
+
+        let img = skinImages[i];
+        
+        ctx.drawImage(img, x, y, 50, 50);
+        ctx.font = '12px Sans-Serif'
+        ctx.fillText(username, x + 4, y + 60);
+       
     }
 
 
@@ -500,9 +615,9 @@ function main() {
 }
 
 
-  //JSON 배열 중복 id 값 제거 
- // item을 loaclstroage에 저장
- 
+
+
+
 
 
 
