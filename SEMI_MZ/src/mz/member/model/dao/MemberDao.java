@@ -20,7 +20,7 @@ public class MemberDao {
 	
 	public MemberDao() {
 		
-		String fileName = MemberDao.class.getResource("sql/member/member-mapper.xml").getPath();
+		String fileName = MemberDao.class.getResource("/sql/member/member-mapper.xml").getPath();
 		
 		try {
 			prop.loadFromXML(new FileInputStream(fileName));
@@ -33,7 +33,7 @@ public class MemberDao {
 		}
 	}
 	
-	public Member selectMember(Connection conn, String userId, String nickName, int skinId, String gender, String info) {
+	public Member selectMember(Connection conn, String userId) {
 		
 		Member m = null;
 		
@@ -50,7 +50,7 @@ public class MemberDao {
 			
 			rset = pstmt.executeQuery();
 			
-			while(rset.next()) {
+			if(rset.next()) {
 				m = new Member(rset.getString("USER_ID"),
 						       rset.getString("NICKNAME"),
 						       rset.getInt("SKIN_ID"),

@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.simple.JSONObject;
+
 import com.google.gson.Gson;
 
 import mz.member.model.service.MemberService;
@@ -42,12 +44,8 @@ public class UserInfoController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String userId = request.getParameter("userId");
-		String nickName = request.getParameter("nicName");
-		int skinId = Integer.parseInt(request.getParameter("skinId"));
-		String gender = request.getParameter("gender");
-		String info = request.getParameter("info");
 		
-		Member m = new MemberService().selectMember(userId, nickName, skinId, gender, info);
+		Member m = new MemberService().selectMember(userId);
 		
 		response.setContentType("application/json; charset=UTF-8");
 		
