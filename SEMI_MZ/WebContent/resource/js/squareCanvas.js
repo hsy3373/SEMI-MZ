@@ -100,14 +100,17 @@ function render() {
 }
 
 
+
+
 //keys 다운에 부여하는 캐릭터 이동 이벤트
 let keysDown = {};
 function setupKeyboard() {
     document.addEventListener("keydown", function (event) {
         keysDown[event.keyCode] = true
 
+        console.log(keysDown); //이거 어떻게 들어가는지 체크
         console.log(event.key)
-        sendMsg(event.key);
+        sendMsg(event.key); //이거 위치를 옮겨보기 => 체크3 : 
     });
 
     document.addEventListener("keyup", function (event) {
@@ -435,6 +438,24 @@ socket.onmessage = function (e) {
     // console.log(e);
     // console.log(e.data);
 
+    //데이터가 나인 경우 걸러내기 : 이건 랜더링 안정된후 열기 
+    // let receivedUser = JSON.parse(e.data);
+
+    // if (receivedUser.userId !== userId) {
+    //     UsersData.push(receivedUser);
+
+    //     FilterUsers = UsersData.filter(
+    //         (arr, index, callback) =>
+    //             index === callback.findLastIndex(t =>
+    //                 t.userId === arr.userId
+    //             )
+    //     )
+
+    //     UsersData = FilterUsers;
+    //     usersreder();
+    // }
+
+
     UsersData.push(JSON.parse(e.data)); // String -> 배열 변환  
     console.log(UsersData)  //object
 
@@ -445,6 +466,8 @@ socket.onmessage = function (e) {
                 t.userId === arr.userId
             )
     )
+
+
 
     
     UsersData = FilterUsers; // Userdate 정보를 Fileter 정보로 바꿔주기  : 잠깐 필터생략 (추후 다시 사용해야함 )
@@ -485,6 +508,7 @@ function UserData(uesrX, uesrY, userSkin, userId, userName, keyboardCode) {
 
 
 
+//이걸 매번 호출해서 그런것 같기도... 2번 체크 
 let skinImages = {};
 
 function usersreder() {
@@ -584,6 +608,7 @@ function usersreder() {
 function main() {
 
     if (!modalstop) {
+        //ctx.clearRect(0, 0, canvas.width, canvas.height); : 지워주면 랜더링 될까? 1번) 
         update(); //좌표값 업데이트
         render(); //업데이트 된 좌표값으로 재 랜더링
         requestAnimationFrame(main); // 프레임에 맞춰서 반복호출
@@ -616,7 +641,11 @@ function main() {
 
 
 
+//마지막 체크 : 이미지 랜더링 속도..? 
+//let prevUserCount = 0; 랜더링된 유저는 객체로 img를 저장해두고 불러쓰기? 
 
+// function usersreder() { //이함수를 수정해지보기..
+//  }
 
 
 
@@ -626,3 +655,16 @@ function main() {
 loadImage();
 main();
 setupKeyboard();
+
+
+
+// 윈도우 종류 이벤트 체크 1 
+// window.addEventListener('beforeunload', function(event){
+//     event.preventDefault();
+//     let User = new UserData(uesrX, uesrY, userSkin, userId, userName, '', true); //수정하고
+//     socket.send(JSON.stringify(User)); // 메서지 보내고 
+    
+// })
+
+// // 소켓에서 데이터 받아서 
+// UsersData = UsersData.filter(user => !user.userLeft); //삭제 
