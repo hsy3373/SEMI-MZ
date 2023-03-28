@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-pageEncoding="UTF-8" import="mz.member.model.vo.Member"%> <% String path =
-request.getContextPath(); Member loginUser =
-(Member)session.getAttribute("loginUser"); %>
+	pageEncoding="UTF-8" import="mz.member.model.vo.Member"%>
+<%
+	String path = request.getContextPath();
+	Member loginUser = (Member) session.getAttribute("loginUser");
+%>
 <!DOCTYPE html>
 <html>
   <head>
@@ -19,7 +21,7 @@ request.getContextPath(); Member loginUser =
 
     <style>
       body {
-        background-image: url('../resource/img/background/background_main.png');
+        background-image: url("../resource/img/background/background_main.png");
       }
     </style>
   </head>
@@ -78,10 +80,11 @@ request.getContextPath(); Member loginUser =
     </div>
 
     <script type="text/javascript">
-      console.log('테스트 js11');
+      console.log("테스트 js11");
     </script>
     <script type="module" src="../resource/js/common.js"></script>
-    <script type="module" src="../resource/js/chatting.js"></script>
+    <script type="module" src="../resource/js/chat/chatData.js"></script>
+    <script type="module" src="../resource/js/chat/chatFront.js"></script>
     <!-- <script type="module" src="../resource/js/test.js"></script> -->
   </body>
 </html>
