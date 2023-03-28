@@ -165,7 +165,10 @@
 }
 
 /*---------------------------------- 신고하기창 ----------------------------------*/
-
+.report-wrap{
+	width: 1300px;
+	height: 800px;
+}
 .report-modal{
     position: relative;
     z-index: 5;
@@ -208,19 +211,6 @@
     line-height: 34px;
     font-size: 16px;
 }
-/*글자수 세기*/
-.text-count{
-	position: absolute;
-    z-index: 6;
-    top: 36%;
-    left: 73%;
-}
-.text-total{
-	position: absolute;
-    z-index: 6;
-    top: 36%;
-    left: 76.5%;
-}
 /*신고 제목*/
 .report-title{
 	position: absolute;
@@ -243,8 +233,21 @@
     height: 6%;
     line-height: 34px;
     outline: none;
-    padding-left: 12px;
+    padding-left: 10px;
     font-size: 16px;
+}
+/*글자수 세기*/
+.text-count{
+	position: absolute;
+    z-index: 6;
+    top: 36%;
+    left: 73%;
+}
+.text-total{
+	position: absolute;
+    z-index: 6;
+    top: 36%;
+    left: 76.5%;
 }
 /*신고 내용*/
 .report-content{
