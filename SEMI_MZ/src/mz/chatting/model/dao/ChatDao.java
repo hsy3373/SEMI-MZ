@@ -7,6 +7,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.InvalidPropertiesFormatException;
 import java.util.Properties;
@@ -65,14 +67,19 @@ public class ChatDao {
 		return list;
 	}
 	
-	public ArrayList<Chat> getChattings(Connection conn, String userId, String recevier, int maxNo){
+	public ArrayList<Chat> getChattings(Connection conn, String userId, String recevier, int minNo){
 		ArrayList<Chat> list = new ArrayList<>();
-		
 		
 		ResultSet rset = null;
 		PreparedStatement pstmt = null;
+		String entry = "getChattings";
 		
-		String sql = prop.getProperty("getChattings");
+		if(minNo <= 0) {
+			entry = "getChattingsNew";
+		}
+		
+		String sql = prop.getProperty(entry);
+		System.out.println(entry);
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -80,17 +87,26 @@ public class ChatDao {
 			pstmt.setString(2, recevier);
 			pstmt.setString(3, recevier);
 			pstmt.setString(4, userId);
-			pstmt.setInt(5, maxNo);
+			
+			if(minNo > 0) {
+				pstmt.setInt(5, minNo);
+			}
 			
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
+				
+				DateFormat df = new SimpleDateFormat("MM/dd HH:mm");  
+				
+				
 				Chat c = new Chat(
 							rset.getInt("CHAT_NO"),
 							rset.getString("USER_ID"),
 							rset.getString("RECEIVE_ID"),
 							rset.getString("CONTENT"),
-							rset.getDate("CREATE_DATE")
+							// sql.Date 는 날짜까지만 저장되고 시간은 불러와지지 않음
+							//따라서 시간불러오려면 Timestamp써줘야 함
+							df.format(rset.getTimestamp("CREATE_DATE"))
 						);
 				list.add(c);
 			}

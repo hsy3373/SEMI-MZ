@@ -34,12 +34,13 @@ public class AjaxChatRoom extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// get방식으로 들어오면 룸 리스트 select
-		response.setContentType("application/json; charset=UTF-8");
 
 		String userId = ((Member)request.getSession().getAttribute("loginUser")).getUserId();
 		
 		// 전체 채팅 룸 리스트 반환해주기
 		ArrayList<String> list = new ChatService().getChatRooms(userId);
+
+		response.setContentType("application/json; charset=UTF-8");
 		new Gson().toJson(list, response.getWriter());
 	}
 
@@ -49,15 +50,15 @@ public class AjaxChatRoom extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// post방식으로 들어오면 룸 insert or delete
 		String userId = ((Member)request.getSession().getAttribute("loginUser")).getUserId();
-		String recevier = request.getParameter("recevier");
+		String receiver = request.getParameter("receiver");
 		String order = request.getParameter("order");
 		int result = 0;
 		
 		if(order.equals("insert")) {
-			result = new ChatService().insertChatRoom(userId, recevier);
+			result = new ChatService().insertChatRoom(userId, receiver);
 			
 		}else if(order.equals("delete")) {
-			result = new ChatService().deleteChatRoom(userId, recevier);
+			result = new ChatService().deleteChatRoom(userId, receiver);
 		}else {
 			System.out.println("order의 값이 이상합니다 : " + order);
 		}

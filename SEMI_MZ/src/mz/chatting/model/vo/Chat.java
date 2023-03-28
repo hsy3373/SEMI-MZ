@@ -1,6 +1,8 @@
 package mz.chatting.model.vo;
 
 import java.sql.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
 //[han]
 public class Chat {
@@ -8,7 +10,7 @@ public class Chat {
 	private String userId;			//	USER_ID
 	private String receiveId;		//	RECEIVE_ID
 	private String content;			//	CONTENT
-	private Date date;				//	CREATE_DATE
+	private String date;				//	CREATE_DATE
 	
 	
 	public Chat() {
@@ -18,7 +20,7 @@ public class Chat {
 
 	
 
-	public Chat(int chatNo, String userId, String receiveId, String content, Date date) {
+	public Chat(int chatNo, String userId, String receiveId, String content, String date) {
 		super();
 		this.chatNo = chatNo;
 		this.userId = userId;
@@ -87,14 +89,19 @@ public class Chat {
 	}
 
 
-	public Date getDate() {
+
+	public String getDate() {
 		return date;
 	}
 
 
-	public void setDate(Date date) {
+
+	public void setDate(String date) {
 		this.date = date;
 	}
+
+
+
 
 	
 	
