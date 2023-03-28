@@ -20,7 +20,7 @@
     <%-- test용 페이지 <br />
     현재 테스트용 유저아이디 : <%= test.getUserId() %> <br />
     현재 테스트용 유저 정보 : <%= test.toString() %> <br />
-    <br />
+    <br /> --%>
 
     <a href="./changeUser.jsp">유저 체인지 -> friend</a> <br />
 

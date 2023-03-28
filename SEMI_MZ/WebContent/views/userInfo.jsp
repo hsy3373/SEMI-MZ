@@ -11,7 +11,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<!-- 유저 정보창 - 가영 -->
+	<!-- 가영 -->
+	<!-- 유저 정보창 -->
 	<div class="info-wrap">
 		<div class="modal hidden">
 			<div class="user-info">
@@ -56,9 +57,13 @@
 		        <img id="report-view" src="../resource/img/icon/신고하기창.png" alt="">
 		        <img id="report-bgview" src="../resource/img/icon/기본버튼2.png" alt="">
 		        <div class="report-nickname">신고 대상 닉네임</div>
-		        <div class="user-nickname">박가영입니다람쥐</div>
+		        <div class="user-nickname"></div>
+		        <div class="report-title">제목</div>
+		        <input type="text" class="title-box" maxlength='20'>
 		        <div class="report-content">신고 내용 작성</div>
-		        <textarea name="report-content-text" id="report-content-text" cols="30" rows="10"></textarea>
+		        <div class="text-count">0</div>
+		        <div class="text-total">/ 300</div>
+		        <textarea name="report-content-text" id="report-content-text" maxlength='300'></textarea>
 		        <button type="submit" class="report-btn">신고하기</button>
 		        <button type="reset" class="reset-btn">취소</button>
 			</div>
