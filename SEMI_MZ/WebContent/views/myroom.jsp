@@ -432,44 +432,7 @@ ul li.on a {color: #fff;}
 	<script src="../resource/js/boardMe.js"></script>
 
 	<script>
-	function selectBoard(){
 
-		// 방명록 번호 얻어오기 -------- 어떻게..?
-		// let bno = $(this).children().eq(1).text();
-		// console.log($("#board-no").val());
-		
-		// 비동기요청 보내서 방명록 내용 얻어오기
-		
-		//let path = getContextPath();
-		
-		$.ajax({
-			url : "<%= contextPath %>/selectBoard",
-			data : { boardNo : '10' }, 		// 방명록 번호...
-			success : function(list){
-				console.log(list);
-				
-				let str = "";
-				
-				for(let i of list){
-					console.log(i.boardContent);
-					str += "<div class='board-detail-friend'>"
-								+ "<img class='friend-skin' src=''>"
-								+ "<div class='friend-id'>" + i.freindId + "</div>"
-							+ "</div>"
-							+ "<div class='board-detail-table'>"
-								+ "<div class='detail-table-date'>" + i.createDate + "</div>"
-								+ "<div class='detail-table-text'>" + i.boardContent + "</div>"
-							+ "</div>"
-				}
-				$(".board-detail-content").html(str);
-				
-			},
-			error : function(){
-				console.log("실패")
-			}
-		})
-	}
-	selectBoard();
 	</script>
 </body>
 </html>

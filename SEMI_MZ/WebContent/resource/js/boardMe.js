@@ -136,7 +136,43 @@ $("#pagingul li a").click(function () {
 
 
 /* ========================= 방명록 상세 조회 ========================= */
-
-
+$(function(){
 	
 
+	function selectBoard(){
+
+		// 방명록 번호 얻어오기 -------- 어떻게..?
+		// let bno = $(this).children().eq(1).text();
+		// console.log($("#board-no").val());
+		
+		// 비동기요청 보내서 방명록 내용 얻어오기
+		
+		let path = getContextPath();
+		
+		$.ajax({
+			url : path+"/selectBoard" ,
+			data : { boardNo : '10' } , 		// 방명록 번호...
+			success : function(b){
+				
+				console.log(b);
+
+				str = "";
+				str += "<div class='board-detail-friend'>"
+							+ "<img class='friend-skin' src=''>"
+							+ "<div class='friend-id'>" + b.receiveId + "</div>"
+						+ "</div>"
+						+ "<div class='board-detail-table'>"
+							+ "<div class='detail-table-date'>" + b.createDate + "</div>"
+							+ "<div class='detail-table-text'>" + b.boardContent + "</div>"
+						+ "</div>"
+
+				$(".board-detail-content").html(str);
+			},
+			error : function(){
+				console.log("실패")
+			}
+		})
+	}
+	selectBoard();
+	
+});
