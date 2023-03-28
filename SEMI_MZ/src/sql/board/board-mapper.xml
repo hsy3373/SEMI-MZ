@@ -14,17 +14,17 @@
 		ORDER BY CREATE_DATE DESC
 	</entry>
 	<!-- 방명록 상세 조회 -->
-	<entry key="boardDetail">
+	<entry key="selectBoard">
 		SELECT  BOARD_NO,
 				USER_ID,
 				RECEIVE_ID,
 				BOARD_TITLE,
 				BOARD_CONTENT,
 				SECRET,
-				CREATE_DATE,
-				SKIN_ID
+				CREATE_DATE
 		  FROM BOARD
 		  JOIN CHARACTER USING (USER_ID)
 		 WHERE BOARD_NO = ?
 	</entry>
+
 </properties>

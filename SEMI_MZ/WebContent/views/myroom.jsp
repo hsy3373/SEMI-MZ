@@ -142,7 +142,7 @@ ul li.on a {color: #fff;}
 				<div class="board-detail-title">가나다라마바사아자차카타파하가</div>
 				<div class="board-detail-area">
 					<div class="board-detail-content">
-						<div class="board-detail-friend">
+<!-- 						<div class="board-detail-friend">
 							<img class="friend-skin" src="../resource/img/user/skin2/fs.png">
 							<div class="friend-id">swldml 노</div>
 						</div>
@@ -157,7 +157,7 @@ ul li.on a {color: #fff;}
 								그리하였는가? 놀이 얼음과 이 열락의 우는 있는 것이다. 위하여 고행을 그들의 힘있다. 지혜는 이것을 심장의 같이,
 								같이 있는 그러므로 바이며, 목숨이 있다. 그들을 풀이 스며들어 것이다.보라, 위하여서. 않는 동산에는 힘차게 끓는
 								열락의 앞이 일월과 것이다. 힘차게 모래뿐일 가슴에</div>
-						</div>
+						</div> -->
 					</div>
 					<!-- 삭제 버튼 -->
 					<button class="alert-toggle board-delete-btn button"
@@ -426,10 +426,50 @@ ul li.on a {color: #fff;}
 	</div>
 	<div class="alert-overlay"></div>
 
-	<script src="../resource/js/myroom.js"></script>
+	<!-- <script src="../resource/js/myroom.js"></script> -->
 	<script type="module" src="../resource/js/alert.js"></script>
 	<script type="module" src="../resource/js/common.js"></script>
 	<script src="../resource/js/boardMe.js"></script>
 
+	<script>
+	function selectBoard(){
+
+		// 방명록 번호 얻어오기 -------- 어떻게..?
+		// let bno = $(this).children().eq(1).text();
+		// console.log($("#board-no").val());
+		
+		// 비동기요청 보내서 방명록 내용 얻어오기
+		
+		//let path = getContextPath();
+		
+		$.ajax({
+			url : "<%= contextPath %>/selectBoard",
+			data : { boardNo : '10' }, 		// 방명록 번호...
+			success : function(list){
+				console.log(list);
+				
+				let str = "";
+				
+				for(let i of list){
+					console.log(i.boardContent);
+					str += "<div class='board-detail-friend'>"
+								+ "<img class='friend-skin' src=''>"
+								+ "<div class='friend-id'>" + i.freindId + "</div>"
+							+ "</div>"
+							+ "<div class='board-detail-table'>"
+								+ "<div class='detail-table-date'>" + i.createDate + "</div>"
+								+ "<div class='detail-table-text'>" + i.boardContent + "</div>"
+							+ "</div>"
+				}
+				$(".board-detail-content").html(str);
+				
+			},
+			error : function(){
+				console.log("실패")
+			}
+		})
+	}
+	selectBoard();
+	</script>
 </body>
 </html>

@@ -16,7 +16,7 @@ $(function(){
 
     /* x버튼 or 바깥 클릭시 모달창 사라짐 */
     $("body").on("click", function(e) {
-        console.log(e.target);
+        //c onsole.log(e.target);
         if(e.target.className == 'x-btn' || e.target.className == 'board-wrap'){
             $(".board-wrap").hide(); // 방명록 모달 닫힘 
             $(".closet-wrap").hide(); // 옷장 모달 닫힘
@@ -41,7 +41,7 @@ $(function(){
         $(".board-detail").show();
         
         /* 공지사항 번호가져오기 */
-        let bno = $(this).children().eq(0).text();
+        // let bno = $(this).children().eq(0).text();
         
         // location.href = "${ contextPath }/datail.bo?bno="+bno;
     });

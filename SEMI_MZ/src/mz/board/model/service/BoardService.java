@@ -10,6 +10,10 @@ import mz.board.model.vo.Board;
 
 public class BoardService {
 	
+	/**
+	 * @return ArrayList<Board>
+	 * 방명록 리스트 조회
+	 */
 	public ArrayList<Board> selectBoardList(){
 		Connection conn = getConnection();
 		
@@ -20,10 +24,19 @@ public class BoardService {
 		return list;
 	}
 	
-	public Board boardDetail() {
+	/**
+	 * @param boardNo
+	 * @return Board
+	 * 방명록 상세 조회
+	 */
+	public Board selectBoard(int boardNo) {
 		Connection conn = getConnection();
 		
-		Board b = new BoardDao().
+		Board b = new BoardDao().selectBoard(conn, boardNo);
+		
+		close(conn);
+		
+		return b;
 	}
 }
 

@@ -19,8 +19,8 @@ let startPage; 				// 페이지 하단에 보여질 페이징바의 시작 수
 let endPage; 				// 페이지 하단에 보여질 페이징바의 끝 수
 
 
-/* ========================= 방명록 리스트 조회 ========================= */
 $(function(){		
+	/* ========================= 방명록 리스트 조회 ========================= */
 	let path = getContextPath();
 	$.ajax({ // ajax로 데이터 가져오기
 		url : path + "/boardList",
@@ -36,13 +36,19 @@ $(function(){
 			                	 boardTitle:list[i].boardTitle,
 			                	 createDate: list[i].createDate})
 			}
+			console.log(BoardList);
 		//글 목록 표시 호출 (테이블 생성)
 		displayData(1, boardLimit);
 		
 		//페이징 표시 호출
 		paging(listCount, boardLimit, pageLimit, 1);	
 		}
+		
 	});
+	
+	
+
+	
 });
 
 // 글 목록 표시 함수
@@ -85,7 +91,6 @@ function paging(listCount, boardLimit, pageLimit, currentPage) {
 	}
 
 	let startPage = parseInt((currentPage-1) / 5) * 5 +1;  //화면에 보여질 첫번째 페이지 번호
-	console.log(maxPage);
 	
 	let next = endPage + 1;
 	let prev = startPage - 1;
@@ -110,6 +115,7 @@ function paging(listCount, boardLimit, pageLimit, currentPage) {
 
 $("#pagingul").html(pageHtml);
 
+
 //페이징 번호 클릭 이벤트 
 $("#pagingul li a").click(function () {
 	let $id = $(this).attr("id");
@@ -127,28 +133,10 @@ $("#pagingul li a").click(function () {
 	});
 };
 
+
+
 /* ========================= 방명록 상세 조회 ========================= */
-$(".board-list .board-list-area > tr").click(function(){
-    $(".board-list").hide();
-    $(".board-detail").show();
+
+
 	
-	let boardNo = $(this).children().eq(1).text();
-	
-	console.log(boardNo);
-		
-	$.ajax({
-		url : path + "/boardDetail",
-		data : {
-			boardNo : boardNo
-		},
-		success : function(result){
-			
-			console.log(result);
-		},
-		error : function(){
-			console.log("실패")
-		}
-	});
-	
-});
 

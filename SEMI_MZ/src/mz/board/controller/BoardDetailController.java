@@ -16,7 +16,7 @@ import mz.board.model.vo.Board;
 /**
  * Servlet implementation class BoardDetailController
  */
-@WebServlet("/boardDetail")
+@WebServlet("/selectBoard")
 public class BoardDetailController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -37,7 +37,7 @@ public class BoardDetailController extends HttpServlet {
 		
 		response.setContentType("application/json; charset=UTF-8");
 		
-		Board b = new BoardService().boardDetail(boardNo);
+		Board b = new BoardService().selectBoard(boardNo);
 		
 		Gson gson = new Gson();
 		
