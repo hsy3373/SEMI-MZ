@@ -30,6 +30,8 @@
     <br />
     <br />
     <a href="./square.jsp">광장</a>
+        <br />
+    <a href="./admin/main.jsp">관리자페이지</a>
 
     <script type="module" src="../resource/js/common.js"></script>
     <script type="module" src="../resource/js/test.js"></script>

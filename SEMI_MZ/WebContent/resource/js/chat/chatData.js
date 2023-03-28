@@ -7,7 +7,7 @@ import * as Common from "../common.js";
 import * as ChatFront from "./chatFront.js";
 
 let ip = ["192.168.30.180", "192.168.0.2"];
-const webSocket = new WebSocket("ws://192.168.30.180:8082/mzone/websocket");
+const webSocket = new WebSocket("ws://192.168.0.2:8082/mzone/websocket");
 console.log("기본 웹소켓 객체 : ", webSocket);
 
 webSocket.onopen = function (message) {
