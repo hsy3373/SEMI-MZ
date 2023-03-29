@@ -10,7 +10,6 @@ import mz.member.model.vo.Member;
 
 
 public class MemberService {
-
 		
 //------------------------------ select 구간 -------------------------------
 	//[han]
@@ -35,7 +34,6 @@ public class MemberService {
 		
 		return m;
 	}
-
 		
 //------------------------------ insert 구간 -------------------------------
 	

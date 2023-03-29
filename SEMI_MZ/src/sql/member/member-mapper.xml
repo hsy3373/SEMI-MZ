@@ -1,7 +1,5 @@
 </properties><?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
-
-
 <properties>
 	<!-- [han] -->
 	<entry key="userCount">
@@ -40,6 +38,7 @@
 							?
 							)
 	</entry>
+	
 	<!-- 가영 -->-
 	<entry key="selectMember">
 		SELECT USER_ID,
