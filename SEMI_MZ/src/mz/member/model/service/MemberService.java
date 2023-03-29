@@ -1,15 +1,31 @@
 package mz.member.model.service;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 
 import mz.common.JDBCTemplate;
 import mz.member.model.dao.MemberDao;
 import mz.member.model.vo.Member;
 
-// 김혜린
-// 회원가입
+
 public class MemberService {
 
+// 김혜린
+	// 로그인
+	public Member loginMember(String userId, String userPwd) {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		Member m = new MemberDao().loginMember(conn, userId, userPwd);
+		
+		try {
+			conn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return m;
+	}
+	
+	// 회원가입
 	public int insertMember(Member m) {
 		
 		Connection conn = JDBCTemplate.getConnection();
