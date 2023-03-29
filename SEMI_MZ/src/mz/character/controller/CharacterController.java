@@ -1,7 +1,6 @@
 package mz.character.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,9 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
-
-import com.oreilly.servlet.MultipartRequest;
+import mz.character.model.service.CharacterService;
 
 /**
  * Servlet implementation class CharacterController
@@ -33,6 +30,17 @@ public class CharacterController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		
+		
+		
+		
+		
+		
+		String savePath = request.getSession().getServletContext().getRealPath("/resource/img/user/") + "0_default";
+		
+		boolean test =  new CharacterService().createFolder(savePath);
+		
+		
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
