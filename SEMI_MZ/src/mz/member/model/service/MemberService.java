@@ -2,14 +2,32 @@ package mz.member.model.service;
 
 import java.sql.Connection;
 
-import mz.common.JDBCTemplate;
+import static mz.common.JDBCTemplate.*;
 import mz.member.model.dao.MemberDao;
 import mz.member.model.vo.Member;
 
-// 김혜린
-// 회원가입
+
 public class MemberService {
 
+		
+//------------------------------ select 구간 -------------------------------
+	//[han]
+	public int userCount() {
+		Connection conn = getConnection();
+		
+		int result = new MemberDao().userCount(conn);
+
+		close(conn);
+		
+		return result;
+	}
+
+
+		
+//------------------------------ insert 구간 -------------------------------
+	
+	// 김혜린
+	// 회원가입
 	public int insertMember(Member m) {
 		
 		Connection conn = JDBCTemplate.getConnection();
@@ -26,31 +44,6 @@ public class MemberService {
 		return result;
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 }
+

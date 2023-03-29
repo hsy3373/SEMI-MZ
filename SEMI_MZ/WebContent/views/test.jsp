@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8" import="mz.member.model.vo.Member"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
-	/* 테스트용 유저 객체 */
+	/* 테스트용 유저 객체 */ 
 	Member m = new Member("test", "test", "NIC_test", "Y", 0, 500, "", "N", java.sql.Date.valueOf("2023-03-20"));
 	session.setAttribute("loginUser", m);
 	session.setAttribute("testing", "testingtesting");
@@ -30,6 +30,8 @@
     <br />
     <br />
     <a href="./square.jsp">광장</a>
+    <br />
+    <a href="./admin/main.jsp">관리자페이지</a>
     <br />
     <a href="./main.jsp">메인/로그인</a>
 
