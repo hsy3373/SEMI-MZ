@@ -117,4 +117,3 @@ $("#board-send-delete").click(function(){
   alertAddClass("board-send-delete");
 })
 
-

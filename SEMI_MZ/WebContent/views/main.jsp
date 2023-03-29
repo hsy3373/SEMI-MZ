@@ -109,47 +109,48 @@
 	                    <table class="display-center enroll-table">
 	                        <tr>
 								<th class="th1-wid">- 아이디</th>
-								<td><input type="text" class="inputbox" id="enroll-id" placeholder="아이디"></td>
+								<td><input type="text" class="inputbox enroll-id" placeholder="아이디"></td>
 								<td class="td3-wid"><button type="button" class="ncheck-btn">중복확인</button></td>
 							</tr>
 							<tr class="under-text">
 								<td></td>
-								<td><span id="idcheck-txt">영문, 숫자, 특수기호(_) 사용하여 5~20자 공백없이 가능</span></td>
+								<td><span class="idcheck-txt">영문, 숫자, 특수기호(_) 사용하여 5~20자 공백없이 가능</span></td>
 								<td></td>
 							</tr>
 							<tr></tr><tr></tr><tr></tr><tr></tr><tr></tr><tr></tr>
 							<tr>
 								<th class="th1-wid">- 닉네임</th>
-								<td><input type="text" class="inputbox" placeholder="닉네임"></td>
+								<td><input type="text" class="inputbox enroll-nic" placeholder="닉네임"></td>
 								<td class="td3-wid"><button type="button" class="ncheck-btn">중복확인</button></td>
 							</tr>
 							<tr class="under-text">
 								<td></td>
-								<td>영문, 한글, 숫자, 특수기호(_) 사용하여 2~8자까지 공백없이 가능</td>
+								<td><span class="niccheck-txt">영문, 한글, 숫자, 특수기호(_) 사용하여 2~8자까지 공백없이 가능</span></td>
 								<td></td>
 							</tr>
 							<tr></tr><tr></tr><tr></tr><tr></tr><tr></tr><tr></tr>
 							<tr>
 								<th class="th1-wid">- 비밀번호</th>
-								<td><input type="password" class="inputbox" placeholder="비밀번호"></td>
+								<td><input type="password" class="inputbox enroll-pwd" placeholder="비밀번호"></td>
 								<td></td>
 							</tr>
 							<tr>
 								<th class="th1-wid"></th>
-								<td><input type="password" class="inputbox" placeholder="비밀번호 확인"></td>
+								<td><input type="password" class="inputbox enroll-chkpwd" placeholder="비밀번호 확인"></td>
 								<td></td>
 							</tr>
 							<tr class="under-text">
 								<td></td>
-								<td>영문, 숫자, 특수기호 포함 8~16자 입력 가능</td>
+								<td><span class="pwd-txt">영문, 숫자, 특수기호 포함 8~16자 입력 가능</span></td>
 								<td></td>
 							</tr>
 							<tr></tr><tr></tr><tr></tr><tr></tr><tr></tr><tr></tr>
 							<tr>
 								<th class="th1-wid">- 이용약관 동의</th>
 								<td>
-									<textarea class="scroll-fix agree-text" name="enroll-agree" cols="54" rows="5" style="resize:none;" readonly>
+									<textarea class="scroll-fix agree-text" name="enroll-agree" cols="72" rows="6" style="resize:none;" readonly>
 이용약관
+
 제1조 (목적)
 이 약관은 (주)M-ZONE(이하 “회사”라 합니다)이 제공하는 메타버스 및 메타버스 관련 제반 서비스의 이용에 대해 회사와 회원의 권리, 의무 및 책임사항, 기타 필요한 사항을 규정함을 목적으로 합니다.
 
@@ -429,13 +430,13 @@
 							<tr>
 								<td></td>
 								<td class="check-right">
-									<div><input type="checkbox" id="check-agree" name="check-agree">
+									<div><input type="checkbox" id="check-agree" name="check-agree" >
 									<label for="check-agree">동의</label></div>
 								</td>
 								<td></td>
 							</tr>
 							<tr>
-								<th colspan="3"><button type="button" id="enroll-btn" class="alert-toggle" disabled>회원 가입</button></th>
+								<th colspan="3"><button type="button" id="enroll-btn" class="alert-toggle green-btn" disabled>회원 가입</button></th>
 							</tr>
 	                    </table>
 					</form>
@@ -443,29 +444,6 @@
             </div>
         </div>
       </div>
-      
-      <!-- <script>
-      	$(function(){
-			let enrollBtn = $('#enroll-btn');
-      		enrollBtn.click(function(){
-      			
-				//let 아이디 =
-				// let 아이디중복확인 = 
-				//let 닉네임 = 
-				//let 비밀번호 =
-      			//
-      			
-      			
-      			
-      			
-      		})
-      		
-      		
-      		
-      	})
-      	
-      
-      </script> -->
       
       
 <!-- ============================ id/pw찾기 후 비밀번호 재설정 모달 ================================= -->	
@@ -483,22 +461,22 @@
 							<tr class="empty-space"></tr>
 							<tr>
 								<th class="th1-wid">- 새 비밀번호</th>
-								<td><input type="password" class="inputbox" placeholder="비밀번호"></td>
+								<td><input type="password" class="inputbox re-pwd" placeholder="비밀번호"></td>
 								<td></td>
 							</tr>
 							<tr>
 								<th class="th1-wid"></th>
-								<td><input type="password" class="inputbox" placeholder="비밀번호 확인"></td>
+								<td><input type="password" class="inputbox re-chkpwd" placeholder="비밀번호 확인"></td>
 								<td></td>
 							</tr>
 							<tr class="under-text">
 								<td></td>
-								<td>영문, 숫자, 특수기호 포함 8~16자 입력 가능</td>
+								<td><span class="repwd-txt">영문, 숫자, 특수기호 포함 8~16자 입력 가능</span></td>
 								<td></td>
 							</tr>
 							<tr style="height:90px"></tr>
 							<tr>
-								<th colspan="3"><button id="enroll-btn">비밀번호 재설정</button></th>
+								<th colspan="3"><button class="green-btn" id="newpwd-btn" disabled>비밀번호 재설정</button></th>
 							</tr>
 						</table>
 	                </form>
@@ -514,8 +492,8 @@
      		<table class="modal4-table">
      			<tr class="smodal-tb"><th colspan="2">비밀번호 입력</th></tr>
      			<tr class="smodal-tf">
-     				<td><input type="password" class="rqpwd-input"></td>
-     				<td><button type="button" class="subpwd-btn chg-inf-modal">확인</button></td>.
+     				<td><input type="password" class="rqpwd-input" id="rqpwd"></td>
+     				<td><button type="button" class="subpwd-btn chg-inf-modal" id="rq-btn">확인</button></td>.
      			</tr>
      		</table>
 
@@ -545,28 +523,28 @@
                         <tr></tr><tr></tr>
                         <tr>
                         	<th class="th1-wid">- 닉네임 변경</th>
-                        	<td><input type="text" class="inputbox" placeholder="닉네임"></td>
-                        	<td class="td3-wid"><button type="button" class="ncheck-btn">중복확인</button></td>
+                        	<td><input type="text" class="inputbox cge-nick" placeholder="유저닉네임"></td>
+                        	<td class="td3-wid"><button type="button" class="ncheck-btn ">중복확인</button></td>
                         </tr>
                         <tr class="under-text">
                         	<td></td>
-                        	<td> 영문, 한글, 숫자, 특수기호(_) 사용하여 2~8자까지 공백없이 가능</td>
+                        	<td><span class="cgenick-txt">영문, 한글, 숫자, 특수기호(_) 사용하여 2~8자까지 공백없이 가능</span></td>
                         	<td></td>
                         </tr>
                         <tr></tr><tr></tr><tr></tr><tr></tr>
                         <tr>
                         	<th class="th1-wid">- 비밀번호 변경</th>
-                        	<td><input type="password" class="inputbox" placeholder="비밀번호"></td>
+                        	<td><input type="password" class="inputbox cge-pwd" placeholder="비밀번호"></td>
                         	<td></td>
                         </tr>
                         <tr>
 							<th class="th1-wid"></th>
-                        	<td><input type="password" class="inputbox" placeholder="비밀번호 확인"></td>
+                        	<td><input type="password" class="inputbox cge-chkpwd" placeholder="비밀번호 확인"></td>
                         	<td></td>
                         </tr>
 						<tr class="under-text">
 							<td></td>
-							<td>영문, 숫자, 특수기호 포함 8~16자 입력 가능</td>
+							<td><span class="cgepwd-txt">영문, 숫자, 특수기호 포함 8~16자 입력 가능</span></td>
 							<td></td>
 						</tr>
                         <tr></tr><tr></tr>
@@ -586,13 +564,18 @@
                         <tr>
                         	<th class="th1-wid">- 자기소개</th>
                         	<td>
-                        		<textarea class="scroll-fix self-info" name="selfInfo" cols="53" rows="8" style="resize:none;" placeholder="자기소개 작성란"></textarea>
+                        		<textarea class="scroll-fix self-info" name="selfInfo" cols="53" rows="6" style="resize:none;" placeholder="자기소개 작성란"></textarea>
                         	</td>
                         	<td></td>
                         </tr>
+						<tr class="under-text">
+							<td></td>
+							<td><span class="self-txt">100자 이내로 작성해 주세요.</span></td>
+							<td></td>
+						</tr>
                         <tr>
 							<td></td>
-                        	<th><button id="cge-btn">정보수정</button></th>
+                        	<th><button id="cge-btn" class="green-btn">정보수정</button></th>
 							<td style="text-align: right;"><button type="button" id="sec-btn" class="alert-toggle button2">회원탈퇴</button></td>
                         </tr>
                     </table>

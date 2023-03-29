@@ -1,8 +1,9 @@
 @charset "UTF-8";
+/*==================== css 변수지정 및 공통 속성 =======================*/
 	:root{
 			--backcolor0:rgba(0, 0, 0, 0);
 			--iptext-width: 374px;
-			--iptext-height: 28px;
+			--iptext-height: 25px;
 			--hiptext-width: 350px;
 			--iptext-outline-color: #f5bc60;
 		}
@@ -261,7 +262,7 @@
 		justify-content:center;
 	}
 	.change-info-table *{
-		border: 0px solid red;
+		border: 1px solid red;
 	}
 	.under-text{
 		font-size: 12px;
@@ -287,7 +288,7 @@
 		height: 30px;
 	}
 	.modal-textarea{
-		border: 0px solid red;
+		border: 1px solid red;
 		width:640px;
 		height:380px;
 		margin: auto;
@@ -310,14 +311,14 @@
         font-weight: 600;
         transition-duration: 0.3s;
     }
-	#cge-btn{
+	/* #cge-btn{
         background-color: #c8e8c3;
         border: 2.5px solid #a1c49b;
         padding: 5px 10px;
         cursor: pointer;
         font-weight: 600;
         transition-duration: 0.3s;
-	}
+	} */
 	#sec-btn{
         color: white;
         background-color: #f84545;
@@ -326,13 +327,14 @@
         cursor: pointer;
         transition-duration: 0.3s;
 	}
-    .ncheck-btn:hover,#cge-btn:hover,#sec-btn:hover{
+    .ncheck-btn:hover,#sec-btn:hover{
         transform: scale(0.97);
     }
     .readonly{
         outline: none;
         cursor: auto;
     }
+   
 /*==================== 회원가입 모달 =======================*/   
 .display-center{  /*테이블 클래스*/
     border: 0px solid red;
@@ -342,7 +344,7 @@
     border: 0px solid red;
 }
 
-#enroll-btn{
+.green-btn{
     background-color: #c8e8c3;
         border: 2.5px solid #a1c49b;
         padding: 10px 30px;
@@ -350,7 +352,7 @@
         font-weight: 600;
         transition-duration: 0.3s;
 }
-#enroll-btn:hover{
+.green-btn:hover{
     transform: scale(0.97);
 }
 .check-right{
@@ -366,5 +368,8 @@
 .agree-text:focus{
     outline-color: var(--iptext-outline-color);
 }
+/* span{
+    color: red !important;
+} */
 
 
