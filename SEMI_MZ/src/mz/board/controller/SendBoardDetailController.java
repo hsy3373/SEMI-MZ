@@ -1,8 +1,6 @@
 package mz.board.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,20 +9,21 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 
+import mz.board.model.dao.BoardDao;
 import mz.board.model.service.BoardService;
 import mz.board.model.vo.Board;
-import mz.member.model.vo.Member;
+
 /**
- * Servlet implementation class BoardListController2
+ * Servlet implementation class SendBoardDetailController
  */
-@WebServlet("/selectBoardList")
-public class BoardListController extends HttpServlet {
+@WebServlet("/selectSendBoard")
+public class SendBoardDetailController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public BoardListController() {
+    public SendBoardDetailController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,20 +32,16 @@ public class BoardListController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+
 		response.setContentType("application/json; charset=UTF-8");
 		
-		// 로그인 아이디
-		String loginId = ((Member)request.getSession().getAttribute("loginUser")).getUserId();
-		System.out.println(loginId);
-		// 방주인 아이디
-		String receive = request.getParameter("receive");
-		System.out.println("누가 "+loginId+" 누구의 " + receive);
-		ArrayList<Board> list = new BoardService().selectBoardList(loginId, receive);
-		System.out.println(list.size());
+		int boardNo = Integer.parseInt(request.getParameter("boardNo"));
+		
+		Board b = new BoardService().selectSendBoard(boardNo);
+		
 		Gson gson = new Gson();
-			
-		gson.toJson(list, response.getWriter());	
+		
+		gson.toJson(b, response.getWriter());
 		
 	}
 

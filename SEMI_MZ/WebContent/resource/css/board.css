@@ -17,7 +17,7 @@
 
 /* ============================= 방명록 모달배경 ============================= */
 .board-wrap {
-    display: block;
+    display: none;
     position: absolute;
     top: 0;
     left: 0;
@@ -26,7 +26,7 @@
     background-color: rgba(0, 0, 0, 0.4);
 }
 .board-modal{
-    display: block;
+    display: none;
 	position: relative;
 	width: 800px;
     height: 500px;
@@ -131,7 +131,7 @@
 }
 
 /* ============================= 방명록 상세 ============================= */
-.board-detail{display: block;}
+.board-detail{display: none;}
 /* 친구 캐릭터 스킨 */
 .board-detail-friend{
     width: 30%;
@@ -188,8 +188,8 @@
 
 
 /* ======================= 친구한테 쓴 방명록 상세 ======================= */
-/* ============================= 방명록 작성 ============================= */
 .board-send-detail{display: none;}
+/* ============================= 방명록 작성 ============================= */
 .board-write{display: none;}
 .board-write-area{
     width: 600px;

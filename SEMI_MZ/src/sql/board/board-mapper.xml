@@ -9,10 +9,11 @@
 			  RECEIVE_ID,
 			  BOARD_TITLE,
 			  CREATE_DATE
-		FROM BOARD B
-		JOIN MEMBER USING (USER_ID)
+		FROM BOARD
+		WHERE USER_ID = ? AND RECEIVE_ID = ?
 		ORDER BY CREATE_DATE DESC
 	</entry>
+
 	<!-- 방명록 상세 조회 -->
 	<entry key="selectBoard">
 		SELECT  BOARD_NO,
@@ -24,6 +25,15 @@
 				CREATE_DATE
 		  FROM BOARD
 		  JOIN CHARACTER USING (USER_ID)
+		 WHERE BOARD_NO = ?
+	</entry>
+	<!-- 친구네룸 - 내가쓴 방명록 상세 조회 -->
+	<entry key="selectSendBoard">
+		SELECT BOARD_NO,
+			   BOARD_TITLE,
+			   BOARD_CONTENT,
+			   SECRET
+		  FROM BOARD
 		 WHERE BOARD_NO = ?
 	</entry>
 

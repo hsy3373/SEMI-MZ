@@ -27,10 +27,11 @@ public class Board {
 	
 	
 
-	public Board(int boardNo, String userId, String boardTitle, String createDate) {
+	public Board(int boardNo, String userId, String receiveId, String boardTitle, String createDate) {
 		super();
 		this.boardNo = boardNo;
 		this.userId = userId;
+		this.receiveId = receiveId;
 		this.boardTitle = boardTitle;
 		this.createDate = createDate;
 	}

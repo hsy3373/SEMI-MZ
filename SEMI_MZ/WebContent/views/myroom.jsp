@@ -125,8 +125,12 @@ ul li.on a {color: #fff;}
 				<img class="x-btn" src="../resource/img/icon/엑스 버튼.png">
 				<div class="board-content">
 					<table class="board-list-area">
-						<!-- list.bo 로 조회해옴 -->
-						
+						<!-- boardList 로 조회해옴 -->
+<!-- 	                <tr>
+	                        <td id="board-title"><img class="apple" src="../resource/img/icon/사과.png">제목</td>
+	                        <td class="board-userid">유저2</td>
+	                        <td class="board-date">2023-03-25</td>
+	                    </tr> -->
 					</table>
 					<!-- 페이징바 -->
 					<div class="pageing-area">
@@ -139,29 +143,21 @@ ul li.on a {color: #fff;}
 			<div class="board-detail">
 				<!-- back 버튼 -->
 				<img class="back-btn" src="../resource/img/icon/back2_btn.png">
-				<div class="board-detail-title">가나다라마바사아자차카타파하가</div>
+				<div class="board-detail-title"></div>
 				<div class="board-detail-area">
 					<div class="board-detail-content">
-<!-- 						<div class="board-detail-friend">
-							<img class="friend-skin" src="../resource/img/user/skin2/fs.png">
-							<div class="friend-id">swldml 노</div>
+ 					<div class="board-detail-friend">
+							<!-- <img class="friend-skin" src="../resource/img/user/skin2/fs.png">
+							<div class="friend-id">swldml 노</div> -->
 						</div>
 						<div class="board-detail-table">
-							<div class="detail-table-date">2023-03-22</div>
-							<div class="detail-table-text">원질이 가장 꽃이 끓는다. 열락의 풍부하게 실현에
-								가슴에 심장은 위하여서, 너의 그들의 못하다 있는가? 보는 있는 따뜻한 꽃이 위하여서. 가진 그들의 같이 놀이
-								안고, 되려니와, 길지 풀이 인류의 힘있다. 찾아 않는 그와 온갖 밝은 실로 것이다. 곳으로 힘차게 황금시대의
-								이상이 품었기 있으랴? 이상의 방황하였으며, 옷을 수 듣는다. 청춘을 위하여서, 설산에서 온갖 아름다우냐? 인간이
-								구하지 얼음 뿐이다. 같은 있을 것이다.보라, 어디 있는 따뜻한 날카로우나 보라. 산야에 있는 미묘한 어디 살
-								희망의 것이다. 얼마나 곧 긴지라 청춘의 구할 살 든 그것은 이상은 있다. 열매를 커다란 보이는 품에 광야에서
-								그리하였는가? 놀이 얼음과 이 열락의 우는 있는 것이다. 위하여 고행을 그들의 힘있다. 지혜는 이것을 심장의 같이,
-								같이 있는 그러므로 바이며, 목숨이 있다. 그들을 풀이 스며들어 것이다.보라, 위하여서. 않는 동산에는 힘차게 끓는
-								열락의 앞이 일월과 것이다. 힘차게 모래뿐일 가슴에</div>
-						</div> -->
+							<!-- <div class="detail-table-date">2023-03-22</div>
+							<div class="detail-table-text">
+							</div> -->
+						</div>
 					</div>
 					<!-- 삭제 버튼 -->
-					<button class="alert-toggle board-delete-btn button"
-						id="board-delete">삭제</button>
+					<button class="alert-toggle board-delete-btn button" id="board-delete">삭제</button>
 				</div>
 			</div>
 
@@ -178,39 +174,15 @@ ul li.on a {color: #fff;}
 							</td>
 						</tr>
 						<tr class="board-send-list-tr">
-							<td id="board-title"><img class="apple"
-								src="../resource/img/icon/사과.png">제목</td>
-							<td class="board-date">2023-03-22</td>
-						</tr>
-						<tr class="board-send-list-tr">
-							<td id="board-title"><img class="apple"
-								src="../resource/img/icon/사과.png">제목</td>
-							<td class="board-date">2023-03-22</td>
-						</tr>
-						<tr class="board-send-list-tr">
-							<td id="board-title"><img class="apple"
-								src="../resource/img/icon/사과.png">제목</td>
-							<td class="board-date">2023-03-22</td>
-						</tr>
-						<tr class="board-send-list-tr">
-							<td id="board-title"><img class="apple"
-								src="../resource/img/icon/사과.png">제목</td>
-							<td class="board-date">2023-03-22</td>
-						</tr>
-						<tr class="board-send-list-tr">
-							<td id="board-title"><img class="apple"
-								src="../resource/img/icon/사과.png">제목</td>
-							<td class="board-date">2023-03-22</td>
-						</tr>
-						<tr class="board-send-list-tr">
-							<td id="board-title"><img class="apple"
-								src="../resource/img/icon/사과.png">제목</td>
-							<td class="board-date">2023-03-22</td>
+<!-- 						<td id="board-title"><img class="apple"src="../resource/img/icon/사과.png">제목</td>
+							<td class="board-date">2023-03-22</td> -->
 						</tr>
 
 					</table>
 					<!-- 페이징바 -->
-					<div class="pageing-area">페이징바</div>
+					<div class="pageing-area">
+						<ul id="pagingul"></ul>
+					</div>
 				</div>
 			</div>
 
@@ -225,32 +197,14 @@ ul li.on a {color: #fff;}
 					<!-- 제목부분(상세 제목이랑 동일) -->
 					<div class="board-detail-title">
 						<input type="text" id="board-write-title" required
-							value="tererfdsf" onclick="this.select();">
+							value="" onclick="this.select();">
 					</div>
 
 					<!-- 방명록 내용 작성부분 -->
 					<!-- onclick="this.select();" : 클릭시 자동으로 선택됨 -->
 					<textarea name="board-write-content" id="board-write-content"
 						cols="62" rows="8" required>
-원질이 가장 꽃이 끓는다.
-열락의 풍부하게 실현에 가슴에 심장은 위하여서,
-너의 그들의 못하다 있는가? 보는 있는 따뜻한 꽃이 위하여서.
-가진 그들의 같이 놀이 안고, 되려니와, 길지 풀이 인류의 힘있다.
-찾아 않는 그와 온갖 밝은 실로 것이다.
-곳으로 힘차게 황금시대의 이상이 품었기 있으랴?
-이상의 방황하였으며, 옷을 수 듣는다. 청춘을 위하여서,
-설산에서 온갖 아름다우냐? 인간이 구하지 얼음 뿐이다.
-같은 있을 것이다.보라, 어디 있는 따뜻한 날카로우나 보라.
-산야에 있는 미묘한 어디 살 희망의 것이다.
 
-얼마나 곧 긴지라 청춘의 구할 살 든 그것은 이상은 있다.
-열매를 커다란 보이는 품에 광야에서 그리하였는가?
-놀이 얼음과 이 열락의 우는 있는 것이다.
-위하여 고행을 그들의 힘있다.
-지혜는 이것을 심장의 같이, 같이 있는 그러므로 바이며, 목숨이 있다.
-그들을 풀이 스며들어 것이다.보라, 위하여서.
-않는 동산에는 힘차게 끓는 열락의 앞이 일월과 것이다.
-힘차게 모래뿐일 가슴에
 					</textarea>
 
 					<!-- 비밀글 체크박스 -->
@@ -426,13 +380,10 @@ ul li.on a {color: #fff;}
 	</div>
 	<div class="alert-overlay"></div>
 
-	<!-- <script src="../resource/js/myroom.js"></script> -->
+	<!-- <script src="../resource/js/myroom/myroom.js"></script> -->
 	<script type="module" src="../resource/js/alert.js"></script>
 	<script type="module" src="../resource/js/common.js"></script>
-	<script src="../resource/js/boardMe.js"></script>
+	<script src="../resource/js/myroom/boardMe.js"></script>
 
-	<script>
-
-	</script>
 </body>
 </html>
