@@ -28,7 +28,8 @@ function getUserInfo(){
 			
 			// 데이터 가져오기	
 			let nickName = data.nicName
-			$(".nickname", ".user-nickname").html(nickName);
+			$(".nickname").html(nickName);
+			$(".user-nickname").html(nickName);
 				
 			/* 스킨 경로가 비어있어 오류 뜸 */
 			/*let skinId = data.skinId

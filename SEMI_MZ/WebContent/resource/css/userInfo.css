@@ -172,7 +172,7 @@
 .report-modal{
     position: relative;
     z-index: 5;
-    transform: translate(77%, 16%);
+    transform: translate(72%, 13%);
     width: 42%;
 }
 #report-view{width: 100%;}
@@ -240,14 +240,16 @@
 .text-count{
 	position: absolute;
     z-index: 6;
-    top: 36%;
+    top: 37%;
     left: 73%;
+    font-size: 13px;
 }
 .text-total{
 	position: absolute;
     z-index: 6;
-    top: 36%;
+    top: 37%;
     left: 76.5%;
+    font-size: 13px;
 }
 /*신고 내용*/
 .report-content{
