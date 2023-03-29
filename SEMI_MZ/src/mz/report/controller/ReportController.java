@@ -1,32 +1,26 @@
-package mz.member.controller;
+package mz.report.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.json.simple.JSONObject;
-
-import com.google.gson.Gson;
-
-import mz.member.model.service.MemberService;
 import mz.member.model.vo.Member;
+import mz.report.model.service.ReportService;
 
 /**
- * Servlet implementation class UserInfoController
+ * Servlet implementation class ReportController
  */
-@WebServlet("/userInfo.me")
-public class UserInfoController extends HttpServlet {
+@WebServlet("/report")
+public class ReportController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UserInfoController() {
+    public ReportController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -35,23 +29,28 @@ public class UserInfoController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		
+		// TODO Auto-generated method stub
+		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+		request.setCharacterEncoding("UTF-8");
 		
-		String userId = request.getParameter("userId");
-		System.out.println(userId);
+		String userId = ((Member)request.getSession().getAttribute("loginUser")).getUserId();
+		String receiveId = request.getParameter("receiveId");
+		String reportTitle = request.getParameter("reportTitle");
+		String reportContent = request.getParameter("reportContent");
 		
-		Member m = new MemberService().selectMember(userId);
+		int result = new ReportService().insertReport(userId, receiveId, reportTitle, reportContent);
 		
-		response.setContentType("application/json; charset=UTF-8");
+		if (result > 0) {
+			response.sendRedirect(request.getContextPath()+"/userInfo.me");
+		}
 		
-		new Gson().toJson(m, response.getWriter());
 	}
 
 }

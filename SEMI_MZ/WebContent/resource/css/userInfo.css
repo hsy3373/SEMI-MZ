@@ -81,15 +81,15 @@
 }
 #gender-w{
 	width: 18px;
-    transform: translate(29px, 22px);
+    translate: translate(-1px, 34px);
 }
 #gender-m{
-	width: 23px;
-    transform: translate(27px, 37px);
+	width: 22px;
+    transform: translate(27px, 39px);
 }
 #gender-n{
 	width: 51px;
-    transform: translate(13px, -35px);
+    transform: translate(-47px, 20px);
 }
 
 /*자기소개*/
@@ -217,8 +217,6 @@
     z-index: 6;
     top: 28%;
     left: 14.5%;
-    width: 28.6%;
-    height: 4.5%;
 }
 .title-box{
 	opacity: 0.7;
@@ -229,9 +227,8 @@
     top: 26.5%;
     left: 21.5%;
     background-color: tan;
-    width: 60%;
+    width: 59.7%;
     height: 6%;
-    line-height: 34px;
     outline: none;
     padding-left: 10px;
     font-size: 16px;

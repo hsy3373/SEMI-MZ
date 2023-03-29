@@ -15,30 +15,33 @@ let close = () => {
 }
 
 document.querySelector(".user1").addEventListener("click", open);
+document.querySelector(".user1").addEventListener("click", getUserInfo);
 document.querySelector(".x-btn").addEventListener("click", close);
+document.querySelector(".report-btn").addEventListener("click", report);
+let nickName;
 
 /*유저 정보 가져오기*/
 function getUserInfo(){
 	$.ajax({
 		url: getContextPath()+"/userInfo.me",
-		data : {userId : 'user2'}, /*'test' 부분에 나중에 session 유저id 객체 넣으면 됨*/
+		data : {userId : 'user2'}, /*'test' 부분에 나중에 session 유저id 객체 넣으면 됨 / sessionStorage.getItem('')*/
 		method: 'post',
 		success : function(data) {
 			console.log(data);
 			
 			// 데이터 가져오기	
-			let nickName = data.nicName
+			nickName = data.nicName;
 			$(".nickname").html(nickName);
 			$(".user-nickname").html(nickName);
 				
 			/* 스킨 경로가 비어있어 오류 뜸 */
-			/*let skinId = data.skinId
+			/*let skinId = data.skinId;
 			$("#skin").attr(skinId);*/
 				
-			let info = data.info
+			let info = data.info;
 			$(".introduce").html(info);
 				
-			let gender = data.gender
+			let gender = data.gender;
 			console.log(gender);
 			if (gender == 'W') {
 				$("#gender-w").attr("src", "../resource/img/icon/여자.png");
@@ -49,8 +52,22 @@ function getUserInfo(){
 			}
 		}
 	});
-}
-getUserInfo();
+};
+
+/*신고 상세내용 내보내기*/
+function report(){
+	console.log(nickName);
+	$.ajax({
+		url: getContextPath()+"/report",
+		data: {receiveId : nickName,
+		       reportTitle: $(".title-box").val(),
+		       reportContent: $("report-content-text").val()},
+		method: 'post',
+		success : function(data) {
+			console.log(data);
+		}
+	});
+};
 
 /* 신고하기 모달창 띄우기 */
 let open2 = () => {
