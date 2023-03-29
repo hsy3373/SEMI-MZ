@@ -37,12 +37,6 @@ function loadImage() {
     gamezone = new Image();
     gamezone.src = "../resource/img/icon/gamezone.png"
 
-    //Listbutton = new Image();
-    //Listbutton.src = "../resource/img/icon/목록 버튼.png"
-
-    //friendList = new Image();
-    //friendList.src = "../resource/img/icon/친구목록 버튼.png"
-
 }
 
 
@@ -91,8 +85,6 @@ function render() {
     ctx.drawImage(myhome, 891, 6, 220, 220.5);
     ctx.drawImage(noticeBoard, 960, 350, 271, 140.5)
     ctx.drawImage(gamezone, 230, 200, 180, 146.4)
-    //ctx.drawImage(Listbutton, 1220,730, 50,50)
-    //ctx.drawImage(friendList, 1160,730,50,50)
     ctx.drawImage(user, uesrX, uesrY, 50, 50);
     ctx.font = '12px Sans-Serif'
     ctx.fillText(userName, uesrX + 2, uesrY + 60);
@@ -108,9 +100,10 @@ function setupKeyboard() {
     document.addEventListener("keydown", function (event) {
         keysDown[event.keyCode] = true
 
-        console.log(keysDown); //이거 어떻게 들어가는지 체크
-        console.log(event.key)
-        sendMsg(event.key); //이거 위치를 옮겨보기 => 체크3 : 
+        //이벤트 호출
+        //console.log(event.key)
+        //sendMsg(event.key); //이거 위치를 옮겨보기 => 체크 : 해결. but 호출속도가 빨라서, 문제생길시 다시 back;
+        
     });
 
     document.addEventListener("keyup", function (event) {
@@ -118,9 +111,11 @@ function setupKeyboard() {
 
     })
 
-
+   
 
 }
+
+    
 
 //클릭에 부여하는 이벤트
 canvas.addEventListener("click", function (event) {
@@ -134,7 +129,6 @@ canvas.addEventListener("click", function (event) {
         console.log("home 이벤트 부여")
         gohome();
 
-
     }
 
     //img 안을 클릭할 경우 이벤트 : noticeBoard
@@ -147,18 +141,6 @@ canvas.addEventListener("click", function (event) {
         console.log("gamegone 이벤트 부여")
     }
 
-    // //img 안을 클릭할 경우 이벤트 :Listbutton 
-    // if(clickX >= 1220 && clickX <= 1270 && clickY >= 730 && clickY <= 780 ){
-    //     //console.log("Listbutton 이벤트 부여")
-    //     modal2.style.display = 'block';
-
-    // }
-
-    // //img 안을 클릭할 경우 이벤트 :friendList 
-    // if(clickX >= 1160 && clickX <= 1210 && clickY >= 730 && clickY <= 780 ){
-    //     //console.log("friendList 이벤트 부여")
-    //     modal1.style.display = 'block';
-    // }
 
     console.log(clickX, clickY);
 
@@ -174,7 +156,7 @@ canvas.addEventListener("mousemove", function (event) {
 
     //img 안을 들어올 경우
     if (clickX >= 892 && clickX <= 1111 && clickY >= 10 && clickY <= 226) {
-        console.log("집안으로 들어옴")
+        //console.log("집안으로 들어옴")
     }
 })
 
@@ -191,6 +173,9 @@ function update() {
         } else {
             user = userrs
         }
+
+        sendMsg("ArrowRight"); //소켓에 캐릭터 이동 메세지 전송
+
     }
 
     if (37 in keysDown) {
@@ -202,6 +187,9 @@ function update() {
             user = userls
         }
 
+        sendMsg("ArrowLeft"); //소켓에 캐릭터 이동 메세지 전송
+       
+
     }
 
     if (38 in keysDown) { //위로이동
@@ -212,6 +200,10 @@ function update() {
         } else {
             user = userbs
         }
+
+        sendMsg("ArrowUp"); //소켓에 캐릭터 이동 메세지 전송
+       
+
     }
 
     if (40 in keysDown) { // 아래로이동 
@@ -222,6 +214,9 @@ function update() {
         } else {
             user = userfs
         }
+
+        sendMsg("ArrowDown"); //소켓에 캐릭터 이동 메세지 전송
+       
     }
 
     //맵 블락 (상하좌우)
@@ -415,7 +410,7 @@ const gohome = () => {
 }
 
 
-
+let receivedUserId = "";
 let UsersData = []; // 유저들 데이터 담아줄 배열
 let FilterUsers = [];//필터링된 유저 1개 만큼 담아줄 배열
 // 웹소켓으로 연결하기
@@ -438,39 +433,30 @@ socket.onmessage = function (e) {
     // console.log(e);
     // console.log(e.data);
 
-    //데이터가 나인 경우 걸러내기 : 이건 랜더링 안정된후 열기 
-    // let receivedUser = JSON.parse(e.data);
+    //데이터가 나인 경우 걸러내기 
+    let receivedUser = JSON.parse(e.data);
+    receivedUserId = receivedUser.userId;
 
-    // if (receivedUser.userId !== userId) {
-    //     UsersData.push(receivedUser);
+    if (receivedUser.userId !== userId) {
+        
+        console.log(receivedUserId)
+        UsersData.push(receivedUser);
+        //userData에 담겨있는 userId 값 기준으로 필터링 : 마지막 값만 남김 
+        FilterUsers = UsersData.filter(
+            (arr, index, callback) =>
+                index === callback.findLastIndex(t =>
+                    t.userId === arr.userId
+                )
+        )
+    }
 
-    //     FilterUsers = UsersData.filter(
-    //         (arr, index, callback) =>
-    //             index === callback.findLastIndex(t =>
-    //                 t.userId === arr.userId
-    //             )
-    //     )
+  
 
-    //     UsersData = FilterUsers;
-    //     usersreder();
-    // }
-
-
-    UsersData.push(JSON.parse(e.data)); // String -> 배열 변환  
-    console.log(UsersData)  //object
-
-    //userData에 담겨있는 userId 값 기준으로 필터링 : 마지막 값만 남김 
-    FilterUsers = UsersData.filter(
-        (arr, index, callback) =>
-            index === callback.findLastIndex(t =>
-                t.userId === arr.userId
-            )
-    )
+    //UsersData.push(JSON.parse(e.data)); // String -> 배열 변환  
+    //console.log(UsersData)  //object
 
 
-
-    
-    UsersData = FilterUsers; // Userdate 정보를 Fileter 정보로 바꿔주기  : 잠깐 필터생략 (추후 다시 사용해야함 )
+    UsersData = FilterUsers; // Userdate 정보를 Fileter 정보로 바꿔주기 
     //console.log(FilterUsers);
 
      //userrender 함수 호출 
@@ -481,14 +467,12 @@ socket.onmessage = function (e) {
 
 
 
-
-
 //데이터 전송 JSON
 const sendMsg = (keyboardCode) => {
 
     //유저객체 넣어주기 : 랜더링에 필요한 정보들 : x, y , skin, id , name, code;
     let User = new UserData(uesrX, uesrY, userSkin, userId, userName, keyboardCode);
-    console.log(User)
+    //console.log(User)
 
     socket.send(JSON.stringify(User));
     //문자열 객체 데이터로 바꿔줌 
@@ -507,15 +491,13 @@ function UserData(uesrX, uesrY, userSkin, userId, userName, keyboardCode) {
 
 
 
-
-//이걸 매번 호출해서 그런것 같기도... 2번 체크 
 let skinImages = {};
+let moveMotion = true;
 
+//user 랜더링
 function usersreder() {
 
-    
-    let moveMotion = true;
-
+    //필터링된 유저들 img 불러오기
     for (let i = 0; i < FilterUsers.length; i++) {
         let imgMotion ="";
         switch (FilterUsers[i].keyboardCode) {
@@ -536,6 +518,13 @@ function usersreder() {
 
         }
 
+        if(receivedUserId == FilterUsers[i].userId){
+            if(moveMotion) {
+                moveMotion = false;
+            }else{
+                moveMotion = true;
+            }
+        }
 
         if (moveMotion) {
             imgMotion += "d"
@@ -543,9 +532,10 @@ function usersreder() {
             imgMotion += "s"
         }
 
-        console.log(imgMotion);
-      
+        //console.log(imgMotion);
 
+   
+        //불러온 img skinimg에 넣어줌
         let img = new Image();
         img.src = "../resource/img/user/skin" + FilterUsers[i].userSkin + "/"+imgMotion+".png"
         skinImages[i] = img;
@@ -554,24 +544,7 @@ function usersreder() {
    
     
 
-    console.log(skinImages);
-
-
-    //만든 유저 img 하나씩 뽑아서 캔버스에 draw
-    // for (let i = 0; i < FilterUsers.length; i++) {
-    //     let user = FilterUsers[i];
-    //     let x = parseInt(user.uesrX);
-    //     let y = parseInt(user.uesrY);
-    //     let username = user.userName;
-
-    //     let img = skinImages[i];
-    //     img.onload = function () {
-    //         ctx.drawImage(img, x, y, 50, 50);
-    //         ctx.font = '12px Sans-Serif'
-    //         ctx.fillText(username, x + 4, y + 60);
-    //     };
-    // }
-
+    //console.log(skinImages);
 
 }
 
@@ -583,8 +556,8 @@ function usersreder() {
     let x = e.clientX; //클릭좌표값
     let y = e.clientY; //클릭좌표값
 
-    console.log(x)
-    console.log(y)
+    console.log(x,y)
+   
 
     for (let user of FilterUsers) { //랜더링된 filter user 정보 받아서 좌표값 체크
         let ux = parseInt(user.uesrX);
@@ -597,30 +570,13 @@ function usersreder() {
         }
     }
 
-    console.log(sessionStorage)
+    //console.log(sessionStorage.clickedUserId)
 })
 
 
+ //만든 유저 img 하나씩 뽑아서 캔버스에 draw  
+function userDraw(){
 
-
-
-//랜더링 프레임으로 호출
-function main() {
-
-    if (!modalstop) {
-        //ctx.clearRect(0, 0, canvas.width, canvas.height); : 지워주면 랜더링 될까? 1번) 
-        update(); //좌표값 업데이트
-        render(); //업데이트 된 좌표값으로 재 랜더링
-        requestAnimationFrame(main); // 프레임에 맞춰서 반복호출
-
-        
-
-    }
-
-
-    
-
-     //만든 유저 img 하나씩 뽑아서 캔버스에 draw 
     for (let i = 0; i < FilterUsers.length; i++) {
         let user = FilterUsers[i];
         let x = parseInt(user.uesrX);
@@ -634,18 +590,24 @@ function main() {
         ctx.fillText(username, x + 4, y + 60);
        
     }
+}
+
+//랜더링 프레임으로 호출
+function main() {
+
+    if (!modalstop) {
+        update(); //좌표값 업데이트
+        render(); //업데이트 된 좌표값으로 재 랜더링
+        userDraw();
+        requestAnimationFrame(main); // 프레임에 맞춰서 반복호출        
+
+    }
 
 
 
 }
 
 
-
-//마지막 체크 : 이미지 랜더링 속도..? 
-//let prevUserCount = 0; 랜더링된 유저는 객체로 img를 저장해두고 불러쓰기? 
-
-// function usersreder() { //이함수를 수정해지보기..
-//  }
 
 
 

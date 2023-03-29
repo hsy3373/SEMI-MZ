@@ -22,7 +22,7 @@
         
 
     <!--버튼 모달 jps 가져옴 : 윤지영-->
-    <%@ include file="./buttonList.jsp" %>s
+    <%@ include file="./buttonList.jsp" %>
 
    
    	<!--${loginUser.nicName}  -->
@@ -37,7 +37,6 @@
 	
 	<script>
 		//console.log(contextPath);
-       
 		//유저네임 
 		var userName = '${loginUser.nicName}';
 		//유저 skin
@@ -45,23 +44,18 @@
 		//console.log(userSkin);
 		var userId = '${loginUser.userId}';
 
-		
-	
-	
+		//클릭한 친구 함수
+		var clickedUserId = sessionStorage.clickedUserId;
 	</script>
 	  	
 	<script type="module" src="<%=contextPath%>/resource/js/common.js"></script>
     <script type="module" src="<%=contextPath%>/resource/js/squareCanvas.js"></script>
     
-    
     <script type="module">
 
-	
-	
+
 	import {uesrX , uesrY} from '<%=contextPath%>/resource/js/squareCanvas.js';
     
-	
-
 
 
 	</script>

@@ -39,7 +39,9 @@
     <br />
     <a href="./main.jsp">메인/로그인</a>
 
-    <button id="btn1">친구로 바꾸기 </button>
+
+    <br />
+    <button id="btn1">관리자로 바꾸기 </button>
 
     <script type="module" src="../resource/js/common.js"></script>
     <script>
@@ -65,7 +67,6 @@
 	
 
     </script>
-    <script type="module" src="../resource/js/test.js"></script>
   </body>
 
   <script type="text/javascript"></script>

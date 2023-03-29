@@ -14,7 +14,10 @@ import javax.websocket.server.ServerEndpoint;
 import com.google.gson.Gson;
 import mz.square.model.vo.UserData;
 
-
+/**
+ * @author 윤지영
+ * 광장 서버 : 소켓 연결 
+ */
 
 @ServerEndpoint(value="/multiAccess",
 decoders= {JSONDecoder.class},
@@ -40,6 +43,8 @@ public class SquareServer {
 		//Session.getOpenSession()
 		// -> 현재 웹소켓에서 접속해서 유지되고 있는(open)모든 session 값을 반환해줌
 		Set<Session> clients = session.getOpenSessions();
+		
+		System.out.print(clients);
 		
 		for(Session s : clients) {
 			

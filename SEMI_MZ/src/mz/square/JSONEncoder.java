@@ -1,5 +1,8 @@
 package mz.square;
 
+/**
+ * 작성자 : 윤지영 : sever Json encoder
+ */
 
 import javax.websocket.Encoder.Text;
 import javax.websocket.EndpointConfig;
