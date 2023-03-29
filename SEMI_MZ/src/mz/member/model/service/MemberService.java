@@ -3,6 +3,8 @@ package mz.member.model.service;
 import java.sql.Connection;
 
 import static mz.common.JDBCTemplate.*;
+
+import mz.common.JDBCTemplate;
 import mz.member.model.dao.MemberDao;
 import mz.member.model.vo.Member;
 
