@@ -6,8 +6,8 @@
 import * as Common from "../common.js";
 import * as ChatFront from "./chatFront.js";
 
-let ip = ["192.168.30.180", "192.168.0.2"];
-const webSocket = new WebSocket("ws://192.168.0.2:8082/mzone/websocket");
+let ip = ["192.168.30.180", "192.168.0.2", "localhost"];
+const webSocket = new WebSocket(`ws://${ip[0]}:8082/mzone/websocket`);
 console.log("기본 웹소켓 객체 : ", webSocket);
 
 webSocket.onopen = function (message) {
@@ -136,15 +136,16 @@ let insertChat = function (id, text) {
 
 //---------------- 채팅 내역 관련 함수들--------------------
 
-// 스크롤이 하단에 닿을때마다 페이지 수 증가시키며 이미지 불러오기
+// 스크롤이 상단에 닿을때마다 채팅 더 불러오기
 $(".chat-item-area").scroll(function () {
   if ($(".seleted-chat").attr("id") != "chat-all-user") {
+    //현재 로딩 애니메이션이 없고(= 있으면 이미 불러오고 있는중임), 스크롤이 맨 위일때 동작
     if (
       $(".loadingAni").css("display") == "none" &&
       $(".chat-item-area").scrollTop() == 0
     ) {
       console.log("스크롤에서 불림 : ", $(".seleted-chat > .room-name").text());
-      getChattings($(".seleted-chat > .room-name").text());
+      getChattings($(".seleted-chat > .room-name").text(), "top");
     }
   }
 });
