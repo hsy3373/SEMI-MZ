@@ -10,7 +10,7 @@ function getContextPath(){
 
 // 페이징 처리 준비
 let listCount;				// 현재 게시판의 총 게시글 갯수
-let boardLimit = 7; 		// 한 페이지에 나타낼 게시글 수
+let boardLimit = 6; 		// 한 페이지에 나타낼 게시글 수
 let pageLimit = 5; 			// 페이지 하단에 보여질 페이징바의 페이지 최대 갯수(패이지 목록들 몇개단위로 출력할건지)
 let globalCurrentPag = 1; 	// 현재 페이지(사용자가 요청한 페이지)
 let BoardList = []; 		// 표시하려하는 방명록 리스트
@@ -44,112 +44,21 @@ $(function(){
     $(".icon-tree").click(function(e){
 		// 공통으로 떠야되는 모달 배경
         $.boardModal();
+		
+		console.log();
+		
+		selectboardList('test');
+		
 
-        /* -------- 내 마이룸에서 보게될 화면 -------- */
-		// 방명록 리스트 조회
-		
-		
-		selectboardList('friend');
-		
-		/* -------- 친구네 집에서 보게될 화면 -------- */
-		// $(".board-send-list").show();
-		// 내가 쓴 방명록 리스트 조회
-		// ★ 로그인한 내 아이디 == BOARD(USER_ID)가 동일한 값을 가져와야됨
-		
+
+
     });
 
 
-
-
-
-
-
-
-
-
-    
-	/* ==================== 방명록 상세 조회 ==================== */
-    /* 방명록 리스트 중 해당 게시글 클릭 -> 방명록 상세 */
-    $(document).on("click", ".board-list tr" ,function(){
-	    $(".board-list").hide();
-	    $(".board-detail").show();
-	    
-		let path = getContextPath();
 	
-		// 방명록 번호
-		let boardNo = $(this).children("#board-no").text();
-		console.log(boardNo);
-		
-		/* 방명록 상세 조회 */
-		$.ajax({
-			url : path+"/selectBoard" ,
-			data : { boardNo : boardNo } ,
-			success : function(b){
-				// 제목
-				title = b.boardTitle;
-				
-				// 유저스킨
-				skin = "";
-				skin += "<img class='friend-skin' src=''>"
-					  + "<div class='friend-id'>" + b.receiveId + "</div>";
-				
-				// 방명록 내용
-				content = "";
-				content += "<div class='detail-table-date'>" + b.createDate + "</div>"
-						 + "<div class='detail-table-text'>" + b.boardContent + "</div>";
-				
-				// 해당 클래스에 내용 추가
-				$(".board-detail-title").html(title);
-				$(".board-detail-friend").html(skin);
-				$(".board-detail-table").html(content);
-				
-			},
-			error : function(){
-				console.log("실패")
-			}
-		})
+}); 
 
-    });
-
-    /* 방명록 상세:back-btn 클릭 -> 방명록 리스트 */
-    $(".board-detail .back-btn").click(function(){
-        $(".board-detail").hide();
-        $(".board-list").show();
-    });
-	
-	
-	/* ==================== 친구네룸 - 내가 쓴 방명록 상세 조회 ==================== */
-	$(document).on('click', '.board-send-list .board-send-list-tr', function(){
-        $(".board-send-detail").show();
-        $(".board-send-list").hide();
-
-
-	});
-	
-	
-	
-	// let BoardNo = $(this).children("#board-no").text();
-	let path = getContextPath();
-	
-	$.ajax({
-		url : path+"/selectSendBoard",
-		data : {boardNo : 25},
-		success : function(b){
-			//console.log(b);
-		},
-		error : function(e){
-			//console.log(e);
-		},
-		complete : function(){
-			//console.log("접속 성공")
-		}
-	});
-
-	
-	
-}); // 전체틀 닫는거
-
-/* ==================== 방명록 리스트 조회 함수 ==================== */
+/* =================================== 방명록 리스트 조회 함수 =================================== */
 // ★ 내가 받은 방명록만 조회해와야됨
 // 현재 로그인한 아이디('test') == receive_id('test')
 // receive_id == 현재 로그인한 아이디
@@ -157,9 +66,6 @@ $(function(){
 // 다른방 방문시
 // USER_ID == (현재 로그인한 아이디 == 작성자) &&  receive_id == (방주인 아이디 == 받은사람)
 function selectboardList( receiveID ){
-	console.log("불렸니???");
-	
-	
  	$(".board-list").show();
 
 	let path = getContextPath();
@@ -168,16 +74,15 @@ function selectboardList( receiveID ){
 		dataType: "json",
 		data : { receive : receiveID },
 		success : function(list){
-			console.log(list);
 			//listCount(총 게시글 수)
 			listCount = list.length;
-
 			// 방명록리스트 배열에 담기
 			for(let i = 0; i < list.length; i++){
-				BoardList.push({ boardNo:list[i].boardNo,
-								 userId:list[i].receiveId,
-			                	 boardTitle:list[i].boardTitle,
-			                	 createDate: list[i].createDate})}
+				BoardList.push({ boardNo 	: list[i].boardNo,
+								 userId 	: list[i].userId,
+								 receiveId  : list[i].receiveId,
+			                	 boardTitle : list[i].boardTitle,
+			                	 createDate : list[i].createDate})}
 			console.log(BoardList);
 			//글 목록 표시 호출 (테이블 생성)
 			displayData(1, boardLimit);
@@ -187,8 +92,7 @@ function selectboardList( receiveID ){
 		}
 	});
 };
-
-// 글 목록 표시 함수 (마이룸일때)
+/* =================================== 글 목록 표시 함수 =================================== */
 // 현재 페이지(currentPage)와 페이지당 글 개수(boardLimit) 반영
 function displayData(currentPage, boardLimit) {
 
@@ -201,18 +105,27 @@ function displayData(currentPage, boardLimit) {
 	if(maxpnum > listCount) {maxpnum = listCount;} //추가
 	
 	for (let i = (currentPage - 1) * boardLimit; i < maxpnum; i++) {
-		str += "<tr>"
-		       + "<td id='board-title'><img class='apple' src='../resource/img/icon/사과.png'>" + BoardList[i].boardTitle + "</td>"
-		       + "<td id='board-no' style='display: none;'>" + BoardList[i].boardNo + "</td>"
-		       + "<td class='board-userid'>" + BoardList[i].userId + "</td>"
-		       + "<td class='board-date'>" + BoardList[i].createDate + "</td>"
-			+"</tr>";
+		// 로그인아이디 == 방주인
+		if('test' == 'test'){
+			str += "<tr>"
+			       + "<td id='board-title'><img class='apple' src='../resource/img/icon/사과.png'>" + BoardList[i].boardTitle + "</td>"
+			       + "<td id='board-no' style='display: none;'>" + BoardList[i].boardNo + "</td>"
+			       + "<td class='board-userid'>" + BoardList[i].userId + "</td>"
+			       + "<td class='board-date'>" + BoardList[i].createDate + "</td>"
+				+"</tr>";
+		} 
+		if('test' != 'test'){
+			str += "<tr>"
+			       + "<td id='board-title'><img class='apple' src='../resource/img/icon/사과.png'>" + BoardList[i].boardTitle + "</td>"
+			       + "<td id='board-no' style='display: none;'>" + BoardList[i].boardNo + "</td>"
+			       + "<td class='board-date'>" + BoardList[i].createDate + "</td>"
+				+"</tr>";
+		}
   	}
   	$(".board-list .board-list-area").html(str);
 }
 
-
-// 페이징 표시 함수
+/* =================================== 페이징 표시 함수 =================================== */
 function paging(listCount, boardLimit, pageLimit, currentPage) {
 	console.log("currentPage : " + currentPage);
 	
@@ -269,5 +182,137 @@ $("#pagingul li a").click(function () {
 	displayData(selectedPage, boardLimit);
 	});
 };
+/* ====================================================================================== */
+
+$(function(){
+/* ================================== 방명록 상세 조회 =================================== */
+    /* 방명록 리스트 중 해당 게시글 클릭 -> 방명록 상세 */
+    $(document).on("click", ".board-list tr" ,function(){
+	    $(".board-list").hide();
+	    $(".board-detail").show();
+	    
+		let path = getContextPath();
+	
+		// 방명록 번호
+		let boardNo = $(this).children("#board-no").text();
+		console.log(boardNo);
+		
+		/* 방명록 상세 조회 */
+		$.ajax({
+			url : path+"/selectBoard" ,
+			data : { boardNo : boardNo } ,
+			success : function(b){
+				// 제목
+				title = b.boardTitle;
+				
+				// 유저스킨
+				skin = "";
+				skin += "<img class='friend-skin' src=''>"
+					  + "<div class='friend-id'>" + b.receiveId + "</div>";
+				
+				// 방명록 내용
+				content = "";
+				content += "<div class='detail-table-date'>" + b.createDate + "</div>"
+						 + "<div class='detail-table-text'>" + b.boardContent + "</div>";
+				
+				// 해당 클래스에 내용 추가
+				$(".board-detail-title").html(title);
+				$(".board-detail-friend").html(skin);
+				$(".board-detail-table").html(content);
+				
+			},
+			error : function(){
+				console.log("실패")
+			}
+		})
+
+    });
+
+    /* 방명록 상세:back-btn 클릭 -> 방명록 리스트 */
+    $(".board-detail .back-btn").click(function(){
+        $(".board-detail").hide();
+        $(".board-list").show();
+    });
+/* ====================================================================================== */
+	
+/* ============================== 친구네룸 - 내가 쓴 방명록 상세 조회 ============================== */
+	$(document).on('click', '.board-send-list .board-send-list-tr', function(){
+        $(".board-send-detail").show();
+        $(".board-send-list").hide();
+		
+	});	
+		// ★★★★★★★★★★★★★★★ 방명록 리스트 처리되면 위에 코드 안으로 넣어줘야됨(코드 넣기전 테스트 완료) ★★★★★★★★★★★★★★★
+		// 비밀글체크시 Y 또는 N값 넣어주기위한 이벤트
+		$("#board-ck").change(function(){
+			if(this.checked){
+				$(this).attr("value", 'Y');
+			}else{
+				$(this).attr("value", 'N');
+			}
+		});
+	
+		
+		let BoardNo = $(this).children("#board-no").text();
+		let path = getContextPath();
+		
+		$.ajax({
+			type : 'post',
+			url : path+"/selectSendBoard",
+			data : {boardNo : 17},
+			success : function(b){
+				
+				// 제목, 내용
+				title = $("#board-write-title").val(b.boardTitle);
+				content = b.boardContent;
+				
+				$(".board-detail-title").html(title);
+				$("#board-write-content").html(content);
+				console.log("비밀글 조회시 체크상태 : " + b.secret);
+				// 비밀글 체크상태
+				if(b.secret == 'Y'){
+					$("#board-ck").prop("checked", true);
+				}else{
+					$("#board-ck").prop("checked", false);
+				}
+			},
+			error : function(e){
+				console.log(e);
+			}
+
+		});
+	
+/* ====================================================================================== */
+});
 
 
+/* ================================= 친구네룸 - 내가 쓴 방명록 수정 ================================= */
+function updateBoard(){
+	
+	// 비밀글체크시 Y 또는 N값 넣어주기위한 이벤트
+	$("#board-ck").change(function(){
+		if(this.checked){
+			$(this).attr("value", 'Y');
+		}else{
+			$(this).attr("value", 'N');
+		}
+	});
+	
+	let path = getContextPath();
+	$.ajax({
+		type : 'post',
+		url : path + "/updateBoard",
+		data : {
+			boardNo : 17,
+			boardTitle : $(".board-send-detail #board-write-title").val(),
+			boardContent : $("#board-write-content").val(),
+			secret : $("#board-ck").prop("checked") ? "Y" : "N"
+		},
+		success : function(b){
+			console.log(b);
+		},
+		error : function(e){
+			console.log(e);
+		}
+	});
+};
+/* ====================================================================================== */

@@ -65,6 +65,30 @@ public class BoardService {
 		close(conn);
 		return b;
 	}
+	
+	/**
+	 * @param b
+	 * @return Board
+	 * 친구네룸 - 내가 쓴 방명록 수정
+	 */
+	public Board updateBoard(Board b) {
+		Connection conn = getConnection();
+		
+		int result = new BoardDao().updateBoard(conn, b);
+		
+		Board updateBoard = null;
+		
+		if(result > 0) {
+			commit(conn);
+			
+			updateBoard = new BoardDao().selectSendBoard(conn, b.getBoardNo());
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return updateBoard;
+	}
 }
 
 

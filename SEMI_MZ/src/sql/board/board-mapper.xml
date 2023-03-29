@@ -37,4 +37,13 @@
 		 WHERE BOARD_NO = ?
 	</entry>
 
+	<!-- 친구네룸 - 방명록 수정 -->
+	<entry key="updateBoard">
+		UPDATE BOARD
+		   SET BOARD_TITLE = ?,
+			   BOARD_CONTENT = ?,
+			   SECRET = ?,
+			   CREATE_DATE = SYSDATE
+		 WHERE BOARD_NO = ?
+	</entry>
 </properties>

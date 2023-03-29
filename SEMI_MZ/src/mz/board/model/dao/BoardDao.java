@@ -43,11 +43,13 @@ public class BoardDao {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		String sql = prop.getProperty("selectBoardList");
+		System.out.println(sql);
 		
 		// String형은 heap 영역에 주소값으로 저장되므로 == x
 		if(loginId.equals(receive)) {
 			sql = sql.replace("USER_ID = ? AND ", "");
 		}
+		System.out.println(sql);
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -56,9 +58,9 @@ public class BoardDao {
 			if(loginId.equals(receive)) {
 				pstmt.setString(1, loginId);
 			} else {
-				// 현재 로그인한 아이디와 방주인 아이디라면 자기가 쓴 글만 조회
-				pstmt.setString(1, loginId);
-				pstmt.setString(2, receive);
+				// 현재 로그인한 아이디(friend)가 방문한 방주인 아이디(test)에게 쓴 글만 조회
+				pstmt.setString(1, receive); // friend
+				pstmt.setString(2, loginId); // test
 			}
 			
 			rset = pstmt.executeQuery();
@@ -191,6 +193,35 @@ public class BoardDao {
 			e.printStackTrace();
 		}
 		return b;
+	}
+	
+	/**
+	 * @param conn
+	 * @param b
+	 * @return int
+	 * 내가 작성한 방명록 수정
+	 */
+	public int updateBoard(Connection conn, Board b) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateBoard");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, b.getBoardTitle());
+			pstmt.setString(2, b.getBoardContent());
+			pstmt.setString(3, b.getSecret());
+			pstmt.setInt(4, b.getBoardNo());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+		
+		
 	}
 }
 

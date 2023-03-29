@@ -168,17 +168,34 @@ ul li.on a {color: #fff;}
 
 				<div class="board-content">
 					<table class="board-list-area">
-						<tr>
-							<td colspan="2" id="writing-btn">
-								<button class="button board-write-btn" id="board-write">글쓰기</button>
-							</td>
+						<tr class="board-send-list-tr">
+ 							<td id="board-title"><img class="apple"src="../resource/img/icon/사과.png">제목</td>
+							<td class="board-date">2023-03-22</td>
 						</tr>
 						<tr class="board-send-list-tr">
-<!-- 						<td id="board-title"><img class="apple"src="../resource/img/icon/사과.png">제목</td>
-							<td class="board-date">2023-03-22</td> -->
+ 							<td id="board-title"><img class="apple"src="../resource/img/icon/사과.png">제목</td>
+							<td class="board-date">2023-03-22</td>
 						</tr>
-
+						<tr class="board-send-list-tr">
+ 							<td id="board-title"><img class="apple"src="../resource/img/icon/사과.png">제목</td>
+							<td class="board-date">2023-03-22</td>
+						</tr>
+						<tr class="board-send-list-tr">
+ 							<td id="board-title"><img class="apple"src="../resource/img/icon/사과.png">제목</td>
+							<td class="board-date">2023-03-22</td>
+						</tr>
+						<tr class="board-send-list-tr">
+ 							<td id="board-title"><img class="apple"src="../resource/img/icon/사과.png">제목</td>
+							<td class="board-date">2023-03-22</td>
+						</tr>
+						<tr class="board-send-list-tr">
+ 							<td id="board-title"><img class="apple"src="../resource/img/icon/사과.png">제목</td>
+							<td class="board-date">2023-03-22</td>
+						</tr>
 					</table>
+					<div id="writing-btn">
+						<button class="button board-write-btn" id="board-write">글쓰기</button>
+					</div>
 					<!-- 페이징바 -->
 					<div class="pageing-area">
 						<ul id="pagingul"></ul>
@@ -191,63 +208,60 @@ ul li.on a {color: #fff;}
 				<!-- back 버튼 -->
 				<img class="back-btn" src="../resource/img/icon/back2_btn.png">
 				<!-- 작성란 전체 감싼 form -->
-				<form action="${ contextPath }/update.bo" class="board-write-area"
-					id="board-update-form" method="post">
+				<div class="board-write-area" id="board-update-form">
 
 					<!-- 제목부분(상세 제목이랑 동일) -->
-					<div class="board-detail-title">
-						<input type="text" id="board-write-title" required
-							value="" onclick="this.select();">
+					<div class='board-detail-title'>
+						<input type='text' id='board-write-title' required maxlength="15" onclick='this.select();'>
 					</div>
 
 					<!-- 방명록 내용 작성부분 -->
 					<!-- onclick="this.select();" : 클릭시 자동으로 선택됨 -->
-					<textarea name="board-write-content" id="board-write-content"
-						cols="62" rows="8" required>
-
+					<textarea name='board-write-content' id='board-write-content' cols='62' rows='8' required>
 					</textarea>
 
 					<!-- 비밀글 체크박스 -->
-					<div class="board-secret-box">
-						<input type="checkbox" id="board-ck"> <label
-							for="board-ck">비밀글</label>
+					<div class='board-secret-box'>
+						<input type="hidden" id="secret" name="secret">
+						<input type='checkbox' id='board-ck' name="board-ck">
+						<label for='board-ck'>비밀글</label>
 					</div>
 
-					<button class="button board-send-update-btn">수정</button>
-					<button class="alert-toggle board-send-delete-btn button"
-						id="board-send-delete">삭제</button>
+					<button type="button" class="button board-send-update-btn" onclick="updateBoard();">수정</button>
+					<button class="alert-toggle board-send-delete-btn button" id="board-send-delete">삭제</button>
 
-				</form>
+				</div>
 			</div>
+			<script>
+			
+			</script>
 
 			<!-- ============================= 방명록 작성 ============================= -->
 			<div class="board-write">
 				<!-- back 버튼 -->
 				<img class="back-btn" src="../resource/img/icon/back2_btn.png">
 				<!-- 작성란 전체 감싼 form -->
-				<form action="${ contextPath }/insert.bo" class="board-write-area"
-					id="board-enroll-form" method="post">
+				<div class="board-write-area" id="board-enroll-form">
 
 					<!-- 제목부분(상세 제목이랑 동일) -->
 					<div class="board-detail-title">
-						<input type="text" id="board-write-title" required
-							placeholder="제목을 입력해주세요" onclick="this.select();">
+						<input type="text" id="board-write-title" required placeholder="제목을 입력해주세요" onclick="this.select();">
 					</div>
 
 					<!-- 방명록 내용 작성부분 -->
 					<!-- onclick="this.select();" : 클릭시 자동으로 선택됨 -->
-					<textarea name="board-write-content" id="board-write-content"
-						cols="62" rows="8" required onclick="this.select();"></textarea>
+					<textarea name="board-write-content" id="board-write-content" cols="62" rows="8" required onclick="this.select();"></textarea>
 
 					<!-- 비밀글 체크박스 -->
 					<div class="board-secret-box">
-						<input type="checkbox" id="board-ck"> <label
-							for="board-ck">비밀글</label>
+						<input type="hidden" id="secret" name="secret">
+						<input type='checkbox' id='board-ck' name="board-ck">
+						<label for="board-ck">비밀글</label>
 					</div>
 
 					<button class="button board-write-btn">작성</button>
 
-				</form>
+				</div>
 			</div>
 		</div>
 	</div>
