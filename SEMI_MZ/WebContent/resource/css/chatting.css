@@ -49,7 +49,8 @@
   display: grid;
   grid-template-columns: 60px 1fr 60px;
   grid-template-rows: 30px;
-  font-size: smaller;
+  font-size: medium;
+  box-sizing: border-box;
 }
 
 .chat-room-list {
@@ -91,7 +92,6 @@
 
 .chat-room-item,
 .chat-all-user {
-  padding: 0px 4px;
   background-color: var(--chat-btn-background);
   border: 1px solid var(--chat-btn-border);
   border-radius: 4px 4px 0px 0px;
@@ -100,9 +100,6 @@
   width: 20%;
   height: 30px;
   color: white;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
 
   text-align: center;
   line-height: 180%;
@@ -117,9 +114,32 @@
   padding: 0px 8px;
 }
 
+.chat-room-item {
+  display: grid;
+  grid-template-columns: auto 20px;
+}
+
+.room-name {
+  padding-left: 4px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  grid-area: 1/1/2/2;
+}
+
+.delete-room {
+  grid-area: 1/2/2/3;
+  text-align: center;
+  align-self: center;
+  justify-self: center;
+  width: 14px;
+  cursor: pointer;
+}
+
 /* ------------------ 채팅 내역 영역 ----------------------*/
 .chat-item-area {
   box-sizing: border-box;
+  position: relative;
   margin-top: 1px;
   border-left: 1px solid var(--chat-btn-border);
   border-right: 1px solid var(--chat-btn-border);
@@ -146,6 +166,10 @@
   background-color: rgba(45, 174, 254, 0.486);
   border-radius: 10px;
   box-shadow: inset 0px 0px 5px rgba(255, 255, 255, 0.26);
+}
+
+.my-chat {
+  color: #007eff;
 }
 
 /*------------------ 채팅 보내기 영역 ----------------*/
@@ -198,4 +222,177 @@
   margin-right: 4%;
   align-self: center;
   text-align: center;
+}
+
+/* ----------- 로딩 애니메이션 구현 영역-------------- */
+.loadingAni {
+  position: sticky;
+  margin: 0px;
+  padding: 0px;
+  top: 0px;
+  width: 100%;
+  height: 30px;
+  background: linear-gradient(
+    to bottom,
+    var(--chat-btn-background),
+    rgb(0 0 0 / 0%)
+  );
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+:root {
+  /* 로딩용 원 사이즈 조정 */
+  --circleSize: 12px;
+  /* 로딩용 원 거리 조정 */
+  --circleDistance: 24px;
+}
+
+.loader10:before {
+  content: "";
+  position: absolute;
+  top: 0px;
+  left: calc(var(--circleDistance) * -1);
+  height: var(--circleSize);
+  width: var(--circleSize);
+  border-radius: var(--circleSize);
+  -webkit-animation: loader10g 3s ease-in-out infinite;
+  animation: loader10g 3s ease-in-out infinite;
+}
+
+.loader10 {
+  position: relative;
+  width: var(--circleSize);
+  height: var(--circleSize);
+  border-radius: var(--circleSize);
+  -webkit-animation: loader10m 3s ease-in-out infinite;
+  animation: loader10m 3s ease-in-out infinite;
+}
+
+.loader10:after {
+  content: "";
+  position: absolute;
+  top: 0px;
+  left: var(--circleDistance);
+  height: var(--circleSize);
+  width: var(--circleSize);
+  border-radius: var(--circleSize);
+  -webkit-animation: loader10d 3s ease-in-out infinite;
+  animation: loader10d 3s ease-in-out infinite;
+}
+
+@keyframes loader10 {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360000deg);
+  }
+}
+
+@-webkit-keyframes loader10g {
+  0% {
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+  25% {
+    background-color: rgba(255, 255, 255, 1);
+  }
+  50% {
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+  75% {
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+  100% {
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+}
+@keyframes loader10g {
+  0% {
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+  25% {
+    background-color: rgba(255, 255, 255, 1);
+  }
+  50% {
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+  75% {
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+  100% {
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+}
+
+@-webkit-keyframes loader10m {
+  0% {
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+  25% {
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+  50% {
+    background-color: rgba(255, 255, 255, 1);
+  }
+  75% {
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+  100% {
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+}
+@keyframes loader10m {
+  0% {
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+  25% {
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+  50% {
+    background-color: rgba(255, 255, 255, 1);
+  }
+  75% {
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+  100% {
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+}
+
+@-webkit-keyframes loader10d {
+  0% {
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+  25% {
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+  50% {
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+  75% {
+    background-color: rgba(255, 255, 255, 1);
+  }
+  100% {
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+}
+@keyframes loader10d {
+  0% {
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+  25% {
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+  50% {
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+  75% {
+    background-color: rgba(255, 255, 255, 1);
+  }
+  100% {
+    background-color: rgba(255, 255, 255, 0.2);
+  }
 }

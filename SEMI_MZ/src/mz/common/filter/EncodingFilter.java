@@ -33,7 +33,6 @@ public class EncodingFilter implements Filter {
 	 * @see Filter#doFilter(ServletRequest, ServletResponse, FilterChain)
 	 */
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-
 		// 서블릿이 호출되기 전, 전처리 작업할 코드 작성
 		request.setCharacterEncoding("UTF-8");
 		
