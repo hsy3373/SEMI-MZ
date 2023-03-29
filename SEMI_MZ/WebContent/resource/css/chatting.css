@@ -133,11 +133,13 @@
   align-self: center;
   justify-self: center;
   width: 14px;
+  cursor: pointer;
 }
 
 /* ------------------ 채팅 내역 영역 ----------------------*/
 .chat-item-area {
   box-sizing: border-box;
+  position: relative;
   margin-top: 1px;
   border-left: 1px solid var(--chat-btn-border);
   border-right: 1px solid var(--chat-btn-border);
@@ -249,7 +251,7 @@
 }
 
 .loader10:before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0px;
   left: calc(var(--circleDistance) * -1);
@@ -270,7 +272,7 @@
 }
 
 .loader10:after {
-  content: '';
+  content: "";
   position: absolute;
   top: 0px;
   left: var(--circleDistance);

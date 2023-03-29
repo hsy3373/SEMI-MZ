@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-pageEncoding="UTF-8" import="mz.member.model.vo.Member"%>
+	pageEncoding="UTF-8" import="mz.member.model.vo.Member"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
 	/* 테스트용 유저 객체 */ 
@@ -25,7 +25,8 @@ pageEncoding="UTF-8" import="mz.member.model.vo.Member"%>
     현재 테스트용 유저아이디 : <%= test.getUserId() %> <br />
     현재 테스트용 유저 정보 : <%= test.toString() %> <br />
     <br />
-    
+
+    <a href="./changeUser.jsp">유저 체인지 -> friend</a> <br />
 
     <a href="./myroom.jsp">마이룸</a> <br />
     <br />
@@ -33,6 +34,10 @@ pageEncoding="UTF-8" import="mz.member.model.vo.Member"%>
     <br />
     <br />
     <a href="./square.jsp">광장</a>
+    <br />
+    <a href="./admin/main.jsp">관리자페이지</a>
+    <br />
+    <a href="./main.jsp">메인/로그인</a>
 
     <button id="btn1">친구로 바꾸기 </button>
 
@@ -60,5 +65,8 @@ pageEncoding="UTF-8" import="mz.member.model.vo.Member"%>
 	
 
     </script>
+    <script type="module" src="../resource/js/test.js"></script>
   </body>
+
+  <script type="text/javascript"></script>
 </html>
