@@ -608,8 +608,60 @@ function main() {
 }
 
 
+//소켓 버벅이는거 해결해보기...!!
+//1 번 : 키보드 이벤트 제한하기 ..!!
+// function 제한..(callback, delay) {
+//     let timeoutId;
+    
+// return function() {
+//       const context = this;
+//       const args = arguments;
+      
+//       clearTimeout(timeoutId);
+//       timeoutId = setTimeout(() => {
+//         callback.apply(context, args);
+//       }, delay);
+//     };
+//   }
+
+//   debounce(event => {
+//     const message = event.target.value;
+//     sendSocketMessage(message);
+//   }, 500)); 
+
+//2 번 : 버퍼..써보기...잘모르겠지만..
+//let messageBuffer = []; 버퍼에 담아서...
+//function addToMessageBuffer(message) {
+//     messageBuffer.push(message);
+// // }
+
+// inputElement.addEventListener('keyup', event => {
+//     const message = event.target.value;
+//     addToMessageBuffer(message);
+//   });
+// setInterval(() => {
+//     // 버퍼에 보낼 메세지 확인
+//     if (messageBuffer.length > 0) {
+
+//       //소켓에 메세지 보내기
+//       sendSocketMessage(messages);
+      
+//       // 버퍼 비워주기
+//       messageBuffer = [];
+//     }
+//   }, 1000); 
 
 
+//3번 : 둘다 안되면.. 서버에서 필터링해보기. 찾아보니 관련함수 있는듯?? 잘모르겠지만..해보는걸로...
+
+// 4번 : 끊어짐 감지해서 재 연결시키기 
+//
+// webSocket.onclose = async (e) => {
+//     console.log('Socket is closed. Reconnect will be attempted in 1 second.', e);
+//     setTimeout(function() {
+//       twelveDataConnect();
+//     }, 1000);
+//   }
 
 
 
