@@ -22,6 +22,9 @@ pageEncoding="UTF-8"%>
       <img src="./resource/img/icon/logo.png" />
     </div>
     <script>
+      sessionStorage.clear();
+      console.log("전체 세션 스토리지 삭제");
+
       window.onload = function (event) {
         window.open(
           "<%= request.getContextPath()%>/views/test.jsp",

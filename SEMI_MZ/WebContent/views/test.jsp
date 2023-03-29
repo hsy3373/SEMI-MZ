@@ -36,8 +36,11 @@
     <a href="./main.jsp">메인/로그인</a>
 
     <script type="module" src="../resource/js/common.js"></script>
-    <script type="module" src="../resource/js/test.js"></script>
   </body>
 
-  <script type="text/javascript"></script>
+  <script type="text/javascript">
+  sessionStorage.setItem("loginUser", JSON.stringify("test"));
+  document.cookie = "loginUser=" + encodeURIComponent("test") + "; path=/mzone";
+  
+  </script>
 </html>
