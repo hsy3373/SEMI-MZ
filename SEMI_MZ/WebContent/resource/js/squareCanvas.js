@@ -433,6 +433,9 @@ socket.onmessage = function (e) {
     // console.log(e);
     // console.log(e.data);
 
+    
+  
+
     //데이터가 나인 경우 걸러내기 
     let receivedUser = JSON.parse(e.data);
     receivedUserId = receivedUser.userId;
@@ -448,16 +451,19 @@ socket.onmessage = function (e) {
                     t.userId === arr.userId
                 )
         )
+
+        
     }
 
-  
+    //떠난 유저 체크해서 삭제하기 
+    FilterUsers = FilterUsers.filter(user => user.connecting != 'N'); //삭제 
 
     //UsersData.push(JSON.parse(e.data)); // String -> 배열 변환  
     //console.log(UsersData)  //object
 
 
     UsersData = FilterUsers; // Userdate 정보를 Fileter 정보로 바꿔주기 
-    //console.log(FilterUsers);
+    console.log(FilterUsers);
 
      //userrender 함수 호출 
      usersreder();
@@ -470,8 +476,10 @@ socket.onmessage = function (e) {
 //데이터 전송 JSON
 const sendMsg = (keyboardCode) => {
 
+    let connecting = "Y"
+
     //유저객체 넣어주기 : 랜더링에 필요한 정보들 : x, y , skin, id , name, code;
-    let User = new UserData(uesrX, uesrY, userSkin, userId, userName, keyboardCode);
+    let User = new UserData(uesrX, uesrY, userSkin, userId, userName, keyboardCode, connecting);
     //console.log(User)
 
     socket.send(JSON.stringify(User));
@@ -479,14 +487,15 @@ const sendMsg = (keyboardCode) => {
 
 }
 
-//넘겨줄 데이터 유저 좌표, 유저스킨, 유저아이디
-function UserData(uesrX, uesrY, userSkin, userId, userName, keyboardCode) {
+//넘겨줄 데이터 유저 좌표, 유저스킨, 유저아이디 : 유저 정보 컨트롤 
+function UserData(uesrX, uesrY, userSkin, userId, userName, keyboardCode, connecting) {
     this.uesrX = uesrX;
     this.uesrY = uesrY;
     this.userSkin = userSkin;
     this.userId = userId;
     this.userName = userName;
     this.keyboardCode = keyboardCode;
+    this.connecting = connecting;
 }
 
 
@@ -608,6 +617,19 @@ function main() {
 }
 
 
+//종료한 user 체크하기
+// 윈도우 종류 이벤트 체크 1 
+ window.addEventListener('beforeunload', function(event){ 때 
+    event.preventDefault(); //브라우저를 종료때 
+    let User = new UserData(uesrX, uesrY, userSkin, userId, userName, '', 'N'); //떠난 유저
+    socket.send(JSON.stringify(User)); //떠났다고 알려줌 
+
+})
+
+
+
+
+
 //소켓 버벅이는거 해결해보기...!!
 //1 번 : 키보드 이벤트 제한하기 ..!!
 // function 제한..(callback, delay) {
@@ -671,14 +693,3 @@ main();
 setupKeyboard();
 
 
-
-// 윈도우 종류 이벤트 체크 1 
-// window.addEventListener('beforeunload', function(event){
-//     event.preventDefault();
-//     let User = new UserData(uesrX, uesrY, userSkin, userId, userName, '', true); //수정하고
-//     socket.send(JSON.stringify(User)); // 메서지 보내고 
-    
-// })
-
-// // 소켓에서 데이터 받아서 
-// UsersData = UsersData.filter(user => !user.userLeft); //삭제 
