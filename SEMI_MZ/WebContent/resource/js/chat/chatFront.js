@@ -185,6 +185,9 @@ export let clickChatRoom = function (e) {
 };
 
 //------------------  채팅내부 클릭, 외부클릭시 색 변경용 함수 -----------
+
+//todo!! 나중에 좀 더 다듬어야 함
+// 색변경 함수 따로 빼면 좋을 것 같고 중간에 사이즈 변경용 div 클릭때도 색 진하게 되도록추가해야함
 let changeChatColor = function () {
   $("html").click(function (e) {
     if (
@@ -230,8 +233,6 @@ let changeChatColor = function () {
 
 //--------------- enter 입력 관련 처리 ---------------
 
-// todo!!! 이후 방명록 작성화면에서 충돌이 날 수 있으니 합칠때 다시 로직 변경해야함!!!
-
 // 채팅창 내부 textarea 안에서 엔터가 눌렸을 경우 처리
 let textareaEnterKey = function () {
   document
@@ -248,11 +249,13 @@ let textareaEnterKey = function () {
     });
 };
 
+// todo!!! 이후 방명록 작성화면에서 충돌이 날 수 있으니 합칠때 다시 로직 변경해야함!!!
 // 윈도우 화면에서 엔터가 눌렸을 경우 처리
 let eventEnterKey = function () {
   window.addEventListener("keyup", function (e) {
     if (e.key == "Enter") {
       if (document.getElementById("text-send") != document.activeElement) {
+        //todo 색변경 하려고 클릭 보냈는데 나중에 그냥 색변경용 함수 써버리자
         document.querySelector(".div-send").click();
         document.getElementById("text-send").focus();
       }
@@ -276,12 +279,22 @@ let hideArrow = function (is) {
 };
 
 // 저장소에서 룸 리스트 불러와서 화면상 표시해주는 함수
+// id 값을 넣어주면 해당 id 값을 가진 탭 자동 선택
 export let setChattingRooms = function (id) {
   let rooms = Common.getSessionStorage("allChatRooms").split(",");
   console.log("rooms : ", rooms);
-
   let page = Common.getSessionStorage("roomPage");
 
+  //만약 첫번째 룸이 "" 등으로 가진 값이 없을 때 == 룸이 없을때
+  // 모든 탭, 화살표 없애고 전체채팅 표시하고 함수 종료
+  if (Common.isEmpty(rooms[0])) {
+    hideArrow(true);
+    $(".chat-room-item").css("display", "none");
+    showChattings("chatLogAll");
+    return;
+  }
+
+  //page 값 설정용 로직
   if (!Common.isEmpty(id)) {
     // 만약 아이디 값이 있으면 현재 들어온 id값인 방으로 자동 선택
     let num = rooms.indexOf(id);
@@ -298,7 +311,7 @@ export let setChattingRooms = function (id) {
   Common.setSessionStorage("roomPage", page);
 
   // 해당 페이지에 표시해야하는 룸 개수가 실제 총 룸 길이보다 크면 화살표 숨기기
-  hideArrow(page * 5 >= rooms.length);
+  hideArrow(page * 5 + 5 >= rooms.length);
 
   // 현재 페이지에 해당하는 룸 이름 부여
   for (let i = Number(page); i < Number(page) + 5; i++) {
@@ -316,7 +329,8 @@ export let setChattingRooms = function (id) {
 
   if (!Common.isEmpty(id)) {
     // 아이디 값이 들어왔을 경우엔 해당 아이디를 가진 탭을 자동 선택
-    clickChatRoom();
+    let num = rooms.indexOf(id) % 5;
+    $(".chat-room-item").eq(num).click();
   } else if (document.querySelector(".selected-chat").id == "chat-all-user") {
     // 기존에 선택되어있던 것이 전체 채팅일 때
     $(".loadingAni").fadeOut();
@@ -330,6 +344,7 @@ export let setChattingRooms = function (id) {
 };
 
 // 저장소에서 채팅 내용 가져와 보여주기용 함수
+// keyName = 저장소 키값
 export let showChattings = function (keyName) {
   console.log("채팅 보여주기 불림 : ", keyName);
   let chatLog = Common.getSessionStorage(keyName);
@@ -344,6 +359,9 @@ export let showChattings = function (keyName) {
   $(".loadingAni").fadeOut();
 };
 
+// 저장소에 뭐가 없어서 빈 채팅 눌리면 어케되더라???
+
+// 다음 페이지 룸들 표시
 let showNextRooms = function (arrow) {
   let page = Common.getSessionStorage("roomPage");
   if (arrow == ">") {
@@ -367,15 +385,19 @@ let sendChat = function () {
   ChatData.sendChat(id);
 };
 
-// 룸 추가용 테스트 함수
-let openNewChat = function (id) {
+//----------------------- 외부에서 가져다 써야할 함수 --------------------------
+
+// 룸 추가용 함수
+let openChatRoom = function (id) {
   let rooms = Common.getSessionStorage("allChatRooms").split(",");
 
   // 만약 현재 가지고 있는 룸에 상대 아이디가 없으면
   if (rooms.indexOf(id) < 0) {
-    ChatData.insertChatRoom(id, true);
+    // 상대 아이디와의 채팅룸 DB에도 추가후 해당 룸으로 탭이동
+    ChatData.insertChatRoom(id);
   } else {
-    //  상대 아이디가 있으면
+    //  상대 아이디가 있으면 해당 룸으로 탭 이동
+    setChattingRooms(id);
   }
 };
 
@@ -418,7 +440,13 @@ let setDefaultEvents = function () {
   });
 
   $(document).on("click", ".chat-room-item, .chat-all-user", function (e) {
-    clickChatRoom(e.target);
+    console.log(this);
+    console.log(e.target);
+    clickChatRoom(this);
+  });
+
+  document.querySelector("#insert-room").addEventListener("click", function () {
+    openChatRoom("friend");
   });
 };
 

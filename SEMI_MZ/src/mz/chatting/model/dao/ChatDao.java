@@ -132,8 +132,6 @@ public class ChatDao {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, userId);
 			pstmt.setString(2, receiver);
-			pstmt.setString(3, receiver);
-			pstmt.setString(4, userId);
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {

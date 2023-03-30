@@ -1,6 +1,9 @@
 /**[han]
  * 채팅 데이터 관련 영역
  * - socket, DB
+ *
+ * todo! 나중에 아예 실행용 js 파일을 따로 만들어버리고
+ * 여기있는 대부분의 함수들을 export처리 해버릴지.. 생각좀 해보기
  */
 
 import * as Common from "../common.js";
@@ -40,15 +43,10 @@ webSocket.onmessage = function (e) {
   } else {
     let rooms = Common.getSessionStorage("allChatRooms").split(",");
     // 현재 1:1 채팅이 열려있지 않은 유저에게서 채팅이 왔을 경우
-    //
+    // 다시 방 정보 불러오도록
     if (rooms.indexOf(chat.userId) < 0) {
-      insertChatRoom(chat.userId);
-      Common.setSessionStorage(
-        "allChatRooms",
-        Common.getSessionStorage("allChatRooms") + "," + chat.userId
-      );
-
-      ChatFront.setChattingRooms();
+      getChatRoomList();
+      //ChatFront.setChattingRooms();
     }
     let chats = Common.getSessionStorage("chatLog-" + chat.userId);
     chats = chats ? chats : "";
@@ -61,11 +59,15 @@ webSocket.onmessage = function (e) {
   // 채팅구역에 채팅 추가
   let selected = document.querySelector(".selected-chat");
 
-  // 현재 선택화면 전체채팅일때
   if (selected.id == "chat-all-user" && chat.receiveId == "chatLogAll") {
+    // 현재 선택화면 전체채팅이면서 메세지도 전체채팅으로 왔을 때
     document.querySelector(".chat-item-area").innerHTML += str;
     ChatFront.checkChatScroll();
-  } else if (selected.querySelector(".room-name").innerText == chat.userId) {
+  } else if (
+    selected.id != "chat-all-user" &&
+    selected.querySelector(".room-name").innerText == chat.receiveId
+  ) {
+    // 현재 선택화면이 전체 채팅이 아니면서 선택된 화면 텍스트 값이
     document.querySelector(".chat-item-area").innerHTML += str;
     ChatFront.checkChatScroll();
   }
@@ -93,23 +95,21 @@ export const sendChat = (receiveId) => {
 
   let str = `<div class='my-chat'>[${sendTime}]${chat.userId} : ${chat.content}</div>`;
 
-  if (receiveId == "chatLogAll") {
-    Common.setSessionStorage(
-      "chatLogAll",
-      Common.getSessionStorage("chatLogAll") + str
-    );
-  } else {
+  //전체채팅은 소켓에서 전체로 다 뿌려주기 때문에 굳이 여기서 또
+  // 세션스토리지에 저장할 필요가 없음
+  if (receiveId != "chatLogAll") {
     Common.setSessionStorage(
       "chatLog-" + receiveId,
       Common.getSessionStorage("chatLog-" + receiveId) + str
     );
+    //DB에 채팅내역 등록
     insertChat(chat.receiveId, chat.content);
-  }
 
-  // 현재 채팅구역 가장 마지막에 지금 작성한 채팅메세지 추가
-  document
-    .querySelector(".chat-item-area")
-    .insertAdjacentHTML("beforeend", str);
+    // 현재 채팅구역 가장 마지막에 지금 작성한 채팅메세지 추가
+    document
+      .querySelector(".chat-item-area")
+      .insertAdjacentHTML("beforeend", str);
+  }
 
   // 웹 소켓 서버로 메세지를 전송
   webSocket.send(JSON.stringify(chat));
@@ -206,12 +206,11 @@ let insertChat = function (id, text) {
 };
 
 // db에서 현재 가지고 있는 채팅 룸 리스트 불러와서 저장소에 저장
-export let getChatRoomList = function (id = "") {
+export let getChatRoomList = function (id) {
   let path = Common.getContextPath();
   $.ajax({
     type: "get",
     url: path + "/room.chat",
-    dataType: "json",
     success: (result) => {
       // string list로 들어옴
       let rooms = "";
@@ -234,13 +233,14 @@ export let getChatRoomList = function (id = "") {
 
 //채팅룸 삭제용
 export let deleteChatroom = function (el) {
-  console.log("앞요소 : ", el.previousElementSibling.innerHTML);
-  let id = el.previousElementSibling.innerHTML;
+  console.log("앞요소 : ", el.previousElementSibling.innerText);
+  let id = el.previousElementSibling.innerText;
+  console.log(typeof id, id);
   let path = Common.getContextPath();
   $.ajax({
     type: "post",
     url: path + "/room.chat",
-    data: { recevier: id, order: "delete" },
+    data: { receiver: `${id}`, order: "delete" },
     success: (result) => {
       console.log(id, " 채팅룸 삭제 완료 : ", result);
       getChatRoomList();
@@ -252,7 +252,7 @@ export let deleteChatroom = function (el) {
 };
 
 // 채팅룸 추가용 함수
-export let insertChatRoom = function (id, select) {
+export let insertChatRoom = function (id) {
   let path = Common.getContextPath();
   $.ajax({
     type: "post",
@@ -260,7 +260,7 @@ export let insertChatRoom = function (id, select) {
     data: { receiver: id, order: "insert" },
     success: (result) => {
       console.log(id, " 채팅룸 추가 완료 : ", result);
-      //룸 추가가 완료되면 채팅룸 다시부름
+      //룸 추가가 완료되면 채팅룸 다시부름 + 해당 채팅룸 자동선택
       getChatRoomList(id);
     },
     error: function (req, status, error) {
