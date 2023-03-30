@@ -25,25 +25,36 @@ public class MemberService {
 	}
 	
 	// [김혜린]
-		// 로그인
 		public Member loginMember(String userId, String userPwd) {
 			Connection conn = getConnection();
 			
 			Member m = new MemberDao().loginMember(conn, userId, userPwd);
 			
-			try {
-				close(conn);
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
+			close(conn);
 			return m;
 		}
 
+	// [김혜린]
+		public int checkKey(String apiKey) {
+			Connection conn = getConnection();
+			
+			int result = new MemberDao().checkKey(conn, apiKey);
+			
+			close(conn);
+			
+			return result;
+		}
+		
+		
+		
+		
+		
+		
+		
 		
 //------------------------------ insert 구간 -------------------------------
 	
 	// [김혜린]
-	// 회원가입
 	public int insertMember(Member m) {
 		
 		Connection conn = getConnection();

@@ -26,7 +26,7 @@
 	});
 		
 		
-	/* 회원가입창 모달 */
+	/* 회원가입창 모달 
 	const modal2 = document.querySelector('.modal2');
 	const enrollModal = document.querySelector('.enroll-modal');
 	
@@ -36,7 +36,7 @@
 	
 	enrollModal.addEventListener('click', () => {
 	  modal2.style.display = 'block';
-	});
+	});  */
 	
 	
 	/* id/pw찾기 후 비밀번호 변경 모달 */

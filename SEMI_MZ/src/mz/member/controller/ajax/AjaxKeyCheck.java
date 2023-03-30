@@ -1,4 +1,4 @@
-package mz.main.controller;
+package mz.member.controller.ajax;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -8,19 +8,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import mz.member.model.service.MemberService;
-import mz.member.model.vo.Member;
 
 /**
- * Servlet implementation class loginController
+ * Servlet implementation class AjaxKeyCheck
  */
-@WebServlet("/login.me")
-public class loginController extends HttpServlet {
+@WebServlet("/KeyCheck.me")
+public class AjaxKeyCheck extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public loginController() {
+    public AjaxKeyCheck() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,30 +28,23 @@ public class loginController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		String key = request.getParameter("key");
+		
+		int checkKey = new MemberService().checkKey(key);
+		
+		if(checkKey > 0) { // 키가 DB에 존재
+			response.getWriter().print("NNNNN");
+		}else { // 키 DB에 없음 => 회원가입 가능
+			response.getWriter().print("NNNNY");
+		}
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		String userId = request.getParameter("userId");
-		String userPwd = request.getParameter("userPwd");
-		
-		Member loginUser = new MemberService().loginMember(userId, userPwd);
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+		// TODO Auto-generated method stub
+		doGet(request, response);
 	}
 
 }

@@ -3,6 +3,8 @@
 
 
 <properties>
+
+<!-- ----------------------- select 구간 ----------------------------- -->
 	<!-- [han] -->
 	<entry key="userCount">
 		SELECT COUNT(*) AS COUNT
@@ -19,6 +21,25 @@
 		  AND STATUS = 'Y'
 	</entry>
 
+	<!-- [혜린] -->
+	<entry key="checkKey">
+		SELECT COUNT(*)
+		FROM LOGIN_API
+		WHERE API_KEY = ?
+		 AND  API_KIND = ?
+	</entry>
+
+	<!-- [혜린] -->
+	<entry key = "loginApi">
+		SELECT *
+		FORM LOGIN_API
+		WHERE API_KEY = ?
+	</entry>
+	
+	
+	
+	
+<!-- ----------------------- insert 구간 ----------------------------- -->
 	<!-- [혜린] -->
 	<entry key="insertMember">
 		INSERT INTO MEMBER( USER_ID,
@@ -40,6 +61,17 @@
 							?
 							)
 	</entry>
+
+	<!-- [혜린] -->
+	<entry key = "insertKey">
+		INSERT INTO LOGIN_API(USER_ID,
+							  API_KIND,
+							  API_KEY)
+					   VALUES(?,
+					   		  ?,
+					   		  ?)
+	</entry>
+
 
 
 

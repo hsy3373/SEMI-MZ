@@ -336,6 +336,10 @@
     }
    
 /*==================== 회원가입 모달 =======================*/   
+.modal2{
+    display: none;
+}
+
 .display-center{  /*테이블 클래스*/
     border: 0px solid red;
 }

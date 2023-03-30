@@ -1,6 +1,6 @@
 package mz.member.model.dao;
 
-import static mz.common.JDBCTemplate.close;
+import static mz.common.JDBCTemplate.*;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -12,16 +12,20 @@ import java.sql.SQLException;
 import java.util.InvalidPropertiesFormatException;
 import java.util.Properties;
 
-import mz.chatting.model.dao.ChatDao;
+import mz.member.model.vo.Member;
 
 
 
 public class MemberDao {
 	private Properties prop = new Properties();
 	
+	
+	
+	
+	
 	public MemberDao() {
-		String fileName = ChatDao.class.getResource("/sql/member/member-mapper.xml").getPath();
-
+		String fileName = MemberDao.class.getResource("/sql/member/member-mapper.xml").getPath();
+		
 		try {
 			prop.loadFromXML(new FileInputStream(fileName));
 		} catch (InvalidPropertiesFormatException e) {
@@ -62,12 +66,12 @@ public class MemberDao {
 		return result;
 		
 	}
-}
-
 	
-	// 김혜린
-	// 로그인
+	// [김혜린]
 	public Member loginMember(Connection conn, String userId, String userPwd) {
+		
+		System.out.println(userId + userPwd);
+		
 		
 		Member m = null; 
 		
@@ -100,22 +104,57 @@ public class MemberDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			try {
-				rset.close();
-				pstmt.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-		
+				close(rset);
+				close(pstmt);
+			} 
 		return m;		
+	}
+	
+	// [김혜린]
+	public int checkKey(Connection conn, String apiKey) {
+		
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		
+		ResultSet rset =null;
+		
+		String sql = prop.getProperty("checkKey");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, apiKey);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				result = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return result;
 	}
 	
 	
 	
 	
 	
-	// 회원가입
+	
+	
+	
+	
+	
+	
+	
+	
+	
+//------------------------------ insert 구간 -------------------------------	
+	// [김혜린]
 	public int insertMember(Connection conn, Member m) {
 		
 		int result = 0;
@@ -142,7 +181,7 @@ public class MemberDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			JDBCTemplate.close(pstmt);
+			close(pstmt);
 		}
 		return result;
 	}
@@ -168,7 +207,7 @@ public class MemberDao {
 	
 	
 	
-	
+}	
 	
 	
 
