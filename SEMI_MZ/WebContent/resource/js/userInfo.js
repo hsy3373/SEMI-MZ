@@ -1,4 +1,6 @@
 /**
+ * 
+ *//**
  * 작성자: 박가영
  * 유저 정보창 js
  */
@@ -15,16 +17,15 @@ let close = () => {
 }
 
 document.querySelector(".user1").addEventListener("click", open);
-document.querySelector(".user1").addEventListener("click", getUserInfo);
 document.querySelector(".x-btn").addEventListener("click", close);
-/*document.querySelector(".report-btn").addEventListener("click", report);*/
+
 let nickName;
 
 /*유저 정보 가져오기*/
 function getUserInfo(){
 	$.ajax({
 		url: getContextPath()+"/userInfo.me",
-		data : {userId : 'user2'}, /*'test' 부분에 나중에 session 유저id 객체 넣으면 됨 / sessionStorage.getItem('')*/
+		data : {userId : getContextPath().userId}, /*'test' 부분에 나중에 session 유저id 객체 넣으면 됨 / sessionStorage.getItem('')*/
 		method: 'post',
 		success : function(data) {
 			console.log(data);
@@ -53,21 +54,23 @@ function getUserInfo(){
 		}
 	});
 };
+document.querySelector(".user1").addEventListener("click", getUserInfo);
 
 /*신고 상세내용 내보내기*/
 function report(){
 	console.log(nickName);
 	$.ajax({
 		url: getContextPath()+"/report",
-		data: {receiveId : nickName,
+		data: {receiveId : getContextPath().userId,
 		       reportTitle: $(".title-box").val(),
-		       reportContent: $("report-content-text").val()},
+		       reportContent: $("#report-content-text").val()},
 		method: 'post',
 		success : function(data) {
 			console.log(data);
 		}
 	});
 };
+document.querySelector(".report-btn").addEventListener("click", report);
 
 /* 신고하기 모달창 띄우기 */
 let open2 = () => {
@@ -81,6 +84,13 @@ let close2 = () => {
 document.querySelector(".info-report-btn").addEventListener("click", open2);
 document.querySelector(".reset-btn").addEventListener("click", close2);
 
+/*window.onload = function(){
+	let reset = document.querySelector(".reset-btn");
+	reset.addEventListener("click", function(){
+		console.log('reset 눌림');
+	});
+};*/
+
 /* 신고 내용 글자수 제한 */
 $('#report-content-text').keyup(function (e) {
 	console.log(e);
@@ -93,3 +103,9 @@ $('#report-content-text').keyup(function (e) {
     	$('.text-count').text(content.length);
     }
 })
+
+/* 신고 후 신고창 숨기기 */
+let close3 = () => {
+	document.querySelector(".report-modal").classList.add("hidden");
+}
+document.querySelector(".report-btn").addEventListener("click", close3);

@@ -13,6 +13,7 @@ import org.json.simple.JSONObject;
 
 import com.google.gson.Gson;
 
+import mz.chatting.model.service.ChatService;
 import mz.member.model.service.MemberService;
 import mz.member.model.vo.Member;
 
@@ -44,14 +45,20 @@ public class UserInfoController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		String loginUser = ((Member)request.getSession().getAttribute("loginUser")).getUserId();
 		String userId = request.getParameter("userId");
-		System.out.println(userId);
+		System.out.println(userId+loginUser);
 		
-		Member m = new MemberService().selectMember(userId);
 		
-		response.setContentType("application/json; charset=UTF-8");
+		if(!userId.equals(loginUser)) {
+			Member m = new MemberService().selectMember(userId);
+			
+			response.setContentType("application/json; charset=UTF-8");
+			
+			new Gson().toJson(m, response.getWriter());
+		}			
 		
-		new Gson().toJson(m, response.getWriter());
+		
 	}
 
 }

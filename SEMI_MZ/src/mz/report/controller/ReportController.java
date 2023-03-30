@@ -38,19 +38,20 @@ public class ReportController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		request.setCharacterEncoding("UTF-8");
-		
 		String userId = ((Member)request.getSession().getAttribute("loginUser")).getUserId();
 		String receiveId = request.getParameter("receiveId");
 		String reportTitle = request.getParameter("reportTitle");
 		String reportContent = request.getParameter("reportContent");
 		
+		System.out.println(userId+receiveId+reportTitle+reportContent);
 		int result = new ReportService().insertReport(userId, receiveId, reportTitle, reportContent);
 		
 		if (result > 0) {
 			response.sendRedirect(request.getContextPath()+"/userInfo.me");
+		} else {
+			System.out.println("글러먹었어...");
 		}
-		
+		 
 	}
 
 }

@@ -34,7 +34,7 @@
     <a href="./admin/main.jsp">관리자페이지</a>
     <br />
     <a href="./main.jsp">메인/로그인</a>
-    <br>
+    <br />
     <a href="./userInfo.jsp">유저정보창</a>
 
     <script type="module" src="../resource/js/common.js"></script>
