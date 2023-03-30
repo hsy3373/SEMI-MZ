@@ -9,4 +9,10 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
+  
+   <!-- 서버 에러시 전송될 페이지 -->
+	<error-page>
+		<exception-type>java.lang.IllegalStateException</exception-type>
+		<location>/maxSever.jsp</location>
+	</error-page>
 </web-app>
