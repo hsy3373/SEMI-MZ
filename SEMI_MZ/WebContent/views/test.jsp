@@ -7,8 +7,8 @@ uri="http://java.sun.com/jsp/jstl/core"%>
                           java.sql.Date.valueOf("2023-03-20")); 
   // session.setAttribute("loginUser", m);
   // session.setAttribute("testing", "testingtesting"); 
-  Member test = session.getAttribute("loginUser") == null ? m : (Member)
-  session.getAttribute("loginUser"); session.setAttribute("loginUser", test);
+  Member test = ((Member)session.getAttribute("loginUser")).getUserId().equals("friend") ? m : (Member)session.getAttribute("loginUser"); 
+  session.setAttribute("loginUser", test);
   String path = request.getContextPath(); 
 %>
 <!DOCTYPE html>
