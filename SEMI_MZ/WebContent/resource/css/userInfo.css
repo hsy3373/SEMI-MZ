@@ -12,13 +12,15 @@
 .info-wrap{
 	magin: auto;
 	width: 1300px;
+	heigth: 800px;
     position: relative;
 }
 .user-info{
 	z-index: 1;
 	width: 57.5%;
 	height: 62%;
-	transform: translate(38.5%, 20%);
+	top: -85%;
+	left: 37%;
 	position: absolute;
 }
 #info-view{width:100%;}
@@ -41,8 +43,8 @@
 .heart{
     z-index: 2;
     position: absolute;
-    top: 32.5%;
-    left: 33%;
+    top: -62.5%;
+    left: 48%;
     width: 2.5%;
     cursor: pointer;
 }
