@@ -106,6 +106,7 @@ export let delSessionStorage = function (name) {
   sessionStorage.removeItem(name);
 };
 
+// 세션 스토리지 모든 내용 삭제
 export let delAllSessionStorage = function () {
   sessionStorage.clear();
 };
