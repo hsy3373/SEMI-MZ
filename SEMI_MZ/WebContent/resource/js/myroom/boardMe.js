@@ -11,7 +11,7 @@ function getContextPath(){
 	let contextPath = location.href.substring( hostIndex, location.href.indexOf('/', hostIndex + 1));
 	return contextPath;
 }
-
+let path = getContextPath();
 // 페이징 처리 준비
 let listCount;				// 현재 게시판의 총 게시글 갯수
 let boardLimit = 6; 		// 한 페이지에 나타낼 게시글 수
@@ -77,7 +77,7 @@ $(function(){
 function selectboardList( receiveID ){
  	$(".board-list").show();
 	console.log(receiveID);
-	let path = getContextPath();
+
 	$.ajax({ // ajax로 데이터 가져오기
 		url : path + "/selectBoardList",
 		dataType: "json",
@@ -108,12 +108,13 @@ function selectboardList( receiveID ){
 function displayData(currentPage, boardLimit) {
 	
 	let str = "";
+
 	//Number로 변환하지 않으면 아래에서 +를 할 경우 스트링 결합이 되어버림.. 
 	currentPage = Number(currentPage);
 	boardLimit = Number(boardLimit);
   
-	let maxpnum = (currentPage - 1) * boardLimit + boardLimit; ///추가
-	if(maxpnum > listCount) {maxpnum = listCount;} //추가
+	let maxpnum = (currentPage - 1) * boardLimit + boardLimit;
+	if(maxpnum > listCount) {maxpnum = listCount;}
 	
 
 	for (let i = (currentPage - 1) * boardLimit; i < maxpnum; i++) {
@@ -131,9 +132,12 @@ function displayData(currentPage, boardLimit) {
 			       + "<td id='board-title'><img class='apple' src='../resource/img/icon/사과.png'>" + BoardList[i].boardTitle + "</td>"
 			       + "<td id='board-no' style='display: none;'>" + BoardList[i].boardNo + "</td>"
 			       + "<td class='board-date'>" + BoardList[i].createDate + "</td>"
-				+"</tr>";
+				+"</tr>"
+			// 글쓰기버튼 표시
+			$("#writing-btn").show();
 		}
   	}
+
   	$(".board-list .board-list-area").html(str);
 }
 
@@ -206,8 +210,6 @@ $(function(){
 /* ================================== 방명록 상세 조회 =================================== */
 	$(document).on("click", ".board-list tr" , function(){
 		
-		let path = getContextPath();
-		
 		/* BoardList[0].receiveId랑 로그인한 아이디랑 비교해야함!!! ★★★★★★★★★★★★★★★ 변경 필수 ★★★★★★★★★★★★★★★ */
 		if(BoardList[0].receiveId == 'test'){
 			
@@ -216,7 +218,9 @@ $(function(){
 		    
 			// 방명록 번호
 			let boardNo = $(this).children("#board-no").text();
-			// console.log(boardNo);
+			console.log(boardNo);
+			
+
 			
 			/* 방명록 상세 조회 */
 			$.ajax({
@@ -264,7 +268,7 @@ $(function(){
 		
 			
 			let BoardNo = $(this).children("#board-no").text();
-			//console.log("friend로 접속 : "+BoardNo);
+			//console.log(BoardNo);
 			$.ajax({
 				type : 'post',
 				url : path+"/selectSendBoard",
@@ -316,8 +320,9 @@ $(function(){
 /*$(function(){
 	// 수정시 화면에 바로 나타나게함
 	setInterval( , 1000);
-});*/ //빈곳에 변수명 넣어줘야함..
+});*/ //빈곳에 변수명 넣어줘야함
 
+// 수정 제목, 내용, 비밀번호 클릭시 버튼 활성화 -> 적용이안됨..
 $(function(){
 	$("#board-write-title").on('keyup',function(){
 		//if($("#board-write-title").val()){
@@ -327,10 +332,6 @@ $(function(){
 });
 
 function updateBoard(){
-	let path = getContextPath();
-
-	
-
 	// 비밀글체크시 Y 또는 N값 넣어주기위한 이벤트
 	$("#board-ck").change(function(){
 
@@ -367,6 +368,32 @@ function updateBoard(){
 		}
 	});
 	
-
 };
+/* ====================================================================================== */
+/* ================================= 방명록 작성 ================================= */
+function boardWriter(){
+	$(".board-list").hide();
+	$(".board-write").show();
+	
+	$.ajax({
+		url : path + "/insertBoard",
+		data : {
+			//
+		},
+		success : function(board){
+			console.log(board);
+		},
+		error : function(e){
+			console.log(e);
+		}
+	})
+};
+
+
+/* 글작성:back-btn 클릭 -> 친구한테 쓴 방명록 리스트 */
+$(".board-write .back-btn").click(function(){
+    $(".board-write").hide();
+    $(".board-list").show();
+
+});
 /* ====================================================================================== */

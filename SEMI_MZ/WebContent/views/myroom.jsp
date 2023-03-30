@@ -137,6 +137,9 @@ ul li.on a {color: #fff;}
 	                        <td class="board-date">2023-03-25</td>
 	                    </tr> -->
 					</table>
+					<div id="writing-btn" style="display: none;">
+						<button class="button board-write-btn" id="board-write" onclick="boardWriter();">글쓰기</button>
+					</div>
 					<!-- 페이징바 -->
 					<div class="pageing-area">
 						<ul id="pagingul"></ul>
@@ -203,7 +206,7 @@ ul li.on a {color: #fff;}
 						<label for='board-ck'>비밀글</label>
 					</div>
 
-					<button id="test" type="button" class="button board-send-update-btn" disabled="true" onclick="updateBoard();">수정</button>
+					<button id="test" type="button" class="button board-send-update-btn" disabled onclick="updateBoard();">수정</button>
 					<button class="alert-toggle board-send-delete-btn button" id="board-send-delete">삭제</button>
 
 				</div>
