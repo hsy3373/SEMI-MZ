@@ -50,15 +50,17 @@ $(function(){
 		
 
 		// 방주인 value값 얻어서 넣기
-		// -> 방주인의 value값에 따라서 보여지는 화면 구성 달라짐
+		// -> 로그인유저(== 'test')로 자기방이냐 친구방이냐를 매개변수에 담아야함
 		// 로그인한 아이디는 session영역에 담아놨고,
 		// 친구들은 각각의 아이디값을 session 스토리즈 담아놨음
+/*		if(loginUser == roomMaster){
+			selectboardList(loginUser);
+		}else{
+			selectboardList(roomMaster);
+		}*/
 		
-		selectboardList('test');
 		
-
-
-
+		selectboardList('friend');
     });
 
 
@@ -71,10 +73,10 @@ $(function(){
 // receive_id('test') == 현재 로그인한 아이디('test')
  
 // 다른방 방문시
-// receive_id == (방주인 아이디 == 받은사람) && USER_ID == (현재 로그인한 아이디 == 작성자) &&  
+// receive_id == (방주인 아이디 == 받은사람) && USER_ID == (현재 로그인한 아이디 == 작성자)
 function selectboardList( receiveID ){
  	$(".board-list").show();
-
+	console.log(receiveID);
 	let path = getContextPath();
 	$.ajax({ // ajax로 데이터 가져오기
 		url : path + "/selectBoardList",
@@ -113,18 +115,18 @@ function displayData(currentPage, boardLimit) {
 	let maxpnum = (currentPage - 1) * boardLimit + boardLimit; ///추가
 	if(maxpnum > listCount) {maxpnum = listCount;} //추가
 	
-	
-	//console.log(BoardList[0].receiveId);
+
 	for (let i = (currentPage - 1) * boardLimit; i < maxpnum; i++) {
-		// BoardList[0].receiveId == 방주인 == 로그인아이디
-		if(BoardList[0].receiveId == 'test'){
+		// 방명록 받은 유저 == 로그인 유저가 같을 때로 비교한것! ★★★★★★★★★★★★★★★ 변경 필수 ★★★★★★★★★★★★★★★
+		if(BoardList[i].receiveId == 'test'){
 			str += "<tr>"
 			       + "<td id='board-title'><img class='apple' src='../resource/img/icon/사과.png'>" + BoardList[i].boardTitle + "</td>"
 			       + "<td id='board-no' style='display: none;'>" + BoardList[i].boardNo + "</td>"
 			       + "<td class='board-userid'>" + BoardList[i].userId + "</td>"
 			       + "<td class='board-date'>" + BoardList[i].createDate + "</td>"
 				+"</tr>";
-		} else { // BoardList[0].receiveId == 'friend'
+	
+		} else {
 			str += "<tr>"
 			       + "<td id='board-title'><img class='apple' src='../resource/img/icon/사과.png'>" + BoardList[i].boardTitle + "</td>"
 			       + "<td id='board-no' style='display: none;'>" + BoardList[i].boardNo + "</td>"
@@ -194,13 +196,19 @@ $("#pagingul li a").click(function () {
 };
 /* ====================================================================================== */
 
+/* boardDetail 함수로 빼고싶음 ㅠ */
+/*function boardDetail(){
+	
+}*/
+
+
 $(function(){
 /* ================================== 방명록 상세 조회 =================================== */
 	$(document).on("click", ".board-list tr" , function(){
-		console.log("상세조회시 접속아이디 : "+BoardList[0].receiveId); // 접속아이디
 		
 		let path = getContextPath();
 		
+		/* BoardList[0].receiveId랑 로그인한 아이디랑 비교해야함!!! ★★★★★★★★★★★★★★★ 변경 필수 ★★★★★★★★★★★★★★★ */
 		if(BoardList[0].receiveId == 'test'){
 			
 		    $(".board-list").hide();
@@ -208,7 +216,7 @@ $(function(){
 		    
 			// 방명록 번호
 			let boardNo = $(this).children("#board-no").text();
-			console.log(boardNo);
+			// console.log(boardNo);
 			
 			/* 방명록 상세 조회 */
 			$.ajax({
@@ -217,7 +225,7 @@ $(function(){
 				success : function(b){
 					// 제목
 					title = b.boardTitle;
-					
+					no = b.boardNo;
 					// 유저스킨
 					skin = "";
 					skin += "<img class='friend-skin' src=''>"
@@ -229,6 +237,7 @@ $(function(){
 							 + "<div class='detail-table-text'>" + b.boardContent + "</div>";
 					
 					// 해당 클래스에 내용 추가
+					$(".board-no").html(no);
 					$(".board-detail-title").html(title);
 					$(".board-detail-friend").html(skin);
 					$(".board-detail-table").html(content);
@@ -244,7 +253,6 @@ $(function(){
         	$(".board-list").hide();
 			$(".board-send-detail").show();
 		
-			// ★★★★★★★★★★★★★★★ 방명록 리스트 처리되면 위에 코드 안으로 넣어줘야됨(코드 넣기전 테스트 완료) ★★★★★★★★★★★★★★★
 			// 비밀글체크시 Y 또는 N값 넣어주기위한 이벤트
 			$("#board-ck").change(function(){
 				if(this.checked){
@@ -264,9 +272,11 @@ $(function(){
 				success : function(b){
 					
 					// 제목, 내용
+					no = b.boardNo;
 					title = $("#board-write-title").val(b.boardTitle);
 					content = b.boardContent;
-					
+					console.log(no);
+					$(".board-no").html(no);
 					$(".board-detail-title").html(title);
 					$("#board-write-content").html(content);
 					console.log("비밀글 조회시 체크상태 : " + b.secret);
@@ -298,45 +308,65 @@ $(function(){
         $(".board-send-detail").hide();
         $(".board-list").show();
     });
-
-
-	
 });
 
 
 
-
-
 /* ================================= 친구네룸 - 내가 쓴 방명록 수정 ================================= */
+/*$(function(){
+	// 수정시 화면에 바로 나타나게함
+	setInterval( , 1000);
+});*/ //빈곳에 변수명 넣어줘야함..
+
+$(function(){
+	$("#board-write-title").on('keyup',function(){
+		//if($("#board-write-title").val()){
+			$("#test").attr("disabled", false)
+		//}
+	});
+});
+
 function updateBoard(){
+	let path = getContextPath();
+
+	
 
 	// 비밀글체크시 Y 또는 N값 넣어주기위한 이벤트
 	$("#board-ck").change(function(){
+
 		if(this.checked){
 			$(this).attr("value", 'Y');
 		}else{
 			$(this).attr("value", 'N');
 		}
 	});
-	
-	let path = getContextPath();
+
+	// 방명록 번호
+	boardNo = $(".board-send-detail .board-no").text();
+	// console.log(boardNo);
+
 	$.ajax({
 		type : 'post',
 		url : path + "/updateBoard",
 		data : {
-			boardNo : 69,
+			boardNo : boardNo,
 			boardTitle : $(".board-send-detail #board-write-title").val(),
 			boardContent : $("#board-write-content").val(),
 			secret : $("#board-ck").prop("checked") ? "Y" : "N"
 		},
 		success : function(b){
-			console.log(b);
+			$(".board-send-detail").hide();
+        	$(".board-list").show();
+			// 수정 성공시 b = 1
+			if(b > 0){
+				// 방명록 리스트를 불러오는 함수 호출
+			}
 		},
 		error : function(e){
 			console.log(e);
 		}
 	});
-
+	
 
 };
 /* ====================================================================================== */

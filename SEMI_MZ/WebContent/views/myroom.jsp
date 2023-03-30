@@ -143,59 +143,49 @@ ul li.on a {color: #fff;}
 					</div>
 				</div>
 			</div>
-
 			<!-- ============================= 방명록 상세 ============================= -->
-			<div class="board-detail">
-				<!-- back 버튼 -->
-				<img class="back-btn" src="../resource/img/icon/back2_btn.png">
-				<div class="board-detail-title"></div>
-				<div class="board-detail-area">
-					<div class="board-detail-content">
- 					<div class="board-detail-friend">
-							<!-- <img class="friend-skin" src="../resource/img/user/skin2/fs.png">
-							<div class="friend-id">swldml 노</div> -->
+<%--  		<% if(loginUser.equals(roomMaster)){ %>
+ 			<% } else{ %>
+ 			<% } %> --%>
+
+<%--  		<c:choose>
+ 				<c:when test="${loginUser eq rommMaster }">
+ 					
+ 				</c:when>
+ 				<c:otherwise>
+ 				
+ 				</c:otherwise>
+ 			</c:choose> --%>
+				<div class="board-detail">
+					<!-- back 버튼 -->
+					<img class="back-btn" src="../resource/img/icon/back2_btn.png">
+					<div class="board-no" style="display: none;"></div>
+					<div class="board-detail-title"></div>
+					<div class="board-detail-area">
+						<div class="board-detail-content">
+	 					<div class="board-detail-friend">
+								<!-- <img class="friend-skin" src="../resource/img/user/skin2/fs.png">
+								<div class="friend-id">swldml 노</div> -->
+							</div>
+							<div class="board-detail-table">
+								<!-- <div class="detail-table-date">2023-03-22</div>
+								<div class="detail-table-text">
+								</div> -->
+							</div>
 						</div>
-						<div class="board-detail-table">
-							<!-- <div class="detail-table-date">2023-03-22</div>
-							<div class="detail-table-text">
-							</div> -->
-						</div>
-					</div>
-					<!-- 삭제 버튼 -->
-					<button class="alert-toggle board-delete-btn button" id="board-delete">삭제</button>
-				</div>
-			</div>
-
-
-<!-- ============================= 친구한테 쓴 방명록 리스트 ============================= -->
-<!-- 리스트 전체조회 통합으로 일단 안써서 주석 -->
-<!-- 			<div class="board-send-list">
-				<img class="x-btn" src="../resource/img/icon/엑스 버튼.png">
-
-				<div class="board-content">
-					<table class="board-list-area">
-						<tr class="board-send-list-tr">
- 							<td id="board-title"><img class="apple"src="../resource/img/icon/사과.png">제목</td>
-							<td class="board-date">2023-03-22</td>
-						</tr>
-					</table>
-					<div id="writing-btn">
-						<button class="button board-write-btn" id="board-write">글쓰기</button>
-					</div>
-					페이징바
-					<div class="pageing-area">
-						<ul id="pagingul"></ul>
+						<!-- 삭제 버튼 -->
+						<button class="alert-toggle board-delete-btn button" id="board-delete">삭제</button>
 					</div>
 				</div>
-			</div>
- -->
+
 			<!-- ============================= 친구한테 쓴 방명록 상세 ============================= -->
+			
 			<div class="board-send-detail">
 				<!-- back 버튼 -->
 				<img class="back-btn" src="../resource/img/icon/back2_btn.png">
 				<!-- 작성란 전체 감싼 form -->
 				<div class="board-write-area" id="board-update-form">
-
+					<div class="board-no" style="display: none;"></div>
 					<!-- 제목부분(상세 제목이랑 동일) -->
 					<div class='board-detail-title'>
 						<input type='text' id='board-write-title' required maxlength="15" onclick='this.select();'>
@@ -213,7 +203,7 @@ ul li.on a {color: #fff;}
 						<label for='board-ck'>비밀글</label>
 					</div>
 
-					<button type="button" class="button board-send-update-btn" onclick="updateBoard();">수정</button>
+					<button id="test" type="button" class="button board-send-update-btn" disabled="true" onclick="updateBoard();">수정</button>
 					<button class="alert-toggle board-send-delete-btn button" id="board-send-delete">삭제</button>
 
 				</div>
@@ -397,5 +387,30 @@ ul li.on a {color: #fff;}
 	<script type="module" src="../resource/js/common.js"></script>
 	<script src="../resource/js/myroom/boardMe.js"></script>
 
+
+
+
+<!-- ============================= 친구한테 쓴 방명록 리스트 ============================= -->
+<!-- 리스트 전체조회 통합으로 일단 안써서 주석 -->
+<!-- 			<div class="board-send-list">
+				<img class="x-btn" src="../resource/img/icon/엑스 버튼.png">
+
+				<div class="board-content">
+					<table class="board-list-area">
+						<tr class="board-send-list-tr">
+ 							<td id="board-title"><img class="apple"src="../resource/img/icon/사과.png">제목</td>
+							<td class="board-date">2023-03-22</td>
+						</tr>
+					</table>
+					<div id="writing-btn">
+						<button class="button board-write-btn" id="board-write">글쓰기</button>
+					</div>
+					페이징바
+					<div class="pageing-area">
+						<ul id="pagingul"></ul>
+					</div>
+				</div>
+			</div>
+ -->
 </body>
 </html>

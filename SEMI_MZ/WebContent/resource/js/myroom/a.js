@@ -61,16 +61,6 @@ $(function(){
 		
 	});	
 		// ★★★★★★★★★★★★★★★ 방명록 리스트 처리되면 위에 코드 안으로 넣어줘야됨(코드 넣기전 테스트 완료) ★★★★★★★★★★★★★★★
-		// 비밀글체크시 Y 또는 N값 넣어주기위한 이벤트
-		$("#board-ck").change(function(){
-			if(this.checked){
-				$(this).attr("value", 'Y');
-			}else{
-				$(this).attr("value", 'N');
-			}
-		});
-	
-		
 		let BoardNo = $(this).children("#board-no").text();
 		let path = getContextPath();
 		
@@ -98,6 +88,16 @@ $(function(){
 				console.log(e);
 			}
 
+		});
+		
+		
+		// 비밀글체크시 Y 또는 N값 넣어주기위한 이벤트
+		$("#board-ck").change(function(){
+			if(this.checked){
+				$(this).attr("value", 'Y');
+			}else{
+				$(this).attr("value", 'N');
+			}
 		});
 	
 /* ====================================================================================== */

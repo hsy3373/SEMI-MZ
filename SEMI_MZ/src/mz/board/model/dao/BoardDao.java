@@ -57,8 +57,8 @@ public class BoardDao {
 				pstmt.setString(1, loginId);
 			} else {
 				// 방문한 방주인 아이디(test)가 현재 로그인한 아이디(friend)와 다르다면 쓴 글만 조회
-				pstmt.setString(1, receive); // friend
-				pstmt.setString(2, loginId); // test
+				pstmt.setString(1, loginId); // friend
+				pstmt.setString(2, receive); // test
 			}
 			
 			rset = pstmt.executeQuery();

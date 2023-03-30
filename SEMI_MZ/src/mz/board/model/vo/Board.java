@@ -45,6 +45,16 @@ public class Board {
 		this.boardContent = boardContent;
 		this.secret = secret;
 	}
+	
+	
+
+	public Board(String boardTitle, String boardContent, String secret) {
+		super();
+		this.boardTitle = boardTitle;
+		this.boardContent = boardContent;
+		this.secret = secret;
+	}
+
 
 	public int getBoardNo() {
 		return boardNo;
