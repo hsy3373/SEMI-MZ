@@ -111,13 +111,13 @@ public class MemberDao {
 	}
 	
 	// [김혜린]
-	public int checkKey(Connection conn, String apiKey) {
+	public Member checkKey(Connection conn, String apiKey, String apiKind) {
 		
-		int result = 0;
-		
-		PreparedStatement pstmt = null;
+		Member m = null;
 		
 		ResultSet rset =null;
+		
+		PreparedStatement pstmt = null;
 		
 		String sql = prop.getProperty("checkKey");
 		
@@ -125,11 +125,20 @@ public class MemberDao {
 			pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setString(1, apiKey);
+			pstmt.setString(2, apiKind);
 			
 			rset = pstmt.executeQuery();
 			
 			if(rset.next()) {
-				result = rset.getInt(1);
+				m = new Member(rset.getString("M.USER_ID"),
+					       	rset.getString("USER_PWD"),
+					       rset.getString("NICKNAME"),
+					       rset.getString("STATUS"),
+					       rset.getInt("SKIN_ID"),
+					       rset.getInt("COIN"),
+					       rset.getString("SELF_INFO"),
+					       rset.getString("GENDER"),
+					       rset.getDate("ENROLL_DATE"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -137,7 +146,7 @@ public class MemberDao {
 			close(rset);
 			close(pstmt);
 		}
-		return result;
+		return m;
 	}
 	
 	

@@ -35,14 +35,14 @@ public class MemberService {
 		}
 
 	// [김혜린]
-		public int checkKey(String apiKey) {
+		public Member checkKey(String apiKey, String apiKind) {
 			Connection conn = getConnection();
 			
-			int result = new MemberDao().checkKey(conn, apiKey);
+			Member m = new MemberDao().checkKey(conn, apiKey, apiKind);
 			
 			close(conn);
 			
-			return result;
+			return m;
 		}
 		
 		

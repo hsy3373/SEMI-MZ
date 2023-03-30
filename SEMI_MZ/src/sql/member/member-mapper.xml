@@ -23,10 +23,11 @@
 
 	<!-- [혜린] -->
 	<entry key="checkKey">
-		SELECT COUNT(*)
-		FROM LOGIN_API
-		WHERE API_KEY = ?
-		 AND  API_KIND = ?
+		SELECT M.USER_ID,USER_PWD,NICKNAME,STATUS,SKIN_ID,COIN,SELF_INFO,GENDER,ENROLL_DATE
+		FROM MEMBER M, LOGIN_API A
+		WHERE M.USER_ID = A.USER_ID 
+		AND API_KEY = ?
+		AND API_KIND = ?
 	</entry>
 
 	<!-- [혜린] -->

@@ -7,7 +7,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
+
 import mz.member.model.service.MemberService;
+import mz.member.model.vo.Member;
 
 /**
  * Servlet implementation class AjaxKeyCheck
@@ -29,16 +32,21 @@ public class AjaxKeyCheck extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String key = request.getParameter("key");
+		String kind = request.getParameter("kind");
 		
-		int checkKey = new MemberService().checkKey(key);
+		Member m = new MemberService().checkKey(key, kind);
 		
-		if(checkKey > 0) { // 키가 DB에 존재
-			response.getWriter().print("NNNNN");
-		}else { // 키 DB에 없음 => 회원가입 가능
-			response.getWriter().print("NNNNY");
+		if(m == null) { // 키 DB에 없음 => 회원가입 가능
+			response.getWriter().print("0");
+		}else { // 키가 DB에 존재
+			Gson gson = new Gson();
+			gson.toJson(m, response.getWriter());
 		}
 	}
 
+	
+	
+	
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */

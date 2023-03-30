@@ -598,94 +598,25 @@
 
 
 
- <!--유효성 script -->
- <script src="../resource/js/validation.js"></script>
- <!--alert script -->
- <script src="../resource/js/alert.js"></script>
- <!-- 메인 script(modal) -->
- <script src="../resource/js/main.js"></script> 
-<!--kakao-->
-<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
-<script>
-	Kakao.init('40c06f11b1aaaee13dc511ec238457b5');
-	console.log(Kakao.isInitialized()); // sdk초기화여부판단
-	//카카오로그인
-	function kakaoLogin() {
-		Kakao.Auth.login({
-		success: function (response) {
-			Kakao.API.request({
-			url: '/v2/user/me',
-			success: function (response) {
-				console.log(response.id)
-
-				// id(key)값이 db에 있는지 없는지 체크하는 함수 실행(); 
-				checkKakao(response.id);
-				
-			},
-			fail: function (error) {
-				console.log(error)
-			},
-			})
-		},
-		fail: function (error) {
-			console.log(error)
-		},
-		})
 
 
-
-
-
-	}
-
-	let checkKakao = function(key){
-		let path = Common.getContextPath();
-		// ajax로 해당(key)를 서블릿으로 보내고 맞는지아닌지 확인시키기
-		$.ajax({
-			type: "get",
-			url : path + "/KeyCheck.me",
-			dataType: "json",
-			data: { key : key , kind : 'kakao'},
-			success: (result) => {
-				//여기 안에서 아이디가 존재하면 광장으로 아니면 회원가입모달로 이동시키기(쿠키에 키 저장)
-				if(result.length > 0) {
-					//광장으로 이동
-
-				}else{
-					// 쿠키에 키 저장
-					Common.setCookie("api-key" , key);
-					Common.setCookie("api-kind", kind);
-					// 회원가입 모달 창 띄워지게 (회원가입 창에서 쿠키저장된 키값 활용)
-					$('.modal2').css('display', 'block');
-				}
-			
-
-
-
-			}
-		})
-
-		//
-	}
-
-
-	//회원가입 모달 
-
-	let insertMem = function(){
-		// 쿠키에 저장된 키 가져와서 함께 전송
-		// ajax로 멤버 추가 + 키값도 추가
-	}
 
 	
 
 
 
-
-
-
-
-</script>
-
+ <!-- common.js -->
+ <script type="module" src="../resource/js/common.js"></script>
+ <!--유효성 script -->
+ <script src="../resource/js/validation.js"></script>
+ <!--alert script -->
+ <script src="../resource/js/alert.js"></script>
+ <!-- 메인 script(modal) -->
+ <script src="../resource/js/main.js"></script>
+ <!--kakao-->
+<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+ <!-- API script --> 
+ <script src="../resource/js/mainAPI.js"></script> 
 	
 	
 	
