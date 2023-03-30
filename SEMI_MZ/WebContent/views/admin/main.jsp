@@ -39,7 +39,7 @@ pageEncoding="UTF-8" import="mz.member.model.vo.Member"%>
           <hr />
 
           <li>
-            <a href="">
+            <a href="<%= request.getContextPath() %>/insert.char">
               <i class="bi bi-key-fill"></i>
               Admin</a
             >

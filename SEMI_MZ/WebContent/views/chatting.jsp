@@ -1,9 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" import="mz.member.model.vo.Member"%>
-<%
-	String path = request.getContextPath();
-	Member loginUser = (Member) session.getAttribute("loginUser");
-%>
+pageEncoding="UTF-8" import="mz.member.model.vo.Member"%> <% String path =
+request.getContextPath(); Member loginUser = (Member)
+session.getAttribute("loginUser"); %>
 <!DOCTYPE html>
 <html>
   <head>
@@ -26,6 +24,9 @@
     </style>
   </head>
   <body>
+    <div>
+      <button type="button" id="insert-room">룸 추가 test</button>
+    </div>
     <div class="chat-container">
       <div class="left"></div>
       <div class="resizer" id="dragMe"></div>
