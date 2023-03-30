@@ -239,8 +239,15 @@ let textareaEnterKey = function () {
     .getElementById("text-send")
     .addEventListener("keydown", function (e) {
       // 엔터키면 보내기 후 내용 없애기, shift+enter 면 줄바꿈 처리
+
       if (e.key == "Enter") {
+        console.log(
+          "현재 입력창 글자수 : ",
+          document.querySelector("#text-send").value,
+          document.querySelector("#text-send").value.length
+        );
         if (!e.shiftKey) {
+          //todo 중복 엔터 막기
           e.preventDefault(); // 기본 새로고침 동작 막기
           sendChat();
           handleResizeHeight();
