@@ -424,6 +424,7 @@ const socket = new WebSocket("ws://192.168.30.171:8083" + path + "/multiAccess")
 socket.onopen = function (e) {
     console.log("접속성공");
     console.log(e);
+    sendMsg("ArrowRight")
 
 }
 
@@ -579,7 +580,7 @@ function usersreder() {
         }
     }
 
-    //console.log(sessionStorage.clickedUserId)
+    console.log(sessionStorage.clickedUserId)
 })
 
 
@@ -600,6 +601,9 @@ function userDraw(){
        
     }
 }
+
+
+
 
 //랜더링 프레임으로 호출
 function main() {
@@ -691,5 +695,6 @@ function main() {
 loadImage();
 main();
 setupKeyboard();
+
 
 
