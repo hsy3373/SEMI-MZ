@@ -20,8 +20,24 @@ export function getContextPath() {
   return contextPath;
 }
 
+// 문자열이 비었거나, null, undefined 일 때 true 반환
+export let isEmpty = function (str) {
+  if (
+    str == "undefined" ||
+    typeof str == "undefined" ||
+    str == "null" ||
+    str == null ||
+    str == ""
+  )
+    return true;
+  else return false;
+};
+
+//-------------------------- 쿠키 데이터 추가/조회/삭제 ------------------------------
+
 // 쿠키 추가하는 함수
 export function setCookie(cname, cvalue) {
+  console.log("쿠키 세팅중 : ", cname);
   // 특수문자가 포함되었을 경우를 대비하여 인코딩 수행
   document.cookie =
     cname + "=" + encodeURIComponent(cvalue) + "; path=/mzone; expires=Session";
@@ -74,4 +90,23 @@ export let delCookie = (cname) => {
   setCookie(cname, "", 0);
   document.cookie = cname + "=; path=/mzone;  expires=" + expiration;
   console.log("쿠키를 삭제했습니다.");
+};
+
+//---------------- sessionstorage로 데이터 저장/조회/삭제 -----------------------------------
+
+export let setSessionStorage = function (name, value) {
+  sessionStorage.setItem(name, JSON.stringify(value));
+};
+
+export let getSessionStorage = function (name) {
+  return JSON.parse(sessionStorage.getItem(name));
+};
+
+export let delSessionStorage = function (name) {
+  sessionStorage.removeItem(name);
+};
+
+// 세션 스토리지 모든 내용 삭제
+export let delAllSessionStorage = function () {
+  sessionStorage.clear();
 };

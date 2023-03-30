@@ -1,20 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" import="mz.member.model.vo.Member"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%
-	/* 테스트용 유저 객체 */ 
-	Member m = new Member("test", "test", "NIC_test", "Y", 0, 500, "", "N", java.sql.Date.valueOf("2023-03-20"));
-	session.setAttribute("loginUser", m);
-	session.setAttribute("testing", "testingtesting");
-	Member test = (Member) session.getAttribute("loginUser");
-	String path = request.getContextPath();
-%>
+pageEncoding="UTF-8" import="mz.member.model.vo.Member"%> <%@ taglib prefix="c"
+uri="http://java.sun.com/jsp/jstl/core"%> <% /* 테스트용 유저 객체 */ Member m =
+new Member("test", "test", "NIC_test", "Y", 0, 500, "", "N",
+java.sql.Date.valueOf("2023-03-20")); // session.setAttribute("loginUser", m);
+// session.setAttribute("testing", "testingtesting"); Member test =
+session.getAttribute("loginUser") == null ? m : (Member)
+session.getAttribute("loginUser"); session.setAttribute("loginUser", test);
+String path = request.getContextPath(); %>
 <!DOCTYPE html>
 <html>
   <head>
     <meta charset="UTF-8" />
     <title>M-Zone</title>
     <link href="../resource/css/common.css" rel="stylesheet" type="text/css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   </head>
   <body>
     test용 페이지 <br />
@@ -37,9 +36,32 @@
     <br />
     <a href="./main.jsp">메인/로그인</a>
 
+    <br />
+    <button id="btn1">관리자로 바꾸기</button>
+
     <script type="module" src="../resource/js/common.js"></script>
-    <script type="module" src="../resource/js/test.js"></script>
+    <script>
+      $(function () {
+        $("#btn1").click(function () {
+          $.ajax({
+            url: "<%=path%>/friendtest",
+            type: "get",
+            success: function () {
+              console.log("성공");
+              location.reload();
+            },
+            error: function () {
+              console.log("ajax통신 실패");
+            },
+          });
+        });
+      });
+    </script>
   </body>
 
-  <script type="text/javascript"></script>
+  <script type="text/javascript">
+    sessionStorage.setItem("loginUser", JSON.stringify("test"));
+    document.cookie =
+      "loginUser=" + encodeURIComponent("test") + "; path=/mzone";
+  </script>
 </html>

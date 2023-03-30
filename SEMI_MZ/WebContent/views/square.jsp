@@ -11,7 +11,7 @@
 <meta charset="UTF-8">
 <title>광장</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<link href="../resource/css/common.css" rel="stylesheet" type="text/css">
+<link href="<%=contextPath%>/resource/css/common.css" rel="stylesheet" type="text/css">
 
 
 </head>
@@ -37,25 +37,35 @@
 	
 	<script>
 		//console.log(contextPath);
-       
 		//유저네임 
-		var username = '${loginUser.nicName}';
+		var userName = '${loginUser.nicName}';
 		//유저 skin
-		var userSkin = Number('${loginUser.skinId}')+1;
-		
-		
-		
+		var userSkin = '${loginUser.skinId}';	
 		//console.log(userSkin);
+		var userId = '${loginUser.userId}';
+
+		//클릭한 친구 함수
+		var clickedUserId = sessionStorage.clickedUserId;
 	</script>
+	  	
+	<script type="module" src="<%=contextPath%>/resource/js/common.js"></script>
+    <script type="module" src="<%=contextPath%>/resource/js/squareCanvas.js"></script>
     
-   
+    <script type="module">
+
+
+	import {uesrX , uesrY} from '<%=contextPath%>/resource/js/squareCanvas.js';
+    
+
+
+	</script>
+
+		
 	
-
-    <!--이미지선언-->
-    <img id="myhome2" src="../resource/img/icon/home.png" style="display: none;">
-
-    <script type="text/javascript" src="../resource/js/squareCanvas.js"></script>
-    <script type="text/javascript" src="../resource/js/common.js"></script>
-
+ 
+			
+	 <!--이미지선언-->
+    <img id="myhome2" src="<%=contextPath%>/resource/img/icon/home.png" style="display: none;">
+    
 </body>
 </html>

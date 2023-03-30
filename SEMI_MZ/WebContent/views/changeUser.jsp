@@ -35,7 +35,7 @@
   </body>
 
   <script type="text/javascript">
-    document.cookie =
-      "loginUser=" + encodeURIComponent("friend") + "; path=/mzone";
+  sessionStorage.setItem("loginUser", JSON.stringify("friend"));
+  document.cookie = "loginUser=" + encodeURIComponent("friend") + "; path=/mzone";
   </script>
 </html>
