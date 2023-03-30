@@ -39,8 +39,7 @@
 
 	
 	<entry key="insertChatRoom">
-		INSERT INTO CHATTINGROOM VALUES( ? , ? );
-		INSERT INTO CHATTINGROOM VALUES( ? , ? );
+		INSERT INTO CHATTINGROOM VALUES( ? , ? )
 	</entry>
 
 	<entry key="insertChat">

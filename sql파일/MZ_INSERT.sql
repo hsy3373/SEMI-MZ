@@ -35,7 +35,7 @@ INSERT INTO MEMBER( USER_ID,
                     NICKNAME )
         VALUES ( 'admin',
                 'admin',
-                'admin');
+                '관리자');
       
 -- BOARD
 

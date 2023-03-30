@@ -58,6 +58,7 @@ public class AjaxChatRoom extends HttpServlet {
 			result = new ChatService().insertChatRoom(userId, receiver);
 			
 		}else if(order.equals("delete")) {
+			System.out.println(receiver +" 채팅룸삭제 시작");
 			result = new ChatService().deleteChatRoom(userId, receiver);
 		}else {
 			System.out.println("order의 값이 이상합니다 : " + order);
