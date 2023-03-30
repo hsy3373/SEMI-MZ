@@ -1,12 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8" import="mz.member.model.vo.Member"%> <%@ taglib prefix="c"
-uri="http://java.sun.com/jsp/jstl/core"%> <% /* 테스트용 유저 객체 */ Member m =
-new Member("test", "test", "NIC_test", "Y", 0, 500, "", "N",
-java.sql.Date.valueOf("2023-03-20")); // session.setAttribute("loginUser", m);
-// session.setAttribute("testing", "testingtesting"); Member test =
-session.getAttribute("loginUser") == null ? m : (Member)
-session.getAttribute("loginUser"); session.setAttribute("loginUser", test);
-String path = request.getContextPath(); %>
+uri="http://java.sun.com/jsp/jstl/core"%>
+<% 
+  /* 테스트용 유저 객체 */ 
+  Member m = new Member("test", "test", "NIC_test", "Y", 0, 500, "", "N",
+                          java.sql.Date.valueOf("2023-03-20")); 
+  // session.setAttribute("loginUser", m);
+  // session.setAttribute("testing", "testingtesting"); 
+  Member test = session.getAttribute("loginUser") == null ? m : (Member)
+  session.getAttribute("loginUser"); session.setAttribute("loginUser", test);
+  String path = request.getContextPath(); 
+%>
 <!DOCTYPE html>
 <html>
   <head>
