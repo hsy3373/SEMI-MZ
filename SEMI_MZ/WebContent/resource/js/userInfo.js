@@ -17,7 +17,7 @@ let close = () => {
 document.querySelector(".user1").addEventListener("click", open);
 document.querySelector(".user1").addEventListener("click", getUserInfo);
 document.querySelector(".x-btn").addEventListener("click", close);
-document.querySelector(".report-btn").addEventListener("click", report);
+/*document.querySelector(".report-btn").addEventListener("click", report);*/
 let nickName;
 
 /*유저 정보 가져오기*/
@@ -78,7 +78,7 @@ let close2 = () => {
 	document.querySelector(".report-modal").classList.add("hidden");
 }
 
-document.querySelector(".report").addEventListener("click", open2);
+document.querySelector(".info-report-btn").addEventListener("click", open2);
 document.querySelector(".reset-btn").addEventListener("click", close2);
 
 /* 신고 내용 글자수 제한 */
