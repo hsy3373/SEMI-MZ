@@ -17,7 +17,8 @@
 	<!-- 가영 -->
 	<!-- 유저 정보창 -->
 	<div class="info-wrap">
-		<div class="modal hidden">
+	
+		<div class="info-modal hidden">
 			<div class="user-info">
 				<img id="info-view" alt="유저정보창" src="../resource/img/icon/정보창폰트x.png">
 			</div>
@@ -83,9 +84,9 @@
     	</div>
     	<div class="alert-overlay"></div>
 	</div>
-	<button class="user1" >유저캐릭터</button>
+	
 	<script type="module" src="../resource/js/userInfo.js"></script>
 	<script type="module" src="../resource/js/common.js"></script>
-	<script type="module" src="../resource/js/alert.js"></script>
+	<!--<script type="module" src="../resource/js/alert.js"></script>-->
 </body>
 </html>

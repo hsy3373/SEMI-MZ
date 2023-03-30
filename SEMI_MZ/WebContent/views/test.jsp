@@ -4,10 +4,11 @@
 <%
 	/* 테스트용 유저 객체 */
 	Member m = new Member("test", "test", "NIC_test", "Y", 0, 500, "", "N", java.sql.Date.valueOf("2023-03-20"));
-	session.setAttribute("loginUser", m);
-	session.setAttribute("testing", "testingtesting");
-	Member test = (Member) session.getAttribute("loginUser");
-	String path = request.getContextPath();
+//session.setAttribute("loginUser", m);
+// session.setAttribute("testing", "testingtesting"); 
+Member test = session.getAttribute("loginUser") == null ? m : (Member)
+session.getAttribute("loginUser"); session.setAttribute("loginUser", test);
+String path = request.getContextPath(); 
 %>
 <!DOCTYPE html>
 <html>

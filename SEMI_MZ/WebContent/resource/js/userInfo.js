@@ -8,24 +8,24 @@
 import { getContextPath } from './common.js';
 
 /*유저 정보 모달창 띄우기*/
-let open = () => {
+/*let open = () => {
 	document.querySelector(".modal").classList.remove("hidden");
-}
+}*/
 
 let close = () => {
 	document.querySelector(".modal").classList.add("hidden");
 }
 
-document.querySelector(".user1").addEventListener("click", open);
+
 document.querySelector(".x-btn").addEventListener("click", close);
 
 let nickName;
 
 /*유저 정보 가져오기*/
-function getUserInfo(){
+export function getUserInfo(){
 	$.ajax({
 		url: getContextPath()+"/userInfo.me",
-		data : {userId : getContextPath().userId}, /*'test' 부분에 나중에 session 유저id 객체 넣으면 됨 / sessionStorage.getItem('')*/
+		data : {userId : sessionStorage.clickedUserId}, /*'test' 부분에 나중에 session 유저id 객체 넣으면 됨 / sessionStorage.getItem('')*/
 		method: 'post',
 		success : function(data) {
 			console.log(data);
@@ -54,7 +54,7 @@ function getUserInfo(){
 		}
 	});
 };
-document.querySelector(".user1").addEventListener("click", getUserInfo);
+/*document.querySelector(".user1").addEventListener("click", getUserInfo);*/
 
 /*신고 상세내용 내보내기*/
 function report(){
