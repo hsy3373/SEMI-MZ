@@ -135,6 +135,7 @@ $(function(){
 
     }
 
+	
     // 상점 버튼 클릭 함수 생성
     $.storeClick = function(){
         // 1. 옷장 버튼 투명하게

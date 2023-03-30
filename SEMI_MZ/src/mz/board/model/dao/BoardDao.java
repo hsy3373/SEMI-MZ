@@ -43,22 +43,20 @@ public class BoardDao {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		String sql = prop.getProperty("selectBoardList");
-		System.out.println(sql);
 		
 		// String형은 heap 영역에 주소값으로 저장되므로 == x
 		if(loginId.equals(receive)) {
 			sql = sql.replace("USER_ID = ? AND ", "");
 		}
-		System.out.println(sql);
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
 			
-			// 현재 로그인한 아이디가 받은 방명록들 조회
+			// 현재 방주인 아이디(test)가 로그인한 아이디와 같다면 받은 방명록들 조회
 			if(loginId.equals(receive)) {
 				pstmt.setString(1, loginId);
 			} else {
-				// 현재 로그인한 아이디(friend)가 방문한 방주인 아이디(test)에게 쓴 글만 조회
+				// 방문한 방주인 아이디(test)가 현재 로그인한 아이디(friend)와 다르다면 쓴 글만 조회
 				pstmt.setString(1, receive); // friend
 				pstmt.setString(2, loginId); // test
 			}
@@ -98,7 +96,7 @@ public class BoardDao {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		String sql = prop.getProperty("selectBoard");
-		
+
 		try {
 			pstmt = conn.prepareStatement(sql);
 			

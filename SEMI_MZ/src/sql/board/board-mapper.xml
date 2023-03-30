@@ -22,9 +22,10 @@
 				BOARD_TITLE,
 				BOARD_CONTENT,
 				SECRET,
-				CREATE_DATE
-		  FROM BOARD
-		  JOIN CHARACTER USING (USER_ID)
+				CREATE_DATE,
+				SKIN_ID
+		  FROM BOARD B
+		  JOIN MEMBER M USING (USER_ID)
 		 WHERE BOARD_NO = ?
 	</entry>
 	<!-- 친구네룸 - 내가쓴 방명록 상세 조회 -->

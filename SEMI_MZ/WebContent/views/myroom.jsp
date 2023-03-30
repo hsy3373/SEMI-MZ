@@ -1,10 +1,15 @@
 <!-- 지의 마이룸 -->
-<!-- <%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
 	String contextPath = request.getContextPath();
-%> -->
+	// test.jsp -> 값 가져옴
+	// String roomMaster = (String)request.getAttribute("roomMaster");
+/* 	if(roomMaster == null) {
+		//~~~
+	} */
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -162,8 +167,9 @@ ul li.on a {color: #fff;}
 			</div>
 
 
-			<!-- ============================= 친구한테 쓴 방명록 리스트 ============================= -->
-			<div class="board-send-list">
+<!-- ============================= 친구한테 쓴 방명록 리스트 ============================= -->
+<!-- 리스트 전체조회 통합으로 일단 안써서 주석 -->
+<!-- 			<div class="board-send-list">
 				<img class="x-btn" src="../resource/img/icon/엑스 버튼.png">
 
 				<div class="board-content">
@@ -172,37 +178,17 @@ ul li.on a {color: #fff;}
  							<td id="board-title"><img class="apple"src="../resource/img/icon/사과.png">제목</td>
 							<td class="board-date">2023-03-22</td>
 						</tr>
-						<tr class="board-send-list-tr">
- 							<td id="board-title"><img class="apple"src="../resource/img/icon/사과.png">제목</td>
-							<td class="board-date">2023-03-22</td>
-						</tr>
-						<tr class="board-send-list-tr">
- 							<td id="board-title"><img class="apple"src="../resource/img/icon/사과.png">제목</td>
-							<td class="board-date">2023-03-22</td>
-						</tr>
-						<tr class="board-send-list-tr">
- 							<td id="board-title"><img class="apple"src="../resource/img/icon/사과.png">제목</td>
-							<td class="board-date">2023-03-22</td>
-						</tr>
-						<tr class="board-send-list-tr">
- 							<td id="board-title"><img class="apple"src="../resource/img/icon/사과.png">제목</td>
-							<td class="board-date">2023-03-22</td>
-						</tr>
-						<tr class="board-send-list-tr">
- 							<td id="board-title"><img class="apple"src="../resource/img/icon/사과.png">제목</td>
-							<td class="board-date">2023-03-22</td>
-						</tr>
 					</table>
 					<div id="writing-btn">
 						<button class="button board-write-btn" id="board-write">글쓰기</button>
 					</div>
-					<!-- 페이징바 -->
+					페이징바
 					<div class="pageing-area">
 						<ul id="pagingul"></ul>
 					</div>
 				</div>
 			</div>
-
+ -->
 			<!-- ============================= 친구한테 쓴 방명록 상세 ============================= -->
 			<div class="board-send-detail">
 				<!-- back 버튼 -->
@@ -393,6 +379,18 @@ ul li.on a {color: #fff;}
 		</div>
 	</div>
 	<div class="alert-overlay"></div>
+	
+	
+	<script>
+		/* 상단 스크립틀릿으로 받아온 roomMaster 값 사용하는 방법 */
+<%-- 		let tree = function(){
+			//방법1 스크립틀릿으로 정보 받아와서 함수 작성
+			let roomMaster = <%= roomMaster%>;
+			//방법2 쿠키/세션스토리지에 룸마스터 저장 -> 더 권장!
+		  document.cookie = 'roomMaster='+ encodeURIComponent(roomMaster) + "; path=/mzone; expires=Session";
+		}
+ --%>		
+	</script>
 
 	<!-- <script src="../resource/js/myroom/myroom.js"></script> -->
 	<script type="module" src="../resource/js/alert.js"></script>

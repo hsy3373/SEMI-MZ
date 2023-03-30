@@ -24,7 +24,9 @@
 
     <a href="./changeUser.jsp">유저 체인지 -> friend</a> <br />
 
-    <a href="./myroom.jsp">마이룸</a> <br />
+    <a href="./myroom.jsp">마이룸</a> 
+    <%-- <a href="<%= request.getContextPath() %>/Myroom.me?roomMaster="+<%=test.getUserId()%>>마이룸</a>  --%>
+    <br />
     <br />
     <a href="./chatting.jsp">채팅</a>
     <br />
