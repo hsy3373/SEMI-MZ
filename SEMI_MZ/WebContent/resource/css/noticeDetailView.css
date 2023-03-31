@@ -1,0 +1,102 @@
+@charset "UTF-8";
+/* 공지사항 게시판 상세보기css - 가영*/
+
+/*공지사항 상세보기창*/
+.detail-view{
+	position: relative;
+    z-index: 1;
+    transform: translate(39%, 11%);
+    width: 57%;
+    height: 484px;
+}
+.detail-view img{
+	width: 100%;
+    height: 100%;
+}
+.notice-name{
+	position: absolute;
+    z-index: 2;
+    top: 17.3%;
+    left: 43.1%;
+    width: 15.2%;
+    height: 5.8%;
+    text-align: center;
+    line-height: 52px;
+    font-size: 30px;
+}
+
+/*공지사항 리스트*/
+.notice-list{
+	position: absolute;
+    z-index: 2;
+    top: 29%;
+    left: 25%;
+    line-height: 30px;
+    list-style: none;
+    width: 12.9%;
+}
+.notice-list li{
+	padding: 0;
+    margin-bottom: 5px;
+    border-bottom: 1px solid tan;
+    cursor: pointer;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+}
+.notice-list li:before{
+	content: ">";
+	display: inline-block;
+	vertical-align: middle;
+	padding: 0px 5px 4px 0px;
+}
+.notice-list li:hover{
+	border-radius: 10px;
+	background: tan;
+}
+
+.date{
+    position: absolute;
+    z-index: 2;
+    top: 31.7%;
+    left: 66.2%;
+}
+.title{
+    position: absolute;
+    z-index: 2;
+    border: solid 1px gray;
+    top: 34.5%;
+    left: 43.1%;
+    width: 29.25%;
+    height: 5%;
+    line-height: 38px;
+    padding-left: 8px;
+    border-radius: 6px;
+}
+.content{
+    position: absolute;
+    z-index: 2;
+    border: solid 1px gray;
+    top: 40.5%;
+    left: 43.1%;
+    width: 28.7%;
+    height: 26.1%; 
+    border-radius: 6px;  
+    padding: 0.5rem 0.5rem;
+    overflow-y: scroll;
+    line-height: 20px;
+    font-size: 14px;
+    text-align: justify;
+}
+::-webkit-scrollbar{display: none;}
+
+/*닫기 버튼*/
+.x-btn{
+	z-index: 2;
+    position: absolute;
+    top: 18.1%;
+    left: 75.3%;
+    width: 3.2%;
+    cursor: pointer;
+}
+.x-btn img{width:100%;}
