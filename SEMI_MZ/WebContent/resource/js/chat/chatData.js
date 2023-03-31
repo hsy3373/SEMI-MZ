@@ -33,7 +33,11 @@ webSocket.onmessage = function (e) {
     Common.getSessionStorage("loginUser") == chat.userId
       ? "class='my-chat'"
       : "";
-  let str = `<div ${cl} >[${chat.date}]${chat.userId} : ${chat.content}</div>`;
+
+  let content = chat.content;
+  content = content.replace(/(?:\r\n|\r|\n)/g, "<br/>");
+
+  let str = `<div ${cl} >[${chat.date}]${chat.userId} : ${content}</div>`;
 
   if (chat.receiveId == "chatLogAll") {
     let chats = Common.getSessionStorage("chatLogAll");
@@ -157,7 +161,9 @@ export let getChattings = function (id, scroll) {
         //만약 현재 로그인 된 유저가 보낸 채팅이면 내 채팅용 클래스 추가
         let cl = id != chat.userId ? "class='my-chat'" : "";
         num = num < chat.chatNo ? num : chat.chatNo;
-        str += `<div ${cl} >[${chat.date}]${chat.userId} : ${chat.content}</div>`;
+        let content = chat.content;
+        content = content.replace(/(?:\r\n|\r|\n)/g, "<br/>");
+        str += `<div ${cl} >[${chat.date}]${chat.userId} : ${content}</div>`;
       }
 
       //만약 기존 채팅로그가 쿠키에 저장되어있을경우 처리(기존값에 더함)

@@ -61,7 +61,7 @@ pageEncoding="UTF-8"%>
         <div class="head-text">캐릭터 스킨 등록</div>
 
         <form
-          action="<%= request.getContextPath%>/insert.char"
+          action="<%= request.getContextPath()%>/insert.char"
           id="enroll-form"
           method="post"
           enctype="multipart/form-data"

@@ -186,47 +186,50 @@ export let clickChatRoom = function (e) {
 
 //------------------  채팅내부 클릭, 외부클릭시 색 변경용 함수 -----------
 
-//todo!! 나중에 좀 더 다듬어야 함
-// 색변경 함수 따로 빼면 좋을 것 같고 중간에 사이즈 변경용 div 클릭때도 색 진하게 되도록추가해야함
+let setColorClickInsideVer = function () {
+  document.documentElement.style.setProperty("--chat-background", "#fffffff2");
+  document.documentElement.style.setProperty(
+    "--chat-btn-background",
+    " rgb(19, 140, 215, 0.75)"
+  );
+  document.documentElement.style.setProperty("--chat-btn-border", "#00000087");
+  document.documentElement.style.setProperty("--chat-text-color", " black");
+};
+
+let setColorClickOutsideVer = function () {
+  document.documentElement.style.setProperty(
+    "--chat-background",
+    "rgba(255, 255, 255, 0.288)"
+  );
+  document.documentElement.style.setProperty(
+    "--chat-btn-background",
+    " rgb(19, 140, 215, 0.4)"
+  );
+  document.documentElement.style.setProperty(
+    "--chat-btn-border",
+    " rgba(0, 0, 0, 0.35)"
+  );
+  document.documentElement.style.setProperty(
+    "--chat-text-color",
+    " rgba(0, 0, 0, 0.8)"
+  );
+};
+
+// 화면 클릭시 채팅창 내부/외부에 따라 채팅창 색 변경
 let changeChatColor = function () {
   $("html").click(function (e) {
     if (
       $(e.target).parents(".right").length < 1 &&
       $(e.target).parents(".div-send").length < 1 &&
-      $(e.target).attr("class") != $(".div-send").attr("class")
+      $(e.target).attr("class") != "div-send" &&
+      $(e.target).attr("class") != "resizer"
     ) {
+      // 채팅창 외부가 클릭되었을 경우
       console.log("팝업 외 부분");
-      //실행 이벤트 부분
-      document.documentElement.style.setProperty(
-        "--chat-background",
-        "rgba(255, 255, 255, 0.288)"
-      );
-      document.documentElement.style.setProperty(
-        "--chat-btn-background",
-        " rgb(19, 140, 215, 0.4)"
-      );
-      document.documentElement.style.setProperty(
-        "--chat-btn-border",
-        " rgba(0, 0, 0, 0.35)"
-      );
-      document.documentElement.style.setProperty(
-        "--chat-text-color",
-        " rgba(0, 0, 0, 0.8)"
-      );
+      setColorClickOutsideVer();
     } else {
-      document.documentElement.style.setProperty(
-        "--chat-background",
-        "#fffffff2"
-      );
-      document.documentElement.style.setProperty(
-        "--chat-btn-background",
-        " rgb(19, 140, 215, 0.75)"
-      );
-      document.documentElement.style.setProperty(
-        "--chat-btn-border",
-        "#00000087"
-      );
-      document.documentElement.style.setProperty("--chat-text-color", " black");
+      // 채팅창 내부 클릭되었을 경우
+      setColorClickInsideVer();
     }
   });
 };
@@ -239,18 +242,22 @@ let textareaEnterKey = function () {
     .getElementById("text-send")
     .addEventListener("keydown", function (e) {
       // 엔터키면 보내기 후 내용 없애기, shift+enter 면 줄바꿈 처리
-
       if (e.key == "Enter") {
         console.log(
-          "현재 입력창 글자수 : ",
-          document.querySelector("#text-send").value,
-          document.querySelector("#text-send").value.length
+          "현재 입력창 글자 : ",
+          document.querySelector("#text-send").value.length,
+          document.querySelector("#text-send").value == "\n"
         );
         if (!e.shiftKey) {
-          //todo 중복 엔터 막기
-          e.preventDefault(); // 기본 새로고침 동작 막기
-          sendChat();
-          handleResizeHeight();
+          if (document.querySelector("#text-send").value.length == 0) {
+            e.preventDefault(); // 개행 삽입 막음
+            console.log("연속으로 엔터만 입력할때는 채팅 전송 안되게 막음");
+          } else {
+            //todo 중복 엔터 막기
+            e.preventDefault(); // 개행 삽입 막음
+            sendChat();
+            handleResizeHeight();
+          }
         }
       }
     });
@@ -262,9 +269,28 @@ let eventEnterKey = function () {
   window.addEventListener("keyup", function (e) {
     if (e.key == "Enter") {
       if (document.getElementById("text-send") != document.activeElement) {
-        //todo 색변경 하려고 클릭 보냈는데 나중에 그냥 색변경용 함수 써버리자
-        document.querySelector(".div-send").click();
-        document.getElementById("text-send").focus();
+        //엔터가 눌렸는데 현재 포커스 된 창이 채팅창이 아닐때
+        let myroom1 = this.document.querySelector(".board-send-detail");
+        console.log(myroom1);
+        if (
+          !Common.isEmpty(myroom1) &&
+          (myroom1.style.display != "none" ||
+            this.document.querySelector(".board-write").style.display != "none")
+        ) {
+          console.log("마이룸에 들어왔는데 모달창은 안떠있음");
+          // 마이룸 요소가 존재할 때 == 마이룸에 들어와있을 때
+          // 마이룸에 들어와있으면서 작성용 모달창이 떠있을 때 == display 값이 none이 아닐때
+          // 마이룸 요소가 없을 때 == 마이룸에 들어와있지 않을 때
+          // 채팅창 선택된 것으로 처리
+          setColorClickInsideVer();
+          document.getElementById("text-send").focus();
+        } else {
+          console.log("마이룸에 들어와있지 않음");
+          // 마이룸 요소가 없을 때 == 마이룸에 들어와있지 않을 때
+          // 채팅창 선택된 것으로 처리
+          setColorClickInsideVer();
+          document.getElementById("text-send").focus();
+        }
       }
     }
   });

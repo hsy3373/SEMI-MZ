@@ -1,20 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-pageEncoding="UTF-8" import="mz.member.model.vo.Member"%> <%@ taglib prefix="c"
-uri="http://java.sun.com/jsp/jstl/core"%>
-<% 
-  /* 테스트용 유저 객체 */ 
-  Member m = new Member("test", "test", "NIC_test", "Y", 0, 500, "", "N",
-                          java.sql.Date.valueOf("2023-03-20")); 
-  // session.setAttribute("loginUser", m);
-  // session.setAttribute("testing", "testingtesting");
-  Member test = (Member)session.getAttribute("loginUser");
-  
-  if(test == null || test.getUserId().equals("friend")){
-	  session.setAttribute("loginUser", m);
-	  test = m;
-  }
-  
-  String path = request.getContextPath(); 
+	pageEncoding="UTF-8" import="mz.member.model.vo.Member"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%
+	/* 테스트용 유저 객체 */ 
+	Member m = new Member("test", "test", "NIC_test", "Y", 0, 500, "", "N",
+java.sql.Date.valueOf("2023-03-20")); 
+	// session.setAttribute("loginUser", m);
+	// session.setAttribute("testing", "testingtesting"); 
+	Member test = (Member) session.getAttribute("loginUser");
+	if (test == null || test.getUserId().equals("friend")) {
+		session.setAttribute("loginUser", m);
+		test = m;
+	}
+	String path = request.getContextPath();
 %>
 <!DOCTYPE html>
 <html>
@@ -67,7 +65,10 @@ uri="http://java.sun.com/jsp/jstl/core"%>
   </body>
 
   <script type="text/javascript">
-    sessionStorage.setItem("loginUser", JSON.stringify("test"));
+    sessionStorage.setItem(
+      "loginUser",
+      JSON.stringify("<%= test.getUserId() %>")
+    );
     document.cookie =
       "loginUser=" + encodeURIComponent("test") + "; path=/mzone";
   </script>
