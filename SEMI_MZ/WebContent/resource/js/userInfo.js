@@ -61,12 +61,17 @@ function report(){
 	console.log(nickName);
 	$.ajax({
 		url: getContextPath()+"/report",
-		data: {receiveId : getContextPath().userId,
+		data: {receiveId : sessionStorage.clickedUserId,
 		       reportTitle: $(".title-box").val(),
-		       reportContent: $("#report-content-text").val()},
+		       reportContent: $("#content-text").val()},
 		method: 'post',
 		success : function(data) {
 			console.log(data);
+			if(result > 0){
+				close2();
+			}else{
+				alert("에러가 발생했습니다.");
+			}			
 		}
 	});
 };

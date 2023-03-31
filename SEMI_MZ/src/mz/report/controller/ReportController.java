@@ -49,13 +49,15 @@ public class ReportController extends HttpServlet {
 		int result = new ReportService().insertReport(userId, receiveId, reportTitle, reportContent);
 		
 		if (result > 0) {
-			response.sendRedirect(request.getContextPath()+"/userInfo.me");
 			
 			response.setContentType("application/json; charset=UTF-8");
 			
 			new Gson().toJson(result, response.getWriter());
 		} else {
 			System.out.println("글러먹었어...");
+			response.setContentType("application/json; charset=UTF-8");
+			
+			new Gson().toJson(result, response.getWriter());
 		}
 		 
 	}

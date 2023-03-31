@@ -61,7 +61,6 @@
 			<img id="report-view" src="../resource/img/icon/신고하기창.png" alt="">
 			<img id="report-bgview" src="../resource/img/icon/기본버튼2.png" alt="">
 		</div>
-		<form action="${contextPath}/report" id="report-form" method="post">
 			<input type="hidden" name="userId" value="${loginUser.userId}">
 			<div class="report-nickname">신고 대상 닉네임</div>
 			<div class="user-nickname"></div>
@@ -72,9 +71,8 @@
 			<div class="text-total">/ 300</div>
 			<textarea name="content-text" id="content-text"
 				maxlength='300' required></textarea>
-			<button type="submit" class="report-btn">신고하기</button>
+			<button type="button" class="report-btn">신고하기</button>
 			<button type="reset" class="reset-btn">취소</button>
-		</form>
 	</div>
 	<div class="alert">
 		<h3 id="alert-text"></h3>
