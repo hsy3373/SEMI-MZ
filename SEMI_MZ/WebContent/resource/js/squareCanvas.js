@@ -494,7 +494,7 @@ socket.onmessage = function (e) {
 
 
     UsersData = FilterUsers; // Userdate 정보를 Fileter 정보로 바꿔주기 
-    console.log(FilterUsers);
+    //console.log(FilterUsers);
 
     //userrender 함수 호출 
     usersreder();

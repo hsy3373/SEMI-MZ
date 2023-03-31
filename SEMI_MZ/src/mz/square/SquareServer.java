@@ -78,7 +78,7 @@ public class SquareServer {
 			if(User.getConnecting().equals("N")) {
 				loginUsers.remove(session.getId());
 			};
-			System.out.println(loginUsers);
+			//System.out.println(loginUsers);
 
 		}
 		
