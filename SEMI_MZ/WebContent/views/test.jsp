@@ -32,8 +32,11 @@ uri="http://java.sun.com/jsp/jstl/core"%>
 
     <a href="./changeUser.jsp">유저 체인지 -> friend</a> <br />
 
-    <a href="./myroom.jsp">마이룸</a> 
-    <%-- <a href="<%= request.getContextPath() %>/Myroom.me?roomMaster="+<%=test.getUserId()%>>마이룸</a>  --%>
+	
+    <!-- <a href="./myroom.jsp">마이룸</a> --> 
+    <!-- 친구네방문하는 링크 유저의 키, 벨류 -->
+    <a href="<%= request.getContextPath() %>/home?roomMaster=friend">friend룸</a>
+
     <br />
     <br />
     <a href="./chatting.jsp">채팅</a>

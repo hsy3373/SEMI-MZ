@@ -6,18 +6,19 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * Servlet implementation class Myroom
  */
-@WebServlet("/Myroom.me")
-public class Myroom extends HttpServlet {
+@WebServlet("/home")
+public class home extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Myroom() {
+    public home() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -27,18 +28,18 @@ public class Myroom extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		/*
-		 * 
-		 * 
-		 * 
-		 * */
+		String roomMaster = request.getParameter("roomMaster");
+		System.out.println("roomMaster : "+roomMaster);
 		
-		String roomMaster = (String)request.getAttribute("roomMaster");
-		System.out.println(roomMaster);
-
 		
 		request.getRequestDispatcher("views/myroom.jsp").forward(request, response);
-		
+		  //if(roomMaster != null) { 
+			  // 가영님이 상대 유저 ID값 넣어서 집 입장시킨거
+		  //}
+		  //else { 
+			  //지영님이 값 없이 집 입장시킨거 //로그인 값 있음 
+		  //}
+
 	}
 
 	/**

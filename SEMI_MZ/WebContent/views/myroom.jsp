@@ -4,8 +4,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
 	String contextPath = request.getContextPath();
-	// test.jsp -> 값 가져옴
-	// String roomMaster = (String)request.getAttribute("roomMaster");
+	// roomMaster == 친구아이디
+	String roomMaster = (String)request.getAttribute("roomMaster");
+	System.out.println(roomMaster);
+	// squareGoHome.java에서 넘겨받은 로그인 유저값
+	//String loginUser = (String)session.getAttribute("loginUser");
 /* 	if(roomMaster == null) {
 		//~~~
 	} */
@@ -16,12 +19,12 @@
 <meta charset="UTF-8">
 <c:set var="contextPath" value="<%= request.getContextPath() %>" />
 <!-- css link -->
-<link href="../resource/css/common.css" rel="stylesheet" type="text/css">
-<link href="../resource/css/myroom.css" rel="stylesheet" type="text/css">
-<link href="../resource/css/board.css" rel="stylesheet" type="text/css">
-<link href="../resource/css/closet.css" rel="stylesheet" type="text/css">
-<link href="../resource/css/buttonListMyroom.css" rel="stylesheet" type="text/css">
-<link href="../resource/css/alert.css" rel="stylesheet">
+<link href="${contextPath}/resource/css/common.css" rel="stylesheet" type="text/css">
+<link href="${contextPath}/resource/css/myroom.css" rel="stylesheet" type="text/css">
+<link href="${contextPath}/resource/css/board.css" rel="stylesheet" type="text/css">
+<link href="${contextPath}/resource/css/closet.css" rel="stylesheet" type="text/css">
+<link href="${contextPath}/resource/css/buttonListMyroom.css" rel="stylesheet" type="text/css">
+<link href="${contextPath}/resource/css/alert.css" rel="stylesheet">
 
 <!-- jQuery library -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
@@ -40,9 +43,7 @@ ul li {
     text-align: center;
     float: left;
 	list-style:none;
-
 }
-
 ul li a {
     display: block;
     font-size: 14px;
@@ -54,48 +55,45 @@ ul li a {
     line-height: 30px;
     font-weight: 300;
 }
-
 ul li.on {background: #eda712;}
-
 ul li.on a {color: #fff;}
 </style>
-
-
 <title>My Room</title>
 </head>
 </head>
 <body>
 	<!-- ============================= 마이룸 ============================= -->
 	<div class="myroom">
+	<%-- <%@ include file="chatting.jsp" %> --%>
 		<!-- 옷장 클릭시 모달창 -->
 		<div class="icon-closet">
-			<img id="closet" src="../resource/img/icon/옷장.png">
+			<img id="closet" src="${contextPath}/resource/img/icon/옷장.png">
 		</div>
 		<!-- 나무 클릭시 모달창 -->
 		<div class="icon-tree">
-			<img id="tree" src="../resource/img/icon/tree.png">
+			<img id="tree" src="${contextPath}/resource/img/icon/tree.png">
 
 			<!-- 방명록 내용 나무에 표시 -->
 			<div class="myroom-board">
 				<table class="myroom-board-list">
 					<tr>
 						<td class="myroom-board-title"><img class="apple"
-							src="../resource/img/icon/사과.png"> 안녕하세요안녕하세요안녕하세요안녕하세요</td>
+							src="${contextPath}/resource/img/icon/사과.png"> 안녕하세요안녕하세요안녕하세요안녕하세요</td>
 						<td class="myroom-board-user">노지의</td>
 					</tr>
 					<tr>
 						<td class="myroom-board-title"><img class="apple"
-							src="../resource/img/icon/사과.png"> 안녕하세요안녕하세요안녕하세요안녕하세요</td>
+							src="${contextPath}/resource/img/icon/사과.png"> 안녕하세요안녕하세요안녕하세요안녕하세요</td>
 						<td class="myroom-board-user">노지의노지의노</td>
 					</tr>
 					<tr>
 						<td class="myroom-board-title"><img class="apple"
-							src="../resource/img/icon/사과.png"> 안녕하세요안녕하세요안녕하세요안녕하세요</td>
+							src="${contextPath}/resource/img/icon/사과.png"> 안녕하세요안녕하세요안녕하세요안녕하세요</td>
 						<td class="myroom-board-user">노지의노지의노</td>
 					</tr>
 					<tr>
 						<td class="myroom-board-title"><img class="apple"
-							src="../resource/img/icon/사과.png"> 안녕하세요안녕하세요안녕하세요안녕하세요</td>
+							src="${contextPath}/resource/img/icon/사과.png"> 안녕하세요안녕하세요안녕하세요안녕하세요</td>
 						<td class="myroom-board-user">노지의노지의노</td>
 					</tr>
 				</table>
@@ -106,7 +104,7 @@ ul li.on a {color: #fff;}
 			<!-- 호감도 -->
 			<input type="checkbox" name="heart-ck" id="heart"> <label
 				class="font" for="heart">12</label> <img class="user-skin"
-				src="../resource/img/user/skin1/fs.png">
+				src="${contextPath}/resource/img/user/skin1/fs.png">
 		</div>
 
 		<!--버튼 모달 jps 가져옴 : 노지의-->
@@ -127,12 +125,12 @@ ul li.on a {color: #fff;}
 		<div class="board-modal">
 			<!-- ============================= 방명록 리스트 ============================= -->
 			<div class="board-list">
-				<img class="x-btn" src="../resource/img/icon/엑스 버튼.png">
+				<img class="x-btn" src="${contextPath}/resource/img/icon/엑스 버튼.png">
 				<div class="board-content">
 					<table class="board-list-area">
 						<!-- boardList 로 조회해옴 -->
 <!-- 	                <tr>
-	                        <td id="board-title"><img class="apple" src="../resource/img/icon/사과.png">제목</td>
+	                        <td id="board-title"><img class="apple" src="${contextPath}/resource/img/icon/사과.png">제목</td>
 	                        <td class="board-userid">유저2</td>
 	                        <td class="board-date">2023-03-25</td>
 	                    </tr> -->
@@ -161,13 +159,13 @@ ul li.on a {color: #fff;}
  			</c:choose> --%>
 				<div class="board-detail">
 					<!-- back 버튼 -->
-					<img class="back-btn" src="../resource/img/icon/back2_btn.png">
+					<img class="back-btn" src="${contextPath}/resource/img/icon/back2_btn.png">
 					<div class="board-no" style="display: none;"></div>
 					<div class="board-detail-title"></div>
 					<div class="board-detail-area">
 						<div class="board-detail-content">
 	 					<div class="board-detail-friend">
-								<!-- <img class="friend-skin" src="../resource/img/user/skin2/fs.png">
+								<!-- <img class="friend-skin" src="${contextPath}/resource/img/user/skin2/fs.png">
 								<div class="friend-id">swldml 노</div> -->
 							</div>
 							<div class="board-detail-table">
@@ -185,7 +183,7 @@ ul li.on a {color: #fff;}
 			
 			<div class="board-send-detail">
 				<!-- back 버튼 -->
-				<img class="back-btn" src="../resource/img/icon/back2_btn.png">
+				<img class="back-btn" src="${contextPath}/resource/img/icon/back2_btn.png">
 				<!-- 작성란 전체 감싼 form -->
 				<div class="board-write-area" id="board-update-form">
 					<div class="board-no" style="display: none;"></div>
@@ -218,7 +216,7 @@ ul li.on a {color: #fff;}
 			<!-- ============================= 방명록 작성 ============================= -->
 			<div class="board-write">
 				<!-- back 버튼 -->
-				<img class="back-btn" src="../resource/img/icon/back2_btn.png">
+				<img class="back-btn" src="${contextPath}/resource/img/icon/back2_btn.png">
 				<!-- 작성란 전체 감싼 form -->
 				<div class="board-write-area" id="board-enroll-form">
 
@@ -248,18 +246,18 @@ ul li.on a {color: #fff;}
 	<!-- ============================= 옷장, 상점 모달 ============================= -->
 	<div class="closet-wrap">
 		<!-- 옷장 상점 기본 베이스 배경 -->
-		<img class="fur-img" src="../resource/img/icon/빈옷장.png"> <img
-			class="coin-label-img" src="../resource/img/icon/라벨2.png"> <img
-			class="coin-img" src="../resource/img/icon/coin.png">
+		<img class="fur-img" src="${contextPath}/resource/img/icon/빈옷장.png"> <img
+			class="coin-label-img" src="${contextPath}/resource/img/icon/라벨2.png"> <img
+			class="coin-img" src="${contextPath}/resource/img/icon/coin.png">
 		<!-- back 버튼 -->
-		<img class="x-btn" src="../resource/img/icon/엑스 버튼.png">
-
+		<img class="x-btn" src="${contextPath}/resource/img/icon/엑스 버튼.png">
+		
 		<div class="closet-modal">
 
 			<!-- =============== 왼쪽 =============== -->
 			<!-- 현재 스킨 -->
 			<div class="view-skin">
-				<img class="user-skin" src="../resource/img/user/skin1/fs.png">
+				<img class="user-skin" src="${contextPath}/resource/img/user/skin1/fs.png">
 			</div>
 
 			<!-- 구입 버튼 -->
@@ -288,74 +286,74 @@ ul li.on a {color: #fff;}
 
 					<!-- 스킨목록들 -->
 					<div class="closet-skin">
-						<img src="../resource/img/user/skin2/fs.png">
+						<img src="${contextPath}/resource/img/user/skin2/fs.png">
 					</div>
 				</div>
 
 				<div class="closet-item">
 					<div class="closet-price">300</div>
 					<div class="closet-skin">
-						<img src="../resource/img/user/skin3/fs.png">
+						<img src="${contextPath}/resource/img/user/skin3/fs.png">
 					</div>
 				</div>
 				<div class="closet-item">
 					<div class="closet-price">보유중</div>
 					<div class="closet-skin">
-						<img src="../resource/img/user/skin4/fs.png">
+						<img src="${contextPath}/resource/img/user/skin4/fs.png">
 					</div>
 				</div>
 				<div class="closet-item">
 					<div class="closet-price">300</div>
 					<div class="closet-skin">
-						<img src="../resource/img/user/skin5/fs.png">
+						<img src="${contextPath}/resource/img/user/skin5/fs.png">
 					</div>
 				</div>
 				<div class="closet-item">
 					<div class="closet-price">300</div>
 					<div class="closet-skin">
-						<img src="../resource/img/user/skin6/fs.png">
+						<img src="${contextPath}/resource/img/user/skin6/fs.png">
 					</div>
 				</div>
 				<div class="closet-item">
 					<div class="closet-price">300</div>
 					<div class="closet-skin">
-						<img src="../resource/img/user/skin7/fs.png">
+						<img src="${contextPath}/resource/img/user/skin7/fs.png">
 					</div>
 				</div>
 				<div class="closet-item">
 					<div class="closet-price">300</div>
 					<div class="closet-skin">
-						<img src="../resource/img/user/skin8/fs.png">
+						<img src="${contextPath}/resource/img/user/skin8/fs.png">
 					</div>
 				</div>
 				<div class="closet-item">
 					<div class="closet-price">300</div>
 					<div class="closet-skin">
-						<img src="../resource/img/user/skin9/fs.png">
+						<img src="${contextPath}/resource/img/user/skin9/fs.png">
 					</div>
 				</div>
 				<div class="closet-item">
 					<div class="closet-price">300</div>
 					<div class="closet-skin">
-						<img src="../resource/img/user/skin10/fs.png">
+						<img src="${contextPath}/resource/img/user/skin10/fs.png">
 					</div>
 				</div>
 				<div class="closet-item">
 					<div class="closet-price">300</div>
 					<div class="closet-skin">
-						<img src="../resource/img/user/skin11/fs.png">
+						<img src="${contextPath}/resource/img/user/skin11/fs.png">
 					</div>
 				</div>
 				<div class="closet-item">
 					<div class="closet-price">300</div>
 					<div class="closet-skin">
-						<img src="../resource/img/user/skin12/fs.png">
+						<img src="${contextPath}/resource/img/user/skin12/fs.png">
 					</div>
 				</div>
 				<div class="closet-item">
 					<div class="closet-price">300</div>
 					<div class="closet-skin">
-						<img src="../resource/img/user/skin13/fs.png">
+						<img src="${contextPath}/resource/img/user/skin13/fs.png">
 					</div>
 				</div>
 			</div>
@@ -385,23 +383,54 @@ ul li.on a {color: #fff;}
  --%>		
 	</script>
 
-	<!-- <script src="../resource/js/myroom/myroom.js"></script> -->
-	<script type="module" src="../resource/js/alert.js"></script>
-	<script type="module" src="../resource/js/common.js"></script>
-	<script src="../resource/js/myroom/boardMe.js"></script>
-
+	<script src="${contextPath}/resource/js/myroom/myroom.js"></script>
+	<script type="module" src="${contextPath}/resource/js/alert.js"></script>
+	<script type="module" src="${contextPath}/resource/js/common.js"></script>
+	<script src="${contextPath}/resource/js/myroom/boardMe.js"></script>
+	<script>
+	$(function () {
+		
+	    $(".icon-closet").click(function(e){
+	        $(".closet-wrap").show();
+	        $(".closet-modal").show();
+	        $.dressClick();
+	    });
+	    
+	    // 상점 버튼 클릭 함수 생성
+	    $.storeClick = function(){
+	        // 1. 옷장 버튼 투명하게
+	        $(".dress-btn").css("opacity", "0.7");
+	        $(".store-btn").css("opacity", "1");
+	
+	        // 2. 커서 포인터 없애기
+	        $(".store-btn").css("cursor", "default");
+	        $(".dress-btn").css("cursor", "pointer");
+	
+	        // 3. 착용 버튼(class="closet-wear") -> display: "none";
+	        $(".closet-wear").hide();
+	        $(".closet-buy").show();
+	
+	        // 4. 가격, 보유중 라벨(class="closet-price") -> display: "block";
+	        $(".closet-price").show();
+	
+	        // 5. 내가 보유한 스킨이라면 (class="closet-price")
+	
+	
+	    }
+	})
+	</script>
 
 
 
 <!-- ============================= 친구한테 쓴 방명록 리스트 ============================= -->
 <!-- 리스트 전체조회 통합으로 일단 안써서 주석 -->
 <!-- 			<div class="board-send-list">
-				<img class="x-btn" src="../resource/img/icon/엑스 버튼.png">
+				<img class="x-btn" src="${contextPath}/resource/img/icon/엑스 버튼.png">
 
 				<div class="board-content">
 					<table class="board-list-area">
 						<tr class="board-send-list-tr">
- 							<td id="board-title"><img class="apple"src="../resource/img/icon/사과.png">제목</td>
+ 							<td id="board-title"><img class="apple"src="${contextPath}/resource/img/icon/사과.png">제목</td>
 							<td class="board-date">2023-03-22</td>
 						</tr>
 					</table>
