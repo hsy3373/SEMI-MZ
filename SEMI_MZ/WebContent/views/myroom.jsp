@@ -1,4 +1,5 @@
 <!-- 지의 마이룸 -->
+<%@ page import="mz.member.model.vo.Member" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -6,15 +7,14 @@
 	String contextPath = request.getContextPath();
 	// roomMaster == 친구아이디
 	String roomMaster = (String)request.getAttribute("roomMaster");
-	System.out.println(roomMaster);
-	// squareGoHome.java에서 넘겨받은 로그인 유저값
-	//String loginUser = (String)session.getAttribute("loginUser");
+	System.out.println("roomMaster : "+roomMaster);
+	// session에 있는 로그인 유저
+	Member loginUser = (Member) session.getAttribute("loginUser");
+	System.out.println("loginUser : "+loginUser);
 /* 	if(roomMaster == null) {
 		//~~~
 	} */
 %>
-
-
 
 <!DOCTYPE html>
 <html>
@@ -26,14 +26,13 @@
 <link href="${contextPath}/resource/css/myroom.css" rel="stylesheet" type="text/css">
 <link href="${contextPath}/resource/css/board.css" rel="stylesheet" type="text/css">
 <link href="${contextPath}/resource/css/closet.css" rel="stylesheet" type="text/css">
-<link href="${contextPath}/resource/css/buttonListMyroom.css" rel="stylesheet" type="text/css">
+<%-- <link href="${contextPath}/resource/css/buttonListMyroom.css" rel="stylesheet" type="text/css"> --%>
 <link href="${contextPath}/resource/css/alert.css" rel="stylesheet">
 
 <!-- jQuery library -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 <!-- Popper JS -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-
 <style>
 ul {
     text-align: center;
@@ -111,7 +110,7 @@ ul li.on a {color: #fff;}
 		</div>
 
 		<!--버튼 모달 jps 가져옴 : 노지의-->
-		<%@ include file="./buttonListMyroom.jsp"%>
+		<%-- <%@ include file="./buttonListMyroom.jsp"%> --%>
 	</div>
 	<!-- 내가 유저아이디와 로그인유저아이디 비교 -->
 	<!-- 

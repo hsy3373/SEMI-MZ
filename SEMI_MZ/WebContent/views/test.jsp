@@ -35,7 +35,7 @@ uri="http://java.sun.com/jsp/jstl/core"%>
 	
     <!-- <a href="./myroom.jsp">마이룸</a> --> 
     <!-- 친구네방문하는 링크 유저의 키, 벨류 -->
-    <a href="<%= request.getContextPath() %>/home?roomMaster=friend">friend룸</a>
+    <%-- <a href="<%= request.getContextPath() %>/home?roomMaster=friend">friend룸</a> --%>
 
     <br />
     <br />

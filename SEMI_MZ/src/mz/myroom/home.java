@@ -31,6 +31,8 @@ public class home extends HttpServlet {
 		String roomMaster = request.getParameter("roomMaster");
 		System.out.println("roomMaster : "+roomMaster);
 		
+		request.setAttribute("roomMaster", roomMaster);
+
 		
 		request.getRequestDispatcher("views/myroom.jsp").forward(request, response);
 		  //if(roomMaster != null) { 

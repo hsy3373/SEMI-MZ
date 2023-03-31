@@ -36,7 +36,7 @@ public class SquareServer {
 	@OnMessage
 	public void message(Session session, UserData User) {
 		
-		System.out.println(User);
+		//System.out.println(User);
 		
 		session.getUserProperties().put("User",  User);
 		
@@ -44,7 +44,7 @@ public class SquareServer {
 		// -> 현재 웹소켓에서 접속해서 유지되고 있는(open)모든 session 값을 반환해줌
 		Set<Session> clients = session.getOpenSessions();
 		
-		System.out.print(clients);
+		//System.out.print(clients);
 		
 		for(Session s : clients) {
 			
