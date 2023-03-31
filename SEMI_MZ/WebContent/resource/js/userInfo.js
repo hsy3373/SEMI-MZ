@@ -9,11 +9,11 @@ import { getContextPath } from './common.js';
 
 /*유저 정보 모달창 띄우기*/
 /*let open = () => {
-	document.querySelector(".modal").classList.remove("hidden");
+	document.querySelector(".info-modal").classList.remove("hidden");
 }*/
 
 let close = () => {
-	document.querySelector(".modal").classList.add("hidden");
+	document.querySelector(".info-modal").classList.add("hidden");
 }
 
 
@@ -84,6 +84,9 @@ let close2 = () => {
 document.querySelector(".info-report-btn").addEventListener("click", open2);
 document.querySelector(".reset-btn").addEventListener("click", close2);
 
+/* 신고 후 신고창 숨기기 */
+document.querySelector(".report-btn").addEventListener("click", close2);
+
 /*window.onload = function(){
 	let reset = document.querySelector(".reset-btn");
 	reset.addEventListener("click", function(){
@@ -103,9 +106,3 @@ $('#report-content-text').keyup(function (e) {
     	$('.text-count').text(content.length);
     }
 })
-
-/* 신고 후 신고창 숨기기 */
-let close3 = () => {
-	document.querySelector(".report-modal").classList.add("hidden");
-}
-document.querySelector(".report-btn").addEventListener("click", close3);

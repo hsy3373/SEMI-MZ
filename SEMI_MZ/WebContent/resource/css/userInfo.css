@@ -9,53 +9,55 @@
 ::-webkit-scrollbar{display: none;}
 
 /*---------------------------------- 정보창 ----------------------------------*/
-.info-wrap{
-	magin: auto;
-	width: 1300px;
-	heigth: 800px;
-    position: relative;
+.info-modal{
+	position: absolute;
+	width: 53%;
+    top: 37%;
+    left: 50%;
+    height: 62%;
+    transform: translate(-50%, -50%);
 }
-.user-info{
-	z-index: 1;
-	width: 57.5%;
-	height: 62%;
-	top: -85%;
-	left: 37%;
+.user-info, #info-view{
+	width: 100%;
+	height: 100%;
 	position: absolute;
 }
-#info-view{width:100%;}
 
 /*닉네임*/
 .nickname{
-	z-index: 2;
-	top: 17.7%;
-    left: 41.6%;
-    width: 19.3%;
-    height: 6.3%;
+	z-index: 1;
+	position: absolute;
+	top: 45px;
+    left: 33.9%;
+    width: 33.5%;
+    height: 9.6%;
 	font-weight: bold;
     font-size: 28px;
     text-align: center;
-    line-height: 197%;
-    position: absolute;
+    line-height: 50px;
 }
 
 /*호감도*/
 .heart{
-    z-index: 2;
-    position: absolute;
-    top: -62.5%;
-    left: 48%;
-    width: 2.5%;
+	z-index: 1;
+	position: absolute;
+    top: 32.5%;
+    left: 17%;
+    width: 33px;
+    height: 29px;
     cursor: pointer;
 }
-#heart-off{width: 100%;}
+#heart-off{
+	width: 100%;
+	height: 100%;
+}
 
 /*호감도 갯수*/
 .heart-int{
-	z-index: 2;
+	z-index: 1;
     position: absolute;
     top: 32.1%;
-    left: 36.2%;
+    left: 23.2%;
     color: white;
     font-size: 33px;
     cursor: pointer;
@@ -63,42 +65,46 @@
 
 /*유저 캐릭터*/
 .user-skin{
-	z-index: 2;
+	z-index: 1;
     position: absolute;
-    top: 39.5%;
-    left: 31.5%;
-    width: 10%;
+    top: 43.5%;
+    left: 17.5%;
+    width: 13%;
+    height: 22%;
 }
-#skin{width: 100%;}
+#skin{
+	width: 100%;
+	height: 100%;
+}
 
 /*성별*/
 .user-gender{
-    z-index: 2;
+    z-index: 1;
     position: absolute;
-    left: 33%;
-    top: 53.8%;
+    left: 10%;
+    top: 65.2%;
 }
 #gender-w{
 	width: 18px;
-    translate: translate(-1px, 34px);
+    transform: translate(50%, 50%);
 }
 #gender-m{
 	width: 22px;
-    transform: translate(27px, 39px);
+    transform: translate(50%, 50%);
 }
 #gender-n{
 	width: 51px;
-    transform: translate(-47px, 20px);
+    transform: translate(50%, 50%);
 }
 
 /*자기소개*/
 .introduce{
 	position: absolute;
-	z-index: 2;
-	width: 24.5%;
-    height: 22.5%;
-    top: 27.7%;
-    left: 45.9%;
+	z-index: 1;
+    width: 46.8%;
+    height: 42%;
+    top: 24.5%;
+    left: 41.5%;
 	overflow-y: scroll;
 	padding: 0.8rem 1rem;
 	line-height: 22px;
@@ -118,25 +124,25 @@
 
 /*친구추가&친구삭제, 놀러가기 버튼*/
 .btns1{
-	z-index: 2;
+	z-index: 1;
     position: absolute;
     border: 0;
-    top: 56.6%;
-    left: 49%;
+    top: 72.1%;
+    left: 46.5%;
     display: inline-block;
-    width: 20.6%;
+    width: 36.3%;
     height: 4%;
 }
 
 /*1:1채팅, 신고하기 버튼*/
 .btns2{
-	z-index: 2;
+	z-index: 1;
     position: absolute;
     border: 0;
-    top: 63%;
-    left: 49%;
+    top: 82.5%;
+    left: 47%;
     display: inline-block;
-    width: 20.4%;
+    width: 35.7%;
     height: 4%;
 }
 .plus, .delete, .chatting{float: left;}
@@ -146,42 +152,38 @@
 .x-btn{
 	z-index: 2;
     position: absolute;
-    top: 19.7%;
-    left: 75.4%;
-    width: 3%;
-    height: 4.9%;
+    top: 11.5%;
+    left: 92.2%;
+    width: 6%;
+    height: 8.2%;
     cursor: pointer;
 }
-#x-btn{width:100%;}
-
-.user1{
-	z-index: 2;
-    position: absolute;
-    top: 8%;
-    left: 82%;
-    font-size: x-large;
-    height: 20%;
+#x-btn{
+	width: 100%;
+	height: 100%;
 }
 
 /*---------------------------------- 신고하기창 ----------------------------------*/
-.report-wrap{
-	width: 1300px;
-	height: 800px;
-}
 .report-modal{
-    position: relative;
-    z-index: 5;
-    transform: translate(72%, 13%);
-    width: 42%;
+	position: absolute;
+    width: 35%;
+    top: 37%;
+    left: 50%;
+    height: 60%;
+    transform: translate(-50%, -50%);
 }
-#report-view{width: 100%;}
+.user-report, #report-view{
+    width: 100%;
+	height: 100%;
+	position: absolute;
+}
 #report-bgview{
     position: absolute;
-    z-index: 6;
+    z-index: 1;
     left: 13%;
-    top: 17.5%;
-    width: 71.7%;
-    height: 67%;
+    top: 17%;
+    width: 71.9%;
+    height: 68%;
     opacity: 0.5;
     border: solid 2px wheat;
     border-radius: 7px;
@@ -189,8 +191,8 @@
 /*신고 대상 닉네임*/
 .report-nickname{
     position: absolute;
-    z-index: 6;
-    top: 20.5%;
+    z-index: 1;
+    top: 19.5%;
     left: 14.5%;
     width: 28.6%;
     height: 4.5%;
@@ -199,32 +201,32 @@
     opacity: 0.7;
     border: none;
     border-radius: 5px;
-    z-index: 6;
+    z-index: 1;
     position: absolute;
-    top: 19.5%;
-    left: 39.5%;
+    top: 18.5%;
+    left: 43.5%;
     background-color: tan;
     width: 31%;
     height: 6%;
     text-align: center;
-    line-height: 34px;
+    line-height: 27px;
     font-size: 16px;
 }
 /*신고 제목*/
 .report-title{
 	position: absolute;
-    z-index: 6;
-    top: 28%;
+    z-index: 1;
+    top: 27%;
     left: 14.5%;
 }
 .title-box{
 	opacity: 0.7;
     border: none;
     border-radius: 5px;
-    z-index: 6;
+    z-index: 1;
     position: absolute;
-    top: 26.5%;
-    left: 21.5%;
+    top: 26%;
+    left: 22%;
     background-color: tan;
     width: 59.7%;
     height: 6%;
@@ -232,38 +234,38 @@
     padding-left: 10px;
     font-size: 16px;
 }
+/*신고 내용*/
+.report-content{
+    position: absolute;
+    z-index: 1;
+    top: 34%;
+    left: 14.5%;
+}
 /*글자수 세기*/
 .text-count{
 	position: absolute;
-    z-index: 6;
-    top: 37%;
+    z-index: 1;
+    top: 35%;
     left: 73%;
     font-size: 13px;
 }
 .text-total{
 	position: absolute;
-    z-index: 6;
-    top: 37%;
+    z-index: 1;
+    top: 35%;
     left: 76.5%;
     font-size: 13px;
 }
-/*신고 내용*/
-.report-content{
+#content-text{
     position: absolute;
-    z-index: 6;
-    top: 34.5%;
-    left: 14.5%;
-}
-#report-content-text{
-    position: absolute;
-    z-index: 6;
+    z-index: 1;
     top: 39%;
     left: 14.5%;
     background-color: tan;
     opacity: 0.7;
     resize: none;
-    width: 66.5%;
-    height: 41.8%;
+    width: 66.2%;
+    height: 41.9%;
     border: none;
     outline: none;
     border-radius: 5px;
@@ -277,7 +279,7 @@
 	position: absolute;
     z-index: 5;
     top: 86.8%;
-    left: 30.6%;
+    left: 30.4%;
     width: 19%;
     height: 7%;
     border-radius: 5px;
@@ -295,8 +297,8 @@
 	position: absolute;
     z-index: 5;
     top: 86.8%;
-    left: 55.7%;
-    width: 11.8%;
+    left: 55.4%;
+    width: 12.5%;
     height: 7%;
     border-radius: 5px;
     border: solid 1px rgb(92, 60, 19);

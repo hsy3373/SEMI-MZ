@@ -17,7 +17,7 @@
 </head>
 <body>
 	<!-- 광장 메인 jsp 작성 : 윤지영 -->
-	<div id="main-square" style="display: flex; justify-content : center;">
+	<div id="main-square" style="display: flex; justify-content : center; position: relative;">
 	</div>
         
 
@@ -26,6 +26,8 @@
 
    <%@ include file="./userInfo.jsp" %>
    	<!--${loginUser.nicName}  -->
+   	
+   	<%@ include file="./chatting.jsp" %>
    		
     
     <!-- 확인용 ^^ --> 
