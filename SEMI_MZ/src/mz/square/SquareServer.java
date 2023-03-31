@@ -8,6 +8,7 @@ import java.util.Set;
 
 import javax.websocket.EncodeException;
 import javax.websocket.EndpointConfig;
+import javax.websocket.OnClose;
 import javax.websocket.OnMessage;
 import javax.websocket.OnOpen;
 import javax.websocket.Session;
@@ -81,6 +82,14 @@ public class SquareServer {
 			//System.out.println(loginUsers);
 
 		}
+	
+	
+	//웹소켓이 종료되어었을때 유저관리정보 삭제
+	@OnClose
+	public void onClose(Session session) throws IOException {
+		loginUsers.remove(session.getId());
+    }
+	
 		
 		
 }

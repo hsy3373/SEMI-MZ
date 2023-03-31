@@ -452,11 +452,11 @@ const socket = new WebSocket("ws://192.168.30.171:8083" + path + "/multiAccess")
 
 
 //소켓 설정
+
 socket.onopen = function (e) {
     console.log("접속성공");
     console.log(e);
     sendMsg("ArrowRight")
-
 
 }
 
@@ -473,7 +473,7 @@ socket.onmessage = function (e) {
 
     if (receivedUser.userId !== userId) {
 
-        console.log(receivedUserId)
+        //console.log(receivedUserId)
         UsersData.push(receivedUser);
         //userData에 담겨있는 userId 값 기준으로 필터링 : 마지막 값만 남김 
         FilterUsers = UsersData.filter(
@@ -517,6 +517,23 @@ const sendMsg = (keyboardCode) => {
     //문자열 객체 데이터로 바꿔줌 
 
 }
+
+
+socket.addEventListener("error", (event) => {
+    console.log("WebSocket error: ", event);
+});
+
+socket.onclose = function(e){
+    console.log(e);
+    console.log("재연결....")
+
+    setTimeout(function () {
+       //재연결하기...
+    }, 1000)
+
+}
+
+
 
 //넘겨줄 데이터 유저 좌표, 유저스킨, 유저아이디 : 유저 정보 컨트롤 
 function UserData(uesrX, uesrY, userSkin, userId, userName, keyboardCode, connecting) {
