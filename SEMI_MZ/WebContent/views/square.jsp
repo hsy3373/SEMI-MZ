@@ -59,8 +59,7 @@
 
 	import {uesrX , uesrY} from '<%=contextPath%>/resource/js/squareCanvas.js';
     
-	var clickedUserId = sessionStorage.clickedUserId;
-	
+
 
 	</script>
 

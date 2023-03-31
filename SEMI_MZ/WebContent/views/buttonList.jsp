@@ -27,7 +27,7 @@
     <!--모달창 : 친구목록 -->
     <div class="modal modal1">
         <div class="modal_body">
-            <div class="modal-out-btn"><img src="<%=contextPath%>/resource/img/icon/엑스 버튼.png" class="x-btn x-btn1"></div>
+            <div class="modal-out-btn"><img src="<%=contextPath%>/resource/img/icon/엑스 버튼.png" class="x-btn1" style=" width: 55px; height: 55px;" ></div>
             <div class="modal-background">
                 <div class="modal-textarea">
                     <table class="display-center"> 
@@ -45,13 +45,13 @@
                     </table> 
                 </div> 
             </div>
-        </div>
+        </div> 
       </div>
 
     <!--모달창 : 환경설정 -->
     <div class="modal modal2" >
         <div class="modal_body" id="Preferences">
-            <div class="modal-out-btn2"><img src="<%=contextPath%>/resource/img/icon/엑스 버튼.png" class="x-btn x-btn2"></div>
+            <div class="modal-out-btn2"><img src="<%=contextPath%>/resource/img/icon/엑스 버튼.png" class="x-btn2" style=" width: 55px; height: 55px;"></div>
             <div class="modal-button1">
             <a>내 정보 변경</a>
             </div>
