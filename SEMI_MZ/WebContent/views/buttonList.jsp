@@ -62,7 +62,7 @@
       </div>
 
 
-      <script type="text/javascript" src="<%=contextPath%>/resource/js/buttonList.js"></script>
+      <script type="module" src="<%=contextPath%>/resource/js/buttonList.js"></script>
 
 </body>
 </html>
