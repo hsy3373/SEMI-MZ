@@ -40,11 +40,8 @@ public class AjaxChat extends HttpServlet {
 		String recevier = request.getParameter("recevier");
 		String userId = ((Member)request.getSession().getAttribute("loginUser")).getUserId();
 		int minNo = Integer.parseInt(request.getParameter("minNo"));
-		
 		System.out.println(minNo + recevier + userId);
-		
 		ArrayList<Chat> list = new ChatService().getChattings(userId, recevier, minNo);
-		
 		System.out.println(list.size());
 		
 		response.setContentType("application/json; charset=UTF-8");

@@ -38,18 +38,17 @@
 
 
 /* ============================= 방명록 리스트 ============================= */
-.board-list{
-    display: none;
-     padding-top: 96px;
-}
+.board-list{display: none;}
 .apple{
     width: 18px;
     margin-right: 10px;
 }
 .board-content{
-    margin: auto;
+    position: absolute;
     width: 600px;
-    line-height: 20px;
+    top: 53%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 .board-list-area {
     border-collapse: separate;
@@ -91,10 +90,6 @@
 .pageing-area{
     text-align: center;
     line-height: 40px;
-    position: fixed;
-    left: 50%;
-    bottom: 50px;
-    transform: translate(-50%, 10px);
 }
 /* 글쓰기 버튼 */
 #writing-btn{text-align: right; border: none;}
@@ -131,7 +126,7 @@
 }
 
 /* ============================= 방명록 상세 ============================= */
-.board-detail{display: block;}
+.board-detail{display: none;}
 /* 친구 캐릭터 스킨 */
 .board-detail-friend{
     width: 30%;
@@ -190,7 +185,7 @@
 /* ======================= 친구한테 쓴 방명록 상세 ======================= */
 /* ============================= 방명록 작성 ============================= */
 .board-send-detail{display: none;}
-.board-write{display: none;}
+.board-write{display: block;}
 .board-write-area{
     width: 600px;
     height: 340px;
@@ -232,24 +227,22 @@
 }
 
 /* back 버튼 */
-/* 방명록 상세          / 친구한테 쓴 방명록 상세        / 방명록 작성  */
-.board-detail .back-btn, .board-send-detail .back-btn, .board-write .back-btn{
+/* 방명록 상세          / 친구한테 쓴 방명록 상세 */
+.board-detail .back-btn,.board-send-detail .back-btn {
     position: absolute;
     top: 2%;
     right: -0.2%;
     width: 48px;
-    height: 48px;
     cursor: pointer;
 }
 
 /* x 버튼 */
-/* 방명록 리스트    / 친구한테 쓴 방명록 리스트 */
-.board-list .x-btn, .board-send-list .x-btn{
+/* 방명록 리스트    / 방명록 작성         / 친구한테 쓴 방명록 리스트 */
+.board-list .x-btn, .board-write .x-btn, .board-send-list .x-btn{
     position: absolute;
     top: 2%;
     right: -0.2%;
     width: 48px;
-    height: 48px;
     cursor: pointer;  
 }
 

@@ -25,10 +25,10 @@ uri="http://java.sun.com/jsp/jstl/core"%>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   </head>
   <body>
-    test용 페이지 <br />
+    <%-- test용 페이지 <br />
     현재 테스트용 유저아이디 : <%= test.getUserId() %> <br />
     현재 테스트용 유저 정보 : <%= test.toString() %> <br />
-    <br />
+    <br /> --%>
 
     <a href="./changeUser.jsp">유저 체인지 -> friend</a> <br />
 
@@ -42,6 +42,8 @@ uri="http://java.sun.com/jsp/jstl/core"%>
     <a href="./admin/main.jsp">관리자페이지</a>
     <br />
     <a href="./main.jsp">메인/로그인</a>
+    <br />
+    <a href="./userInfo.jsp">유저정보창</a>
 
     <br />
     <button id="btn1">관리자로 바꾸기</button>

@@ -102,3 +102,35 @@ $("#board-send-delete").click(function () {
   $("#alert-text").html("방명록을 삭제하시겠습니까?");
   alertAddClass("board-send-delete");
 });
+
+// -------------------------- 유저 신고하기(가영) --------------------------
+
+// 자기 파일용 함수작성
+function reportAlert() {
+  // id="alert-text"의 class 속성의 값을 가져와 str 변수에 담아둔다.
+  let str = $("#alert-text").attr("class");
+
+  switch (str) {
+    case "update":
+      // 실행시 구현할 코드 작성
+
+      break;
+
+    case "delete":
+      break;
+  }
+  closeAlert();
+}
+
+// 위에서 자기용으로 만든 함수를 이벤트로 넣어주기
+document.querySelector("#report-ok").addEventListener("click", reportAlert);
+
+// 각 본인이 만든 버튼을 누르면 어떤 class명을 줄건지 각각 설정
+$(".report-btn").click(function () {
+  $("#alert-text").html("신고하시겠습니까?");
+  alertAddClass("update");
+});
+$("#report-ok").click(function () {
+  $("#alert-text").html("신고 되었습니다.");
+  alertAddClass("delete");
+});

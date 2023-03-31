@@ -5,6 +5,7 @@
 
 /* js 가져오기  */
 import { getContextPath } from './common.js';
+import { getUserInfo } from './userInfo.js';
 
 
 //캔버스 세팅
@@ -132,7 +133,7 @@ function render() {
             console.log("home 이벤트 부여")
             gohome();
 
-        }
+    }
 
         //img 안을 클릭할 경우 이벤트 : noticeBoard
         if (clickX >= 1030 && clickX <= 1140 && clickY >= 411 && clickY <= 442) {
@@ -322,7 +323,7 @@ function render() {
             console.log('home이벤트')
             gohome();
 
-        }
+    }
 
         if (uesrX <= 1130 && uesrX >= 1000 && uesrY <= 463 && uesrY >= 426) {
             console.log('공지사항 이벤트')
@@ -439,6 +440,7 @@ const gohome = () => {
 
 }
 
+///////////////////////////////////////////////////////////////여기!!! 
 
 let receivedUserId = "";
 let UsersData = []; // 유저들 데이터 담아줄 배열
@@ -446,7 +448,7 @@ let FilterUsers = [];//필터링된 유저 1개 만큼 담아줄 배열
 // 웹소켓으로 연결하기
 // 웹소켓 서버 생성 : 학원 192.168.30.171
 let path = getContextPath()
-const socket = new WebSocket("ws://192.168.30.171:8083" + path + "/multiAccess");
+const socket = new WebSocket("ws://192.168.30.181:8081" + path + "/multiAccess");
 //집 : 192.168.35.13
 
 
@@ -588,6 +590,32 @@ function usersreder() {
 }
 
 
+ //클릭이벤트로 해당 userid 넘겨주기
+ canvas.addEventListener('click', function (e) {
+
+
+    let x = e.clientX; //클릭좌표값
+    let y = e.clientY; //클릭좌표값
+
+    console.log(x,y)
+   
+
+    for (let user of FilterUsers) { //랜더링된 filter user 정보 받아서 좌표값 체크
+        let ux = parseInt(user.uesrX);
+        let uy = parseInt(user.uesrY);
+        let id = user.userId; 
+
+        if (x >= ux && x <= ux + 50 && y >= uy && y <= uy + 50) {
+        	document.querySelector(".info-modal").classList.remove("hidden");
+            window.sessionStorage.setItem('clickedUserId', id);
+            getUserInfo();
+            break; //sesion에 clickUserId로 id 값 넘겨주기
+            
+        }
+    }
+
+    //console.log(sessionStorage.clickedUserId)
+})
 
 
 //만든 유저 img 하나씩 뽑아서 캔버스에 draw  

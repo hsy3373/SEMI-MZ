@@ -30,6 +30,8 @@
     <br />
     <br />
     <a href="./square.jsp">광장</a>
+    <br />
+    <a href="./userInfo.jsp">유저정보창</a>
 
     <script type="module" src="../resource/js/common.js"></script>
   </body>
