@@ -1,27 +1,33 @@
-package mz.square;
+package mz.member.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONObject;
+
+import com.google.gson.Gson;
+
+import mz.chatting.model.service.ChatService;
+import mz.member.model.service.MemberService;
 import mz.member.model.vo.Member;
 
 /**
- * Servlet implementation class tset
+ * Servlet implementation class UserInfoController
  */
-@WebServlet("/friendtest")
-public class tset extends HttpServlet {
+@WebServlet("/userInfo.me")
+public class UserInfoController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public tset() {
+    public UserInfoController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,16 +37,6 @@ public class tset extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		System.out.print("호출됌 ");
-		
-		HttpSession session = request.getSession();
-		
-		Member m = new Member("admin", "admin", "admin", "Y", 32, 5000, "", "N",
-				java.sql.Date.valueOf("2023-03-20"));
-		
-		session.setAttribute("loginUser", m);
-		
-		//request.getRequestDispatcher("view/test.jsp").forward(request, response);
 		
 	}
 
@@ -48,8 +44,21 @@ public class tset extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		
+		String loginUser = ((Member)request.getSession().getAttribute("loginUser")).getUserId();
+		String userId = request.getParameter("userId");
+		System.out.println(userId+loginUser);
+		
+		
+		if(!userId.equals(loginUser)) {
+			Member m = new MemberService().selectMember(userId);
+			
+			response.setContentType("application/json; charset=UTF-8");
+			
+			new Gson().toJson(m, response.getWriter());
+		}			
+		
+		
 	}
 
 }

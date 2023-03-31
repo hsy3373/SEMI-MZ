@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 
-
 <properties>
 	<!-- [han] -->
 	<entry key="userCount">
@@ -39,6 +38,18 @@
 							?,
 							?
 							)
+	</entry>
+	
+	<!-- 가영 -->-
+	<entry key="selectMember">
+		SELECT USER_ID,
+			   NICKNAME,
+			   SKIN_ID,
+			   SELF_INFO,
+			   GENDER
+		FROM MEMBER
+		JOIN CHARACTER_SKIN USING(SKIN_ID)
+		WHERE USER_ID = ?
 	</entry>
 
 

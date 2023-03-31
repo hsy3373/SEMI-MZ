@@ -5,6 +5,7 @@
 
 /* js 가져오기  */
 import { getContextPath } from './common.js';
+import { getUserInfo } from './userInfo.js';
 
 
 //캔버스 세팅
@@ -125,11 +126,11 @@ canvas.addEventListener("click", function (event) {
     const clickY = event.offsetY;
 
     //img 안을 클릭할 경우 이벤트 : my home
-    if (clickX >= 895 && clickX <= 1110 && clickY >= 10 && clickY <= 226) {
+  /*  if (clickX >= 895 && clickX <= 1110 && clickY >= 10 && clickY <= 226) {
         console.log("home 이벤트 부여")
         gohome();
 
-    }
+    }*/
 
     //img 안을 클릭할 경우 이벤트 : noticeBoard
     if (clickX >= 1030 && clickX <= 1140 && clickY >= 411 && clickY <= 442) {
@@ -315,11 +316,11 @@ function update() {
     }
 
     //충돌이벤트 구현
-    if (uesrX <= 1020 && uesrX >= 960 && uesrY <= 200 && uesrY >= 191) {
+/*    if (uesrX <= 1020 && uesrX >= 960 && uesrY <= 200 && uesrY >= 191) {
         console.log('home이벤트')
         gohome();
 
-    }
+    }*/
 
     if (uesrX <= 1130 && uesrX >= 1000 && uesrY <= 463 && uesrY >= 426) {
         console.log('공지사항 이벤트')
@@ -409,6 +410,7 @@ const gohome = () => {
 
 }
 
+///////////////////////////////////////////////////////////////여기!!! 
 
 let receivedUserId = "";
 let UsersData = []; // 유저들 데이터 담아줄 배열
@@ -574,8 +576,11 @@ function usersreder() {
         let id = user.userId; 
 
         if (x >= ux && x <= ux + 50 && y >= uy && y <= uy + 50) {
+        	document.querySelector(".info-modal").classList.remove("hidden");
             window.sessionStorage.setItem('clickedUserId', id);
+            getUserInfo();
             break; //sesion에 clickUserId로 id 값 넘겨주기
+            
         }
     }
 
