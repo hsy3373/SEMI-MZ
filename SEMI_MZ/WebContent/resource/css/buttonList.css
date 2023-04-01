@@ -5,7 +5,7 @@
 /*버튼 css*/
 .button-area{
     width: 1300px;
-    position: relative;
+    position: absolute;
     margin: auto;
 }
 
@@ -40,7 +40,7 @@
 .modal_body {
     width: 1300px;
     height: 800px;
-    position: relative;
+    position: absolute;
     margin: auto;
 
 }
