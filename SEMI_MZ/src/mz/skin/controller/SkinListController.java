@@ -1,29 +1,23 @@
-package mz.admin.controller;
+package mz.skin.controller;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import mz.member.model.service.MemberService;
-import mz.skin.model.service.SkinService;
-
 /**
- * Servlet implementation class MainController
+ * Servlet implementation class SkinListController
  */
-//[han]
-@WebServlet("/main.admin")
-public class MainController extends HttpServlet {
+@WebServlet("/skin.admin")
+public class SkinListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-	
-    public MainController() {
+    public SkinListController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,16 +26,8 @@ public class MainController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		int userCount = new MemberService().userCount();
-//		int noticeCount = new NoticeService().noticeCount();
-		int skinCount = new SkinService().skinCount();
-		
-		request.setAttribute("userCount", userCount);
-//		request.setAttribute("noticeCount", noticeCount);
-		request.setAttribute("skinCount", skinCount);
-//		
-		request.getRequestDispatcher("views/admin/main.jsp").forward(request, response);
+		// TODO Auto-generated method stub
+		request.getRequestDispatcher("views/admin/skinList.jsp").forward(request, response);
 	}
 
 	/**

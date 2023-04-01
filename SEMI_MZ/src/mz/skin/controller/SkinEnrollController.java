@@ -1,5 +1,6 @@
-package mz.character.controller;
+package mz.skin.controller;
 
+import java.io.File;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
@@ -8,97 +9,135 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import mz.character.model.service.CharacterService;
+import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
+
+import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.FileRenamePolicy;
+
+import mz.common.MyFileRenamePolicy;
+import mz.skin.model.service.SkinService;
 
 /**
  * Servlet implementation class CharacterController
  */
-@WebServlet("/insert.char")
-public class CharacterController extends HttpServlet {
+
+//[han]
+@WebServlet("/insert.skin")
+public class SkinController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public CharacterController() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public SkinController() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		
-		
-		
-		
-		
-		
-		String savePath = request.getSession().getServletContext().getRealPath("/resource/img/user/") + "0_default";
-		
-		boolean test =  new CharacterService().createFolder(savePath);
-		
-		
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 
-//		if(ServletFileUpload.isMultipartContent(request)) {
-//			
-//			// 1-1. 전송 용량 제한
-//			int maxSize = 10* 1024 * 1024;
-//			
-//			// 1-2. 저장할 폴더의 물이적 경로
-//			String savePath = request.getSession().getServletContext().getRealPath("/resources/thumb_upfiles/");
-//			
-//			// 2. 전달된 파일명 수정작업 후 서버에 업로드
-//			MultipartRequest multi = new MultipartRequest(request, savePath, maxSize, "UTF-8", new MyFileRenamePolicy());
-//			
-//			// 3. db에 저장
-//			// Board에 들어갈 값들 뽑아오기
-//			Board b = new Board();
-//			b.setBoardTitle(multi.getParameter("title"));
-//			b.setBoardContent(multi.getParameter("content"));
-//			b.setBoardWriter(((Member)request.getSession().getAttribute("loginUser")).getUserNo()+"");
-//			
-//			//Attachment테이블에 여러번 insert할 데이터를 뽑기
-//			// 단 여러개의 첨부파일이 있을 것이기 때문에 Attachment들을 ArrayList에 담을 예정 => 반드시 1개 이상은 담겨야함(대표이미지)
-//
-//			ArrayList<Attachment> list = new ArrayList<>();
-//			for(int i = 1; i<=4; i++) {// 파일의 갯수는 최대 4개이기 때문에 4번 반복시킴
-//				
-//				String key = "file"+i;
-//				
-//				if(multi.getOriginalFileName(key) != null) { // 넘어온 첨부파일이 있는 경우
-//					// 파일의 원본명, 수정명, 저장경로 , 파일 레벨 담기
-//					Attachment at = new Attachment();
-//					at.setOriginName(multi.getOriginalFileName(key));
-//					at.setChangeName(multi.getFilesystemName(key));
-//					at.setFilePath("/resources/thumb_upfiles/");
-//					at.setFileLevel(i);
-//					// list에 추가
-//					list.add(at);
-//				}
-//			}
-//			
-//			int result = new BoardService().insertThumbnailBoard(b, list);
-//			
-//			if(result > 0) { // 성공 -> list.th를 요청
-//				request.getSession().setAttribute("alertMsg", "성공적으로 업로드 되었습니다");
-//				response.sendRedirect(request.getContextPath()+ "/list.th");
-//				
-//			}else {
-//				request.setAttribute("error", "사진 게시판 업로드 실패");
-//				request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
-//			}
-//		}
-//	
+		// isMultipartContent : HTTP 요청이 multipart/form-data 인코딩 타입을 가지는지 확인하는 메서드
+		if (ServletFileUpload.isMultipartContent(request)) {
+
+			SkinService service = new SkinService();
+
+			// 전송 용량 제한 - 여기선 10mb
+			int maxSize = 10 * 1024 * 1024;
+
+			String p = request.getParameter("price");
+			// 체크박스 체크되었을 경우 Y , 안되었을경우 null로 값 들어옴
+			String reward = request.getParameter("reward");
+
+			// price, reward 값이 null일 경우 기본값 삽입
+			int price = p != null ? Integer.parseInt(p) : 300;
+			reward = reward != null ? reward : "N";
+
+			// 스킨을 먼저 저장시키고 해당 스킨 currval 값 가져옴
+			int path = service.insertSkin(price, reward);
+
+			// insert정상적으로 되고 시퀀스 currval 값도 잘 가져와졌을 경우
+			if (path > 0) {
+
+				// 저장할 폴더의 물리적 경로
+				// todo! 나중에 path 앞에 skin 붙일지 말지 결정해야함 ( 수정되면 sql문도 수정해줘야함 )
+				String savePath = request.getSession().getServletContext().getRealPath("/resource/img/user/") + path;
+
+				// savePath 경로로 폴더 생성하면서 생성이 되면 true값 반환받음
+				if (service.createFolder(savePath)) {
+
+					// 2. 혹시 파일명이 겹칠 경우를 대비해서 전달된 파일명 수정작업 후 실제 경로에 저장됨
+					MultipartRequest multi = new MultipartRequest(request, savePath, maxSize, "UTF-8",
+							(FileRenamePolicy) new MyFileRenamePolicy());
+
+					for (int i = 1; i <= 8; i++) {
+						String key = "file" + i;
+
+						// 파일별로 다시 바꿔서 저장할 파일 명 설정
+						String newName = "";
+
+						switch (i) {
+						case 1:
+							newName = "fs.png";
+							break;
+						case 2:
+							newName = "fd.png";
+							break;
+						case 3:
+							newName = "bs.png";
+							break;
+						case 4:
+							newName = "bd.png";
+							break;
+						case 5:
+							newName = "ls.png";
+							break;
+						case 6:
+							newName = "ld.png";
+							break;
+						case 7:
+							newName = "rs.png";
+							break;
+						case 8:
+							newName = "rd.png";
+							break;
+
+						}
+
+						// 저장할 저장경로와 파일명을 미리 설정해서 파일 객체 생성
+						File file = new File(savePath, newName);
+						// 실제로 저장되어있는 파일을 찾아서 바뀐 이름으로 다시 저장
+						multi.getFile(key).renameTo(file);
+					}
+
+					response.sendRedirect(request.getContextPath() + "/skin.admin");
+				} else {
+					System.out.println("파일경로에 폴더 생성 실패");
+				}
+
+			} else {
+				System.out.println("insert 실패");
+			}
+
+			// todo! 폴더를 못만들었든 insert를 실패했든 이곳으로 오게 됨
+			// 에러 발생했을 때 대응 여기서 짜야함
+		}
+
+		// 아예 멀티 어쩌고로 통신이 오지 않았을 경우 어떻게 할건지 처리도 필요함
 	}
 
 }

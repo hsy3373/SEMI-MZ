@@ -4,11 +4,15 @@
 
 	<entry key="insertSkin">
 		INSERT INTO CHARACTER_SKIN(SKIN_ID, SAVE_ROOT, CHARACTER_PRICE, REWARD)
-		VALUES( SEQ_SKIN.NEXTVAL , '/'||SEQ_SKIN.CURRVAL, ?, ? );
+		VALUES( SEQ_SKIN.NEXTVAL , '/resource/img/user/'||SEQ_SKIN.CURRVAL, ?, ? )
 	</entry>
 
 	<entry key="selectSkinCurval">
-		SELECT SEQ_SKIN.CURRVAL FROM DUAL;
+		 SELECT SEQ_SKIN.CURRVAL AS CURRVAL FROM DUAL
+	</entry>
+
+	<entry key="skinCount">
+		SELECT COUNT(*) AS COUNT FROM CHARACTER_SKIN
 	</entry>
 
 </properties>

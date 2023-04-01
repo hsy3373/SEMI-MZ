@@ -37,7 +37,7 @@ java.sql.Date.valueOf("2023-03-20"));
     <br />
     <a href="./square.jsp">광장</a>
     <br />
-    <a href="./admin/main.jsp">관리자페이지</a>
+    <a href="<%=path%>/main.admin">관리자페이지</a>
     <br />
     <a href="./main.jsp">메인/로그인</a>
 

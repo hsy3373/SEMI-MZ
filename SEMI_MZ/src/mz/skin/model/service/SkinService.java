@@ -1,15 +1,18 @@
-package mz.character.model.service;
+package mz.skin.model.service;
+
+import static mz.common.JDBCTemplate.close;
+import static mz.common.JDBCTemplate.commit;
+import static mz.common.JDBCTemplate.getConnection;
+import static mz.common.JDBCTemplate.rollback;
 
 import java.io.File;
-import static mz.common.JDBCTemplate.*;
-import java.net.http.HttpRequest;
 import java.sql.Connection;
 
-import mz.character.model.dao.CharacterDao;
+import mz.skin.model.dao.SkinDao;
 
-public class CharacterService {
+public class SkinService {
 
-	//[han]
+	// [han]
 	// 폴더 경로 생성용
 	public boolean createFolder(String path) {
 		boolean result = false;
@@ -19,7 +22,7 @@ public class CharacterService {
 		if (!Folder.exists()) {
 			try {
 				result = Folder.mkdir(); // 폴더 생성합니다. ("새폴더"만 생성)
-				System.out.println("폴더 생성 : "+result);
+				System.out.println("폴더 생성 : " + result);
 			} catch (Exception e) {
 				e.getStackTrace();
 			}
@@ -30,7 +33,7 @@ public class CharacterService {
 		return result;
 	}
 
-	//[han]
+	// [han]
 	// 폴더 삭제용
 	public boolean deleteFolder(String path) {
 		boolean result = false;
@@ -39,7 +42,7 @@ public class CharacterService {
 			while (folder.exists()) {
 				File[] folder_list = folder.listFiles(); // 파일리스트 얻어오기
 
-				//해당 폴더 안에 파일이 있다면 폴더가 삭제되지 않으므로 각개별로 파일 삭제 필요
+				// 해당 폴더 안에 파일이 있다면 폴더가 삭제되지 않으므로 각개별로 파일 삭제 필요
 				for (int i = 0; i < folder_list.length; i++) {
 					folder_list[i].delete(); // 파일 삭제
 					System.out.println("파일이 삭제되었습니다.");
@@ -56,27 +59,42 @@ public class CharacterService {
 
 		return result;
 	}
-	
-	
-	
-//-------------------------------------------INSERT 구역 -------------------------------------------------
-	
-	public int insertSkin() {
-		
+
+//-------------------------------------------SELECT 구역 -------------------------------------------------
+
+	public int skinCount() {
 		Connection conn = getConnection();
-		
-		int result = new CharacterDao().insertSkin(conn);
-		
-		if(result > 0) {
-			commit(conn);
-			result = new CharacterDao().selectSkinCurval(conn);
-		}else {
-			rollback(conn);
-		}
-		
-		
+
+		int result = new SkinDao().skinCount(conn);
+
+		close(conn);
+
 		return result;
 	}
-	
-	
+
+//-------------------------------------------INSERT 구역 -------------------------------------------------
+
+	// [han]
+	// CHARACTER_SKIN 테이블에 줄을 하나 추가먼저 시키고 해당 줄의 SKIN_ID(==시퀀스 값)을 반환
+	public int insertSkin(int price, String reward) {
+
+		Connection conn = getConnection();
+
+		int result = new SkinDao().insertSkin(conn, price, reward);
+
+		if (result > 0) {
+			System.out.println("스킨 저장은 잘됨");
+			// 아직 커밋 전인 요소를 가져올 수 있을까??
+			result = new SkinDao().selectSkinCurval(conn);
+			System.out.println("커밋전에 currval 가져오는거 가능? : " + result);
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+
+		close(conn);
+
+		return result;
+	}
+
 }
