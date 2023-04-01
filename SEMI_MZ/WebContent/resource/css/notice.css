@@ -1,6 +1,9 @@
 @charset "UTF-8";
 /* 공지사항 게시판css - 가영*/
 
+/*모달창 숨기기*/
+/* .hidden{display: none;} */
+
 /*공지사항 게시판*/
 .notice-view{
 	position: relative;

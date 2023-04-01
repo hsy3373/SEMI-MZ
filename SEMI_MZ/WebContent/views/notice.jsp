@@ -10,7 +10,7 @@
 </head>
 <body>
 	<!-- 공지사항 게시판 - 가영 -->
-	<div class="notice">
+	<div class="notice-modal hidden">
         <div class="notice-view">
             <img src="../resource/img/icon/공지사항.png" alt="공지사항 게시판">
         </div>

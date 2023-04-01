@@ -3,7 +3,9 @@
 /* 유저 정보창 css - 가영 */
 
 /*모달창 숨기기*/
-.hidden{display: none;}
+/* .hidden{display: none;} */
+
+
 
 /*스크롤바 감추기*/
 ::-webkit-scrollbar{display: none;}
@@ -171,6 +173,7 @@
     left: 50%;
     height: 60%;
     transform: translate(-50%, -50%);
+    display: none;
 }
 .user-report, #report-view{
     width: 100%;

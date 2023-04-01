@@ -6,26 +6,25 @@
  */
 
 import { getContextPath } from './common.js';
-let path = getContextPath();
 
 /*유저 정보 모달창 띄우기*/
 /*let open = () => {
 	document.querySelector(".info-modal").classList.remove("hidden");
-}*/
+}
 
 let close = () => {
 	document.querySelector(".info-modal").classList.add("hidden");
 }
 
 
-document.querySelector(".x-btn").addEventListener("click", close);
+document.querySelector(".x-btn").addEventListener("click", close);*/
 
 let nickName;
 
 /*유저 정보 가져오기*/
 export function getUserInfo(){
 	$.ajax({
-		url: path+"/userInfo.me",
+		url: getContextPath()+"/userInfo.me",
 		data : {userId : sessionStorage.clickedUserId}, /*'test' 부분에 나중에 session 유저id 객체 넣으면 됨 / sessionStorage.getItem('')*/
 		method: 'post',
 		success : function(data) {
@@ -61,7 +60,7 @@ export function getUserInfo(){
 function report(){
 	console.log(nickName);
 	$.ajax({
-		url: path+"/report",
+		url: getContextPath()+"/report",
 		data: {receiveId : sessionStorage.clickedUserId,
 		       reportTitle: $(".title-box").val(),
 		       reportContent: $("#content-text").val()},

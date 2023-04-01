@@ -25,10 +25,11 @@
 		<div class="nickname"></div>
 		<!-- 호감도 -->
 		<div class="heart">
-			<img id="heart-off" alt="호강도 상태" src="../resource/img/icon/빈하트.png">
+			<img id="heartOff" alt="호강도 상태" src="../resource/img/icon/빈하트.png" onclick="goheart()" width="50">
+			<img style="display:none" id="heartOn" alt="호강도 상태" src="../resource/img/icon/하트.png" onclick="goDelete()" width="50">
 		</div>
-		<div class="heart-int"></div>
 		<!-- 호감도 갯수 -->
+		<div class="heart-int"></div>
 		<!-- 유저 캐릭터 -->
 		<div class="user-skin">
 			<img id="skin">
@@ -82,9 +83,77 @@
 		</div>
 	</div>
 	<div class="alert-overlay"></div>
+	
+	<div class="user1">유저 캐릭터</div>
 
 	<script type="module" src="../resource/js/userInfo.js"></script>
 	<script type="module" src="../resource/js/common.js"></script>
 	<!--<script type="module" src="../resource/js/alert.js"></script>-->
+	<script>
+
+	
+	var target = $('.heart');
+	
+		$(function(){
+			getHeartInfo();
+		});
+	
+		//클릭 했을때 좋아요 db에 인설트!
+		function goheart(){
+			$.ajax({
+				url:"/mzone/heart",
+				type:"get",
+				data : {userId : 'friend'},
+				success: function(){
+					$('#heartOff').css('display', 'none');
+					$('#heartOn').css('display', 'block');
+				},
+				error: function(){ alert('error')}
+			});
+		}
+		
+		function getHeartInfo(){
+			$.ajax({
+				url:"/mzone/heart2",
+				type:"post",
+				data : {userId : 'friend'},
+				success: resultHeart,
+				error: function(){ alert('error')}
+			});
+		}
+		
+		function resultHeart(data){
+			console.log(data);
+			if(data == 1){
+				$('#heartOff').css('display', 'none');
+				$('#heartOn').css('display', 'block');
+			}
+			
+		}
+		
+		
+		function goDelete(){
+			$.ajax({
+				url:"/mzone/heartDelete",
+				type:"get",
+				data : {userId : 'friend'},
+				success: function(){
+					$('#heartOff').css('display', 'block');
+					$('#heartOn').css('display', 'none');
+				},
+				error: function(){ alert('error')}
+			});
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</script>
 </body>
 </html>

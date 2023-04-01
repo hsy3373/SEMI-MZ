@@ -44,11 +44,17 @@ uri="http://java.sun.com/jsp/jstl/core"%>
     <br />
     <a href="./square.jsp">광장</a>
     <br />
+    <br />
     <a href="./admin/main.jsp">관리자페이지</a>
+    <br />
     <br />
     <a href="./main.jsp">메인/로그인</a>
     <br />
+    <br />
     <a href="./userInfo.jsp">유저정보창</a>
+    <br />
+    <br />
+    <a href="./notice.jsp">공지사항</a>
 
     <br />
     <button id="btn1">관리자로 바꾸기</button>

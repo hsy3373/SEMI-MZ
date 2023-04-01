@@ -55,6 +55,18 @@ public class MemberService {
 		return result;
 	}
 	
+	public void headerInsert(String loginUser, String userId) {
+		Connection conn = getConnection();
+		
+		MemberDao dao = new MemberDao();
+		System.out.println(loginUser);
+		System.out.println(userId);
+		dao.headerInsert(conn, loginUser, userId);
+	}
+	
+	
+	
+	
 
 }
 
