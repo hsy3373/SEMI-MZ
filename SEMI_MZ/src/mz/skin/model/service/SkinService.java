@@ -7,8 +7,10 @@ import static mz.common.JDBCTemplate.rollback;
 
 import java.io.File;
 import java.sql.Connection;
+import java.util.ArrayList;
 
 import mz.skin.model.dao.SkinDao;
+import mz.skin.model.vo.Skin;
 
 public class SkinService {
 
@@ -61,7 +63,8 @@ public class SkinService {
 	}
 
 //-------------------------------------------SELECT 구역 -------------------------------------------------
-
+	// [han]
+	// 스킨 총 개수 확인용
 	public int skinCount() {
 		Connection conn = getConnection();
 
@@ -70,6 +73,50 @@ public class SkinService {
 		close(conn);
 
 		return result;
+	}
+	
+	// [han]
+	// 개별 스킨 조회용
+	public Skin selectSkin(int id) {
+		
+		Connection conn = getConnection();
+
+		Skin result = new SkinDao().selectSkin(conn, id);
+
+		close(conn);
+
+		return result;
+		
+	}
+	
+	
+	// [han]
+	// 페이지 별 일반 스킨 조회용(한페이지에 10개)
+	public ArrayList<Skin> selectBasicSkins(int page) {
+		
+		Connection conn = getConnection();
+
+		ArrayList<Skin> list = new SkinDao().selectBasicSkins(conn, page);
+
+		close(conn);
+
+		return list;
+		
+	}
+	
+
+	// [han]
+	// 보상용 스킨 조회용
+	public ArrayList<Skin> selectRewardSkins() {
+		
+		Connection conn = getConnection();
+
+		ArrayList<Skin> list = new SkinDao().selectRewardSkins(conn);
+
+		close(conn);
+
+		return list;
+		
 	}
 
 //-------------------------------------------INSERT 구역 -------------------------------------------------

@@ -23,13 +23,13 @@ import mz.skin.model.service.SkinService;
 
 //[han]
 @WebServlet("/insert.skin")
-public class SkinController extends HttpServlet {
+public class SkinEnrollController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public SkinController() {
+	public SkinEnrollController() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -41,7 +41,7 @@ public class SkinController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		request.getRequestDispatcher("views/admin/skin/skinEnroll.jsp").forward(request, response);
 	}
 
 	/**
@@ -58,10 +58,19 @@ public class SkinController extends HttpServlet {
 
 			// 전송 용량 제한 - 여기선 10mb
 			int maxSize = 10 * 1024 * 1024;
+			
+			//먼저 MultipartRequest 객체를 생성해야만 전달된 기타 파라미터에 접근 가능하기 때문에 임시로 만든 폴더를 저장 루트로 삼음
+			String savePath = request.getSession().getServletContext().getRealPath("/resource/img/user/temporaryFile");
 
-			String p = request.getParameter("price");
+			// 2. 혹시 파일명이 겹칠 경우를 대비해서 전달된 파일명 수정작업 후 실제 경로에 저장됨
+			MultipartRequest multi = new MultipartRequest(request, savePath, maxSize, "UTF-8",
+					(FileRenamePolicy) new MyFileRenamePolicy());
+
+			
+			String p = multi.getParameter("price");
 			// 체크박스 체크되었을 경우 Y , 안되었을경우 null로 값 들어옴
-			String reward = request.getParameter("reward");
+			String reward = multi.getParameter("reward");
+			System.out.println("리워드 들어옴 : " + reward);
 
 			// price, reward 값이 null일 경우 기본값 삽입
 			int price = p != null ? Integer.parseInt(p) : 300;
@@ -70,19 +79,16 @@ public class SkinController extends HttpServlet {
 			// 스킨을 먼저 저장시키고 해당 스킨 currval 값 가져옴
 			int path = service.insertSkin(price, reward);
 
+
 			// insert정상적으로 되고 시퀀스 currval 값도 잘 가져와졌을 경우
 			if (path > 0) {
 
 				// 저장할 폴더의 물리적 경로
 				// todo! 나중에 path 앞에 skin 붙일지 말지 결정해야함 ( 수정되면 sql문도 수정해줘야함 )
-				String savePath = request.getSession().getServletContext().getRealPath("/resource/img/user/") + path;
+				savePath = request.getSession().getServletContext().getRealPath("/resource/img/user/") + path;
 
 				// savePath 경로로 폴더 생성하면서 생성이 되면 true값 반환받음
 				if (service.createFolder(savePath)) {
-
-					// 2. 혹시 파일명이 겹칠 경우를 대비해서 전달된 파일명 수정작업 후 실제 경로에 저장됨
-					MultipartRequest multi = new MultipartRequest(request, savePath, maxSize, "UTF-8",
-							(FileRenamePolicy) new MyFileRenamePolicy());
 
 					for (int i = 1; i <= 8; i++) {
 						String key = "file" + i;

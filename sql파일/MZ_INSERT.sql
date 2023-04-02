@@ -6,15 +6,10 @@
 INSERT INTO CHARACTER_SKIN(SKIN_ID,
                             SAVE_ROOT,
                             CHARACTER_PRICE)
-        VALUES( 0, '/root', 0);
+        VALUES( 0, '/resource/img/user/0_default', 0);
 
-INSERT INTO CHARACTER_SKIN(SKIN_ID,
-                            SAVE_ROOT)
-        VALUES( SEQ_SKIN.NEXTVAL , '/root');
-
-INSERT INTO CHARACTER_SKIN(SKIN_ID,
-                            SAVE_ROOT)
-        VALUES( SEQ_SKIN.NEXTVAL , '/root');
+--INSERT INTO CHARACTER_SKIN(SKIN_ID, SAVE_ROOT)
+--		VALUES( SEQ_SKIN.NEXTVAL , '/resource/img/user/'||SEQ_SKIN.CURRVAL );
 
 
 -- MEMBER

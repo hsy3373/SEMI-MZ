@@ -1,18 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-pageEncoding="UTF-8"%>
-<%
-	String path = request.getContextPath();
-%>
+pageEncoding="UTF-8"%> <% String path = request.getContextPath(); %>
 <!DOCTYPE html>
 <html>
   <head>
     <meta charset="UTF-8" />
     <title>Insert title here</title>
-    <link rel="stylesheet" href="<%=path%>/resource/css/admin/admin-common.css" />
     <link
       rel="stylesheet"
-      href="<%=path%>/resource/css/admin/admin-character.css"
+      href="<%=path%>/resource/css/admin/admin-common.css"
     />
+    <link rel="stylesheet" href="<%=path%>/resource/css/admin/admin-skin.css" />
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css"
@@ -21,45 +18,7 @@ pageEncoding="UTF-8"%>
   </head>
   <body>
     <div class="wrapper">
-      <div class="side-bar">
-        <ul class="side-bar-ul">
-          <a href="./main.jsp" class="logo-img">
-            <img src="<%=path%>/resource/img/icon/logo.png" />
-          </a>
-
-          <hr />
-          <li>
-            <a href="./main.jsp"><i class="bi bi-speedometer2"></i>Dashboard</a>
-          </li>
-
-          <hr />
-
-          <li>
-            <a href="">
-              <i class="bi bi-key-fill"></i>
-              Admin</a
-            >
-          </li>
-
-          <li>
-            <a href="./character.jsp" class="selected">
-              <i class="bi bi-file-person"></i>
-              캐릭터</a
-            >
-          </li>
-
-          <li>
-            <a href="">
-              <i class="bi bi-people-fill"></i>
-              사용자</a
-            >
-          </li>
-
-          <li>
-            <a href=""> <i class="bi bi-clipboard-fill"></i> 공지사항</a>
-          </li>
-        </ul>
-      </div>
+      <%@ include file="/views/admin/sideBar.jsp"%>
 
       <div class="content">
         <div class="head-text">캐릭터 스킨 등록</div>
@@ -79,8 +38,9 @@ pageEncoding="UTF-8"%>
               <input type="number" name="price" id="price" value="300" />
             </div>
 
-            <label>
+            <label for="reward">
               보상용(Y/N) :
+              <input type="hidden" name="reward" value="N" />
               <input type="checkbox" name="reward" id="reward" value="Y" />
             </label>
 
@@ -179,6 +139,6 @@ pageEncoding="UTF-8"%>
     </div>
     <div id="toast">알림</div>
 
-    <script src="<%=path%>/resource/js/admin/character.js"></script>
+    <script src="<%=path%>/resource/js/admin/skin/skinEnroll.js"></script>
   </body>
 </html>

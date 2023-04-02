@@ -25,47 +25,7 @@ pageEncoding="UTF-8" import="mz.member.model.vo.Member"%>
   </head>
   <body>
     <div class="wrapper">
-      <div class="side-bar">
-        <ul class="side-bar-ul">
-          <a href="./main.jsp" class="logo-img">
-            <img src="<%= path %>/resource/img/icon/logo.png" />
-          </a>
-
-          <hr />
-          <li>
-            <a href="./main.jsp" class="selected"
-              ><i class="bi bi-speedometer2"></i>Dashboard</a
-            >
-          </li>
-
-          <hr />
-
-          <li>
-            <a href="<%= request.getContextPath() %>/insert.char">
-              <i class="bi bi-key-fill"></i>
-              Admin</a
-            >
-          </li>
-
-          <li>
-            <a href="./character.jsp">
-              <i class="bi bi-file-person"></i>
-              캐릭터</a
-            >
-          </li>
-
-          <li>
-            <a href="">
-              <i class="bi bi-people-fill"></i>
-              사용자</a
-            >
-          </li>
-
-          <li>
-            <a href=""> <i class="bi bi-clipboard-fill"></i>공지사항</a>
-          </li>
-        </ul>
-      </div>
+    	<%@ include file="/views/admin/sideBar.jsp"%>
 
       <div class="content">
         <div class="card-wrap card1">
