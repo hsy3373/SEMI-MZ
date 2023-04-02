@@ -11,9 +11,8 @@
 	// session에 있는 로그인 유저
 	Member loginUser = (Member) session.getAttribute("loginUser");
 	System.out.println("loginUser : "+loginUser);
-/* 	if(roomMaster == null) {
-		//~~~
-	} */
+	// 광장에 있는 마이룸으로 들어올시 roomMaster값 null
+	// 친구유저 클릭으로 들어올시		roomMaster값 friend
 %>
 
 <!DOCTYPE html>
@@ -26,7 +25,7 @@
 <link href="${contextPath}/resource/css/myroom.css" rel="stylesheet" type="text/css">
 <link href="${contextPath}/resource/css/board.css" rel="stylesheet" type="text/css">
 <link href="${contextPath}/resource/css/closet.css" rel="stylesheet" type="text/css">
-<%-- <link href="${contextPath}/resource/css/buttonListMyroom.css" rel="stylesheet" type="text/css"> --%>
+<link href="${contextPath}/resource/css/buttonList.css" rel="stylesheet" type="text/css">
 <link href="${contextPath}/resource/css/alert.css" rel="stylesheet">
 
 <!-- jQuery library -->
@@ -64,9 +63,12 @@ ul li.on a {color: #fff;}
 </head>
 </head>
 <body>
+
 	<!-- ============================= 마이룸 ============================= -->
 	<div class="myroom">
 	<%-- <%@ include file="chatting.jsp" %> --%>
+	
+
 		<!-- 옷장 클릭시 모달창 -->
 		<div class="icon-closet">
 			<img id="closet" src="${contextPath}/resource/img/icon/옷장.png">
@@ -104,23 +106,20 @@ ul li.on a {color: #fff;}
 		<!-- 마이룸 주인 스킨 -->
 		<div class="myroom_user">
 			<!-- 호감도 -->
-			<input type="checkbox" name="heart-ck" id="heart"> <label
-				class="font" for="heart">12</label> <img class="user-skin"
-				src="${contextPath}/resource/img/user/skin1/fs.png">
+			<input type="checkbox" name="heart-ck" id="heart">
+			<label class="font" for="heart">12</label>
+			
+			<img class="user-skin" src="${contextPath}/resource/img/user/skin1/fs.png">
 		</div>
 
-		<!--버튼 모달 jps 가져옴 : 노지의-->
-		<%-- <%@ include file="./buttonListMyroom.jsp"%> --%>
+		<!--버튼 모달 jps 가져옴 -->
+		<div class="button-area">
+	        <div class="squareGo" onclick="gosquare();">
+	            <img src="resource/img/icon/home_btn.png">
+	        </div>
+		</div>
+		<%@ include file="./buttonList.jsp" %>
 	</div>
-	<!-- 내가 유저아이디와 로그인유저아이디 비교 -->
-	<!-- 
-		광장에서 집아이콘으로 들어갔을 때
-	 -->
-
-	<!-- 
-		친구목록에서 친구네놀러가기 클릭할때
-		bno 처럼 userId값을 받아오면 됨
-	  -->
 
 	<!-- ============================= 방명록 모달 ============================= -->
 	<div class="board-wrap">
@@ -152,7 +151,7 @@ ul li.on a {color: #fff;}
  			<% } %> --%>
 
 <%--  		<c:choose>
- 				<c:when test="${loginUser eq rommMaster }">
+ 				<c:when test="${loginUser eq roomMaster }">
  					
  				</c:when>
  				<c:otherwise>
@@ -191,12 +190,12 @@ ul li.on a {color: #fff;}
 					<div class="board-no" style="display: none;"></div>
 					<!-- 제목부분(상세 제목이랑 동일) -->
 					<div class='board-detail-title'>
-						<input type='text' id='board-write-title' required maxlength="15" onclick='this.select();'>
+						<input type='text' class='board-write-title' required maxlength="15" onclick='this.select();'>
 					</div>
 
 					<!-- 방명록 내용 작성부분 -->
 					<!-- onclick="this.select();" : 클릭시 자동으로 선택됨 -->
-					<textarea name='board-write-content' id='board-write-content' cols='62' rows='8' required>
+					<textarea name='board-write-content' class='board-write-content' cols='62' rows='8' required>
 					</textarea>
 
 					<!-- 비밀글 체크박스 -->
@@ -206,14 +205,11 @@ ul li.on a {color: #fff;}
 						<label for='board-ck'>비밀글</label>
 					</div>
 
-					<button id="test" type="button" class="button board-send-update-btn" disabled onclick="updateBoard();">수정</button>
+					<button id="test" type="button" class="button board-send-update-btn"  id="updateBoard">수정</button>
 					<button class="alert-toggle board-send-delete-btn button" id="board-send-delete">삭제</button>
 
 				</div>
 			</div>
-			<script>
-			
-			</script>
 
 			<!-- ============================= 방명록 작성 ============================= -->
 			<div class="board-write">
@@ -224,12 +220,12 @@ ul li.on a {color: #fff;}
 
 					<!-- 제목부분(상세 제목이랑 동일) -->
 					<div class="board-detail-title">
-						<input type="text" id="board-write-title" required placeholder="제목을 입력해주세요" onclick="this.select();">
+						<input type="text" class="board-write-title" required placeholder="제목을 입력해주세요" onclick="this.select();">
 					</div>
 
 					<!-- 방명록 내용 작성부분 -->
 					<!-- onclick="this.select();" : 클릭시 자동으로 선택됨 -->
-					<textarea name="board-write-content" id="board-write-content" cols="62" rows="8" required onclick="this.select();"></textarea>
+					<textarea name="board-write-content" class="board-write-content" cols="62" rows="8" required placeholder="내용을 입력해주세요" onclick="this.select();"></textarea>
 
 					<!-- 비밀글 체크박스 -->
 					<div class="board-secret-box">
@@ -238,7 +234,7 @@ ul li.on a {color: #fff;}
 						<label for="board-ck">비밀글</label>
 					</div>
 
-					<button class="button board-write-btn">작성</button>
+					<button class="button board-write-btn" id="boardInsert">작성</button>
 
 				</div>
 			</div>
@@ -384,67 +380,120 @@ ul li.on a {color: #fff;}
 		}
  --%>		
 	</script>
+	
+	
+	<script>
+		/* 광장으로 가는 버튼 */
+		function gosquare() {
+			//location.href = "${contextPath}/gosquare";
+			location.href = "${contextPath}/views/square.jsp";
+		};
+		
+		/* 로그인유저, 방주인 js에서 사용하기 위해 변수에 담기 */
+		var loginUserId = '${loginUser.userId}';
+		var roomMasterId = "${roomMaster}";
+		//console.log("로그인유저 : "+loginUserId);
+		//console.log("룸마스터 : "+roomMasterId);
+		
+		
+		
+	</script>
 
-	<script src="${contextPath}/resource/js/myroom/myroom.js"></script>
-	<script type="module" src="${contextPath}/resource/js/alert.js"></script>
-	<script type="module" src="${contextPath}/resource/js/common.js"></script>
-	<script src="${contextPath}/resource/js/myroom/boardMe.js"></script>
+
+
 	<script>
 	$(function () {
-		
-	    $(".icon-closet").click(function(e){
-	        $(".closet-wrap").show();
-	        $(".closet-modal").show();
+		<!-- 룸마스터 값이 있을 경우 옷장이벤트 x -->
+		$(".icon-closet").click(function(e){
+			console.log("${loginUser.userId}");
+			if("${roomMaster}" == ''){
+		        $(".closet-wrap").show();
+		        $(".closet-modal").show();
+		        $.dressClick();
+			}else{
+				$(".icon-closet").off('click');
+			} 
+	    });
+
+	    
+	    // 옷장 버튼 클릭
+	    $(".dress-btn").click(function(){
 	        $.dressClick();
 	    });
+
+	    // 상점 버튼 클릭
+	    $(".store-btn").click(function(){
+	        $.storeClick();
+	    });
 	    
+	    // 옷장 버튼 클릭 함수 생성
+	    $.dressClick = function(){
+	        // 1. 상점 버튼 투명하게
+	        $(".store-btn").css("opacity", "0.7");
+	        $(".dress-btn").css("opacity", "1");
+	        
+	        // 2. 커서 포인터 없애기
+	        $(".dress-btn").css("cursor", "default");
+	        $(".store-btn").css("cursor", "pointer");
+	        
+	        // 3. 구입 버튼(class="closet-buy") -> display: "none";
+	        $(".closet-buy").hide();
+	        $(".closet-wear").show();
+	        
+	        // 4. 가격, 보유중 라벨(class="closet-price") -> display: "none";
+	        $(".closet-price").hide();
+	        
+	        // 5. 내가 보유중인 스킨만 표시(DB -> "CHARACTER"테이블 SELECT)
+
+	    }
+
+		
 	    // 상점 버튼 클릭 함수 생성
 	    $.storeClick = function(){
 	        // 1. 옷장 버튼 투명하게
 	        $(".dress-btn").css("opacity", "0.7");
 	        $(".store-btn").css("opacity", "1");
-	
+
 	        // 2. 커서 포인터 없애기
 	        $(".store-btn").css("cursor", "default");
 	        $(".dress-btn").css("cursor", "pointer");
-	
+
 	        // 3. 착용 버튼(class="closet-wear") -> display: "none";
 	        $(".closet-wear").hide();
 	        $(".closet-buy").show();
-	
+
 	        // 4. 가격, 보유중 라벨(class="closet-price") -> display: "block";
 	        $(".closet-price").show();
-	
+
 	        // 5. 내가 보유한 스킨이라면 (class="closet-price")
-	
-	
+
+
 	    }
 	})
+
+	</script>
+	<script>
+	/* 나무에 방명록 리스트 표시 */
+	function treeBoard(receiveID){
+		$.ajax({
+			url : path + "/selectBoardList",
+			data : { receive : receiveID },
+			success : function(){
+				console.log("접속성공");
+			},
+			error : function(e){
+				console.log("실패");
+			}
+		});
+	}
 	</script>
 
 
+	
 
-<!-- ============================= 친구한테 쓴 방명록 리스트 ============================= -->
-<!-- 리스트 전체조회 통합으로 일단 안써서 주석 -->
-<!-- 			<div class="board-send-list">
-				<img class="x-btn" src="${contextPath}/resource/img/icon/엑스 버튼.png">
+	<%-- <script type="module" src="${contextPath}/resource/js/alert.js"></script> --%>
+	<script type="module" src="${contextPath}/resource/js/common.js"></script>
+	<script src="${contextPath}/resource/js/myroom/board.js"></script>
 
-				<div class="board-content">
-					<table class="board-list-area">
-						<tr class="board-send-list-tr">
- 							<td id="board-title"><img class="apple"src="${contextPath}/resource/img/icon/사과.png">제목</td>
-							<td class="board-date">2023-03-22</td>
-						</tr>
-					</table>
-					<div id="writing-btn">
-						<button class="button board-write-btn" id="board-write">글쓰기</button>
-					</div>
-					페이징바
-					<div class="pageing-area">
-						<ul id="pagingul"></ul>
-					</div>
-				</div>
-			</div>
- -->
 </body>
 </html>

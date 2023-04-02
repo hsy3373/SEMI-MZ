@@ -89,6 +89,41 @@ public class BoardService {
 		
 		return updateBoard;
 	}
+	
+	/**
+	 * @param b
+	 * @return int
+	 * 방명록 작성
+	 */
+	public int insertBoard(Board b) {
+		Connection conn = getConnection();
+		
+		int result = new BoardDao().insertBoard(conn, b);
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		return result;
+		
+	}
+	
+	/**
+	 * @param boardNo
+	 * @return int
+	 * 내가 쓴 방명록 삭제
+	 */
+	public int deleteWriteBoard(int boardNo) {
+		Connection conn = getConnection();
+		int result = new BoardDao().deleteWriteBoard(conn, boardNo);
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		return result;
+	}
 }
 
 

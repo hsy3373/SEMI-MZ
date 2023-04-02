@@ -104,7 +104,11 @@
 }
 
 /* 글쓰기 버튼 */
-#writing-btn{text-align: right;}
+#writing-btn{
+    position: fixed;
+    right: 12.5%;
+    bottom: 20%;
+}
 
 
 /* ============================= 방명록 공통 부분 ============================= */
@@ -206,7 +210,7 @@
     text-align: center;
     font-size: 16px;
 }
-#board-write-title{
+.board-write-title{
     width: 302px;
     height: 36px;
     background: none;
@@ -221,7 +225,7 @@
 }
 /* 비밀글 체크박스 */
 .board-secret-box{text-align: right;     margin-top: 5px;}
-#board-write-content{
+.board-write-content{
     width: 100%;
     height: 250px;
     box-sizing: border-box;

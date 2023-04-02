@@ -31,13 +31,13 @@
    <%@ include file="./userInfo.jsp" %>
    	<!--${loginUser.nicName}  -->
    	
-   <%@ include file="./chatting.jsp" %>
+   <%-- <%@ include file="./chatting.jsp" %> --%>
    		
     
     <!-- 확인용 ^^ --> 
 	<%
 		//System.out.print(contextPath);
-		System.out.print(loginUser);
+		//System.out.print(loginUser);
 		//Member [userId=test, userPwd=test, nicName=NIC_test, status=Y, skinId=0, coin=500, info=, gender=N, date=2023-03-20]
 	%>
 	
