@@ -28,6 +28,7 @@
    	<!--${loginUser.nicName}  -->
    	
    	<%@ include file="./chatting.jsp" %>
+   	<%@ include file="./game.jsp" %>
    		
     
     <!-- 확인용 ^^ --> 
