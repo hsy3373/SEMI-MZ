@@ -25,10 +25,10 @@ uri="http://java.sun.com/jsp/jstl/core"%>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   </head>
   <body>
-    <%-- test용 페이지 <br />
+     test용 페이지 <br />
     현재 테스트용 유저아이디 : <%= test.getUserId() %> <br />
     현재 테스트용 유저 정보 : <%= test.toString() %> <br />
-    <br /> --%>
+    <br /> 
 
     <a href="./changeUser.jsp">유저 체인지 -> friend</a> <br />
 

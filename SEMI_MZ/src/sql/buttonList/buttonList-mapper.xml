@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<entry key="selectFriendList">
+		SELECT *
+		FROM MEMBER M
+		JOIN FRIEND F ON M.USER_ID = F.friend_ID
+		WHERE F.USER_ID = ?
+		ORDER BY CREATE_DATE DESC
+	</entry>
+
+</properties>

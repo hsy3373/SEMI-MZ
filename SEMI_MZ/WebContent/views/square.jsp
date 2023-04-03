@@ -12,7 +12,7 @@
 <title>광장</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <link href="<%=contextPath%>/resource/css/common.css" rel="stylesheet" type="text/css">
-
+<script type="module" src="<%=contextPath%>/resource/js/common.js"></script>
 
 </head>
 <body>
@@ -50,7 +50,7 @@
 		var clickedUserId = sessionStorage.clickedUserId;
 	</script>
 	
-	<script type="module" src="<%=contextPath%>/resource/js/common.js"></script>
+	
     <script type="module" src="<%=contextPath%>/resource/js/squareCanvas.js"></script>
 	<script type="module" src="<%=contextPath%>/resource/js/buttonList.js"></script>
     

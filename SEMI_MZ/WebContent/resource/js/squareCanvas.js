@@ -509,11 +509,11 @@ let fnSocket = {
         console.log("WebSocket error: ", event);
     }
 }
-function initSocket(s){
+function initSocket(s){ 
     console.log(s);
     for(let key in fnSocket){
         s[key] = fnSocket[key];
-        //console.log(s[key] , fnSocket[key]);
+        console.log(s[key] , fnSocket[key]);
     }
 }
 
