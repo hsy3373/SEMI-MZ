@@ -46,18 +46,18 @@
 		//console.log(userSkin);
 		var userId = '${loginUser.userId}';
 
+		//클릭한 친구 함수
+		var clickedUserId = sessionStorage.clickedUserId;
 	</script>
-	  	
+	
 	<script type="module" src="<%=contextPath%>/resource/js/common.js"></script>
     <script type="module" src="<%=contextPath%>/resource/js/squareCanvas.js"></script>
+	<script type="module" src="<%=contextPath%>/resource/js/buttonList.js"></script>
     
     <script type="module">
 
 
 	import {uesrX , uesrY} from '<%=contextPath%>/resource/js/squareCanvas.js';
-	
-//클릭한 친구 함수
-	var clickedUserId = sessionStorage.clickedUserId;
     
 
 
