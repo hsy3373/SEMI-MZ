@@ -1,8 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-pageEncoding="UTF-8" import="mz.member.model.vo.Member"%> <%
-<!-- String path = request.getContextPath(); -->
-
-%>
+pageEncoding="UTF-8" import="mz.member.model.vo.Member"%> <% String path =
+request.getContextPath(); %>
 <!DOCTYPE html>
 <html>
   <head>
@@ -29,9 +27,9 @@ pageEncoding="UTF-8" import="mz.member.model.vo.Member"%> <%
     </style>
   </head>
   <body>
-    <div>
-      <button type="button" id="insert-room">룸 추가 test</button>
-    </div>
+<!--     <div>
+      <button type="button" id="insert-room">룸 추가 friend</button>
+    </div> -->
     <div class="chat-container">
       <div class="left"></div>
       <div class="resizer" id="dragMe"></div>
@@ -65,11 +63,11 @@ pageEncoding="UTF-8" import="mz.member.model.vo.Member"%> <%
             <button id="chat-next">></button>
           </div>
         </div>
+        <div class="loadingAni">
+          <div class="loader10"></div>
+        </div>
         <div class="chat-item-area">
           <!-- 로딩 바 -->
-          <div class="loadingAni">
-            <div class="loader10"></div>
-          </div>
         </div>
       </div>
       <div class="div-send">
