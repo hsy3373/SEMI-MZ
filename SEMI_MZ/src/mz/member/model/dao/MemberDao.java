@@ -91,72 +91,113 @@ public class MemberDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			try {
-				rset.close();
-				pstmt.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
+			close(rset);
+			close(pstmt);
 		}
 		return m;
 	}
 	
-	//하트추가
-	public void headerInsert(Connection conn, String loginUser, String userId) {
+	// 신고 정보 db 저장 - 가영
+	public int insertReport(Connection conn, String userId, String receiveId, String reportTitle, String reportContent) {
+		
+		int result = 0;
+		
 		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("insertReport");
+		
 		try {
-			String sql = "insert into heart(receive_id, user_id) values(?, ?)";
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, userId);
-			pstmt.setString(2, loginUser);
-			pstmt.executeUpdate();
 			
-			conn.close();
-		} catch (Exception e) {
+			pstmt.setString(1, userId);
+			pstmt.setString(2, receiveId);
+			pstmt.setString(3, reportTitle);
+			pstmt.setString(4, reportContent);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			close(pstmt);
 		}
+		return result;
 	}
 	
-	//캐릭터 클릭시 좋아요 번호를 린턴 1 좋아요 / 0 좋아요없음
-	public int getHeartInfo(Connection conn, String loginUser, String userId) {
-		int result = 0; 
-		ResultSet rset = null;
+	public int insertHeart(Connection conn, String loginUser, String receiveId) {
+		
+		int result = 0;
+		
 		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("insertHeart");
+		
 		try {
-			String sql = "select count(*) from heart where user_id = ? and receive_id = ?";
 			pstmt = conn.prepareStatement(sql);
+			
 			pstmt.setString(1, loginUser);
-			pstmt.setString(2, userId);
+			pstmt.setString(2, receiveId);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	public int deleteHeart(Connection conn, String loginUser, String receiveId) {
+		
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("deleteHeart");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, loginUser);
+			pstmt.setString(2, receiveId);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	public int selectHeart(Connection conn, String loginUser, String receiveId) {
+		
+		int result = 0;
+		
+		ResultSet rset = null;
+				
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("selectHeart");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, loginUser);
+			pstmt.setString(2, receiveId);
+			
 			rset = pstmt.executeQuery();
-			if(rset.next()) {
+			
+			if (rset.next()) {
 				result = rset.getInt(1);
 			}
-			conn.close();
-		} catch (Exception e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
 		}
-		
 		return result;
-		
 	}
-	
-	
-	//하트삭제
-	public void deleteHeart(Connection conn, String loginUser, String userId) {
-		PreparedStatement pstmt = null;
-		try {
-			String sql = "delete from heart where user_id = ? and receive_id = ?";
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, loginUser);
-			pstmt.setString(2, userId);
-			pstmt.executeUpdate();
-			
-			conn.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-	
 	
 	// 김혜린
 	// 로그인

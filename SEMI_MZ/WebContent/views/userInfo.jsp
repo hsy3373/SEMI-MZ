@@ -25,8 +25,8 @@
 		<div class="nickname"></div>
 		<!-- 호감도 -->
 		<div class="heart">
-			<img id="heartOff" alt="호강도 상태" src="../resource/img/icon/빈하트.png" onclick="goheart()" width="50">
-			<img style="display:none" id="heartOn" alt="호강도 상태" src="../resource/img/icon/하트.png" onclick="goDelete()" width="50">
+			<img id="heart-off" alt="호강도 상태" src="../resource/img/icon/빈하트.png">
+			<img id="heart-on" alt="호강도 상태" src="../resource/img/icon/하트.png">
 		</div>
 		<!-- 호감도 갯수 -->
 		<div class="heart-int"></div>
@@ -46,7 +46,6 @@
 			<button class="plus" type="button">친구추가</button>
 			<input type="hidden" class="delete" value="친구삭제">
 			<button class="friend-home" type="button">놀러가기</button>
-			<br>
 		</div>
 		<div class="btns2">
 			<button class="chatting" type="button">1:1 채팅</button>
@@ -92,13 +91,13 @@
 	<script>
 
 	
-	var target = $('.heart');
+	/* var target = $('.heart');
 	
 		$(function(){
 			getHeartInfo();
-		});
+		}); */
 	
-		//클릭 했을때 좋아요 db에 인설트!
+		/* //클릭 했을때 좋아요 db에 인설트!
 		function goheart(){
 			$.ajax({
 				url:"/mzone/heart",
@@ -110,9 +109,9 @@
 				},
 				error: function(){ alert('error')}
 			});
-		}
+		} */
 		
-		function getHeartInfo(){
+		/* function getHeartInfo(){
 			$.ajax({
 				url:"/mzone/heart2",
 				type:"post",
@@ -129,10 +128,10 @@
 				$('#heartOn').css('display', 'block');
 			}
 			
-		}
+		} */
 		
 		
-		function goDelete(){
+		/* function goDelete(){
 			$.ajax({
 				url:"/mzone/heartDelete",
 				type:"get",
@@ -143,7 +142,7 @@
 				},
 				error: function(){ alert('error')}
 			});
-		}
+		} */
 		
 		
 		

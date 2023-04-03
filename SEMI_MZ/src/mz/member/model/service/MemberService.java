@@ -34,6 +34,18 @@ public class MemberService {
 		
 		return m;
 	}
+	
+	// 가영 - 호감도 상태 불러오기
+	public int selectHeart(String loginUser, String receiveId) {
+		
+		Connection conn = getConnection();
+		
+		int result = new MemberDao().selectHeart(conn, loginUser, receiveId);
+		
+		close(conn);
+		
+		return result;
+	}
 		
 //------------------------------ insert 구간 -------------------------------
 	
@@ -55,15 +67,53 @@ public class MemberService {
 		return result;
 	}
 	
-	public void headerInsert(String loginUser, String userId) {
+	// 가영 - 호감도 db 저장
+	public int insertHeart(String loginUser, String receiveId) {
+		
 		Connection conn = getConnection();
 		
-		MemberDao dao = new MemberDao();
-		System.out.println(loginUser);
-		System.out.println(userId);
-		dao.headerInsert(conn, loginUser, userId);
+		int result = new MemberDao().insertHeart(conn, loginUser, receiveId);
+		
+		if (result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return result;
 	}
 	
+	// 가영 - 신고 정보 db 저장
+	public int insertReport(String userId, String receiveId, String reportTitle, String reportContent) {
+		
+		Connection conn = getConnection();
+		
+		int result = new MemberDao().insertReport(conn, userId, receiveId, reportTitle, reportContent);
+		
+		if (result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return result;
+	}
+	
+//------------------------------ delete 구간 -------------------------------
+	
+	// 가영 - 호감도 db 삭제
+	public int deleteHeart(String loginUser, String receiveId) {
+		
+		Connection conn = getConnection();
+		
+		int result = new MemberDao().deleteHeart(conn, loginUser, receiveId);
+		
+		close(conn);
+		
+		return result;
+	}
 	
 	
 	

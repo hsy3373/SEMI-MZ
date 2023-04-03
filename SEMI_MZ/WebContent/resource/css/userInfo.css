@@ -3,7 +3,7 @@
 /* 유저 정보창 css - 가영 */
 
 /*모달창 숨기기*/
-/* .hidden{display: none;} */
+.hidden{display: none;}
 
 
 
@@ -50,6 +50,11 @@
     cursor: pointer;
 }
 #heart-off{
+	width: 100%;
+	height: 100%;
+}
+#heart-on{
+	display: none;
 	width: 100%;
 	height: 100%;
 }
@@ -170,10 +175,9 @@
 	position: absolute;
     width: 35%;
     top: 37%;
-    left: 50%;
+    left: 58%;
     height: 60%;
     transform: translate(-50%, -50%);
-    display: none;
 }
 .user-report, #report-view{
     width: 100%;

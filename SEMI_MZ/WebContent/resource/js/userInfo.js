@@ -8,7 +8,7 @@
 import { getContextPath } from './common.js';
 
 /*유저 정보 모달창 띄우기*/
-/*let open = () => {
+let open = () => {
 	document.querySelector(".info-modal").classList.remove("hidden");
 }
 
@@ -17,14 +17,14 @@ let close = () => {
 }
 
 
-document.querySelector(".x-btn").addEventListener("click", close);*/
+document.querySelector("#x-btn").addEventListener("click", close);
 
 let nickName;
 
 /*유저 정보 가져오기*/
 export function getUserInfo(){
 	$.ajax({
-		url: getContextPath()+"/userInfo.me",
+		url: getContextPath()+"/userInfo",
 		data : {userId : sessionStorage.clickedUserId}, /*'test' 부분에 나중에 session 유저id 객체 넣으면 됨 / sessionStorage.getItem('')*/
 		method: 'post',
 		success : function(data) {
@@ -41,7 +41,7 @@ export function getUserInfo(){
 				
 			let info = data.info;
 			$(".introduce").html(info);
-				
+			selectHeart();	
 			let gender = data.gender;
 			console.log(gender);
 			if (gender == 'W') {
@@ -54,7 +54,61 @@ export function getUserInfo(){
 		}
 	});
 };
-/*document.querySelector(".user1").addEventListener("click", getUserInfo);*/
+
+/*하트 클릭 했을 때 호감도 상태 db에 저장*/
+function insertHeart(){
+	$.ajax({
+		url: getContextPath()+"/heart",
+		type: 'post',
+		data: {receiveId : sessionStorage.clickedUserId},
+		success: function(data){
+			console.log(data);
+			$('#heart-off').css('display', 'none');
+			$('#heart-on').css('display', 'block');
+		},
+		error: function(){
+			console.log("error");
+		}
+	});
+}
+document.querySelector("#heart-off").addEventListener("click", insertHeart);
+
+/*호감도 취소했을 때 db에서 삭제*/
+function deleteHeart(){
+	$.ajax({
+		url: getContextPath()+"/heart",
+		type: 'get',
+		data: {receiveId : sessionStorage.clickedUserId},
+		success: function(data){
+			console.log(data);
+			$('#heart-off').css('display', 'block');
+			$('#heart-on').css('display', 'none');
+		},
+		error: function(){
+			console.log("error");
+		}
+	});
+}
+document.querySelector("#heart-on").addEventListener("click", deleteHeart);
+
+/*db에 저장된 호감도 현상태 불러와서 하트 이미지 바꾸기*/
+function selectHeart(){
+	$.ajax({
+		url: getContextPath()+"/userInfo",
+		type: 'get',
+		data: {receiveId : sessionStorage.clickedUserId},
+		success: function(data){
+			console.log(data);
+			if (data == 1) {
+				$('#heart-off').css('display', 'none');
+				$('#heart-on').css('display', 'block');
+			}
+		},
+		error: function(){
+			console.log("error");
+		}
+	});
+}
 
 /*신고 상세내용 내보내기*/
 function report(){
@@ -90,7 +144,7 @@ document.querySelector(".info-report-btn").addEventListener("click", open2);
 document.querySelector(".reset-btn").addEventListener("click", close2);
 
 /* 신고 후 신고창 숨기기 */
-document.querySelector(".report-btn").addEventListener("click", close2);
+/*document.querySelector(".report-btn").addEventListener("click", close2);*/
 
 /*window.onload = function(){
 	let reset = document.querySelector(".reset-btn");
