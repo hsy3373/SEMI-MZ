@@ -88,7 +88,7 @@ export let delCookie = (cname) => {
   // document.cookie = 'user-id=; expires=Sat, 01 Jan 1972 00:00:00 GMT'
   const expiration = "Sat, 01 Jan 1972 00:00:00 GMT";
   setCookie(cname, "", 0);
-  document.cookie = cname + "=; path=/mzone;  expires=" + expiration;
+  document.cookie = cname + "=; path=/;  expires=" + expiration;
   console.log("쿠키를 삭제했습니다.");
 };
 

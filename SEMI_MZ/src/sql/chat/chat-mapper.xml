@@ -4,6 +4,15 @@
 <!-- [han] -->
 <properties>
 
+	<entry key="getChatRoom">
+		SELECT
+		    COUNT(*) AS COUNT
+		FROM
+		    CHATTINGROOM
+		WHERE
+		    USER_ID = ? AND RECEIVE_ID = ?
+	</entry>
+
 	<entry key="getChatRooms">
 		SELECT
 		    RECEIVE_ID

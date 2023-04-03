@@ -313,9 +313,14 @@ let hideArrow = function (is) {
 
 // 저장소에서 룸 리스트 불러와서 화면상 표시해주는 함수
 // id 값을 넣어주면 해당 id 값을 가진 탭 자동 선택
-export let setChattingRooms = function (id) {
+export let setChattingRooms = function (id, newRoom) {
+  console.log("셋채팅룸에서 불림 : id = ", id);
   let rooms = Common.getSessionStorage("allChatRooms").split(",");
   console.log("rooms : ", rooms);
+
+  if (!Common.isEmpty(newRoom) && rooms.indexOf(newRoom)) {
+  }
+
   let page = Common.getSessionStorage("roomPage");
 
   //만약 첫번째 룸이 "" 등으로 가진 값이 없을 때 == 룸이 없을때
@@ -323,7 +328,7 @@ export let setChattingRooms = function (id) {
   if (Common.isEmpty(rooms[0])) {
     hideArrow(true);
     $(".chat-room-item").css("display", "none");
-    showChattings("chatLogAll");
+    document.querySelector(".chat-all-user").click();
     return;
   }
 
@@ -368,11 +373,22 @@ export let setChattingRooms = function (id) {
     // 기존에 선택되어있던 것이 전체 채팅일 때
     $(".loadingAni").fadeOut();
   } else {
-    // 기존에 선택되어있는 것이 전체채팅이 아닐때 현재 페이지 내용이 바뀌면서
-    // 자동으로 선택되어있게 된 탭의 채팅내용으로 다시 표시
-    showChattings(
-      document.querySelector(".selected-chat > .room-name").innerText
+    console.log(
+      "기존에 선택되어 있는 것이 전체 채팅이 아님 : ",
+      document.querySelector(".selected-chat").style.display
     );
+    // 만약 다 끝났는데 현재 선택된 탭의 display 값이 none일 경우 전체 채팅으로 자동 선택되도록
+    if (document.querySelector(".selected-chat").style.display == "none") {
+      console.log("룸삭제 했는데 기존 선택된 탭이 none임");
+      document.querySelector(".chat-all-user").click();
+    } else {
+      // 기존에 선택되어있는 것이 전체채팅이 아닐때 현재 페이지 내용이 바뀌면서
+      // 자동으로 선택되어있게 된 탭의 채팅내용으로 다시 표시
+      showChattings(
+        "chatLog-" +
+          document.querySelector(".selected-chat > .room-name").innerText
+      );
+    }
   }
 };
 
@@ -427,7 +443,7 @@ let openChatRoom = function (id) {
   // 만약 현재 가지고 있는 룸에 상대 아이디가 없으면
   if (rooms.indexOf(id) < 0) {
     // 상대 아이디와의 채팅룸 DB에도 추가후 해당 룸으로 탭이동
-    ChatData.insertChatRoom(id);
+    ChatData.insertChatRoom(id, true);
   } else {
     //  상대 아이디가 있으면 해당 룸으로 탭 이동
     setChattingRooms(id);
