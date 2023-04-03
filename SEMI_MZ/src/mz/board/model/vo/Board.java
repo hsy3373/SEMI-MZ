@@ -27,13 +27,34 @@ public class Board {
 	
 	
 
-	public Board(int boardNo, String userId, String boardTitle, String createDate) {
+	public Board(int boardNo, String userId, String receiveId, String boardTitle, String createDate) {
 		super();
 		this.boardNo = boardNo;
 		this.userId = userId;
+		this.receiveId = receiveId;
 		this.boardTitle = boardTitle;
 		this.createDate = createDate;
 	}
+	
+	
+
+	public Board(int boardNo, String boardTitle, String boardContent, String secret) {
+		super();
+		this.boardNo = boardNo;
+		this.boardTitle = boardTitle;
+		this.boardContent = boardContent;
+		this.secret = secret;
+	}
+	
+	
+
+	public Board(String boardTitle, String boardContent, String secret) {
+		super();
+		this.boardTitle = boardTitle;
+		this.boardContent = boardContent;
+		this.secret = secret;
+	}
+
 
 	public int getBoardNo() {
 		return boardNo;

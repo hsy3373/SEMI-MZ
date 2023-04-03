@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 import static mz.common.JDBCTemplate.*;
+
+import mz.common.JDBCTemplate;
 import mz.member.model.dao.MemberDao;
 import mz.member.model.vo.Member;
 import mz.member.model.vo.loginAPI;
@@ -12,8 +14,8 @@ import mz.member.model.vo.loginAPI;
 public class MemberService {
 
 	
-	
-	//------------------------------ select 구간 -------------------------------
+		
+//------------------------------ select 구간 -------------------------------
 	//[han]
 	public int userCount() {
 		Connection conn = getConnection();
@@ -24,6 +26,20 @@ public class MemberService {
 		
 		return result;
 	}
+
+	// 유저 정보 불러오기 - 가영
+	public Member selectMember(String userId) {
+		
+		Connection conn = getConnection();
+		
+		Member m = new MemberDao().selectMember(conn, userId);
+		
+		close(conn);
+		
+		return m;
+	}
+		
+//------------------------------ insert 구간 -------------------------------
 	
 	// [김혜린]
 	public Member loginMember(String userId, String userPwd) {

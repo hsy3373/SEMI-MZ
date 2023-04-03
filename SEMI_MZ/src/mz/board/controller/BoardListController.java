@@ -13,10 +13,11 @@ import com.google.gson.Gson;
 
 import mz.board.model.service.BoardService;
 import mz.board.model.vo.Board;
+import mz.member.model.vo.Member;
 /**
  * Servlet implementation class BoardListController2
  */
-@WebServlet("/boardList")
+@WebServlet("/selectBoardList")
 public class BoardListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -34,9 +35,15 @@ public class BoardListController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		response.setContentType("application/json; charset=UTF-8");
-
-		ArrayList<Board> list = new BoardService().selectBoardList();
 		
+		// 로그인 아이디
+		String loginId = ((Member)request.getSession().getAttribute("loginUser")).getUserId();
+		System.out.println(loginId);
+		// 방주인 아이디
+		String receive = request.getParameter("receive"); // 'test'로 고정해둠
+		System.out.println("누가 "+loginId+" 누구의 " + receive);
+		ArrayList<Board> list = new BoardService().selectBoardList(loginId, receive);
+		System.out.println(list.size());
 		Gson gson = new Gson();
 			
 		gson.toJson(list, response.getWriter());	

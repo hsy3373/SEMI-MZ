@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import mz.member.model.service.MemberService;
+import mz.skin.model.service.SkinService;
 
 /**
  * Servlet implementation class MainController
@@ -21,6 +22,7 @@ public class MainController extends HttpServlet {
     /**
      * @see HttpServlet#HttpServlet()
      */
+	
     public MainController() {
         super();
         // TODO Auto-generated constructor stub
@@ -33,11 +35,11 @@ public class MainController extends HttpServlet {
 
 		int userCount = new MemberService().userCount();
 //		int noticeCount = new NoticeService().noticeCount();
-//		int characterCount = new CharacterService().characterCount();
+		int skinCount = new SkinService().skinCount();
 		
 		request.setAttribute("userCount", userCount);
 //		request.setAttribute("noticeCount", noticeCount);
-//		request.setAttribute("characterCount", characterCount);
+		request.setAttribute("skinCount", skinCount);
 //		
 		request.getRequestDispatcher("views/admin/main.jsp").forward(request, response);
 	}

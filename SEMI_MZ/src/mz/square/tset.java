@@ -35,7 +35,7 @@ public class tset extends HttpServlet {
 		
 		HttpSession session = request.getSession();
 		
-		Member m = new Member("admin ", "admin", "admin", "Y", 32, 5000, "", "N",
+		Member m = new Member("admin", "admin", "admin", "Y", 32, 5000, "", "N",
 				java.sql.Date.valueOf("2023-03-20"));
 		
 		session.setAttribute("loginUser", m);

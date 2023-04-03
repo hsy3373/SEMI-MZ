@@ -17,15 +17,17 @@
 </head>
 <body>
 	<!-- 광장 메인 jsp 작성 : 윤지영 -->
-	<div id="main-square" style="display: flex; justify-content : center;">
+	<div id="main-square" style="display: flex; justify-content : center; position: relative;">
 	</div>
         
 
     <!--버튼 모달 jps 가져옴 : 윤지영-->
     <%@ include file="./buttonList.jsp" %>
 
-   
+   <%@ include file="./userInfo.jsp" %>
    	<!--${loginUser.nicName}  -->
+   	
+   	<%@ include file="./chatting.jsp" %>
    		
     
     <!-- 확인용 ^^ --> 
@@ -47,9 +49,10 @@
 		//클릭한 친구 함수
 		var clickedUserId = sessionStorage.clickedUserId;
 	</script>
-	  	
+	
 	<script type="module" src="<%=contextPath%>/resource/js/common.js"></script>
     <script type="module" src="<%=contextPath%>/resource/js/squareCanvas.js"></script>
+	<script type="module" src="<%=contextPath%>/resource/js/buttonList.js"></script>
     
     <script type="module">
 
@@ -61,7 +64,6 @@
 	</script>
 
 		
-	
  
 			
 	 <!--이미지선언-->

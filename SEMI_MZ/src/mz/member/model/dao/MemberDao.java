@@ -12,10 +12,10 @@ import java.sql.SQLException;
 import java.util.InvalidPropertiesFormatException;
 import java.util.Properties;
 
+import mz.chatting.model.dao.ChatDao;
+import mz.common.JDBCTemplate;
 import mz.member.model.vo.Member;
 import mz.member.model.vo.loginAPI;
-
-
 
 public class MemberDao {
 	private Properties prop = new Properties();
@@ -30,7 +30,6 @@ public class MemberDao {
 		try {
 			prop.loadFromXML(new FileInputStream(fileName));
 		} catch (InvalidPropertiesFormatException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();

@@ -17,7 +17,7 @@
 
 /* ============================= 방명록 모달배경 ============================= */
 .board-wrap {
-    display: block;
+    display: none;
     position: absolute;
     top: 0;
     left: 0;
@@ -26,11 +26,11 @@
     background-color: rgba(0, 0, 0, 0.4);
 }
 .board-modal{
-    display: block;
+    display: none;
 	position: relative;
 	width: 800px;
     height: 500px;
-	top: 50%;
+	top: 40%;
 	left: 50%;
 	transform: translate(-50%, -50%);
 	background:url('../img/icon/방명록.png') no-repeat center/contain;
@@ -40,7 +40,7 @@
 /* ============================= 방명록 리스트 ============================= */
 .board-list{
     display: none;
-     padding-top: 96px;
+    padding-top: 110px;
 }
 .apple{
     width: 18px;
@@ -96,9 +96,15 @@
     bottom: 50px;
     transform: translate(-50%, 10px);
 }
-/* 글쓰기 버튼 */
-#writing-btn{text-align: right; border: none;}
 
+/* ============================= 친구한테 쓴 방명록 목록 ============================= */
+.board-send-list{
+    display: none;
+    padding-top: 110px;
+}
+
+/* 글쓰기 버튼 */
+#writing-btn{text-align: right;}
 
 
 /* ============================= 방명록 공통 부분 ============================= */
@@ -131,7 +137,7 @@
 }
 
 /* ============================= 방명록 상세 ============================= */
-.board-detail{display: block;}
+.board-detail{display: none;}
 /* 친구 캐릭터 스킨 */
 .board-detail-friend{
     width: 30%;
@@ -182,12 +188,12 @@
 
 
 
-/* ============================= 친구한테 쓴 방명록 목록 ============================= */
-.board-send-list{display: none;}
+
 
 
 
 /* ======================= 친구한테 쓴 방명록 상세 ======================= */
+.board-send-detail{display: none;}
 /* ============================= 방명록 작성 ============================= */
 .board-send-detail{display: none;}
 .board-write{display: none;}

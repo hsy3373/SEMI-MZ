@@ -29,8 +29,8 @@
 /* ================================== 옷장 ================================== */
 .icon-closet #closet{
     position: absolute;
-    top: 55%;
-    left: 18%;
+    top: 17%;
+    left: 27%;
 }
 /* 옷장 호버 */
 #closet:hover{
