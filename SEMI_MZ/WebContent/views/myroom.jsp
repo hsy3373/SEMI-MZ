@@ -13,6 +13,8 @@
 	System.out.println("loginUser : "+loginUser);
 	// 광장에 있는 마이룸으로 들어올시 roomMaster값 null
 	// 친구유저 클릭으로 들어올시		roomMaster값 friend
+	
+	Member userId = (Member)request.getAttribute("userId");
 %>
 
 <!DOCTYPE html>
@@ -67,7 +69,6 @@ ul li.on a {color: #fff;}
 	<!-- ============================= 마이룸 ============================= -->
 	<div class="myroom">
 	<%-- <%@ include file="chatting.jsp" %> --%>
-	
 
 		<!-- 옷장 클릭시 모달창 -->
 		<div class="icon-closet">
@@ -80,26 +81,11 @@ ul li.on a {color: #fff;}
 			<!-- 방명록 내용 나무에 표시 -->
 			<div class="myroom-board">
 				<table class="myroom-board-list">
-					<tr>
+<%-- 					<tr>
 						<td class="myroom-board-title"><img class="apple"
 							src="${contextPath}/resource/img/icon/사과.png"> 안녕하세요안녕하세요안녕하세요안녕하세요</td>
 						<td class="myroom-board-user">노지의</td>
-					</tr>
-					<tr>
-						<td class="myroom-board-title"><img class="apple"
-							src="${contextPath}/resource/img/icon/사과.png"> 안녕하세요안녕하세요안녕하세요안녕하세요</td>
-						<td class="myroom-board-user">노지의노지의노</td>
-					</tr>
-					<tr>
-						<td class="myroom-board-title"><img class="apple"
-							src="${contextPath}/resource/img/icon/사과.png"> 안녕하세요안녕하세요안녕하세요안녕하세요</td>
-						<td class="myroom-board-user">노지의노지의노</td>
-					</tr>
-					<tr>
-						<td class="myroom-board-title"><img class="apple"
-							src="${contextPath}/resource/img/icon/사과.png"> 안녕하세요안녕하세요안녕하세요안녕하세요</td>
-						<td class="myroom-board-user">노지의노지의노</td>
-					</tr>
+					</tr> --%>
 				</table>
 			</div>
 		</div>
@@ -109,7 +95,10 @@ ul li.on a {color: #fff;}
 			<input type="checkbox" name="heart-ck" id="heart">
 			<label class="font" for="heart">12</label>
 			
-			<img class="user-skin" src="${contextPath}/resource/img/user/skin1/fs.png">
+			<% if(roomMaster == null){ %>
+				<img class="user-skin" src="${contextPath}/resource/img/user/skin<%= loginUser.getSkinId() %>/fs.png">
+			<%} %>
+			<!-- 친구스킨 표현해줘야함 -->
 		</div>
 
 		<!--버튼 모달 jps 가져옴 -->
@@ -146,39 +135,27 @@ ul li.on a {color: #fff;}
 				</div>
 			</div>
 			<!-- ============================= 방명록 상세 ============================= -->
-<%--  		<% if(loginUser.equals(roomMaster)){ %>
- 			<% } else{ %>
- 			<% } %> --%>
-
-<%--  		<c:choose>
- 				<c:when test="${loginUser eq roomMaster }">
- 					
- 				</c:when>
- 				<c:otherwise>
- 				
- 				</c:otherwise>
- 			</c:choose> --%>
-				<div class="board-detail">
-					<!-- back 버튼 -->
-					<img class="back-btn" src="${contextPath}/resource/img/icon/back2_btn.png">
-					<div class="board-no" style="display: none;"></div>
-					<div class="board-detail-title"></div>
-					<div class="board-detail-area">
-						<div class="board-detail-content">
-	 					<div class="board-detail-friend">
-								<!-- <img class="friend-skin" src="${contextPath}/resource/img/user/skin2/fs.png">
-								<div class="friend-id">swldml 노</div> -->
-							</div>
-							<div class="board-detail-table">
-								<!-- <div class="detail-table-date">2023-03-22</div>
-								<div class="detail-table-text">
-								</div> -->
-							</div>
+			<div class="board-detail">
+				<!-- back 버튼 -->
+				<img class="back-btn" src="${contextPath}/resource/img/icon/back2_btn.png">
+				<div class="board-no" style="display: none;"></div>
+				<div class="board-detail-title"></div>
+				<div class="board-detail-area">
+					<div class="board-detail-content">
+ 					<div class="board-detail-friend">
+							<!-- <img class="friend-skin" src="${contextPath}/resource/img/user/skin2/fs.png">
+							<div class="friend-id">swldml 노</div> -->
 						</div>
-						<!-- 삭제 버튼 -->
-						<button class="alert-toggle board-delete-btn button" id="board-delete">삭제</button>
+						<div class="board-detail-table">
+							<!-- <div class="detail-table-date">2023-03-22</div>
+							<div class="detail-table-text">
+							</div> -->
+						</div>
 					</div>
+					<!-- 삭제 버튼 -->
+					<button class="alert-toggle board-delete-btn button" id="board-delete">삭제</button>
 				</div>
+			</div>
 
 			<!-- ============================= 친구한테 쓴 방명록 상세 ============================= -->
 			
@@ -205,7 +182,7 @@ ul li.on a {color: #fff;}
 						<label for='board-ck'>비밀글</label>
 					</div>
 
-					<button id="test" type="button" class="button board-send-update-btn"  id="updateBoard">수정</button>
+					<button type="button" class="button board-send-update-btn" id="board-send-update">수정</button>
 					<button class="alert-toggle board-send-delete-btn button" id="board-send-delete">삭제</button>
 
 				</div>
@@ -385,7 +362,6 @@ ul li.on a {color: #fff;}
 	<script>
 		/* 광장으로 가는 버튼 */
 		function gosquare() {
-			//location.href = "${contextPath}/gosquare";
 			location.href = "${contextPath}/views/square.jsp";
 		};
 		
@@ -399,101 +375,12 @@ ul li.on a {color: #fff;}
 		
 	</script>
 
-
-
-	<script>
-	$(function () {
-		<!-- 룸마스터 값이 있을 경우 옷장이벤트 x -->
-		$(".icon-closet").click(function(e){
-			console.log("${loginUser.userId}");
-			if("${roomMaster}" == ''){
-		        $(".closet-wrap").show();
-		        $(".closet-modal").show();
-		        $.dressClick();
-			}else{
-				$(".icon-closet").off('click');
-			} 
-	    });
-
-	    
-	    // 옷장 버튼 클릭
-	    $(".dress-btn").click(function(){
-	        $.dressClick();
-	    });
-
-	    // 상점 버튼 클릭
-	    $(".store-btn").click(function(){
-	        $.storeClick();
-	    });
-	    
-	    // 옷장 버튼 클릭 함수 생성
-	    $.dressClick = function(){
-	        // 1. 상점 버튼 투명하게
-	        $(".store-btn").css("opacity", "0.7");
-	        $(".dress-btn").css("opacity", "1");
-	        
-	        // 2. 커서 포인터 없애기
-	        $(".dress-btn").css("cursor", "default");
-	        $(".store-btn").css("cursor", "pointer");
-	        
-	        // 3. 구입 버튼(class="closet-buy") -> display: "none";
-	        $(".closet-buy").hide();
-	        $(".closet-wear").show();
-	        
-	        // 4. 가격, 보유중 라벨(class="closet-price") -> display: "none";
-	        $(".closet-price").hide();
-	        
-	        // 5. 내가 보유중인 스킨만 표시(DB -> "CHARACTER"테이블 SELECT)
-
-	    }
-
-		
-	    // 상점 버튼 클릭 함수 생성
-	    $.storeClick = function(){
-	        // 1. 옷장 버튼 투명하게
-	        $(".dress-btn").css("opacity", "0.7");
-	        $(".store-btn").css("opacity", "1");
-
-	        // 2. 커서 포인터 없애기
-	        $(".store-btn").css("cursor", "default");
-	        $(".dress-btn").css("cursor", "pointer");
-
-	        // 3. 착용 버튼(class="closet-wear") -> display: "none";
-	        $(".closet-wear").hide();
-	        $(".closet-buy").show();
-
-	        // 4. 가격, 보유중 라벨(class="closet-price") -> display: "block";
-	        $(".closet-price").show();
-
-	        // 5. 내가 보유한 스킨이라면 (class="closet-price")
-
-
-	    }
-	})
-
-	</script>
-	<script>
-	/* 나무에 방명록 리스트 표시 */
-	function treeBoard(receiveID){
-		$.ajax({
-			url : path + "/selectBoardList",
-			data : { receive : receiveID },
-			success : function(){
-				console.log("접속성공");
-			},
-			error : function(e){
-				console.log("실패");
-			}
-		});
-	}
-	</script>
-
-
 	
 
 	<%-- <script type="module" src="${contextPath}/resource/js/alert.js"></script> --%>
 	<script type="module" src="${contextPath}/resource/js/common.js"></script>
 	<script src="${contextPath}/resource/js/myroom/board.js"></script>
+	<script src="${contextPath}/resource/js/myroom/closet.js"></script>
 
 </body>
 </html>

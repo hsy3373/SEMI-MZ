@@ -114,9 +114,9 @@ public class BoardService {
 	 * @return int
 	 * 내가 쓴 방명록 삭제
 	 */
-	public int deleteWriteBoard(int boardNo) {
+	public int deleteBoard(int boardNo) {
 		Connection conn = getConnection();
-		int result = new BoardDao().deleteWriteBoard(conn, boardNo);
+		int result = new BoardDao().deleteBoard(conn, boardNo);
 		if(result > 0) {
 			commit(conn);
 		}else {

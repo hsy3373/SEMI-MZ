@@ -248,10 +248,10 @@ public class BoardDao {
 	 * @return int
 	 * 내가 쓴 방명록 삭제
 	 */
-	public int deleteWriteBoard(Connection conn, int boardNo) {
+	public int deleteBoard(Connection conn, int boardNo) {
 		int result = 0;
 		PreparedStatement pstmt = null;
-		String sql = prop.getProperty("deleteWriteBoard");
+		String sql = prop.getProperty("deleteBoard");
 		try {
 			pstmt = conn.prepareStatement(sql);
 			

@@ -67,7 +67,7 @@
 						  )
 	</entry>
 	<!-- 내가쓴 방명록 삭제 -->
-	<entry key="deleteWriteBoard">
+	<entry key="deleteBoard">
 		DELETE FROM BOARD
 			  WHERE BOARD_NO = ?
 	</entry>

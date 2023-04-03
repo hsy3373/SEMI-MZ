@@ -12,7 +12,7 @@ import mz.board.model.service.BoardService;
 /**
  * Servlet implementation class BoardDeleteWriteController
  */
-@WebServlet("/deleteWriteBoard")
+@WebServlet("/deleteBoard")
 public class BoardDeleteWriteController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -30,7 +30,7 @@ public class BoardDeleteWriteController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int boardNo = Integer.parseInt(request.getParameter("boardNo"));
 		
-		int result = new BoardService().deleteWriteBoard(boardNo);
+		int result = new BoardService().deleteBoard(boardNo);
 		
 		response.setContentType("text/html; charset=UTF-8");
 		
