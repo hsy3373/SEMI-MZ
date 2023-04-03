@@ -447,59 +447,125 @@ let FilterUsers = [];//필터링된 유저 1개 만큼 담아줄 배열
 // 웹소켓으로 연결하기
 // 웹소켓 서버 생성 : 학원 192.168.30.171
 let path = getContextPath()
-const socket = new WebSocket("ws://192.168.30.171:8083" + path + "/multiAccess");
+let socket = new WebSocket("ws://192.168.30.171:8083" + path + "/multiAccess");
 ///////////////////////////////////////////////////////////////자기 ws로 바꿔주기!!! ///////////////////////////////
 
+let fnSocket = {
+    onopen : function(e){
+        console.log("접속성공");
+        console.log(e);
+        sendMsg("ArrowRight");     
+    },
+    onmessage : function (e) {
+        // console.log('메세지 감지');
+        // console.log(e);
+        // console.log(e.data);
+    
+    
+        //데이터가 나인 경우 걸러내기 
+        let receivedUser = JSON.parse(e.data);
+        receivedUserId = receivedUser.userId;
+    
+        if (receivedUser.userId !== userId) {
+    
+            //console.log(receivedUserId)
+            UsersData.push(receivedUser);
+            //userData에 담겨있는 userId 값 기준으로 필터링 : 마지막 값만 남김 
+            FilterUsers = UsersData.filter(
+                (arr, index, callback) =>
+                    index === callback.findLastIndex(t =>
+                        t.userId === arr.userId
+                    )
+            )
+    
+    
+        }
+    
+        //떠난 유저 체크해서 삭제하기 
+        FilterUsers = FilterUsers.filter(user => user.connecting != 'N'); //삭제 
+    
+        //UsersData.push(JSON.parse(e.data)); // String -> 배열 변환  
+        //console.log(UsersData)  //object
+    
+    
+        UsersData = FilterUsers; // Userdate 정보를 Fileter 정보로 바꿔주기 
+        //console.log(FilterUsers);
+    
+        //userrender 함수 호출 
+        usersreder();
+    
+    },
+    onclose: function(e){
+        //console.log(e);
+        console.log('재연결...')
+        setTimeout(function () {
+           //재연결하기...
+           socket = new WebSocket("ws://192.168.30.171:8083" + path + "/multiAccess");
+           initSocket(socket);
+           console.log('재연결...보냈당')
+        }, 1000)    
+    },
+    onerror : (event) => {
+        console.log("WebSocket error: ", event);
+    }
+}
+function initSocket(s){
+    console.log(s);
+    for(let key in fnSocket){
+        s[key] = fnSocket[key];
+        //console.log(s[key] , fnSocket[key]);
+    }
+}
+
+initSocket(socket);
 
 //소켓 설정
+// socket.onopen = function (e) {
+//     console.log("접속성공");
+//     console.log(e);
+//     sendMsg("ArrowRight")
 
-socket.onopen = function (e) {
-    console.log("접속성공");
-    console.log(e);
-    sendMsg("ArrowRight")
-
-}
-
+// }
 //웝소켓서버에서 sendObjcet 메소드를 실행하면 실행되는 함수 
-socket.onmessage = function (e) {
-    // console.log('메세지 감지');
-    // console.log(e);
-    // console.log(e.data);
+// socket.onmessage = function (e) {
+//     // console.log('메세지 감지');
+//     // console.log(e);
+//     // console.log(e.data);
 
 
-    //데이터가 나인 경우 걸러내기 
-    let receivedUser = JSON.parse(e.data);
-    receivedUserId = receivedUser.userId;
+//     //데이터가 나인 경우 걸러내기 
+//     let receivedUser = JSON.parse(e.data);
+//     receivedUserId = receivedUser.userId;
 
-    if (receivedUser.userId !== userId) {
+//     if (receivedUser.userId !== userId) {
 
-        //console.log(receivedUserId)
-        UsersData.push(receivedUser);
-        //userData에 담겨있는 userId 값 기준으로 필터링 : 마지막 값만 남김 
-        FilterUsers = UsersData.filter(
-            (arr, index, callback) =>
-                index === callback.findLastIndex(t =>
-                    t.userId === arr.userId
-                )
-        )
-
-
-    }
-
-    //떠난 유저 체크해서 삭제하기 
-    FilterUsers = FilterUsers.filter(user => user.connecting != 'N'); //삭제 
-
-    //UsersData.push(JSON.parse(e.data)); // String -> 배열 변환  
-    //console.log(UsersData)  //object
+//         //console.log(receivedUserId)
+//         UsersData.push(receivedUser);
+//         //userData에 담겨있는 userId 값 기준으로 필터링 : 마지막 값만 남김 
+//         FilterUsers = UsersData.filter(
+//             (arr, index, callback) =>
+//                 index === callback.findLastIndex(t =>
+//                     t.userId === arr.userId
+//                 )
+//         )
 
 
-    UsersData = FilterUsers; // Userdate 정보를 Fileter 정보로 바꿔주기 
-    //console.log(FilterUsers);
+//     }
 
-    //userrender 함수 호출 
-    usersreder();
+//     //떠난 유저 체크해서 삭제하기 
+//     FilterUsers = FilterUsers.filter(user => user.connecting != 'N'); //삭제 
 
-}
+//     //UsersData.push(JSON.parse(e.data)); // String -> 배열 변환  
+//     //console.log(UsersData)  //object
+
+
+//     UsersData = FilterUsers; // Userdate 정보를 Fileter 정보로 바꿔주기 
+//     //console.log(FilterUsers);
+
+//     //userrender 함수 호출 
+//     usersreder();
+
+// }
 
 
 
@@ -519,19 +585,20 @@ const sendMsg = (keyboardCode) => {
 }
 
 
-socket.addEventListener("error", (event) => {
-    console.log("WebSocket error: ", event);
-});
+// socket.addEventListener("error", (event) => {
+//     console.log("WebSocket error: ", event);
+// });
 
-socket.onclose = function(e){
-    console.log(e);
-    console.log("재연결....")
+// socket.onclose = function(e){
+//     console.log(e);
+//     console.log('재연결...')
+//     setTimeout(function () {
+//        //재연결하기...
+//        socket = new WebSocket("ws://192.168.30.171:8083" + path + "/multiAccess");
+//        console.log('재연결...보냈당')
+//     }, 1000)
 
-    setTimeout(function () {
-       //재연결하기...
-    }, 1000)
-
-}
+// }
 
 
 
@@ -683,6 +750,12 @@ window.addEventListener('beforeunload', function (event) {
 })
 
 
+//소켓 끊어보기 
+// setTimeout(function () {
+//     //소켓끊어보기  
+//     console.log('끊어졌당...')
+//     socket.close();
+//  }, 10000)
 
 
 
