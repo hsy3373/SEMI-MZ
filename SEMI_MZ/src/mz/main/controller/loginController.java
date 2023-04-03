@@ -1,27 +1,23 @@
-package mz.square;
+package mz.main.controller;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
-import mz.member.model.vo.Member;
 
 /**
- * Servlet implementation class tset
+ * Servlet implementation class loginController
  */
-@WebServlet("/friendtest")
-public class tset extends HttpServlet {
+@WebServlet("/loginController")
+public class loginController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public tset() {
+    public loginController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,18 +26,8 @@ public class tset extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		System.out.print("호출됌 ");
-		
-		HttpSession session = request.getSession();
-		
-		Member m = new Member("admin", "admin", "admin", "Y", 32, 5000, "", "N",
-				java.sql.Date.valueOf("2023-03-20"));
-		
-		session.setAttribute("loginUser", m);
-		
-		//request.getRequestDispatcher("view/test.jsp").forward(request, response);
-		
+		// TODO Auto-generated method stub
+		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**

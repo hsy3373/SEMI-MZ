@@ -55,6 +55,9 @@ public class ReportController extends HttpServlet {
 			new Gson().toJson(result, response.getWriter());
 		} else {
 			System.out.println("글러먹었어...");
+			response.setContentType("application/json; charset=UTF-8");
+			
+			new Gson().toJson(result, response.getWriter());
 		}
 		 
 	}

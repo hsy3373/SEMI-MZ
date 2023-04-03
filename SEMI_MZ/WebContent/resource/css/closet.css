@@ -56,6 +56,7 @@
 .closet-wrap .x-btn{
     position: absolute;
     width: 48px;
+    height: 48px;
     top: 2%;
     right: 14%;
     cursor: pointer;
