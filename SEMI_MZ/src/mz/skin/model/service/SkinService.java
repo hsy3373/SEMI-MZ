@@ -118,6 +118,14 @@ public class SkinService {
 		return list;
 		
 	}
+	
+	// [지의]
+	public ArrayList<Skin> selectSkinList(){
+		Connection conn = getConnection();
+		ArrayList<Skin> list = new SkinDao().selectSkinList(conn);
+		close(conn);
+		return list;
+	}
 
 //-------------------------------------------INSERT 구역 -------------------------------------------------
 
@@ -143,5 +151,7 @@ public class SkinService {
 
 		return result;
 	}
+	
+
 
 }

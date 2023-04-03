@@ -13,13 +13,13 @@ import mz.board.model.service.BoardService;
  * Servlet implementation class BoardDeleteWriteController
  */
 @WebServlet("/deleteBoard")
-public class BoardDeleteWriteController extends HttpServlet {
+public class BoardDeleteController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public BoardDeleteWriteController() {
+    public BoardDeleteController() {
         super();
         // TODO Auto-generated constructor stub
     }

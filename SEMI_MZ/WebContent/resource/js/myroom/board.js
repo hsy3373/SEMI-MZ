@@ -17,7 +17,6 @@ function getContextPath() {
 let path = getContextPath();
 /* chatData.js -> import 참고해서 작업 */
 
-
 // 페이징 처리 준비
 let listCount;				// 현재 게시판의 총 게시글 갯수
 let boardLimit = 6; 		// 한 페이지에 나타낼 게시글 수
@@ -65,6 +64,8 @@ $(function(){
 			selectboardList(loginUserId);
 		}else{
 			selectboardList(roomMasterId);
+			// 글쓰기버튼 표시
+			$("#writing-btn").css("display", "block");
 		}
 		
 		
@@ -79,7 +80,6 @@ $(function(){
 // ★ receive_id 값에 따라 보여지는 화면구성이 다름!
 // 마이룸 방문시
 // receive_id('test') == 현재 로그인한 아이디('test')
- 
 // 다른방 방문시
 // receive_id == (방주인 아이디 == 받은사람) && USER_ID == (현재 로그인한 아이디 == 작성자)
 function selectboardList( receiveID ){
@@ -145,8 +145,7 @@ function displayData(currentPage, boardLimit) {
 			       + "<td id='board-no' style='display: none;'>" + BoardList[i].boardNo + "</td>"
 			       + "<td class='board-date'>" + BoardList[i].createDate + "</td>"
 				+"</tr>"
-			// 글쓰기버튼 표시
-			$("#writing-btn").show();
+			
 		}
   	}
 
@@ -517,7 +516,7 @@ function loadList(receiveID){
 			if(roomMasterId == ''){
 				for(let i = 0; i<list.length; i++){
 					str += "<tr>"
-							+ "<td class='myroom-board-title"+i+"'>"
+							+ "<td class='myroom-board-title'>"
 							+ "<img class='apple' src='./resource/img/icon/사과.png'>"
 							+ list[i].boardTitle + "</td>"
 							+ "<td class='myroom-board-user'>" + list[i].userId + "</td>"
@@ -541,15 +540,3 @@ function loadList(receiveID){
 	})
 	
 };
-
-
-
-
-
-
-
-
-
-
-
-

@@ -2,13 +2,48 @@
  * 작성자 : 노지의
  * 마이룸 - 옷장
  */
+//import { getContextPath } from './common.js';
+function getContextPath() {
+  let hostIndex = location.href.indexOf(location.host) + location.host.length;
+  let contextPath = location.href.substring(
+    hostIndex,
+    location.href.indexOf("/", hostIndex + 1)
+  );
+  //console.log("getContextPath 불림");
+  return contextPath;
+}
+let path = getContextPath();
 /*
 	상점 클릭시 모든 리스트가 출력됨
 	옷장 클릭시 loginUser의 스킨목록이 있는 것만 출력됨
 */
+function selectSkin(){
+	$.ajax({
+		url : path + "/skin.me",
+		success : function(list){
+			//console.log("접속됨");
+			//console.log(list);
+			str = "";
+			for(let i = 0; i < list.length; i++){
+				str += "<div class='closet-item'>" 
+						  +"<div class='closet-skin-id' style='display: none;'>" + list[i].skinId +"</div>"
+						  + "<div class='closet-price'>" + list[i].price +"</div>"
+						  + "<div class='closet-skin'>"
+						 	+"<img src='."+ list[i].saveRoot +"/fs.png'>"
+						  + "</div>"
+					 + "</div>"
+			}
+			$(".closet-skins").html(str);
+		},
+		error : function(e){
+			console.log("접속실패");
+		}
+	});
+};
 $(function () {
 	/*룸마스터 값이 있을 경우 옷장이벤트 x*/
 	$(".icon-closet").click(function(e){
+		selectSkin();
 		if(roomMasterId == ''){
 	        $(".closet-wrap").show();
 	        $(".closet-modal").show();
@@ -26,7 +61,7 @@ $(function () {
     // 상점 버튼 클릭
 	$(document).on("click", ".store-btn",function(){
         $.storeClick();
-		
+
 	});
 
     

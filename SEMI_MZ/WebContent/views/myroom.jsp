@@ -72,7 +72,8 @@ ul li.on a {color: #fff;}
 
 		<!-- 옷장 클릭시 모달창 -->
 		<div class="icon-closet">
-			<img id="closet" src="${contextPath}/resource/img/icon/옷장.png">
+	 		<img id="closet" src="${contextPath}/resource/img/icon/옷장.png">
+	 		</a>
 		</div>
 		<!-- 나무 클릭시 모달창 -->
 		<div class="icon-tree">
@@ -233,7 +234,7 @@ ul li.on a {color: #fff;}
 			<!-- =============== 왼쪽 =============== -->
 			<!-- 현재 스킨 -->
 			<div class="view-skin">
-				<img class="user-skin" src="${contextPath}/resource/img/user/skin1/fs.png">
+				<img class="user-skin" src="${contextPath}/resource/img/user/skin<%= loginUser.getSkinId() %>/fs.png">
 			</div>
 
 			<!-- 구입 버튼 -->
@@ -254,85 +255,14 @@ ul li.on a {color: #fff;}
 
 			<!-- 스킨 박스 -->
 			<div class="closet-skins">
-				<!-- 각각의 스킨박스(일단 정적으로 구현함 -> 추후 db에서 끌어와야됨) -->
-				<div class="closet-item">
 
-					<!-- 가격 or 보유중 라벨 -->
-					<div class="closet-price">보유중</div>
-
-					<!-- 스킨목록들 -->
-					<div class="closet-skin">
-						<img src="${contextPath}/resource/img/user/skin2/fs.png">
-					</div>
-				</div>
-
-				<div class="closet-item">
-					<div class="closet-price">300</div>
-					<div class="closet-skin">
-						<img src="${contextPath}/resource/img/user/skin3/fs.png">
-					</div>
-				</div>
-				<div class="closet-item">
-					<div class="closet-price">보유중</div>
-					<div class="closet-skin">
-						<img src="${contextPath}/resource/img/user/skin4/fs.png">
-					</div>
-				</div>
-				<div class="closet-item">
-					<div class="closet-price">300</div>
-					<div class="closet-skin">
-						<img src="${contextPath}/resource/img/user/skin5/fs.png">
-					</div>
-				</div>
-				<div class="closet-item">
-					<div class="closet-price">300</div>
-					<div class="closet-skin">
-						<img src="${contextPath}/resource/img/user/skin6/fs.png">
-					</div>
-				</div>
-				<div class="closet-item">
-					<div class="closet-price">300</div>
-					<div class="closet-skin">
-						<img src="${contextPath}/resource/img/user/skin7/fs.png">
-					</div>
-				</div>
-				<div class="closet-item">
-					<div class="closet-price">300</div>
-					<div class="closet-skin">
-						<img src="${contextPath}/resource/img/user/skin8/fs.png">
-					</div>
-				</div>
-				<div class="closet-item">
-					<div class="closet-price">300</div>
-					<div class="closet-skin">
-						<img src="${contextPath}/resource/img/user/skin9/fs.png">
-					</div>
-				</div>
-				<div class="closet-item">
-					<div class="closet-price">300</div>
-					<div class="closet-skin">
-						<img src="${contextPath}/resource/img/user/skin10/fs.png">
-					</div>
-				</div>
-				<div class="closet-item">
-					<div class="closet-price">300</div>
-					<div class="closet-skin">
-						<img src="${contextPath}/resource/img/user/skin11/fs.png">
-					</div>
-				</div>
-				<div class="closet-item">
-					<div class="closet-price">300</div>
-					<div class="closet-skin">
-						<img src="${contextPath}/resource/img/user/skin12/fs.png">
-					</div>
-				</div>
-				<div class="closet-item">
-					<div class="closet-price">300</div>
-					<div class="closet-skin">
-						<img src="${contextPath}/resource/img/user/skin13/fs.png">
-					</div>
-				</div>
 			</div>
+			<!-- 페이징:S -->
+			<ul id="pagingul">
+			</ul>
+			<!-- 페이징:E -->
+			
+
 		</div>
 
 	</div>
@@ -381,7 +311,7 @@ ul li.on a {color: #fff;}
 	<%-- <script type="module" src="${contextPath}/resource/js/alert.js"></script> --%>
 	<script type="module" src="${contextPath}/resource/js/common.js"></script>
 	<script src="${contextPath}/resource/js/myroom/board.js"></script>
-	<script src="${contextPath}/resource/js/myroom/closet.js"></script>
+	<script type="module" src="${contextPath}/resource/js/myroom/closet.js"></script>
 
 </body>
 </html>

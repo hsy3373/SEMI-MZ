@@ -199,6 +199,35 @@ public class SkinDao {
 		return list;
 		
 	}
+	
+	// [지의]
+	// 마이룸 상점 스킨 조회
+	public ArrayList<Skin> selectSkinList(Connection conn){
+		ArrayList<Skin> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectSkinList");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Skin skin = new Skin(rset.getInt("SKIN_ID"), 
+									 rset.getString("SAVE_ROOT"), 
+									 rset.getInt("CHARACTER_PRICE"), 
+									 rset.getString("REWARD"));
+		
+				list.add(skin);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
 
 
 //-----------------------------------------insert 영역---------------------------------------------------
