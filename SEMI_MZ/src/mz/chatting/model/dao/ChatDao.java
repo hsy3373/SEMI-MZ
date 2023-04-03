@@ -40,6 +40,34 @@ public class ChatDao {
 	
 //	------------------------------ select 구간 -------------------------------
 	
+	public int getChatRoom(Connection conn , String userId, String receiver){
+		int result = 0;
+		
+		ResultSet rset = null;
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("getChatRoom");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userId);
+			pstmt.setString(2, receiver);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				result = rset.getInt("COUNT");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return result;
+	}
+	
 	public ArrayList<String> getChatRooms(Connection conn , String userId){
 		ArrayList<String> list = new ArrayList<>();
 		

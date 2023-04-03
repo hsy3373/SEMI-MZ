@@ -22,7 +22,13 @@ document.getElementById("main-square").appendChild(canvas);
 let noticeBoard, myhome, squarebackground, gamezone;
 
 //모달 떠있는 동안 움직임 stop
+
 let modalstop = false;
+export let modalstopfn = function () {
+    modalstop = !modalstop
+    console.log(modalstop, "호출")
+    main();
+}
 
 //배경 이미지 세팅
 function loadImage() {
@@ -60,10 +66,10 @@ let userfs = new Image();
 userfs.src = "../resource/img/user/skin" + userSkin + "/fs.png"
 
 let userld = new Image();
-userld.src = "../resource/img/user/skin"+userSkin+ "/ld.png"
+userld.src = "../resource/img/user/skin" + userSkin + "/ld.png"
 
 let userls = new Image();
-userls.src = "../resource/img/user/skin"+userSkin+ "/ls.png"
+userls.src = "../resource/img/user/skin" + userSkin + "/ls.png"
 
 let userrd = new Image();
 userrd.src = "../resource/img/user/skin" + userSkin + "/rd.png"
@@ -94,7 +100,6 @@ function render() {
 
 
 
-
 //keys 다운에 부여하는 캐릭터 이동 이벤트
 let keysDown = {};
 function setupKeyboard() {
@@ -103,8 +108,7 @@ function setupKeyboard() {
 
         //이벤트 호출
         //console.log(event.key)
-        //sendMsg(event.key); //이거 위치를 옮겨보기 => 체크 : 해결. but 호출속도가 빨라서, 문제생길시 다시 back;
-        
+        //sendMsg(event.key); //이거 위치를 옮겨보기 => 체크 : 해결. but 호출속도가 빨라서, 문제생길시 다시 back;      
     });
 
     document.addEventListener("keyup", function (event) {
@@ -112,11 +116,9 @@ function setupKeyboard() {
 
     })
 
-   
 
 }
 
-    
 
 //클릭에 부여하는 이벤트
 canvas.addEventListener("click", function (event) {
@@ -189,7 +191,7 @@ function update() {
         }
 
         sendMsg("ArrowLeft"); //소켓에 캐릭터 이동 메세지 전송
-       
+
 
     }
 
@@ -203,7 +205,7 @@ function update() {
         }
 
         sendMsg("ArrowUp"); //소켓에 캐릭터 이동 메세지 전송
-       
+
 
     }
 
@@ -217,7 +219,7 @@ function update() {
         }
 
         sendMsg("ArrowDown"); //소켓에 캐릭터 이동 메세지 전송
-       
+
     }
 
     //맵 블락 (상하좌우)
@@ -402,6 +404,33 @@ function update() {
 
 }
 
+//클릭이벤트로 해당 userid 넘겨주기
+canvas.addEventListener('click', function (e) {
+
+
+    let x = e.clientX; //클릭좌표값
+    let y = e.clientY; //클릭좌표값
+
+    console.log(x, y)
+
+
+    for (let user of FilterUsers) { //랜더링된 filter user 정보 받아서 좌표값 체크
+        let ux = parseInt(user.uesrX);
+        let uy = parseInt(user.uesrY);
+        let id = user.userId;
+
+        if (x >= ux && x <= ux + 50 && y >= uy && y <= uy + 50) {
+            window.sessionStorage.setItem('clickedUserId', id);
+            break; //sesion에 clickUserId로 id 값 넘겨주기
+        }
+    }
+
+    console.log(sessionStorage.clickedUserId)
+})
+
+
+
+
 //집으로 이동하는 함수
 const gohome = () => {
     let path = getContextPath()
@@ -410,7 +439,7 @@ const gohome = () => {
 
 }
 
-///////////////////////////////////////////////////////////////여기!!! 
+///////////////////////////////////////////////////////////////여기!!! ///////////////////////////////
 
 let receivedUserId = "";
 let UsersData = []; // 유저들 데이터 담아줄 배열
@@ -418,61 +447,129 @@ let FilterUsers = [];//필터링된 유저 1개 만큼 담아줄 배열
 // 웹소켓으로 연결하기
 // 웹소켓 서버 생성 : 학원 192.168.30.171
 let path = getContextPath()
-const socket = new WebSocket("ws://192.168.30.174:8084" + path + "/multiAccess");
+//const socket = new WebSocket("ws://192.168.30.174:8084" + path + "/multiAccess");
 //집 : 192.168.35.13
 // 지의 학원: 192.168.30.174:8084
 // 지의 집 : 192.168.0.16:8084
+let socket = new WebSocket("ws://192.168.30.174:8084" + path + "/multiAccess");
+///////////////////////////////////////////////////////////////자기 ws로 바꿔주기!!! ///////////////////////////////
 
+let fnSocket = {
+    onopen : function(e){
+        console.log("접속성공");
+        console.log(e);
+        sendMsg("ArrowRight");     
+    },
+    onmessage : function (e) {
+        // console.log('메세지 감지');
+        // console.log(e);
+        // console.log(e.data);
+    
+    
+        //데이터가 나인 경우 걸러내기 
+        let receivedUser = JSON.parse(e.data);
+        receivedUserId = receivedUser.userId;
+    
+        if (receivedUser.userId !== userId) {
+    
+            //console.log(receivedUserId)
+            UsersData.push(receivedUser);
+            //userData에 담겨있는 userId 값 기준으로 필터링 : 마지막 값만 남김 
+            FilterUsers = UsersData.filter(
+                (arr, index, callback) =>
+                    index === callback.findLastIndex(t =>
+                        t.userId === arr.userId
+                    )
+            )
+    
+    
+        }
+    
+        //떠난 유저 체크해서 삭제하기 
+        FilterUsers = FilterUsers.filter(user => user.connecting != 'N'); //삭제 
+    
+        //UsersData.push(JSON.parse(e.data)); // String -> 배열 변환  
+        //console.log(UsersData)  //object
+    
+    
+        UsersData = FilterUsers; // Userdate 정보를 Fileter 정보로 바꿔주기 
+        //console.log(FilterUsers);
+    
+        //userrender 함수 호출 
+        usersreder();
+    
+    },
+    onclose: function(e){
+        //console.log(e);
+        console.log('재연결...')
+        setTimeout(function () {
+           //재연결하기...
+           socket = new WebSocket("ws://192.168.30.171:8083" + path + "/multiAccess");
+           initSocket(socket);
+           console.log('재연결...보냈당')
+        }, 1000)    
+    },
+    onerror : (event) => {
+        console.log("WebSocket error: ", event);
+    }
+}
+function initSocket(s){
+    console.log(s);
+    for(let key in fnSocket){
+        s[key] = fnSocket[key];
+        //console.log(s[key] , fnSocket[key]);
+    }
+}
+
+initSocket(socket);
 
 //소켓 설정
-socket.onopen = function (e) {
-    console.log("접속성공");
-    console.log(e);
+// socket.onopen = function (e) {
+//     console.log("접속성공");
+//     console.log(e);
+//     sendMsg("ArrowRight")
 
-}
-
+// }
 //웝소켓서버에서 sendObjcet 메소드를 실행하면 실행되는 함수 
-socket.onmessage = function (e) {
-    // console.log('메세지 감지');
-    // console.log(e);
-    // console.log(e.data);
-
-    
-  
-
-    //데이터가 나인 경우 걸러내기 
-    let receivedUser = JSON.parse(e.data);
-    receivedUserId = receivedUser.userId;
-
-    if (receivedUser.userId !== userId) {
-        
-        console.log(receivedUserId)
-        UsersData.push(receivedUser);
-        //userData에 담겨있는 userId 값 기준으로 필터링 : 마지막 값만 남김 
-        FilterUsers = UsersData.filter(
-            (arr, index, callback) =>
-                index === callback.findLastIndex(t =>
-                    t.userId === arr.userId
-                )
-        )
-
-        
-    }
-
-    //떠난 유저 체크해서 삭제하기 
-    FilterUsers = FilterUsers.filter(user => user.connecting != 'N'); //삭제 
-
-    //UsersData.push(JSON.parse(e.data)); // String -> 배열 변환  
-    //console.log(UsersData)  //object
+// socket.onmessage = function (e) {
+//     // console.log('메세지 감지');
+//     // console.log(e);
+//     // console.log(e.data);
 
 
-    UsersData = FilterUsers; // Userdate 정보를 Fileter 정보로 바꿔주기 
-    console.log(FilterUsers);
+//     //데이터가 나인 경우 걸러내기 
+//     let receivedUser = JSON.parse(e.data);
+//     receivedUserId = receivedUser.userId;
 
-     //userrender 함수 호출 
-     usersreder();
+//     if (receivedUser.userId !== userId) {
 
-}
+//         //console.log(receivedUserId)
+//         UsersData.push(receivedUser);
+//         //userData에 담겨있는 userId 값 기준으로 필터링 : 마지막 값만 남김 
+//         FilterUsers = UsersData.filter(
+//             (arr, index, callback) =>
+//                 index === callback.findLastIndex(t =>
+//                     t.userId === arr.userId
+//                 )
+//         )
+
+
+//     }
+
+//     //떠난 유저 체크해서 삭제하기 
+//     FilterUsers = FilterUsers.filter(user => user.connecting != 'N'); //삭제 
+
+//     //UsersData.push(JSON.parse(e.data)); // String -> 배열 변환  
+//     //console.log(UsersData)  //object
+
+
+//     UsersData = FilterUsers; // Userdate 정보를 Fileter 정보로 바꿔주기 
+//     //console.log(FilterUsers);
+
+//     //userrender 함수 호출 
+//     usersreder();
+
+// }
 
 
 
@@ -490,6 +587,24 @@ const sendMsg = (keyboardCode) => {
     //문자열 객체 데이터로 바꿔줌 
 
 }
+
+
+// socket.addEventListener("error", (event) => {
+//     console.log("WebSocket error: ", event);
+// });
+
+// socket.onclose = function(e){
+//     console.log(e);
+//     console.log('재연결...')
+//     setTimeout(function () {
+//        //재연결하기...
+//        socket = new WebSocket("ws://192.168.30.171:8083" + path + "/multiAccess");
+//        console.log('재연결...보냈당')
+//     }, 1000)
+
+// }
+
+
 
 //넘겨줄 데이터 유저 좌표, 유저스킨, 유저아이디 : 유저 정보 컨트롤 
 function UserData(uesrX, uesrY, userSkin, userId, userName, keyboardCode, connecting) {
@@ -512,7 +627,7 @@ function usersreder() {
 
     //필터링된 유저들 img 불러오기
     for (let i = 0; i < FilterUsers.length; i++) {
-        let imgMotion ="";
+        let imgMotion = "";
         switch (FilterUsers[i].keyboardCode) {
             case "ArrowDown":
                 imgMotion = "f"
@@ -526,15 +641,15 @@ function usersreder() {
             case "ArrowUp":
                 imgMotion = "b"
                 break;
-            default :
+            default:
                 return;
 
         }
 
-        if(receivedUserId == FilterUsers[i].userId){
-            if(moveMotion) {
+        if (receivedUserId == FilterUsers[i].userId) {
+            if (moveMotion) {
                 moveMotion = false;
-            }else{
+            } else {
                 moveMotion = true;
             }
         }
@@ -547,42 +662,42 @@ function usersreder() {
 
         //console.log(imgMotion);
 
-   
+
         //불러온 img skinimg에 넣어줌
         let img = new Image();
-        img.src = "../resource/img/user/skin" + FilterUsers[i].userSkin + "/"+imgMotion+".png"
+        img.src = "../resource/img/user/skin" + FilterUsers[i].userSkin + "/" + imgMotion + ".png"
         skinImages[i] = img;
 
     }
-   
-    
+
+
 
     //console.log(skinImages);
 
 }
 
 
- //클릭이벤트로 해당 userid 넘겨주기
- canvas.addEventListener('click', function (e) {
+//클릭이벤트로 해당 userid 넘겨주기
+canvas.addEventListener('click', function (e) {
 
 
     let x = e.clientX; //클릭좌표값
     let y = e.clientY; //클릭좌표값
 
-    console.log(x,y)
-   
+    console.log(x, y)
+
 
     for (let user of FilterUsers) { //랜더링된 filter user 정보 받아서 좌표값 체크
         let ux = parseInt(user.uesrX);
         let uy = parseInt(user.uesrY);
-        let id = user.userId; 
+        let id = user.userId;
 
         if (x >= ux && x <= ux + 50 && y >= uy && y <= uy + 50) {
-        	document.querySelector(".info-modal").classList.remove("hidden");
+            document.querySelector(".info-modal").classList.remove("hidden");
             window.sessionStorage.setItem('clickedUserId', id);
             getUserInfo();
             break; //sesion에 clickUserId로 id 값 넘겨주기
-            
+
         }
     }
 
@@ -590,8 +705,8 @@ function usersreder() {
 })
 
 
- //만든 유저 img 하나씩 뽑아서 캔버스에 draw  
-function userDraw(){
+//만든 유저 img 하나씩 뽑아서 캔버스에 draw  
+function userDraw() {
 
     for (let i = 0; i < FilterUsers.length; i++) {
         let user = FilterUsers[i];
@@ -600,22 +715,27 @@ function userDraw(){
         let username = user.userName;
 
         let img = skinImages[i];
-        
+
         ctx.drawImage(img, x, y, 50, 50);
         ctx.font = '12px Sans-Serif'
         ctx.fillText(username, x + 4, y + 60);
-       
+
     }
 }
+
+
+
 
 //랜더링 프레임으로 호출
 function main() {
 
+    //호출됨
     if (!modalstop) {
         update(); //좌표값 업데이트
         render(); //업데이트 된 좌표값으로 재 랜더링
         userDraw();
         requestAnimationFrame(main); // 프레임에 맞춰서 반복호출        
+        //들어와서 호출
 
     }
 
@@ -626,14 +746,20 @@ function main() {
 
 //종료한 user 체크하기
 // 윈도우 종류 이벤트 체크 1 
- window.addEventListener('beforeunload', function(event){ 때 
-    event.preventDefault(); //브라우저를 종료때 
+window.addEventListener('beforeunload', function (event) {
+    event.preventDefault(); //브라우저를 종료할때 
     let User = new UserData(uesrX, uesrY, userSkin, userId, userName, '', 'N'); //떠난 유저
     socket.send(JSON.stringify(User)); //떠났다고 알려줌 
 
 })
 
 
+//소켓 끊어보기 
+// setTimeout(function () {
+//     //소켓끊어보기  
+//     console.log('끊어졌당...')
+//     socket.close();
+//  }, 10000)
 
 
 
@@ -641,11 +767,11 @@ function main() {
 //1 번 : 키보드 이벤트 제한하기 ..!!
 // function 제한..(callback, delay) {
 //     let timeoutId;
-    
+
 // return function() {
 //       const context = this;
 //       const args = arguments;
-      
+
 //       clearTimeout(timeoutId);
 //       timeoutId = setTimeout(() => {
 //         callback.apply(context, args);
@@ -674,7 +800,7 @@ function main() {
 
 //       //소켓에 메세지 보내기
 //       sendSocketMessage(messages);
-      
+
 //       // 버퍼 비워주기
 //       messageBuffer = [];
 //     }
@@ -698,5 +824,6 @@ function main() {
 loadImage();
 main();
 setupKeyboard();
+
 
 

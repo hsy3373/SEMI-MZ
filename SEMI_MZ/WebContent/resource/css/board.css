@@ -199,6 +199,7 @@
 /* ======================= 친구한테 쓴 방명록 상세 ======================= */
 .board-send-detail{display: none;}
 /* ============================= 방명록 작성 ============================= */
+.board-send-detail{display: none;}
 .board-write{display: none;}
 .board-write-area{
     width: 600px;

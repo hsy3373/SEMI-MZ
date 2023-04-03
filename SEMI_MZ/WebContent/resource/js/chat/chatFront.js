@@ -186,47 +186,50 @@ export let clickChatRoom = function (e) {
 
 //------------------  채팅내부 클릭, 외부클릭시 색 변경용 함수 -----------
 
-//todo!! 나중에 좀 더 다듬어야 함
-// 색변경 함수 따로 빼면 좋을 것 같고 중간에 사이즈 변경용 div 클릭때도 색 진하게 되도록추가해야함
+let setColorClickInsideVer = function () {
+  document.documentElement.style.setProperty("--chat-background", "#fffffff2");
+  document.documentElement.style.setProperty(
+    "--chat-btn-background",
+    " rgb(19, 140, 215, 0.75)"
+  );
+  document.documentElement.style.setProperty("--chat-btn-border", "#00000087");
+  document.documentElement.style.setProperty("--chat-text-color", " black");
+};
+
+let setColorClickOutsideVer = function () {
+  document.documentElement.style.setProperty(
+    "--chat-background",
+    "rgba(255, 255, 255, 0.288)"
+  );
+  document.documentElement.style.setProperty(
+    "--chat-btn-background",
+    " rgb(19, 140, 215, 0.4)"
+  );
+  document.documentElement.style.setProperty(
+    "--chat-btn-border",
+    " rgba(0, 0, 0, 0.35)"
+  );
+  document.documentElement.style.setProperty(
+    "--chat-text-color",
+    " rgba(0, 0, 0, 0.8)"
+  );
+};
+
+// 화면 클릭시 채팅창 내부/외부에 따라 채팅창 색 변경
 let changeChatColor = function () {
   $("html").click(function (e) {
     if (
       $(e.target).parents(".right").length < 1 &&
       $(e.target).parents(".div-send").length < 1 &&
-      $(e.target).attr("class") != $(".div-send").attr("class")
+      $(e.target).attr("class") != "div-send" &&
+      $(e.target).attr("class") != "resizer"
     ) {
+      // 채팅창 외부가 클릭되었을 경우
       console.log("팝업 외 부분");
-      //실행 이벤트 부분
-      document.documentElement.style.setProperty(
-        "--chat-background",
-        "rgba(255, 255, 255, 0.288)"
-      );
-      document.documentElement.style.setProperty(
-        "--chat-btn-background",
-        " rgb(19, 140, 215, 0.4)"
-      );
-      document.documentElement.style.setProperty(
-        "--chat-btn-border",
-        " rgba(0, 0, 0, 0.35)"
-      );
-      document.documentElement.style.setProperty(
-        "--chat-text-color",
-        " rgba(0, 0, 0, 0.8)"
-      );
+      setColorClickOutsideVer();
     } else {
-      document.documentElement.style.setProperty(
-        "--chat-background",
-        "#fffffff2"
-      );
-      document.documentElement.style.setProperty(
-        "--chat-btn-background",
-        " rgb(19, 140, 215, 0.75)"
-      );
-      document.documentElement.style.setProperty(
-        "--chat-btn-border",
-        "#00000087"
-      );
-      document.documentElement.style.setProperty("--chat-text-color", " black");
+      // 채팅창 내부 클릭되었을 경우
+      setColorClickInsideVer();
     }
   });
 };
@@ -240,10 +243,21 @@ let textareaEnterKey = function () {
     .addEventListener("keydown", function (e) {
       // 엔터키면 보내기 후 내용 없애기, shift+enter 면 줄바꿈 처리
       if (e.key == "Enter") {
+        console.log(
+          "현재 입력창 글자 : ",
+          document.querySelector("#text-send").value.length,
+          document.querySelector("#text-send").value == "\n"
+        );
         if (!e.shiftKey) {
-          e.preventDefault(); // 기본 새로고침 동작 막기
-          sendChat();
-          handleResizeHeight();
+          if (document.querySelector("#text-send").value.length == 0) {
+            e.preventDefault(); // 개행 삽입 막음
+            console.log("연속으로 엔터만 입력할때는 채팅 전송 안되게 막음");
+          } else {
+            //todo 중복 엔터 막기
+            e.preventDefault(); // 개행 삽입 막음
+            sendChat();
+            handleResizeHeight();
+          }
         }
       }
     });
@@ -255,9 +269,28 @@ let eventEnterKey = function () {
   window.addEventListener("keyup", function (e) {
     if (e.key == "Enter") {
       if (document.getElementById("text-send") != document.activeElement) {
-        //todo 색변경 하려고 클릭 보냈는데 나중에 그냥 색변경용 함수 써버리자
-        document.querySelector(".div-send").click();
-        document.getElementById("text-send").focus();
+        //엔터가 눌렸는데 현재 포커스 된 창이 채팅창이 아닐때
+        let myroom1 = this.document.querySelector(".board-send-detail");
+        console.log(myroom1);
+        if (
+          !Common.isEmpty(myroom1) &&
+          (myroom1.style.display != "none" ||
+            this.document.querySelector(".board-write").style.display != "none")
+        ) {
+          console.log("마이룸에 들어왔는데 모달창은 안떠있음");
+          // 마이룸 요소가 존재할 때 == 마이룸에 들어와있을 때
+          // 마이룸에 들어와있으면서 작성용 모달창이 떠있을 때 == display 값이 none이 아닐때
+          // 마이룸 요소가 없을 때 == 마이룸에 들어와있지 않을 때
+          // 채팅창 선택된 것으로 처리
+          setColorClickInsideVer();
+          document.getElementById("text-send").focus();
+        } else {
+          console.log("마이룸에 들어와있지 않음");
+          // 마이룸 요소가 없을 때 == 마이룸에 들어와있지 않을 때
+          // 채팅창 선택된 것으로 처리
+          setColorClickInsideVer();
+          document.getElementById("text-send").focus();
+        }
       }
     }
   });
@@ -280,9 +313,14 @@ let hideArrow = function (is) {
 
 // 저장소에서 룸 리스트 불러와서 화면상 표시해주는 함수
 // id 값을 넣어주면 해당 id 값을 가진 탭 자동 선택
-export let setChattingRooms = function (id) {
+export let setChattingRooms = function (id, newRoom) {
+  console.log("셋채팅룸에서 불림 : id = ", id);
   let rooms = Common.getSessionStorage("allChatRooms").split(",");
   console.log("rooms : ", rooms);
+
+  if (!Common.isEmpty(newRoom) && rooms.indexOf(newRoom)) {
+  }
+
   let page = Common.getSessionStorage("roomPage");
 
   //만약 첫번째 룸이 "" 등으로 가진 값이 없을 때 == 룸이 없을때
@@ -290,7 +328,7 @@ export let setChattingRooms = function (id) {
   if (Common.isEmpty(rooms[0])) {
     hideArrow(true);
     $(".chat-room-item").css("display", "none");
-    showChattings("chatLogAll");
+    document.querySelector(".chat-all-user").click();
     return;
   }
 
@@ -335,11 +373,22 @@ export let setChattingRooms = function (id) {
     // 기존에 선택되어있던 것이 전체 채팅일 때
     $(".loadingAni").fadeOut();
   } else {
-    // 기존에 선택되어있는 것이 전체채팅이 아닐때 현재 페이지 내용이 바뀌면서
-    // 자동으로 선택되어있게 된 탭의 채팅내용으로 다시 표시
-    showChattings(
-      document.querySelector(".selected-chat > .room-name").innerText
+    console.log(
+      "기존에 선택되어 있는 것이 전체 채팅이 아님 : ",
+      document.querySelector(".selected-chat").style.display
     );
+    // 만약 다 끝났는데 현재 선택된 탭의 display 값이 none일 경우 전체 채팅으로 자동 선택되도록
+    if (document.querySelector(".selected-chat").style.display == "none") {
+      console.log("룸삭제 했는데 기존 선택된 탭이 none임");
+      document.querySelector(".chat-all-user").click();
+    } else {
+      // 기존에 선택되어있는 것이 전체채팅이 아닐때 현재 페이지 내용이 바뀌면서
+      // 자동으로 선택되어있게 된 탭의 채팅내용으로 다시 표시
+      showChattings(
+        "chatLog-" +
+          document.querySelector(".selected-chat > .room-name").innerText
+      );
+    }
   }
 };
 
@@ -394,7 +443,7 @@ let openChatRoom = function (id) {
   // 만약 현재 가지고 있는 룸에 상대 아이디가 없으면
   if (rooms.indexOf(id) < 0) {
     // 상대 아이디와의 채팅룸 DB에도 추가후 해당 룸으로 탭이동
-    ChatData.insertChatRoom(id);
+    ChatData.insertChatRoom(id, true);
   } else {
     //  상대 아이디가 있으면 해당 룸으로 탭 이동
     setChattingRooms(id);
