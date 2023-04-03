@@ -454,7 +454,7 @@ let sendChat = function () {
 //----------------------- 외부에서 가져다 써야할 함수 --------------------------
 
 // 룸 추가용 함수
-let openChatRoom = function (id) {
+export let openChatRoom = function (id) {
   let rooms = Common.getSessionStorage("allChatRooms").split(",");
 
   // 만약 현재 가지고 있는 룸에 상대 아이디가 없으면
