@@ -8,7 +8,7 @@ request.getContextPath(); %>
     <title>Insert title here</title>
 
     <link
-      href="../resource/css/chatting.css"
+      href="<%=path%>/resource/css/chatting.css"
       rel="stylesheet"
       type="text/css"
     />
