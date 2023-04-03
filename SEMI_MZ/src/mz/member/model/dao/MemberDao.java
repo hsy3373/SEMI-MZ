@@ -123,6 +123,7 @@ public class MemberDao {
 		return result;
 	}
 	
+	// 호감도 추가 - 가영
 	public int insertHeart(Connection conn, String loginUser, String receiveId) {
 		
 		int result = 0;
@@ -146,6 +147,7 @@ public class MemberDao {
 		return result;
 	}
 	
+	// 호감도 삭제 - 가영
 	public int deleteHeart(Connection conn, String loginUser, String receiveId) {
 		
 		int result = 0;
@@ -169,6 +171,7 @@ public class MemberDao {
 		return result;
 	}
 	
+	// 호감도 조회 - 가영
 	public int selectHeart(Connection conn, String loginUser, String receiveId) {
 		
 		int result = 0;
@@ -194,6 +197,30 @@ public class MemberDao {
 			e.printStackTrace();
 		} finally {
 			close(rset);
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	// 친구 추가 - 가영
+	public int insertFriend(Connection conn, String loginUser, String friendId) {
+		
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("insertFriend");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, loginUser);
+			pstmt.setString(2, friendId);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
 			close(pstmt);
 		}
 		return result;

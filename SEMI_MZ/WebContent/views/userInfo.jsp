@@ -44,7 +44,7 @@
 		<!-- 하단 버튼들 -->
 		<div class="btns1">
 			<button class="plus" type="button">친구추가</button>
-			<input type="hidden" class="delete" value="친구삭제">
+			<button class="delete" type="button">친구삭제</button>
 			<button class="friend-home" type="button">놀러가기</button>
 		</div>
 		<div class="btns2">
@@ -88,71 +88,6 @@
 	<script type="module" src="../resource/js/userInfo.js"></script>
 	<script type="module" src="../resource/js/common.js"></script>
 	<!--<script type="module" src="../resource/js/alert.js"></script>-->
-	<script>
-
 	
-	/* var target = $('.heart');
-	
-		$(function(){
-			getHeartInfo();
-		}); */
-	
-		/* //클릭 했을때 좋아요 db에 인설트!
-		function goheart(){
-			$.ajax({
-				url:"/mzone/heart",
-				type:"get",
-				data : {userId : 'friend'},
-				success: function(){
-					$('#heartOff').css('display', 'none');
-					$('#heartOn').css('display', 'block');
-				},
-				error: function(){ alert('error')}
-			});
-		} */
-		
-		/* function getHeartInfo(){
-			$.ajax({
-				url:"/mzone/heart2",
-				type:"post",
-				data : {userId : 'friend'},
-				success: resultHeart,
-				error: function(){ alert('error')}
-			});
-		}
-		
-		function resultHeart(data){
-			console.log(data);
-			if(data == 1){
-				$('#heartOff').css('display', 'none');
-				$('#heartOn').css('display', 'block');
-			}
-			
-		} */
-		
-		
-		/* function goDelete(){
-			$.ajax({
-				url:"/mzone/heartDelete",
-				type:"get",
-				data : {userId : 'friend'},
-				success: function(){
-					$('#heartOff').css('display', 'block');
-					$('#heartOn').css('display', 'none');
-				},
-				error: function(){ alert('error')}
-			});
-		} */
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-	</script>
 </body>
 </html>

@@ -67,6 +67,23 @@ public class MemberService {
 		return result;
 	}
 	
+	// 가영 - 신고 정보 db 저장
+	public int insertReport(String userId, String receiveId, String reportTitle, String reportContent) {
+		
+		Connection conn = getConnection();
+		
+		int result = new MemberDao().insertReport(conn, userId, receiveId, reportTitle, reportContent);
+		
+		if (result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return result;
+	}
+	
 	// 가영 - 호감도 db 저장
 	public int insertHeart(String loginUser, String receiveId) {
 		
@@ -84,22 +101,23 @@ public class MemberService {
 		return result;
 	}
 	
-	// 가영 - 신고 정보 db 저장
-	public int insertReport(String userId, String receiveId, String reportTitle, String reportContent) {
-		
+	// 가영 - 친구 추가
+	public int insertFriend(String loginUser, String friendId) {
+			
 		Connection conn = getConnection();
-		
-		int result = new MemberDao().insertReport(conn, userId, receiveId, reportTitle, reportContent);
-		
+			
+		int result = new MemberDao().insertFriend(conn, loginUser, friendId);
+			
 		if (result > 0) {
 			commit(conn);
 		} else {
 			rollback(conn);
 		}
 		close(conn);
-		
+			
 		return result;
 	}
+	
 	
 //------------------------------ delete 구간 -------------------------------
 	

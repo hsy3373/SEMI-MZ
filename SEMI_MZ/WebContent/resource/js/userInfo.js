@@ -110,6 +110,24 @@ function selectHeart(){
 	});
 }
 
+/*친구 추가*/
+function insertFriend(){
+	$.ajax({
+		url: getContextPath()+"/friend",
+		type: 'get',
+		data: {receiveId : sessionStorage.clickedUserId},
+		success: function(data){
+			console.log(data);
+			$('.plus').css('display', 'none');
+			$('.delete').css('display', 'block');
+		},
+		error: function(){
+			console.log("error");
+		}
+	});
+}
+document.querySelector(".plus").addEventListener("click", insertFriend);
+
 /*신고 상세내용 내보내기*/
 function report(){
 	console.log(nickName);

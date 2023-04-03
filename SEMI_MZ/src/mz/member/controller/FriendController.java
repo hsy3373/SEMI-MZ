@@ -13,29 +13,28 @@ import mz.member.model.service.MemberService;
 import mz.member.model.vo.Member;
 
 /**
- * Servlet implementation class ReportController
+ * Servlet implementation class FriendController
  */
-@WebServlet("/heart")
-public class HeartController extends HttpServlet {
+@WebServlet("/friend")
+public class FriendController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-	/**
+    /**
      * @see HttpServlet#HttpServlet()
      */
-	public HeartController() {
+    public FriendController() {
         super();
         // TODO Auto-generated constructor stub
     }
-	
+
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
 		String loginUser = ((Member)request.getSession().getAttribute("loginUser")).getUserId();
-		String receiveId = request.getParameter("receiveId");
+		String friendId = request.getParameter("friendId");
 		
-		int result = new MemberService().deleteHeart(loginUser, receiveId);
+		int result = new MemberService().insertFriend(loginUser, friendId);
 		
 		if (result > 0) {
 			
@@ -43,8 +42,7 @@ public class HeartController extends HttpServlet {
 			
 			new Gson().toJson(result, response.getWriter());
 		} else {
-			System.out.println("삭제 실패");
-			
+			System.out.println("친구 추가 실패");
 			response.setContentType("application/json; charset=UTF-8");
 			
 			new Gson().toJson(result, response.getWriter());
@@ -55,23 +53,8 @@ public class HeartController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		String loginUser = ((Member)request.getSession().getAttribute("loginUser")).getUserId();
-		String receiveId = request.getParameter("receiveId");
-		
-		int result = new MemberService().insertHeart(loginUser, receiveId);
-		System.out.println("하트 받는 사람"+receiveId+"하트 주는 사람"+loginUser+"결과"+result);
-		
-		if (result > 0) {
-			
-			response.setContentType("application/json; charset=UTF-8");
-			
-			new Gson().toJson(result, response.getWriter());
-		} else {
-			System.out.println("하트 클릭 실패");
-			response.setContentType("application/json; charset=UTF-8");
-			
-			new Gson().toJson(result, response.getWriter());
-		}
+		// TODO Auto-generated method stub
+		doGet(request, response);
 	}
+
 }

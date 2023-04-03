@@ -40,7 +40,7 @@
 							)
 	</entry>
 	
-	<!-- 가영 - 유저 정보 불러오기 -->
+	<!-- [가영] 유저 정보 불러오기 -->
 	<entry key="selectMember">
 		SELECT USER_ID,
 			   NICKNAME,
@@ -52,7 +52,7 @@
 		WHERE USER_ID = ?
 	</entry>
 	
-	<!-- 가영 - 신고 정보 db 저장 -->
+	<!-- [가영] 신고 정보 db 저장 -->
 	<entry key="insertReport">
 		INSERT INTO REPORT (REPORT_NO,
 							USER_ID,
@@ -66,7 +66,7 @@
 				?)
 	</entry>
 	
-	<!-- 가영 - 호감도 -->
+	<!-- [가영] 호감도 추가, 삭제, 조회 -->
 	<entry key="insertHeart">
 		INSERT INTO HEART(USER_ID, RECEIVE_ID)
 		VALUES (?, ?)
@@ -83,6 +83,12 @@
 		FROM HEART
 		WHERE USER_ID = ?
 		  AND RECEIVE_ID =?
+	</entry>
+	
+	<!-- [가영] 친구 추가, 삭제, 조회 -->
+	<entry key="insertFriend">
+		INSERT INTO FRIEND(USER_ID, FRIEND_ID)
+		VALUES (?, ?)
 	</entry>
 
 
