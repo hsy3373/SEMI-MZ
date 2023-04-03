@@ -8,8 +8,10 @@ INSERT INTO CHARACTER_SKIN(SKIN_ID,
                             CHARACTER_PRICE)
         VALUES( 0, '/resource/img/user/0_default', 0);
 
+
+-- todo!!!! 현재 스킨 폴더가 skin33 까지 있으므로 SEQ_SKIN이 33이 될때까지 아래 insert 구문 반복해줘야함
 --INSERT INTO CHARACTER_SKIN(SKIN_ID, SAVE_ROOT)
---		VALUES( SEQ_SKIN.NEXTVAL , '/resource/img/user/'||SEQ_SKIN.CURRVAL );
+--		VALUES( SEQ_SKIN.NEXTVAL , '/resource/img/user/skin'||SEQ_SKIN.CURRVAL );
 
 
 -- MEMBER
