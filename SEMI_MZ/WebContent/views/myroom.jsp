@@ -68,7 +68,7 @@ ul li.on a {color: #fff;}
 
 	<!-- ============================= 마이룸 ============================= -->
 	<div class="myroom">
-<%-- 	<%@ include file="chatting.jsp" %> --%>
+ 	<%@ include file="chatting.jsp" %>
 
 		<!-- 옷장 클릭시 모달창 -->
 		<div class="icon-closet">
