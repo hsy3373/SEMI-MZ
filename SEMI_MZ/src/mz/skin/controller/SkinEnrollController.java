@@ -85,7 +85,7 @@ public class SkinEnrollController extends HttpServlet {
 
 				// 저장할 폴더의 물리적 경로
 				// todo! 나중에 path 앞에 skin 붙일지 말지 결정해야함 ( 수정되면 sql문도 수정해줘야함 )
-				savePath = request.getSession().getServletContext().getRealPath("/resource/img/user/") + path;
+				savePath = request.getSession().getServletContext().getRealPath("/resource/img/user/skin") + path;
 
 				// savePath 경로로 폴더 생성하면서 생성이 되면 true값 반환받음
 				if (service.createFolder(savePath)) {
