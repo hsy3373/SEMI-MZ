@@ -147,85 +147,40 @@ ul li.on a {color: #fff;}
 					</div>
 				</div>
 			</div>
-
 			<!-- ============================= 방명록 상세 ============================= -->
-			<div class="board-detail">
-				<!-- back 버튼 -->
-				<img class="back-btn" src="../resource/img/icon/back2_btn.png">
-				<div class="board-detail-title">가나다라마바사아자차카타파하가</div>
-				<div class="board-detail-area">
-					<div class="board-detail-content">
-<!-- 						<div class="board-detail-friend">
-							<img class="friend-skin" src="../resource/img/user/skin2/fs.png">
-							<div class="friend-id">swldml 노</div>
+<%--  		<% if(loginUser.equals(roomMaster)){ %>
+ 			<% } else{ %>
+ 			<% } %> --%>
+
+<%--  		<c:choose>
+ 				<c:when test="${loginUser eq rommMaster }">
+ 					
+ 				</c:when>
+ 				<c:otherwise>
+ 				
+ 				</c:otherwise>
+ 			</c:choose> --%>
+				<div class="board-detail">
+					<!-- back 버튼 -->
+					<img class="back-btn" src="${contextPath}/resource/img/icon/back2_btn.png">
+					<div class="board-no" style="display: none;"></div>
+					<div class="board-detail-title"></div>
+					<div class="board-detail-area">
+						<div class="board-detail-content">
+	 					<div class="board-detail-friend">
+								<!-- <img class="friend-skin" src="${contextPath}/resource/img/user/skin2/fs.png">
+								<div class="friend-id">swldml 노</div> -->
+							</div>
+							<div class="board-detail-table">
+								<!-- <div class="detail-table-date">2023-03-22</div>
+								<div class="detail-table-text">
+								</div> -->
+							</div>
 						</div>
-						<div class="board-detail-table">
-							<div class="detail-table-date">2023-03-22</div>
-							<div class="detail-table-text">원질이 가장 꽃이 끓는다. 열락의 풍부하게 실현에
-								가슴에 심장은 위하여서, 너의 그들의 못하다 있는가? 보는 있는 따뜻한 꽃이 위하여서. 가진 그들의 같이 놀이
-								안고, 되려니와, 길지 풀이 인류의 힘있다. 찾아 않는 그와 온갖 밝은 실로 것이다. 곳으로 힘차게 황금시대의
-								이상이 품었기 있으랴? 이상의 방황하였으며, 옷을 수 듣는다. 청춘을 위하여서, 설산에서 온갖 아름다우냐? 인간이
-								구하지 얼음 뿐이다. 같은 있을 것이다.보라, 어디 있는 따뜻한 날카로우나 보라. 산야에 있는 미묘한 어디 살
-								희망의 것이다. 얼마나 곧 긴지라 청춘의 구할 살 든 그것은 이상은 있다. 열매를 커다란 보이는 품에 광야에서
-								그리하였는가? 놀이 얼음과 이 열락의 우는 있는 것이다. 위하여 고행을 그들의 힘있다. 지혜는 이것을 심장의 같이,
-								같이 있는 그러므로 바이며, 목숨이 있다. 그들을 풀이 스며들어 것이다.보라, 위하여서. 않는 동산에는 힘차게 끓는
-								열락의 앞이 일월과 것이다. 힘차게 모래뿐일 가슴에</div>
-						</div> -->
+						<!-- 삭제 버튼 -->
+						<button class="alert-toggle board-delete-btn button" id="board-delete">삭제</button>
 					</div>
-					<!-- 삭제 버튼 -->
-					<button class="alert-toggle board-delete-btn button"
-						id="board-delete">삭제</button>
 				</div>
-			</div>
-
-
-			<!-- ============================= 친구한테 쓴 방명록 리스트 ============================= -->
-			<div class="board-send-list">
-				<img class="x-btn" src="../resource/img/icon/엑스 버튼.png">
-
-				<div class="board-content">
-					<table class="board-list-area">
-						<tr>
-							<td colspan="2" id="writing-btn">
-								<button class="button board-write-btn" id="board-write">글쓰기</button>
-							</td>
-						</tr>
-						<tr class="board-send-list-tr">
-							<td id="board-title"><img class="apple"
-								src="../resource/img/icon/사과.png">제목</td>
-							<td class="board-date">2023-03-22</td>
-						</tr>
-						<tr class="board-send-list-tr">
-							<td id="board-title"><img class="apple"
-								src="../resource/img/icon/사과.png">제목</td>
-							<td class="board-date">2023-03-22</td>
-						</tr>
-						<tr class="board-send-list-tr">
-							<td id="board-title"><img class="apple"
-								src="../resource/img/icon/사과.png">제목</td>
-							<td class="board-date">2023-03-22</td>
-						</tr>
-						<tr class="board-send-list-tr">
-							<td id="board-title"><img class="apple"
-								src="../resource/img/icon/사과.png">제목</td>
-							<td class="board-date">2023-03-22</td>
-						</tr>
-						<tr class="board-send-list-tr">
-							<td id="board-title"><img class="apple"
-								src="../resource/img/icon/사과.png">제목</td>
-							<td class="board-date">2023-03-22</td>
-						</tr>
-						<tr class="board-send-list-tr">
-							<td id="board-title"><img class="apple"
-								src="../resource/img/icon/사과.png">제목</td>
-							<td class="board-date">2023-03-22</td>
-						</tr>
-
-					</table>
-					<!-- 페이징바 -->
-					<div class="pageing-area">페이징바</div>
-				</div>
-			</div>
 
 			<!-- ============================= 친구한테 쓴 방명록 상세 ============================= -->
 			
@@ -421,7 +376,51 @@ ul li.on a {color: #fff;}
 	
 	
 	<script>
+		/* 상단 스크립틀릿으로 받아온 roomMaster 값 사용하는 방법 */
+<%-- 		let tree = function(){
+			//방법1 스크립틀릿으로 정보 받아와서 함수 작성
+			let roomMaster = <%= roomMaster%>;
+			//방법2 쿠키/세션스토리지에 룸마스터 저장 -> 더 권장!
+		  document.cookie = 'roomMaster='+ encodeURIComponent(roomMaster) + "; path=/mzone; expires=Session";
+		}
+ --%>		
+	</script>
 
+	<script src="${contextPath}/resource/js/myroom/myroom.js"></script>
+	<script type="module" src="${contextPath}/resource/js/alert.js"></script>
+	<script type="module" src="${contextPath}/resource/js/common.js"></script>
+	<script src="${contextPath}/resource/js/myroom/boardMe.js"></script>
+	<script>
+	$(function () {
+		
+	    $(".icon-closet").click(function(e){
+	        $(".closet-wrap").show();
+	        $(".closet-modal").show();
+	        $.dressClick();
+	    });
+	    
+	    // 상점 버튼 클릭 함수 생성
+	    $.storeClick = function(){
+	        // 1. 옷장 버튼 투명하게
+	        $(".dress-btn").css("opacity", "0.7");
+	        $(".store-btn").css("opacity", "1");
+	
+	        // 2. 커서 포인터 없애기
+	        $(".store-btn").css("cursor", "default");
+	        $(".dress-btn").css("cursor", "pointer");
+	
+	        // 3. 착용 버튼(class="closet-wear") -> display: "none";
+	        $(".closet-wear").hide();
+	        $(".closet-buy").show();
+	
+	        // 4. 가격, 보유중 라벨(class="closet-price") -> display: "block";
+	        $(".closet-price").show();
+	
+	        // 5. 내가 보유한 스킨이라면 (class="closet-price")
+	
+	
+	    }
+	})
 	</script>
 
 
