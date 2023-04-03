@@ -2,7 +2,7 @@
  * 작성자 : 윤지영
  * 광장 및 마이홈에 들어갈 버튼 모달 리스트 js
  */
-
+import {modalstopfn} from './squareCanvas.js';
 
 
 //버튼이벤트
@@ -13,11 +13,13 @@ const Listbutton = document.querySelector('.Listbutton'); //환경설정버튼
 //버튼 클릭 : 친구목록
 friendList.addEventListener('click', () => {
     modal1.style.display = 'block';
+    modalstopfn();
 });
 
 //버튼 클릭 : 환경설정
 Listbutton.addEventListener('click', () => {
     modal2.style.display = 'block';
+    modalstopfn();
 });
 
 //모달 이벤트
@@ -32,12 +34,14 @@ const Preferences = document.getElementById("Preferences");
 //X버튼 종료이벤트 : 친구목록 
 document.querySelector('.x-btn1').addEventListener('click', () => {
     modal1.style.display = 'none';
+    modalstopfn();
 });
 
 
 //X버튼 종료이벤트 : 환경설정 
 document.querySelector('.x-btn2').addEventListener('click', () => {
     modal2.style.display = 'none';
+    modalstopfn();
 });
 
 //로그아웃창 연결
