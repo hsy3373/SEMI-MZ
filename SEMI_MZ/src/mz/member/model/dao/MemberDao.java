@@ -13,8 +13,8 @@ import java.util.InvalidPropertiesFormatException;
 import java.util.Properties;
 
 import mz.chatting.model.dao.ChatDao;
-
-
+import mz.common.JDBCTemplate;
+import mz.member.model.vo.Member;
 
 public class MemberDao {
 	private Properties prop = new Properties();
@@ -25,7 +25,6 @@ public class MemberDao {
 		try {
 			prop.loadFromXML(new FileInputStream(fileName));
 		} catch (InvalidPropertiesFormatException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -62,8 +61,45 @@ public class MemberDao {
 		return result;
 		
 	}
-}
-
+	
+	// 유저정보 불러오기
+	// 가영
+	public Member selectMember(Connection conn, String userId) {
+			
+		Member m = null;
+			
+		ResultSet rset = null;
+			
+		PreparedStatement pstmt = null;
+			
+		String sql = prop.getProperty("selectMember");
+			
+		try {
+			pstmt = conn.prepareStatement(sql);
+				
+			pstmt.setString(1, userId);
+				
+			rset = pstmt.executeQuery();
+				
+			if(rset.next()) {
+				m = new Member(rset.getString("USER_ID"),
+							   rset.getString("NICKNAME"),
+							   rset.getInt("SKIN_ID"),
+							   rset.getString("SELF_INFO"),
+							   rset.getString("GENDER"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				rset.close();
+				pstmt.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return m;
+	}
 	
 	// 김혜린
 	// 로그인
@@ -111,10 +147,6 @@ public class MemberDao {
 		return m;		
 	}
 	
-	
-	
-	
-	
 	// 회원가입
 	public int insertMember(Connection conn, Member m) {
 		
@@ -146,29 +178,5 @@ public class MemberDao {
 		}
 		return result;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 
+}
