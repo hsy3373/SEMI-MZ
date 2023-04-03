@@ -6,7 +6,7 @@
 
 	<entry key="insertSkin">
 		INSERT INTO CHARACTER_SKIN(SKIN_ID, SAVE_ROOT, CHARACTER_PRICE, REWARD)
-		VALUES( SEQ_SKIN.NEXTVAL , '/resource/img/user/'||SEQ_SKIN.CURRVAL, ?, ? )
+		VALUES( SEQ_SKIN.NEXTVAL , '/resource/img/user/skin'||SEQ_SKIN.CURRVAL, ?, ? )
 	</entry>
 
 	<entry key="selectSkinCurval">

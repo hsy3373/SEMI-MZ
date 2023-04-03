@@ -56,11 +56,12 @@ public class Skin {
 	}
 
 
-
+	// 전체 저장 경로 다 반환
 	public String getSaveRoot() {
 		return saveRoot;
 	}
 	
+	// 저장된 폴더명만 반환하도록 추가로 만든 게터
  	public String getSaveFolder() {
  		return saveRoot.substring(saveRoot.lastIndexOf("/") + 1);
  	};
