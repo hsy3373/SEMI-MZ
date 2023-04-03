@@ -8,7 +8,7 @@ request.getContextPath(); %>
     <title>Insert title here</title>
 
     <link
-      href="../resource/css/chatting.css"
+      href="<%=path%>/resource/css/chatting.css"
       rel="stylesheet"
       type="text/css"
     />
@@ -27,7 +27,7 @@ request.getContextPath(); %>
     </style>
   </head>
   <body>
-<!--     <div>
+    <!--     <div>
       <button type="button" id="insert-room">룸 추가 friend</button>
     </div> -->
     <div class="chat-container">
