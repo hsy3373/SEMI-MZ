@@ -68,7 +68,7 @@ ul li.on a {color: #fff;}
 
 	<!-- ============================= 마이룸 ============================= -->
 	<div class="myroom">
-	<%-- <%@ include file="chatting.jsp" %> --%>
+<%-- 	<%@ include file="chatting.jsp" %> --%>
 
 		<!-- 옷장 클릭시 모달창 -->
 		<div class="icon-closet">
@@ -96,6 +96,7 @@ ul li.on a {color: #fff;}
 			<label class="font" for="heart">12</label>
 			
 			<% if(roomMaster == null){ %>
+
 				<img class="user-skin" src="${contextPath}/resource/img/user/skin<%= loginUser.getSkinId() %>/fs.png">
 			<%} %>
 			<!-- 친구스킨 표현해줘야함 -->

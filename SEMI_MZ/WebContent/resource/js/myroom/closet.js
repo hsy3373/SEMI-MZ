@@ -2,29 +2,33 @@
  * 작성자 : 노지의
  * 마이룸 - 옷장
  */
+/*
+	상점 클릭시 모든 리스트가 출력됨
+	옷장 클릭시 loginUser의 스킨목록이 있는 것만 출력됨
+*/
 $(function () {
 	/*룸마스터 값이 있을 경우 옷장이벤트 x*/
 	$(".icon-closet").click(function(e){
-		//console.log(loginUser);
+		if(roomMasterId == ''){
 	        $(".closet-wrap").show();
 	        $(".closet-modal").show();
 	        $.dressClick();
-/*		if("${roomMaster}" == ''){
 		}else{
 			$(".icon-closet").off('click');
-		} */
+		}
     });
 
-    
     // 옷장 버튼 클릭
-    $(".dress-btn").click(function(){
+	$(document).on("click", ".dress-btn",function(){
         $.dressClick();
-    });
-
+		
+	});
     // 상점 버튼 클릭
-    $(".store-btn").click(function(){
+	$(document).on("click", ".store-btn",function(){
         $.storeClick();
-    });
+		
+	});
+
     
     // 옷장 버튼 클릭 함수 생성
     $.dressClick = function(){
