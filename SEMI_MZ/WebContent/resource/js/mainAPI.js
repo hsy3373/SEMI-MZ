@@ -3,23 +3,37 @@
  * 작성자 : 김혜린
  */
 
+console.log("api용 스크립트");
+import { getContextPath } from './common.js';
+import * as Common from "./common.js";
+import * as vali from "./validation.js";
 
-console.log("api js 연결");
+let path = getContextPath();
+
+
+$('#main-kakaobtn').on("click", function(){kakaoLogin("main");});
+$('#find-kakaobtn').on("click", function(){kakaoLogin("find")});
+
+
 
 Kakao.init('40c06f11b1aaaee13dc511ec238457b5');
 console.log(Kakao.isInitialized()); // sdk초기화여부판단
+
+
 //카카오로그인
-function kakaoLogin() {
+//$('#main-kakaobtn').on("click", 
+function kakaoLogin(page) {
     Kakao.Auth.login({
     success: function (response) {
         Kakao.API.request({
         url: '/v2/user/me',
         success: function (response) {
-            console.log(response.id)
 
-            // id(key)값이 db에 있는지 없는지 체크하는 함수 실행(); 
-            checkKakao(response.id);
-            
+            console.log(response.id);
+            Common.setCookie("key", response.id);
+            console.log("카카오로그인함수 : " + Common.getCookie("key"));
+            checkKakao(response.id, page);
+
         },
         fail: function (error) {
             console.log(error)
@@ -29,50 +43,104 @@ function kakaoLogin() {
     fail: function (error) {
         console.log(error)
     },
-    })
-
-
-
-
-
+    });
 }
 
-let checkKakao = function(key){
-    let path = Common.getContextPath();
-    // ajax로 해당(key)를 서블릿으로 보내고 맞는지아닌지 확인시키기
+
+
+// // 카카오 계정으로 존재하는 회원인지 확인하는 함수
+ let checkKakao = function(key, page){
+
+    // 회원가입 모달 나갔다가 다시 들어왔을 때 모달 안의 내용들 리셋
+    let userId = $("[name=enrollId]").val("");
+	let nicName = $("[name=enrollNick]").val("");
+    let userPwd = $(".enroll-pwd").val("");
+    let chkPwd = $(".enroll-chkpwd").val("");
+    let chkbox = $('#check-agree').prop("checked", false);
+    let idtxt = $('.idcheck-txt');
+    let nicktxt = $('.niccheck-txt');
+    let pwdtxt = $('.pwd-txt');
+
+     // 비밀번호 재설정 모달 닫고 다시 열었을 때 내용 리셋
+     let newpwd = $('.re-pwd').val("");
+     let newchkpwd = $('.re-chkpwd').val("");
+     let newpwdtxt = $('.repwd-txt');
+
+     // 비밀번호 재설정에 보여지는 유저아이디
+    // let userIdtxt = $('.userId-txt');
+
     $.ajax({
-        type: "get",
+        type: "post",
         url : path + "/KeyCheck.me",
         dataType: "json",
-        data: { key : 'key' , kind : 'kakao'},
-        success: (loginUser) => {
-            //여기 안에서 아이디가 존재하면 광장으로 아니면 회원가입모달로 이동시키기(쿠키에 키 저장)
-            if(loginUser != "0") { // 키값이 DB에 존재함. 세션에 유저 정보 담아서 광장으로 이동.
-                //광장으로 이동 로그인유저정보 세션에 담아서 광장으로 이동시키기
-                Common.setSessionStorage("loginUser", loginUser);
-                location.replace("views/square.jsp");
+        data: {kind : '카카오', key : key},
+        success: (result) => {
+            console.log("ajax 통신 후 결과 값 db에 존재함? : " + result); // console 확인
+            if(result == "1") { // 키값이 DB에 존재함
+                if(page == "main"){
+                    // main page =>  광장으로 이동시키기 (로그인유저 정보는 서블릿에서 세션에 담음)
+                    location.replace(path+"/views/square.jsp");
+                }
+                if(page == "find"){
+                    // 비밀번호 재설정 모달 열기(세션정보 서블릿에서 저장)
+                    $('.modal3').css('display', 'block');
 
-            }else{ //키 DB에 없음 => 회원가입 가능
-                // 쿠키에 키 저장
-                Common.setSessionStorage("api-key" , key);
-                Common.setSessionStorage("api-kind", kind);
-                // 회원가입 모달 창 띄워지게 (회원가입 창에서 쿠키저장된 키값 활용)
-                $('.modal2').css('display', 'block');
+                    // 비밀번호 재설정 모달 닫고 다시 열었을 때 내용 리셋
+                    newpwd; newchkpwd;
+                    newpwdtxt.html("영문, 숫자, 특수기호 포함 8~16자 입력 가능");
+                    newpwdtxt.css('color', 'black');
+                    vali.newPwdObj.pwd = false;
+                    vali.newpwdEnable();
+                }
             }
-        },
-        error : alert("계정 존재유무 확인 실패")
+
+            if(result == "6") { // (status != Y)인 경우
+                alert("탈퇴 혹은 차단 된 계정입니다. 서비스 이용이 불가능합니다.");
+                location.href = path;
+            }
+
+            if(result == "0") { //키 DB에 없음
+                if(page == "main"){
+                    // 쿠키에 키 저장 => 회원가입
+                    Common.setCookie("key" , key);
+                    Common.setCookie("kind", "카카오");
+
+                   console.log("회원가입 쿠키에 키 담김? //" + Common.getCookie("key"));
+                   console.log("회원가입 쿠키에 키 종류 담김? //" + Common.getCookie("kind"));
+
+                   // console.log(key + kind);
+                    // 회원가입 모달 창 띄워지게 (회원가입 창에서 쿠키저장된 키값 활용)
+                    alert("본인인증 완료. 회원가입이 필요합니다.");
+                    $('.modal2').css('display', 'block');
+
+                    // 회원가입 모달 나갔다가 다시 들어왔을 때 모달 안의 내용들 리셋
+                    userId; nicName; userPwd; chkPwd; chkbox;
+                    idtxt.html("영문, 숫자, 특수기호(_) 사용하여 5~20자 공백없이 가능");
+                    idtxt.css('color', 'black');
+                    nicktxt.html("영문, 한글, 숫자, 특수기호(_) 사용하여 2~8자까지 공백없이 가능");
+                    nicktxt.css('color', 'black');
+                    pwdtxt.html("영문, 숫자, 특수기호 포함 8~16자 입력 가능");
+                    pwdtxt.css('color', 'black');
+                    
+
+
+                }else if(page == "find"){
+                    alert("해당 계정으로 존재하는 아이디가 없습니다.");
+                }
+            }
+        }
     })
 
 
-}
 
+};
 
 //회원가입 모달 
 
-let insertMem = function(){
-    // 쿠키에 저장된 키 가져와서 함께 전송
-    // ajax로 멤버 추가 + 키값도 추가
-}
+// let insertMem = function(){
+//     // 쿠키에 저장된 키 가져와서 함께 전송
+//     // ajax로 멤버 추가 + 키값도 추가
+// }
 
 
 
@@ -106,29 +174,6 @@ let insertMem = function(){
 
 
 /* 참고용 코드.. ㅎ ㅎ ㅎ
-// 카카오로그인 스크립트
-        
-            Kakao.init('2cbf161eadf2b860fc5c71113e38ec12'); //발급받은 키 중 javascript키를 사용해준다.
-            console.log(Kakao.isInitialized()); // sdk초기화여부판단
-            //카카오로그인
-            function kakaoLogin() {
-                Kakao.Auth.login({
-                success: function (response) {
-                    Kakao.API.request({
-                    url: '/v2/user/me',
-                    success: function (response) {
-                        console.log(response)
-                    },
-                    fail: function (error) {
-                        console.log(error)
-                    },
-                    })
-                },
-                fail: function (error) {
-                    console.log(error)
-                },
-                })
-            }
         
 
    // 네이버 스크립트 

@@ -416,7 +416,7 @@ let FilterUsers = [];//필터링된 유저 1개 만큼 담아줄 배열
 // 웹소켓으로 연결하기
 // 웹소켓 서버 생성 : 학원 192.168.30.171
 let path = getContextPath()
-const socket = new WebSocket("ws://192.168.30.171:8083" + path + "/multiAccess");
+const socket = new WebSocket("ws://192.168.120.37:8084" + path + "/multiAccess");
 //집 : 192.168.35.13
 
 

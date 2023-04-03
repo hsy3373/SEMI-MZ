@@ -1,17 +1,19 @@
+<%@ page import="mz.member.model.vo.Member" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
 	String contextPath = request.getContextPath();
+	Member m = (Member) session.getAttribute("loginUser");
+	
+	System.out.println(m);
+	
 %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 
-<!-- css link -->
-<link href="../resource/css/main.css" rel="stylesheet" type="text/css">
-<link href="../resource/css/common.css" rel="stylesheet" type="text/css">
-<link rel="stylesheet" href="../resource/css/alert.css">
+
 <!-- css일반글꼴 link -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -21,7 +23,10 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 
-
+<!-- css link -->
+<link href="<%= contextPath %>/resource/css/common.css" rel="stylesheet" type="text/css">
+<link href="<%= contextPath %>/resource/css/main.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="../resource/css/alert.css">
 
 
 
@@ -40,13 +45,13 @@
 		</div>
 <!-- ============================ 로그인 ================================= -->
 		<div class="login">
-			<form action="<%= contextPath %>/login.me" method="post">
+			<form name="login-form" method="post">
 <!-- ============================ 1. 기본 로그인 ================================= -->
 				<table class="login-box">
 					<tr style="font-size:30px; cursor: default;">
 	                    <th>ID</th>
 	                    <th><input type="text" class="login-inputbox" name="userId"></th>
-	                    <th rowspan="2"><button type="submit" class="login-btn">Login</button></th>
+	                    <th rowspan="2"><button type="button" class="login-btn" >Login</button></th>
 	
 	                </tr>
 	                <tr style="font-size:30px; cursor: default;">
@@ -65,7 +70,7 @@
 				</table>
 <!-- ============================ 2. 카카오/구글로 시작하기 ================================= 회원가입 모달 열리는 클래스 .enroll-modal -->
 				<table class="other-login">
-	                <tr><th><button type="button" onclick="kakaoLogin();" class="kakao-btn other-btn"></button></th></tr>
+	                <tr><th><button type="button" id="main-kakaobtn" class="kakao-btn other-btn"></button></th></tr>
 	                <tr><th><button type="button" class="google-btn other-btn rqpwd-modal"></button></th></tr>
 	                
 	                <tr>
@@ -88,7 +93,7 @@
                     <table class="display-center" style="margin-top: 150px;">
                         <tr><th>회원가입 시에 사용한 계정을 선택해주세요.</th></tr>
                         <tr><th style="color: rgba(119, 117, 117, 0.918);">-----------------------------------------</th></tr>
-                        <tr><th><button type="button" class="kakao-btn other-btn"></button></th></tr>
+                        <tr><th><button type="button" id="find-kakaobtn" class="kakao-btn other-btn"></button></th></tr>
                         <tr></tr>
                         <tr><th><button type="button" class="google-btn other-btn changepwd-modal"></button></th></tr>
                     </table>
@@ -109,8 +114,8 @@
 	                    <table class="display-center enroll-table">
 	                        <tr>
 								<th class="th1-wid">- 아이디</th>
-								<td><input type="text" class="inputbox enroll-id" placeholder="아이디"></td>
-								<td class="td3-wid"><button type="button" class="ncheck-btn">중복확인</button></td>
+								<td><input type="text" class="inputbox enroll-id" name="enrollId" placeholder="아이디"></td>
+								<td class="td3-wid"><button type="button" class="ncheck-btn check-id" disabled>중복확인</button></td>
 							</tr>
 							<tr class="under-text">
 								<td></td>
@@ -120,8 +125,8 @@
 							<tr></tr><tr></tr><tr></tr><tr></tr><tr></tr><tr></tr>
 							<tr>
 								<th class="th1-wid">- 닉네임</th>
-								<td><input type="text" class="inputbox enroll-nic" placeholder="닉네임"></td>
-								<td class="td3-wid"><button type="button" class="ncheck-btn">중복확인</button></td>
+								<td><input type="text" class="inputbox enroll-nic" name="enrollNick" placeholder="닉네임"></td>
+								<td class="td3-wid"><button type="button" class="ncheck-btn check-nic" disabled>중복확인</button></td>
 							</tr>
 							<tr class="under-text">
 								<td></td>
@@ -415,7 +420,7 @@
         </div>
       </div>
       
-      
+     
 <!-- ============================ id/pw찾기 후 비밀번호 재설정 모달 ================================= -->	
 	<div class="modal modal3">
         <div class="modal_body">
@@ -426,7 +431,7 @@
                 <div class="modal-textarea">
                 	<form>
 	                    <table class="display-center" style="margin-top:50px;">
-							<tr><th colspan="3">이용 중인 아이디 : //사용자아이디표시//</th></tr>
+							<tr><th colspan="3"><span class="userId-txt"><%= m.getUserId() %></span></th></tr>
 							<tr><th colspan="3" style="color: rgba(119, 117, 117, 0.918);">-------------------------------------------------------------</th></tr>
 							<tr class="empty-space"></tr>
 							<tr>
@@ -559,12 +564,10 @@
 
 	
 	
-	
 
 
 
-
-
+<!-- 
 <!-- ============================ alert 창 ================================= -->    
 <!-- ============= 탈퇴 alert 창 ================= -->    
 <div class="alert">
@@ -584,8 +587,7 @@
 	   <button class="button alert-cancel">취소</button> 
 	</div>
 </div>
-<div class="alert2-overlay"></div>
-
+<div class="alert2-overlay"></div> -->
 
 
 
@@ -603,20 +605,22 @@
 
 	
 
-
-
- <!-- common.js -->
- <script type="module" src="../resource/js/common.js"></script>
- <!--유효성 script -->
- <script src="../resource/js/validation.js"></script>
- <!--alert script -->
- <script src="../resource/js/alert.js"></script>
- <!-- 메인 script(modal) -->
- <script src="../resource/js/main.js"></script>
- <!--kakao-->
+<script>
+	var aa = '${m.userId}';
+	console.log(aa);
+</script>
+<!-- common.js -->
+<script type="module" src="../resource/js/common.js"></script>
+<!--alert script -->
+<!--<script  src="../resource/js/alert.js"></script>-->
+<!-- 메인 script(modal) -->
+<script type="module" src="../resource/js/main.js"></script>
+<!--유효성 script -->
+<script type="module" src="../resource/js/validation.js"></script>
+<!-- API script --> 
+<script type="module" src="../resource/js/mainAPI.js"></script> 
+<!--kakao-->
 <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
- <!-- API script --> 
- <script src="../resource/js/mainAPI.js"></script> 
 	
 	
 	

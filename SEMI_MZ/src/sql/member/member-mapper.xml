@@ -4,8 +4,9 @@
 
 <properties>
 
-<!-- ----------------------- select 구간 ----------------------------- -->
-	<!-- [han] -->
+<!-- ================= select 구간 ======================== -->
+
+	<!--[han]-->
 	<entry key="userCount">
 		SELECT COUNT(*) AS COUNT
 		FROM MEMBER
@@ -18,7 +19,6 @@
 		FROM MEMBER
 		WHERE USER_ID = ?
 		  AND USER_PWD = ?
-		  AND STATUS = 'Y'
 	</entry>
 
 	<!-- [혜린] -->
@@ -26,8 +26,8 @@
 		SELECT M.USER_ID,USER_PWD,NICKNAME,STATUS,SKIN_ID,COIN,SELF_INFO,GENDER,ENROLL_DATE
 		FROM MEMBER M, LOGIN_API A
 		WHERE M.USER_ID = A.USER_ID 
-		AND API_KEY = ?
 		AND API_KIND = ?
+		AND API_KEY = ?
 	</entry>
 
 	<!-- [혜린] -->
@@ -37,30 +37,31 @@
 		WHERE API_KEY = ?
 	</entry>
 	
+	<!-- [혜린] -->
+	<entry key="checkId">
+		SELECT COUNT(*)
+		FROM MEMBER
+		WHERE USER_ID = ?
+	</entry>
+	
+	<!-- [혜린] -->
+	<entry key="checkNick">
+		SELECT COUNT(*)
+		FROM MEMBER
+		WHERE NICKNAME = ?
+	</entry>
 	
 	
 	
-<!-- ----------------------- insert 구간 ----------------------------- -->
+<!-- ================= insert 구간 ======================== -->
 	<!-- [혜린] -->
 	<entry key="insertMember">
 		INSERT INTO MEMBER( USER_ID,
 							USER_PWD,
-							NICKNAME,
-							STATUS,
-							SKIN_ID,
-							COIN,
-							SELF_INFO,
-							GENDER,
-							ENROLL_DATE)
+							NICKNAME)
 					VALUES (?,
 							?,
-							?,
-							?,
-							?,
-							?,
-							?,
-							?
-							)
+							?)
 	</entry>
 
 	<!-- [혜린] -->

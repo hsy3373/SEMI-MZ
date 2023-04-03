@@ -13,6 +13,7 @@ import java.util.InvalidPropertiesFormatException;
 import java.util.Properties;
 
 import mz.member.model.vo.Member;
+import mz.member.model.vo.loginAPI;
 
 
 
@@ -70,13 +71,10 @@ public class MemberDao {
 	// [김혜린]
 	public Member loginMember(Connection conn, String userId, String userPwd) {
 		
-		System.out.println(userId + userPwd);
-		
+		//System.out.println("dao 까지 옴?"+ userId + userPwd);
 		
 		Member m = null; 
-		
 		ResultSet rset = null;
-		
 		PreparedStatement pstmt = null;
 		
 		String sql = prop.getProperty("loginMember");
@@ -107,16 +105,15 @@ public class MemberDao {
 				close(rset);
 				close(pstmt);
 			} 
+		System.out.println("dao m : " + m);
 		return m;		
 	}
 	
 	// [김혜린]
-	public Member checkKey(Connection conn, String apiKey, String apiKind) {
+	public Member checkKey(Connection conn, String apiKind, String apiKey) {
 		
 		Member m = null;
-		
 		ResultSet rset =null;
-		
 		PreparedStatement pstmt = null;
 		
 		String sql = prop.getProperty("checkKey");
@@ -124,13 +121,15 @@ public class MemberDao {
 		try {
 			pstmt = conn.prepareStatement(sql);
 			
-			pstmt.setString(1, apiKey);
-			pstmt.setString(2, apiKind);
+			pstmt.setString(1, apiKind);
+			pstmt.setString(2, apiKey);
 			
 			rset = pstmt.executeQuery();
 			
+			
 			if(rset.next()) {
-				m = new Member(rset.getString("M.USER_ID"),
+				
+				m = new Member(rset.getString("USER_ID"),
 					       	rset.getString("USER_PWD"),
 					       rset.getString("NICKNAME"),
 					       rset.getString("STATUS"),
@@ -146,30 +145,73 @@ public class MemberDao {
 			close(rset);
 			close(pstmt);
 		}
+		System.out.println("디에이오에 담겼니?" + m);
 		return m;
 	}
 	
+	// [김혜린]
+	public int checkId(Connection conn, String userId) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset =null;
+		
+		String sql = prop.getProperty("checkId");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userId);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				result = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return result;		
+	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	// [김혜린]
+		public int checkNick(Connection conn, String nicName) {
+			
+			int result = 0;
+			PreparedStatement pstmt = null;
+			ResultSet rset =null;
+			
+			String sql = prop.getProperty("checkNick");
+			
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, nicName);
+				
+				rset = pstmt.executeQuery();
+				
+				if(rset.next()) {
+					result = rset.getInt(1);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				close(rset);
+				close(pstmt);
+			}
+			return result;		
+		}
 	
 	
 	
 //------------------------------ insert 구간 -------------------------------	
 	// [김혜린]
 	public int insertMember(Connection conn, Member m) {
+		System.out.println("insertMember");
 		
 		int result = 0;
-		
 		PreparedStatement pstmt = null;
-		
 		String sql = prop.getProperty("insertMember");
 		
 		try {
@@ -178,12 +220,6 @@ public class MemberDao {
 			pstmt.setString(1, m.getUserId());
 			pstmt.setString(2, m.getUserPwd());
 			pstmt.setString(3, m.getNicName());
-			pstmt.setString(4, m.getStatus());
-			pstmt.setInt(5, m.getSkinId());
-			pstmt.setInt(6, m.getCoin());
-			pstmt.setString(7, m.getInfo());
-			pstmt.setString(8, m.getGender());
-			pstmt.setDate(9, m.getDate());
 			
 			result = pstmt.executeUpdate();
 			
@@ -195,8 +231,32 @@ public class MemberDao {
 		return result;
 	}
 	
-	
-	
+	// [김혜린]
+	public int insertKey(Connection conn, loginAPI a) {
+		System.out.println("insertKey");
+		
+		System.out.println("dao 까지 옴?"+ a); // 콘솔용
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertKey");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, a.getUserId());
+			pstmt.setString(2, a.getApiKind());
+			pstmt.setString(3, a.getApiKey());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		System.out.println("DAO result : " + result); // cosole용
+		return result;
+	}
 	
 	
 	

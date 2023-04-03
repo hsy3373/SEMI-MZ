@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import static mz.common.JDBCTemplate.*;
 import mz.member.model.dao.MemberDao;
 import mz.member.model.vo.Member;
+import mz.member.model.vo.loginAPI;
 
 
 public class MemberService {
@@ -25,29 +26,48 @@ public class MemberService {
 	}
 	
 	// [김혜린]
-		public Member loginMember(String userId, String userPwd) {
-			Connection conn = getConnection();
-			
-			Member m = new MemberDao().loginMember(conn, userId, userPwd);
-			
-			close(conn);
-			return m;
-		}
+	public Member loginMember(String userId, String userPwd) {
+		Connection conn = getConnection();
+		
+		Member m = new MemberDao().loginMember(conn, userId, userPwd);
+		
+		close(conn);
+		//System.out.println("서비스 m : " + m);
+		return m;
+	}
 
 	// [김혜린]
-		public Member checkKey(String apiKey, String apiKind) {
-			Connection conn = getConnection();
-			
-			Member m = new MemberDao().checkKey(conn, apiKey, apiKind);
-			
-			close(conn);
-			
-			return m;
-		}
+	public Member checkKey(String apiKind, String apiKey) {
+		Connection conn = getConnection();
 		
+		Member m = new MemberDao().checkKey(conn, apiKind, apiKey);
 		
+		close(conn);
+		System.out.println("서비스에 담겼니?" + m); // console용
+		return m;
+	}
 		
+	// [김혜린]
+	public int checkId(String userId) {
+		Connection conn = getConnection();
 		
+		int result = new MemberDao().checkId(conn, userId);
+		
+		close(conn);
+		
+		return result;
+	}
+	
+	// [김혜린]
+	public int checkNick(String nicName) {
+		Connection conn = getConnection();
+		
+		int result = new MemberDao().checkNick(conn, nicName);
+		
+		close(conn);
+		
+		return result;
+	}
 		
 		
 		
@@ -70,6 +90,28 @@ public class MemberService {
 		
 		return result;
 	}
+	
+	// [김혜린]
+		public int insertKey(loginAPI a) {
+			
+			Connection conn = getConnection();
+			
+			int result = new MemberDao().insertKey(conn, a);
+			
+			if(result > 0) { // API테이블에 추가 성공
+				commit(conn);
+			}else { // API테이블에 추가 실패
+				rollback(conn);
+			}
+			close(conn);
+			System.out.println("서비스 result : " + result); // cosole용
+			return result;
+		}
+	
+	
+	
+	
+	
 	
 
 }

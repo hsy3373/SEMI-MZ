@@ -1,8 +1,6 @@
 package mz.member.controller.ajax;
 
 import java.io.IOException;
-import java.util.HashMap;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,22 +8,21 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.google.gson.Gson;
-
 import mz.member.model.service.MemberService;
 import mz.member.model.vo.Member;
+import mz.member.model.vo.loginAPI;
 
 /**
- * Servlet implementation class AjaxKeyCheck
+ * Servlet implementation class AjaxEnroll
  */
-@WebServlet("/KeyCheck.me")
-public class AjaxKeyCheck extends HttpServlet {
+@WebServlet("/enroll.me")
+public class AjaxEnroll extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AjaxKeyCheck() {
+    public AjaxEnroll() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -36,57 +33,39 @@ public class AjaxKeyCheck extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
-		
 	}
 
-	
-	
-	
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html; charset=UTF-8");
 		
-		System.out.println("keycheck");
+		String userId = request.getParameter("userId");
+		String nicName = request.getParameter("nicName");
+		String userPwd = request.getParameter("userPwd");
 		
-		String apiKind = request.getParameter("kind");
-		String apiKey = request.getParameter("key");
+		Member m = new Member(userId, userPwd, nicName);
 		
-		System.out.println("key: " + apiKey + ", kind : " + apiKind);
-		
-		Member m = new MemberService().checkKey(apiKind, apiKey);
-		
-//		HashMap<String, String> keyY = new HashMap<String, String>();
-//		keyY.put("1", "1");
-//		keyY.put("findId", m.getUserId());
+		System.out.println("멤버객체 m : " + m); // console용
 		
 		
-		System.out.println("keycheck 서블릿 담겼?: " + m); //console용
+		int resultM = new MemberService().insertMember(m);
 		
-		System.out.println("status값 : "+m.getStatus());
-		
-		if(m == null) { // 키 DB에 없음 => 회원가입 가능
+		if(resultM > 0) {  // insert성공
+			HttpSession session = request.getSession(); 
+			session.setAttribute("loginUser", m); // 로그인유저 정보 세션에 담음
+			
+			System.out.println("세션로그인유저 정보 : " + session.getAttribute("loginUser"));// console용
+			
+			response.getWriter().print("1");
+			System.out.println("멤버테이블 insert 성공"); // console용
+			System.out.println("resultM : " + resultM); // console용
+		}else { // insert 실패
 			response.getWriter().print("0");
+			System.out.println("멤버테이블 insert 실패"); // console용
+			System.out.println("resultM : " + resultM); // console용
 		}
-		// 키가 DB에 존재
-		if(m.getStatus().equals("X") || m.getStatus().equals("N")){
-				response.getWriter().print("6");
-		}
-		if(m.getStatus().equals("Y")) {
-				HttpSession session = request.getSession();
-				session.setAttribute("loginUser", m); //세션에 유저정보 담기
-				
-				response.getWriter().print("1"); // 광장으로
-				
-		}
-			
-			
-		
-		
-		
-		
-		
 	}
 
 }

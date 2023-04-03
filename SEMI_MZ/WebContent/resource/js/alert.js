@@ -20,7 +20,7 @@ function openAlert() {
   alertOverlay.style.display = "block";
 }
 
-// closeAlert() : 모달과 오버레이 숨기기
+//closeAlert() : 모달과 오버레이 숨기기
 export function closeAlert() {
   alert.style.display = "none";
   alertOverlay.style.display = "none";

@@ -17,6 +17,18 @@ public class Member {
 	public Member() {
 	}
 
+	
+	
+	
+	public Member(String userId, String userPwd, String nicName) {
+		super();
+		this.userId = userId;
+		this.userPwd = userPwd;
+		this.nicName = nicName;
+	}
+
+
+
 
 	public Member(String userId, String userPwd, String nicName, String status, int skinId, int coin, String info,
 			String gender, Date date) {

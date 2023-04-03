@@ -1,30 +1,26 @@
-package mz.member.controller;
+package mz.member.controller.ajax;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import mz.member.model.service.MemberService;
-import mz.member.model.vo.Member;
+import mz.member.model.vo.loginAPI;
 
 /**
- * Servlet implementation class loginController
+ * Servlet implementation class AjaxEnrollApi
  */
-@WebServlet("/login.me")
-public class loginController extends HttpServlet {
+@WebServlet("/enroll.api")
+public class AjaxEnrollApi extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public loginController() {
+    public AjaxEnrollApi() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -43,40 +39,28 @@ public class loginController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html; charset=UTF-8");
 		
-		System.out.println("enfdh=");
-		
 		String userId = request.getParameter("userId");
-		String userPwd = request.getParameter("userPwd");
+		String apiKind = request.getParameter("apiKind");
+		String apiKey = request.getParameter("apiKey");
 		
-		Member loginUser = new MemberService().loginMember(userId, userPwd);
+		System.out.println("api종류값 있나? :" + apiKind); // console용
+		System.out.println("api키값 있나? :" + apiKey);  // console용
 		
+		loginAPI a = new loginAPI(userId, apiKind, apiKey);
 		
-		if(loginUser == null) { //로그인 실패
-			
-			PrintWriter out = response.getWriter();
-			out.println("<script>alert('로그인에 실패하였습니다.');self.close();</script>");
-			out.flush();
-			
-			//response.sendRedirect(request.getContextPath()+"/views/main.jsp");
-			
-			RequestDispatcher view = request.getRequestDispatcher("views/main.jsp");
+		System.out.println("api객체 a : " + a); // console용
 		
-			view.forward(request, response);
-		}else { //로그인 성공
-			
-			HttpSession session = request.getSession();
-			session.setAttribute("loginUser", loginUser);
-			
-			response.sendRedirect(request.getContextPath()+"/views/square.jsp");
-			
+		int resultA = new MemberService().insertKey(a);
+		
+		if(resultA > 0) { // API테이블 insert성공
+			response.getWriter().print("11"); 
+			System.out.println("API테이블 insert 성공"); // console용
+			System.out.println("resultA : " + resultA); // console용
+		}else { // API테이블 insert 실패
+			response.getWriter().print("00"); 
+			System.out.println("API테이블 insert 실패"); // console용
+			System.out.println("resultA : " + resultA); // console용
 		}
-		
-		
-		
-		
-		
-		
-		
 		
 		
 	}
