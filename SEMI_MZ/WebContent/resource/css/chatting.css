@@ -19,7 +19,8 @@
   display: flex;
   flex-direction: column;
   height: 400px;
-  width: 600px;
+  width: 550px;
+  z-index: 1;
 }
 
 .left {

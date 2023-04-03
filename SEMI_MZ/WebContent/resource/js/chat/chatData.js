@@ -33,23 +33,29 @@ webSocket.onmessage = function (e) {
     Common.getSessionStorage("loginUser") == chat.userId
       ? "class='my-chat'"
       : "";
-  let str = `<div ${cl} >[${chat.date}]${chat.userId} : ${chat.content}</div>`;
 
+  let content = chat.content;
+  content = content.replace(/(?:\r\n|\r|\n)/g, "<br/>");
+
+  let str = `<div ${cl} >[${chat.date}]${chat.userId} : ${content}</div>`;
+
+  //받는이가 전체 채팅으로 되어있을 경우
   if (chat.receiveId == "chatLogAll") {
     let chats = Common.getSessionStorage("chatLogAll");
-    chats = chats ? chats : "";
+    chats = Common.isEmpty(chats) ? "" : chats;
     Common.setSessionStorage("chatLogAll", chats + str);
     console.log("채팅하나 all에 저장됨");
   } else {
     let rooms = Common.getSessionStorage("allChatRooms").split(",");
+
     // 현재 1:1 채팅이 열려있지 않은 유저에게서 채팅이 왔을 경우
     // 다시 방 정보 불러오도록
     if (rooms.indexOf(chat.userId) < 0) {
-      getChatRoomList();
-      //ChatFront.setChattingRooms();
+      console.log("채팅 열려있지 않음" + chat.userId);
+      getChatRoomList(null, chat.userId);
     }
     let chats = Common.getSessionStorage("chatLog-" + chat.userId);
-    chats = chats ? chats : "";
+    chats = Common.isEmpty(chats) ? "" : chats;
     Common.setSessionStorage("chatLog-" + chat.userId, chats + str);
 
     console.log(`채팅하나 ${chat.userId}에 저장됨`);
@@ -64,10 +70,12 @@ webSocket.onmessage = function (e) {
     document.querySelector(".chat-item-area").innerHTML += str;
     ChatFront.checkChatScroll();
   } else if (
-    selected.id != "chat-all-user" &&
-    selected.querySelector(".room-name").innerText == chat.receiveId
+    chat.receiveId != "chatLogAll" &&
+    !Common.isEmpty(selected.querySelector(".room-name")) &&
+    selected.querySelector(".room-name").innerText == chat.userId
   ) {
-    // 현재 선택화면이 전체 채팅이 아니면서 선택된 화면 텍스트 값이
+    console.log("기타 채팅에 들어옴");
+    // 현재 선택화면이 전체 채팅이 아니면서 선택된 화면 텍스트 값이 발신자 아이디와 같을 때
     document.querySelector(".chat-item-area").innerHTML += str;
     ChatFront.checkChatScroll();
   }
@@ -102,8 +110,11 @@ export const sendChat = (receiveId) => {
       "chatLog-" + receiveId,
       Common.getSessionStorage("chatLog-" + receiveId) + str
     );
+
     //DB에 채팅내역 등록
     insertChat(chat.receiveId, chat.content);
+    // 채팅룸 등록하되 포커스 되지는 않도록
+    insertChatRoom(chat.receiveId, false);
 
     // 현재 채팅구역 가장 마지막에 지금 작성한 채팅메세지 추가
     document
@@ -157,7 +168,9 @@ export let getChattings = function (id, scroll) {
         //만약 현재 로그인 된 유저가 보낸 채팅이면 내 채팅용 클래스 추가
         let cl = id != chat.userId ? "class='my-chat'" : "";
         num = num < chat.chatNo ? num : chat.chatNo;
-        str += `<div ${cl} >[${chat.date}]${chat.userId} : ${chat.content}</div>`;
+        let content = chat.content;
+        content = content.replace(/(?:\r\n|\r|\n)/g, "<br/>");
+        str += `<div ${cl} >[${chat.date}]${chat.userId} : ${content}</div>`;
       }
 
       //만약 기존 채팅로그가 쿠키에 저장되어있을경우 처리(기존값에 더함)
@@ -206,7 +219,7 @@ let insertChat = function (id, text) {
 };
 
 // db에서 현재 가지고 있는 채팅 룸 리스트 불러와서 저장소에 저장
-export let getChatRoomList = function (id) {
+export let getChatRoomList = function (id, newRoom) {
   let path = Common.getContextPath();
   $.ajax({
     type: "get",
@@ -227,7 +240,7 @@ export let getChatRoomList = function (id) {
       console.log(req, status, error);
     },
   }).done(function () {
-    ChatFront.setChattingRooms(id);
+    ChatFront.setChattingRooms(id, newRoom);
   });
 };
 
@@ -252,7 +265,7 @@ export let deleteChatroom = function (el) {
 };
 
 // 채팅룸 추가용 함수
-export let insertChatRoom = function (id) {
+export let insertChatRoom = function (id, focus) {
   let path = Common.getContextPath();
   $.ajax({
     type: "post",
@@ -260,11 +273,35 @@ export let insertChatRoom = function (id) {
     data: { receiver: id, order: "insert" },
     success: (result) => {
       console.log(id, " 채팅룸 추가 완료 : ", result);
-      //룸 추가가 완료되면 채팅룸 다시부름 + 해당 채팅룸 자동선택
-      getChatRoomList(id);
+      //룸 추가가 완료되면 채팅룸 다시부름
+      //다시부를때 해당 채팅룸 포커스 할건지 선택하여 진행
+      if (focus) {
+        //포커스 됨
+        getChatRoomList(id);
+      } else {
+        // 포커스 안됨
+        getChatRoomList();
+      }
     },
     error: function (req, status, error) {
       console.log(req, status, error);
     },
   });
 };
+
+// let checkChatRoom = function(){
+//   let path = Common.getContextPath();
+//   $.ajax({
+//     type: "post",
+//     url: path + "/room.chat",
+//     data: { receiver: id, order: "insert" },
+//     success: (result) => {
+//       console.log(id, " 채팅룸 추가 완료 : ", result);
+//       //룸 추가가 완료되면 채팅룸 다시부름 + 해당 채팅룸 자동선택
+//       getChatRoomList(id);
+//     },
+//     error: function (req, status, error) {
+//       console.log(req, status, error);
+//     },
+//   });
+// }

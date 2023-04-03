@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-pageEncoding="UTF-8" import="mz.member.model.vo.Member"%> 
+pageEncoding="UTF-8" import="mz.member.model.vo.Member"%> <%
+<!-- String path = request.getContextPath(); -->
+
+%>
 <!DOCTYPE html>
 <html>
   <head>
@@ -11,13 +14,17 @@ pageEncoding="UTF-8" import="mz.member.model.vo.Member"%>
       rel="stylesheet"
       type="text/css"
     />
-    <link href="../resource/css/common.css" rel="stylesheet" type="text/css" />
+    <link
+      href="<%=path%>/resource/css/common.css"
+      rel="stylesheet"
+      type="text/css"
+    />
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
     <style>
       body {
-        background-image: url("../resource/img/background/background_main.png");
+        background-image: url("<%=path%>/resource/img/background/background_main.png");
       }
     </style>
   </head>
@@ -78,12 +85,11 @@ pageEncoding="UTF-8" import="mz.member.model.vo.Member"%>
       </div>
     </div>
 
-    <script type="text/javascript">
-      console.log("테스트 js11");
-    </script>
-    <script type="module" src="../resource/js/common.js"></script>
-    <script type="module" src="../resource/js/chat/chatData.js"></script>
-    <script type="module" src="../resource/js/chat/chatFront.js"></script>
-    <!-- <script type="module" src="../resource/js/test.js"></script> -->
+    <script type="module" src="<%=path%>/resource/js/common.js"></script>
+    <script type="module" src="<%=path%>/resource/js/chat/chatData.js"></script>
+    <script
+      type="module"
+      src="<%=path%>/resource/js/chat/chatFront.js"
+    ></script>
   </body>
 </html>
