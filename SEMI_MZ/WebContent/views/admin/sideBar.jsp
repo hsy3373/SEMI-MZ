@@ -31,7 +31,7 @@ pageEncoding="UTF-8"%>
         </li>
 
         <li>
-          <a href="<%=path %>/skin.admin">
+          <a href="<%=path %>/list.skin">
             <i class="bi bi-file-person"></i>
             캐릭터</a
           >
