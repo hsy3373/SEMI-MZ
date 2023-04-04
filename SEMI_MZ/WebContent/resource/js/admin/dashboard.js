@@ -49,11 +49,11 @@ import { getContextPath } from "./adminCommon.js";
 
 let setDefaultEvent = function () {
   document.querySelector(".card1").addEventListener("click", function () {
-    location.href = "";
+    location.href = getContextPath() + "/list.member";
   });
 
   document.querySelector(".card2").addEventListener("click", function () {
-    location.href = "";
+    location.href =  getContextPath() + "/list.notice";
   });
 
   document.querySelector(".card3").addEventListener("click", function () {
