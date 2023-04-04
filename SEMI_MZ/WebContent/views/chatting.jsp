@@ -27,7 +27,7 @@ request.getContextPath(); %>
     </style>
   </head>
   <body>
-<!--     <div>
+    <!--     <div>
       <button type="button" id="insert-room">룸 추가 friend</button>
     </div> -->
     <div class="chat-container">

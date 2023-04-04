@@ -22,7 +22,7 @@
 .back {
   position: absolute;
   left: 10px;
-  top: calc(-50px - 2.25rem);
+  top: calc(-50px - 3rem);
   font-size: 1.5rem;
   cursor: pointer;
 }
@@ -61,11 +61,22 @@
 }
 
 #insert-btn {
+  margin-left: 10%;
   width: 80px;
   height: 30px;
   background-color: white;
   border-radius: 5%;
   border: 1px solid black;
+  cursor: pointer;
+}
+
+#delete-btn {
+  width: 80px;
+  height: 30px;
+  color : red;
+  background-color: white;
+  border-radius: 5%;
+  border: 1px solid red;
   cursor: pointer;
 }
 
@@ -303,6 +314,10 @@ tr > th:nth-child(2) {
 }
 
 .able-btn {
+  display: inline-block;
+}
+
+.page-btn {
   display: inline-block;
 }
 

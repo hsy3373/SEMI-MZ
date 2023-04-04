@@ -58,7 +58,7 @@ let setDefaultEvent = function () {
 
   document.querySelector('.card3').addEventListener('click', function () {
     console.log('눌림');
-    location.href = Common.getContextPath() + '/skin.admin';
+    location.href = Common.getContextPath() + '/list.skin';
   });
 };
 

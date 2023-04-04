@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-pageEncoding="UTF-8"%> <% String path = request.getContextPath(); %>
+pageEncoding="UTF-8" import = "mz.skin.model.vo.Skin"%> 
+<% 
+	String path = request.getContextPath(); 
+	Skin skin = (Skin)request.getAttribute("skin");
+%>
 <!DOCTYPE html>
 <html>
   <head>
@@ -21,10 +25,10 @@ pageEncoding="UTF-8"%> <% String path = request.getContextPath(); %>
       <%@ include file="/views/admin/sideBar.jsp"%>
 
       <div class="content">
-        <div class="head-text">캐릭터 스킨 등록</div>
+        <div class="head-text"><%= skin.getSaveFolder() %> 수정</div>
 
         <form
-          action="<%= request.getContextPath()%>/insert.skin"
+          action="<%= request.getContextPath()%>/update.skin"
           id="enroll-form"
           method="post"
           enctype="multipart/form-data"
@@ -33,18 +37,26 @@ pageEncoding="UTF-8"%> <% String path = request.getContextPath(); %>
             <i class="bi bi-arrow-left-square"></i>
           </div>
           <div class="info-wrapper">
+          <input type="hidden" name="skinId" id="skinId" value="<%=skin.getSkinId() %>">
             <div>
               가격(코인) :
-              <input type="number" name="price" id="price" value="300" />
+              <input type="number" name="price" id="price" value="<%= skin.getPrice() %>" />
             </div>
 
             <label for="reward">
               보상용(Y/N) :
-              <input type="hidden" name="reward" value="N" />
-              <input type="checkbox" name="reward" id="reward" value="Y" />
+              <input type="hidden" name="reward" id="reward" value="N">
+              <input type="checkbox" name="reward" id="reward" value="Y"
+              	<% if(skin.getReward().equals("Y")) { %>
+              		checked
+              	<% } %>
+               />
             </label>
 
-            <button id="insert-btn">등록</button>
+            <button id="insert-btn">수정</button>
+            <% if(skin.getSkinId() != 0) { %>
+	            <button type="button" id="delete-btn">삭제</button>
+            <% } %>
           </div>
           <hr />
           <div class="notice">※ 확장자가 'png'인 파일만 등록 가능합니다.(최대 10MB)</div>
@@ -54,8 +66,8 @@ pageEncoding="UTF-8"%> <% String path = request.getContextPath(); %>
               <img
                 id="char-img1"
                 class="char-img"
-                src="<%=path%>/resource/img/icon/logo.png"
-                onerror="this.src='<%=path%>/resource/img/icon/logo.png'"
+                src="<%=path%>/resource/img/user/<%= skin.getSaveFolder() %>/fs.png"
+                onerror="this.src='<%=path%>/resource/img/user/<%= skin.getSaveFolder() %>/fs.png'"
               />
             </div>
             <div>
@@ -63,8 +75,8 @@ pageEncoding="UTF-8"%> <% String path = request.getContextPath(); %>
               <img
                 id="char-img2"
                 class="char-img"
-                src="<%=path%>/resource/img/icon/logo.png"
-                onerror="this.src='<%=path%>/resource/img/icon/logo.png'"
+                src="<%=path%>/resource/img/user/<%= skin.getSaveFolder() %>/fd.png"
+                onerror="this.src='<%=path%>/resource/img/user/<%= skin.getSaveFolder() %>/fd.png'"
               />
             </div>
             <div>
@@ -72,8 +84,8 @@ pageEncoding="UTF-8"%> <% String path = request.getContextPath(); %>
               <img
                 id="char-img3"
                 class="char-img"
-                src="<%=path%>/resource/img/icon/logo.png"
-                onerror="this.src='<%=path%>/resource/img/icon/logo.png'"
+                src="<%=path%>/resource/img/user/<%= skin.getSaveFolder() %>/bs.png"
+                onerror="this.src='<%=path%>/resource/img/user/<%= skin.getSaveFolder() %>/bs.png'"
               />
             </div>
             <div>
@@ -81,8 +93,8 @@ pageEncoding="UTF-8"%> <% String path = request.getContextPath(); %>
               <img
                 id="char-img4"
                 class="char-img"
-                src="<%=path%>/resource/img/icon/logo.png"
-                onerror="this.src='<%=path%>/resource/img/icon/logo.png'"
+                src="<%=path%>/resource/img/user/<%= skin.getSaveFolder() %>/bd.png"
+                onerror="this.src='<%=path%>/resource/img/user/<%= skin.getSaveFolder() %>/bd.png'"
               />
             </div>
           </div>
@@ -92,8 +104,8 @@ pageEncoding="UTF-8"%> <% String path = request.getContextPath(); %>
               <img
                 id="char-img5"
                 class="char-img"
-                src="<%=path%>/resource/img/icon/logo.png"
-                onerror="this.src='<%=path%>/resource/img/icon/logo.png'"
+                src="<%=path%>/resource/img/user/<%= skin.getSaveFolder() %>/ls.png"
+                onerror="this.src='<%=path%>/resource/img/user/<%= skin.getSaveFolder() %>/ls.png'"
               />
             </div>
             <div>
@@ -101,8 +113,8 @@ pageEncoding="UTF-8"%> <% String path = request.getContextPath(); %>
               <img
                 id="char-img6"
                 class="char-img"
-                src="<%=path%>/resource/img/icon/logo.png"
-                onerror="this.src='<%=path%>/resource/img/icon/logo.png'"
+                src="<%=path%>/resource/img/user/<%= skin.getSaveFolder() %>/ld.png"
+                onerror="this.src='<%=path%>/resource/img/user/<%= skin.getSaveFolder() %>/ld.png'"
               />
             </div>
             <div>
@@ -110,8 +122,8 @@ pageEncoding="UTF-8"%> <% String path = request.getContextPath(); %>
               <img
                 id="char-img7"
                 class="char-img"
-                src="<%=path%>/resource/img/icon/logo.png"
-                onerror="this.src='<%=path%>/resource/img/icon/logo.png'"
+                src="<%=path%>/resource/img/user/<%= skin.getSaveFolder() %>/rs.png"
+                onerror="this.src='<%=path%>/resource/img/user/<%= skin.getSaveFolder() %>/rs.png'"
               />
             </div>
             <div>
@@ -119,8 +131,8 @@ pageEncoding="UTF-8"%> <% String path = request.getContextPath(); %>
               <img
                 id="char-img8"
                 class="char-img"
-                src="<%=path%>/resource/img/icon/logo.png"
-                onerror="this.src='<%=path%>/resource/img/icon/logo.png'"
+                src="<%=path%>/resource/img/user/<%= skin.getSaveFolder() %>/rd.png"
+                onerror="this.src='<%=path%>/resource/img/user/<%= skin.getSaveFolder() %>/rd.png'"
               />
             </div>
           </div>
@@ -140,6 +152,6 @@ pageEncoding="UTF-8"%> <% String path = request.getContextPath(); %>
     <div id="toast">알림</div>
 
 	<script type="module" src="<%=path%>/resource/js/admin/skin/skinCommon.js"></script>
-    <script type="module" src="<%=path%>/resource/js/admin/skin/skinEnroll.js"></script>
+    <script type="module" src="<%=path%>/resource/js/admin/skin/skinUpdate.js"></script>
   </body>
 </html>
