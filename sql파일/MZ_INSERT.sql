@@ -8,11 +8,6 @@ INSERT INTO CHARACTER_SKIN(SKIN_ID,
                             CHARACTER_PRICE)
         VALUES( 0, '/resource/img/user/0_default', 0);
 
-
--- todo!!!! 현재 스킨 폴더가 skin33 까지 있으므로 SEQ_SKIN이 33이 될때까지 아래 insert 구문 반복해줘야함
---INSERT INTO CHARACTER_SKIN(SKIN_ID, SAVE_ROOT)
---		VALUES( SEQ_SKIN.NEXTVAL , '/resource/img/user/skin'||SEQ_SKIN.CURRVAL );
-
 -- 아래 pl/sql 구문으로 한번에 33개 생성 가능
 --BEGIN 
 --    FOR I IN 1..33
@@ -22,6 +17,29 @@ INSERT INTO CHARACTER_SKIN(SKIN_ID,
 --    END LOOP;
 --END;
 --/
+
+
+-- 현재 스킨 폴더 34~39번은 특별한 스킨으로 별도로 price 넣어 구문 반복해줘야함
+--BEGIN 
+--    FOR I IN 34..39
+--    LOOP 
+--        INSERT INTO CHARACTER_SKIN(SKIN_ID, SAVE_ROOT, CHARACTER_PRICE)
+--		VALUES( SEQ_SKIN.NEXTVAL , '/resource/img/user/skin'||SEQ_SKIN.CURRVAL, 3000 );
+--    END LOOP;
+--END;
+--/
+
+
+-- 현재 스킨 폴더 40, 41번은 보상용 스킨으로 별도로 구문 반복해줘야함
+--BEGIN 
+--    FOR I IN 40..41
+--    LOOP 
+--        INSERT INTO CHARACTER_SKIN(SKIN_ID, SAVE_ROOT, CHARACTER_PRICE, REWARD)
+--		VALUES( SEQ_SKIN.NEXTVAL , '/resource/img/user/skin'||SEQ_SKIN.CURRVAL, 3000, 'Y' );
+--    END LOOP;
+--END;
+--/
+
 --    COMMIT;
 
 
