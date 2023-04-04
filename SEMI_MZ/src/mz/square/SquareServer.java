@@ -54,6 +54,7 @@ public class SquareServer {
 	public void message(Session session, UserData User) {
 		
 		//System.out.println(User);
+		
 		session.getUserProperties().put("User",  User);
 		
 		//바뀐 유저정보를 loginUsers에 map으로 저장
@@ -65,7 +66,10 @@ public class SquareServer {
 		Set<Session> clients = session.getOpenSessions();
 		
 		//System.out.print(clients);
-		for(Session s : clients) { //sendobject 소켓 자료 보내주기
+		
+		for(Session s : clients) {
+			
+			//나중에 나를 제외해서 뿌려주기 
 			UserData u = (UserData)s.getUserProperties().get("User");
 			try {
 				s.getBasicRemote().sendObject(User);

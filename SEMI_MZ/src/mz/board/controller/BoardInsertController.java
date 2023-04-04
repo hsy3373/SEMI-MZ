@@ -1,7 +1,6 @@
 package mz.board.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,17 +13,18 @@ import com.google.gson.Gson;
 import mz.board.model.service.BoardService;
 import mz.board.model.vo.Board;
 import mz.member.model.vo.Member;
+
 /**
- * Servlet implementation class BoardListController2
+ * Servlet implementation class BoardInsertController
  */
-@WebServlet("/selectBoardList")
-public class BoardListController extends HttpServlet {
+@WebServlet("/insertBoard")
+public class BoardInsertController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public BoardListController() {
+    public BoardInsertController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,21 +33,27 @@ public class BoardListController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+		String userId = ((Member)request.getSession().getAttribute("loginUser")).getUserId();
+		//String userId = request.getParameter("loginUserId");
+		String receiveId = request.getParameter("receiveId");
+		String boardTitle = request.getParameter("title");
+		String boardContent = request.getParameter("content");
+		String secret = request.getParameter("secret");
+
+		Board b = new Board();
+		b.setUserId(userId);
+		b.setReceiveId(receiveId);
+		b.setBoardTitle(boardTitle);
+		b.setBoardContent(boardContent);
+		b.setSecret(secret);
+
+		int result = new BoardService().insertBoard(b);
 		
 		response.setContentType("application/json; charset=UTF-8");
+		response.getWriter().print(result);
 		
-		// 로그인 아이디
-		String loginId = ((Member)request.getSession().getAttribute("loginUser")).getUserId();
-		System.out.println(loginId);
-		// 방주인 아이디
-		String receive = request.getParameter("receive");
-		System.out.println("누가 "+loginId+" 누구의 " + receive);
-		ArrayList<Board> list = new BoardService().selectBoardList(loginId, receive);
-		System.out.println(list.size());
-		Gson gson = new Gson();
-			
-		gson.toJson(list, response.getWriter());	
-		
+
 	}
 
 	/**

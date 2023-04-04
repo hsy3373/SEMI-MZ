@@ -218,7 +218,52 @@ public class BoardDao {
 			close(pstmt);
 		}
 		return result;
-		
+	}
+	
+	public int insertBoard(Connection conn, Board b) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertBoard");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, b.getUserId());
+			pstmt.setString(2, b.getReceiveId());
+			pstmt.setString(3, b.getBoardTitle());
+			pstmt.setString(4, b.getBoardContent());
+			pstmt.setString(5, b.getSecret());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	/**
+	 * @param conn
+	 * @param boardNo
+	 * @return int
+	 * 내가 쓴 방명록 삭제
+	 */
+	public int deleteBoard(Connection conn, int boardNo) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("deleteBoard");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, boardNo);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
 		
 	}
 }

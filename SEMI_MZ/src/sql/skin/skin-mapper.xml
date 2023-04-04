@@ -37,6 +37,12 @@
 		FROM CHARACTER_SKIN
 		WHERE SKIN_ID = ?
 	</entry>
+	
+	<entry key="selectSkinList">
+		SELECT SKIN_ID, SAVE_ROOT, CHARACTER_PRICE, REWARD
+		FROM CHARACTER_SKIN
+		WHERE REWARD = 'N'
+	</entry>
 
 <!-- insert 구역 -->
 	<entry key="insertSkin">

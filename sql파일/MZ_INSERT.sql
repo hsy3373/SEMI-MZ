@@ -6,14 +6,64 @@
 INSERT INTO CHARACTER_SKIN(SKIN_ID,
                             SAVE_ROOT,
                             CHARACTER_PRICE)
-        VALUES( 0, '/resource/img/user/0_default', 0);
+        VALUES( 0, '/resource/img/user/skin0', 0);
 
 -- 아래 pl/sql 구문으로 한번에 33개 생성 가능
 --BEGIN 
---    FOR I IN 1..33
+--    FOR I IN 1..5
 --    LOOP 
 --        INSERT INTO CHARACTER_SKIN(SKIN_ID, SAVE_ROOT)
---		VALUES( SEQ_SKIN.NEXTVAL , '/resource/img/user/skin'||SEQ_SKIN.CURRVAL );
+--		VALUES( SEQ_SKIN.NEXTVAL , '/resource/img/user/skin'||SEQ_SKIN.CURRVAL);
+--    END LOOP;
+--END;
+--/
+--BEGIN 
+--    FOR I IN 6..10
+--    LOOP 
+--        INSERT INTO CHARACTER_SKIN(SKIN_ID, SAVE_ROOT, CHARACTER_PRICE)
+--		VALUES( SEQ_SKIN.NEXTVAL , '/resource/img/user/skin'||SEQ_SKIN.CURRVAL, 400);
+--    END LOOP;
+--END;
+--/
+--BEGIN 
+--    FOR I IN 11..15
+--    LOOP 
+--        INSERT INTO CHARACTER_SKIN(SKIN_ID, SAVE_ROOT, CHARACTER_PRICE)
+--		VALUES( SEQ_SKIN.NEXTVAL , '/resource/img/user/skin'||SEQ_SKIN.CURRVAL, 500);
+--    END LOOP;
+--END;
+--/
+--BEGIN 
+--    FOR I IN 16..20
+--    LOOP 
+--        INSERT INTO CHARACTER_SKIN(SKIN_ID, SAVE_ROOT, CHARACTER_PRICE)
+--		VALUES( SEQ_SKIN.NEXTVAL , '/resource/img/user/skin'||SEQ_SKIN.CURRVAL, 600);
+--    END LOOP;
+--END;
+--/
+--BEGIN 
+--    FOR I IN 21..25
+--    LOOP 
+--        INSERT INTO CHARACTER_SKIN(SKIN_ID, SAVE_ROOT, CHARACTER_PRICE)
+--		VALUES( SEQ_SKIN.NEXTVAL , '/resource/img/user/skin'||SEQ_SKIN.CURRVAL, 800);
+--    END LOOP;
+--END;
+--/
+--
+--BEGIN 
+--    FOR I IN 26..30
+--    LOOP 
+--        INSERT INTO CHARACTER_SKIN(SKIN_ID, SAVE_ROOT, CHARACTER_PRICE)
+--		VALUES( SEQ_SKIN.NEXTVAL , '/resource/img/user/skin'||SEQ_SKIN.CURRVAL, 1000);
+--    END LOOP;
+--END;
+--/
+--
+--BEGIN 
+--    FOR I IN 31..33
+--    LOOP 
+--        INSERT INTO CHARACTER_SKIN(SKIN_ID, SAVE_ROOT, CHARACTER_PRICE)
+--		VALUES( SEQ_SKIN.NEXTVAL , '/resource/img/user/skin'||SEQ_SKIN.CURRVAL, 1200);
 --    END LOOP;
 --END;
 --/
