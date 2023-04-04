@@ -11,6 +11,7 @@ import java.util.ArrayList;
 
 import mz.skin.model.dao.SkinDao;
 import mz.skin.model.vo.Skin;
+import mz.skin.model.vo.Character;
 
 public class SkinService {
 
@@ -138,6 +139,15 @@ public class SkinService {
 		int result = new SkinDao().closetSkinCount(conn);
 		close(conn);
 		return result;
+	}
+	
+	// [지의]
+	// 로그인 유저가 보유한 스킨 조회
+	public ArrayList<Skin> mySkinList(String userId){
+		Connection conn = getConnection();
+		ArrayList<Skin> list = new SkinDao().mySkinList(conn, userId);
+		close(conn);
+		return list;
 	}
 
 //-------------------------------------------INSERT 구역 -------------------------------------------------

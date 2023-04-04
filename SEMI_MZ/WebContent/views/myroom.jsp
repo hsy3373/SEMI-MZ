@@ -5,35 +5,32 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
 	String contextPath = request.getContextPath();
+	/* 
+		광장에 있는 마이룸으로 들어올시 roomMaster값 null
+		친구유저 클릭으로 들어올시	 roomMaster값 친구아이디(정적으로 friend 넣어둠)
+	*/
 	// roomMaster == 친구아이디
 	String roomMaster = (String)request.getAttribute("roomMaster");
-	System.out.println("roomMaster : "+roomMaster);
 	// session에 있는 로그인 유저
 	Member loginUser = (Member) session.getAttribute("loginUser");
-	System.out.println("loginUser : "+loginUser);
-	// 광장에 있는 마이룸으로 들어올시 roomMaster값 null
-	// 친구유저 클릭으로 들어올시		roomMaster값 friend
-	
+	//System.out.println("roomMaster : "+roomMaster);
+	//System.out.println("loginUser : "+loginUser);
 	Member userId = (Member)request.getAttribute("userId");
 	
-	// 총 스킨 개수
-	int closetSkinCount = (int) request.getAttribute("closetSkinCount");
 	
- 	//총 페이지 수 얼마나 나와야 하는지 확인용 (총 스킨수/12(페이지당 표시수)
- 	int maxPage = (int) Math.ceil(closetSkinCount / 12.0);
+	int closetSkinCount = (int) request.getAttribute("closetSkinCount"); 	// 총 스킨 개수
+ 	int maxPage = (int) Math.ceil(closetSkinCount / 12.0); 				 	//총 페이지
+ 	int currentPage = 1;													// 현재페이지 임시로..
+ 	int startPage = (currentPage-1) / closetSkinCount * closetSkinCount +1; // 페이징바 시작 수
+ 	int endPage = startPage + closetSkinCount - 1;							// 페이징가 끝 수
 
- 	int currentPage = 1;
- 	int startPage = (currentPage-1) / closetSkinCount * closetSkinCount +1;
- 	int endPage = startPage + closetSkinCount - 1;
  	if(endPage > maxPage){
  		endPage = maxPage;
  	}
- 	
-	System.out.println("총스킨수        : "+closetSkinCount);
-	System.out.println("총페이지수       : "+maxPage);
-	System.out.println("페이징바의 시작 수 : "+startPage);
-	System.out.println("페이징바의 끝 수  :"+endPage);
-
+	//System.out.println("총스킨수        : "+closetSkinCount);
+	//System.out.println("총페이지수       : "+maxPage);
+	//System.out.println("페이징바의 시작 수 : "+startPage);
+	//System.out.println("페이징바의 끝 수  : "+endPage);
 %>
 
 
@@ -268,8 +265,8 @@ ul li.on a {color: #fff;}
 
 
 			<!-- =============== 오른쪽 =============== -->
-			<!-- 내 코인 -->
-			<div class="coin">16000</div>
+			<!-- 내 코인 : 로그인유저의 코인 -->
+			<div class="coin">${loginUser.getCoin()}</div>
 
 			<!-- 옷장 버튼 -->
 			<button class="dress-btn closet-btn">옷장</button>
@@ -279,32 +276,29 @@ ul li.on a {color: #fff;}
 
 			<!-- 스킨 박스 -->
 			<div class="closet-skins">
-
+<!-- 				<div class='closet-item'> 
+					<div class='closet-skin-id' id='skin' style='display: none;'></div>
+					<div class='closet-price'></div>
+					<div class='closet-skin'>
+						<img src='."+ list[i].saveRoot +"/fs.png'>
+					</div>
+				</div> -->
 			</div>
 			
 
 			<!-- 페이징 -->
 			<div class="paging-closet">
-				<% if(currentPage != 1){ %>
-					<button>&lt;</button>
-				<%} %>
-			
 				<% for(int i = startPage; i <= endPage; i++){ %>
-					<% if( i <= maxPage) { %>
-						<% if(i != currentPage){ %>
+					<%-- <% if( i <= maxPage) { %> --%>
+						<% if(i != i*currentPage){ %>
 							<button type="button" class="selected-btn page-btn"><%= i %></button>
 						<%} else{ %>
 		            		<button type="button" class="page-btn"><%= i %></button>
 						<%} %>
-					<%} else { %>
+					<%-- <%} else { %>
 	            		<button type="button" class="disable-btn page-btn"><%= i %></button>	
-            		<% } %>
+            		<% } %> --%>
 				<% } %>
-				
-				<!-- 현재 요청한 페이지가 마지막페이지가 아닐 경우 + 페이지 이동값 -->
-				<% if(currentPage != maxPage){ %>
-					<button>&gt;</button>
-				<%} %>
 			</div>
 		</div>
 	</div>
@@ -340,8 +334,10 @@ ul li.on a {color: #fff;}
 		
 		/* 로그인유저, 방주인 js에서 사용하기 위해 변수에 담기 */
 		var loginUserId = '${loginUser.userId}';
+		var loginUserSkinId = '${loginUser.skinId}';
 		var roomMasterId = "${roomMaster}";
 		//console.log("로그인유저 : "+loginUserId);
+		console.log("로그인유저스킨 : "+loginUserSkinId);
 		//console.log("룸마스터 : "+roomMasterId);
 		
 		/* 스킨 총 개수 closet.js로 넘김 */

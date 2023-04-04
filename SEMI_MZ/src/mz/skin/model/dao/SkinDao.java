@@ -16,6 +16,7 @@ import java.util.Properties;
 
 import mz.chatting.model.dao.ChatDao;
 import mz.skin.model.vo.Skin;
+import mz.skin.model.vo.Character;
 
 public class SkinDao {
 
@@ -266,6 +267,36 @@ public class SkinDao {
 			close(pstmt);
 		}
 		return result;
+		
+	}
+	
+	// [지의]
+	// 로그인 유저가 보유한 스킨 조회
+	public ArrayList<Skin> mySkinList(Connection conn, String userId){
+		ArrayList<Skin> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("mySkinList");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, userId);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Skin skin = new Skin(rset.getInt("SKIN_ID"),
+									 rset.getString("SAVE_ROOT")
+						);
+				list.add(skin);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
 		
 	}
 
