@@ -6,33 +6,25 @@
 <meta charset="UTF-8">
 <title>game</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<link href="../resource/css/common.css" rel="stylesheet" type="text/css">
-<link href="../resource/css/game.css" rel="stylesheet" type="text/css">
+<link href="<%=contextPath%>/resource/css/common.css" rel="stylesheet" type="text/css">
+<link href="<%=contextPath%>/resource/css/game.css" rel="stylesheet" type="text/css">
 
 </head>
 <body>
     <!--게임모달 작성자 : 윤지영-->
-    <div class="modal game-modal">
+    <div class="modal-game" id="game-modal">
         <div class="game-area">
-            <div class="modal-background">
-                <div class="modal-out-btn">
-                    <img src="../resource/img/icon/엑스 버튼.png" class="game_xbtn">
+            <div class="gamemodal-background">
+                <div class="gamemodal-out-btn">
+                    <img src="<%=contextPath%>/resource/img/icon/엑스 버튼.png" class="game_xbtn">
                 </div>
             </div>
         </div>
     </div>
 
-    <script>
+    
 
-        const gameModal = document.querySelector('.game-modal');
-        // const findModal = document.querySelector('.find-modal');
-        document.querySelector('.game_xbtn').addEventListener('click', () => {
-            gameModal.style.display = 'none';
-        });
-        // findModal.addEventListener('click', () => {
-        //         modal1.style.display = 'block';
-        //     });
-
-    </script>
+    <script type="module" src="<%=contextPath%>/resource/js/gamezone.js"></script>
+   
 
 </html>

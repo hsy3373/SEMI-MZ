@@ -6,7 +6,7 @@
 /* js 가져오기  */
 import { getContextPath } from './common.js';
 import { getUserInfo } from './userInfo.js';
-
+import { gameModal } from './gamezone.js';
 
 //캔버스 세팅
 let canvas
@@ -20,7 +20,6 @@ canvas.height = 800;
 document.getElementById("main-square").appendChild(canvas);
 
 let noticeBoard, myhome, squarebackground, gamezone;
-
 //모달 떠있는 동안 움직임 stop
 
 let modalstop = false;
@@ -142,6 +141,7 @@ canvas.addEventListener("click", function (event) {
     //img 안을 클릭할 경우 이벤트 :gamegone 
     if (clickX >= 240 && clickX <= 400 && clickY >= 200 && clickY <= 350) {
         console.log("gamegone 이벤트 부여")
+        gameModal.style.display = 'block';
     }
 
 
@@ -333,7 +333,7 @@ function update() {
 
     if (uesrX <= 345 && uesrX >= 298 && uesrY <= 330 && uesrY >= 300) {
         console.log('게임존 이벤트')
-
+        gameModal.style.display = 'block';
         uesrY = 335
     }
 
@@ -438,6 +438,8 @@ const gohome = () => {
     location.href = path + "/gohome";
 
 }
+
+
 
 ///////////////////////////////////////////////////////////////여기!!! ///////////////////////////////
 

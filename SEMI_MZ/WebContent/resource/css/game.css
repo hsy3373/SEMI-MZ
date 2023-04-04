@@ -1,5 +1,6 @@
 /* game 모달 css : 작성자 윤지영*/
-.modal {
+
+.modal-game{
     position: absolute;
     top: 0;
     left: 0;
@@ -7,6 +8,7 @@
     height: 100%;
     display: none;
     background-color: rgba(0, 0, 0, 0.4);
+    z-index: 1;
   }
 
 .game-area{
@@ -15,8 +17,8 @@
     margin: auto;
 }
 
-.modal-background{
-    border: 1px solid red;
+.gamemodal-background{
+    /* border: 1px solid red; */
     width: 880px;
     height: 580px;
     background-image: url(../img/icon/notice_game.png);
@@ -24,10 +26,10 @@
     margin: 100px auto;
   }
 
-.modal-out-btn{
-    /* border: 1px solid blue; */
+.gamemodal-out-btn{
+    /* border: 1px solid blue;  */
     position: absolute;
-    top: 169px;
+    top: 167px;
     left: 1032px;
 }
 
