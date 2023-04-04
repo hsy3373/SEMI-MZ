@@ -31,7 +31,7 @@
    <%@ include file="./userInfo.jsp" %>
    	<!--${loginUser.nicName}  -->
    	
-   <%-- <%@ include file="./chatting.jsp" %> --%>
+   <%@ include file="./chatting.jsp" %>
    		
     
     <!-- 확인용 ^^ --> 
