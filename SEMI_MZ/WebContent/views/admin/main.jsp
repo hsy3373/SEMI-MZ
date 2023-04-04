@@ -1,9 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8" import="mz.member.model.vo.Member"%>
 <%
-	/* 테스트용 유저객체 */
-	Member m = new Member("admin", "admin", "관리자", "Y", 0, 500, "", "N", java.sql.Date.valueOf("2023-03-20"));
-	session.setAttribute("loginUser", m);
 	Member test = (Member) session.getAttribute("loginUser");
 	String path = request.getContextPath();
 	int userCount = (int) request.getAttribute("userCount");
@@ -55,6 +52,5 @@ pageEncoding="UTF-8" import="mz.member.model.vo.Member"%>
     </div>
 
     <script type="module" src="<%= path %>/resource/js/admin/dashboard.js"></script>
-     <script type="module" src="<%= path %>/resource/js/common.js"></script>
   </body>
 </html>

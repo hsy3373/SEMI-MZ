@@ -89,7 +89,7 @@ pageEncoding="UTF-8" %>
             
             <% for(int i=0; i<basicList.size(); i++) { %>
 	            <tr class="skin-info-box">
-	              <td><%= basicSkinCount - i %></td>
+	              <td><%= basicSkinCount - i - (cPage - 1) * 10 %></td>
 	              <td>
 	                <img src="<%=path %>/resource/img/user/<%=basicList.get(i).getSaveFolder() %>/fs.png" />
 	                <img src="<%=path %>/resource/img/user/<%=basicList.get(i).getSaveFolder() %>/fd.png" />
