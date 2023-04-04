@@ -13,6 +13,17 @@ INSERT INTO CHARACTER_SKIN(SKIN_ID,
 --INSERT INTO CHARACTER_SKIN(SKIN_ID, SAVE_ROOT)
 --		VALUES( SEQ_SKIN.NEXTVAL , '/resource/img/user/skin'||SEQ_SKIN.CURRVAL );
 
+-- 아래 pl/sql 구문으로 한번에 33개 생성 가능
+--BEGIN 
+--    FOR I IN 1..33
+--    LOOP 
+--        INSERT INTO CHARACTER_SKIN(SKIN_ID, SAVE_ROOT)
+--		VALUES( SEQ_SKIN.NEXTVAL , '/resource/img/user/skin'||SEQ_SKIN.CURRVAL );
+--    END LOOP;
+--END;
+--/
+--    COMMIT;
+
 
 -- MEMBER
 INSERT INTO MEMBER( USER_ID,
