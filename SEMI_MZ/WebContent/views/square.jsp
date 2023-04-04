@@ -18,6 +18,9 @@
 <body>
 	<!-- 광장 메인 jsp 작성 : 윤지영 -->
 	<div id="main-square" style="display: flex; justify-content : center; position: relative;">
+	<!-- 지의 임시 추가 -->
+    <a id="friendTest" style="position: absolute;" href="<%= request.getContextPath() %>/home?roomMaster=friend">friend룸</a>
+	
 	</div>
         
 
@@ -25,15 +28,16 @@
     <%@ include file="./buttonList.jsp" %>
 
    <%@ include file="./userInfo.jsp" %>
+   <%@ include file="./userInfo.jsp" %>
    	<!--${loginUser.nicName}  -->
    	
-   	<%@ include file="./chatting.jsp" %>
+   <%@ include file="./chatting.jsp" %>
    		
     
     <!-- 확인용 ^^ --> 
 	<%
 		//System.out.print(contextPath);
-		System.out.print(loginUser);
+		//System.out.print(loginUser);
 		//Member [userId=test, userPwd=test, nicName=NIC_test, status=Y, skinId=0, coin=500, info=, gender=N, date=2023-03-20]
 	%>
 	

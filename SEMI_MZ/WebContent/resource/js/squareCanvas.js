@@ -128,7 +128,7 @@ canvas.addEventListener("click", function (event) {
     const clickY = event.offsetY;
 
     //img 안을 클릭할 경우 이벤트 : my home
-    if (clickX >= 895 && clickX <= 1110 && clickY >= 10 && clickY <= 226) {
+  if (clickX >= 895 && clickX <= 1110 && clickY >= 10 && clickY <= 226) {
         console.log("home 이벤트 부여")
         gohome();
 
@@ -447,7 +447,11 @@ let FilterUsers = [];//필터링된 유저 1개 만큼 담아줄 배열
 // 웹소켓으로 연결하기
 // 웹소켓 서버 생성 : 학원 192.168.30.171
 let path = getContextPath()
-let socket = new WebSocket("ws://192.168.30.171:8083" + path + "/multiAccess");
+//const socket = new WebSocket("ws://192.168.30.174:8084" + path + "/multiAccess");
+//집 : 192.168.35.13
+// 지의 학원: 192.168.30.174:8084
+// 지의 집 : 192.168.0.16:8084
+let socket = new WebSocket("ws://192.168.30.174:8084" + path + "/multiAccess");
 ///////////////////////////////////////////////////////////////자기 ws로 바꿔주기!!! ///////////////////////////////
 
 let fnSocket = {
