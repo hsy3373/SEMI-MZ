@@ -130,7 +130,7 @@ public class SkinEnrollController extends HttpServlet {
 						multi.getFile(key).renameTo(file);
 					}
 
-					response.sendRedirect(request.getContextPath() + "/skin.admin");
+					response.sendRedirect(request.getContextPath() + "/list.skin");
 				} else {
 					System.out.println("파일경로에 폴더 생성 실패");
 				}

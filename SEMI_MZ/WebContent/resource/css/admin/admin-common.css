@@ -82,6 +82,7 @@ a.selected,
 }
 
 .content {
+	margin-left : 160px;
   flex: 1;
   height: max-content;
 }
