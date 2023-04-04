@@ -1,6 +1,6 @@
 // [han]
 
-import * as Common from '../common.js';
+import { getContextPath } from "./adminCommon.js";
 
 // let getUserCount = function () {
 //   let path = Common.getContextPath();
@@ -48,29 +48,22 @@ import * as Common from '../common.js';
 // };
 
 let setDefaultEvent = function () {
-  document.querySelector('.card1').addEventListener('click', function () {
-    location.href = '';
+  document.querySelector(".card1").addEventListener("click", function () {
+    location.href = getContextPath() + "/list.member";
   });
 
-  document.querySelector('.card2').addEventListener('click', function () {
-    location.href = '';
+  document.querySelector(".card2").addEventListener("click", function () {
+    location.href =  getContextPath() + "/list.notice";
   });
 
-  document.querySelector('.card3').addEventListener('click', function () {
-    console.log('눌림');
-    location.href = Common.getContextPath() + '/list.skin';
+  document.querySelector(".card3").addEventListener("click", function () {
+    console.log("눌림");
+    location.href = getContextPath() + "/list.skin";
   });
 };
 
 //----------------------------------------------------------------------------------
 
-let init = function () {
-  setDefaultEvent();
-  // getUserCount();
-  // getNoticeCount();
-  // getChracterCount();
-};
-
 window.onload = function () {
-  init();
+  setDefaultEvent();
 };
