@@ -5,6 +5,7 @@ pageEncoding="UTF-8" import="mz.member.model.vo.Member"%>
 	String path = request.getContextPath();
 	int userCount = (int) request.getAttribute("userCount");
 	int skinCount = (int) request.getAttribute("skinCount");
+	int noticeCount = (int) request.getAttribute("noticeCount");
 %>
 <!DOCTYPE html>
 <html>
@@ -37,7 +38,7 @@ pageEncoding="UTF-8" import="mz.member.model.vo.Member"%>
           <div class="card">
             <div class="card-left">공지사항</div>
             <div class="divide"></div>
-            <div class="card-right">0</div>
+            <div class="card-right"><%= noticeCount %></div>
           </div>
         </div>
 
