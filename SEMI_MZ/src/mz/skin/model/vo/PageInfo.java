@@ -1,4 +1,4 @@
-package mz.closet.model.vo;
+package mz.skin.model.vo;
 
 public class PageInfo {
 
