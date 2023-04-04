@@ -7,7 +7,6 @@ import java.sql.Connection;
 import java.util.ArrayList;
 
 import mz.buttonList.model.dao.bottonLisetDao;
-import mz.buttonList.model.vo.FriendList;
 import mz.member.model.vo.Member;
 
 

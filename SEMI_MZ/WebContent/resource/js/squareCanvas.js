@@ -142,6 +142,7 @@ canvas.addEventListener("click", function (event) {
     if (clickX >= 240 && clickX <= 400 && clickY >= 200 && clickY <= 350) {
         console.log("gamegone 이벤트 부여")
         gameModal.style.display = 'block';
+        modalstop = true;
     }
 
 
@@ -332,8 +333,9 @@ function update() {
     }
 
     if (uesrX <= 345 && uesrX >= 298 && uesrY <= 330 && uesrY >= 300) {
-        console.log('게임존 이벤트')
+        //console.log('게임존 이벤트')
         gameModal.style.display = 'block';
+        modalstop = true;
         uesrY = 335
     }
 
@@ -445,7 +447,7 @@ const gohome = () => {
 
 let receivedUserId = "";
 let UsersData = []; // 유저들 데이터 담아줄 배열
-let FilterUsers = [];//필터링된 유저 1개 만큼 담아줄 배열
+export let FilterUsers = [];//필터링된 유저 1개 만큼 담아줄 배열
 // 웹소켓으로 연결하기
 // 웹소켓 서버 생성 : 학원 192.168.30.171
 let path = getContextPath()
@@ -453,7 +455,7 @@ let path = getContextPath()
 //집 : 192.168.35.13
 // 지의 학원: 192.168.30.174:8084
 // 지의 집 : 192.168.0.16:8084
-let socket = new WebSocket("ws://192.168.30.174:8084" + path + "/multiAccess");
+let socket = new WebSocket("ws://192.168.30.171:8083" + path + "/multiAccess");
 ///////////////////////////////////////////////////////////////자기 ws로 바꿔주기!!! ///////////////////////////////
 
 let fnSocket = {

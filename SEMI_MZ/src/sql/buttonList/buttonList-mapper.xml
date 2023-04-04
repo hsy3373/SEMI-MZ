@@ -2,11 +2,10 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
 	<entry key="selectFriendList">
-		SELECT *
+		SELECT M.USER_ID, NICKNAME, SKIN_ID
 		FROM MEMBER M
 		JOIN FRIEND F ON M.USER_ID = F.friend_ID
 		WHERE F.USER_ID = ?
-		ORDER BY CREATE_DATE DESC
 	</entry>
 
 </properties>

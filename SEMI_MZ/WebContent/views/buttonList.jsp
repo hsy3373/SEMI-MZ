@@ -30,18 +30,8 @@
             <div class="modal-out-btn"><img src="<%=contextPath%>/resource/img/icon/엑스 버튼.png" class="x-btn1" style=" width: 55px; height: 55px;" ></div>
             <div class="modal-background">
                 <div class="modal-textarea">
-                    <table class="display-center"> 
+                    <table class="display-center" id="friendList"> 
                         <!--데이터 베이스에서 받아서 적용할 에정 : 10명까지 -->
-                        <tr><td>친구1 :</td><td>접속중</td><td>놀러가기</td></tr>
-                        <tr><td>친구1 :</td><td>접속중</td><td>놀러가기</td></tr>
-                        <tr><td>친구1 :</td><td>접속중</td><td>놀러가기</td></tr>
-                        <tr><td>친구1 :</td><td>접속중</td><td>놀러가기</td></tr>
-                        <tr><td>친구1 :</td><td>접속중</td><td>놀러가기</td></tr>
-                        <tr><td>친구1 :</td><td>접속중</td><td>놀러가기</td></tr>
-                        <tr><td>친구1 :</td><td>접속중</td><td>놀러가기</td></tr>
-                        <tr><td>친구1 :</td><td>접속중</td><td>놀러가기</td></tr>
-                        <tr><td>친구1 :</td><td>접속중</td><td>놀러가기</td></tr>
-                        <tr><td>친구1 :</td><td>접속중</td><td>놀러가기</td></tr>
                     </table> 
                 </div> 
             </div>

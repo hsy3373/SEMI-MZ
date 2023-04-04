@@ -4,28 +4,55 @@
  */
 import {modalstopfn} from './squareCanvas.js';
 import { getContextPath } from './common.js';
-
-
+import{FilterUsers} from './squareCanvas.js';
+ 
 //버튼이벤트
 //버튼세팅 
 const friendList = document.querySelector('.friendList'); //친구목록버튼
 const Listbutton = document.querySelector('.Listbutton'); //환경설정버튼
 
+
+
 //버튼 클릭 : 친구목록
 friendList.addEventListener('click', () => {
     modal1.style.display = 'block';
     let path = getContextPath();
-  
 
     let listuserId = userId;
-    console.log(listuserId);
 
     //친구목록 상세조회 
     $.ajax({
         url: path+"/selectFriend",
         data : {userId : listuserId},
-        success : function(){
-            console.log("성공!")
+        success : function(list){
+            let result = ``;
+
+            result = list.map((fn)=> {
+               
+                // let td = document.createElement("td");
+                // td.addEventListener("click", fnClick(`${fn.userId}`));
+                //'' innerHtml 으로 함수 부를 수 없음. why? 이미 td태그가 아무것도 없기떄문에 이벤트 부여도 불가능 
+                //먼저 td태그 생성하고 그후 이벤트 부여해야함
+                return `<tr>
+                    <td>${fn.nicName}</td> 
+                    <td>접속중</td>
+                    <td onclick='fnClick(${fn.userId})'>놀러가기</td>
+                    </tr>`
+
+                //onclick="fnClick(${fn.userId})""
+
+               
+                
+            });
+
+           
+
+
+            console.log(result)
+
+            //'innerHTML' 사용했었음... 
+           document.getElementById("friendList").innerHTML = result;
+           //.insertAdjacentHTML('afterend', result);
         },
         error : function(){
             console.error();
@@ -34,9 +61,16 @@ friendList.addEventListener('click', () => {
 
 
 
-    //modal창 뜨는동안 타이벤트 정지처리
+    //modal창 뜨는동안 타 이벤트 정지처리
     modalstopfn();
 });
+
+//친구목록 : 놀러가기 이벤트 
+const fnClick = (fn) => {
+    console.log(fn)
+    console.log("클릭함")
+}
+
 
 //버튼 클릭 : 환경설정
 Listbutton.addEventListener('click', () => {

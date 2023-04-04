@@ -32,6 +32,8 @@
    	<!--${loginUser.nicName}  -->
    	
    	<%@ include file="./chatting.jsp" %>
+	
+    <!--game 모달 jps 가져옴 : 윤지영-->
    	<%@ include file="./game.jsp" %>
    		
     

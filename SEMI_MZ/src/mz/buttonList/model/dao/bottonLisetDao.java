@@ -13,12 +13,14 @@ import java.util.ArrayList;
 import java.util.InvalidPropertiesFormatException;
 import java.util.Properties;
 
-import mz.buttonList.model.vo.FriendList;
 import mz.member.model.vo.Member;
 
 public class bottonLisetDao {
 	
 	
+	/**
+	 * sql문 연결
+	 */
 	
 	Properties prop = new Properties();
 	
@@ -46,28 +48,30 @@ public class bottonLisetDao {
 	public ArrayList<Member> selectFriendList(Connection conn, String userId) {
 
 		 ArrayList<Member> list = new ArrayList<>();
-		 PreparedStatement pstmt =null;
+		 PreparedStatement pstmt = null;
 		 ResultSet rset = null;
 		 String sql = prop.getProperty("selectFriendList");
 		 
+		 //System.out.println(sql); 연결 됐음
+		 System.out.println(userId); 
+		 
 		 try {
+			 //System.out.println("여기까지옴11");		 
 			 
-		 pstmt = conn.prepareStatement(sql);
-		 
-		 pstmt.setString(1, userId);
+			 pstmt = conn.prepareStatement(sql);
+			 
+			 pstmt.setString(1, userId);
+			 rset = pstmt.executeQuery();
+			 
 		
-		 
-		 rset = pstmt.executeQuery();
-			
-		
-		 while(rset.next()) {
-			 m = new Member(rset.getString("USER_ID"),
-					   rset.getString("NICKNAME"),
-					   rset.getInt("SKIN_ID"),
-					   rset.getString("SELF_INFO"),
-					   rset.getString("GENDER"));
-			 list.add(m);
-		}
+			 while(rset.next()) {
+				 Member	 m = new Member(
+						   rset.getString("USER_ID"),
+						   rset.getString("NICKNAME"),
+						   rset.getInt("SKIN_ID"));
+				 System.out.println(m);
+				 list.add(m);
+			 }
 				
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -76,6 +80,7 @@ public class bottonLisetDao {
 				close(pstmt);
 			}
 		
+		 //System.out.print("dao list :"+list);
 
 		return list;
 	}

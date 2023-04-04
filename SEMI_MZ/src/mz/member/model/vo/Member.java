@@ -41,6 +41,17 @@ public class Member {
 		this.info = info;
 		this.gender = gender;
 	}
+	
+	
+	
+
+	//userList - 지영
+	public Member(String userId, String nicName, int skinId) {
+		super();
+		this.userId = userId;
+		this.nicName = nicName;
+		this.skinId = skinId;
+	}
 
 
 	@Override
