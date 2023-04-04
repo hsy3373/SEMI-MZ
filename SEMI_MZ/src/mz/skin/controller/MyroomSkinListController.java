@@ -43,8 +43,8 @@ public class MyroomSkinListController extends HttpServlet {
 		int startPage;		// 페이지 하단에 보여질 페이징바의 시작 수
 		int endPage;		// 페이지 하단에 보여질 페이징바의 끝 수
 		
-		// 현재 스킨의 총 갯
-		listCount = new SkinService().selectSkinList();
+		// 현재 스킨의 총 갯수
+		listCount = new SkinService().skinCount();
 		
 		
 		response.setContentType("application/json; charset=UTF-8");
