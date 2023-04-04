@@ -17,11 +17,14 @@ let path = getContextPath();
 	상점 클릭시 모든 리스트가 출력됨
 	옷장 클릭시 loginUser의 스킨목록이 있는 것만 출력됨
 */
-function selectSkin(){
+// 페이지별 스킨리스트 가져오는 함수
+// num값에 따라서 보여지는 화면이 달라짐..
+function selectSkin(num){
 	$.ajax({
 		url : path + "/skin.me",
+		data : {page : num},
 		success : function(list){
-			//console.log("접속됨");
+			
 			//console.log(list);
 			str = "";
 			for(let i = 0; i < list.length; i++){
@@ -40,10 +43,19 @@ function selectSkin(){
 		}
 	});
 };
+// 페이징 처리 준비
+let pageLimit = 5; 			// 페이지 하단에 보여질 페이징바의 페이지 최대 갯수(패이지 목록들 몇개단위로 출력할건지)
+let currentPage; 			// 현재 페이지(사용자가 요청한 페이지)
+let maxPage; 				// 가장 마지막 페이지가 몇번 페이지인지(총 페이지 수)
+let startPage; 				// 페이지 하단에 보여질 페이징바의 시작 수
+let endPage; 				// 페이지 하단에 보여질 페이징바의 끝 수
+function paging(){
+	
+}
 $(function () {
 	/*룸마스터 값이 있을 경우 옷장이벤트 x*/
 	$(".icon-closet").click(function(e){
-		selectSkin();
+		selectSkin(1);
 		if(roomMasterId == ''){
 	        $(".closet-wrap").show();
 	        $(".closet-modal").show();

@@ -206,31 +206,43 @@ public class SkinDao {
 	
 	// [지의]
 	// 마이룸 상점 스킨 조회
-	public ArrayList<Skin> selectSkinList(Connection conn){
+	// 페이지 별 일반 스킨 조회용(한페이지에 12개)
+	public ArrayList<Skin> selectSkinsList(Connection conn, int page) {
+		
 		ArrayList<Skin> list = new ArrayList<>();
+
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		String sql = prop.getProperty("selectSkinList");
+		String sql = prop.getProperty("selectSkinsList");
 		try {
 			pstmt = conn.prepareStatement(sql);
 			
-			rset = pstmt.executeQuery();
+			// 이거보다 크거나 같고
+			pstmt.setInt(1, (page-1)*12 +1);
 			
-			while(rset.next()) {
-				Skin skin = new Skin(rset.getInt("SKIN_ID"), 
-									 rset.getString("SAVE_ROOT"), 
-									 rset.getInt("CHARACTER_PRICE"), 
-									 rset.getString("REWARD"));
-		
+			//이거보다 작거나 같은
+			pstmt.setInt(2, page*12);
+			
+			rset = pstmt.executeQuery();
+
+			while (rset.next()) {
+				Skin skin = new Skin( rset.getInt("SKIN_ID"), 
+								rset.getString("SAVE_ROOT"), 
+								rset.getInt("CHARACTER_PRICE"), 
+								rset.getString("REWARD"));
+				
 				list.add(skin);
 			}
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			close(rset);
 			close(pstmt);
 		}
+
 		return list;
+		
 	}
 
 

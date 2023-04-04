@@ -60,6 +60,11 @@ ul li a {
 }
 ul li.on {background: #eda712;}
 ul li.on a {color: #fff;}
+.paging-closet{
+	position: absolute;
+	top: 87%;
+    left: 60%;
+}
 </style>
 <title>My Room</title>
 </head>
@@ -73,7 +78,6 @@ ul li.on a {color: #fff;}
 		<!-- 옷장 클릭시 모달창 -->
 		<div class="icon-closet">
 	 		<img id="closet" src="${contextPath}/resource/img/icon/옷장.png">
-	 		</a>
 		</div>
 		<!-- 나무 클릭시 모달창 -->
 		<div class="icon-tree">
@@ -257,10 +261,15 @@ ul li.on a {color: #fff;}
 			<div class="closet-skins">
 
 			</div>
-			<!-- 페이징:S -->
-			<ul id="pagingul">
-			</ul>
-			<!-- 페이징:E -->
+			<!-- 페이징 -->
+			<div class="paging-closet">
+				<ul>
+					<li class='on'><a id='pg1'>1</a></li>
+					<li class='on'><a id='pg2'>2</a></li>
+					<li class='on'><a id='pg3'>3</a></li>
+				</ul>
+			</div>
+			
 			
 
 		</div>

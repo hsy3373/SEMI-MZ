@@ -118,11 +118,17 @@ public class SkinService {
 	}
 	
 	// [지의]
-	public ArrayList<Skin> selectSkinList(){
+	// 페이지 별 일반 스킨 조회용(한페이지에 10개)
+	public ArrayList<Skin> selectSkinsList(int page) {
+
 		Connection conn = getConnection();
-		ArrayList<Skin> list = new SkinDao().selectSkinList(conn);
+
+		ArrayList<Skin> list = new SkinDao().selectSkinsList(conn, page);
+
 		close(conn);
+
 		return list;
+
 	}
 
 //-------------------------------------------INSERT 구역 -------------------------------------------------
