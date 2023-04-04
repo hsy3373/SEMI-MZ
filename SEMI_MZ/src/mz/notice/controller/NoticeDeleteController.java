@@ -1,30 +1,25 @@
-package mz.admin.controller;
+package mz.notice.controller;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import mz.member.model.service.MemberService;
 import mz.notice.model.service.NoticeService;
-import mz.skin.model.service.SkinService;
 
 /**
- * Servlet implementation class MainController
+ * Servlet implementation class NoticeDeleteController
  */
-//[han]
-@WebServlet("/main.admin")
-public class MainController extends HttpServlet {
+@WebServlet("/delete.notice")
+public class NoticeDeleteController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-	
-    public MainController() {
+    public NoticeDeleteController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,16 +28,15 @@ public class MainController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		int userCount = new MemberService().userCount();
-		int noticeCount = new NoticeService().noticeCount();
-		int skinCount = new SkinService().skinCount();
+		int noticeNo = Integer.parseInt(request.getParameter("noticeNo"));
 		
-		request.setAttribute("userCount", userCount);
-		request.setAttribute("noticeCount", noticeCount);
-		request.setAttribute("skinCount", skinCount);
+		int result = new NoticeService().deleteNotice(noticeNo);
 		
-		request.getRequestDispatcher("views/admin/main.jsp").forward(request, response);
+		if( result > 0 ) {
+			System.out.println("공지 삭제 성공");
+		}
+		
+		response.sendRedirect( request.getContextPath() + "/list.notice");
 	}
 
 	/**

@@ -30,10 +30,23 @@
 	
 
 <!-- insert 구역 -->
-
+	<entry key="insertNotice">
+		INSERT INTO NOTICE(NOTICE_NO, NOTICE_TITLE, NOTICE_CONTENT, CREATE_DATE)
+		VALUES( SEQ_NOTICE.NEXTVAL ,  ?, ?, SYSDATE )
+	</entry>
 
 <!-- update 구역 -->
 
+	<entry key="updateNotice">
+		UPDATE NOTICE
+		SET NOTICE_TITLE = ?,
+			NOTICE_CONTENT = ?
+		WHERE NOTICE_NO = ?
+	</entry>
 
+	<entry key="deleteNotice">
+		DELETE FROM NOTICE
+		WHERE NOTICE_NO = ?
+	</entry>
 
 </properties>

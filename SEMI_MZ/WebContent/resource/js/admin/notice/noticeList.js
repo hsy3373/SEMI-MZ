@@ -4,49 +4,33 @@ import {
   setSessionStorage,
 } from "../adminCommon.js";
 
-//페이지별 스킨리스트 가져오는 함수
-let getSkins = function (num) {
+//페이지별 리스트 가져오는 함수
+let getNotice = function (num) {
   let path = getContextPath();
   $.ajax({
-    url: path + "/list.skin",
+    url: path + "/list.notice",
     method: "post",
     data: {
       page: num,
     },
     success: function (data) {
-      console.log(data);
-      let basicSkinCount = getSessionStorage("basicSkinCount");
+      let noticeCount = getSessionStorage("noticeCount");
       let str = `<tr>
-                  <th>#</th>
-                  <th>대표사진</th>
-                  <th>폴더명</th>
-                  <th>가격(코인)</th>
-                  <th>보상</th>
-                </tr>`;
+                    <th >#</th>
+                    <th >제목</th>
+                    <th >작성일</th>
+                  </tr>`;
       for (let i in data) {
-        let src = data[i].saveRoot;
-
-        let folder = data[i].saveRoot.substring(src.lastIndexOf("/") + 1);
-        console.log(folder);
-        str += `<tr class="skin-info-box">
-                  <td>${basicSkinCount - i - (num - 1) * 10}</td>
-                  <td>
-                    <img src="${path + src}/fs.png" />
-                    <img src="${path + src}/fd.png" />
-                    <img src="${path + src}/bs.png" />
-                    <img src="${path + src}/bd.png" />
-                    <img src="${path + src}/ls.png" />
-                    <img src="${path + src}/ld.png" />
-                    <img src="${path + src}/rs.png" />
-                    <img src="${path + src}/rd.png" />
-                  </td>
-                  <td class="save-folder">${folder}</td>
-                  <td>${data[i].price}</td>
-                  <td>${data[i].reward}</td>
+        str += `<tr class="notice-item">
+                  <td id="${data[i].noticeNo}">${
+          noticeCount - i - (num - 1) * 20
+        }</td>
+                  <td>${data[i].title}</td>
+                  <td>${data[i].date.split(" ")[0]}</td>
                 </tr>`;
       }
 
-      document.querySelector(".skin-table").innerHTML = str;
+      document.querySelector(".list-area").innerHTML = str;
     },
     error: function (jqXHR, textStatus, errorThrown) {
       console.log("Error: " + errorThrown);
@@ -55,15 +39,15 @@ let getSkins = function (num) {
 };
 
 let init = function () {
-  $(document.querySelector(".skin-table")).on("click", "tr", function () {
+  $(document.querySelector(".list-area")).on("click", "tr", function () {
     //만약 제목용 tr태그면 이벤트 종료
     if (this.querySelector("th") != null) {
       console.log("제목용 태그임");
       return;
     }
-    let str = this.querySelector(".save-folder").innerText;
-    str = str.replace("skin", "");
-    location.href = getContextPath() + "/update.skin?skinId=" + str;
+    let str = this.querySelector("td:nth-child(1)").id;
+    console.log(str);
+    location.href = getContextPath() + "/update.notice?noticeNo=" + str;
   });
 
   document.querySelectorAll(".page-btn").forEach(function (el) {
@@ -72,23 +56,11 @@ let init = function () {
       if (document.querySelector(".selected-btn") != null) {
         document.querySelector(".selected-btn").className = "page-btn";
       }
+
       setSessionStorage("cPage", this.innerText);
-      getSkins(this.innerText);
+      getNotice(this.innerText);
 
       this.className = "selected-btn page-btn";
-    });
-  });
-
-  document
-    .querySelector(".default-skin")
-    .addEventListener("click", function () {
-      location.href = getContextPath() + "/update.skin?skinId=0";
-    });
-
-  document.querySelectorAll(".reward-skin-item").forEach(function (el) {
-    el.addEventListener("click", function () {
-      let id = this.querySelector(".dvide").id;
-      location.href = getContextPath() + "/update.skin?skinId=" + id;
     });
   });
 
@@ -115,8 +87,9 @@ let init = function () {
 
   // 페이징바의 뒷페이지 버튼 클릭 시 동작
   document.getElementById("next-btn").addEventListener("click", function () {
-    let count = Number(getSessionStorage("basicSkinCount"));
-    count = Math.ceil(count / 10);
+    let count = Number(getSessionStorage("noticeCount"));
+    //최대 페이지 수
+    count = Math.ceil(count / 20);
     let btns = document.querySelectorAll(".page-btn");
     // 버튼들 텍스트 변경
     btns.forEach(function (el) {

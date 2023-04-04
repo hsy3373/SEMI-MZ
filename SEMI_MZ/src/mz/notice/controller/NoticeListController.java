@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
+
 import mz.notice.model.service.NoticeService;
 import mz.notice.model.vo.Notice;
 import mz.skin.model.service.SkinService;
@@ -54,8 +56,20 @@ public class NoticeListController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		//포스트 형식으로 들어오면 ajax로서 사용
+		
+		int page = Integer.parseInt(request.getParameter("page"));
+		
+		System.out.println(page + "  : 스킨 페이지 넘버");
+		
+		// 원하는 페이지에 속하는 스킨 리스트 반환해줌
+		ArrayList<Notice> list = new NoticeService().selectNoticesPart(page);
+		
+		System.out.println(list.size() +  "   : 리스트 개수");
+		
+		response.setContentType("application/json; charset=UTF-8");
+		new Gson().toJson(list, response.getWriter());
+		
 	}
 
 }
