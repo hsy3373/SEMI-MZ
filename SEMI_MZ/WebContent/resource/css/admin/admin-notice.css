@@ -1,0 +1,74 @@
+.head-text {
+  font-size: 2rem;
+  font-weight: 600;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 7vh 0px 50px 0px;
+  color: rgba(0, 0, 0, 0.6);
+}
+
+/* ----------------------------------- list 화면---------------------------------- */
+
+.inner-wrap {
+  width: 70vw;
+  background-color: white;
+  color: black;
+  padding: 2vw;
+  background-color: white;
+  border-radius: 1%;
+  margin: auto;
+  box-shadow: 0px 0px 50px rgba(0, 0, 0, 0.05);
+}
+
+table,
+td,
+th {
+  border: 1px solid black;
+  border-collapse: collapse;
+  padding: 10px;
+}
+
+td {
+  text-align: center;
+  cursor: pointer;
+}
+
+
+
+/* ----------------------------------- 페이징 바 --------------------------------- */
+.paging-bar {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.paging-bar > button {
+  background-color: white;
+  font-size: medium;
+  text-align: center;
+  padding: 4px 8px;
+  border-radius: 4px;
+  border: 1px solid black;
+  cursor: pointer;
+}
+
+.paging-bar > button:active {
+  background-color: rgb(202, 202, 202);
+}
+
+.able-btn {
+  display: inline-block;
+}
+
+.page-btn {
+  display: inline-block;
+}
+
+.disable-btn {
+  display: none;
+}
+
+.paging-bar > button.selected-btn {
+  pointer-events: none;
+  background-color: rgb(231, 231, 231);
+}

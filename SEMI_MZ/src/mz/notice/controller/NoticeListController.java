@@ -1,6 +1,7 @@
-package mz.admin.controller;
+package mz.notice.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -8,22 +9,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import mz.member.model.service.MemberService;
+import mz.notice.model.service.NoticeService;
+import mz.notice.model.vo.Notice;
 import mz.skin.model.service.SkinService;
+import mz.skin.model.vo.Skin;
 
 /**
- * Servlet implementation class MainController
+ * Servlet implementation class NoticeListController
  */
-//[han]
-@WebServlet("/main.admin")
-public class MainController extends HttpServlet {
+@WebServlet("/list.notice")
+public class NoticeListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-	
-    public MainController() {
+    public NoticeListController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,15 +34,20 @@ public class MainController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		int userCount = new MemberService().userCount();
-		int noticeCount = new NoticeService().noticeCount();
-		int skinCount = new SkinService().skinCount();
+		NoticeService service = new NoticeService(); 
 		
-		request.setAttribute("userCount", userCount);
-//		request.setAttribute("noticeCount", noticeCount);
-		request.setAttribute("skinCount", skinCount);
-//		
-		request.getRequestDispatcher("views/admin/main.jsp").forward(request, response);
+		String p = request.getParameter("page");
+		int page = p != null ? Integer.parseInt(p) : 1;
+		
+		int noticeCount = service.noticeCount();
+		ArrayList<Notice> list = service.selectNoticesPart(page);
+		
+		request.setAttribute("noticeCount", noticeCount);
+		request.setAttribute("page", page);
+		request.setAttribute("list", list);
+	
+		request.getRequestDispatcher("views/admin/notice/noticeList.jsp").forward(request, response);
+	
 	}
 
 	/**
