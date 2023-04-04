@@ -118,7 +118,7 @@ public class SkinService {
 	}
 	
 	// [지의]
-	// 페이지 별 일반 스킨 조회용(한페이지에 10개)
+	// 마이룸 - 페이지 별 일반 스킨 조회용(한페이지에 12개)
 	public ArrayList<Skin> selectSkinsList(int page) {
 
 		Connection conn = getConnection();
@@ -129,6 +129,15 @@ public class SkinService {
 
 		return list;
 
+	}
+	
+	// [지의]
+	// 옷장 총 스킨 개수 확인
+	public int closetSkinCount() {
+		Connection conn = getConnection();
+		int result = new SkinDao().closetSkinCount(conn);
+		close(conn);
+		return result;
 	}
 
 //-------------------------------------------INSERT 구역 -------------------------------------------------

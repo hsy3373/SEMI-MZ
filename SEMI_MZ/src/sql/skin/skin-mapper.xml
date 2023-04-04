@@ -51,6 +51,12 @@
 		)
 		WHERE RN BETWEEN ? AND ?
 	</entry>
+	<!-- 지의 옷장 스킨 갯수 -->
+	<entry key="closetSkinCount">
+		SELECT COUNT(*) AS COUNT 
+		  FROM CHARACTER_SKIN
+		 WHERE REWARD = 'N'
+	</entry>
 
 <!-- insert 구역 -->
 	<entry key="insertSkin">

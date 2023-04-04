@@ -242,9 +242,32 @@ public class SkinDao {
 		}
 
 		return list;
+	}
+	
+	// [지의]
+	// 옷장 총 스킨 개수 확인
+	public int closetSkinCount(Connection conn) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("closetSkinCount");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				result = rset.getInt("COUNT");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return result;
 		
 	}
-
 
 //-----------------------------------------insert 영역---------------------------------------------------
 

@@ -15,7 +15,27 @@
 	// 친구유저 클릭으로 들어올시		roomMaster값 friend
 	
 	Member userId = (Member)request.getAttribute("userId");
+	
+	// 총 스킨 개수
+	int closetSkinCount = (int) request.getAttribute("closetSkinCount");
+	
+ 	//총 페이지 수 얼마나 나와야 하는지 확인용 (총 스킨수/12(페이지당 표시수)
+ 	int maxPage = (int) Math.ceil(closetSkinCount / 12.0);
+
+ 	int currentPage = 1;
+ 	int startPage = (currentPage-1) / closetSkinCount * closetSkinCount +1;
+ 	int endPage = startPage + closetSkinCount - 1;
+ 	if(endPage > maxPage){
+ 		endPage = maxPage;
+ 	}
+ 	
+	System.out.println("총스킨수        : "+closetSkinCount);
+	System.out.println("총페이지수       : "+maxPage);
+	System.out.println("페이징바의 시작 수 : "+startPage);
+	System.out.println("페이징바의 끝 수  :"+endPage);
+
 %>
+
 
 <!DOCTYPE html>
 <html>
@@ -261,19 +281,32 @@ ul li.on a {color: #fff;}
 			<div class="closet-skins">
 
 			</div>
+			
+
 			<!-- 페이징 -->
 			<div class="paging-closet">
-				<ul>
-					<li class='on'><a id='pg1'>1</a></li>
-					<li class='on'><a id='pg2'>2</a></li>
-					<li class='on'><a id='pg3'>3</a></li>
-				</ul>
+				<% if(currentPage != 1){ %>
+					<button>&lt;</button>
+				<%} %>
+			
+				<% for(int i = startPage; i <= endPage; i++){ %>
+					<% if( i <= maxPage) { %>
+						<% if(i != currentPage){ %>
+							<button type="button" class="selected-btn page-btn"><%= i %></button>
+						<%} else{ %>
+		            		<button type="button" class="page-btn"><%= i %></button>
+						<%} %>
+					<%} else { %>
+	            		<button type="button" class="disable-btn page-btn"><%= i %></button>	
+            		<% } %>
+				<% } %>
+				
+				<!-- 현재 요청한 페이지가 마지막페이지가 아닐 경우 + 페이지 이동값 -->
+				<% if(currentPage != maxPage){ %>
+					<button>&gt;</button>
+				<%} %>
 			</div>
-			
-			
-
 		</div>
-
 	</div>
 
 	<!-- ============================= alert ============================= -->
@@ -311,16 +344,17 @@ ul li.on a {color: #fff;}
 		//console.log("로그인유저 : "+loginUserId);
 		//console.log("룸마스터 : "+roomMasterId);
 		
-		
-		
+		/* 스킨 총 개수 closet.js로 넘김 */
+		sessionStorage.setItem("closetSkinCount", JSON.stringify(<%= closetSkinCount %>));
 	</script>
 
 	
 
 	<%-- <script type="module" src="${contextPath}/resource/js/alert.js"></script> --%>
 	<script type="module" src="${contextPath}/resource/js/common.js"></script>
-	<script src="${contextPath}/resource/js/myroom/board.js"></script>
+	<script type="module" src="${contextPath}/resource/js/myroom/board.js"></script>
 	<script type="module" src="${contextPath}/resource/js/myroom/closet.js"></script>
+
 
 </body>
 </html>
