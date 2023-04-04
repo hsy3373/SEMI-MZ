@@ -11,7 +11,11 @@ import{FilterUsers} from './squareCanvas.js';
 const friendList = document.querySelector('.friendList'); //친구목록버튼
 const Listbutton = document.querySelector('.Listbutton'); //환경설정버튼
 
-
+//친구목록 : 놀러가기 이벤트 
+const fnClick = (fn) => {
+    console.log(fn)
+    console.log("클릭함")
+}
 
 //버튼 클릭 : 친구목록
 friendList.addEventListener('click', () => {
@@ -28,21 +32,36 @@ friendList.addEventListener('click', () => {
             let result = ``;
 
             result = list.map((fn)=> {
+
+                // let tr = document.createElement("tr");
+                // let tdNicName = document.createElement("td")
+                // tdNicName.textContent = fn.nicName;
+                // tr.appendChild(tdNicName);
+
+                // let td2 = document.createElement("td")
+                // td2.textContent = "접속중"
+                // tr.appendChild(td2);
+
+                // let gofriend = document.createElement("td");
+                // gofriend.addEventListener("click", function(){
+                //     fnClick(fn.userId);
+                // })
+                // tr.appendChild(gofriend);
                
+
+                // return tr.outerHTML;
+
                 // let td = document.createElement("td");
                 // td.addEventListener("click", fnClick(`${fn.userId}`));
                 //'' innerHtml 으로 함수 부를 수 없음. why? 이미 td태그가 아무것도 없기떄문에 이벤트 부여도 불가능 
                 //먼저 td태그 생성하고 그후 이벤트 부여해야함
-                return `<tr>
-                    <td>${fn.nicName}</td> 
-                    <td>접속중</td>
-                    <td onclick='fnClick(${fn.userId})'>놀러가기</td>
-                    </tr>`
+                // return `<tr>
+                //     <td>${fn.nicName}</td> 
+                //     <td>접속중</td>
+                //     <td onclick='fnClick(${fn.userId})'>놀러가기</td>
+                //     </tr>`
 
-                //onclick="fnClick(${fn.userId})""
-
-               
-                
+                //onclick="fnClick(${fn.userId})""      
             });
 
            
@@ -65,11 +84,6 @@ friendList.addEventListener('click', () => {
     modalstopfn();
 });
 
-//친구목록 : 놀러가기 이벤트 
-const fnClick = (fn) => {
-    console.log(fn)
-    console.log("클릭함")
-}
 
 
 //버튼 클릭 : 환경설정
