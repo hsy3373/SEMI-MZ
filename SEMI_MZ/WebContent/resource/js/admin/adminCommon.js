@@ -40,3 +40,6 @@ export let delSessionStorage = function (name) {
 export let delAllSessionStorage = function () {
   sessionStorage.clear();
 };
+
+
+

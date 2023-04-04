@@ -70,6 +70,26 @@ a {
   color: rgba(255, 255, 255, 0.5);
 }
 
+.member-menu{
+	color: #97ace7;
+	cursor: pointer;
+	
+}
+.member-menu-item{
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+    align-items: center;
+    background-color: #0000002b;
+    box-shadow: inset 0px 0px 20px #5e5e5e2e;
+}
+
+.member-menu-item a {
+	margin : 8px;
+}
+
+
+
 i {
   color: rgba(255, 255, 255, 0.3);
   font-size: larger;
