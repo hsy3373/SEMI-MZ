@@ -74,11 +74,11 @@ public class SkinService {
 
 		return result;
 	}
-	
+
 	// [han]
 	// 개별 스킨 조회용
 	public Skin selectSkin(int id) {
-		
+
 		Connection conn = getConnection();
 
 		Skin result = new SkinDao().selectSkin(conn, id);
@@ -86,14 +86,13 @@ public class SkinService {
 		close(conn);
 
 		return result;
-		
+
 	}
-	
-	
+
 	// [han]
 	// 페이지 별 일반 스킨 조회용(한페이지에 10개)
 	public ArrayList<Skin> selectBasicSkins(int page) {
-		
+
 		Connection conn = getConnection();
 
 		ArrayList<Skin> list = new SkinDao().selectBasicSkins(conn, page);
@@ -101,14 +100,13 @@ public class SkinService {
 		close(conn);
 
 		return list;
-		
+
 	}
-	
 
 	// [han]
 	// 보상용 스킨 조회용
 	public ArrayList<Skin> selectRewardSkins() {
-		
+
 		Connection conn = getConnection();
 
 		ArrayList<Skin> list = new SkinDao().selectRewardSkins(conn);
@@ -116,7 +114,7 @@ public class SkinService {
 		close(conn);
 
 		return list;
-		
+
 	}
 	
 	// [지의]
@@ -153,5 +151,43 @@ public class SkinService {
 	}
 	
 
+
+//-------------------------------------------UPDATE 구역 -------------------------------------------------
+
+	public int updateSkin(int skinId, int price, String reward) {
+		Connection conn = getConnection();
+
+		int result = new SkinDao().updateSkin(conn, skinId, price, reward);
+
+		if (result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+
+		close(conn);
+
+		return result;
+	}
+	
+	
+
+	public int deleteSkin(int skinId) {
+		Connection conn = getConnection();
+
+		int result = new SkinDao().deleteSkin(conn, skinId);
+
+		if (result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+
+		close(conn);
+
+		return result;
+	}
+	
+	
 
 }
