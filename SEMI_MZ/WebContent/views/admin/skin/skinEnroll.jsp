@@ -47,7 +47,7 @@ pageEncoding="UTF-8"%> <% String path = request.getContextPath(); %>
             <button id="insert-btn">등록</button>
           </div>
           <hr />
-          <div class="notice">※ 확장자가 'png'인 파일만 등록 가능합니다</div>
+          <div class="notice">※ 확장자가 'png'인 파일만 등록 가능합니다.(최대 10MB)</div>
           <div class="img-wrapper">
             <div>
               <p>앞(fs)</p>
@@ -139,6 +139,7 @@ pageEncoding="UTF-8"%> <% String path = request.getContextPath(); %>
     </div>
     <div id="toast">알림</div>
 
-    <script src="<%=path%>/resource/js/admin/skin/skinEnroll.js"></script>
+	<script type="module" src="<%=path%>/resource/js/admin/skin/skinCommon.js"></script>
+    <script type="module" src="<%=path%>/resource/js/admin/skin/skinEnroll.js"></script>
   </body>
 </html>

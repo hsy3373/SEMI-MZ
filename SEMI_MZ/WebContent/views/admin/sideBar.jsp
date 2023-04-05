@@ -24,28 +24,28 @@ pageEncoding="UTF-8"%>
         <hr />
 
         <li>
-          <a href="<%=path %>/insert.char">
+          <a href="<%=path %>/main.admin">
             <i class="bi bi-key-fill"></i>
             Admin</a
           >
         </li>
 
         <li>
-          <a href="<%=path %>/skin.admin">
+          <a href="<%=path %>/list.skin">
             <i class="bi bi-file-person"></i>
             캐릭터</a
           >
         </li>
 
         <li>
-          <a href="">
+          <a href="<%=path %>/list.member">
             <i class="bi bi-people-fill"></i>
             사용자</a
           >
         </li>
 
         <li>
-          <a href=""> <i class="bi bi-clipboard-fill"></i>공지사항</a>
+          <a href="<%=path %>/list.notice"> <i class="bi bi-clipboard-fill"></i>공지사항</a>
         </li>
       </ul>
     </div>

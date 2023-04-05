@@ -30,6 +30,12 @@ java.sql.Date.valueOf("2023-03-20"));
 
     <a href="./changeUser.jsp">유저 체인지 -> friend</a> <br />
 
+	
+    <!-- <a href="./myroom.jsp">마이룸</a> --> 
+    <!-- 친구네방문하는 링크 유저의 키, 벨류 -->
+    <%-- <a href="<%= request.getContextPath() %>/home?roomMaster=friend">friend룸</a> --%>
+
+    <br />
     <a href="./myroom.jsp">마이룸</a> <br />
     <br />
     <a href="./chatting.jsp">채팅</a>
