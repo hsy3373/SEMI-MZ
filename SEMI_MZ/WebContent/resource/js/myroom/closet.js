@@ -14,7 +14,7 @@ let closetSkinCount = getSessionStorage('closetSkinCount');
 */
 // 페이지별 스킨리스트 가져오는 함수
 // num값에 따라서 보여지는 화면이 달라짐
-/*function selectSkin(num){
+function selectSkin(num){
 	$.ajax({
 		url : path + "/skinList.me",
 		data : {page : num},
@@ -25,7 +25,7 @@ let closetSkinCount = getSessionStorage('closetSkinCount');
 			let str = "";
 			for(let i = 0; i < list.length; i++){
 				str += "<div class='closet-item'>" 
-						  +"<div class='closet-skin-id' id='skin"+i+"' style='display: none;'>" + list[i].skinId +"</div>"
+						  +"<div class='closet-skin-id' id='skin"+(i+1)+"' style='display: none;'>" + list[i].skinId +"</div>"
 						  + "<div class='closet-price'>" + list[i].price +"</div>"
 						  + "<div class='closet-skin'>"
 						 	+"<img src='."+ list[i].saveRoot +"/fs.png'>"
@@ -39,49 +39,30 @@ let closetSkinCount = getSessionStorage('closetSkinCount');
 			console.log("접속실패");
 		}
 	});
-};*/
+};
+/*
+	상점스킨 리스트 중 내가 보유한 스킨이라면 보유중
+	- list에 담긴 skinId(1,2,3,4...) 값과 #skin i 값이 
+*/
+$(function(){
+	$.ajax({
+		url : path + "/mySkinList.me",
+		success : function(list){
+			// 내가 보유한 리스트
+			for(let i of list){
+				//console.log(i.skinId);
+				//if(i.skinId == )
+			}
+		}
+	})
+});
+
 /* 로그인 유저가 보유한 스킨 */
-/*$(function(){
+function mySkin(){
 	$.ajax({
 		url : path + "/mySkinList.me",
 		success : function(list){
 			//console.log(list);
-			
-			console.log($(".closet-skin-id").text());
-			// -> 값이 안나옴.. 비동기로 요청해서..? 콘솔창에 직접 찍어보면 나옴
-			
-			// 로그인유저의 보유 스킨들
-			for(let i = 0; i < list.length; i++){
-				console.log(list[i].skinId); // 0, 3
-			}
-			
-			// 스킨 총개수에서 아이디값과 비교? 
-			for(let i = 0; i <closetSkinCount; i++){
-				console.log($("#skin"+i).text());
-			}
-			
-			// 위 조건 값들과 비교하고 싶음
-			for(let i = 0; i <closetSkinCount; i++){
-				if($("#skin"+i).text() == list[i].skinId){
-					console.log("ok");
-				}
-			}
-				
-
-			
-		},
-		error: function (jqXHR, textStatus, errorThrown) {
-      		console.log("Error: " + errorThrown);
-    	}
-	});
-});*/
-function selectSkin(num){
-	$.ajax({
-		url : path + "/mySkinList.me",
-		data : {page : num},
-		success : function(list){
-			
-			console.log(list);
 
 			let str = "";
 			for(let i = 0; i < list.length; i++){
@@ -93,13 +74,14 @@ function selectSkin(num){
 					 </div>`
 			}
 			$(".closet-skins").html(str);
-			
 		},
-		error : function(e){
-			console.log("접속실패");
-		}
+		error: function (jqXHR, textStatus, errorThrown) {
+      		console.log("Error: " + errorThrown);
+    	}
 	});
 };
+
+
 /* 옷장 속 스킨 클릭시 왼쪽 대표 스킨에 이미지 적용 */
 $(document).on('click', '.closet-skin img' ,function(){
 	let imgSrc = $(this).attr('src');
@@ -123,10 +105,11 @@ function init(){
 			selectSkin(index+1);
 
       		this.className = "selected-btn page-btn";
+			/* ★★★★★★★★★★★★★★★★★★★★★클래스명으로 css 부여해야됨!!!!!!!★★★★★★★★★★★★★★★★★★★★★★★★★ */
 		});
 	});
 	// 첫페이지가 보이게
-	selectSkin(1);
+	//selectSkin(1);
 	
 };
 
@@ -138,8 +121,8 @@ $(function () {
 		if(roomMasterId == ''){
 	        $(".closet-wrap").show();
 	        $(".closet-modal").show();
-			//$(".closet-item").show();
 	        $.dressClick();
+			mySkin();
 		}else{
 			$(".icon-closet").off('click');
 		}
@@ -148,12 +131,12 @@ $(function () {
     // 옷장 버튼 클릭
 	$(document).on("click", ".dress-btn",function(){
         $.dressClick();
-		
+		mySkin();
 	});
     // 상점 버튼 클릭
 	$(document).on("click", ".store-btn",function(){
         $.storeClick();
-
+		selectSkin(1);
 	});
 
     
