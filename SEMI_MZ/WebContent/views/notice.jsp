@@ -35,23 +35,12 @@
 				<div class="ranking-nickname">박가영입니다_</div>
 			</div>
 		</div>
-		<div class="notice-lists">
-			<div class="lists-bgimg">
-				<div class="notice-titles">공지사항 제목입니다</div>
-			</div>
-			<div class="lists-bgimg">
-				<div class="notice-titles">공지사항 제목입니다</div>
-			</div>
-			<div class="lists-bgimg">
-				<div class="notice-titles">공지사항 제목입니다</div>
-			</div>
-			<div class="lists-bgimg">
-				<div class="notice-titles">공지사항 제목입니다</div>
-			</div>
-		</div>
 		<div class="notice-list">
 			<div class="list-bgimg">
-				<div class="notice-title">공지사항이 없습니다.</div>
+				<div class="notice-title"></div>
+			</div>
+			<div class="list-bgimg">
+				<div class="notice-title">우와아아앙</div>
 			</div>
 		</div>
 		<div class="notice-x-btn">

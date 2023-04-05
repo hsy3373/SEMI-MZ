@@ -74,29 +74,6 @@
 .ranking2{margin: auto;}
 
 /*공지사항 게시판 포스트잇*/
-.notice-lists{
-	position: absolute;
-    z-index: 2;
-    width: 88%;
-    height: 36%;
-    top: 59%;
-    left: 5.5%;
-    display:none;
-}
-.lists-bgimg{
-	background: url('../img/icon/포스트잇.png') no-repeat;
-	display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    width: 24%;
-    background-size: 100% 100%;
-}
-.notice-titles{
-	width: 63%;
-    text-align: center;
-    line-height: 24px;
-}
 .notice-list{
 	position: absolute;
     z-index: 2;

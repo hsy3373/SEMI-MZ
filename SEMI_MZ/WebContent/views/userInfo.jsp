@@ -83,8 +83,6 @@
 		</div>
 	</div>
 	<div class="alert-overlay"></div>
-	
-	<div class="user1">유저 캐릭터</div>
 
 	<script type="module" src="../resource/js/userInfo.js"></script>
 	<script type="module" src="../resource/js/common.js"></script>

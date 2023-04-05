@@ -157,6 +157,40 @@ public class NoticeDao {
 		return notice;
 	}
 	
+	// 가영
+	public ArrayList<Notice> selectNoticeList(Connection conn){
+		
+		ArrayList<Notice> list = new ArrayList<>();
+		
+		PreparedStatement pstmt = null;
+		
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectNotice");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Notice n = new Notice(rset.getInt("NOTICE_NO"),
+									  rset.getString("NOTICE_TITLE"),
+									  rset.getString("NOTICE_CONTENT"),
+									  rset.getString("CREATE_DATE")
+									  );
+				list.add(n);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+	
 //---------------------------------------insert 구역----------------------------------
 
 	public int insertNotice(Connection conn, String title, String content) {

@@ -17,20 +17,39 @@ close.addEventListener("click", e => {
     modalstopfn();
 });
 
-let open = document.querySelector(".notice-detail-view");
+function getNoticeList(){
+	$.ajax({
+		url: getContextPath()+"/selectNotice",
+		success : function(data){
+			console.log(data);
+			if (data > 0) {
+				console.log(data);
+			} else {
+				$(".notice-title").html("공지사항이 없습니다.");
+			}
+		}, error : function(){
+					console.log("실패")
+				}
+	});
+}
+getNoticeList();
+
+
+
+/*let open = document.querySelector(".notice-detail-view");
 
 function detailOn() {
 	open.style.display = "block"
 }
         
-     /*   function isModalOn() {
+        function isModalOn() {
             return modal.style.display === "flex"
         }
         function modalOff() {
             modal.style.display = "none"
-        }*/
+        }
         
         let closeBtn = noticeModal.querySelector(".lists-bgimg")
         closeBtn.addEventListener("click", e => {
             modalOff();
-        })
+        })*/
