@@ -22,37 +22,38 @@
 			<img id="info-view" alt="유저정보창" src="../resource/img/icon/정보창폰트x.png">
 		</div>
 		<!-- 유저 닉네임 -->
-		<div class="nickname"></div>
+		<div class="info-nickname"></div>
 		<!-- 호감도 -->
-		<div class="heart">
+		<div class="info-heart">
 			<img id="heart-off" alt="호강도 상태" src="../resource/img/icon/빈하트.png">
+			<img id="heart-on" alt="호강도 상태" src="../resource/img/icon/하트.png">
 		</div>
-		<div class="heart-int"></div>
 		<!-- 호감도 갯수 -->
+		<div class="heart-int"></div>
 		<!-- 유저 캐릭터 -->
-		<div class="user-skin">
-			<img id="skin">
+		<div class="info-skin">
+			<img id="info-skin">
 		</div>
 		<!-- 유저 성별 -->
 		<div class="user-gender">
-			<img id="gender-m"> <img id="gender-w"> <img
-				id="gender-n">
+			<img id="gender-m"> 
+			<img id="gender-w"> 
+			<img id="gender-n">
 		</div>
 		<!-- 자기소개 -->
-		<div class="introduce"></div>
+		<div class="info-introduce"></div>
 		<!-- 하단 버튼들 -->
 		<div class="btns1">
 			<button class="plus" type="button">친구추가</button>
-			<input type="hidden" class="delete" value="친구삭제">
+			<button class="delete" type="button">친구삭제</button>
 			<button class="friend-home" type="button">놀러가기</button>
-			<br>
 		</div>
 		<div class="btns2">
-			<button class="chatting" type="button">1:1 채팅</button>
+			<button class="info-chatting" type="button">1:1 채팅</button>
 			<button class="info-report-btn" type="button">신고하기</button>
 		</div>
-		<div class="x-btn">
-			<img id="x-btn" alt="닫기 버튼" src="../resource/img/icon/엑스 버튼.png">
+		<div class="info-x-btn">
+			<img id="info-x-btn" alt="닫기 버튼" src="../resource/img/icon/엑스 버튼.png">
 		</div>
 	</div>
 	<!------- 신고하기창 ------->
@@ -82,9 +83,12 @@
 		</div>
 	</div>
 	<div class="alert-overlay"></div>
+	
+	<div class="user1">유저 캐릭터</div>
 
 	<script type="module" src="../resource/js/userInfo.js"></script>
 	<script type="module" src="../resource/js/common.js"></script>
 	<!--<script type="module" src="../resource/js/alert.js"></script>-->
+	
 </body>
 </html>
