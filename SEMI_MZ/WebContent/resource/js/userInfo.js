@@ -13,6 +13,10 @@ document.querySelector(".info-chatting").addEventListener("click", function(){
 	openChatRoom(sessionStorage.clickedUserId);
 });
 
+document.querySelector(".friend-home").addEventListener("click", function(){
+	location.href=getContextPath()+'/home?roomMaster='+sessionStorage.clickedUserId;
+});
+
 /*유저 정보 모달창 띄우기*/
 let open = () => {
 	document.querySelector(".info-modal").classList.remove("hidden");
