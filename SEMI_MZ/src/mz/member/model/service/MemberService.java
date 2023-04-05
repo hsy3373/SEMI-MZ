@@ -38,8 +38,6 @@ public class MemberService {
 		
 		return m;
 	}
-		
-//------------------------------ insert 구간 -------------------------------
 	
 	// [김혜린]
 	public Member loginMember(String userId, String userPwd) {
@@ -84,10 +82,6 @@ public class MemberService {
 		
 		return result;
 	}
-		
-		
-		
-		
 //------------------------------ insert 구간 -------------------------------
 	
 	// [김혜린]
@@ -123,7 +117,37 @@ public class MemberService {
 			System.out.println("서비스 result : " + result); // cosole용
 			return result;
 		}
-	
+//------------------------------ update 구간 -------------------------------
+	// [김혜린]
+		public Member updatePwd(String userPwd, String userId) {
+			System.out.println("멤버서비스 updatePwd 실행");
+			Connection conn = getConnection();
+			
+			int result = new MemberDao().updatePwd(conn, userPwd, userId);
+			
+			Member m = null;
+			
+			if(result > 0) { // update성공
+				commit(conn);
+				m = new MemberDao().loginMember(conn, userId, userPwd);
+			}else { // update실패
+				rollback(conn);
+			}
+			close(conn);
+			System.out.println("서비스 updatePwd result : " + result);
+			return m;
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 	
 	
 	

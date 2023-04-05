@@ -67,16 +67,26 @@ function kakaoLogin(page) {
      let newpwdtxt = $('.repwd-txt');
 
      // 비밀번호 재설정에 보여지는 유저아이디
-    // let userIdtxt = $('.userId-txt');
-
+    // let userIdtxt = $('.findId-txt');
+    let findIdTxt = $('.findId-txt');
+    
     $.ajax({
-        type: "post",
         url : path + "/KeyCheck.me",
-        dataType: "json",
+        method : 'post',
         data: {kind : '카카오', key : key},
-        success: (result) => {
+        dataType: 'text',
+        success: (result) => {  //1,hyerin
             console.log("ajax 통신 후 결과 값 db에 존재함? : " + result); // console 확인
-            if(result == "1") { // 키값이 DB에 존재함
+            
+            let words = result.split(',');
+            console.log(words[0]);
+            console.log(words[1]);
+
+            let one = words[0];
+            let findId = words[1];
+            
+
+            if(one == "1") { // 키값이 DB에 존재함
                 if(page == "main"){
                     // main page =>  광장으로 이동시키기 (로그인유저 정보는 서블릿에서 세션에 담음)
                     location.replace(path+"/views/square.jsp");
@@ -84,7 +94,8 @@ function kakaoLogin(page) {
                 if(page == "find"){
                     // 비밀번호 재설정 모달 열기(세션정보 서블릿에서 저장)
                     $('.modal3').css('display', 'block');
-
+                    findIdTxt.html(findId);
+                    
                     // 비밀번호 재설정 모달 닫고 다시 열었을 때 내용 리셋
                     newpwd; newchkpwd;
                     newpwdtxt.html("영문, 숫자, 특수기호 포함 8~16자 입력 가능");
@@ -130,18 +141,13 @@ function kakaoLogin(page) {
             }
         }
     })
-
-
-
 };
-
 //회원가입 모달 
 
 // let insertMem = function(){
-//     // 쿠키에 저장된 키 가져와서 함께 전송
-//     // ajax로 멤버 추가 + 키값도 추가
-// }
-
+    //     // 쿠키에 저장된 키 가져와서 함께 전송
+    //     // ajax로 멤버 추가 + 키값도 추가
+    // }
 
 
 

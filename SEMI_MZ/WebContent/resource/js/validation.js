@@ -312,13 +312,16 @@ $('.cge-nick').keyup(function(){
 });
 
 //===== 자기소개 textarea =====
-$('.self-info').keyup(function(){
+$('.rself-info').keyup(function(){
     let selfInfo = this.value;
-    let txt = $('.self-txt');
+    let txt = $('#self-txt');
 
     if(selfInfo.length > 100){
         txt.css('color','red');
         txt.html("100자 초과.");
+    }else if(txt.val() == ""){
+        txt.css('color','black');
+        txt.html("100자 이내로 작성해 주세요.");
     }else{
         txt.html("");
     }
@@ -327,6 +330,7 @@ $('.self-info').keyup(function(){
 //=====  내정보 pw 변경 =============================
 $('.cge-pwd').keyup(function(){
     let pwd = this.value;
+    
     let txt = $('.cgepwd-txt');
     
     if(pwd == ""){

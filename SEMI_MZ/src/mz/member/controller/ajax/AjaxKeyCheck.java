@@ -21,72 +21,65 @@ import mz.member.model.vo.Member;
 @WebServlet("/KeyCheck.me")
 public class AjaxKeyCheck extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public AjaxKeyCheck() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-		
+	public AjaxKeyCheck() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 
-	
-	
-	
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		response.getWriter().append("Served at: ").append(request.getContextPath());
+
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		response.setContentType("text/html; charset=UTF-8");
-		
+
 		System.out.println("keycheck");
-		
+
 		String apiKind = request.getParameter("kind");
 		String apiKey = request.getParameter("key");
-		
+
 		System.out.println("key: " + apiKey + ", kind : " + apiKind);
-		
+
 		Member m = new MemberService().checkKey(apiKind, apiKey);
-		
-//		HashMap<String, String> keyY = new HashMap<String, String>();
-//		keyY.put("1", "1");
-//		keyY.put("findId", m.getUserId());
-		
-		
-		System.out.println("keycheck 서블릿 담겼?: " + m); //console용
-		
-		System.out.println("status값 : "+m.getStatus());
-		
-		if(m == null) { // 키 DB에 없음 => 회원가입 가능
+
+		System.out.println("keycheck 서블릿 담겼?: " + m); // console용
+
+		//System.out.println("status값 : " + m.getStatus());
+		if (m == null) { // 키 DB에 없음 => 회원가입 가능
 			response.getWriter().print("0");
 		}
+
 		// 키가 DB에 존재
-		if(m.getStatus().equals("X") || m.getStatus().equals("N")){
-				response.getWriter().print("6");
+		else if (m.getStatus().equals("X") || m.getStatus().equals("N")) {
+			response.getWriter().print("6");
+
 		}
-		if(m.getStatus().equals("Y")) {
-				HttpSession session = request.getSession();
-				session.setAttribute("loginUser", m); //세션에 유저정보 담기
-				
-				response.getWriter().print("1"); // 광장으로
-				
+		else if (m.getStatus().equals("Y")) {
+			HttpSession session = request.getSession();
+			session.setAttribute("loginUser", m); // 세션에 유저정보 담기
+
+			String result = "1," + m.getUserId();
+
+			response.getWriter().print(result); // 광장으로
+
 		}
-			
-			
-		
-		
-		
-		
-		
+
 	}
 
 }

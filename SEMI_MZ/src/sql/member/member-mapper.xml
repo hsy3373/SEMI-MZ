@@ -43,11 +43,30 @@
 		WHERE USER_ID = ?
 	</entry>
 	
+	<!-- [혜린] 
+	<entry key="checkPwd">
+		SELECT COUNT(*)
+		FROM MEMBER
+		WHERE USER_PWD = ?
+	</entry>-->
+	
 	<!-- [혜린] -->
 	<entry key="checkNick">
 		SELECT COUNT(*)
 		FROM MEMBER
 		WHERE NICKNAME = ?
+	</entry>
+	
+	<!-- [가영] -->
+	<entry key="selectMember">
+		SELECT USER_ID,
+			   NICKNAME,
+			   SKIN_ID,
+			   SELF_INFO,
+			   GENDER
+		FROM MEMBER
+		JOIN CHARACTER_SKIN USING(SKIN_ID)
+		WHERE USER_ID = ?
 	</entry>
 	
 	
@@ -73,18 +92,13 @@
 					   		  ?)
 	</entry>
 	
-	<!-- 가영 -->-
-	<entry key="selectMember">
-		SELECT USER_ID,
-			   NICKNAME,
-			   SKIN_ID,
-			   SELF_INFO,
-			   GENDER
-		FROM MEMBER
-		JOIN CHARACTER_SKIN USING(SKIN_ID)
-		WHERE USER_ID = ?
+<!-- ================= update 구간 ======================== -->
+<!-- [혜린] -->
+	<entry key = "updatePwd">
+		UPDATE MEMBER
+		   SET USER_PWD = ?
+		 WHERE USER_ID = ?
 	</entry>
-
 
 
 

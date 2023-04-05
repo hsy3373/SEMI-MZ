@@ -33,23 +33,13 @@ let path = getContextPath();
 	});
 		
 		
-	/* 회원가입창 모달 
-	
-	const enrollModal = document.querySelector('.enroll-modal');
-	
-	enrollModal.addEventListener('click', () => {
-	  modal2.style.display = 'block';
-	});  */
-
+	/* 회원가입창 모달 닫기 */
 	let modal2 = $('.modal2');
 	let enrollXbtn = $('.x-btn2');
 
 	enrollXbtn.on("click", function(){
 	  	modal2.css('display', 'none');
 	});
-	
-	
-	
 	
 	/* id/pw찾기 후 비밀번호 변경 모달 */
 	const modal3 = document.querySelector('.modal3');
@@ -58,47 +48,6 @@ let path = getContextPath();
 		modal3.style.display = 'none';
 		modal1.style.display = 'none';
 	});
-	//const changePwdModal = document.querySelector('.changepwd-modal');
-	
-	// changePwdModal.addEventListener('click', () => {
-	//       modal3.style.display = 'block';
-	// });
-
-
-	/* 내정보변경 시 비밀번호 입력 요청 모달 */
-	const modal4 = document.querySelector('.modal4');
-	const rqPwdModal = document.querySelector('.rqpwd-modal');
-	
-	document.querySelector('.x-btn4').addEventListener('click', () => {
-	      modal4.style.display = 'none';
-	});
-	
-	rqPwdModal.addEventListener('click', () => {
-	      modal4.style.display = 'block';
-	});
-
-
-	/* 내정보변경 모달 */
-	const modal5 = document.querySelector('.modal5');
-	const changeInfModal = document.querySelector('.chg-inf-modal');
-	
-	document.querySelector('.x-btn5').addEventListener('click', () => {
-	      modal5.style.display = 'none';
-	      modal4.style.display = 'none';
-	});
-	
-	changeInfModal.addEventListener('click', () => {
-	      modal5.style.display = 'block';
-	});
-
-
-	/* 탈퇴 alert창 */
-	//var okBtn = alert.querySelector('#alert-ok1');
-	//okBtn.addEventListener('click', closeAlert);
-	/* 회원가입완료 alert창 */
-	//var okBtn = alert.querySelector('#alert-ok2');
-	//okBtn.addEventListener('click', closeAlert);
-	
 	
 
 	
@@ -139,8 +88,6 @@ let path = getContextPath();
 		let apiKey = Common.getCookie("key");
 		let apiKind = Common.getCookie("kind");
 
-
-
 		$.ajax({
 			type : "post",
 			url : path + "/enroll.me",
@@ -169,8 +116,7 @@ let path = getContextPath();
 				modal2.css('display', 'none');
 			}
 		})
-
-
+		// API테이블에 insert
 		$.ajax({
 			type : "post",
 			url : path + "/enroll.api",
@@ -178,7 +124,7 @@ let path = getContextPath();
 			data : {userId: userId, apiKind: apiKind, apiKey: apiKey},
 			success : (result) => {
 
-				if(result == 11){ //API테이블 insert 성공
+				if(result == "11"){ //API테이블 insert 성공
 					console.log("API테이블 insert 성공" + result);
 					modal2.css('display', 'none');
 				 	console.log("전달용 : API키 정보 insert 성공.");
@@ -187,14 +133,80 @@ let path = getContextPath();
 				 	modal2.css('display', 'none');
 				 	console.log("전달용 : API키 정보 insert 실패.");
 				}
-
 			}
 		})
+	});
 
-		
+/* id/pw찾기 => 비밀번호 재설정 */
+$('#newpwd-btn').on("click", function(){
+
+	let userPwd = $('.re-chkpwd').val();
+
+	$.ajax({
+		type : "post",
+		url : path + "/updatePwd.me",
+		dataType : "text",
+		data : {userPwd : userPwd},
+		success : (result) => {
+			if(result == "1"){ //update성공
+				alert("비밀번호가 변경되었습니다. 다시 로그인해주세요.");
+				modal3.style.display = 'none';
+				modal1.style.display = 'none';
+			}else{ // update 실패
+				alert("비밀번호 변경에 실패하였습니다. 다시 확인해주세요.");
+			}
+		}
 	});
 
 
+});
+
+//////////////////////광장 js(내정보변경)/////////////////////////////////
+
+// 	/* 내정보변경 시 비밀번호 입력 요청 모달 */
+// 	const modal4 = document.querySelector('.modal4');
+// 	const rqPwdModal = document.querySelector('.rqpwd-modal');
+	
+// 	document.querySelector('.x-btn4').addEventListener('click', () => {
+// 	      modal4.style.display = 'none';
+// 	});
+	
+// 	rqPwdModal.addEventListener('click', () => {
+// 	      modal4.style.display = 'block';
+// 	});
+
+// 	/* 내정보변경 모달 */
+// 	const modal5 = document.querySelector('.modal5');
+	
+// 	document.querySelector('.x-btn5').addEventListener('click', () => {
+// 	      modal5.style.display = 'none';
+// 	      modal4.style.display = 'none';
+// 	});
+	
+
+
+
+// /* 내정보 변경 pw입력요청 모달에서 pw 확인 버튼 클릭 시 */
+// $('#rq-btn').on("click", function(){
+// 	let inputPwd = $('#rqpwd').val();
+
+// 	$.ajax({
+// 		type : "post",
+// 		url : path + "/checkPwd.me",
+// 		dataType : "text",
+// 		data : {inputPwd: inputPwd},
+// 		success : (result) => {
+// 			if(result == "O"){
+// 				//내정보변경 전 패스워드 체크일 때(패스워드 일치 시)
+// 				// 내정보변경 모달 block 처리
+// 				modal5.css('display','block');
+// 			}else{
+// 				alert("비밀번호가 일치하지 않습니다. 다시 확인해주세요.");
+// 			}
+// 		}
+// 	})
+
+// });
 
 
 
@@ -202,6 +214,41 @@ let path = getContextPath();
 
 
 
+
+// /*  회원탈퇴 버튼 클릭 시 비밀번호 입력 요청 모달 열고 닫기 */
+// let modal6 = $('.modal6');
+
+// $('#sec-btn').on("click", function(){
+// 	modal6.css('display', 'block');
+// });
+
+// $('.x-btn6').on('click', () => {
+// 	modal6.css('display', 'none');
+// });
+
+// $('#secsub-btn').on("click", function(){
+// 	let inputPwd = $('#sec-pwdchk').val();
+
+// 	$.ajax({
+// 		type : "post",
+// 		url : path + "/checkPwd.me",
+// 		dataType : "text",
+// 		data : {inputPwd: inputPwd},
+// 		success : (result) => {
+// 			if(result == "O"){
+// 				// 회원탈퇴 전 패스워드 체크일 때(패스워드 일치 시)
+// 				// 탈퇴되었다는 알림과 함께 로그인페이지(메인페이지로 이동하면서)세션정보지우기
+// 				// 그리고 테이블에 탈퇴처리하고, 상태테이블에 추가
+
+
+
+// 			}else{
+// 				alert("비밀번호가 일치하지 않습니다. 다시 확인해주세요.");
+// 			}
+// 		}
+// 	})
+
+// });
 
 
 
