@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8" import="mz.member.model.vo.Member"%>
 <%
+	String path = request.getContextPath();
 	Member test = (Member) session.getAttribute("loginUser");
 	int userCount = (int) request.getAttribute("userCount");
 	int skinCount = (int) request.getAttribute("skinCount");

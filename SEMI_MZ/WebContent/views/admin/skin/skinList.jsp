@@ -2,6 +2,7 @@
 pageEncoding="UTF-8" %>
 <%@ page import="mz.skin.model.vo.Skin, java.util.ArrayList" %> 
 <%
+	String path = request.getContextPath();	
 	/* 현재 페이지 */
 	int cPage = (int) request.getAttribute("page");
  	

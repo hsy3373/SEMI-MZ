@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" import = "mz.notice.model.vo.Notice, java.util.ArrayList"%>
 <%
+	String path = request.getContextPath();	
 	ArrayList<Notice> list = (ArrayList<Notice>) request.getAttribute("list");
 
 	//현재 페이지
