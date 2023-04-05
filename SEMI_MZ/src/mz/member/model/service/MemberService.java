@@ -57,7 +57,7 @@ public class MemberService {
 		Member m = new MemberDao().checkKey(conn, apiKind, apiKey);
 		
 		close(conn);
-		System.out.println("서비스에 담겼니?" + m); // console용
+		//System.out.println("서비스에 담겼니?" + m); // console용
 		return m;
 	}
 		
@@ -114,13 +114,13 @@ public class MemberService {
 				rollback(conn);
 			}
 			close(conn);
-			System.out.println("서비스 result : " + result); // cosole용
+			//System.out.println("서비스 result : " + result); // cosole용
 			return result;
 		}
 //------------------------------ update 구간 -------------------------------
 	// [김혜린]
 		public Member updatePwd(String userPwd, String userId) {
-			System.out.println("멤버서비스 updatePwd 실행");
+			//System.out.println("멤버서비스 updatePwd 실행");
 			Connection conn = getConnection();
 			
 			int result = new MemberDao().updatePwd(conn, userPwd, userId);
@@ -134,7 +134,7 @@ public class MemberService {
 				rollback(conn);
 			}
 			close(conn);
-			System.out.println("서비스 updatePwd result : " + result);
+			//System.out.println("서비스 updatePwd result : " + result);
 			return m;
 		}
 		

@@ -138,7 +138,7 @@ public class MemberDao {
 				close(rset);
 				close(pstmt);
 			} 
-		System.out.println("dao m : " + m);
+		//System.out.println("dao m : " + m);
 		return m;		
 	}
 	
@@ -178,7 +178,7 @@ public class MemberDao {
 			close(rset);
 			close(pstmt);
 		}
-		System.out.println("디에이오에 담겼니?" + m);
+		//System.out.println("디에이오에 담겼니?" + m);
 		return m;
 	}
 	
@@ -239,7 +239,7 @@ public class MemberDao {
 //------------------------------ insert 구간 -------------------------------	
 	// [김혜린]
 	public int insertMember(Connection conn, Member m) {
-		System.out.println("insertMember");
+		//System.out.println("insertMember");
 		
 		int result = 0;
 		PreparedStatement pstmt = null;
@@ -264,9 +264,9 @@ public class MemberDao {
 	
 	// [김혜린]
 	public int insertKey(Connection conn, loginAPI a) {
-		System.out.println("insertKey");
+		//System.out.println("insertKey");
 		
-		System.out.println("dao 까지 옴?"+ a); // 콘솔용
+		//System.out.println("dao 까지 옴?"+ a); // 콘솔용
 		int result = 0;
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("insertKey");
@@ -285,27 +285,27 @@ public class MemberDao {
 		}finally {
 			close(pstmt);
 		}
-		System.out.println("DAO result : " + result); // cosole용
+		//System.out.println("DAO result : " + result); // cosole용
 		return result;
 	}
 	
 //------------------------------ update 구간 -------------------------------		
 	// [김혜린]
 	public int updatePwd(Connection conn, String userPwd, String userId) {
-		System.out.println("DAO : updatePwd");
+		//System.out.println("DAO : updatePwd");
 		//System.out.println(userPwd +", "+ userId);
 		int result = 0;
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("updatePwd");
-		System.out.println(sql);
+		//System.out.println(sql);
 		try {
 			pstmt = conn.prepareStatement(sql);
-			System.out.println("sql들어왔음?");
+			//System.out.println("sql들어왔음?");
 			pstmt.setString(1, userPwd);
 			pstmt.setString(2, userId);
-			System.out.println("result 담기 전");
+			//System.out.println("result 담기 전");
 			result = pstmt.executeUpdate();
-			System.out.println("Dao 담겼?: " + result);
+			//System.out.println("Dao 담겼?: " + result);
 			
 		} catch (SQLException e) {
 			e.printStackTrace();

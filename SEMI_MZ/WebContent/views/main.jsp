@@ -26,8 +26,9 @@
 
 
 
-<title>MainPage</title>
-
+<title>LoginMainPage</title>
+<!-- 로그인 메인 jsp 
+	작성자 : 김혜린 -->
 
 </head>
 

@@ -10,7 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 import mz.member.model.service.MemberService;
 
 /**
- * Servlet implementation class AjaxCheckId
+ * 작성자 : 김혜린
+ * 회원가입 : 아이디 중복확인 서블릿
  */
 @WebServlet("/idCheck.me")
 public class AjaxCheckId extends HttpServlet {

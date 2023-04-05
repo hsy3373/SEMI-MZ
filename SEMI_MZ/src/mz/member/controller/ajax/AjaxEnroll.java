@@ -13,7 +13,8 @@ import mz.member.model.vo.Member;
 import mz.member.model.vo.loginAPI;
 
 /**
- * Servlet implementation class AjaxEnroll
+ * 작성자 : 김혜린
+ * 회원가입 : DB MEMBER테이블 insert 서블릿
  */
 @WebServlet("/enroll.me")
 public class AjaxEnroll extends HttpServlet {
@@ -47,7 +48,7 @@ public class AjaxEnroll extends HttpServlet {
 		
 		Member m = new Member(userId, userPwd, nicName);
 		
-		System.out.println("멤버객체 m : " + m); // console용
+		//System.out.println("멤버객체 m : " + m); // console용
 		
 		
 		int resultM = new MemberService().insertMember(m);
@@ -56,15 +57,15 @@ public class AjaxEnroll extends HttpServlet {
 			HttpSession session = request.getSession(); 
 			session.setAttribute("loginUser", m); // 로그인유저 정보 세션에 담음
 			
-			System.out.println("세션로그인유저 정보 : " + session.getAttribute("loginUser"));// console용
+			//System.out.println("세션로그인유저 정보 : " + session.getAttribute("loginUser"));// console용
 			
 			response.getWriter().print("1");
-			System.out.println("멤버테이블 insert 성공"); // console용
-			System.out.println("resultM : " + resultM); // console용
+			//System.out.println("멤버테이블 insert 성공"); // console용
+			//System.out.println("resultM : " + resultM); // console용
 		}else { // insert 실패
 			response.getWriter().print("0");
-			System.out.println("멤버테이블 insert 실패"); // console용
-			System.out.println("resultM : " + resultM); // console용
+			//System.out.println("멤버테이블 insert 실패"); // console용
+			//System.out.println("resultM : " + resultM); // console용
 		}
 	}
 

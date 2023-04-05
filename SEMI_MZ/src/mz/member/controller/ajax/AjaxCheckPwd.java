@@ -10,7 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 import mz.member.model.vo.Member;
 
 /**
- * Servlet implementation class AjaxCheckPwd
+ * 작성자 : 김혜린
+ * 비밀번호 입력 요구 모달 : (로그인유저 pw == 입력한pw)확인 서블릿
  */
 @WebServlet("/checkPwd.me")
 public class AjaxCheckPwd extends HttpServlet {
@@ -40,7 +41,7 @@ public class AjaxCheckPwd extends HttpServlet {
 		String inputPwd = request.getParameter("inputPwd");
 		String userPwd = ((Member)request.getSession().getAttribute("loginUser")).getUserPwd();
 		
-		System.out.println("inputPwd : " + inputPwd +", loginuserPwd : " + userPwd);
+		//System.out.println("inputPwd : " + inputPwd +", loginuserPwd : " + userPwd);
 		
 		if(inputPwd.equals(userPwd)) { // 패스워드 일치
 			response.getWriter().print("O");

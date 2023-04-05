@@ -15,7 +15,8 @@ import mz.member.model.service.MemberService;
 import mz.member.model.vo.Member;
 
 /**
- * Servlet implementation class AjaxLogin
+ * 작성자 : 김혜린
+ * 기본 로그인 서블릿
  */
 @WebServlet("/login.me")
 public class AjaxLogin extends HttpServlet {

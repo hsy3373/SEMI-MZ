@@ -1,5 +1,5 @@
 /**
- * 메인/로그인/회원가입/정보변경 스크립트
+ * 메인(로그인/회원가입/찾기) 스크립트
  * 작성자 : 김혜린
  */
 
@@ -108,7 +108,7 @@ let path = getContextPath();
 					//alert("회원가입이 완료되었습니다. 로그인 창으로 이동합니다.");
 				}
 				if(result == "0"){ //멤버테이블 insert 실패
-					console.log("멤버테이블 insert 실패" + result);
+					//console.log("멤버테이블 insert 실패" + result);
 					alert("회원가입에 실패하였습니다. 다시 확인해주세요.");
 				}
 
@@ -125,13 +125,13 @@ let path = getContextPath();
 			success : (result) => {
 
 				if(result == "11"){ //API테이블 insert 성공
-					console.log("API테이블 insert 성공" + result);
+					//console.log("API테이블 insert 성공" + result);
 					modal2.css('display', 'none');
-				 	console.log("전달용 : API키 정보 insert 성공.");
+				 	//console.log("전달용 : API키 정보 insert 성공.");
 				}else{ //API테이블 insert 실패
-					console.log("API테이블 insert 실패" + result);
+					//console.log("API테이블 insert 실패" + result);
 				 	modal2.css('display', 'none');
-				 	console.log("전달용 : API키 정보 insert 실패.");
+				 	//console.log("전달용 : API키 정보 insert 실패.");
 				}
 			}
 		})
@@ -161,7 +161,7 @@ $('#newpwd-btn').on("click", function(){
 
 });
 
-//////////////////////광장 js(내정보변경)/////////////////////////////////
+//////////////////////광장 js(내정보변경) (백업용 나중에 지울 것...ㅎㅎ)/////////////////////////////////
 
 // 	/* 내정보변경 시 비밀번호 입력 요청 모달 */
 // 	const modal4 = document.querySelector('.modal4');

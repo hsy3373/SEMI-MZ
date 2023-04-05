@@ -3,7 +3,7 @@
  * 작성자 : 김혜린
  */
 
-console.log("api용 스크립트");
+//console.log("api용 스크립트");
 import { getContextPath } from './common.js';
 import * as Common from "./common.js";
 import * as vali from "./validation.js";
@@ -17,11 +17,10 @@ $('#find-kakaobtn').on("click", function(){kakaoLogin("find")});
 
 
 Kakao.init('40c06f11b1aaaee13dc511ec238457b5');
-console.log(Kakao.isInitialized()); // sdk초기화여부판단
+//console.log(Kakao.isInitialized()); // sdk초기화여부판단
 
 
-//카카오로그인
-//$('#main-kakaobtn').on("click", 
+//카카오로그인 
 function kakaoLogin(page) {
     Kakao.Auth.login({
     success: function (response) {
@@ -29,9 +28,9 @@ function kakaoLogin(page) {
         url: '/v2/user/me',
         success: function (response) {
 
-            console.log(response.id);
+            //console.log(response.id);
             Common.setCookie("key", response.id);
-            console.log("카카오로그인함수 : " + Common.getCookie("key"));
+            //console.log("카카오로그인함수 : " + Common.getCookie("key"));
             checkKakao(response.id, page);
 
         },
@@ -76,11 +75,11 @@ function kakaoLogin(page) {
         data: {kind : '카카오', key : key},
         dataType: 'text',
         success: (result) => {  //1,hyerin
-            console.log("ajax 통신 후 결과 값 db에 존재함? : " + result); // console 확인
+            //console.log("ajax 통신 후 결과 값 db에 존재함? : " + result); // console 확인
             
             let words = result.split(',');
-            console.log(words[0]);
-            console.log(words[1]);
+            //console.log(words[0]);
+            //console.log(words[1]);
 
             let one = words[0];
             let findId = words[1];
@@ -116,8 +115,8 @@ function kakaoLogin(page) {
                     Common.setCookie("key" , key);
                     Common.setCookie("kind", "카카오");
 
-                   console.log("회원가입 쿠키에 키 담김? //" + Common.getCookie("key"));
-                   console.log("회원가입 쿠키에 키 종류 담김? //" + Common.getCookie("kind"));
+                   //console.log("회원가입 쿠키에 키 담김? //" + Common.getCookie("key"));
+                   //console.log("회원가입 쿠키에 키 종류 담김? //" + Common.getCookie("kind"));
 
                    // console.log(key + kind);
                     // 회원가입 모달 창 띄워지게 (회원가입 창에서 쿠키저장된 키값 활용)

@@ -16,7 +16,9 @@ import mz.member.model.service.MemberService;
 import mz.member.model.vo.Member;
 
 /**
- * Servlet implementation class AjaxKeyCheck
+ * 작성자 : 김혜린
+ * DB에 API키 존재 유무 확인 서블릿
+ * => 유무에 따라 자동로그인/회원가입 처리
  */
 @WebServlet("/KeyCheck.me")
 public class AjaxKeyCheck extends HttpServlet {
@@ -49,16 +51,16 @@ public class AjaxKeyCheck extends HttpServlet {
 			throws ServletException, IOException {
 		response.setContentType("text/html; charset=UTF-8");
 
-		System.out.println("keycheck");
+		//System.out.println("keycheck");
 
 		String apiKind = request.getParameter("kind");
 		String apiKey = request.getParameter("key");
 
-		System.out.println("key: " + apiKey + ", kind : " + apiKind);
+		//System.out.println("key: " + apiKey + ", kind : " + apiKind);
 
 		Member m = new MemberService().checkKey(apiKind, apiKey);
 
-		System.out.println("keycheck 서블릿 담겼?: " + m); // console용
+		//System.out.println("keycheck 서블릿 담겼?: " + m); // console용
 
 		//System.out.println("status값 : " + m.getStatus());
 		if (m == null) { // 키 DB에 없음 => 회원가입 가능

@@ -10,7 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 import mz.member.model.service.MemberService;
 
 /**
- * Servlet implementation class AjaxCheckNickname
+ * 작성자 : 김혜린
+ * 회원가입 : 닉네임 중복확인 서블릿
  */
 @WebServlet("/nickCheck.me")
 public class AjaxCheckNickname extends HttpServlet {

@@ -1,5 +1,7 @@
 /**
- * Member 정보 유효성검사 및 조건에 따른 버튼 활성화 스크립트
+ * Member 정보 유효성검사 및 
+ * 조건에 따른 버튼 활성화/비활성화처리 스크립트
+ * 
  * 작성자 : 김혜린
  */
 
@@ -130,7 +132,6 @@ $('.enroll-pwd').keyup(function(){
         txt.css('color','red');
         txt.html("숫자를 넣어 입력해 주세요.");
     }else if( regPwd.test(pwd) == 0){
-    //}else if(regPwd4.test(pwd) || regPwd5.test(pwd) ||regPwd6.test(pwd)){
         txt.css('color','red');
         txt.html("영문, 숫자, 특수기호를 혼합하여 입력해 주세요.");
     }
@@ -306,9 +307,9 @@ $('.cge-nick').keyup(function(){
         cgeInfoObj.nick = true;
     }
     
-    console.log(regNic.test(nic));
+    //console.log(regNic.test(nic));
     cgeInfoEnable();
-    console.log(cgeInfoObj)
+    //console.log(cgeInfoObj)
 });
 
 //===== 자기소개 textarea =====
@@ -377,9 +378,9 @@ $('.cge-pwd').keyup(function(){
         cgeInfoObj.chkpwd = true;
     }
 
-    console.log(regPwd.test(pwd));
+    //console.log(regPwd.test(pwd));
     cgeInfoEnable();
-    console.log(cgeInfoObj);
+    //console.log(cgeInfoObj);
 });
 
 //=========내정보변경 pw확인 =============
@@ -415,9 +416,9 @@ $('.cge-chkpwd').keyup(function(){
         cgeInfoObj.chkpwd = false;
     }
 
-    console.log(regPwd.test(chkpwd));
+    //console.log(regPwd.test(chkpwd));
     cgeInfoEnable();
-    console.log(cgeInfoObj);
+    //console.log(cgeInfoObj);
 });
 
 ////////////////회원가입 약관동의체크/////////////////////////
@@ -530,13 +531,13 @@ $('.check-nic').on("click", function(){
 
 export function enabledSubmit(){
     let enrollBtn = document.getElementById("enroll-btn");
-    console.log(validateObj)
+    //console.log(validateObj)
 
     // 다른거 제대로 입력했나 검사를함
     for( let key in validateObj){
-        console.log(validateObj[key]);
+        //console.log(validateObj[key]);
         if(!validateObj[key]){
-            console.log(validateObj[key])
+            //console.log(validateObj[key])
             //비활성화
             enrollBtn.disabled = true;
             return;
@@ -551,12 +552,12 @@ export function enabledSubmit(){
 ///============비밀번호 재설정 활성화 함수===============//
 export function newpwdEnable(){
     let btn = document.getElementById("newpwd-btn");
-    console.log(newPwdObj)
+    //console.log(newPwdObj)
 
     for(let key in newPwdObj){
-        console.log(newPwdObj[key])
+        //console.log(newPwdObj[key])
         if(!newPwdObj[key]){
-            console.log(newPwdObj[key])
+            //console.log(newPwdObj[key])
 
             btn.disabled = true;
             return;

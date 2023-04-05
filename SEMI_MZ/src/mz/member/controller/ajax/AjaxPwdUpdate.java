@@ -12,7 +12,8 @@ import mz.member.model.service.MemberService;
 import mz.member.model.vo.Member;
 
 /**
- * Servlet implementation class AjaxPwdUpdate
+ * 작성자 : 김혜린
+ * 아이디 패스워드 찾기 => 패스워드 변경 서블릿
  */
 @WebServlet("/updatePwd.me")
 public class AjaxPwdUpdate extends HttpServlet {
@@ -42,7 +43,7 @@ public class AjaxPwdUpdate extends HttpServlet {
 		String userPwd = request.getParameter("userPwd");
 		String userId = ((Member) request.getSession().getAttribute("loginUser")).getUserId();
 		
-		System.out.println("세션에서 꺼낸 유저아이디 : "+userId);
+		//System.out.println("세션에서 꺼낸 유저아이디 : "+userId);
 
 		Member m = new MemberService().updatePwd(userPwd, userId);
 		
