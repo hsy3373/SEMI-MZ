@@ -172,14 +172,14 @@ export let clickChatRoom = function (e) {
   }
   if (id == "chatLogAll") {
     //전체채팅은 따로 DB에 저장되어있지 않기때문에 그냥 보여주기
-    showChattings(id);
+    showChattings(id, "bottom");
   } else {
     // 처음 눌리는 채팅창의 경우 로그가 없을 수 밖에 없기 때문에 로그가 비어있으면 새로 채팅내용 불러와함
     if (Common.isEmpty(Common.getSessionStorage("chatLog-" + id))) {
       // 로그가 비어있다면
       ChatData.getChattings(id, "bottom");
     } else {
-      showChattings("chatLog-" + id);
+      showChattings("chatLog-" + id, "bottom");
     }
   }
 };
@@ -386,7 +386,8 @@ export let setChattingRooms = function (id, newRoom) {
       // 자동으로 선택되어있게 된 탭의 채팅내용으로 다시 표시
       showChattings(
         "chatLog-" +
-          document.querySelector(".selected-chat > .room-name").innerText
+          document.querySelector(".selected-chat > .room-name").innerText,
+        "bottom"
       );
     }
   }
@@ -394,8 +395,10 @@ export let setChattingRooms = function (id, newRoom) {
 
 // 저장소에서 채팅 내용 가져와 보여주기용 함수
 // keyName = 저장소 키값
-export let showChattings = function (keyName) {
+export let showChattings = function (keyName, scroll) {
   console.log("채팅 보여주기 불림 : ", keyName);
+  let chatArea = document.querySelector(".chat-item-area");
+  let cHeight = chatArea.scrollHeight;
   let chatLog = Common.getSessionStorage(keyName);
 
   //만약 저장된 채팅로그가 없다면 빈 문자열 처리
@@ -403,8 +406,22 @@ export let showChattings = function (keyName) {
 
   document.querySelector(".chat-item-area").innerHTML = chatLog;
 
-  document.querySelector(".chat-item-area").scrollTop =
-    document.querySelector(".chat-item-area").scrollHeight;
+  console.log(
+    "채팅 보여주기 안에서 스크롤 높이 체크 : ",
+    document.querySelector(".chat-item-area").scrollTop,
+    "  :  ",
+    document.querySelector(".chat-item-area").scrollHeight
+  );
+
+  // 스크롤 위치를 어디로 할 것인지 받아서 해당 위치로 세팅
+  if (scroll == "top") {
+    chatArea.scrollTop = 0;
+  } else if (scroll == "bottom") {
+    chatArea.scrollTop = chatArea.scrollHeight;
+  } else {
+    //위치 설정 없었을 경우엔 기존 스크롤 위치 유지 하도록
+    chatArea.scrollTop = chatArea.scrollHeight - cHeight;
+  }
   $(".loadingAni").fadeOut();
 };
 
@@ -437,7 +454,7 @@ let sendChat = function () {
 //----------------------- 외부에서 가져다 써야할 함수 --------------------------
 
 // 룸 추가용 함수
-let openChatRoom = function (id) {
+export let openChatRoom = function (id) {
   let rooms = Common.getSessionStorage("allChatRooms").split(",");
 
   // 만약 현재 가지고 있는 룸에 상대 아이디가 없으면
@@ -476,13 +493,11 @@ let setDefaultEvents = function () {
     if ($(".seleted-chat").attr("id") != "chat-all-user") {
       //현재 로딩 애니메이션이 없고(= 있으면 이미 불러오고 있는중임), 스크롤이 맨 위일때 동작
       if (
-        $(".loadingAni").css("display") == "none" &&
+        document.querySelector(".loadingAni").style.display == "none" &&
         $(".chat-item-area").scrollTop() == 0
       ) {
-        ChatData.getChattings($(".seleted-chat > .room-name").text(), "top");
-        console.log(
-          "스크롤에서 불림 : ",
-          $(".seleted-chat > .room-name").text()
+        ChatData.getChattings(
+          document.querySelector(".selected-chat > .room-name").innerText
         );
       }
     }
@@ -494,9 +509,9 @@ let setDefaultEvents = function () {
     clickChatRoom(this);
   });
 
-  document.querySelector("#insert-room").addEventListener("click", function () {
-    openChatRoom("friend");
-  });
+  // document.querySelector("#insert-room").addEventListener("click", function () {
+  //   openChatRoom("friend");
+  // });
 };
 
 // ----------------- init 구역 ---------------------

@@ -15,13 +15,13 @@ let ip = ["192.168.30.180", "192.168.0.2", "localhost"];
 const webSocket = new WebSocket(`ws://${ip[2]}:8081/mzone/websocket`);
 console.log("기본 웹소켓 객체 : ", webSocket);
 
-webSocket.onopen = function (message) {
+let socketOpen = function (message) {
   console.log("소켓오픈");
   console.log(message);
 };
 
 // 2. 웹 소켓 서버에서 sendText, sendObject메소드를 실행하면 실행되는 함수
-webSocket.onmessage = function (e) {
+let socketOnmessage = function (e) {
   console.log("메세지 수신");
   // 수신된 데이터를 받으려면 이벤트 객체(e)의 data속성을 이용
   //Object형태의 String데이터를 객체로 변환해주기 (JSONObject)
@@ -46,19 +46,26 @@ webSocket.onmessage = function (e) {
     Common.setSessionStorage("chatLogAll", chats + str);
     console.log("채팅하나 all에 저장됨");
   } else {
+    // 받는이가 전체 채팅이 아닐때
+
     let rooms = Common.getSessionStorage("allChatRooms").split(",");
 
     // 현재 1:1 채팅이 열려있지 않은 유저에게서 채팅이 왔을 경우
     // 다시 방 정보 불러오도록
     if (rooms.indexOf(chat.userId) < 0) {
       console.log("채팅 열려있지 않음" + chat.userId);
+      // 새로 열려야 할 채팅방 아이디 값 전달
       getChatRoomList(null, chat.userId);
     }
-    let chats = Common.getSessionStorage("chatLog-" + chat.userId);
-    chats = Common.isEmpty(chats) ? "" : chats;
-    Common.setSessionStorage("chatLog-" + chat.userId, chats + str);
 
-    console.log(`채팅하나 ${chat.userId}에 저장됨`);
+    // 만약 해당 채팅 로그에 뭔가 데이터가 있을때만 정보 저장
+    let chats = Common.getSessionStorage("chatLog-" + chat.userId);
+
+    if (!Common.isEmpty(chats)) {
+      // 채팅 로그가 있는 채팅방일 경우 == 이미 한번 이상 해당 방의 채팅 데이터를 불러왔다는 뜻
+      Common.setSessionStorage("chatLog-" + chat.userId, chats + str);
+      console.log(`채팅하나 ${chat.userId}에 저장됨`);
+    }
   }
 
   // 만약 현재 선택되어있는 채팅룸과 들어온 메세지의 발신자가 같다면
@@ -80,6 +87,34 @@ webSocket.onmessage = function (e) {
     ChatFront.checkChatScroll();
   }
 };
+
+let fnSocket = {
+  onopen: socketOpen,
+  onmessage: socketOnmessage,
+  onclose: function (e) {
+    console.log("재연결...");
+    setTimeout(function () {
+      //재연결하기...
+      webSocket = new WebSocket(socketAddress);
+      initSocket(socket);
+      console.log("재연결...보냈당");
+    }, 1000);
+  },
+  onerror: (event) => {
+    console.log("WebSocket error: ", event);
+  },
+};
+
+// 소켓 객체에 미리 설정해둔 이벤트들 부여해주는 함수
+let initSocket = function (s) {
+  console.log(s);
+  for (let key in fnSocket) {
+    s[key] = fnSocket[key];
+  }
+};
+
+// 소켓 설정 진행
+initSocket(webSocket);
 
 export const sendChat = (receiveId) => {
   console.log("send안에 소켓 객체 존재하나? : ", webSocket);
@@ -188,17 +223,7 @@ export let getChattings = function (id, scroll) {
       console.log(req, status, error);
     },
   }).done(function () {
-    ChatFront.showChattings(keyName);
-    let chatArea = document.querySelector(".chat-item-area");
-    // 스크롤 위치를 어디로 할 것인지 받아서 해당 위치로 세팅
-    if (scroll == "top") {
-      chatArea.scrollTop = 0;
-    } else if (scroll == "bottom") {
-      chatArea.scrollTop = chatArea.scrollHeight;
-    } else {
-      console.log("위치설정 없었음 : ", chatArea.scrollTop);
-    }
-    $(".loadingAni").fadeOut();
+    ChatFront.showChattings(keyName, scroll);
   });
 };
 
@@ -219,6 +244,8 @@ let insertChat = function (id, text) {
 };
 
 // db에서 현재 가지고 있는 채팅 룸 리스트 불러와서 저장소에 저장
+// id - 룸리스트 불러온 뒤 자동으로 탭 선택 되어야 할 친구 아이디 값
+// newRoom - 만약 현재 없는 룸에서 채팅 수신받았을때 해당 룸 표시될때까지 getChatRoomList 해야함
 export let getChatRoomList = function (id, newRoom) {
   let path = Common.getContextPath();
   $.ajax({
@@ -240,7 +267,16 @@ export let getChatRoomList = function (id, newRoom) {
       console.log(req, status, error);
     },
   }).done(function () {
-    ChatFront.setChattingRooms(id, newRoom);
+    if (!Common.isEmpty(newRoom)) {
+      let rooms = Common.getSessionStorage("allChatRooms");
+
+      if (rooms.indexOf(newRoom) < 0) {
+        //만약 새로 불러온 룸 리스트 중에 newRoom이 없다면 다시 getChatRoomList 부르고 함수 종료
+        getChatRoomList(id, newRoom);
+        return;
+      }
+    }
+    ChatFront.setChattingRooms(id);
   });
 };
 
@@ -256,6 +292,10 @@ export let deleteChatroom = function (el) {
     data: { receiver: `${id}`, order: "delete" },
     success: (result) => {
       console.log(id, " 채팅룸 삭제 완료 : ", result);
+
+      Common.delSessionStorage("chatLog-" + id);
+      Common.delSessionStorage("chatLog-" + id + "-no");
+
       getChatRoomList();
     },
     error: function (req, status, error) {

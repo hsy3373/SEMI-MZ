@@ -11,7 +11,7 @@ pageEncoding="UTF-8" import="mz.member.model.vo.Member"%>
     <title>Insert title here</title>
 
     <link
-      href="../resource/css/chatting.css"
+      href="<%=path%>/resource/css/chatting.css"
       rel="stylesheet"
       type="text/css"
     />
@@ -30,9 +30,9 @@ pageEncoding="UTF-8" import="mz.member.model.vo.Member"%>
     </style>
   </head>
   <body>
-    <div>
-      <button type="button" id="insert-room">룸 추가 test</button>
-    </div>
+<!--     <div>
+      <button type="button" id="insert-room">룸 추가 friend</button>
+    </div> -->
     <div class="chat-container">
       <div class="left"></div>
       <div class="resizer" id="dragMe"></div>
@@ -66,11 +66,11 @@ pageEncoding="UTF-8" import="mz.member.model.vo.Member"%>
             <button id="chat-next">></button>
           </div>
         </div>
+        <div class="loadingAni">
+          <div class="loader10"></div>
+        </div>
         <div class="chat-item-area">
           <!-- 로딩 바 -->
-          <div class="loadingAni">
-            <div class="loader10"></div>
-          </div>
         </div>
       </div>
       <div class="div-send">
