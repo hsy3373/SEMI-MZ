@@ -35,7 +35,7 @@
 			<img id="info-skin">
 		</div>
 		<!-- 유저 성별 -->
-		<div class="user-gender">
+		<div class="info-gender">
 			<img id="gender-m"> 
 			<img id="gender-w"> 
 			<img id="gender-n">
@@ -64,13 +64,13 @@
 		</div>
 			<input type="hidden" name="userId" value="${loginUser.userId}">
 			<div class="report-nickname">신고 대상 닉네임</div>
-			<div class="user-nickname"></div>
+			<div class="report-user"></div>
 			<div class="report-title">제목</div>
-			<input type="text" class="title-box" maxlength='20' required>
+			<input type="text" class="report-title-box" maxlength='20' required>
 			<div class="report-content">신고 내용 작성</div>
-			<div class="text-count">0</div>
-			<div class="text-total">/ 300</div>
-			<textarea name="content-text" id="content-text"
+			<div class="content-text-count">0</div>
+			<div class="content-text-total">/ 300</div>
+			<textarea name="report-content-text" id="report-content-text"
 				maxlength='300' required></textarea>
 			<button type="button" class="report-btn">신고하기</button>
 			<button type="reset" class="reset-btn">취소</button>

@@ -4,15 +4,33 @@
  */
 
 import { getContextPath } from './common.js';
+import { modalstopfn } from './squareCanvas.js';
 
-/*공지사항 모달창 띄우기*/
-let open = () => {
-	document.querySelector(".notice-modal").classList.remove("hidden");
+export let noticeModal = document.querySelector('.notice-modal');
+
+/*공지사항 모달창*/
+
+let close = noticeModal.querySelector("#notice-x-btn");
+
+close.addEventListener("click", e => {
+    noticeModal.style.display = 'none';
+    modalstopfn();
+});
+
+let open = document.querySelector(".notice-detail-view");
+
+function detailOn() {
+	open.style.display = "block"
 }
-
-let close = () => {
-	document.querySelector(".notice-modal").classList.add("hidden");
-}
-
-
-document.querySelector(".x-btn").addEventListener("click", close); 
+        
+     /*   function isModalOn() {
+            return modal.style.display === "flex"
+        }
+        function modalOff() {
+            modal.style.display = "none"
+        }*/
+        
+        let closeBtn = noticeModal.querySelector(".lists-bgimg")
+        closeBtn.addEventListener("click", e => {
+            modalOff();
+        })

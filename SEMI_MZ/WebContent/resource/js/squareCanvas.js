@@ -6,7 +6,7 @@
 /* js 가져오기  */
 import { getContextPath } from './common.js';
 import { getUserInfo } from './userInfo.js';
-// import {noticeModal} from './notice.js';
+import {noticeModal} from './notice.js';
 
 
 //캔버스 세팅
@@ -140,7 +140,6 @@ canvas.addEventListener("click", function (event) {
     if (clickX >= 1030 && clickX <= 1140 && clickY >= 411 && clickY <= 442) {
         console.log("notice 이벤트 부여")
         console.log(noticeModal)
-        
         
          noticeModal.style.display = 'block';
         modalstopfn();

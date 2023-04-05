@@ -1,8 +1,7 @@
 @charset "UTF-8";
 /* 공지사항 게시판css - 가영*/
 
-/*모달창 숨기기*/
-/* .hidden{display: none;} */
+::-webkit-scrollbar{display: none;}
 
 /*공지사항 게시판*/
 .notice-modal{
@@ -12,16 +11,17 @@
     left: 50%;
     height: 62%;
     transform: translate(-50%, -50%);
+    z-index: 2;
     display: none;
 }
-.notice-view, #view{
+.notice-view, #notice-view{
 	width: 100%;
 	height: 100%;
 	position: absolute;
 }
 .notice-name{
 	position: absolute;
-    z-index: 1;
+    z-index: 2;
     top: 3.5%;
     left: 36.2%;
     width: 27.2%;
@@ -29,16 +29,17 @@
     text-align: center;
     line-height: 52px;
     font-size: 30px;
+    font-weight: bold;
 }
 
 /*호감도 랭킹*/
 .ranking{
 	position: absolute;
     z-index: 2;
-    top: 27%;
-    left: 30.8%;
-    width: 38.5%;
-    height: 22%;
+    top: 19%;
+    left: 15.8%;
+    width: 67.5%;
+    height: 37%;
     display: inline-flex;
 }
 
@@ -47,53 +48,193 @@
 	width: 23%;
     height: 100%;
 }
-#heart{
+#ranking-heart{
 	width: 17%;
-	margin: 19px 0 0 38px;
+	margin: 19px 0 0 37px;
 }
-.heart-int{
+.ranking-heart-int{
 	width: 15%;
-    margin: -23px 0 -6px 63px;
+    margin: -41px 0 -6px 58px;
     font-size: 21px;
     color: white;
 }
-#user{
+#ranking-user{
 	width: 86%;
     height: 40%;
     margin: 16px 0 0 10px;
 }
-.nickname{
+.ranking-nickname{
 	width: 100%;
     text-align: center;
     font-size: 12px;
     font-weight: bold;
     color: white;
-    margin: 14px 0 0 1px;
+    margin: 14px 0 0 -1px;
 }
 .ranking2{margin: auto;}
 
 /*공지사항 게시판 포스트잇*/
-.list{
+.notice-lists{
 	position: absolute;
     z-index: 2;
-    width: 130%;
-    height: 94%;
-    top: 108%;
-    left: -15%;
-    display: flex;
+    width: 88%;
+    height: 36%;
+    top: 59%;
+    left: 5.5%;
+    display:none;
 }
-.list img{
-	width: 161px;
-	margin-left: 2.5px;
+.lists-bgimg{
+	background: url('../img/icon/포스트잇.png') no-repeat;
+	display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 24%;
+    background-size: 100% 100%;
+}
+.notice-titles{
+	width: 63%;
+    text-align: center;
+    line-height: 24px;
+}
+.notice-list{
+	position: absolute;
+    z-index: 2;
+    width: 88%;
+    height: 36%;
+    top: 59%;
+    left: 5.5%;
+    text-align: center;
+}
+.list-bgimg{
+	background: url('../img/icon/포스트잇.png') no-repeat;
+	display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 24%;
+    background-size: 100% 100%;
+}
+.notice-title{
+	width: 63%;
+    text-align: center;
+    line-height: 24px;
 }
 
 /*닫기 버튼*/
-.x-btn{
+.notice-x-btn{
 	z-index: 2;
     position: absolute;
-    top: -40.6%;
-    left: 114.7%;
-    width: 8.5%;
+    top: 4.5%;
+    left: 93%;
+    width: 6%;
+    height: 9.5%;
     cursor: pointer;
 }
-.x-btn img{width:100%;}
+#notice-x-btn{width:100%; height: 100%;}
+
+/*공지사항 상세보기창*/
+.notice-detail-view{
+	position: absolute;
+    width: 59%;
+    top: 37%;
+    left: 50%;
+    height: 62%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    display: none;
+}
+.detail-view #detail-view{
+	width: 100%;
+    height: 100%;
+    position: absolute;
+}
+.notice-detail-name{
+	position: absolute;
+    z-index: 2;
+    top: 3.5%;
+    left: 36.5%;
+    width: 27.2%;
+    height: 9.8%;
+    text-align: center;
+    line-height: 52px;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+/*공지사항 리스트*/
+.notice-detail-list{
+	position: absolute;
+    z-index: 2;
+    top: 24%;
+    left: 6%;
+    line-height: 30px;
+    list-style: none;
+    width: 18.9%;
+}
+.notice-detail-list li{
+	padding: 0;
+    margin-bottom: 5px;
+    border-bottom: 1px solid tan;
+    cursor: pointer;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+}
+.notice-detail-list li:before{
+	content: ">";
+	display: inline-block;
+	vertical-align: middle;
+	padding: 0px 5px 4px 0px;
+}
+.notice-detail-list li:hover{
+	border-radius: 10px;
+	background: tan;
+}
+
+.notice-date{
+    position: absolute;
+    z-index: 2;
+    top: 26.8%;
+    left: 78.2%;
+}
+.notice-detail-title{
+    position: absolute;
+    z-index: 2;
+    border: solid 1px gray;
+    top: 30.7%;
+    left: 37.1%;
+    width: 49.4%;
+    height: 6%;
+    line-height: 30px;
+    padding-left: 8px;
+    border-radius: 6px;
+}
+.notice-content{
+    position: absolute;
+    z-index: 2;
+    border: solid 1px gray;
+    top: 38%;
+    left: 37.1%;
+    width: 49.4%;
+    height: 46.1%; 
+    border-radius: 6px;  
+    padding: 0.5rem 0.5rem;
+    overflow-y: scroll;
+    line-height: 20px;
+    font-size: 14px;
+    text-align: justify;
+}
+
+
+/*닫기 버튼*/
+.notice-detail-x-btn{
+	z-index: 2;
+    position: absolute;
+    top: 4.7%;
+    left: 93%;
+    width: 5.7%;
+    height: 9%;
+    cursor: pointer;
+}
+#notice-detail-x-btn{width:100%; height: 100%;}
