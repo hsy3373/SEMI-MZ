@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import mz.skin.model.service.SkinService;
+
 /**
  * Servlet implementation class squareGoHome
  * 작성자 : 윤지영  광장에서 마이룸으로 이동하는 servlet
@@ -39,7 +41,11 @@ public class squareGoHome extends HttpServlet {
 			response.sendRedirect(request.getContextPath());
 			
 		}else {// 값있음
-			 request.getRequestDispatcher("views/myroom.jsp").forward(request, response);
+			// 지의추가 - 마이룸에 스킨카운트 포워딩 
+			int closetSkinCount = new SkinService().closetSkinCount();
+			request.setAttribute("closetSkinCount", closetSkinCount);
+			
+			request.getRequestDispatcher("views/myroom.jsp").forward(request, response);
 			
 		}
 

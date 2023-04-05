@@ -1,30 +1,26 @@
-package mz.board.controller;
+package mz.member.controller.ajax;
 
 import java.io.IOException;
-import java.util.ArrayList;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.gson.Gson;
+import mz.member.model.service.MemberService;
 
-import mz.board.model.service.BoardService;
-import mz.board.model.vo.Board;
-import mz.member.model.vo.Member;
 /**
- * Servlet implementation class BoardListController2
+ * 작성자 : 김혜린
+ * 회원가입 : 닉네임 중복확인 서블릿
  */
-@WebServlet("/selectBoardList")
-public class BoardListController extends HttpServlet {
+@WebServlet("/nickCheck.me")
+public class AjaxCheckNickname extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public BoardListController() {
+    public AjaxCheckNickname() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,18 +30,16 @@ public class BoardListController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		response.setContentType("application/json; charset=UTF-8");
+		String nicName = request.getParameter("enrollNick");
 		
-		// 로그인 아이디
-		String loginId = ((Member)request.getSession().getAttribute("loginUser")).getUserId();
-		// 방주인 아이디
-		String receive = request.getParameter("receive");
-		System.out.println("누가 "+loginId+" 누구의 " + receive);
-		ArrayList<Board> list = new BoardService().selectBoardList(loginId, receive);
-		//System.out.println(list.size());
-		Gson gson = new Gson();
-			
-		gson.toJson(list, response.getWriter());	
+		int checkNick = new MemberService().checkNick(nicName);
+		
+		if(checkNick > 0) { // 닉네임 DB에 존재. 사용불가
+			response.getWriter().print("N");
+		}else { // 사용가능
+			response.getWriter().print("Y");
+		}
+		
 		
 	}
 

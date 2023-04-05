@@ -1,4 +1,4 @@
-package mz.board.controller;
+package mz.skin.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -11,20 +11,21 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 
-import mz.board.model.service.BoardService;
-import mz.board.model.vo.Board;
 import mz.member.model.vo.Member;
+import mz.skin.model.service.SkinService;
+import mz.skin.model.vo.Skin;
+
 /**
- * Servlet implementation class BoardListController2
+ * Servlet implementation class MyroomMySkinController
  */
-@WebServlet("/selectBoardList")
-public class BoardListController extends HttpServlet {
+@WebServlet("/mySkinList.me")
+public class MyroomMySkinController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public BoardListController() {
+    public MyroomMySkinController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,19 +34,13 @@ public class BoardListController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String userId = ((Member)request.getSession().getAttribute("loginUser")).getUserId();
 		
+		ArrayList<Skin> list = new SkinService().mySkinList(userId);
+		System.out.println(list);
 		response.setContentType("application/json; charset=UTF-8");
+		new Gson().toJson(list, response.getWriter());
 		
-		// 로그인 아이디
-		String loginId = ((Member)request.getSession().getAttribute("loginUser")).getUserId();
-		// 방주인 아이디
-		String receive = request.getParameter("receive");
-		System.out.println("누가 "+loginId+" 누구의 " + receive);
-		ArrayList<Board> list = new BoardService().selectBoardList(loginId, receive);
-		//System.out.println(list.size());
-		Gson gson = new Gson();
-			
-		gson.toJson(list, response.getWriter());	
 		
 	}
 
@@ -53,8 +48,6 @@ public class BoardListController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
 	}
 
 }

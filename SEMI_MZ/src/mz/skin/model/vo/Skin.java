@@ -38,6 +38,15 @@ public class Skin {
 
 
 
+	public Skin(int skinId, String saveRoot) {
+		super();
+		this.skinId = skinId;
+		this.saveRoot = saveRoot;
+	}
+
+
+
+
 	@Override
 	public String toString() {
 		return "Skin [skinId=" + skinId + ", saveRoot=" + saveRoot + ", price=" + price + ", reward=" + reward + "]";

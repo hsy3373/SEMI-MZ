@@ -17,8 +17,8 @@ console.log("기본 웹소켓 객체 : ", webSocket);
 // 지의 학원: 192.168.30.174:8084
 // 지의 집 : 192.168.0.16:8084
 let socketOpen = function (message) {
-  console.log("소켓오픈");
-  console.log(message);
+  //console.log("소켓오픈");
+  //console.log(message);
 };
 
 // 2. 웹 소켓 서버에서 sendText, sendObject메소드를 실행하면 실행되는 함수
@@ -108,7 +108,7 @@ let fnSocket = {
 
 // 소켓 객체에 미리 설정해둔 이벤트들 부여해주는 함수
 let initSocket = function (s) {
-  console.log(s);
+  //console.log(s);
   for (let key in fnSocket) {
     s[key] = fnSocket[key];
   }

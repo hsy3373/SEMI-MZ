@@ -1,12 +1,17 @@
 /**
- * 유효성검사 스크립트
+ * Member 정보 유효성검사 및 
+ * 조건에 따른 버튼 활성화/비활성화처리 스크립트
+ * 
  * 작성자 : 김혜린
  */
 
+    import { getContextPath } from './common.js';
+    let path = getContextPath();
+
+////////////////////////// 정규식 /////////////////////////////
     let regGap = /\s/;
     let regKor = /[ㄱ-ㅎㅏ-ㅣ가-힣]/;
     let regSym = /[`~!@#$%^&*()|+\-=?;:'",.<>\{\}\[\]\\\/]/im;
-
 
     let regPwd1 = /^(?=.*[a-zA-Z])(?=.*[0-9])[a-zA-Z0-9]{8,16}$/;
     // 영문, 숫자만(특수기호 빠짐)
@@ -23,26 +28,27 @@
     let regPwd = /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*_])[a-zA-Z0-9!@#$%^&*_]{8,16}$/;
     let regself = /{,100}/;
 
-
-
-    /////////////////////회원가입 활성화 객체/////////////////////////////
-    let validateObj = {
+    /////////////////////회원가입버튼 활성화용 객체/////////////////////////////
+   export let validateObj = {
         id : false,
+        chkid : false,
         nick :false,
-        pwd : false,
+        chknick : false,
         chkpwd : false,
+        pwd : false,
         agree : false
     }
 
-
-//============아이디 하단 안내 텍스트 조건문=============
-
+//============아이디 input 하단 텍스트 조건문=============
     $('.enroll-id').keyup(function(){
         let id = this.value;
-        //console.log(id)
         validateObj.id = false;
         let txt = $('.idcheck-txt');
+        let checkbtn = $('.check-id');
     
+        if(regId.test(id) == 0){
+            checkbtn.attr("disabled", true);
+        }
         if(id == ""){
             txt.css('color','red');
             txt.html("아이디를 입력해 주세요.");
@@ -61,22 +67,22 @@
         }else{
             txt.css('color','green');
             txt.html("사용가능. 중복확인 버튼을 눌러주세요.");
+            checkbtn.attr("disabled", false);
             validateObj.id = true;
         }
         enabledSubmit();
     });
 
-
-
-//============닉네임 하단 안내 텍스트 조건문=============
+//============닉네임 input 하단 텍스트 조건문=============
 $('.enroll-nic').keyup(function(){
     let nic = this.value;
-    //console.log(nic)
-
     validateObj.nick = false;
-
     let txt = $('.niccheck-txt');
+    let checkbtn = $('.check-nic');
 
+    if(regNic.test(nic) == 0){
+        checkbtn.attr("disabled", true);
+    }
     if(nic == ""){
         txt.css('color','red');
         txt.html("닉네임을 입력해 주세요.");
@@ -92,10 +98,10 @@ $('.enroll-nic').keyup(function(){
     }else{
         txt.css('color','green');
         txt.html("사용가능. 중복확인 버튼을 눌러주세요.");
+        checkbtn.attr("disabled", false);
         validateObj.nick = true;
     }
     enabledSubmit();
-
 });
 
 
@@ -103,8 +109,7 @@ $('.enroll-nic').keyup(function(){
 // 영문 숫자 특수기호 각 1개씩 필수로 입력해야하는 조건 추가
 $('.enroll-pwd').keyup(function(){
     let pwd = this.value;
-    //console.log(pwd)
-    //console.log(regPwd.test(pwd));
+    let chkpwd = $('.enroll-chkpwd').val();
     validateObj.pwd = false;
     let txt = $('.pwd-txt');
     
@@ -127,7 +132,6 @@ $('.enroll-pwd').keyup(function(){
         txt.css('color','red');
         txt.html("숫자를 넣어 입력해 주세요.");
     }else if( regPwd.test(pwd) == 0){
-    //}else if(regPwd4.test(pwd) || regPwd5.test(pwd) ||regPwd6.test(pwd)){
         txt.css('color','red');
         txt.html("영문, 숫자, 특수기호를 혼합하여 입력해 주세요.");
     }
@@ -135,58 +139,61 @@ $('.enroll-pwd').keyup(function(){
         txt.css('color','green');
         txt.html("사용가능. 비밀번호 확인란에 동일하게 입력해 주세요.");
         validateObj.pwd = true;
-
+    }
+    if(regPwd.test(pwd) && regPwd.test(chkpwd)){
+        if(pwd != chkpwd){
+            txt.css('color','red');
+            txt.html("입력한 비밀번호가 일치하지 않습니다.");
+            validateObj.pwd = false;
+        }
+        if(pwd == chkpwd){
+            txt.css('color','green');
+            txt.html("일치");
+            validateObj.pwd = true;
+        }
     }
     enabledSubmit();
-
 });
 
 $('.enroll-chkpwd').keyup(function(){
     let chkpwd = this.value;
     let pwd = $('.enroll-pwd').val();
-    //console.log(chkpwd);
-    //console.log(regPwd.test(chkpwd));
     validateObj.chkpwd = false;
-
     let txt = $('.pwd-txt');
-
+    
+    if(chkpwd == ""){
+        txt.css('color','red');
+        txt.html("비밀번호 확인란에 동일하게 입력해 주세요.");
+        validateObj.chkpwd = false;
+    }
     if(regPwd.test(pwd) && regPwd.test(chkpwd)){
-        if(pwd != chkpwd){
-            txt.css('color','red');
-            txt.html("입력한 비밀번호가 일치하지 않습니다.");
-        }else{
+        if(pwd == chkpwd){
             txt.css('color','green');
             txt.html("일치");
             validateObj.chkpwd = true;
-
         }
-    }else if(chkpwd == ""){
-        txt.css('color','green');
-        txt.html("사용가능. 비밀번호 확인란에 동일하게 입력해 주세요.");
-        validateObj.chkpwd = false;
-
+        if(pwd != chkpwd){
+            txt.css('color','red');
+            txt.html("입력한 비밀번호가 일치하지 않습니다.");
+            validateObj.chkpwd = false;
+        }
     }
     enabledSubmit();
-
 });
 /////////////////////////////회원가입끝//////////////////////////////////////
 
 
 
-
-
 //=========== 새 비밀번호 설정 하단 txt ===============
-let newPwdObj = {
+export let newPwdObj = {
     pwd : false,
     chkpwd : false
 }
 //////////////////////////////////
 $('.re-pwd').keyup(function(){
     let pwd = this.value;
-    //console.log(pwd)
-    //console.log(regPwd.test(pwd));
+    let chkpwd = $('.re-chkpwd').val();
     newPwdObj.pwd = false;
-
     let txt = $('.repwd-txt');
     
     if(pwd == ""){
@@ -208,7 +215,6 @@ $('.re-pwd').keyup(function(){
         txt.css('color','red');
         txt.html("숫자를 넣어 입력해 주세요.");
     }else if( regPwd.test(pwd) == 0){
-    //}else if(regPwd4.test(pwd) || regPwd5.test(pwd) ||regPwd6.test(pwd)){
         txt.css('color','red');
         txt.html("영문, 숫자, 특수기호를 혼합하여 입력해 주세요.");
     }
@@ -217,40 +223,49 @@ $('.re-pwd').keyup(function(){
         txt.html("사용가능. 비밀번호 확인란에 동일하게 입력해 주세요.");
         newPwdObj.pwd = true;
     }
+    if(regPwd.test(pwd) && regPwd.test(chkpwd)){
+        if(pwd != chkpwd){
+            txt.css('color','red');
+            txt.html("입력한 비밀번호가 일치하지 않습니다.");
+            newPwdObj.pwd = false;
+            if(pwd == chkpwd){
+                txt.css('color','green');
+                txt.html("일치");
+                newPwdObj.pwd = true;
+            }
+        }
+    }
     newpwdEnable();
 });
 
 $('.re-chkpwd').keyup(function(){
     let chkpwd = this.value;
     let pwd = $('.re-pwd').val();
-    //console.log(chkpwd);
-    //console.log(regPwd.test(chkpwd));
     let txt = $('.repwd-txt');
 
     newPwdObj.chkpwd = false;
 
+    if(chkpwd == ""){
+        txt.css('color','red');
+        txt.html("비밀번호 확인란에 동일하게 입력해 주세요.");
+        newPwdObj.chkpwd = false;
+    }
     if(regPwd.test(pwd) && regPwd.test(chkpwd)){
-        if(pwd != chkpwd){
-            txt.css('color','red');
-            txt.html("입력한 비밀번호가 일치하지 않습니다.");
-        }else{
+        if(pwd == chkpwd){
             txt.css('color','green');
             txt.html("일치");
             newPwdObj.chkpwd = true;
         }
-    }else if(chkpwd == ""){
-        txt.css('color','green');
-        txt.html("사용가능. 비밀번호 확인란에 동일하게 입력해 주세요.");
-        newPwdObj.chkpwd = false;
+        if(pwd != chkpwd){
+            txt.css('color','red');
+            txt.html("입력한 비밀번호가 일치하지 않습니다.");
+            newPwdObj.chkpwd = false;
+        }
     }
     newpwdEnable();
 
 });
 //////////////////////////////////////////////////////
-
-
-
-
 
 //=========== 내 정보 변경 하단 txt ===============
 
@@ -260,38 +275,27 @@ let cgeInfoObj = {
     chkpwd : true
 }
 
-
 //===== 닉네임 변경 =====
 $('.cge-nick').keyup(function(){
     let nic = this.value;
-    //console.log(nic)
-
-    
     let txt = $('.cgenick-txt');
-    //console.log(txt)
+    
     if(nic == ""){
         txt.css('color','red');
         txt.html("닉네임을 입력해 주세요.");
-        //cgeInfoObj.nick = true;
     }else if(regGap.test(nic)){
         txt.css('color','red');
         txt.html("공백없이 입력해 주세요.");
-        //cgeInfoObj.nick = false;
     }else if(regSym.test(nic)){
         txt.css('color','red');
-        txt.html("특수기호는 (_)만 가능합니다.")
-       // cgeInfoObj.nick = false;    
+        txt.html("특수기호는 (_)만 가능합니다.")    
     }else if(nic.length < 2 || nic.length > 8 ) {
         txt.css('color','red');
         txt.html("2~8자 이내로 입력해 주세요.");
-       // cgeInfoObj.nick = false;
     }else{
         txt.css('color','green');
         txt.html("사용가능. 중복확인 버튼을 눌러주세요.");
-       //cgeInfoObj.nick = true;
     }
-   // cgeInfoEnable();
-
    
     if(regNic.test(nic) == 1){
         cgeInfoObj.nick = true;
@@ -301,74 +305,60 @@ $('.cge-nick').keyup(function(){
     }
     if(nic == ""){
         cgeInfoObj.nick = true;
-
     }
     
-    console.log(regNic.test(nic));
+    //console.log(regNic.test(nic));
     cgeInfoEnable();
-    console.log(cgeInfoObj)
-
-
+    //console.log(cgeInfoObj)
 });
 
 //===== 자기소개 textarea =====
-$('.self-info').keyup(function(){
+$('.rself-info').keyup(function(){
     let selfInfo = this.value;
-    //console.log(selfInfo)
-   // console.log(regself.test(selfInfo))
-    let txt = $('.self-txt');
+    let txt = $('#self-txt');
 
     if(selfInfo.length > 100){
         txt.css('color','red');
         txt.html("100자 초과.");
+    }else if(txt.val() == ""){
+        txt.css('color','black');
+        txt.html("100자 이내로 작성해 주세요.");
     }else{
         txt.html("");
     }
 });
 
 //=====  내정보 pw 변경 =============================
-
 $('.cge-pwd').keyup(function(){
     let pwd = this.value;
-   // console.log(pwd)
-    //console.log(regPwd.test(pwd));
+    
     let txt = $('.cgepwd-txt');
     
     if(pwd == ""){
         txt.css('color','red');
         txt.html("비밀번호를 입력해 주세요.");
-        //cgeInfoObj.pwd = true;
     }else if(regGap.test(pwd)){
         txt.css('color','red');
         txt.html("공백없이 입력해 주세요.");
-       // cgeInfoObj.pwd = false;
     }else if(pwd.length < 8 || pwd.length > 16 ){
         txt.css('color','red');
         txt.html("8~16자 이내로 입력해 주세요.");
-        //cgeInfoObj.pwd = false;
     }else if(regPwd1.test(pwd)){
         txt.css('color','red');
         txt.html("특수기호를 넣어 입력해 주세요.");
-       // cgeInfoObj.pwd = false;
     }else if(regPwd2.test(pwd)){
         txt.css('color','red');
         txt.html("영문자를 넣어 입력해 주세요.");
-       // cgeInfoObj.pwd = false;
     }else if(regPwd3.test(pwd)){
         txt.css('color','red');
         txt.html("숫자를 넣어 입력해 주세요.");
-       // cgeInfoObj.pwd = false;
     }else if( regPwd.test(pwd) == 0){
-    //}else if(regPwd4.test(pwd) || regPwd5.test(pwd) ||regPwd6.test(pwd)){
         txt.css('color','red');
         txt.html("영문, 숫자, 특수기호를 혼합하여 입력해 주세요.");
-        //cgeInfoObj.pwd = false;
     }else{
         txt.css('color','green');
         txt.html("사용가능. 비밀번호 확인란에 동일하게 입력해 주세요.");
-       //cgeInfoObj.pwd = true;
     }
-   // cgeInfoEnable();
 
    let chkpwd = $('.cge-chkpwd').val();
 
@@ -388,43 +378,30 @@ $('.cge-pwd').keyup(function(){
         cgeInfoObj.chkpwd = true;
     }
 
-    console.log(regPwd.test(pwd));
+    //console.log(regPwd.test(pwd));
     cgeInfoEnable();
-    console.log(cgeInfoObj);
-
-
-
-
-
-
-
-
+    //console.log(cgeInfoObj);
 });
+
 //=========내정보변경 pw확인 =============
 $('.cge-chkpwd').keyup(function(){
     let chkpwd = this.value;
     let pwd = $('.cge-pwd').val();
-    
-    //console.log(chkpwd);
-   // console.log(pwd == chkpwd);
     let txt = $('.cgepwd-txt');
 
     if(regPwd.test(pwd) && regPwd.test(chkpwd)){
         if(pwd != chkpwd){
             txt.css('color','red');
             txt.html("입력한 비밀번호가 일치하지 않습니다.");
-           // cgeInfoObj.chkpwd = false;
         }else{
             txt.css('color','green');
             txt.html("일치");
-           // cgeInfoObj.chkpwd = true;
+
         }
     }else if(chkpwd == ""){
         txt.css('color','green');
         txt.html("사용가능. 비밀번호 확인란에 동일하게 입력해 주세요.");
-       // cgeInfoObj.chkpwd = true;
     }
-   
 
     if(regPwd.test(chkpwd) == 1){
         cgeInfoObj.chkpwd = true;
@@ -439,21 +416,12 @@ $('.cge-chkpwd').keyup(function(){
         cgeInfoObj.chkpwd = false;
     }
 
-    console.log(regPwd.test(chkpwd));
+    //console.log(regPwd.test(chkpwd));
     cgeInfoEnable();
-    console.log(cgeInfoObj);
-
-
-
-
-
+    //console.log(cgeInfoObj);
 });
 
-
-
 ////////////////회원가입 약관동의체크/////////////////////////
-
-
 $('#check-agree').click(function(){
     if(!$('#check-agree').is(':checked')){
         console.log($('#check-agree').is('checked'))
@@ -461,59 +429,135 @@ $('#check-agree').click(function(){
     }else{
         validateObj.agree= true;
     }
-    
     enabledSubmit();
 })
 
+/////////* 회원가입 아이디 중복확인 여부 기능*////////////
+	$('.check-id').on("click", function(){
+		
+		let enrollId = $('input[name=enrollId]').val();
+		
+		$.ajax({
+			url : path + "/idCheck.me",
+			data : {enrollId: enrollId},
+			success: (result) => {
+				
+				if(result == "N"){ // 사용불가(존재하는 아이디)
+					alert("이미 존재하는 아이디입니다. 다시 입력해주세요.");
+                    $('input[name=enrollId]').val("");
+                    $('input[name=enrollId]').focus();
+                    $('.idcheck-txt').css('color', 'black');
+                    $('.idcheck-txt').html("영문, 숫자, 특수기호(_) 사용하여 5~20자 공백없이 가능");
+					validateObj.chkid= false;
+                    $('.check-id').attr("disabled", true);
+				}
+				if(result == "Y"){ // 사용가능
+                    //alert("사용가능");
+					let useId = confirm("사용가능한 아이디입니다. 사용하시겠습니까?");
+                    console.log("confirm 결과값 : " + useId );
+					if(useId == 0){ // 취소버튼(flase 반환)
+                        $('input[name=enrollId]').val("");
+                        $('input[name=enrollId]').focus();
+                        $('.idcheck-txt').css('color', 'black');
+                        $('.idcheck-txt').html("영문, 숫자, 특수기호(_) 사용하여 5~20자 공백없이 가능");
+                        validateObj.chkid= false;
+                    }else{ // 확인버튼(true 반환)       
+                        // readonly 속성 추가 (아이디 다시 못바꾸게)
+                        $('input[name=enrollId]').prop('readonly', true);
+                        $('input[name=enrollId]').css('color','rgb(107, 107, 107)');
+                        $('.idcheck-txt').html("사용가능.");
+                        validateObj.chkid= true;
+                    }
+                    $('.check-id').attr("disabled", true);
+				}
+                enabledSubmit();
+			}
+		})
+	});
+
+/////////* 회원가입 닉네임 중복확인 여부 기능*////////////
+$('.check-nic').on("click", function(){
+		
+    let enrollNick = $('input[name=enrollNick]').val();
+    
+    $.ajax({
+        url : path + "/nickCheck.me",
+        data : {enrollNick: enrollNick},
+        success: (result) => {
+            
+            if(result == "N"){ // 사용불가(존재하는 닉네임)
+                alert("이미 존재하는 닉네임입니다. 다시 입력해주세요.");
+                $('input[name=enrollNick]').val("");
+                $('input[name=enrollNick]').focus();
+                $('.niccheck-txt').css('color', 'black');
+                $('.niccheck-txt').html("영문, 한글, 숫자, 특수기호(_) 사용하여 2~8자까지 공백없이 가능");
+                validateObj.chknick= false;
+                $('.check-nic').attr("disabled", true);
+            }
+            if(result == "Y"){ // 사용가능
+                // confirm 창 (확인/취소)
+                let useNick = confirm("사용가능한 닉네임입니다. 사용하시겠습니까?");
+                
+                if(useNick == 0){ // 취소버튼(flase 반환)
+                    $('input[name=enrollNick]').val("");
+                    $('input[name=enrollNick]').focus();
+                    $('.niccheck-txt').css('color', 'black');
+                    $('.niccheck-txt').html("영문, 숫자, 특수기호(_) 사용하여 5~20자 공백없이 가능");
+                    validateObj.chknick= false;
+                }else{ // 확인버튼(true 반환)       
+                    // readonly 속성 추가 (닉네임 다시 못바꾸게)
+                    $('input[name=enrollNick]').prop('readonly', true);
+                    $('input[name=enrollNick]').css('color','rgb(107, 107, 107)');
+                    $('.nickcheck-txt').html("사용가능.");
+                    validateObj.chknick= true;
+                }
+                $('.check-nic').attr("disabled", true);
+            }
+            enabledSubmit();
+        }
+    })
+});
+
+
 
 /* ==========회원가입 버튼 활성화===========*/////////나중에 중복확인버튼 조건으로 변경
-// 1. 아이디 유효성 검사 충족
-// 2. 아이디 중복확인 버튼 체크
-// 3. 닉네임 유효성 검사 충족
-// 4. 닉네입 중복확인 버튼 체크
-// 5. 비밀번호 유효성 검사 충족
-// 6. 비밀번호확인 == 비밀번호
-// 7. 이용약관 동의 체크
+// 1. 아이디 유효성 검사 충족 0
+// 2. 아이디 중복확인 버튼 체크 0
+// 3. 닉네임 유효성 검사 충족 0
+// 4. 닉네입 중복확인 버튼 체크 0
+// 5. 비밀번호 유효성 검사 충족 0
+// 6. 비밀번호확인 == 비밀번호 0
+// 7. 이용약관 동의 체크 0
 
-
-function enabledSubmit(){
+export function enabledSubmit(){
     let enrollBtn = document.getElementById("enroll-btn");
-    console.log(validateObj)
+    //console.log(validateObj)
 
     // 다른거 제대로 입력했나 검사를함
     for( let key in validateObj){
-        console.log(validateObj[key]);
+        //console.log(validateObj[key]);
         if(!validateObj[key]){
-            console.log(validateObj[key])
+            //console.log(validateObj[key])
             //비활성화
             enrollBtn.disabled = true;
             return;
         }
     }
-    
     //활성화
     enrollBtn.disabled = false;
-    //enrollBtn.setAttribute("disabled", true);
-    //비활성화
 }
 ////////////////////////////////////////////////////////////////////////
 
 
-
-
-
-
-
-
 ///============비밀번호 재설정 활성화 함수===============//
-function newpwdEnable(){
+export function newpwdEnable(){
     let btn = document.getElementById("newpwd-btn");
-    console.log(newPwdObj)
+    //console.log(newPwdObj)
 
     for(let key in newPwdObj){
-        console.log(newPwdObj[key])
+        //console.log(newPwdObj[key])
         if(!newPwdObj[key]){
-            console.log(newPwdObj[key])
+            //console.log(newPwdObj[key])
 
             btn.disabled = true;
             return;
@@ -521,10 +565,6 @@ function newpwdEnable(){
     }
     btn.disabled = false;
 }
-
-
-
-
 
 ///============ 내정보변경 버튼 활성화 함수===============//
 

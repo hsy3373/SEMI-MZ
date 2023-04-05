@@ -1,15 +1,19 @@
 package mz.member.model.service;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 
 import static mz.common.JDBCTemplate.*;
 
 import mz.common.JDBCTemplate;
 import mz.member.model.dao.MemberDao;
 import mz.member.model.vo.Member;
+import mz.member.model.vo.loginAPI;
 
 
 public class MemberService {
+
+	
 		
 //------------------------------ select 구간 -------------------------------
 	//[han]
@@ -17,7 +21,7 @@ public class MemberService {
 		Connection conn = getConnection();
 		
 		int result = new MemberDao().userCount(conn);
-
+		
 		close(conn);
 		
 		return result;
@@ -33,6 +37,50 @@ public class MemberService {
 		close(conn);
 		
 		return m;
+	}
+	
+	// [김혜린]
+	public Member loginMember(String userId, String userPwd) {
+		Connection conn = getConnection();
+		
+		Member m = new MemberDao().loginMember(conn, userId, userPwd);
+		
+		close(conn);
+		//System.out.println("서비스 m : " + m);
+		return m;
+	}
+
+	// [김혜린]
+	public Member checkKey(String apiKind, String apiKey) {
+		Connection conn = getConnection();
+		
+		Member m = new MemberDao().checkKey(conn, apiKind, apiKey);
+		
+		close(conn);
+		//System.out.println("서비스에 담겼니?" + m); // console용
+		return m;
+	}
+		
+	// [김혜린]
+	public int checkId(String userId) {
+		Connection conn = getConnection();
+		
+		int result = new MemberDao().checkId(conn, userId);
+		
+		close(conn);
+		
+		return result;
+	}
+	
+	// [김혜린]
+	public int checkNick(String nicName) {
+		Connection conn = getConnection();
+		
+		int result = new MemberDao().checkNick(conn, nicName);
+		
+		close(conn);
+		
+		return result;
 	}
 	
 	// 가영 - 호감도 상태 불러오기
@@ -61,24 +109,76 @@ public class MemberService {
 		
 //------------------------------ insert 구간 -------------------------------
 	
-	// 김혜린
-	// 회원가입
+	// [김혜린]
 	public int insertMember(Member m) {
 		
-		Connection conn = JDBCTemplate.getConnection();
+		Connection conn = getConnection();
 		
 		int result = new MemberDao().insertMember(conn, m);
 		
 		if(result > 0) { // 회원가입 성공
-			JDBCTemplate.commit(conn);
+			commit(conn);
 		}else { // 회원가입 실패
-			JDBCTemplate.rollback(conn);
+			rollback(conn);
 		}
-		JDBCTemplate.close(conn);
+		close(conn);
 		
 		return result;
 	}
 	
+	// [김혜린]
+		public int insertKey(loginAPI a) {
+			
+			Connection conn = getConnection();
+			
+			int result = new MemberDao().insertKey(conn, a);
+			
+			if(result > 0) { // API테이블에 추가 성공
+				commit(conn);
+			}else { // API테이블에 추가 실패
+				rollback(conn);
+			}
+			close(conn);
+			//System.out.println("서비스 result : " + result); // cosole용
+			return result;
+		}
+//------------------------------ update 구간 -------------------------------
+	// [김혜린]
+		public Member updatePwd(String userPwd, String userId) {
+			//System.out.println("멤버서비스 updatePwd 실행");
+			Connection conn = getConnection();
+			
+			int result = new MemberDao().updatePwd(conn, userPwd, userId);
+			
+			Member m = null;
+			
+			if(result > 0) { // update성공
+				commit(conn);
+				m = new MemberDao().loginMember(conn, userId, userPwd);
+			}else { // update실패
+				rollback(conn);
+			}
+			close(conn);
+			//System.out.println("서비스 updatePwd result : " + result);
+			return m;
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	
+	
+	
+	
+	
+
 	// 가영 - 신고 정보 db 저장
 	public int insertReport(String userId, String receiveId, String reportTitle, String reportContent) {
 		
