@@ -10,10 +10,11 @@ import{FilterUsers} from './squareCanvas.js';
 //버튼세팅 
 const friendList = document.querySelector('.friendList'); //친구목록버튼
 const Listbutton = document.querySelector('.Listbutton'); //환경설정버튼
+const friendtable = document.getElementById("friendList"); //친구목록 table
 
 //친구목록 : 놀러가기 이벤트 
 const fnClick = (fn) => {
-    console.log(fn)
+    console.log("닉네임" +fn)
     console.log("클릭함")
 }
 
@@ -29,56 +30,53 @@ friendList.addEventListener('click', () => {
         url: path+"/selectFriend",
         data : {userId : listuserId},
         success : function(list){
-            let result = ``;
+            //현재접속중인 유저 id
+            let filterid = [] 
 
-            result = list.map((fn)=> {
+            //이전에 생성된 td태그들 삭제
+            friendtable.replaceChildren();
+            
+            //접속중인 userId 배열에 넣어주기
+            for(let i of FilterUsers){
+                filterid.push(i.userId);
+            }
 
-                // let tr = document.createElement("tr");
-                // let tdNicName = document.createElement("td")
-                // tdNicName.textContent = fn.nicName;
-                // tr.appendChild(tdNicName);
+            //받아온 친구 list 동적으로 생성 : 이벤트 부여해주려니 create 해줘야함 
+            for(let fn of list){
+                let tr = document.createElement("tr");
+                let tdNicName = document.createElement("td")
+                tdNicName.textContent = fn.nicName;
+                tr.appendChild(tdNicName);
 
-                // let td2 = document.createElement("td")
-                // td2.textContent = "접속중"
-                // tr.appendChild(td2);
+                let td2 = document.createElement("td")
+                
+                tr.appendChild(td2);
 
-                // let gofriend = document.createElement("td");
-                // gofriend.addEventListener("click", function(){
-                //     fnClick(fn.userId);
-                // })
-                // tr.appendChild(gofriend);
-               
+                let gofriend = document.createElement("td");
+                gofriend.textContent = "놀러가기"
+                gofriend.classList.add('go-to-fn')
+                tr.appendChild(gofriend);
+  
+                //생성된 tr에 친구 팝업 이벤트 생성 
+                gofriend.addEventListener("click", function(){
+                    fnClick(fn.userId);
+                    console.log("이벤트 발생")
+                })
 
-                // return tr.outerHTML;
-
-                // let td = document.createElement("td");
-                // td.addEventListener("click", fnClick(`${fn.userId}`));
-                //'' innerHtml 으로 함수 부를 수 없음. why? 이미 td태그가 아무것도 없기떄문에 이벤트 부여도 불가능 
-                //먼저 td태그 생성하고 그후 이벤트 부여해야함
-                // return `<tr>
-                //     <td>${fn.nicName}</td> 
-                //     <td>접속중</td>
-                //     <td onclick='fnClick(${fn.userId})'>놀러가기</td>
-                //     </tr>`
-
-                //onclick="fnClick(${fn.userId})""      
-            });
-
-           
-
-
-            console.log(result)
-
-            //'innerHTML' 사용했었음... 
-           document.getElementById("friendList").innerHTML = result;
-           //.insertAdjacentHTML('afterend', result);
+                //접속 비접속 체크
+                if(filterid.includes(fn.userId)){
+                    td2.textContent = "접속중"
+                    friendtable.prepend(tr);
+                }else{
+                    td2.textContent = "비접속"
+                    friendtable.append(tr);
+                };
+            }
         },
         error : function(){
             console.error();
         }
     })
-
-
 
     //modal창 뜨는동안 타 이벤트 정지처리
     modalstopfn();
@@ -98,7 +96,7 @@ Listbutton.addEventListener('click', () => {
 //모달 세팅
 const modal1 = document.querySelector('.modal1'); //친구목록
 const modal2 = document.querySelector('.modal2'); //환경설정
-const logoutButton = document.querySelector('.modal-button2'); //로그아웃버튼
+const logoutButton = document.querySelector('.logout-button'); //로그아웃버튼
 const mydateButton = document.querySelector('.modal-button1'); //내정보 변경
 const Preferences = document.getElementById("Preferences");
 
@@ -118,7 +116,7 @@ document.querySelector('.x-btn2').addEventListener('click', () => {
 
 //로그아웃창 연결
 logoutButton.addEventListener('click', () => {
-    console.log("로그아웃 이벤트 부여")
+    console.log("로그아웃 이벤트 부여");
 });
 
 //내정보 변경 연결

@@ -76,6 +76,8 @@
 /*친구목록 text */
 .modal-textarea{
     margin-top: 30px;
+    overflow-y: scroll;
+    max-height: 300px;
 }
 
 .display-center td {
@@ -85,6 +87,11 @@
 /*창크기 변경시 생기는 여백 오토로 잡기*/
 .display-center {
     margin: auto;
+}
+
+.go-to-fn:hover{
+    text-decoration: underline;
+    cursor: pointer;
 }
 
 
@@ -108,7 +115,7 @@ border: 1px solid rebeccapurple;
 }
 
 /*로그아웃 버튼*/
-.modal-button2{
+.logout-button{
     background-image: url(../img/icon/기본텍스트버튼2.png);
     width: 304px;
     height: 104px;
@@ -123,6 +130,11 @@ a{
     font-size: 40px;
     font-weight: 300;
 }
+
+.mydateatg:hover{
+    font-size: 45x;
+}
+
 
 
 /*종료 버튼*/

@@ -5,13 +5,14 @@
 <head>
 <meta charset="UTF-8">
 <title>버튼모달</title>
+<!--버튼 list : 작성자 윤지영 -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <link href="<%=contextPath%>/resource/css/common.css" rel="stylesheet" type="text/css">
 <link href="<%=contextPath%>/resource/css/buttonList.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 
-      <!--모달창 분리를 위해 버튼도 따로뻄-->
+      <!--모달창 분리를 위해 버튼도 따로뻄 -->
       <div class="button-area">
         <div class="friendList">
             <img src="<%=contextPath%>/resource/img/icon/친구목록 버튼.png" style=" width: 50px;" > 
@@ -30,8 +31,9 @@
             <div class="modal-out-btn"><img src="<%=contextPath%>/resource/img/icon/엑스 버튼.png" class="x-btn1" style=" width: 55px; height: 55px;" ></div>
             <div class="modal-background">
                 <div class="modal-textarea">
-                    <table class="display-center" id="friendList"> 
-                        <!--데이터 베이스에서 받아서 적용할 에정 : 10명까지 -->
+                    <table class="display-center"> 
+                        <tbody id="friendList">
+                        </tbody>
                     </table> 
                 </div> 
             </div>
@@ -45,7 +47,7 @@
             <div class="modal-button1">
             <a>내 정보 변경</a>
             </div>
-            <div class="modal-button2">
+            <div class="logout-button" id="userlogout">
             <a> 로그아웃 </a>
             </div>
         </div>
