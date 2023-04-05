@@ -1,4 +1,4 @@
-package mz.report.model.vo;
+package mz.member.model.vo;
 
 import java.sql.Date;
 

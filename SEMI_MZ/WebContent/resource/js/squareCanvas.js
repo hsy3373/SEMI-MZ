@@ -6,6 +6,7 @@
 /* js 가져오기  */
 import { getContextPath } from './common.js';
 import { getUserInfo } from './userInfo.js';
+// import {noticeModal} from './notice.js';
 
 
 //캔버스 세팅
@@ -120,6 +121,7 @@ function setupKeyboard() {
 }
 
 
+
 //클릭에 부여하는 이벤트
 canvas.addEventListener("click", function (event) {
 
@@ -137,6 +139,13 @@ canvas.addEventListener("click", function (event) {
     //img 안을 클릭할 경우 이벤트 : noticeBoard
     if (clickX >= 1030 && clickX <= 1140 && clickY >= 411 && clickY <= 442) {
         console.log("notice 이벤트 부여")
+        console.log(noticeModal)
+        
+        
+         noticeModal.style.display = 'block';
+        modalstopfn();
+    
+
     }
 
     //img 안을 클릭할 경우 이벤트 :gamegone 
@@ -327,6 +336,8 @@ function update() {
     if (uesrX <= 1130 && uesrX >= 1000 && uesrY <= 463 && uesrY >= 426) {
         console.log('공지사항 이벤트')
         //캐릭터 좌표 어떻게 처리할지 정하기 : 게시판 보는동안 좌표값
+        document
+        notice-modal
 
         uesrY = 468
     }
@@ -447,8 +458,9 @@ let FilterUsers = [];//필터링된 유저 1개 만큼 담아줄 배열
 // 웹소켓으로 연결하기
 // 웹소켓 서버 생성 : 학원 192.168.30.171
 let path = getContextPath()
-const socket = new WebSocket("ws://192.168.120.37:8084" + path + "/multiAccess");
-//집 : 192.168.35.13
+let socket = new WebSocket("ws://192.168.30.181:8081" + path + "/multiAccess");
+///////////////////////////////////////////////////////////////자기 ws로 바꿔주기!!! ///////////////////////////////
+// 가영 ip : 192.168.30.181
 
 let fnSocket = {
     onopen : function(e){
