@@ -15,6 +15,7 @@ import java.util.InvalidPropertiesFormatException;
 import java.util.Properties;
 
 import mz.chatting.model.dao.ChatDao;
+import mz.member.model.vo.Member;
 import mz.skin.model.vo.Skin;
 import mz.skin.model.vo.Character;
 
@@ -300,29 +301,7 @@ public class SkinDao {
 		
 	}
 	
-	public ArrayList<Skin> changeSkin(Connection conn) {
-		ArrayList<Skin> list = new ArrayList<>();
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		String sql = prop.getProperty("changeSkin");
-		try {
-			pstmt = conn.prepareStatement(sql);
-			
-			rset = pstmt.executeQuery();
-			
-			while(rset.next()) {
-				Skin s = new Skin(rset.getInt("SKIN_ID"),
-								  rset.getString("SAVE_ROOT"));
-				list.add(s);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(rset);
-			close(pstmt);
-		}
-		return list;
-	}
+
 	
 
 //-----------------------------------------insert 영역---------------------------------------------------
@@ -401,4 +380,54 @@ public class SkinDao {
 		return result;
 	}
 	
+	// [지의]
+	// 로그인유저 스킨 변경
+	public int updateMySkin(Connection conn, String userId, int skinId) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateMySkin");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, skinId);
+			pstmt.setString(2, userId);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	// [지의]
+	// 세션에 저장된 로그인 유저 조회해와야?
+	public Member selectSkinId(Connection conn, String userId) {
+		Member m = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectSkinId");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, userId);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				m = new Member();
+				rset.getString("USER_ID");
+				rset.getInt("SKIN_ID");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return m;
+		
+	}
 }

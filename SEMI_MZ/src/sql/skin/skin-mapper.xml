@@ -54,14 +54,14 @@
 		WHERE RN BETWEEN ? AND ?
 	</entry>
 	
-	<!-- 옷장 스킨 총 갯수 -->
+	<!-- 옷장 스킨 총 갯수 : 지의 -->
 	<entry key="closetSkinCount">
 		SELECT COUNT(*) AS COUNT 
 		  FROM CHARACTER_SKIN
 		 WHERE REWARD = 'N'
 	</entry>
 	
-	<!-- 로그인유저가 보유한 스킨 -->
+	<!-- 로그인유저가 보유한 스킨 : 지의 -->
 	<entry key="mySkinList">
 		SELECT SKIN_ID,
                SAVE_ROOT
@@ -70,12 +70,7 @@
 		 WHERE USER_ID = ?
 	</entry>
 	
-	<!-- 스킨아이디, 루트 조회 -->
-	<entry key="changeSkin">
-		SELECT SKIN_ID,
-               SAVE_ROOT
-		  FROM CHARACTER_SKIN
-	</entry>
+
 
 
 <!-- insert 구역 -->
@@ -97,6 +92,20 @@
 	<entry key="deleteSkin">
 		DELETE FROM CHARACTER_SKIN
 		WHERE SKIN_ID = ?
+	</entry>
+	
+	<!-- 로그인유저 스킨 변경 :  -->
+	<entry key="updateMySkin">
+		UPDATE MEMBER
+		SET SKIN_ID = ?
+		WHERE USER_ID = ?
+	</entry>
+	
+	<entry key="selectSkinId">
+		SELECT USER_ID,
+			   SKIN_ID
+		  FROM MEMBER
+		 WHERE USER_ID = ?
 	</entry>
 
 </properties>

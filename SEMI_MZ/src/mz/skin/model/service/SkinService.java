@@ -9,6 +9,9 @@ import java.io.File;
 import java.sql.Connection;
 import java.util.ArrayList;
 
+import javax.security.auth.message.callback.PrivateKeyCallback.Request;
+
+import mz.member.model.vo.Member;
 import mz.skin.model.dao.SkinDao;
 import mz.skin.model.vo.Skin;
 import mz.skin.model.vo.Character;
@@ -151,13 +154,7 @@ public class SkinService {
 	}
 	
 	// [지의]
-	// 스킨 아이디 조회용
-	public ArrayList<Skin> changeSkin() {
-		Connection conn = getConnection();
-		ArrayList<Skin> list = new SkinDao().changeSkin(conn);
-		close(conn);
-		return list;
-	}
+
 
 //-------------------------------------------INSERT 구역 -------------------------------------------------
 
@@ -219,6 +216,26 @@ public class SkinService {
 
 		close(conn);
 
+		return result;
+	}
+	
+	// [지의]
+	// 로그인유저 스킨 변경
+	public int updateMySkin(String userId, int skinId) {
+		Connection conn = getConnection();
+		int result = new SkinDao().updateMySkin(conn, userId, skinId);
+		
+		// null로 초기화하면 안됨..
+		//Member updateMem = null;
+		
+		if(result > 0) {
+			commit(conn);
+			
+			// 세션에 저장된 로그인 유저 조회해와야?
+			//updateMem = new SkinDao().selectSkinId(conn, userId);
+		}else {
+			rollback(conn);
+		}
 		return result;
 	}
 	

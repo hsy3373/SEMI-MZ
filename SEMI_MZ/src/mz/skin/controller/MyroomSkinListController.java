@@ -17,7 +17,7 @@ import mz.skin.model.vo.Skin;
 /**
  * Servlet implementation class MyroomSkinListController
  */
-@WebServlet("/skinList.me")
+@WebServlet("/skinList.my")
 public class MyroomSkinListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

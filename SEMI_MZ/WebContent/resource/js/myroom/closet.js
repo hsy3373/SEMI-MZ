@@ -17,7 +17,7 @@ let closetSkinCount = getSessionStorage('closetSkinCount');
 // num값에 따라서 보여지는 화면이 달라짐
 function selectSkin(num){
 	$.ajax({
-		url : path + "/skinList.me",
+		url : path + "/skinList.my",
 		data : {page : num},
 		success : function(list){
 			
@@ -45,7 +45,7 @@ function selectSkin(num){
 $(function(){
 	$(document).on("click",".store-btn",function(){
 		$.ajax({
-			url : path + "/mySkinList.me",
+			url : path + "/mySkinList.my",
 			success : function(list){
 				// 내가 보유한 리스트를 조회
 				// 전체 리스트인 closet-skin-id 의 text()와, 조회한 리스트의 skinId 값과 일치한다면
@@ -74,24 +74,18 @@ $(function(){
 /* 로그인 유저가 보유한 스킨 */
 function mySkin(){
 	$.ajax({
-		url : path + "/mySkinList.me",
+		url : path + "/mySkinList.my",
 		success : function(list){
 			//console.log(list);
 
 			let str = "";
 			for(let i = 0; i < list.length; i++){
 				str += "<div class='closet-item'>" 
-						  +"<div class='closet-skin-id' id='skin"+(i+1)+"' style='display: none;'>" + list[i].skinId +"</div>"
+						  +"<div class='closet-skin-id' id='myskin"+(i+1)+"' style='display: none;'>" + list[i].skinId +"</div>"
 						  + "<div class='closet-skin'>"
 						 	+"<img src='."+ list[i].saveRoot +"/fs.png'>"
 						  + "</div>"
 					 + "</div>";
-/*				str += `<div class='closet-item'>
-						  <div class='closet-skin-id' style='display: none;'>${list[i].skinId}</div>
-						  <div class='closet-skin'>
-						  	<img src='${path + list[i].saveRoot}/fs.png'>
-						  </div>
-					 </div>`;*/
 			}
 			$(".closet-skins").html(str);
 		},
@@ -101,59 +95,58 @@ function mySkin(){
 	});
 };
 
-/* 옷장 속 스킨 클릭시 왼쪽 대표 스킨에 이미지 적용 */
+/* 스킨박스 스킨 클릭시 왼쪽 대표 스킨에 이미지 적용 + 착용버튼 활성화 */
 $(document).on('click', '.closet-skin img' ,function(){
+	/*클릭한 스킨박스의 스킨 src값*/
 	let changeSkin = $(this).attr('src');
-	console.log(changeSkin);
+	/*왼쪽 대표스킨 src값에 클릭한 스킨 src값으로 넣어주기*/
 	$(".view-skin img").attr('src', changeSkin);
+	/*loginUserSkinId : 현재 로그인유저의 스킨ID값 (myroom.jsp에서 가져옴)*/
 	let userSkin = "./resource/img/user/skin"+loginUserSkinId+"/fs.png" 
-	console.log(userSkin);
-	if(changeSkin =! userSkin){
+	//console.log(changeSkin);
+	//console.log(userSkin);
+	if(changeSkin != userSkin){
 		$(".closet-wear").attr("disabled", false);
+		$(".closet-wear").css("cursor", "pointer");
+	}else{
+		$(".closet-wear").attr("disabled", true);
+		$(".closet-wear").css("cursor", "default");
 	}
-	
 
-
-/*	let st = $(".user-skin").attr('src').split('/');
-	let a = st[5];
-	console.log(userSkin);
-	console.log(a);*/
-
-	
-	
-})
-
-/* 
-	로그인 유저 스킨이 아니면 
-	$(".closet-wear")착용버튼 disabled
-	* 아이디 비교
-	로그인유저의 스킨아이디(0) == 스킨루트의 스킨아이디
-	* 경로비교
-	path/
-*/
-$(function(){
+});
+/*$(function(){
+	// 실시간으로 입력시 화면에 바로 나타나게함
+	setInterval(updateMySkin, 1000);
+});*/
+/* 착용버튼 클릭시 로그인유저 스킨아이디 적용 */
+$(document).on("click",".closet-wear", function(){
+	updateMySkin();
+});
+function updateMySkin(){
+	/*바뀐 스킨값 스킨아이디값 빼냄*/
+	let skinId;
+	if($(".view-skin .user-skin").attr('src').length == 32){
+		skinId = $(".view-skin .user-skin").attr('src').substr(24,1);
+	}else if($(".view-skin .user-skin").attr('src').length == 33){
+		skinId = $(".view-skin .user-skin").attr('src').substr(24,2);
+	}
+	//console.log(skinId);
 	$.ajax({
-		url : path  +"/mySkinList.me",
-		success : function(list){
-/*			console.log(list);
-			console.log(loginUserSkinId);
-			for(let i = 0; i < list.length; i++){
-				if(list[i].saveRoot != "skin"+loginUserSkinId){
-					$(".closet-wear").attr("disabled", false);
-				}
-			}*/
+		url : path  +"/updateMySkin.my",
+		data : {skinId : skinId},
+		success : function(result){
+			console.log("ㅎ접속됨");
+			console.log(result);
+			// 재접속해야지 바뀐 스킨이보임.. 어떻게 해야 바로 적용이 가능한지..
+			// 접속 성공이라면? 세션에 있는 로그인정보 업데이트..?
+			if(result > 0){
+				
+			}
 			
 		},
-		error : function(e){
-			console.log("접속 실패");
-		}
-		
-	})
-})
-/* 착용버튼 이벤트 */
-/*$(document).on('click','.closet-wear',function(){
-})
-*/
+		error : function(e){console.log("ㅎ접속 실패");}
+	});
+};
 function init(){
 	document.querySelectorAll(".page-btn").forEach(function(item, index){
 		//console.log(item);

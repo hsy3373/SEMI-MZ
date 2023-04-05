@@ -18,7 +18,7 @@ import mz.skin.model.vo.Skin;
 /**
  * Servlet implementation class MyroomMySkinController
  */
-@WebServlet("/mySkinList.me")
+@WebServlet("/mySkinList.my")
 public class MyroomMySkinController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -36,9 +36,9 @@ public class MyroomMySkinController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String userId = ((Member)request.getSession().getAttribute("loginUser")).getUserId();
 		
-		ArrayList<Skin> list = new SkinService().mySkinList(userId);
 		//System.out.println(list);
 		response.setContentType("application/json; charset=UTF-8");
+		ArrayList<Skin> list = new SkinService().mySkinList(userId);
 		new Gson().toJson(list, response.getWriter());
 		
 		

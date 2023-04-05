@@ -450,28 +450,16 @@ $(function(){
 		updateBoard();
 	})
 });
-/* ======================= 쓴 방명록 삭제(내마이룸, 친구룸 동일하게 적용) ======================= */
+/* ======================= 방명록 삭제(내마이룸, 친구룸 동일하게 적용) ======================= */
 function deleteBoard(){
-	boardNo = $(".board-modal .board-no").text();
+	let boardNo = $(".board-detail .board-no").text();
 	$.ajax({
 		url : path + "/deleteBoard",
 		data : {boardNo : boardNo},
 		success : function(result){}
 	})
 }
-$(function(){
-	$(document).on("click", "#board-send-delete",function(){
-		if(confirm("삭제하시겠습니까?")){
-			deleteBoard();
-			// 현재 모달 숨기기
-			$(".board-send-detail").css("display", "none");
-			// 방명록 리스트 불러오는 함수 호출
-			selectboardList(roomMasterId);
-		}else{
-			return;
-		}
-	})
-});
+deleteBoard();
 $(function(){
 	$(document).on("click", "#board-delete",function(){
 		if(confirm("삭제하시겠습니까?")){
@@ -480,6 +468,28 @@ $(function(){
 			$(".board-detail").css("display", "none");
 			// 방명록 리스트 불러오는 함수 호출
 			selectboardList(loginUserId);
+		}else{
+			return;
+		}
+	})
+});
+function deleteSendBoard(){
+	let boardNo = $(".board-detail .board-no").text();
+	$.ajax({
+		url : path + "/deleteBoard",
+		data : {boardNo : boardNo},
+		success : function(result){}
+	})
+}
+deleteSendBoard();
+$(function(){
+	$(document).on("click", "#board-send-delete",function(){
+		if(confirm("삭제하시겠습니까?")){
+			deleteBoard();
+			// 현재 모달 숨기기
+			$(".board-send-detail").css("display", "none");
+			// 방명록 리스트 불러오는 함수 호출
+			selectboardList(roomMasterId);
 		}else{
 			return;
 		}
