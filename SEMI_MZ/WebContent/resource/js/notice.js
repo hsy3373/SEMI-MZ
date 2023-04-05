@@ -6,7 +6,7 @@
 import { getContextPath } from './common.js';
 
 /*공지사항 모달창 띄우기*/
-/*let open = () => {
+let open = () => {
 	document.querySelector(".notice-modal").classList.remove("hidden");
 }
 
@@ -15,4 +15,4 @@ let close = () => {
 }
 
 
-document.querySelector(".x-btn").addEventListener("click", close);*/
+document.querySelector(".x-btn").addEventListener("click", close); 
