@@ -13,6 +13,8 @@ public class Member {
 	private String gender;		//	GENDER	CHAR(1 BYTE)
 	private Date date;			//	ENROLL_DATE	DATE
 	
+	//[han] 시간까지 받아오는 용도의 데이트
+	private String formatDate;
 	
 	public Member() {
 	}
@@ -150,6 +152,20 @@ public class Member {
 
 	public void setDate(Date date) {
 		this.date = date;
+	}
+
+
+
+
+	public String getFormatDate() {
+		return formatDate;
+	}
+
+
+
+
+	public void setFormatDate(String formatDate) {
+		this.formatDate = formatDate;
 	}
 	
 	

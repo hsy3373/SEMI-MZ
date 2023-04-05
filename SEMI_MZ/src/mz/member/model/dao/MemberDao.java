@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.InvalidPropertiesFormatException;
 import java.util.Properties;
 
@@ -66,6 +67,69 @@ public class MemberDao {
 		return result;
 		
 	}
+	
+	//[han]
+	public ArrayList<Member> selectMemberList(Connection conn, String status, String api, int page){
+		ArrayList<Member> list = new ArrayList<>();
+
+		int result = 0;
+
+		ResultSet rset = null;
+		PreparedStatement pstmt = null;
+
+		String sql = prop.getProperty("selectMemberList");
+
+		// 경우에 따라 sql문 변경
+		switch (status) {
+		case "Y":
+			sql = sql.replace("STATUS IN", "STATUS = 'Y' ");
+			break;
+		case "N":
+			sql = sql.replace("STATUS IN", "STATUS = 'N' ");
+			break;
+		case "X":
+			sql = sql.replace("STATUS IN", "STATUS = 'X' ");
+			break;
+		case "all":
+			sql = sql.replace("STATUS IN", "STATUS IN('N', 'X')");
+			break;
+		}
+
+		switch (api) {
+		case "all":
+			sql = sql.replace("AND API_KIND IN", "");
+			break;
+		case "kakao":
+			sql = sql.replace("API_KIND IN", "API_KIND = 'kakao' ");
+			break;
+		case "google":
+			sql = sql.replace("API_KIND IN", "API_KIND = 'google' ");
+			break;
+		}
+		
+		System.out.println("멤버 리스트 불러올 sql : " + sql);
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			rset= pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Member m = new Member();
+				m.setCoin(coin);
+						
+			}
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return list;
+
+	}
+	
 	
 	//[가영]
 	public Member selectMember(Connection conn, String userId) {

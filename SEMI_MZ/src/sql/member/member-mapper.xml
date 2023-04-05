@@ -11,6 +11,31 @@
 		FROM MEMBER
 		WHERE STATUS = 'Y'
 	</entry>
+	
+	<!--[han]-->
+	<entry key="userCountFilter">
+		SELECT COUNT(*) AS COUNT
+		FROM MEMBER
+		WHERE STATUS
+	</entry>
+	
+	
+	<!--[han]-->
+	<entry key="selectMemberList">
+		SELECT USER_ID, NICKNAME, STATUS , COIN, ENROLL_DATE, API_KIND
+		FROM (
+		  SELECT USER_ID, NICKNAME, STATUS , COIN, ENROLL_DATE, API_KIND, ROWNUM AS RN
+		  FROM (
+		    SELECT USER_ID, NICKNAME, STATUS , COIN, ENROLL_DATE, API_KIND
+		    FROM MEMBER
+            JOIN LOGIN_API USING(USER_ID)
+		    WHERE STATUS IN AND API_KIND IN
+		    ORDER BY USER_ID DESC
+		  )
+		)
+		WHERE RN BETWEEN ? AND ?;
+	</entry>
+	
 
 	<!-- [혜린] -->
 	<entry key="loginMember">
