@@ -128,7 +128,7 @@ canvas.addEventListener("click", function (event) {
     const clickY = event.offsetY;
 
     //img 안을 클릭할 경우 이벤트 : my home
-    if (clickX >= 895 && clickX <= 1110 && clickY >= 10 && clickY <= 226) {
+  if (clickX >= 895 && clickX <= 1110 && clickY >= 10 && clickY <= 226) {
         console.log("home 이벤트 부여")
         gohome();
 

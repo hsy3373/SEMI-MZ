@@ -29,8 +29,10 @@ public class home extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String roomMaster = request.getParameter("roomMaster");
-		System.out.println("roomMaster : "+roomMaster);
+		//System.out.println("roomMaster : "+roomMaster);
 		
+		request.setAttribute("roomMaster", roomMaster);
+
 		
 		request.getRequestDispatcher("views/myroom.jsp").forward(request, response);
 		  //if(roomMaster != null) { 

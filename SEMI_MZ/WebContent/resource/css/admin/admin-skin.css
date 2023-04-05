@@ -22,7 +22,7 @@
 .back {
   position: absolute;
   left: 10px;
-  top: calc(-50px - 2.25rem);
+  top: calc(-50px - 3rem);
   font-size: 1.5rem;
   cursor: pointer;
 }
@@ -61,11 +61,22 @@
 }
 
 #insert-btn {
+  margin-left: 10%;
   width: 80px;
   height: 30px;
   background-color: white;
   border-radius: 5%;
   border: 1px solid black;
+  cursor: pointer;
+}
+
+#delete-btn {
+  width: 80px;
+  height: 30px;
+  color : red;
+  background-color: white;
+  border-radius: 5%;
+  border: 1px solid red;
   cursor: pointer;
 }
 
@@ -103,40 +114,6 @@
 
 #file-area {
   display: none;
-}
-
-#toast {
-  z-index: 9999;
-  visibility: hidden;
-  position: fixed;
-  bottom: 8vh;
-  left: 50vw;
-  transform: translateX(-50%);
-  min-width: 100px;
-  border-radius: 25px;
-  background-color: #000000a4;
-  color: #ffffff;
-  padding: 15px 25px;
-}
-#toast.toastShow {
-  visibility: visible;
-  animation: fade-in 700ms, fade-out 700ms 2000ms;
-}
-@keyframes fade-in {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-@keyframes fade-out {
-  from {
-    opacity: 1;
-  }
-  to {
-    opacity: 0;
-  }
 }
 
 /* ----------------------------------- skin list 화면---------------------------------- */
@@ -303,6 +280,10 @@ tr > th:nth-child(2) {
 }
 
 .able-btn {
+  display: inline-block;
+}
+
+.page-btn {
   display: inline-block;
 }
 

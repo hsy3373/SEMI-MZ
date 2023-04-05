@@ -30,7 +30,7 @@ pageEncoding="UTF-8" import="mz.member.model.vo.Member"%>
     </style>
   </head>
   <body>
-<!--     <div>
+    <!--     <div>
       <button type="button" id="insert-room">룸 추가 friend</button>
     </div> -->
     <div class="chat-container">
@@ -85,9 +85,6 @@ pageEncoding="UTF-8" import="mz.member.model.vo.Member"%>
         <button id="btn-send">보내기</button>
       </div>
     </div>
-
-    <script type="module" src="<%=path%>/resource/js/common.js"></script>
-    <script type="module" src="<%=path%>/resource/js/chat/chatData.js"></script>
     <script
       type="module"
       src="<%=path%>/resource/js/chat/chatFront.js"

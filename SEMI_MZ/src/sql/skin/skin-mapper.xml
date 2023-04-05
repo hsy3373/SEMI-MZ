@@ -3,12 +3,7 @@
 <properties>
 
 <!-- han -->
-
-	<entry key="insertSkin">
-		INSERT INTO CHARACTER_SKIN(SKIN_ID, SAVE_ROOT, CHARACTER_PRICE, REWARD)
-		VALUES( SEQ_SKIN.NEXTVAL , '/resource/img/user/skin'||SEQ_SKIN.CURRVAL, ?, ? )
-	</entry>
-
+<!-- select 구역 -->
 	<entry key="selectSkinCurval">
 		 SELECT SEQ_SKIN.CURRVAL AS CURRVAL FROM DUAL
 	</entry>
@@ -23,21 +18,51 @@
 		WHERE REWARD = 'Y' AND SKIN_ID != 0
 	</entry>
 
-
 	<entry key="selectBasicSkins">
 		SELECT SKIN_ID, SAVE_ROOT, CHARACTER_PRICE, REWARD
-		FROM (SELECT *
-				FROM CHARACTER_SKIN
-				WHERE REWARD = 'N' AND SKIN_ID != 0
-				ORDER BY SKIN_ID DESC)
-		WHERE ROWNUM BETWEEN ? AND ? 
-		ORDER BY ROWNUM
+		FROM (
+		  SELECT SKIN_ID, SAVE_ROOT, CHARACTER_PRICE, REWARD, ROWNUM AS RN
+		  FROM (
+		    SELECT SKIN_ID, SAVE_ROOT, CHARACTER_PRICE, REWARD
+		    FROM CHARACTER_SKIN
+		    WHERE REWARD = 'N' AND SKIN_ID != 0
+		    ORDER BY SKIN_ID DESC
+		  )
+		)
+		WHERE RN BETWEEN ? AND ?
 	</entry>
-	
 	
 	<entry key="selectSkin">
 		SELECT SKIN_ID, SAVE_ROOT, CHARACTER_PRICE, REWARD
 		FROM CHARACTER_SKIN
 		WHERE SKIN_ID = ?
 	</entry>
+	
+	<entry key="selectSkinList">
+		SELECT SKIN_ID, SAVE_ROOT, CHARACTER_PRICE, REWARD
+		FROM CHARACTER_SKIN
+		WHERE REWARD = 'N'
+	</entry>
+
+<!-- insert 구역 -->
+	<entry key="insertSkin">
+		INSERT INTO CHARACTER_SKIN(SKIN_ID, SAVE_ROOT, CHARACTER_PRICE, REWARD)
+		VALUES( SEQ_SKIN.NEXTVAL , '/resource/img/user/skin'||SEQ_SKIN.CURRVAL, ?, ? )
+	</entry>
+
+
+<!-- update 구역 -->
+
+	<entry key="updateSkin">
+		UPDATE CHARACTER_SKIN
+		SET CHARACTER_PRICE = ?,
+			REWARD = ?
+		WHERE SKIN_ID = ?
+	</entry>
+	
+	<entry key="deleteSkin">
+		DELETE FROM CHARACTER_SKIN
+		WHERE SKIN_ID = ?
+	</entry>
+
 </properties>

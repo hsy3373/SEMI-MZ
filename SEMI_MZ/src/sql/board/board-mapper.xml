@@ -57,7 +57,7 @@
 						  SECRET,
 						  CREATE_DATE
 						  )
-				   VALUSE(SEQ_BOARD.NEXTVAL,
+				   VALUES(SEQ_BOARD.NEXTVAL,
 				   		  ?,
 				   		  ?,
 				   		  ?,
@@ -65,5 +65,10 @@
 				   		  ?,
 				   		  SYSDATE
 						  )
+	</entry>
+	<!-- 내가쓴 방명록 삭제 -->
+	<entry key="deleteBoard">
+		DELETE FROM BOARD
+			  WHERE BOARD_NO = ?
 	</entry>
 </properties>
