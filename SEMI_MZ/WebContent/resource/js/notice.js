@@ -10,13 +10,32 @@ export let noticeModal = document.querySelector('.notice-modal');
 
 /*공지사항 모달창*/
 
-let close = noticeModal.querySelector("#notice-x-btn");
+/*let close = noticeModal.querySelector("#notice-x-btn");
 
 close.addEventListener("click", e => {
     noticeModal.style.display = 'none';
     modalstopfn();
 });
 
+let detailModal = document.querySelector('.notice-detail-view');
+let open = detailModal.querySelector('.list-bgimg');
+
+open.addEventListener("click", e => {
+	detailModal.style.display = 'block';
+});*/
+$("body").on("click", function(e) {
+	console.log(e.target);
+	if (e.target.id == 'notice-x-btn') {
+		$(".notice-modal").css('display', 'none');
+	} else if (e.target.className == 'list-bgimg') {
+		$(".notice-modal").css('display', 'none');
+		$(".notice-detail-view").css('display', 'block');
+	} else if (e.target.id == 'notice-detail-x-btn') {
+		$(".notice-detail-view").css('display', 'none');
+	}
+});
+
+	
 function getNoticeList(){
 	$.ajax({
 		url: getContextPath()+"/selectNotice",
@@ -32,24 +51,4 @@ function getNoticeList(){
 				}
 	});
 }
-getNoticeList();
 
-
-
-/*let open = document.querySelector(".notice-detail-view");
-
-function detailOn() {
-	open.style.display = "block"
-}
-        
-        function isModalOn() {
-            return modal.style.display === "flex"
-        }
-        function modalOff() {
-            modal.style.display = "none"
-        }
-        
-        let closeBtn = noticeModal.querySelector(".lists-bgimg")
-        closeBtn.addEventListener("click", e => {
-            modalOff();
-        })*/
