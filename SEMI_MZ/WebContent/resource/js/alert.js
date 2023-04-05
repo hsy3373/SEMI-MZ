@@ -134,3 +134,30 @@ $("#report-ok").click(function () {
   $("#alert-text").html("신고 되었습니다.");
   alertAddClass("delete");
 });
+
+
+
+// -------------------------- 환경설정 : 로그아웃 --------------------------
+function logoutUser() {
+  let str = $("#alert-text").attr("class");
+
+  console.log("이벤트생성")
+  switch (str) {
+    case "user11111":
+      //
+
+      break;
+  }
+  closeAlert();
+}
+
+// alert 창에서 확인 버튼 클릭 이벤트 추가
+document.querySelector("#").addEventListener("click", logoutUser);
+
+$("#userlogout").click(function () {
+  $("#alert-text").html("로그아웃 하시겠습니까?");
+  alertAddClass("user11111");
+});
+
+
+

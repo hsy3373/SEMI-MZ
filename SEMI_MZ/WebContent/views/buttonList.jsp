@@ -9,6 +9,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <link href="<%=contextPath%>/resource/css/common.css" rel="stylesheet" type="text/css">
 <link href="<%=contextPath%>/resource/css/buttonList.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="../resource/css/alert.css" />
 </head>
 <body>
 
@@ -47,12 +48,22 @@
             <div class="modal-button1">
             <a>내 정보 변경</a>
             </div>
-            <div class="logout-button" id="userlogout">
-            <a> 로그아웃 </a>
+            <div class="alert-toggle logout-button" id="userlogout">
+            <a>로그아웃</a>
             </div>
         </div>
       </div>
 
+
+      <!--로그아웃 모달창-->
+      <div class="alert">
+		<h3 id="alert-text"></h3>
+		<div>
+			<button class="button alert-ok" id="logout-ok">로그아웃</button>
+			<button class="button alert-toggle">취소</button>
+		</div>
+	</div>
+	<div class="alert-overlay"></div>
 
     <!-- ========================== [김혜린] 내정보 변경 / 비밀번호 입력 요구 모달 공간 ========================== -->
     <!-- ======= 내정보변경 시 비밀번호 입력 요청 모달 ======== -->      
@@ -172,5 +183,7 @@
       <script type="module" src="<%=contextPath%>/resource/js/buttonList.js"></script>
       <!--유효성 script -->
       <script type="module" src="../resource/js/validation.js"></script>
+        <!-- alert script 경로 -->
+    <script type="module" src="../resource/js/alert.js"></script>
 </body>
 </html>
