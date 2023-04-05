@@ -314,9 +314,9 @@ let hideArrow = function (is) {
 // 저장소에서 룸 리스트 불러와서 화면상 표시해주는 함수
 // id 값을 넣어주면 해당 id 값을 가진 탭 자동 선택
 export let setChattingRooms = function (id, newRoom) {
-  console.log('셋채팅룸에서 불림 : id = ', id);
+  //console.log('셋채팅룸에서 불림 : id = ', id);
   let rooms = Common.getSessionStorage('allChatRooms').split(',');
-  console.log('rooms : ', rooms);
+  //console.log('rooms : ', rooms);
 
   if (!Common.isEmpty(newRoom) && rooms.indexOf(newRoom)) {
   }

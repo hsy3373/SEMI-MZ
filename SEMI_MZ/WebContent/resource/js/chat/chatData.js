@@ -103,7 +103,7 @@ let fnSocket = {
     }, 1000);
   },
   onerror: (event) => {
-    console.log("WebSocket error: ", event);
+    //console.log("WebSocket error: ", event);
   },
 };
 

@@ -6,6 +6,8 @@ import { getContextPath } from '../common.js';
 import {getSessionStorage,setSessionStorage} from './myroomCommon.js';
 let path = getContextPath();
 
+
+location.href = "";
 let closetSkinCount = getSessionStorage('closetSkinCount');
 //console.log("총게시글갯수 : "+closetSkinCount);
 /*
@@ -44,7 +46,7 @@ function selectSkin(num){
 	상점스킨 리스트 중 내가 보유한 스킨이라면 보유중
 	- list에 담긴 skinId(1,2,3,4...) 값과 #skin i 값이 
 */
-$(function(){
+/*$(function(){
 	$.ajax({
 		url : path + "/mySkinList.me",
 		success : function(list){
@@ -58,7 +60,7 @@ $(function(){
 		}
 	})
 });
-
+*/
 /* 로그인 유저가 보유한 스킨 */
 function mySkin(){
 	$.ajax({
