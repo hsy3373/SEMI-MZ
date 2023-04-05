@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -182,7 +183,105 @@ public class MemberDao {
 		return list;
 	}
 	
+	
+	//[han]
+	// 관리자 페이지 유저 검색기능
+	public ArrayList<Member> searchMembers(Connection conn, String option, String keyword) {
 
+		ArrayList<Member> list = new ArrayList<>();
+
+		ResultSet rset = null;
+		PreparedStatement pstmt = null;
+
+		String sql = prop.getProperty("searchMembers");
+
+		if (option.equals("userId")) {
+			sql = sql.replaceAll("##", "USER_ID");
+		} else {
+			sql = sql.replaceAll("##", "NICKNAME");
+		}
+
+		// like문에 들어갈 문자열 혹시 모를 _ 와 % escape 처리 
+		String like = keyword.replaceAll("%", "\\%");
+		like = like.replaceAll("_", "\\_");
+		like = "%" + like + "%";
+
+		System.out.println(sql);
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+
+			pstmt.setString(1, keyword);
+			pstmt.setString(2, like);
+
+			rset = pstmt.executeQuery();
+
+			while (rset.next()) {
+				Member m = new Member();
+				m.setUserId(rset.getString("USER_ID"));
+				m.setNicName(rset.getString("NICKNAME"));
+				m.setStatus(rset.getString("STATUS"));
+
+				list.add(m);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+
+		return list;
+	}
+
+	//[han]
+	// 관리자페이지 멤버 상세 조회용
+	public Member selectMemberAllInfo(Connection conn, String userId) {
+		Member m = null;
+
+		ResultSet rset = null;
+		PreparedStatement pstmt = null;
+
+		String sql = prop.getProperty("selectMemberAllInfo");
+		
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+
+			pstmt.setString(1, userId);
+
+			rset = pstmt.executeQuery();
+
+			if (rset.next()) {
+				//date 포맷용
+				DateFormat df = new SimpleDateFormat("yy/MM/dd HH:mm");  
+				//아래거는 null이 들어올수도 있어서 따로 빼서 처리해줌
+				Timestamp ts = rset.getTimestamp("CANCELLATION_DATE");
+				
+				m = new Member(
+						rset.getString("USER_ID"),
+						rset.getString("NICKNAME"),
+						rset.getString("STATUS"),
+						rset.getInt("SKIN_ID"),
+						rset.getInt("COIN"),
+						rset.getString("SELF_INFO"),
+						rset.getString("GENDER"),
+						df.format( rset.getTimestamp("ENROLL_DATE")),
+						rset.getString("API_KIND"),
+						ts != null ? df.format(ts) : ""
+						);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+
+		return m;
+	}
+	
+	
 	//[가영]
 	public Member selectMember(Connection conn, String userId) {
 			
@@ -620,11 +719,47 @@ public class MemberDao {
 	
 	
 	
+	// [han]
+	// 유저 삭제
+	public int deleteMember(Connection conn, String userId) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("deleteMember");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userId);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
 	
 	
 	
-	
-	
+	// [han]
+	// 유저 차단
+	public int blockMember(Connection conn, String userId) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("blockMember");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userId);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
 	
 	
 	

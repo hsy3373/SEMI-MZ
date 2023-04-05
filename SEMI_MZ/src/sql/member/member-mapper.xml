@@ -38,13 +38,36 @@
 	</entry>
 	
 	<!--[han] 어드민 페이지용 멤버 조회 -->
+	<entry key="searchMembers">
+		SELECT USER_ID, 
+				NICKNAME, 
+				STATUS
+		FROM (
+		  SELECT USER_ID, 
+				NICKNAME, 
+				STATUS,
+		        UTL_MATCH.EDIT_DISTANCE( ? , ## ) AS DISTANCE
+		  FROM MEMBER
+		  WHERE ## LIKE ? escape '\'
+		)
+		ORDER BY DISTANCE , ## 
+	</entry>
+	
+	<!--[han] 어드민 페이지용 멤버 조회 -->
 	<entry key="selectMemberAllInfo">
 		SELECT USER_ID,
 			   NICKNAME,
+               M.STATUS,
 			   SKIN_ID,
+               COIN,
 			   SELF_INFO,
-			   GENDER
-		FROM MEMBER
+			   GENDER,
+               ENROLL_DATE,
+               API_KIND,
+               CANCELLATION_DATE
+		FROM MEMBER M
+		LEFT JOIN LOGIN_API USING(USER_ID)
+        LEFT JOIN DISABLED_MEMBER USING(USER_ID)
 		WHERE USER_ID = ?
 	</entry>
 	
@@ -190,7 +213,21 @@
 		   SET USER_PWD = ?
 		 WHERE USER_ID = ?
 	</entry>
+	
+	
+<!-- [han] -->
+	<entry key="blockMember">
+		UPDATE MEMBER
+		SET STATUS = 'X'
+		WHERE USER_ID = ?
+	</entry>
 
+	
+
+<!-- [han] -->
+	<entry key="deleteMember">
+		DELETE FROM MEMBER WHERE USER_ID =  ?
+	</entry>
 
 
 </properties>

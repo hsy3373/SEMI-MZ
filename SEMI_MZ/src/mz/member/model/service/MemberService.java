@@ -38,6 +38,30 @@ public class MemberService {
 
 		return list;
 	}
+	
+	//[han]
+	public ArrayList<Member> searchMembers(String option, String keyword){
+		
+		Connection conn = getConnection();
+
+		ArrayList<Member> list = new MemberDao().searchMembers(conn, option, keyword);
+
+		close(conn);
+
+		return list;
+		
+	}
+	
+	//[han]
+	public Member selectMemberAllInfo(String userId) {
+		Connection conn = getConnection();
+
+		Member m = new MemberDao().selectMemberAllInfo(conn, userId);
+
+		close(conn);
+
+		return m;
+	}
 
 	// 유저 정보 불러오기 - 가영
 	public Member selectMember(String userId) {
@@ -175,21 +199,6 @@ public class MemberService {
 			return m;
 		}
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-	
-	
-	
-	
-	
 
 	// 가영 - 신고 정보 db 저장
 	public int insertReport(String userId, String receiveId, String reportTitle, String reportContent) {
@@ -242,6 +251,24 @@ public class MemberService {
 		return result;
 	}
 	
+	// [han]
+	// 유저 차단
+	public int blockMember(String userId) {
+		Connection conn = getConnection();
+		
+		int result = new MemberDao().blockMember(conn, userId);
+		
+		if(result >0 ) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+	}
+	
 	
 //------------------------------ delete 구간 -------------------------------
 	
@@ -268,9 +295,24 @@ public class MemberService {
 			
 			return result;
 		}
-	
-	
-	
+
+		// [han]
+		// 유저 삭제
+		public int deleteMember(String userId) {
+			Connection conn = getConnection();
+			
+			int result = new MemberDao().deleteMember(conn, userId);
+			
+			if(result >0 ) {
+				commit(conn);
+			}else {
+				rollback(conn);
+			}
+			
+			close(conn);
+			
+			return result;
+		}
 
 }
 

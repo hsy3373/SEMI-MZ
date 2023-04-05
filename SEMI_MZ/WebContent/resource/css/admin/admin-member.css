@@ -103,6 +103,11 @@ select {
   box-shadow: inset 0px 0px 5px rgba(129, 129, 129, 0.26);
 }
 
+.search-result-item div {
+  display: inline-block;
+  margin-right: 1rem;
+}
+
 .filter {
   width: 90%;
   font-size: 0.9rem;
@@ -141,6 +146,14 @@ th {
   padding: 6px;
 }
 
+tr:nth-child(1):hover {
+  background-color: rgba(255, 255, 255, 0);
+}
+
+tr:hover {
+  background-color: rgba(224, 243, 255, 0.486);
+}
+
 td {
   text-align: center;
   cursor: pointer;
@@ -150,4 +163,21 @@ td {
   width: 90%;
   margin: auto;
   margin-top: 1vh;
+}
+
+th:nth-child(1) {
+  width: 10%;
+}
+
+th:nth-child(5),
+th:nth-child(6) {
+  width: 6rem;
+}
+
+th:nth-child(7) {
+  width: 8%;
+}
+
+th:nth-child(7) {
+  width: 4rem;
 }

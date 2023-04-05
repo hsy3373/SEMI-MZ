@@ -61,7 +61,6 @@ public class MemberActiveListController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		MemberService service = new MemberService(); 
 		
 		String p = request.getParameter("page");
 		int page = p != null ? Integer.parseInt(p) : 1;
@@ -72,7 +71,7 @@ public class MemberActiveListController extends HttpServlet {
 		String sort = request.getParameter("sort");
 		sort = sort != null ? sort : "userId";
 		
-		ArrayList<Member> list = service.selectMemberList("Y", api, sort, page);
+		ArrayList<Member> list = new MemberService().selectMemberList("Y", api, sort, page);
 			
 		response.setContentType("application/json; charset=UTF-8");
 		new Gson().toJson(list, response.getWriter());

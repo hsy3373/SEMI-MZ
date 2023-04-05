@@ -50,7 +50,7 @@ pageEncoding="UTF-8" import = "mz.member.model.vo.Member, java.util.ArrayList"%>
 						</select>
 					</div>
 					<div class="search-input">
-						<input type="text" placeholder="검색어 입력 후 엔터를 눌러주세요" />
+						<input type="text" id="keyword" placeholder="검색어 입력 후 엔터를 눌러주세요" />
 						<div class="search-result">
 							<!--  <div class="search-result-item">아이디 / 닉네임 / 가입일</div> -->
 						</div>
@@ -94,8 +94,8 @@ pageEncoding="UTF-8" import = "mz.member.model.vo.Member, java.util.ArrayList"%>
 						<th>닉네임</th>
 						<th>코인</th>
 						<th>API</th>
-						<th>상태</th>
 						<th>가입일</th>
+						<th>상태</th>
 					</tr>
 					<% if (list.isEmpty()) { %>
 					<tr>
@@ -109,8 +109,8 @@ pageEncoding="UTF-8" import = "mz.member.model.vo.Member, java.util.ArrayList"%>
 						<td><%= list.get(i).getNicName()%></td>
 						<td><%= list.get(i).getCoin()%></td>
 						<td><%= list.get(i).getApiKind()%></td>
-						<td><%= list.get(i).getStatus()%></td>
 						<td><%= list.get(i).getFormatDate()%></td>
+						<td><%= list.get(i).getStatus()%></td>
 					</tr>
 					<% } %>
 					<% } %>
