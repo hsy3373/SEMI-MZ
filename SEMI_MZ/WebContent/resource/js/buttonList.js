@@ -4,7 +4,6 @@
  */
 import { getContextPath } from './common.js';
 import {modalstopfn} from './squareCanvas.js';
-import { getContextPath } from './common.js';
 import{FilterUsers} from './squareCanvas.js';
 let path = getContextPath();
  
