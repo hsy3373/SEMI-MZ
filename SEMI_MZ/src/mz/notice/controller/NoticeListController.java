@@ -60,12 +60,8 @@ public class NoticeListController extends HttpServlet {
 		
 		int page = Integer.parseInt(request.getParameter("page"));
 		
-		System.out.println(page + "  : 스킨 페이지 넘버");
-		
 		// 원하는 페이지에 속하는 스킨 리스트 반환해줌
 		ArrayList<Notice> list = new NoticeService().selectNoticesPart(page);
-		
-		System.out.println(list.size() +  "   : 리스트 개수");
 		
 		response.setContentType("application/json; charset=UTF-8");
 		new Gson().toJson(list, response.getWriter());

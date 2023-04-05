@@ -3,20 +3,19 @@ export function getContextPath() {
   let hostIndex = location.href.indexOf(location.host) + location.host.length;
   let contextPath = location.href.substring(
     hostIndex,
-    location.href.indexOf('/', hostIndex + 1)
+    location.href.indexOf("/", hostIndex + 1)
   );
-  console.log('getContextPath 불림');
   return contextPath;
 }
 
 // 문자열이 비었거나, null, undefined 일 때 true 반환
 export let isEmpty = function (str) {
   if (
-    str == 'undefined' ||
-    typeof str == 'undefined' ||
-    str == 'null' ||
+    str == "undefined" ||
+    typeof str == "undefined" ||
+    str == "null" ||
     str == null ||
-    str == ''
+    str == ""
   )
     return true;
   else return false;
@@ -40,6 +39,3 @@ export let delSessionStorage = function (name) {
 export let delAllSessionStorage = function () {
   sessionStorage.clear();
 };
-
-
-

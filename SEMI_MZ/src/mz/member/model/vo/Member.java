@@ -15,6 +15,8 @@ public class Member {
 	
 	//[han] 시간까지 받아오는 용도의 데이트
 	private String formatDate;
+	//[han] api종류 받아오는 용도
+	private String apiKind;
 	
 	public Member() {
 	}
@@ -54,6 +56,18 @@ public class Member {
 		this.skinId = skinId;
 		this.info = info;
 		this.gender = gender;
+	}
+
+	
+	// [han] 어드민 멤버 페이지용
+	public Member(String userId, String nicName, String status, int coin, String formatDate, String apiKind) {
+		super();
+		this.userId = userId;
+		this.nicName = nicName;
+		this.status = status;
+		this.coin = coin;
+		this.formatDate = formatDate;
+		this.apiKind = apiKind;
 	}
 
 
@@ -166,6 +180,20 @@ public class Member {
 
 	public void setFormatDate(String formatDate) {
 		this.formatDate = formatDate;
+	}
+
+
+
+
+	public String getApiKind() {
+		return apiKind;
+	}
+
+
+
+
+	public void setApiKind(String apiKind) {
+		this.apiKind = apiKind;
 	}
 	
 	

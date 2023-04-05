@@ -2,6 +2,7 @@ package mz.member.model.service;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import static mz.common.JDBCTemplate.*;
 
@@ -17,14 +18,25 @@ public class MemberService {
 		
 //------------------------------ select 구간 -------------------------------
 	//[han]
-	public int userCount() {
+	public int memberCount( String status, String api) {
 		Connection conn = getConnection();
 		
-		int result = new MemberDao().userCount(conn);
+		int result = new MemberDao().memberCount(conn, status, api);
 		
 		close(conn);
 		
 		return result;
+	}
+	
+	// [han]
+	public ArrayList<Member> selectMemberList(String status, String api, String sort, int page) {
+		Connection conn = getConnection();
+
+		ArrayList<Member> list = new MemberDao().selectMemberList(conn, status, api, sort, page);
+
+		close(conn);
+
+		return list;
 	}
 
 	// 유저 정보 불러오기 - 가영

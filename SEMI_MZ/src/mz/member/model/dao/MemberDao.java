@@ -9,6 +9,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.InvalidPropertiesFormatException;
 import java.util.Properties;
@@ -20,10 +22,6 @@ import mz.member.model.vo.loginAPI;
 
 public class MemberDao {
 	private Properties prop = new Properties();
-	
-	
-	
-	
 	
 	public MemberDao() {
 		String fileName = MemberDao.class.getResource("/sql/member/member-mapper.xml").getPath();
@@ -40,97 +38,151 @@ public class MemberDao {
 	}
 
 //------------------------------ select 구간 -------------------------------
-	//[han]
-	public int userCount(Connection conn) {
+	
+	// [han]
+	// 어드민 페이지 유저 수 불러오는 함수
+	public int memberCount(Connection conn, String status, String api) {
 		int result = 0;
-		
+
 		ResultSet rset = null;
 		PreparedStatement pstmt = null;
+
+		String sql = prop.getProperty("memberCount");
+		String str = "";
+
+		// 경우에 따라 sql문 변경
+		switch (status) {
+			case "Y":
+				str = " = 'Y' ";
+				break;
+			case "N":
+				str = " = 'N' ";
+				break;
+			case "X":
+				str = " = 'X' ";
+				break;
+			case "all":
+				str = " IN('N', 'X') ";
+				break;
+		}
+
+		switch (api) {
+			case "kakao":
+				str += " AND API_KIND = 'kakao' ";
+				break;
+			case "google":
+				str += " AND API_KIND = 'google' ";
+				break;
+		}
 		
-		String sql = prop.getProperty("userCount");
+		// 위에서 지정한대로 sql문에 변경사항 반영
+		sql += str;
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			
+
 			rset = pstmt.executeQuery();
-			
-			if(rset.next()) {
+
+			if (rset.next()) {
 				result = rset.getInt("COUNT");
 			}
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}finally {
+		} finally {
 			close(rset);
 			close(pstmt);
 		}
 		return result;
-		
 	}
-	
-	//[han]
-	public ArrayList<Member> selectMemberList(Connection conn, String status, String api, int page){
+
+	// [han]
+	// 어드민 페이지용 멤버 조회 함수
+	public ArrayList<Member> selectMemberList(Connection conn, String status, String api, String sort, int page){
 		ArrayList<Member> list = new ArrayList<>();
 
 		int result = 0;
+		
+		if(sort.equals("userId")) {
+			sort = "USER_ID";
+		}else {
+			sort = "ENROLL_DATE";
+		}
 
 		ResultSet rset = null;
 		PreparedStatement pstmt = null;
 
 		String sql = prop.getProperty("selectMemberList");
+		
+		sql = sql.replace("##", sort);
 
 		// 경우에 따라 sql문 변경
 		switch (status) {
-		case "Y":
-			sql = sql.replace("STATUS IN", "STATUS = 'Y' ");
-			break;
-		case "N":
-			sql = sql.replace("STATUS IN", "STATUS = 'N' ");
-			break;
-		case "X":
-			sql = sql.replace("STATUS IN", "STATUS = 'X' ");
-			break;
-		case "all":
-			sql = sql.replace("STATUS IN", "STATUS IN('N', 'X')");
-			break;
+			case "Y":
+				sql = sql.replace("STATUS IN", "STATUS = 'Y' ");
+				break;
+			case "N":
+				sql = sql.replace("STATUS IN", "STATUS = 'N' ");
+				break;
+			case "X":
+				sql = sql.replace("STATUS IN", "STATUS = 'X' ");
+				break;
+			case "all":
+				sql = sql.replace("STATUS IN", "STATUS IN('N', 'X') ");
+				break;
 		}
 
 		switch (api) {
-		case "all":
-			sql = sql.replace("AND API_KIND IN", "");
-			break;
-		case "kakao":
-			sql = sql.replace("API_KIND IN", "API_KIND = 'kakao' ");
-			break;
-		case "google":
-			sql = sql.replace("API_KIND IN", "API_KIND = 'google' ");
-			break;
+			case "all":
+				sql = sql.replace("AND API_KIND IN", "");
+				break;
+			case "kakao":
+				sql = sql.replace("API_KIND IN", "API_KIND = 'kakao' ");
+				break;
+			case "google":
+				sql = sql.replace("API_KIND IN", "API_KIND = 'google' ");
+				break;
 		}
 		
-		System.out.println("멤버 리스트 불러올 sql : " + sql);
+		
+		
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
 			
+			
+			// 페이지 별 멤버 조회용(한페이지에 20개)
+			pstmt.setInt(1, (page-1)*20 +1);
+			pstmt.setInt(2, page*20);
+			
 			rset= pstmt.executeQuery();
 			
+			//date 포맷용
+			DateFormat df = new SimpleDateFormat("yy/MM/dd");  
+			
 			while(rset.next()) {
-				Member m = new Member();
-				m.setCoin(coin);
-						
+				Member m = new Member(
+						rset.getString("USER_ID"),
+						rset.getString("NICKNAME"),
+						rset.getString("STATUS"),
+						rset.getInt("COIN"),
+						df.format(rset.getDate("ENROLL_DATE")),
+						rset.getString("API_KIND")
+						);
+				
+				list.add(m);
 			}
-			
-			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
 		}
-
 		return list;
-
 	}
 	
-	
+
 	//[가영]
 	public Member selectMember(Connection conn, String userId) {
 			
@@ -245,7 +297,7 @@ public class MemberDao {
 		int result = 0;
 		
 		ResultSet rset = null;
-		
+				
 		PreparedStatement pstmt = null;
 		
 		String sql = prop.getProperty("selectHeart");
@@ -325,115 +377,6 @@ public class MemberDao {
 			
 		ResultSet rset = null;
 					
-		PreparedStatement pstmt = null;
-			
-		String sql = prop.getProperty("selectFriend");
-			
-		try {
-			pstmt = conn.prepareStatement(sql);
-				
-			pstmt.setString(1, loginUser);
-			pstmt.setString(2, friendId);
-				
-			rset = pstmt.executeQuery();
-				
-			if (rset.next()) {
-				result = rset.getInt(1);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(rset);
-			close(pstmt);
-		}
-		return result;
-	}
-	
-	// [김혜린]
-	public Member loginMember(Connection conn, String userId, String userPwd) {
-		
-		//System.out.println("dao 까지 옴?"+ userId + userPwd);
-		
-		Member m = null; 
-		ResultSet rset = null;
-		PreparedStatement pstmt = null;
-		
-		String sql = prop.getProperty("selectHeart");
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			
-			pstmt.setString(1, loginUser);
-			pstmt.setString(2, receiveId);
-			
-			rset = pstmt.executeQuery();
-			
-			if (rset.next()) {
-				result = rset.getInt(1);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(rset);
-			close(pstmt);
-		}
-		return result;
-	}
-	
-	// 친구 추가 - 가영
-	public int insertFriend(Connection conn, String loginUser, String friendId) {
-		
-		int result = 0;
-		
-		PreparedStatement pstmt = null;
-		
-		String sql = prop.getProperty("insertFriend");
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			
-			pstmt.setString(1, loginUser);
-			pstmt.setString(2, friendId);
-			
-			result = pstmt.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(pstmt);
-		}
-		return result;
-	}
-	
-	// 친구 삭제 - 가영
-	public int deleteFriend(Connection conn, String loginUser, String friendId) {
-			
-		int result = 0;
-			
-		PreparedStatement pstmt = null;
-			
-		String sql = prop.getProperty("deleteFriend");
-			
-		try {
-			pstmt = conn.prepareStatement(sql);
-				
-			pstmt.setString(1, loginUser);
-			pstmt.setString(2, friendId);
-				
-			result = pstmt.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(pstmt);
-		}
-		return result;
-	}
-		
-	// 친구 정보 조회 - 가영
-	public int selectFriend(Connection conn, String loginUser, String friendId) {
-			
-		int result = 0;
-			
-		ResultSet rset = null;
 		PreparedStatement pstmt = null;
 			
 		String sql = prop.getProperty("selectFriend");
@@ -673,6 +616,13 @@ public class MemberDao {
 		
 		return result;
 	}
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	

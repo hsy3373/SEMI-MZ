@@ -68,43 +68,6 @@ td {
   width: 20%;
 }
 
-/* ----------------------------------- 페이징 바 --------------------------------- */
-.paging-bar {
-  text-align: center;
-  margin-top: 20px;
-}
-
-.paging-bar > button {
-  background-color: white;
-  font-size: medium;
-  text-align: center;
-  padding: 4px 8px;
-  border-radius: 4px;
-  border: 1px solid black;
-  cursor: pointer;
-}
-
-.paging-bar > button:active {
-  background-color: rgb(202, 202, 202);
-}
-
-.able-btn {
-  display: inline-block;
-}
-
-.page-btn {
-  display: inline-block;
-}
-
-.disable-btn {
-  display: none;
-}
-
-.paging-bar > button.selected-btn {
-  pointer-events: none;
-  background-color: rgb(231, 231, 231);
-}
-
 /* ----------------------------------- update 화면---------------------------------- */
 .back {
   position: absolute;

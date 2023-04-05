@@ -39,7 +39,7 @@
 				</div>
 			</li>
 			<div class="member-menu-item">
-				<a href="">일반 계정</a> 
+				<a href="<%=path%>/activelist.member">일반 계정</a> 
 				<a href="">탈퇴/차단 계정</a>
 				<a href="">신고 관리</a>
 			</div>

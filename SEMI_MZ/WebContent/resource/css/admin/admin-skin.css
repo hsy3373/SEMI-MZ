@@ -259,7 +259,7 @@ tr > th:nth-child(2) {
   display: flex;
   margin-bottom: 1.5rem;
 }
-
+/* 
 .paging-bar {
   text-align: center;
   margin-top: 20px;
@@ -295,3 +295,4 @@ tr > th:nth-child(2) {
   pointer-events: none;
   background-color: rgb(231, 231, 231);
 }
+ */
