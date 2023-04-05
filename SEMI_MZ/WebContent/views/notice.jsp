@@ -10,9 +10,9 @@
 </head>
 <body>
 	<!-- 공지사항 게시판 - 가영 -->
-	<div class="notice">
+	<div class="notice-modal">
         <div class="notice-view">
-            <img src="../resource/img/icon/공지사항.png" alt="공지사항 게시판">
+            <img id="view" src="../resource/img/icon/공지사항.png" alt="공지사항 게시판">
         </div>
         <div class="notice-name">공지사항</div>
         <div class="ranking">
@@ -45,5 +45,7 @@
 			</div>
         </div>
     </div>
+    <script type="module" src="../resource/js/notice.js"></script>
+    <script type="module" src="../resource/js/common.js"></script>
 </body>
 </html>

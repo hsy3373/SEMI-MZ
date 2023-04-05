@@ -28,7 +28,7 @@
     <%@ include file="./buttonList.jsp" %>
 
    <%@ include file="./userInfo.jsp" %>
-   <%@ include file="./userInfo.jsp" %>
+   <%@ include file="./notice.jsp" %>
    	<!--${loginUser.nicName}  -->
    	
    <%@ include file="./chatting.jsp" %>
