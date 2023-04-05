@@ -35,7 +35,6 @@ public class BoardInsertController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		String userId = ((Member)request.getSession().getAttribute("loginUser")).getUserId();
-		//String userId = request.getParameter("loginUserId");
 		String receiveId = request.getParameter("receiveId");
 		String boardTitle = request.getParameter("title");
 		String boardContent = request.getParameter("content");

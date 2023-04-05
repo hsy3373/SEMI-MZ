@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-pageEncoding="UTF-8" import="mz.member.model.vo.Member"%> <% String path =
-request.getContextPath(); %>
+pageEncoding="UTF-8" import="mz.member.model.vo.Member"%> 
+<%
+	String path = request.getContextPath();
+
+%>
 <!DOCTYPE html>
 <html>
   <head>
@@ -82,9 +85,6 @@ request.getContextPath(); %>
         <button id="btn-send">보내기</button>
       </div>
     </div>
-
-    <script type="module" src="<%=path%>/resource/js/common.js"></script>
-    <script type="module" src="<%=path%>/resource/js/chat/chatData.js"></script>
     <script
       type="module"
       src="<%=path%>/resource/js/chat/chatFront.js"

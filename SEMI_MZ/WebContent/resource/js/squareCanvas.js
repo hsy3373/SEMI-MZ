@@ -7,6 +7,7 @@
 import { getContextPath } from './common.js';
 import { getUserInfo } from './userInfo.js';
 import { gameModal } from './gamezone.js';
+// import {noticeModal} from './notice.js';
 
 //캔버스 세팅
 let canvas
@@ -119,6 +120,7 @@ function setupKeyboard() {
 }
 
 
+
 //클릭에 부여하는 이벤트
 canvas.addEventListener("click", function (event) {
 
@@ -136,6 +138,13 @@ canvas.addEventListener("click", function (event) {
     //img 안을 클릭할 경우 이벤트 : noticeBoard
     if (clickX >= 1030 && clickX <= 1140 && clickY >= 411 && clickY <= 442) {
         console.log("notice 이벤트 부여")
+        console.log(noticeModal)
+        
+        
+         noticeModal.style.display = 'block';
+        modalstopfn();
+    
+
     }
 
     //img 안을 클릭할 경우 이벤트 :gamegone 
@@ -328,6 +337,8 @@ function update() {
     if (uesrX <= 1130 && uesrX >= 1000 && uesrY <= 463 && uesrY >= 426) {
         console.log('공지사항 이벤트')
         //캐릭터 좌표 어떻게 처리할지 정하기 : 게시판 보는동안 좌표값
+        document
+        notice-modal
 
         uesrY = 468
     }
@@ -455,8 +466,9 @@ let path = getContextPath()
 //집 : 192.168.35.13
 // 지의 학원: 192.168.30.174:8084
 // 지의 집 : 192.168.0.16:8084
-let socket = new WebSocket("ws://192.168.30.171:8083" + path + "/multiAccess");
+let socket = new WebSocket("ws://192.168.30.174:8084" + path + "/multiAccess");
 ///////////////////////////////////////////////////////////////자기 ws로 바꿔주기!!! ///////////////////////////////
+// 가영 ip : 192.168.30.181
 
 let fnSocket = {
     onopen : function(e){

@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import mz.member.model.service.MemberService;
+import mz.notice.model.service.NoticeService;
 import mz.skin.model.service.SkinService;
 
 /**
@@ -34,13 +35,13 @@ public class MainController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		int userCount = new MemberService().userCount();
-//		int noticeCount = new NoticeService().noticeCount();
+		int noticeCount = new NoticeService().noticeCount();
 		int skinCount = new SkinService().skinCount();
 		
 		request.setAttribute("userCount", userCount);
-//		request.setAttribute("noticeCount", noticeCount);
+		request.setAttribute("noticeCount", noticeCount);
 		request.setAttribute("skinCount", skinCount);
-//		
+		
 		request.getRequestDispatcher("views/admin/main.jsp").forward(request, response);
 	}
 

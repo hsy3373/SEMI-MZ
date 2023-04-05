@@ -1,4 +1,4 @@
-package mz.report.controller;
+package mz.member.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -9,44 +9,33 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 
+import mz.member.model.service.MemberService;
 import mz.member.model.vo.Member;
-import mz.report.model.service.ReportService;
 
 /**
  * Servlet implementation class ReportController
  */
-@WebServlet("/report")
-public class ReportController extends HttpServlet {
+@WebServlet("/heart")
+public class HeartController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
+	/**
      * @see HttpServlet#HttpServlet()
      */
-    public ReportController() {
+	public HeartController() {
         super();
         // TODO Auto-generated constructor stub
     }
-
+	
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		String userId = ((Member)request.getSession().getAttribute("loginUser")).getUserId();
+		String loginUser = ((Member)request.getSession().getAttribute("loginUser")).getUserId();
 		String receiveId = request.getParameter("receiveId");
-		String reportTitle = request.getParameter("reportTitle");
-		String reportContent = request.getParameter("reportContent");
 		
-		System.out.println(userId+receiveId+reportTitle+reportContent);
-		int result = new ReportService().insertReport(userId, receiveId, reportTitle, reportContent);
+		int result = new MemberService().deleteHeart(loginUser, receiveId);
 		
 		if (result > 0) {
 			
@@ -54,12 +43,35 @@ public class ReportController extends HttpServlet {
 			
 			new Gson().toJson(result, response.getWriter());
 		} else {
-			System.out.println("글러먹었어...");
+			System.out.println("삭제 실패");
+			
 			response.setContentType("application/json; charset=UTF-8");
 			
 			new Gson().toJson(result, response.getWriter());
 		}
-		 
 	}
 
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		String loginUser = ((Member)request.getSession().getAttribute("loginUser")).getUserId();
+		String receiveId = request.getParameter("receiveId");
+		
+		int result = new MemberService().insertHeart(loginUser, receiveId);
+		System.out.println("하트 받는 사람"+receiveId+"하트 주는 사람"+loginUser+"결과"+result);
+		
+		if (result > 0) {
+			
+			response.setContentType("application/json; charset=UTF-8");
+			
+			new Gson().toJson(result, response.getWriter());
+		} else {
+			System.out.println("하트 클릭 실패");
+			response.setContentType("application/json; charset=UTF-8");
+			
+			new Gson().toJson(result, response.getWriter());
+		}
+	}
 }

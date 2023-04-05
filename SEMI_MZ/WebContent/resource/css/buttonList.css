@@ -144,6 +144,195 @@ a{
     right: 20px;
 }
 
+
+/* =========== [김혜린] 내정보 변경 / 비밀번호 입력 요구 모달css ===============*/
+
+:root{
+    --backcolor0:rgba(0, 0, 0, 0);
+    --iptext-width: 374px;
+    --iptext-height: 25px;
+    --hiptext-width: 350px;
+    --iptext-outline-color: #f5bc60;
+}
+
+/* 비밀번호 입력 요구 모달css */
+.s-modal-back{
+    width: 400px;
+    height: 230px;
+    background-size: 400px 200px;
+    background-position: center bottom;
+    background-image: url(../img/icon/modal_pop.png);
+    background-repeat: no-repeat;
+    margin: 300px auto;
+}
+.smodal-table{
+    width: 400px;
+    margin: auto;
+}
+.smodal-th{
+    padding-left: 350px;
+}
+.smodal-xbtn{
+    background-color: var(--backcolor0);
+    border: none;
+    width: 100%"
+}
+.sx-btn{
+    width: 55px;
+    height: 55px;
+}
+.sx-btn:hover{
+transform: scale(0.970);
+cursor: pointer;
+}
+.smodal-tb{
+    font-size: 20px;
+    color: white;
+} 
+.rqpwd-input{
+    width: 210px;
+ height: 27px;
+ margin-left: 50px;
+ margin-top: 30px;
+ color: white;
+ font-size: 20px;
+ border-top: 0; border-left: 0; border-right: 0;
+ border-bottom: 2px dashed white;
+ background-color: rgba(255, 0, 0, 0);
+ }
+.rqpwd-input:focus{
+  outline: none;
+}
+.rqpwd-submit-btn{
+    width: 70px;
+    height:35px;
+    margin-right: 30px;
+    margin-top: 30px;
+    border: none;
+    background-size: 70px 35px;
+    background-image: url(../img/icon/기본버튼.png);
+    background-color: var(--backcolor0);
+    background-repeat: no-repeat;
+    font-size:15px;
+    font-weight: 900;
+}
+.rqpwd-submit-btn:hover{
+    transform: scale(0.970);
+    cursor: pointer;
+}
+
+/*============== 내정보변경 모달 ==============*/
+.rin-modal-background{
+    border: 0px solid red;
+    width: 880px;
+    height: 580px;
+    background-image: url(../img/icon/notice_in.png);
+    background-repeat: no-repeat;
+    margin: 100px auto;
+  }
+  .rin-modal-background *{
+    border: 0px solid red;
+    /* 없애도 되는 코드 */
+  }
+  .rin-modal-header{
+    height: 35px;
+    text-align: center;
+    font-size: 20px;
+    font-weight:900;
+    padding-top: 27px;
+    padding-right: 15px;
+  }
+  .rin-modal-out-btn{
+    height: 10%;
+    display: flex;
+    justify-content: right;
+  }
+  .rin-empty-space{
+    height:30px;
+}
+.myinfo-modaltxtarea{
+    border: 0px solid red;
+    width:640px;
+    height:380px;
+    margin: auto;
+}
+.myinfo-table{
+    border: 0px solid red;
+    display: flex;
+    justify-content:center;
+}
+.myinfo-table *{
+    border: 0px solid red;
+}
+.rin-th1-wid{
+    width:120px;
+    text-align:left;
+    font-size: 14px;
+}
+.rin-inputbox{
+    width: var(--iptext-width);
+    height: var(--iptext-height);
+    font-size: 14;
+    background-color: rgba(255, 255, 255, 0.5);
+    outline-color: var(--iptext-outline-color);
+}
+.rin-readonly{
+    outline: none;
+    cursor: auto;
+}
+.rin-td3-wid{
+    width:100px;
+}
+.rncheck-btn{
+    background-color: #cac8c8;
+    border: 2px solid #999999;
+    padding: 3px 5px;
+    cursor: pointer;
+    font-weight: 600;
+    transition-duration: 0.3s;
+}
+#sec-btn{
+    color: white;
+    background-color: #f84545;
+    border: 2.5px solid #ff0303;
+    padding: 3px 5px;
+    cursor: pointer;
+    transition-duration: 0.3s;
+}
+.rncheck-btn:hover,#sec-btn:hover{
+    transform: scale(0.97);
+}
+.rin-under-text{
+    font-size: 12px;
+    font-weight: 600;
+}
+.rin-th1-hgt{
+    height: 30px;
+}
+.rself-info{
+    background-color: rgba(255, 255, 255, 0.5);
+}
+.rself-info:focus{
+    
+    outline-color: var(--iptext-outline-color);
+}
+::-webkit-scrollbar{display: none;}
+.scroll-fix{overflow: y}
+
+.rin-green-btn{
+    background-color: #c8e8c3;
+        border: 2.5px solid #a1c49b;
+        padding: 10px 30px;
+        cursor: pointer;
+        font-weight: 600;
+        transition-duration: 0.3s;
+}
+.rin-green-btn:hover{
+    transform: scale(0.97);
+}
+/* ========================================================================== */
+
+
 /* 지의 추가 : 마이룸 버튼 위치 변경 */
 /* 친구 목록 버튼 */
 .myroom .button-area .friendList{

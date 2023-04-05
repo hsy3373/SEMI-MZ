@@ -38,11 +38,39 @@
 		WHERE SKIN_ID = ?
 	</entry>
 	
-	<entry key="selectSkinList">
+<!-- 지의 -->
+	<!-- 마이룸 옷장 -->
+	<entry key="selectSkinsList">
 		SELECT SKIN_ID, SAVE_ROOT, CHARACTER_PRICE, REWARD
-		FROM CHARACTER_SKIN
-		WHERE REWARD = 'N'
+		FROM (
+		  SELECT SKIN_ID, SAVE_ROOT, CHARACTER_PRICE, REWARD, ROWNUM AS RN
+		  FROM (
+		    SELECT SKIN_ID, SAVE_ROOT, CHARACTER_PRICE, REWARD
+		    FROM CHARACTER_SKIN
+		    WHERE REWARD = 'N' AND SKIN_ID != 0
+		    ORDER BY SKIN_ID ASC
+		  )
+		)
+		WHERE RN BETWEEN ? AND ?
 	</entry>
+	
+	<!-- 옷장 스킨 총 갯수 -->
+	<entry key="closetSkinCount">
+		SELECT COUNT(*) AS COUNT 
+		  FROM CHARACTER_SKIN
+		 WHERE REWARD = 'N'
+	</entry>
+	
+	<!-- 로그인유저가 보유한 스킨 -->
+	<entry key="mySkinList">
+		SELECT SKIN_ID,
+               SAVE_ROOT
+		  FROM CHARACTER_SKIN
+          JOIN CHARACTER USING (SKIN_ID)
+		 WHERE USER_ID = ?
+	</entry>
+	
+
 
 <!-- insert 구역 -->
 	<entry key="insertSkin">
