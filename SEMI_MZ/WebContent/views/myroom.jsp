@@ -13,9 +13,9 @@
 	String roomMaster = (String)request.getAttribute("roomMaster");
 	// session에 있는 로그인 유저
 	Member loginUser = (Member) session.getAttribute("loginUser");
-	//System.out.println("roomMaster : "+roomMaster);
-	//System.out.println("loginUser : "+loginUser);
-	Member userId = (Member)request.getAttribute("userId");
+	System.out.println("jsp roomMaster : "+roomMaster);
+	System.out.println("jsp loginUser : "+loginUser);
+	//Member userId = (Member)request.getAttribute("userId");
 	
 	
 	int closetSkinCount = (int) request.getAttribute("closetSkinCount"); 	// 총 스킨 개수
@@ -149,7 +149,7 @@ ul li.on a {color: #fff;}
 	                    </tr> -->
 					</table>
 					<div id="writing-btn" style="display: none;">
-						<button class="button board-write-btn" id="board-write" onclick="boardWriter();">글쓰기</button>
+						<button class="button board-write-btn" id="boardWrite" >글쓰기</button>
 					</div>
 					<!-- 페이징바 -->
 					<div class="pageing-area">
