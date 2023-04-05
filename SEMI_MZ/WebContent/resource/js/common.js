@@ -40,7 +40,7 @@ export function setCookie(cname, cvalue) {
   console.log("쿠키 세팅중 : ", cname);
   // 특수문자가 포함되었을 경우를 대비하여 인코딩 수행
   document.cookie =
-    cname + "=" + encodeURIComponent(cvalue) + "; path=/mzone; expires=Session";
+    cname + "=" + encodeURIComponent(cvalue) + "; path=/; expires=Session";
 }
 
 // 지정 쿠키의 값을 반환하는 함수

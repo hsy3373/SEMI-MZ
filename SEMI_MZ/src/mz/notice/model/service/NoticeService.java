@@ -43,5 +43,53 @@ public class NoticeService {
 		return notice;
 	}
 	
+	
+//---------------------------------------insert 구역----------------------------------
+	
+	public int insertNotice(String title, String content) {
+		Connection conn = getConnection();
+		int result = new NoticeDao().insertNotice(conn, title, content);
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+	}
+
+//---------------------------------------update 구역----------------------------------
+	
+	public int updateNotice(int noticeNo, String title, String content) {
+		Connection conn = getConnection();
+		int result = new NoticeDao().updateNotice(conn, noticeNo, title, content);
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return result;
+	}
+	
+	public int deleteNotice(int noticeNo) {
+		Connection conn = getConnection();
+		int result = new NoticeDao().deleteNotice(conn, noticeNo);
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return result;
+	}
+
 
 }

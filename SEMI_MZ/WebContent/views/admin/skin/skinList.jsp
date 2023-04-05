@@ -110,9 +110,9 @@ pageEncoding="UTF-8" %>
           <div class="paging-bar">
           	<!-- 현재 페이지가 10보다 클때 이전 버튼 활성화 -->
   	        <% if( cPage > 10 ) { %>
-	            <button type="button" class="able-btn" id="prev-btn">&gt;</button>
+	            <button type="button" class="able-btn" id="prev-btn">&lt;</button>
             <% } else { %>
-            	<button type="button" class="disable-btn" id="prev-btn">&gt;</button>
+            	<button type="button" class="disable-btn" id="prev-btn">&lt;</button>
             <% } %>
           
             <% for(int i=btnRange*10 + 1; i<= btnRange*10 + 10; i++) { %>

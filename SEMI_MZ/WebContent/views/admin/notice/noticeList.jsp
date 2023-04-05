@@ -14,7 +14,7 @@
  	int pageCount = (int) Math.ceil(noticeCount / 20.0);
  	
  	//버튼 숫자 설정 기준용 변수
- 	int btnRange = cPage/20;
+ 	int btnRange = cPage/10;
 
 
 %>
@@ -34,17 +34,18 @@
 	<div class="wrapper">
 		<%@ include file="/views/admin/sideBar.jsp"%>
 		<div class="content">
-			<div class="head-text">캐릭터 스킨</div>
+			<div class="head-text">공지사항</div>
 			<div class="inner-wrap">
-
-				<table class="list-area" align="center">
+	          <div class="notice-add-btn">
+	            <a href="<%=path %>/insert.notice">공지 등록</a>
+	          </div>
+				<table class="list-area">
 					<thead>
 						<tr>
 							<th >#</th>
 							<th >제목</th>
 							<th >작성일</th>
 						</tr>
-
 					</thead>
 					<tbody>
 						<% if (list.isEmpty()) { %>
@@ -65,14 +66,14 @@
 
 	
 	          <div class="paging-bar">
-	          	<!-- 현재 페이지가 20보다 클때 이전 버튼 활성화 -->
-	  	        <% if( cPage > 20 ) { %>
-		            <button type="button" class="able-btn" id="prev-btn">&gt;</button>
+	          	<!-- 현재 페이지가 10보다 클때 이전 버튼 활성화 -->
+	  	        <% if( cPage > 10 ) { %>
+		            <button type="button" class="able-btn" id="prev-btn">&lt;</button>
 	            <% } else { %>
-	            	<button type="button" class="disable-btn" id="prev-btn">&gt;</button>
+	            	<button type="button" class="disable-btn" id="prev-btn">&lt;</button>
 	            <% } %>
 	          
-	            <% for(int i=btnRange*20 + 1; i<= btnRange*20 + 20; i++) { %>
+	            <% for(int i=btnRange*10 + 1; i<= btnRange*10 + 10; i++) { %>
 	            	<% if( i <= pageCount) { %>
 	            		<% if(i == cPage) { %>            		
 				            <button type="button" class="selected-btn page-btn"><%= i %></button>
@@ -84,7 +85,7 @@
 	            	<% } %>
 	            <% } %>
 	            <!-- 버튼의 최대 값보다 총 페이지 수가 크면 다음 버튼 활성화 -->
-	            <% if( btnRange*20 + 20 < pageCount ) { %>
+	            <% if( btnRange*10 + 10 < pageCount ) { %>
 		            <button type="button" class="able-btn" id="next-btn">&gt;</button>
 	            <% } else { %>
 	            	<button type="button" class="disable-btn" id="next-btn">&gt;</button>
@@ -99,5 +100,7 @@
     	sessionStorage.setItem("cPage", JSON.stringify(<%= cPage%>));
     	sessionStorage.setItem("noticeCount", JSON.stringify(<%= noticeCount%>));
     </script>
+    
+    <script type="module" src="<%= path %>/resource/js/admin/notice/noticeList.js"></script>
 </body>
 </html>

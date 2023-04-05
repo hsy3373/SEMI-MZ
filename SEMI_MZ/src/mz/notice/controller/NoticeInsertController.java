@@ -1,30 +1,25 @@
-package mz.admin.controller;
+package mz.notice.controller;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import mz.member.model.service.MemberService;
 import mz.notice.model.service.NoticeService;
-import mz.skin.model.service.SkinService;
 
 /**
- * Servlet implementation class MainController
+ * Servlet implementation class NoticeInsertController
  */
-//[han]
-@WebServlet("/main.admin")
-public class MainController extends HttpServlet {
+@WebServlet("/insert.notice")
+public class NoticeInsertController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-	
-    public MainController() {
+    public NoticeInsertController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,24 +28,24 @@ public class MainController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		int userCount = new MemberService().userCount();
-		int noticeCount = new NoticeService().noticeCount();
-		int skinCount = new SkinService().skinCount();
-		
-		request.setAttribute("userCount", userCount);
-		request.setAttribute("noticeCount", noticeCount);
-		request.setAttribute("skinCount", skinCount);
-		
-		request.getRequestDispatcher("views/admin/main.jsp").forward(request, response);
+		request.getRequestDispatcher("views/admin/notice/noticeEnroll.jsp").forward(request, response);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		
+		String title = request.getParameter("title");
+		String content = request.getParameter("content");
+		
+		int result = new NoticeService().insertNotice(title , content);
+		
+		if( result > 0 ) {
+			System.out.println("공지 등록 성공");
+		}
+		
+		response.sendRedirect( request.getContextPath() + "/list.notice");
 	}
 
 }
