@@ -35,17 +35,36 @@ public class ChatService {
 	
 	public int insertChatRoom( String userId, String receiver) {
 		Connection conn = getConnection();
-		int result = new ChatDao().insertChatRoom(conn, userId, receiver);
+		ChatDao dao = new ChatDao();
+		int r2 = dao.getChatRoom(conn, receiver,  userId);
+		int r = dao.getChatRoom(conn, userId, receiver);
 		
-		if(result > 0) {
-			commit(conn);
-		}else {
-			rollback(conn);
+		int result = 0;
+		int result2 = 0;
+
+		if (r2 == 0) {
+			result2 = new ChatDao().insertChatRoom(conn, receiver, userId);
+
+			if (result2 > 0) {
+				commit(conn);
+			} else {
+				rollback(conn);
+			}
 		}
 		
+		if (r == 0) {
+			result = dao.insertChatRoom(conn, userId, receiver);
+
+			if (result > 0) {
+				commit(conn);
+			} else {
+				rollback(conn);
+			}
+		}
+
 		close(conn);
 		
-		return result;
+		return result+result2;
 	}
 	
 	public int insertChat(Chat chat) {

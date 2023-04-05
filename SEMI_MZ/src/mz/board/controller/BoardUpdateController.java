@@ -44,8 +44,6 @@ public class BoardUpdateController extends HttpServlet {
 		
 		response.setContentType("application/json; charset=UTF-8");
 		
-		System.out.println("gg");
-		
 		int boardNo = Integer.parseInt(request.getParameter("boardNo"));
 		String boardTitle = request.getParameter("boardTitle");
 		String boardContent = request.getParameter("boardContent");

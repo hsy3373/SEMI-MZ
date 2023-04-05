@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+
+<!-- han -->
+<!-- select 구역 -->
+	<entry key="selectSkinCurval">
+		 SELECT SEQ_SKIN.CURRVAL AS CURRVAL FROM DUAL
+	</entry>
+
+	<entry key="skinCount">
+		SELECT COUNT(*) AS COUNT FROM CHARACTER_SKIN
+	</entry>
+	
+	<entry key="selectRewardSkins">
+		SELECT SKIN_ID, SAVE_ROOT, CHARACTER_PRICE, REWARD
+		FROM CHARACTER_SKIN
+		WHERE REWARD = 'Y' AND SKIN_ID != 0
+	</entry>
+
+	<entry key="selectBasicSkins">
+		SELECT SKIN_ID, SAVE_ROOT, CHARACTER_PRICE, REWARD
+		FROM (
+		  SELECT SKIN_ID, SAVE_ROOT, CHARACTER_PRICE, REWARD, ROWNUM AS RN
+		  FROM (
+		    SELECT SKIN_ID, SAVE_ROOT, CHARACTER_PRICE, REWARD
+		    FROM CHARACTER_SKIN
+		    WHERE REWARD = 'N' AND SKIN_ID != 0
+		    ORDER BY SKIN_ID DESC
+		  )
+		)
+		WHERE RN BETWEEN ? AND ?
+	</entry>
+	
+	<entry key="selectSkin">
+		SELECT SKIN_ID, SAVE_ROOT, CHARACTER_PRICE, REWARD
+		FROM CHARACTER_SKIN
+		WHERE SKIN_ID = ?
+	</entry>
+	
+<!-- 지의 -->
+	<!-- 마이룸 옷장 -->
+	<entry key="selectSkinsList">
+		SELECT SKIN_ID, SAVE_ROOT, CHARACTER_PRICE, REWARD
+		FROM (
+		  SELECT SKIN_ID, SAVE_ROOT, CHARACTER_PRICE, REWARD, ROWNUM AS RN
+		  FROM (
+		    SELECT SKIN_ID, SAVE_ROOT, CHARACTER_PRICE, REWARD
+		    FROM CHARACTER_SKIN
+		    WHERE REWARD = 'N' AND SKIN_ID != 0
+		    ORDER BY SKIN_ID ASC
+		  )
+		)
+		WHERE RN BETWEEN ? AND ?
+	</entry>
+	
+	<!-- 옷장 스킨 총 갯수 -->
+	<entry key="closetSkinCount">
+		SELECT COUNT(*) AS COUNT 
+		  FROM CHARACTER_SKIN
+		 WHERE REWARD = 'N'
+	</entry>
+	
+	<!-- 로그인유저가 보유한 스킨 -->
+	<entry key="mySkinList">
+		SELECT SKIN_ID,
+               SAVE_ROOT
+		  FROM CHARACTER_SKIN
+          JOIN CHARACTER USING (SKIN_ID)
+		 WHERE USER_ID = ?
+	</entry>
+	
+
+
+<!-- insert 구역 -->
+	<entry key="insertSkin">
+		INSERT INTO CHARACTER_SKIN(SKIN_ID, SAVE_ROOT, CHARACTER_PRICE, REWARD)
+		VALUES( SEQ_SKIN.NEXTVAL , '/resource/img/user/skin'||SEQ_SKIN.CURRVAL, ?, ? )
+	</entry>
+
+
+<!-- update 구역 -->
+
+	<entry key="updateSkin">
+		UPDATE CHARACTER_SKIN
+		SET CHARACTER_PRICE = ?,
+			REWARD = ?
+		WHERE SKIN_ID = ?
+	</entry>
+	
+	<entry key="deleteSkin">
+		DELETE FROM CHARACTER_SKIN
+		WHERE SKIN_ID = ?
+	</entry>
+
+</properties>

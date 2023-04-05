@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-pageEncoding="UTF-8" import="mz.member.model.vo.Member"%> <%-- <% String path =
-request.getContextPath(); Member loginUser = (Member)
-session.getAttribute("loginUser"); %> --%>
+pageEncoding="UTF-8" import="mz.member.model.vo.Member"%> 
+<%
+	String path = request.getContextPath();
+
+%>
 <!DOCTYPE html>
 <html>
   <head>
@@ -9,24 +11,28 @@ session.getAttribute("loginUser"); %> --%>
     <title>Insert title here</title>
 
     <link
-      href="../resource/css/chatting.css"
+      href="<%=path%>/resource/css/chatting.css"
       rel="stylesheet"
       type="text/css"
     />
-    <link href="../resource/css/common.css" rel="stylesheet" type="text/css" />
+    <link
+      href="<%=path%>/resource/css/common.css"
+      rel="stylesheet"
+      type="text/css"
+    />
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
     <style>
       body {
-        background-image: url("../resource/img/background/background_main.png");
+        background-image: url("<%=path%>/resource/img/background/background_main.png");
       }
     </style>
   </head>
   <body>
-    <div>
-      <button type="button" id="insert-room">룸 추가 test</button>
-    </div>
+    <!--     <div>
+      <button type="button" id="insert-room">룸 추가 friend</button>
+    </div> -->
     <div class="chat-container">
       <div class="left"></div>
       <div class="resizer" id="dragMe"></div>
@@ -60,11 +66,11 @@ session.getAttribute("loginUser"); %> --%>
             <button id="chat-next">></button>
           </div>
         </div>
+        <div class="loadingAni">
+          <div class="loader10"></div>
+        </div>
         <div class="chat-item-area">
           <!-- 로딩 바 -->
-          <div class="loadingAni">
-            <div class="loader10"></div>
-          </div>
         </div>
       </div>
       <div class="div-send">
@@ -79,13 +85,9 @@ session.getAttribute("loginUser"); %> --%>
         <button id="btn-send">보내기</button>
       </div>
     </div>
-
-    <script type="text/javascript">
-      console.log("테스트 js11");
-    </script>
-    <script type="module" src="../resource/js/common.js"></script>
-    <script type="module" src="../resource/js/chat/chatData.js"></script>
-    <script type="module" src="../resource/js/chat/chatFront.js"></script>
-    <!-- <script type="module" src="../resource/js/test.js"></script> -->
+    <script
+      type="module"
+      src="<%=path%>/resource/js/chat/chatFront.js"
+    ></script>
   </body>
 </html>

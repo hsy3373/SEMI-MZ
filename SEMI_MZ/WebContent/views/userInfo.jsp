@@ -22,38 +22,38 @@
 			<img id="info-view" alt="유저정보창" src="../resource/img/icon/정보창폰트x.png">
 		</div>
 		<!-- 유저 닉네임 -->
-		<div class="nickname"></div>
+		<div class="info-nickname"></div>
 		<!-- 호감도 -->
-		<div class="heart">
-			<img id="heartOff" alt="호강도 상태" src="../resource/img/icon/빈하트.png" onclick="goheart()" width="50">
-			<img style="display:none" id="heartOn" alt="호강도 상태" src="../resource/img/icon/하트.png" onclick="goDelete()" width="50">
+		<div class="info-heart">
+			<img id="heart-off" alt="호강도 상태" src="../resource/img/icon/빈하트.png">
+			<img id="heart-on" alt="호강도 상태" src="../resource/img/icon/하트.png">
 		</div>
 		<!-- 호감도 갯수 -->
 		<div class="heart-int"></div>
 		<!-- 유저 캐릭터 -->
-		<div class="user-skin">
-			<img id="skin">
+		<div class="info-skin">
+			<img id="info-skin">
 		</div>
 		<!-- 유저 성별 -->
-		<div class="user-gender">
-			<img id="gender-m"> <img id="gender-w"> <img
-				id="gender-n">
+		<div class="info-gender">
+			<img id="gender-m"> 
+			<img id="gender-w"> 
+			<img id="gender-n">
 		</div>
 		<!-- 자기소개 -->
-		<div class="introduce"></div>
+		<div class="info-introduce"></div>
 		<!-- 하단 버튼들 -->
 		<div class="btns1">
 			<button class="plus" type="button">친구추가</button>
-			<input type="hidden" class="delete" value="친구삭제">
+			<button class="delete" type="button">친구삭제</button>
 			<button class="friend-home" type="button">놀러가기</button>
-			<br>
 		</div>
 		<div class="btns2">
-			<button class="chatting" type="button">1:1 채팅</button>
+			<button class="info-chatting" type="button">1:1 채팅</button>
 			<button class="info-report-btn" type="button">신고하기</button>
 		</div>
-		<div class="x-btn">
-			<img id="x-btn" alt="닫기 버튼" src="../resource/img/icon/엑스 버튼.png">
+		<div class="info-x-btn">
+			<img id="info-x-btn" alt="닫기 버튼" src="../resource/img/icon/엑스 버튼.png">
 		</div>
 	</div>
 	<!------- 신고하기창 ------->
@@ -64,13 +64,13 @@
 		</div>
 			<input type="hidden" name="userId" value="${loginUser.userId}">
 			<div class="report-nickname">신고 대상 닉네임</div>
-			<div class="user-nickname"></div>
+			<div class="report-user"></div>
 			<div class="report-title">제목</div>
-			<input type="text" class="title-box" maxlength='20' required>
+			<input type="text" class="report-title-box" maxlength='20' required>
 			<div class="report-content">신고 내용 작성</div>
-			<div class="text-count">0</div>
-			<div class="text-total">/ 300</div>
-			<textarea name="content-text" id="content-text"
+			<div class="content-text-count">0</div>
+			<div class="content-text-total">/ 300</div>
+			<textarea name="report-content-text" id="report-content-text"
 				maxlength='300' required></textarea>
 			<button type="button" class="report-btn">신고하기</button>
 			<button type="reset" class="reset-btn">취소</button>
@@ -89,71 +89,6 @@
 	<script type="module" src="../resource/js/userInfo.js"></script>
 	<script type="module" src="../resource/js/common.js"></script>
 	<!--<script type="module" src="../resource/js/alert.js"></script>-->
-	<script>
-
 	
-	var target = $('.heart');
-	
-		$(function(){
-			getHeartInfo();
-		});
-	
-		//클릭 했을때 좋아요 db에 인설트!
-		function goheart(){
-			$.ajax({
-				url:"/mzone/heart",
-				type:"get",
-				data : {userId : 'friend'},
-				success: function(){
-					$('#heartOff').css('display', 'none');
-					$('#heartOn').css('display', 'block');
-				},
-				error: function(){ alert('error')}
-			});
-		}
-		
-		function getHeartInfo(){
-			$.ajax({
-				url:"/mzone/heart2",
-				type:"post",
-				data : {userId : 'friend'},
-				success: resultHeart,
-				error: function(){ alert('error')}
-			});
-		}
-		
-		function resultHeart(data){
-			console.log(data);
-			if(data == 1){
-				$('#heartOff').css('display', 'none');
-				$('#heartOn').css('display', 'block');
-			}
-			
-		}
-		
-		
-		function goDelete(){
-			$.ajax({
-				url:"/mzone/heartDelete",
-				type:"get",
-				data : {userId : 'friend'},
-				success: function(){
-					$('#heartOff').css('display', 'block');
-					$('#heartOn').css('display', 'none');
-				},
-				error: function(){ alert('error')}
-			});
-		}
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-	</script>
 </body>
 </html>

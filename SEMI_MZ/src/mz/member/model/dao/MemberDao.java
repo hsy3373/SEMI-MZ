@@ -1,6 +1,6 @@
 package mz.member.model.dao;
 
-import static mz.common.JDBCTemplate.close;
+import static mz.common.JDBCTemplate.*;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -15,13 +15,18 @@ import java.util.Properties;
 import mz.chatting.model.dao.ChatDao;
 import mz.common.JDBCTemplate;
 import mz.member.model.vo.Member;
+import mz.member.model.vo.loginAPI;
 
 public class MemberDao {
 	private Properties prop = new Properties();
 	
+	
+	
+	
+	
 	public MemberDao() {
-		String fileName = ChatDao.class.getResource("/sql/member/member-mapper.xml").getPath();
-
+		String fileName = MemberDao.class.getResource("/sql/member/member-mapper.xml").getPath();
+		
 		try {
 			prop.loadFromXML(new FileInputStream(fileName));
 		} catch (InvalidPropertiesFormatException e) {
@@ -62,8 +67,7 @@ public class MemberDao {
 		
 	}
 	
-	// 유저정보 불러오기
-	// 가영
+	//[가영]
 	public Member selectMember(Connection conn, String userId) {
 			
 		Member m = null;
@@ -91,81 +95,203 @@ public class MemberDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			try {
-				rset.close();
-				pstmt.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
+			close(rset);
+			close(pstmt);
 		}
 		return m;
 	}
 	
-	//하트추가
-	public void headerInsert(Connection conn, String loginUser, String userId) {
+	// 신고 정보 db 저장 - 가영
+	public int insertReport(Connection conn, String userId, String receiveId, String reportTitle, String reportContent) {
+		
+		int result = 0;
+		
 		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("insertReport");
+		
 		try {
-			String sql = "insert into heart(receive_id, user_id) values(?, ?)";
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, userId);
-			pstmt.setString(2, loginUser);
-			pstmt.executeUpdate();
 			
-			conn.close();
-		} catch (Exception e) {
+			pstmt.setString(1, userId);
+			pstmt.setString(2, receiveId);
+			pstmt.setString(3, reportTitle);
+			pstmt.setString(4, reportContent);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			close(pstmt);
 		}
+		return result;
 	}
 	
-	//캐릭터 클릭시 좋아요 번호를 린턴 1 좋아요 / 0 좋아요없음
-	public int getHeartInfo(Connection conn, String loginUser, String userId) {
-		int result = 0; 
-		ResultSet rset = null;
+	// 호감도 추가 - 가영
+	public int insertHeart(Connection conn, String loginUser, String receiveId) {
+		
+		int result = 0;
+		
 		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("insertHeart");
+		
 		try {
-			String sql = "select count(*) from heart where user_id = ? and receive_id = ?";
 			pstmt = conn.prepareStatement(sql);
+			
 			pstmt.setString(1, loginUser);
-			pstmt.setString(2, userId);
+			pstmt.setString(2, receiveId);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	// 호감도 삭제 - 가영
+	public int deleteHeart(Connection conn, String loginUser, String receiveId) {
+		
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("deleteHeart");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, loginUser);
+			pstmt.setString(2, receiveId);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	// 호감도 조회 - 가영
+	public int selectHeart(Connection conn, String loginUser, String receiveId) {
+		
+		int result = 0;
+		
+		ResultSet rset = null;
+				
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("selectHeart");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, loginUser);
+			pstmt.setString(2, receiveId);
+			
 			rset = pstmt.executeQuery();
-			if(rset.next()) {
+			
+			if (rset.next()) {
 				result = rset.getInt(1);
 			}
-			conn.close();
-		} catch (Exception e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
 		}
-		
 		return result;
+	}
+	
+	// 친구 추가 - 가영
+	public int insertFriend(Connection conn, String loginUser, String friendId) {
 		
-	}
-	
-	
-	//하트삭제
-	public void deleteHeart(Connection conn, String loginUser, String userId) {
+		int result = 0;
+		
 		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("insertFriend");
+		
 		try {
-			String sql = "delete from heart where user_id = ? and receive_id = ?";
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, loginUser);
-			pstmt.setString(2, userId);
-			pstmt.executeUpdate();
 			
-			conn.close();
-		} catch (Exception e) {
+			pstmt.setString(1, loginUser);
+			pstmt.setString(2, friendId);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			close(pstmt);
 		}
+		return result;
 	}
 	
+	// 친구 삭제 - 가영
+	public int deleteFriend(Connection conn, String loginUser, String friendId) {
+			
+		int result = 0;
+			
+		PreparedStatement pstmt = null;
+			
+		String sql = prop.getProperty("deleteFriend");
+			
+		try {
+			pstmt = conn.prepareStatement(sql);
+				
+			pstmt.setString(1, loginUser);
+			pstmt.setString(2, friendId);
+				
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+		
+	// 친구 정보 조회 - 가영
+	public int selectFriend(Connection conn, String loginUser, String friendId) {
+			
+		int result = 0;
+			
+		ResultSet rset = null;
+					
+		PreparedStatement pstmt = null;
+			
+		String sql = prop.getProperty("selectFriend");
+			
+		try {
+			pstmt = conn.prepareStatement(sql);
+				
+			pstmt.setString(1, loginUser);
+			pstmt.setString(2, friendId);
+				
+			rset = pstmt.executeQuery();
+				
+			if (rset.next()) {
+				result = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return result;
+	}
 	
-	// 김혜린
-	// 로그인
+	// [김혜린]
 	public Member loginMember(Connection conn, String userId, String userPwd) {
 		
+		//System.out.println("dao 까지 옴?"+ userId + userPwd);
+		
 		Member m = null; 
-		
 		ResultSet rset = null;
-		
 		PreparedStatement pstmt = null;
 		
 		String sql = prop.getProperty("loginMember");
@@ -193,24 +319,114 @@ public class MemberDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			try {
-				rset.close();
-				pstmt.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-		
+				close(rset);
+				close(pstmt);
+			} 
+		//System.out.println("dao m : " + m);
 		return m;		
 	}
 	
-	// 회원가입
-	public int insertMember(Connection conn, Member m) {
+	// [김혜린]
+	public Member checkKey(Connection conn, String apiKind, String apiKey) {
 		
-		int result = 0;
-		
+		Member m = null;
+		ResultSet rset =null;
 		PreparedStatement pstmt = null;
 		
+		String sql = prop.getProperty("checkKey");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, apiKind);
+			pstmt.setString(2, apiKey);
+			
+			rset = pstmt.executeQuery();
+			
+			
+			if(rset.next()) {
+				
+				m = new Member(rset.getString("USER_ID"),
+					       	rset.getString("USER_PWD"),
+					       rset.getString("NICKNAME"),
+					       rset.getString("STATUS"),
+					       rset.getInt("SKIN_ID"),
+					       rset.getInt("COIN"),
+					       rset.getString("SELF_INFO"),
+					       rset.getString("GENDER"),
+					       rset.getDate("ENROLL_DATE"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		//System.out.println("디에이오에 담겼니?" + m);
+		return m;
+	}
+	
+	// [김혜린]
+	public int checkId(Connection conn, String userId) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset =null;
+		
+		String sql = prop.getProperty("checkId");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userId);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				result = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return result;		
+	}
+	
+	// [김혜린]
+		public int checkNick(Connection conn, String nicName) {
+			
+			int result = 0;
+			PreparedStatement pstmt = null;
+			ResultSet rset =null;
+			
+			String sql = prop.getProperty("checkNick");
+			
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, nicName);
+				
+				rset = pstmt.executeQuery();
+				
+				if(rset.next()) {
+					result = rset.getInt(1);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				close(rset);
+				close(pstmt);
+			}
+			return result;		
+		}
+	
+//------------------------------ insert 구간 -------------------------------	
+	// [김혜린]
+	public int insertMember(Connection conn, Member m) {
+		//System.out.println("insertMember");
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("insertMember");
 		
 		try {
@@ -219,21 +435,86 @@ public class MemberDao {
 			pstmt.setString(1, m.getUserId());
 			pstmt.setString(2, m.getUserPwd());
 			pstmt.setString(3, m.getNicName());
-			pstmt.setString(4, m.getStatus());
-			pstmt.setInt(5, m.getSkinId());
-			pstmt.setInt(6, m.getCoin());
-			pstmt.setString(7, m.getInfo());
-			pstmt.setString(8, m.getGender());
-			pstmt.setDate(9, m.getDate());
 			
 			result = pstmt.executeUpdate();
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			JDBCTemplate.close(pstmt);
+			close(pstmt);
 		}
 		return result;
 	}
+	
+	// [김혜린]
+	public int insertKey(Connection conn, loginAPI a) {
+		//System.out.println("insertKey");
+		
+		//System.out.println("dao 까지 옴?"+ a); // 콘솔용
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertKey");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, a.getUserId());
+			pstmt.setString(2, a.getApiKind());
+			pstmt.setString(3, a.getApiKey());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		//System.out.println("DAO result : " + result); // cosole용
+		return result;
+	}
+	
+//------------------------------ update 구간 -------------------------------		
+	// [김혜린]
+	public int updatePwd(Connection conn, String userPwd, String userId) {
+		//System.out.println("DAO : updatePwd");
+		//System.out.println(userPwd +", "+ userId);
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updatePwd");
+		//System.out.println(sql);
+		try {
+			pstmt = conn.prepareStatement(sql);
+			//System.out.println("sql들어왔음?");
+			pstmt.setString(1, userPwd);
+			pstmt.setString(2, userId);
+			//System.out.println("result 담기 전");
+			result = pstmt.executeUpdate();
+			//System.out.println("Dao 담겼?: " + result);
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		
+		return result;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+}	
+	
+	
 
-}

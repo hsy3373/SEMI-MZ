@@ -16,7 +16,7 @@ export function getContextPath() {
     hostIndex,
     location.href.indexOf("/", hostIndex + 1)
   );
-  console.log("getContextPath 불림");
+  //console.log("getContextPath 불림");
   return contextPath;
 }
 
@@ -40,7 +40,7 @@ export function setCookie(cname, cvalue) {
   console.log("쿠키 세팅중 : ", cname);
   // 특수문자가 포함되었을 경우를 대비하여 인코딩 수행
   document.cookie =
-    cname + "=" + encodeURIComponent(cvalue) + "; path=/mzone; expires=Session";
+    cname + "=" + encodeURIComponent(cvalue) + "; path=/; expires=Session";
 }
 
 // 지정 쿠키의 값을 반환하는 함수
@@ -88,7 +88,7 @@ export let delCookie = (cname) => {
   // document.cookie = 'user-id=; expires=Sat, 01 Jan 1972 00:00:00 GMT'
   const expiration = "Sat, 01 Jan 1972 00:00:00 GMT";
   setCookie(cname, "", 0);
-  document.cookie = cname + "=; path=/mzone;  expires=" + expiration;
+  document.cookie = cname + "=; path=/;  expires=" + expiration;
   console.log("쿠키를 삭제했습니다.");
 };
 
