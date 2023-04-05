@@ -281,12 +281,13 @@ $(function(){
 					url : path+"/selectSendBoard",
 					data : {boardNo : boardNo},
 					success : function(b){
+						
 						console.log("상세조회에서 : "+b.boardNo);
 						console.log(b.boardTitle);
 						console.log(b.boardContent);
 						// 제목, 내용
-						no = b.boardNo;
-						title = $(".board-send-detail .board-write-title").val(b.boardTitle);
+						let no = b.boardNo;
+						let title = $(".board-send-detail .board-write-title").val(b.boardTitle);
 						//console.log(no);
 						$(".board-no").html(no);
 						$(".board-send-detail .board-detail-title").html(title);
@@ -325,14 +326,20 @@ $(function(){
 });
 
 /* ================================= 방명록 작성 ================================= */
-function boardWriter(){
-	$(".board-list").hide();
-	$(".board-write").show();
+$(function(){
+	$(document).on("click", "#boardWrite", function(){
+		console.log("클릭됨000");
+		$(".board-list").hide();
+		$(".board-write").show();
+		
+		$(".board-write .board-write-title").val("");
+		$(".board-write .board-write-content").val("");
+		$(".board-write #board-ck").prop("checked",false);
+	})
 	
-	$(".board-write .board-write-title").val("");
-	$(".board-write .board-write-content").val("");
-	$(".board-write #board-ck").prop("checked",false);
-};
+})
+/*function boardWriter(){
+};*/
 
 /* 해당 룸마스터 값 boardInsert의 매개변수에 넣어줌 */
 $(function(){
@@ -405,7 +412,7 @@ function updateBoard(){
 	});
 
 	// 방명록 번호
-	boardNo = $(".board-send-detail .board-no").text();
+	let boardNo = $(".board-send-detail .board-no").text();
 	// console.log(boardNo);
 
 	$.ajax({
@@ -421,8 +428,8 @@ function updateBoard(){
 /*			$(".board-send-detail").hide();
         	$(".board-list").show();*/
 			console.log("수정된 : "+b.boardTitle , b.boardContent);
-			no = b.boardNo;
-			title = $(".board-send-detail .board-write-title").val(b.boardTitle);
+			let no = b.boardNo;
+			let title = $(".board-send-detail .board-write-title").val(b.boardTitle);
 			$(".board-no").html(no);
 			$(".board-send-detail .board-detail-title").html(title);
 			$(".board-send-detail .board-write-content").text(b.boardContent);
@@ -443,9 +450,9 @@ $(function(){
 		updateBoard();
 	})
 });
-/* ================================= 내가 쓴 방명록 삭제 ================================= */
+/* ======================= 쓴 방명록 삭제(내마이룸, 친구룸 동일하게 적용) ======================= */
 function deleteBoard(){
-	boardNo = $(".board-send-detail .board-no").text();
+	boardNo = $(".board-modal .board-no").text();
 	$.ajax({
 		url : path + "/deleteBoard",
 		data : {boardNo : boardNo},
@@ -465,15 +472,6 @@ $(function(){
 		}
 	})
 });
-/* ================================= 내마이룸 -> 방명록 삭제 ================================= */
-/*function deleteBoard(){
-	boardNo = $(".board-detail .board-no").text();
-	$.ajax({
-		url : path + "/deleteBoard",
-		data : {boardNo : boardNo},
-		success : function(result){}
-	})
-}*/
 $(function(){
 	$(document).on("click", "#board-delete",function(){
 		if(confirm("삭제하시겠습니까?")){

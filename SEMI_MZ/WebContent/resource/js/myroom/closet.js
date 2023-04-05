@@ -49,9 +49,11 @@ $(function(){
 		url : path + "/mySkinList.me",
 		success : function(list){
 			// 내가 보유한 리스트
-			for(let i of list){
-				//console.log(i.skinId);
-				//if(i.skinId == )
+			for(let i=0; i<list.length; i++){
+				//console.log(i.skinId); 0  3 5
+				if(i.skinId == $("#skin"+(i+1)).text()){
+					console.log("일치");
+				}
 			}
 		}
 	})
