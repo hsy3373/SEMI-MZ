@@ -38,7 +38,7 @@ public class squareGoHome extends HttpServlet {
 		//로그인 값 있음
 		if(session.getAttribute("loginUser") == null) {
 			System.out.print("값없음");
-			response.sendRedirect(request.getContextPath());
+			//response.sendRedirect(request.getContextPath());
 			
 		}else {// 값있음
 			// 지의추가 - 마이룸에 스킨카운트 포워딩 

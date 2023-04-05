@@ -90,7 +90,7 @@ ul li.on a {color: #fff;}
 
 	<!-- ============================= 마이룸 ============================= -->
 	<div class="myroom">
- 	<%@ include file="chatting.jsp" %>
+ 	<%-- <%@ include file="chatting.jsp" %> --%>
 
 		<!-- 옷장 클릭시 모달창 -->
 		<div class="icon-closet">
@@ -259,9 +259,9 @@ ul li.on a {color: #fff;}
 			</div>
 
 			<!-- 구입 버튼 -->
-			<button class="closet-buy closet-btn" id="closet-buy">구입</button>
+			<button class="closet-btn-frame closet-buy" id="closet-buy">구입</button>
 			<!-- 착용 버튼 -->
-			<button class="closet-wear closet-btn" disabled>착용</button>
+			<button class="closet-btn-frame closet-wear" disabled>착용</button>
 
 
 			<!-- =============== 오른쪽 =============== -->
@@ -269,12 +269,13 @@ ul li.on a {color: #fff;}
 			<div class="coin">${loginUser.getCoin()}</div>
 
 			<!-- 옷장 버튼 -->
-			<button class="dress-btn closet-btn">옷장</button>
+			<button class="closet-btn-frame dress-btn">옷장</button>
 
 			<!-- 상점 버튼 -->
-			<button class="store-btn closet-btn">상점</button>
+			<button class="closet-btn-frame store-btn">상점</button>
 
 			<!-- 스킨 박스 -->
+			<!-- 옷장 박스 -->
 			<div class="closet-skins">
 <!-- 				<div class='closet-item'> 
 					<div class='closet-skin-id' id='skin' style='display: none;'></div>
@@ -283,6 +284,9 @@ ul li.on a {color: #fff;}
 						<img src='."+ list[i].saveRoot +"/fs.png'>
 					</div>
 				</div> -->
+			</div>
+			<!-- 상점박스 -->
+			<div class="store-skins">
 			</div>
 			
 
@@ -337,7 +341,7 @@ ul li.on a {color: #fff;}
 		var loginUserSkinId = '${loginUser.skinId}';
 		var roomMasterId = "${roomMaster}";
 		//console.log("로그인유저 : "+loginUserId);
-		console.log("로그인유저스킨 : "+loginUserSkinId);
+		//console.log("로그인유저스킨 : "+loginUserSkinId);
 		//console.log("룸마스터 : "+roomMasterId);
 		
 		/* 스킨 총 개수 closet.js로 넘김 */
@@ -347,9 +351,10 @@ ul li.on a {color: #fff;}
 	
 
 	<%-- <script type="module" src="${contextPath}/resource/js/alert.js"></script> --%>
-	<script type="module" src="${contextPath}/resource/js/common.js"></script>
+	<%-- <script type="module" src="${contextPath}/resource/js/common.js"></script> --%>
 	<script type="module" src="${contextPath}/resource/js/myroom/board.js"></script>
 	<script type="module" src="${contextPath}/resource/js/myroom/closet.js"></script>
+	<script type="module" src="${contextPath}/resource/js/buttonList.js"></script>
 
 
 </body>

@@ -11,21 +11,20 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 
-import mz.member.model.vo.Member;
 import mz.skin.model.service.SkinService;
 import mz.skin.model.vo.Skin;
 
 /**
- * Servlet implementation class MyroomMySkinController
+ * Servlet implementation class MyrroomSkinChangeController
  */
-@WebServlet("/mySkinList.me")
-public class MyroomMySkinController extends HttpServlet {
+@WebServlet("/changeSkin.my")
+public class MyrroomSkinChangeController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MyroomMySkinController() {
+    public MyrroomSkinChangeController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,13 +33,11 @@ public class MyroomMySkinController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String userId = ((Member)request.getSession().getAttribute("loginUser")).getUserId();
-		
-		ArrayList<Skin> list = new SkinService().mySkinList(userId);
-		//System.out.println(list);
+	
 		response.setContentType("application/json; charset=UTF-8");
+		ArrayList<Skin> list = new SkinService().changeSkin();
+		System.out.println(list);
 		new Gson().toJson(list, response.getWriter());
-		
 		
 	}
 
@@ -48,6 +45,8 @@ public class MyroomMySkinController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		doGet(request, response);
 	}
 
 }

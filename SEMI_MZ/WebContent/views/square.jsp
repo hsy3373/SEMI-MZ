@@ -18,8 +18,6 @@
 <body>
 	<!-- 광장 메인 jsp 작성 : 윤지영 -->
 	<div id="main-square" style="display: flex; justify-content : center; position: relative;">
-	<!-- 지의 임시 추가 -->
-    <a id="friendTest" style="position: absolute;" href="<%= request.getContextPath() %>/home?roomMaster=friend">friend룸</a>
 	
 	</div>
         

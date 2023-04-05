@@ -149,6 +149,15 @@ public class SkinService {
 		close(conn);
 		return list;
 	}
+	
+	// [지의]
+	// 스킨 아이디 조회용
+	public ArrayList<Skin> changeSkin() {
+		Connection conn = getConnection();
+		ArrayList<Skin> list = new SkinDao().changeSkin(conn);
+		close(conn);
+		return list;
+	}
 
 //-------------------------------------------INSERT 구역 -------------------------------------------------
 

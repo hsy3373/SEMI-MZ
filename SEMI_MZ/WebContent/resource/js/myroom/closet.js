@@ -7,7 +7,6 @@ import {getSessionStorage,setSessionStorage} from './myroomCommon.js';
 let path = getContextPath();
 
 
-location.href = "";
 let closetSkinCount = getSessionStorage('closetSkinCount');
 //console.log("총게시글갯수 : "+closetSkinCount);
 /*
@@ -34,7 +33,7 @@ function selectSkin(num){
 						  + "</div>"
 					 + "</div>"
 			}
-			$(".closet-skins").html(str);
+			$(".store-skins").html(str);
 			
 		},
 		error : function(e){
@@ -42,25 +41,36 @@ function selectSkin(num){
 		}
 	});
 };
-/*
-	상점스킨 리스트 중 내가 보유한 스킨이라면 보유중
-	- list에 담긴 skinId(1,2,3,4...) 값과 #skin i 값이 
-*/
-/*$(function(){
-	$.ajax({
-		url : path + "/mySkinList.me",
-		success : function(list){
-			// 내가 보유한 리스트
-			for(let i=0; i<list.length; i++){
-				//console.log(i.skinId); 0  3 5
-				if(i.skinId == $("#skin"+(i+1)).text()){
-					console.log("일치");
+/* 해결 못함 */
+$(function(){
+	$(document).on("click",".store-btn",function(){
+		$.ajax({
+			url : path + "/mySkinList.me",
+			success : function(list){
+				// 내가 보유한 리스트를 조회
+				// 전체 리스트인 closet-skin-id 의 text()와, 조회한 리스트의 skinId 값과 일치한다면
+				// $(".closet-price").text("보유중");
+				
+				//console.log(list);
+				for(let i = 0; i < list.length; i++){
+					//console.log(list[i].skinId);
+					if(list[i].skinId == $(".store-skins #skin"+(i+1)).text()){
+						//console.log("??");
+						$(".store-skins .closet-price").text("보유중");
+					}
 				}
+				/*for(let i=0; i<closetSkinCount; i++){
+					console.log(list[i].skinId); //0 3 5
+					console.log($("#skin"+(i+1)).text());
+					if(i.skinId == $(".closet-skin-id").text()){
+						console.log("일치");
+					}
+				}*/
 			}
-		}
+		})
 	})
-});
-*/
+
+})
 /* 로그인 유저가 보유한 스킨 */
 function mySkin(){
 	$.ajax({
@@ -70,12 +80,18 @@ function mySkin(){
 
 			let str = "";
 			for(let i = 0; i < list.length; i++){
-				str += `<div class='closet-item'>
-						  <div class='closet-skin-id' id='skin"+i+"' style='display: none;'>${list[i].skinId}</div>
+				str += "<div class='closet-item'>" 
+						  +"<div class='closet-skin-id' id='skin"+(i+1)+"' style='display: none;'>" + list[i].skinId +"</div>"
+						  + "<div class='closet-skin'>"
+						 	+"<img src='."+ list[i].saveRoot +"/fs.png'>"
+						  + "</div>"
+					 + "</div>";
+/*				str += `<div class='closet-item'>
+						  <div class='closet-skin-id' style='display: none;'>${list[i].skinId}</div>
 						  <div class='closet-skin'>
 						  	<img src='${path + list[i].saveRoot}/fs.png'>
 						  </div>
-					 </div>`
+					 </div>`;*/
 			}
 			$(".closet-skins").html(str);
 		},
@@ -85,16 +101,59 @@ function mySkin(){
 	});
 };
 
-
 /* 옷장 속 스킨 클릭시 왼쪽 대표 스킨에 이미지 적용 */
 $(document).on('click', '.closet-skin img' ,function(){
-	let imgSrc = $(this).attr('src');
-	console.log(imgSrc);
+	let changeSkin = $(this).attr('src');
+	console.log(changeSkin);
+	$(".view-skin img").attr('src', changeSkin);
+	let userSkin = "./resource/img/user/skin"+loginUserSkinId+"/fs.png" 
+	console.log(userSkin);
+	if(changeSkin =! userSkin){
+		$(".closet-wear").attr("disabled", false);
+	}
 	
-	$(".view-skin img").attr('src', imgSrc);
-		
+
+
+/*	let st = $(".user-skin").attr('src').split('/');
+	let a = st[5];
+	console.log(userSkin);
+	console.log(a);*/
+
+	
+	
 })
 
+/* 
+	로그인 유저 스킨이 아니면 
+	$(".closet-wear")착용버튼 disabled
+	* 아이디 비교
+	로그인유저의 스킨아이디(0) == 스킨루트의 스킨아이디
+	* 경로비교
+	path/
+*/
+$(function(){
+	$.ajax({
+		url : path  +"/mySkinList.me",
+		success : function(list){
+/*			console.log(list);
+			console.log(loginUserSkinId);
+			for(let i = 0; i < list.length; i++){
+				if(list[i].saveRoot != "skin"+loginUserSkinId){
+					$(".closet-wear").attr("disabled", false);
+				}
+			}*/
+			
+		},
+		error : function(e){
+			console.log("접속 실패");
+		}
+		
+	})
+})
+/* 착용버튼 이벤트 */
+/*$(document).on('click','.closet-wear',function(){
+})
+*/
 function init(){
 	document.querySelectorAll(".page-btn").forEach(function(item, index){
 		//console.log(item);
@@ -105,8 +164,8 @@ function init(){
 			  document.querySelector(".selected-btn").className = "page-btn";
 			}
 			// 승은님꺼
-			//selectSkin(this.innerText);
-			selectSkin(index+1);
+			selectSkin(this.innerText);
+			//selectSkin(index+1);
 
       		this.className = "selected-btn page-btn";
 			/* ★★★★★★★★★★★★★★★★★★★★★클래스명으로 css 부여해야됨!!!!!!!★★★★★★★★★★★★★★★★★★★★★★★★★ */
@@ -146,6 +205,10 @@ $(function () {
     
     // 옷장 버튼 클릭 함수 생성
     $.dressClick = function(){
+		// 0. 옷장 박스 보이기
+		$(".closet-skins").show();
+		$(".store-skins").hide();
+	
         // 1. 상점 버튼 투명하게
         $(".store-btn").css("opacity", "0.7");
         $(".dress-btn").css("opacity", "1");
@@ -155,6 +218,7 @@ $(function () {
         $(".store-btn").css("cursor", "pointer");
         
         // 3. 구입 버튼(class="closet-buy") -> display: "none";
+
         $(".closet-buy").hide();
         $(".closet-wear").show();
         
@@ -168,6 +232,9 @@ $(function () {
 	
     // 상점 버튼 클릭 함수 생성
     $.storeClick = function(){
+		// 0. 상점 박스 보이기
+		$(".store-skins").show();
+		$(".closet-skins").hide();
         // 1. 옷장 버튼 투명하게
         $(".dress-btn").css("opacity", "0.7");
         $(".store-btn").css("opacity", "1");

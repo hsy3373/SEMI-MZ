@@ -70,6 +70,12 @@
 		 WHERE USER_ID = ?
 	</entry>
 	
+	<!-- 스킨아이디, 루트 조회 -->
+	<entry key="changeSkin">
+		SELECT SKIN_ID,
+               SAVE_ROOT
+		  FROM CHARACTER_SKIN
+	</entry>
 
 
 <!-- insert 구역 -->

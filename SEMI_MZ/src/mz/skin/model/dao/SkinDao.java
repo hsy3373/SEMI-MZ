@@ -299,6 +299,31 @@ public class SkinDao {
 		return list;
 		
 	}
+	
+	public ArrayList<Skin> changeSkin(Connection conn) {
+		ArrayList<Skin> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("changeSkin");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Skin s = new Skin(rset.getInt("SKIN_ID"),
+								  rset.getString("SAVE_ROOT"));
+				list.add(s);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+	
 
 //-----------------------------------------insert 영역---------------------------------------------------
 
