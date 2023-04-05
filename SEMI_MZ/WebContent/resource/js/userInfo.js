@@ -6,18 +6,28 @@
  */
 
 import { getContextPath } from './common.js';
+import {modalstopfn} from './squareCanvas.js';
+import { openChatRoom } from './chat/chatFront.js';
+
+document.querySelector(".info-chatting").addEventListener("click", function(){
+	openChatRoom(sessionStorage.clickedUserId);
+});
 
 /*유저 정보 모달창 띄우기*/
 let open = () => {
 	document.querySelector(".info-modal").classList.remove("hidden");
+	modalstopfn();
 }
 
 let close = () => {
 	document.querySelector(".info-modal").classList.add("hidden");
+	modalstopfn();
 }
 
 
-document.querySelector("#x-btn").addEventListener("click", close);
+document.querySelector("#info-x-btn").addEventListener("click", close);
+
+
 
 let nickName;
 
@@ -31,17 +41,20 @@ export function getUserInfo(){
 			console.log(data);
 			
 			// 데이터 가져오기	
+			selectHeart();
+			selectFriend();
+			
 			nickName = data.nicName;
-			$(".nickname").html(nickName);
+			$(".info-nickname").html(nickName);
 			$(".user-nickname").html(nickName);
 				
 			/* 스킨 경로가 비어있어 오류 뜸 */
-			/*let skinId = data.skinId;
-			$("#skin").attr(skinId);*/
+			let skinId = data.skinId;
+			$("#info-skin").attr(skinId);
 				
 			let info = data.info;
-			$(".introduce").html(info);
-			selectHeart();	
+			$(".info-introduce").html(info);
+			
 			let gender = data.gender;
 			console.log(gender);
 			if (gender == 'W') {
@@ -115,7 +128,7 @@ function insertFriend(){
 	$.ajax({
 		url: getContextPath()+"/friend",
 		type: 'get',
-		data: {receiveId : sessionStorage.clickedUserId},
+		data: {friendId : sessionStorage.clickedUserId},
 		success: function(data){
 			console.log(data);
 			$('.plus').css('display', 'none');
@@ -127,6 +140,43 @@ function insertFriend(){
 	});
 }
 document.querySelector(".plus").addEventListener("click", insertFriend);
+
+/*친구 삭제*/
+function deleteFriend(){
+	$.ajax({
+		url: getContextPath()+"/friend",
+		type: 'post',
+		data: {friendId : sessionStorage.clickedUserId},
+		success: function(data){
+			console.log(data);
+			$('.plus').css('display', 'block');
+			$('.delete').css('display', 'none');
+		},
+		error: function(){
+			console.log("error");
+		}
+	});
+}
+document.querySelector(".delete").addEventListener("click", deleteFriend);
+
+/*친구 정보 불러와서 버튼 이미지 바꾸기*/
+function selectFriend(){
+	$.ajax({
+		url: getContextPath()+"/friendInfo",
+		type: 'get',
+		data: {friendId : sessionStorage.clickedUserId},
+		success: function(data){
+			console.log(data);
+			if (data == 1) {
+				$('.plus').css('display', 'none');
+				$('.delete').css('display', 'block');
+			}
+		},
+		error: function(){
+			console.log("error");
+		}
+	});
+}
 
 /*신고 상세내용 내보내기*/
 function report(){

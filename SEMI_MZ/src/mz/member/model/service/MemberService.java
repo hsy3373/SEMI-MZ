@@ -46,6 +46,18 @@ public class MemberService {
 		
 		return result;
 	}
+	
+	// 가영 - 친구 정보
+		public int selectFriend(String loginUser, String friendId) {
+			
+			Connection conn = getConnection();
+			
+			int result = new MemberDao().selectFriend(conn, loginUser, friendId);
+			
+			close(conn);
+			
+			return result;
+		}
 		
 //------------------------------ insert 구간 -------------------------------
 	
@@ -132,6 +144,18 @@ public class MemberService {
 		
 		return result;
 	}
+	
+	// 가영 - 친구 삭제
+		public int deleteFriend(String loginUser, String friendId) {
+			
+			Connection conn = getConnection();
+			
+			int result = new MemberDao().deleteFriend(conn, loginUser, friendId);
+			
+			close(conn);
+			
+			return result;
+		}
 	
 	
 	

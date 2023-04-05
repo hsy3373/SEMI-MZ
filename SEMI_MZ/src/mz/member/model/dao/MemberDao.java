@@ -226,6 +226,61 @@ public class MemberDao {
 		return result;
 	}
 	
+	// 친구 삭제 - 가영
+	public int deleteFriend(Connection conn, String loginUser, String friendId) {
+			
+		int result = 0;
+			
+		PreparedStatement pstmt = null;
+			
+		String sql = prop.getProperty("deleteFriend");
+			
+		try {
+			pstmt = conn.prepareStatement(sql);
+				
+			pstmt.setString(1, loginUser);
+			pstmt.setString(2, friendId);
+				
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+		
+	// 친구 정보 조회 - 가영
+	public int selectFriend(Connection conn, String loginUser, String friendId) {
+			
+		int result = 0;
+			
+		ResultSet rset = null;
+					
+		PreparedStatement pstmt = null;
+			
+		String sql = prop.getProperty("selectFriend");
+			
+		try {
+			pstmt = conn.prepareStatement(sql);
+				
+			pstmt.setString(1, loginUser);
+			pstmt.setString(2, friendId);
+				
+			rset = pstmt.executeQuery();
+				
+			if (rset.next()) {
+				result = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return result;
+	}
+	
 	// 김혜린
 	// 로그인
 	public Member loginMember(Connection conn, String userId, String userPwd) {

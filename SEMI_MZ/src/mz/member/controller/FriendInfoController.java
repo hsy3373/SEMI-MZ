@@ -13,16 +13,16 @@ import mz.member.model.service.MemberService;
 import mz.member.model.vo.Member;
 
 /**
- * Servlet implementation class FriendController
+ * Servlet implementation class FriendInfoController
  */
-@WebServlet("/friend")
-public class FriendController extends HttpServlet {
+@WebServlet("/friendInfo")
+public class FriendInfoController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public FriendController() {
+    public FriendInfoController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,7 +34,8 @@ public class FriendController extends HttpServlet {
 		String loginUser = ((Member)request.getSession().getAttribute("loginUser")).getUserId();
 		String friendId = request.getParameter("friendId");
 		
-		int result = new MemberService().insertFriend(loginUser, friendId);
+		int result = new MemberService().selectFriend(loginUser, friendId);
+		System.out.println(result);
 		
 		if (result > 0) {
 			
@@ -42,7 +43,8 @@ public class FriendController extends HttpServlet {
 			
 			new Gson().toJson(result, response.getWriter());
 		} else {
-			System.out.println("친구 추가 실패");
+			System.out.println("조회 실패");
+			
 			response.setContentType("application/json; charset=UTF-8");
 			
 			new Gson().toJson(result, response.getWriter());
@@ -53,23 +55,8 @@ public class FriendController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String loginUser = ((Member)request.getSession().getAttribute("loginUser")).getUserId();
-		String friendId = request.getParameter("friendId");
-		
-		int result = new MemberService().deleteFriend(loginUser, friendId);
-		
-		if (result > 0) {
-			
-			response.setContentType("application/json; charset=UTF-8");
-			
-			new Gson().toJson(result, response.getWriter());
-		} else {
-			System.out.println("친구 삭제 실패");
-			
-			response.setContentType("application/json; charset=UTF-8");
-			
-			new Gson().toJson(result, response.getWriter());
-		}
+		// TODO Auto-generated method stub
+		doGet(request, response);
 	}
 
 }

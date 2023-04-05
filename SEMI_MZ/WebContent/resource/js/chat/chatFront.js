@@ -182,6 +182,7 @@ export let clickChatRoom = function (e) {
       showChattings('chatLog-' + id, 'bottom');
     }
   }
+  setColorClickInsideVer();
 };
 
 //------------------  채팅내부 클릭, 외부클릭시 색 변경용 함수 -----------
