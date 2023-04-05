@@ -16,7 +16,7 @@ export function getContextPath() {
     hostIndex,
     location.href.indexOf("/", hostIndex + 1)
   );
-  console.log("getContextPath 불림");
+  //console.log("getContextPath 불림");
   return contextPath;
 }
 
