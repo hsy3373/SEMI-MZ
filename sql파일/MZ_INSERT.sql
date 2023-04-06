@@ -9,88 +9,88 @@ INSERT INTO CHARACTER_SKIN(SKIN_ID,
         VALUES( 0, '/resource/img/user/skin0', 0);
 
 -- 아래 pl/sql 구문으로 한번에 33개 생성 가능
---BEGIN 
---    FOR I IN 1..5
---    LOOP 
---        INSERT INTO CHARACTER_SKIN(SKIN_ID, SAVE_ROOT)
---		VALUES( SEQ_SKIN.NEXTVAL , '/resource/img/user/skin'||SEQ_SKIN.CURRVAL);
---    END LOOP;
---END;
---/
---BEGIN 
---    FOR I IN 6..10
---    LOOP 
---        INSERT INTO CHARACTER_SKIN(SKIN_ID, SAVE_ROOT, CHARACTER_PRICE)
---		VALUES( SEQ_SKIN.NEXTVAL , '/resource/img/user/skin'||SEQ_SKIN.CURRVAL, 400);
---    END LOOP;
---END;
---/
---BEGIN 
---    FOR I IN 11..15
---    LOOP 
---        INSERT INTO CHARACTER_SKIN(SKIN_ID, SAVE_ROOT, CHARACTER_PRICE)
---		VALUES( SEQ_SKIN.NEXTVAL , '/resource/img/user/skin'||SEQ_SKIN.CURRVAL, 500);
---    END LOOP;
---END;
---/
---BEGIN 
---    FOR I IN 16..20
---    LOOP 
---        INSERT INTO CHARACTER_SKIN(SKIN_ID, SAVE_ROOT, CHARACTER_PRICE)
---		VALUES( SEQ_SKIN.NEXTVAL , '/resource/img/user/skin'||SEQ_SKIN.CURRVAL, 600);
---    END LOOP;
---END;
---/
---BEGIN 
---    FOR I IN 21..25
---    LOOP 
---        INSERT INTO CHARACTER_SKIN(SKIN_ID, SAVE_ROOT, CHARACTER_PRICE)
---		VALUES( SEQ_SKIN.NEXTVAL , '/resource/img/user/skin'||SEQ_SKIN.CURRVAL, 800);
---    END LOOP;
---END;
---/
---
---BEGIN 
---    FOR I IN 26..30
---    LOOP 
---        INSERT INTO CHARACTER_SKIN(SKIN_ID, SAVE_ROOT, CHARACTER_PRICE)
---		VALUES( SEQ_SKIN.NEXTVAL , '/resource/img/user/skin'||SEQ_SKIN.CURRVAL, 1000);
---    END LOOP;
---END;
---/
---
---BEGIN 
---    FOR I IN 31..33
---    LOOP 
---        INSERT INTO CHARACTER_SKIN(SKIN_ID, SAVE_ROOT, CHARACTER_PRICE)
---		VALUES( SEQ_SKIN.NEXTVAL , '/resource/img/user/skin'||SEQ_SKIN.CURRVAL, 1200);
---    END LOOP;
---END;
---/
+BEGIN 
+    FOR I IN 1..5
+    LOOP 
+        INSERT INTO CHARACTER_SKIN(SKIN_ID, SAVE_ROOT)
+		VALUES( SEQ_SKIN.NEXTVAL , '/resource/img/user/skin'||SEQ_SKIN.CURRVAL);
+    END LOOP;
+END;
+/
+BEGIN 
+    FOR I IN 6..10
+    LOOP 
+        INSERT INTO CHARACTER_SKIN(SKIN_ID, SAVE_ROOT, CHARACTER_PRICE)
+		VALUES( SEQ_SKIN.NEXTVAL , '/resource/img/user/skin'||SEQ_SKIN.CURRVAL, 400);
+    END LOOP;
+END;
+/
+BEGIN 
+    FOR I IN 11..15
+    LOOP 
+        INSERT INTO CHARACTER_SKIN(SKIN_ID, SAVE_ROOT, CHARACTER_PRICE)
+		VALUES( SEQ_SKIN.NEXTVAL , '/resource/img/user/skin'||SEQ_SKIN.CURRVAL, 500);
+    END LOOP;
+END;
+/
+BEGIN 
+    FOR I IN 16..20
+    LOOP 
+        INSERT INTO CHARACTER_SKIN(SKIN_ID, SAVE_ROOT, CHARACTER_PRICE)
+		VALUES( SEQ_SKIN.NEXTVAL , '/resource/img/user/skin'||SEQ_SKIN.CURRVAL, 600);
+    END LOOP;
+END;
+/
+BEGIN 
+    FOR I IN 21..25
+    LOOP 
+        INSERT INTO CHARACTER_SKIN(SKIN_ID, SAVE_ROOT, CHARACTER_PRICE)
+		VALUES( SEQ_SKIN.NEXTVAL , '/resource/img/user/skin'||SEQ_SKIN.CURRVAL, 800);
+    END LOOP;
+END;
+/
+
+BEGIN 
+    FOR I IN 26..30
+    LOOP 
+        INSERT INTO CHARACTER_SKIN(SKIN_ID, SAVE_ROOT, CHARACTER_PRICE)
+		VALUES( SEQ_SKIN.NEXTVAL , '/resource/img/user/skin'||SEQ_SKIN.CURRVAL, 1000);
+    END LOOP;
+END;
+/
+
+BEGIN 
+    FOR I IN 31..33
+    LOOP 
+        INSERT INTO CHARACTER_SKIN(SKIN_ID, SAVE_ROOT, CHARACTER_PRICE)
+		VALUES( SEQ_SKIN.NEXTVAL , '/resource/img/user/skin'||SEQ_SKIN.CURRVAL, 1200);
+    END LOOP;
+END;
+/
 
 
 -- 현재 스킨 폴더 34~39번은 특별한 스킨으로 별도로 price 넣어 구문 반복해줘야함
---BEGIN 
---    FOR I IN 34..39
---    LOOP 
---        INSERT INTO CHARACTER_SKIN(SKIN_ID, SAVE_ROOT, CHARACTER_PRICE)
---		VALUES( SEQ_SKIN.NEXTVAL , '/resource/img/user/skin'||SEQ_SKIN.CURRVAL, 3000 );
---    END LOOP;
---END;
---/
+BEGIN 
+    FOR I IN 34..39
+    LOOP 
+        INSERT INTO CHARACTER_SKIN(SKIN_ID, SAVE_ROOT, CHARACTER_PRICE)
+		VALUES( SEQ_SKIN.NEXTVAL , '/resource/img/user/skin'||SEQ_SKIN.CURRVAL, 3000 );
+    END LOOP;
+END;
+/
 
 
 -- 현재 스킨 폴더 40, 41번은 보상용 스킨으로 별도로 구문 반복해줘야함
---BEGIN 
---    FOR I IN 40..41
---    LOOP 
---        INSERT INTO CHARACTER_SKIN(SKIN_ID, SAVE_ROOT, CHARACTER_PRICE, REWARD)
---		VALUES( SEQ_SKIN.NEXTVAL , '/resource/img/user/skin'||SEQ_SKIN.CURRVAL, 3000, 'Y' );
---    END LOOP;
---END;
---/
+BEGIN 
+    FOR I IN 40..41
+    LOOP 
+        INSERT INTO CHARACTER_SKIN(SKIN_ID, SAVE_ROOT, CHARACTER_PRICE, REWARD)
+		VALUES( SEQ_SKIN.NEXTVAL , '/resource/img/user/skin'||SEQ_SKIN.CURRVAL, 3000, 'Y' );
+    END LOOP;
+END;
+/
 
---    COMMIT;
+    COMMIT;
 
 
 -- MEMBER

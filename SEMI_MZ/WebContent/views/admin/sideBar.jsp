@@ -1,53 +1,61 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8" />
-    <title>admin</title>
-  
-  </head>
-  <body>
-    <div class="side-bar">
-      <ul class="side-bar-ul">
-        <a href="<%=path %>/main.admin" class="logo-img">
-          <img src="<%= path %>/resource/img/icon/logo.png" />
-        </a>
+<head>
+<meta charset="UTF-8" />
+<title>admin</title>
+<link rel="stylesheet"
+	href="<%=path%>/resource/css/admin/admin-common.css" />
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 
-        <hr />
-        <li>
-          <a href="<%=path %>/main.admin" class="selected"
-            ><i class="bi bi-speedometer2"></i>Dashboard</a
-          >
-        </li>
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css" />
+</head>
+<body>
+	<div class="side-bar">
+		<ul class="side-bar-ul">
+			<a href="<%=path%>/main.admin" class="logo-img"> <img
+				src="<%=path%>/resource/img/icon/logo.png" />
+			</a>
 
-        <hr />
+			<hr />
+			<li><a href="<%=path%>/main.admin" class="selected"><i
+					class="bi bi-speedometer2"></i>Dashboard</a></li>
 
-        <li>
-          <a href="<%=path %>/main.admin">
-            <i class="bi bi-key-fill"></i>
-            Admin</a
-          >
-        </li>
+			<hr />
 
-        <li>
-          <a href="<%=path %>/list.skin">
-            <i class="bi bi-file-person"></i>
-            캐릭터</a
-          >
-        </li>
+			<li><a href="<%=path%>/main.admin"> <i
+					class="bi bi-key-fill"></i> Admin
+			</a></li>
 
-        <li>
-          <a href="<%=path %>/list.member">
-            <i class="bi bi-people-fill"></i>
-            사용자</a
-          >
-        </li>
+			<li><a href="<%=path%>/list.skin"> <i
+					class="bi bi-file-person"></i> 캐릭터
+			</a></li>
+			<li>
+				<div class="member-menu">
+					<i class="bi bi-people-fill"></i> 사용자
+				</div>
+			</li>
+			<div class="member-menu-item">
+				<a href="<%=path%>/activelist.member">일반 계정</a> 
+				<a href="">탈퇴/차단 계정</a>
+				<a href="">신고 관리</a>
+			</div>
+			<li><a href="<%=path%>/list.notice"> <i
+					class="bi bi-clipboard-fill"></i>공지사항
+			</a></li>
+		</ul>
+	</div>
 
-        <li>
-          <a href="<%=path %>/list.notice"> <i class="bi bi-clipboard-fill"></i>공지사항</a>
-        </li>
-      </ul>
-    </div>
-  </body>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$('.member-menu-item').css("display", "none");
+			$('.member-menu').click(function() {
+				$('.member-menu-item').slideToggle();
+			});
+		});
+	</script>
+</body>
 </html>

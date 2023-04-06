@@ -11,7 +11,7 @@ import mz.member.model.vo.Member;
 
 /**
  * 작성자 : 김혜린
- * 비밀번호 입력 요구 모달 : (로그인유저 pw == 입력한pw)확인 서블릿
+ * 내정보변경 전 비밀번호 일치여부 확인 서블릿
  */
 @WebServlet("/checkPwd.me")
 public class AjaxCheckPwd extends HttpServlet {
@@ -45,6 +45,7 @@ public class AjaxCheckPwd extends HttpServlet {
 		
 		if(inputPwd.equals(userPwd)) { // 패스워드 일치
 			response.getWriter().print("O");
+			
 		}else { // 불일치
 			response.getWriter().print("X");
 		}

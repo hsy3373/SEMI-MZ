@@ -9,6 +9,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.InvalidPropertiesFormatException;
 import java.util.Properties;
 
@@ -19,10 +23,6 @@ import mz.member.model.vo.loginAPI;
 
 public class MemberDao {
 	private Properties prop = new Properties();
-	
-	
-	
-	
 	
 	public MemberDao() {
 		String fileName = MemberDao.class.getResource("/sql/member/member-mapper.xml").getPath();
@@ -39,33 +39,248 @@ public class MemberDao {
 	}
 
 //------------------------------ select 구간 -------------------------------
-	//[han]
-	public int userCount(Connection conn) {
+	
+	// [han]
+	// 어드민 페이지 유저 수 불러오는 함수
+	public int memberCount(Connection conn, String status, String api) {
 		int result = 0;
-		
+
 		ResultSet rset = null;
 		PreparedStatement pstmt = null;
+
+		String sql = prop.getProperty("memberCount");
+		String str = "";
+
+		// 경우에 따라 sql문 변경
+		switch (status) {
+			case "Y":
+				str = " = 'Y' ";
+				break;
+			case "N":
+				str = " = 'N' ";
+				break;
+			case "X":
+				str = " = 'X' ";
+				break;
+			case "all":
+				str = " IN('N', 'X') ";
+				break;
+		}
+
+		switch (api) {
+			case "kakao":
+				str += " AND API_KIND = 'kakao' ";
+				break;
+			case "google":
+				str += " AND API_KIND = 'google' ";
+				break;
+		}
 		
-		String sql = prop.getProperty("userCount");
+		// 위에서 지정한대로 sql문에 변경사항 반영
+		sql += str;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+
+			rset = pstmt.executeQuery();
+
+			if (rset.next()) {
+				result = rset.getInt("COUNT");
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return result;
+	}
+
+	// [han]
+	// 어드민 페이지용 멤버 조회 함수
+	public ArrayList<Member> selectMemberList(Connection conn, String status, String api, String sort, int page){
+		ArrayList<Member> list = new ArrayList<>();
+
+		int result = 0;
+		
+		if(sort.equals("userId")) {
+			sort = "USER_ID";
+		}else {
+			sort = "ENROLL_DATE";
+		}
+
+		ResultSet rset = null;
+		PreparedStatement pstmt = null;
+
+		String sql = prop.getProperty("selectMemberList");
+		
+		sql = sql.replace("##", sort);
+
+		// 경우에 따라 sql문 변경
+		switch (status) {
+			case "Y":
+				sql = sql.replace("STATUS IN", "STATUS = 'Y' ");
+				break;
+			case "N":
+				sql = sql.replace("STATUS IN", "STATUS = 'N' ");
+				break;
+			case "X":
+				sql = sql.replace("STATUS IN", "STATUS = 'X' ");
+				break;
+			case "all":
+				sql = sql.replace("STATUS IN", "STATUS IN('N', 'X') ");
+				break;
+		}
+
+		switch (api) {
+			case "all":
+				sql = sql.replace("AND API_KIND IN", "");
+				break;
+			case "kakao":
+				sql = sql.replace("API_KIND IN", "API_KIND = 'kakao' ");
+				break;
+			case "google":
+				sql = sql.replace("API_KIND IN", "API_KIND = 'google' ");
+				break;
+		}
+		
+		
+		
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
 			
-			rset = pstmt.executeQuery();
 			
-			if(rset.next()) {
-				result = rset.getInt("COUNT");
+			// 페이지 별 멤버 조회용(한페이지에 20개)
+			pstmt.setInt(1, (page-1)*20 +1);
+			pstmt.setInt(2, page*20);
+			
+			rset= pstmt.executeQuery();
+			
+			//date 포맷용
+			DateFormat df = new SimpleDateFormat("yy/MM/dd");  
+			
+			while(rset.next()) {
+				Member m = new Member(
+						rset.getString("USER_ID"),
+						rset.getString("NICKNAME"),
+						rset.getString("STATUS"),
+						rset.getInt("COIN"),
+						df.format(rset.getDate("ENROLL_DATE")),
+						rset.getString("API_KIND")
+						);
+				
+				list.add(m);
 			}
-			
 		} catch (SQLException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
 			close(rset);
 			close(pstmt);
 		}
-		return result;
-		
+		return list;
 	}
+	
+	
+	//[han]
+	// 관리자 페이지 유저 검색기능
+	public ArrayList<Member> searchMembers(Connection conn, String option, String keyword) {
+
+		ArrayList<Member> list = new ArrayList<>();
+
+		ResultSet rset = null;
+		PreparedStatement pstmt = null;
+
+		String sql = prop.getProperty("searchMembers");
+
+		if (option.equals("userId")) {
+			sql = sql.replaceAll("##", "USER_ID");
+		} else {
+			sql = sql.replaceAll("##", "NICKNAME");
+		}
+
+		// like문에 들어갈 문자열 혹시 모를 _ 와 % escape 처리 
+		String like = keyword.replaceAll("%", "\\%");
+		like = like.replaceAll("_", "\\_");
+		like = "%" + like + "%";
+
+		System.out.println(sql);
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+
+			pstmt.setString(1, keyword);
+			pstmt.setString(2, like);
+
+			rset = pstmt.executeQuery();
+
+			while (rset.next()) {
+				Member m = new Member();
+				m.setUserId(rset.getString("USER_ID"));
+				m.setNicName(rset.getString("NICKNAME"));
+				m.setStatus(rset.getString("STATUS"));
+
+				list.add(m);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+
+		return list;
+	}
+
+	//[han]
+	// 관리자페이지 멤버 상세 조회용
+	public Member selectMemberAllInfo(Connection conn, String userId) {
+		Member m = null;
+
+		ResultSet rset = null;
+		PreparedStatement pstmt = null;
+
+		String sql = prop.getProperty("selectMemberAllInfo");
+		
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+
+			pstmt.setString(1, userId);
+
+			rset = pstmt.executeQuery();
+
+			if (rset.next()) {
+				//date 포맷용
+				DateFormat df = new SimpleDateFormat("yy/MM/dd HH:mm");  
+				//아래거는 null이 들어올수도 있어서 따로 빼서 처리해줌
+				Timestamp ts = rset.getTimestamp("CANCELLATION_DATE");
+				
+				m = new Member(
+						rset.getString("USER_ID"),
+						rset.getString("NICKNAME"),
+						rset.getString("STATUS"),
+						rset.getInt("SKIN_ID"),
+						rset.getInt("COIN"),
+						rset.getString("SELF_INFO"),
+						rset.getString("GENDER"),
+						df.format( rset.getTimestamp("ENROLL_DATE")),
+						rset.getString("API_KIND"),
+						ts != null ? df.format(ts) : ""
+						);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+
+		return m;
+	}
+	
 	
 	//[가영]
 	public Member selectMember(Connection conn, String userId) {
@@ -473,6 +688,53 @@ public class MemberDao {
 		return result;
 	}
 	
+	// [김혜린]
+	public int insertCharacter(Connection conn, String userId) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertCharacter");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userId);
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	
+	// [김혜린]
+	public int insertDltMember(Connection conn, String userId) {
+		System.out.println("멤버DAO / DISABLED_MEMBER 테이블 행추가 실행??");//console
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertDltMember");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userId);
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		System.out.println("멤버DAO / DISABLED_MEMBER 테이블 행추가 결과 : " + result); //console
+		return result;
+	}
+	
+	
+	
+	
+	
 //------------------------------ update 구간 -------------------------------		
 	// [김혜린]
 	public int updatePwd(Connection conn, String userPwd, String userId) {
@@ -496,12 +758,191 @@ public class MemberDao {
 		} finally {
 			close(pstmt);
 		}
+		return result;
+	}
+	
+	// [김혜린]
+	public int updateStatus(Connection conn, String userId) {
+		System.out.println("멤버DAO / updateStatus 실행??");//console
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateStatus");
 		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userId);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		System.out.println("멤버DAO / updateStatus 실행결과 : " + result);//console
+		return result;
+	}
+	
+	
+	
+//------------------------------ delete 구간 -------------------------------		
+	// [김혜린]
+	public int dltMemBoard(Connection conn, String userId) {
+		System.out.println("멤버DAO / dltMemBoard 실행??");//console
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("dltMemBoard");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, userId);
+			pstmt.setString(2, userId);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		System.out.println("멤버DAO / dltMemBoard 실행결과 : " + result);//console
+		return result;
+		
+	}
+	
+	public int dltMemChatting(Connection conn, String userId) {
+		System.out.println("멤버DAO / dltMemChatting 실행??");//console
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("dltMemChatting");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, userId);
+			pstmt.setString(2, userId);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		System.out.println("멤버DAO / dltMemChatting 실행결과 : " + result);//console
+		return result;
+	}
+	
+	public int dltMemHeart(Connection conn, String userId) {
+		System.out.println("멤버DAO / dltMemHeart 실행??");//console
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("dltMemHeart");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, userId);
+			pstmt.setString(2, userId);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		System.out.println("멤버DAO / dltMemHeart 실행결과 : " + result);//console
+		return result;
+	}
+	
+	public int dltMemCharacter(Connection conn, String userId) {
+		System.out.println("멤버DAO / dltMemCharacter 실행??");//console
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("dltMemCharacter");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userId);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		System.out.println("멤버DAO / dltMemCharacter 실행결과 : " + result);//console
+		return result;
+	}
+	
+	public int dltMemFriend(Connection conn, String userId) {
+		System.out.println("멤버DAO / dltMemFriend 실행??");//console
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("dltMemFriend");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userId);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		System.out.println("멤버DAO / dltMemFriend 실행결과 : " + result);//console
+		return result;
+	}
+	
+	public int dltMemApi(Connection conn, String userId) {
+		System.out.println("멤버DAO / dltMemApi 실행??");//console
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("dltMemApi");
 		
 		return result;
 	}
 	
 	
+	
+	
+	// [han]
+	// 유저 삭제
+	public int deleteMember(Connection conn, String userId) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("deleteMember");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userId);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	
+	
+	// [han]
+	// 유저 차단
+	public int blockMember(Connection conn, String userId) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("blockMember");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userId);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
 	
 	
 	

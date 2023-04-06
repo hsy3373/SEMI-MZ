@@ -60,6 +60,7 @@ let modalMyinfo = $('.modalMyinfo'); // 내정보변경 모달창
 mydateButton.addEventListener('click', () => {
     console.log("내정보변경버튼 이벤트 부여 => pw입력요청모달");
     smodalInfo.css('display','block');
+	$('#rqpwd').val("");
 });
 
 /* 내정보변경 시 비밀번호 입력 요청 모달 닫기 */	
@@ -68,11 +69,9 @@ document.querySelector('.sx-btn1').addEventListener('click', () => {
 });
 
 document.querySelector('.myinfo-xbtn').addEventListener('click', () => {
-    modalMyinfo.css('display','none');
+    modalMyinfo.css('display','none'); 
     smodalInfo.css('display','none');
 });
-	
-
 
 
 /* 내정보 변경 pw입력요청 모달에서 pw 확인 버튼 클릭 시 */
@@ -89,7 +88,16 @@ $('#rq-btn').on("click", function(){
 				//내정보변경 전 패스워드 체크일 때(패스워드 일치 시)
 				// 내정보변경 모달 block 처리
 				modalMyinfo.css('display','block');
-			}else{
+				//*정보변경 모달띄워질 때 들어갈 기능들*
+				//모달 보여질 때 유저 정보변경된거 그대로 띄워지게 하는거!!
+				// input 입력란 입력하다가 닫고 다시들어왔을 때 기본 정보만 유지
+				//입력하다가 만 건 비워주기!(리셋)
+				
+
+
+
+			}
+			if(result == "X"){
 				alert("비밀번호가 일치하지 않습니다. 다시 확인해주세요.");
 			}
 		}
@@ -103,27 +111,29 @@ let smodalNmem = $('.smodalNmem');
 
 $('#sec-btn').on("click", function(){
 	smodalNmem.css('display', 'block');
+	$('#sec-pwdchk').val(""); //pw 입력란 리셋용
 });
 
 $('.sx-btn2').on('click', () => {
 	smodalNmem.css('display', 'none');
 });
 
+// 비밀번호 입력 후 확인버튼
 $('#secsub-btn').on("click", function(){
 	let inputPwd = $('#sec-pwdchk').val();
 
 	$.ajax({
 		type : "post",
-		url : path + "/checkPwd.me",
+		url : path + "/delete.me",
 		dataType : "text",
 		data : {inputPwd: inputPwd},
 		success : (result) => {
-			if(result == "O"){
-				// 회원탈퇴 전 패스워드 체크일 때(패스워드 일치 시)
-				// 탈퇴되었다는 알림과 함께 로그인페이지(메인페이지로 이동하면서)세션정보지우기
-				// 그리고 테이블에 탈퇴처리하고, 상태테이블에 추가
+			if(result == "1"){ // 패스워드 일치 => 회원탈퇴 처리
 
-
+				// 탈퇴되었다는 알림과 함께
+				alert("회원탈퇴 되었습니다.");
+				//로그인페이지로 이동(메인페이지)
+				location.replace(path+"/views/main.jsp");
 
 			}else{
 				alert("비밀번호가 일치하지 않습니다. 다시 확인해주세요.");

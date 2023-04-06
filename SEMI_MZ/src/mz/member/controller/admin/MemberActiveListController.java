@@ -1,4 +1,4 @@
-package mz.notice.controller;
+package mz.member.controller.admin;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -11,22 +11,21 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 
-import mz.notice.model.service.NoticeService;
+import mz.member.model.service.MemberService;
+import mz.member.model.vo.Member;
 import mz.notice.model.vo.Notice;
-import mz.skin.model.service.SkinService;
-import mz.skin.model.vo.Skin;
 
 /**
- * Servlet implementation class NoticeListController
+ * Servlet implementation class MemberListController
  */
-@WebServlet("/list.notice")
-public class NoticeListController extends HttpServlet {
+@WebServlet("/activelist.member")
+public class MemberActiveListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public NoticeListController() {
+    public MemberActiveListController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -35,37 +34,47 @@ public class NoticeListController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		NoticeService service = new NoticeService(); 
+		MemberService service = new MemberService(); 
 		
 		String p = request.getParameter("page");
 		int page = p != null ? Integer.parseInt(p) : 1;
 		
-		int noticeCount = service.noticeCount();
-		ArrayList<Notice> list = service.selectNoticesPart(page);
+		String api = request.getParameter("api");
+		api = api != null ? api : "all";
 		
-		request.setAttribute("noticeCount", noticeCount);
+		String sort = request.getParameter("sort");
+		sort = sort != null ? sort : "userId";
+		
+		int memberCount = service.memberCount("Y", api);
+		ArrayList<Member> list = service.selectMemberList("Y", api, sort, page);
+		
+		request.setAttribute("memberCount", memberCount);
 		request.setAttribute("page", page);
+		request.setAttribute("api", api);
+		request.setAttribute("sort", sort);
 		request.setAttribute("list", list);
 	
-		request.getRequestDispatcher("views/admin/notice/noticeList.jsp").forward(request, response);
-	
+		request.getRequestDispatcher("views/admin/member/activeMemberList.jsp").forward(request, response);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//포스트 형식으로 들어오면 ajax로서 사용
 		
-		int page = Integer.parseInt(request.getParameter("page"));
+		String p = request.getParameter("page");
+		int page = p != null ? Integer.parseInt(p) : 1;
 		
-		// 원하는 페이지에 속하는 스킨 리스트 반환해줌
-		ArrayList<Notice> list = new NoticeService().selectNoticesPart(page);
+		String api = request.getParameter("api");
+		api = api != null ? api : "all";
 		
+		String sort = request.getParameter("sort");
+		sort = sort != null ? sort : "userId";
+		
+		ArrayList<Member> list = new MemberService().selectMemberList("Y", api, sort, page);
+			
 		response.setContentType("application/json; charset=UTF-8");
 		new Gson().toJson(list, response.getWriter());
-		
 	}
 
 }
