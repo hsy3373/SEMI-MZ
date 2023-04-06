@@ -13,11 +13,12 @@ import com.google.gson.Gson;
 
 import mz.member.model.vo.Member;
 import mz.skin.model.service.SkinService;
-import mz.skin.model.vo.Skin;
+import mz.skin.model.vo.Character;
 
 /**
  * Servlet implementation class MyroomMySkinController
  */
+// 로그인유저가 보유한 스킨 전체 조회
 @WebServlet("/mySkinList.my")
 public class MyroomMySkinController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -36,9 +37,9 @@ public class MyroomMySkinController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String userId = ((Member)request.getSession().getAttribute("loginUser")).getUserId();
 		
-		//System.out.println(list);
 		response.setContentType("application/json; charset=UTF-8");
-		ArrayList<Skin> list = new SkinService().mySkinList(userId);
+
+		ArrayList<Character> list = new SkinService().mySkinList(userId);
 		new Gson().toJson(list, response.getWriter());
 		
 		

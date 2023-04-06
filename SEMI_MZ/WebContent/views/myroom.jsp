@@ -277,13 +277,6 @@ ul li.on a {color: #fff;}
 			<!-- 스킨 박스 -->
 			<!-- 옷장 박스 -->
 			<div class="closet-skins">
-<!-- 				<div class='closet-item'> 
-					<div class='closet-skin-id' id='skin' style='display: none;'></div>
-					<div class='closet-price'></div>
-					<div class='closet-skin'>
-						<img src='."+ list[i].saveRoot +"/fs.png'>
-					</div>
-				</div> -->
 			</div>
 			<!-- 상점박스 -->
 			<div class="store-skins">

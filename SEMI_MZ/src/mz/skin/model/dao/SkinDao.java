@@ -209,7 +209,7 @@ public class SkinDao {
 	// [지의]
 	// 마이룸 상점 스킨 조회
 	// 페이지 별 일반 스킨 조회용(한페이지에 12개)
-	public ArrayList<Skin> selectSkinsList(Connection conn, int page) {
+	public ArrayList<Skin> selectSkinsList(Connection conn, String userId, int page) {
 		
 		ArrayList<Skin> list = new ArrayList<>();
 
@@ -219,11 +219,11 @@ public class SkinDao {
 		try {
 			pstmt = conn.prepareStatement(sql);
 			
+			pstmt.setString(1, userId);
 			// 이거보다 크거나 같고
-			pstmt.setInt(1, (page-1)*12 +1);
-			
+			pstmt.setInt(2, (page-1)*12 +1);
 			//이거보다 작거나 같은
-			pstmt.setInt(2, page*12);
+			pstmt.setInt(3, page*12);
 			
 			rset = pstmt.executeQuery();
 
@@ -273,8 +273,8 @@ public class SkinDao {
 	
 	// [지의]
 	// 로그인 유저가 보유한 스킨 조회
-	public ArrayList<Skin> mySkinList(Connection conn, String userId){
-		ArrayList<Skin> list = new ArrayList<>();
+	public ArrayList<Character> mySkinList(Connection conn, String userId){
+		ArrayList<Character> list = new ArrayList<>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		String sql = prop.getProperty("mySkinList");
@@ -286,9 +286,8 @@ public class SkinDao {
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
-				Skin skin = new Skin(rset.getInt("SKIN_ID"),
-									 rset.getString("SAVE_ROOT")
-						);
+				Character skin = new Character(rset.getInt("SKIN_ID"),
+									 		   rset.getString("SAVE_ROOT"));
 				list.add(skin);
 			}
 		} catch (SQLException e) {
@@ -326,6 +325,29 @@ public class SkinDao {
 			close(pstmt);
 		}
 
+		return result;
+	}
+	
+	// [지의]
+	// CHARACTER 테이블에 구입한 스킨 INSERT
+	public int insertMySkin(Connection conn, String userId, int skinId) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertMySkin");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, userId);
+			pstmt.setInt(2, skinId);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
 		return result;
 	}
 
@@ -403,31 +425,5 @@ public class SkinDao {
 	}
 	
 	// [지의]
-	// 세션에 저장된 로그인 유저 조회해와야?
-	public Member selectSkinId(Connection conn, String userId) {
-		Member m = null;
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		String sql = prop.getProperty("selectSkinId");
-		try {
-			pstmt = conn.prepareStatement(sql);
-			
-			pstmt.setString(1, userId);
-			
-			rset = pstmt.executeQuery();
-			
-			if(rset.next()) {
-				m = new Member();
-				rset.getString("USER_ID");
-				rset.getInt("SKIN_ID");
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(rset);
-			close(pstmt);
-		}
-		return m;
-		
-	}
+
 }

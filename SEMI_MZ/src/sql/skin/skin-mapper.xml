@@ -39,16 +39,23 @@
 	</entry>
 	
 <!-- 지의 -->
-	<!-- 마이룸 옷장 -->
+	<!-- 마이룸 옷장 : 보유중인 캐릭터 제외하고 -->
 	<entry key="selectSkinsList">
 		SELECT SKIN_ID, SAVE_ROOT, CHARACTER_PRICE, REWARD
 		FROM (
 		  SELECT SKIN_ID, SAVE_ROOT, CHARACTER_PRICE, REWARD, ROWNUM AS RN
 		  FROM (
-		    SELECT SKIN_ID, SAVE_ROOT, CHARACTER_PRICE, REWARD
-		    FROM CHARACTER_SKIN
-		    WHERE REWARD = 'N' AND SKIN_ID != 0
-		    ORDER BY SKIN_ID ASC
+		    SELECT SKIN_ID, SAVE_ROOT, CHARACTER_PRICE, REWARD, ROWNUM AS RN
+            FROM CHARACTER_SKIN CS
+            WHERE NOT EXISTS
+            (
+                    SELECT SKIN_ID
+                    FROM CHARACTER C      
+                    WHERE USER_ID = ?
+                    AND CS.SKIN_ID = C.SKIN_ID
+            )
+            AND REWARD = 'N' AND SKIN_ID != 0
+            ORDER BY SKIN_ID ASC
 		  )
 		)
 		WHERE RN BETWEEN ? AND ?
@@ -65,8 +72,8 @@
 	<entry key="mySkinList">
 		SELECT SKIN_ID,
                SAVE_ROOT
-		  FROM CHARACTER_SKIN
-          JOIN CHARACTER USING (SKIN_ID)
+		  FROM CHARACTER
+          JOIN CHARACTER_SKIN USING (SKIN_ID)
 		 WHERE USER_ID = ?
 	</entry>
 	
@@ -78,7 +85,12 @@
 		INSERT INTO CHARACTER_SKIN(SKIN_ID, SAVE_ROOT, CHARACTER_PRICE, REWARD)
 		VALUES( SEQ_SKIN.NEXTVAL , '/resource/img/user/skin'||SEQ_SKIN.CURRVAL, ?, ? )
 	</entry>
-
+	
+	<!-- 구입한 스킨 insert -->
+	<entry key="insertMySkin">
+		INSERT INTO CHARACTER(USER_ID, SKIN_ID)
+		VALUES (?, ?)
+	</entry>
 
 <!-- update 구역 -->
 
@@ -94,18 +106,11 @@
 		WHERE SKIN_ID = ?
 	</entry>
 	
-	<!-- 로그인유저 스킨 변경 :  -->
+	<!-- 로그인유저 스킨 변경 : 지의 -->
 	<entry key="updateMySkin">
 		UPDATE MEMBER
 		SET SKIN_ID = ?
 		WHERE USER_ID = ?
-	</entry>
-	
-	<entry key="selectSkinId">
-		SELECT USER_ID,
-			   SKIN_ID
-		  FROM MEMBER
-		 WHERE USER_ID = ?
 	</entry>
 
 </properties>

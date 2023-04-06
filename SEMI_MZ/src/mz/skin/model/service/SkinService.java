@@ -123,11 +123,11 @@ public class SkinService {
 	
 	// [지의]
 	// 마이룸 - 페이지 별 일반 스킨 조회용(한페이지에 12개)
-	public ArrayList<Skin> selectSkinsList(int page) {
+	public ArrayList<Skin> selectSkinsList(String userId, int page) {
 
 		Connection conn = getConnection();
 
-		ArrayList<Skin> list = new SkinDao().selectSkinsList(conn, page);
+		ArrayList<Skin> list = new SkinDao().selectSkinsList(conn, userId, page);
 
 		close(conn);
 
@@ -146,9 +146,9 @@ public class SkinService {
 	
 	// [지의]
 	// 로그인 유저가 보유한 스킨 조회
-	public ArrayList<Skin> mySkinList(String userId){
+	public ArrayList<Character> mySkinList(String userId){
 		Connection conn = getConnection();
-		ArrayList<Skin> list = new SkinDao().mySkinList(conn, userId);
+		ArrayList<Character> list = new SkinDao().mySkinList(conn, userId);
 		close(conn);
 		return list;
 	}
@@ -178,6 +178,19 @@ public class SkinService {
 
 		close(conn);
 
+		return result;
+	}
+	
+	// [지의]
+	// CHARACTER 테이블에 구입한 스킨 INSERT
+	public int insertMySkin(String userId, int skinId) {
+		Connection conn = getConnection();
+		int result = new SkinDao().insertMySkin(conn, userId, skinId);
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
 		return result;
 	}
 	
@@ -225,14 +238,9 @@ public class SkinService {
 		Connection conn = getConnection();
 		int result = new SkinDao().updateMySkin(conn, userId, skinId);
 		
-		// null로 초기화하면 안됨..
-		//Member updateMem = null;
-		
 		if(result > 0) {
 			commit(conn);
 			
-			// 세션에 저장된 로그인 유저 조회해와야?
-			//updateMem = new SkinDao().selectSkinId(conn, userId);
 		}else {
 			rollback(conn);
 		}
