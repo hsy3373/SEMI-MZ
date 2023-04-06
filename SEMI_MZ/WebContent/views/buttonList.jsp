@@ -5,15 +5,15 @@
 <head>
 <meta charset="UTF-8">
 <title>버튼모달</title>
-<!--버튼 list : 작성자 윤지영 -->
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <link href="<%=contextPath%>/resource/css/common.css" rel="stylesheet" type="text/css">
 <link href="<%=contextPath%>/resource/css/buttonList.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="../resource/css/alert.css" />
 </head>
 <body>
-
-      <!--모달창 분리를 위해 버튼도 따로뻄 -->
+    <!-- ========================== [윤지영] 버튼리스트 / 아래떠있는 버튼 리스트 모달 ========================== -->
+       <!-- ======= 항상 아래 떠있는 버튼 2가지 ======== -->    
       <div class="button-area">
         <div class="friendList">
             <img src="<%=contextPath%>/resource/img/icon/친구목록 버튼.png" style=" width: 50px;" > 
@@ -25,13 +25,12 @@
         </div>
     </div>
 
-
-    <!--모달창 : 친구목록 -->
-    <div class="modal modal1">
+    <!-- ======= 모달창 : 친구목록 ======== -->    
+    <div class="modal fn-modal">
         <div class="modal_body">
-            <div class="modal-out-btn"><img src="<%=contextPath%>/resource/img/icon/엑스 버튼.png" class="x-btn1" style=" width: 55px; height: 55px;" ></div>
-            <div class="modal-background">
-                <div class="modal-textarea">
+            <div class="fr-modal-out-btn"><img src="<%=contextPath%>/resource/img/icon/엑스 버튼.png" class="fn-btn" style=" width: 55px; height: 55px;" ></div>
+            <div class="fr-modal-background">
+                <div class="fr-modal-textarea">
                     <table class="display-center"> 
                         <tbody id="friendList">
                         </tbody>
@@ -41,29 +40,29 @@
         </div> 
       </div>
 
-    <!--모달창 : 환경설정 -->
-    <div class="modal modal2" >
+     <!-- ======= 모달창 : 환경설정 ======== -->   
+    <div class="modal pf-modal" >
         <div class="modal_body" id="Preferences">
-            <div class="modal-out-btn2"><img src="<%=contextPath%>/resource/img/icon/엑스 버튼.png" class="x-btn2" style=" width: 55px; height: 55px;"></div>
-            <div class="modal-button1">
-            <a>내 정보 변경</a>
+            <div class="modal-out-btn2"><img src="<%=contextPath%>/resource/img/icon/엑스 버튼.png" class="Pf-btn" style=" width: 55px; height: 55px;"></div>
+            <div class="fn-button">
+            <a class="preferences-text">내 정보 변경</a>
             </div>
-            <div class="alert-toggle logout-button" id="userlogout">
-            <a>로그아웃</a>
+            <div class="logout-button" id="userlogout">
+            <a class="preferences-text">로그아웃</a>
             </div>
         </div>
       </div>
 
 
-      <!--로그아웃 모달창-->
-      <div class="alert">
-		<h3 id="alert-text"></h3>
-		<div>
-			<button class="button alert-ok" id="logout-ok">로그아웃</button>
-			<button class="button alert-toggle">취소</button>
-		</div>
-	</div>
-	<div class="alert-overlay"></div>
+       <!-- ======= 로그아웃 모달창: 환경설정 ======== -->  
+        <div class="alert" id="logout-alert">
+            <h3 id="alert-text">로그아웃 하시겠습니까?</h3>
+            <div>
+            <button class="button alert-ok" id="logout-ok">확인</button>
+            <button class="button alert-cancel" id="logout-cancel">취소</button>
+            </div>
+        </div>
+
 
     <!-- ========================== [김혜린] 내정보 변경 / 비밀번호 입력 요구 모달 공간 ========================== -->
     <!-- ======= 내정보변경 시 비밀번호 입력 요청 모달 ======== -->      
@@ -179,11 +178,10 @@
 
 
 
-
+      <!--button-list srcipt-->
       <script type="module" src="<%=contextPath%>/resource/js/buttonList.js"></script>
       <!--유효성 script -->
       <script type="module" src="../resource/js/validation.js"></script>
-        <!-- alert script 경로 -->
-    <script type="module" src="../resource/js/alert.js"></script>
+
 </body>
 </html>

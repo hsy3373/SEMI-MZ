@@ -54,7 +54,7 @@
 /*친구목록 모달 */
 
 /*친구목록 img*/
-.modal-background {
+.fr-modal-background {
     /* border: 1px solid red; */
     width: 238px;
     height: 374px;
@@ -67,7 +67,7 @@
 }
 
 /*친구목록 나가기 버튼*/
-.modal-out-btn{
+.fr-modal-out-btn{
     position: absolute;
     top: 300px;
     left: 1200px;
@@ -76,7 +76,7 @@
 
 
 /*친구목록 text */
-.modal-textarea{
+.fr-modal-textarea{
     margin-top: 30px;
     overflow-y: scroll;
     max-height: 300px;
@@ -106,7 +106,7 @@ border: 1px solid rebeccapurple;
 /*환경설정 모달*/
 
 /*내정보 변경 버튼*/
-.modal-button1{
+.fn-button{
     background-image: url(../img/icon/기본텍스트버튼2.png);
     width: 304px;
     height: 104px;
@@ -127,16 +127,17 @@ border: 1px solid rebeccapurple;
     text-align: center;
 }
 
-a{
+/*환경설정 text*/
+.preferences-text{
     line-height: 100px;
     font-size: 40px;
     font-weight: 300;
 }
 
-.mydateatg:hover{
-    font-size: 45x;
+.preferences-text:hover{
+    font-size: 45px;
+    cursor: pointer;
 }
-
 
 
 /*종료 버튼*/

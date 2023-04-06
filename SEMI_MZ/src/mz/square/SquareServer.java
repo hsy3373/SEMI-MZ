@@ -47,7 +47,7 @@ public class SquareServer {
 			}
 		}
 		
-		System.out.println(loginUsers);
+		//System.out.println(loginUsers);
 	}
 	
 	@OnMessage
@@ -82,7 +82,7 @@ public class SquareServer {
 			//user가 나갔을 경우 관리중인 user를 삭제처리 
 			if(User.getConnecting().equals("N")) {
 				loginUsers.remove(session.getId());
-				System.out.println(loginUsers);
+				//System.out.println(loginUsers);
 			};
 
 		}

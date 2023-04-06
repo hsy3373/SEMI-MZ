@@ -5,7 +5,11 @@
 import { getContextPath } from './common.js';
 import {modalstopfn} from './squareCanvas.js';
 import{FilterUsers} from './squareCanvas.js';
+import { getUserInfo } from './userInfo.js';
 let path = getContextPath();
+
+
+
  
 //버튼이벤트
 //버튼세팅 
@@ -15,15 +19,15 @@ const friendtable = document.getElementById("friendList"); //친구목록 table
 
 //친구목록 : 놀러가기 이벤트 
 const fnClick = (fn) => {
-    console.log("닉네임" +fn)
     console.log("클릭함")
+    document.querySelector(".info-modal").classList.remove("hidden");
+    window.sessionStorage.setItem('clickedUserId', fn);
+    getUserInfo();
 }
 
 //버튼 클릭 : 친구목록
 friendList.addEventListener('click', () => {
-    modal1.style.display = 'block';
-    let path = getContextPath();
-
+    fnmodal.style.display = 'block';
     let listuserId = userId;
 
     //친구목록 상세조회 
@@ -87,7 +91,7 @@ friendList.addEventListener('click', () => {
 
 //버튼 클릭 : 환경설정
 Listbutton.addEventListener('click', () => {
-    modal2.style.display = 'block';
+    pfmodal.style.display = 'block';
     //모달종료로 이벤트 재실행
     modalstopfn();
 });
@@ -95,30 +99,54 @@ Listbutton.addEventListener('click', () => {
 //모달 이벤트
 
 //모달 세팅
-const modal1 = document.querySelector('.modal1'); //친구목록
-const modal2 = document.querySelector('.modal2'); //환경설정
+const fnmodal = document.querySelector('.fn-modal'); //친구목록
+const pfmodal = document.querySelector('.pf-modal'); //환경설정
 const logoutButton = document.querySelector('.logout-button'); //로그아웃버튼
-const mydateButton = document.querySelector('.modal-button1'); //내정보 변경
-const Preferences = document.getElementById("Preferences");
+const mydateButton = document.querySelector('.fn-button'); //내정보 변경
+//const Preferences = document.getElementById("Preferences"); 
 
 //X버튼 종료이벤트 : 친구목록 
-document.querySelector('.x-btn1').addEventListener('click', () => {
-    modal1.style.display = 'none';
+document.querySelector('.fn-btn').addEventListener('click', () => {
+    fnmodal.style.display = 'none';
     //modal창 뜨는동안 타이벤트 정지처리
     modalstopfn();
 });
 
 
 //X버튼 종료이벤트 : 환경설정 
-document.querySelector('.x-btn2').addEventListener('click', () => {
-    modal2.style.display = 'none';
+document.querySelector('.Pf-btn').addEventListener('click', () => {
+    pfmodal.style.display = 'none';
     modalstopfn();
 });
 
-//로그아웃창 연결
+
+
+//alert js에서 가져옴 : 주의 !! 충돌가능성 있음!! 
+let logoutalert = document.getElementById("logout-alert");
+
+//로그아웃창 연결 
 logoutButton.addEventListener('click', () => {
-    console.log("로그아웃 이벤트 부여");
+     // 취소버튼 클릭시 alert 창 닫힘
+     let cancelBtn = logoutalert.querySelector(".alert-cancel");
+     cancelBtn.addEventListener("click", () => {
+        logoutalert.style.display = "none";
+       
+     });
+
+     let logoutok = document.getElementById("logout-ok");
+     logoutok.addEventListener("click",() => {
+        //console.log("로그아웃 처리")
+
+        location.href = path+"/logout";
+     })
+
+    // 모달  표시
+    logoutalert.style.display = "block";
 });
+
+
+
+
 
 
 //////////////////// [내정보변경 - 작성자 : 김혜린] /////////////////////////

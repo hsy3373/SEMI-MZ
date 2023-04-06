@@ -142,7 +142,7 @@ canvas.addEventListener("click", function (event) {
         
         
          noticeModal.style.display = 'block';
-        modalstopfn();
+         modalstop = true;
     
 
     }
@@ -438,7 +438,7 @@ canvas.addEventListener('click', function (e) {
         }
     }
 
-    console.log(sessionStorage.clickedUserId)
+    //console.log(sessionStorage.clickedUserId)
 })
 
 
@@ -474,7 +474,7 @@ let fnSocket = {
     onopen : function(e){
         console.log("접속성공");
         console.log(e);
-        sendMsg("ArrowRight");     
+        sendMsg("ArrowDown");     
     },
     onmessage : function (e) {
         // console.log('메세지 감지');
@@ -530,10 +530,10 @@ let fnSocket = {
     }
 }
 function initSocket(s){ 
-    console.log(s);
+    //console.log(s);
     for(let key in fnSocket){
         s[key] = fnSocket[key];
-        console.log(s[key] , fnSocket[key]);
+        //console.log(s[key] , fnSocket[key]);
     }
 }
 
@@ -604,7 +604,7 @@ const sendMsg = (keyboardCode) => {
 
 }
 
-
+//재연결 에러주기
 // socket.addEventListener("error", (event) => {
 //     console.log("WebSocket error: ", event);
 // });
