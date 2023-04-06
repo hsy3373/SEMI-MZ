@@ -62,6 +62,17 @@ public class MemberService {
 
 		return m;
 	}
+	
+	// [han] 관리자 페이지 신고창용 멤버 조회
+	public Member selectMemberForReport(String userId) {
+		Connection conn = getConnection();
+
+		Member m = new MemberDao().selectMemberForReport(conn, userId);
+
+		close(conn);
+
+		return m;
+	}
 
 	// 유저 정보 불러오기 - 가영
 	public Member selectMember(String userId) {

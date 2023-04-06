@@ -1,3 +1,13 @@
+.side-bar-ul :nth-child(3) a,
+.side-bar-ul :nth-child(3) i {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.side-bar-ul :nth-child(9) a,
+.side-bar-ul :nth-child(9) i {
+  color: white;
+}
+
 .head-text {
   font-size: 2rem;
   font-weight: 600;
@@ -74,6 +84,10 @@ td {
 }
 .list-area th:nth-child(3) {
   width: 20%;
+}
+
+#enroll-notice tr:hover {
+  background-color: white;
 }
 
 /* ----------------------------------- update 화면---------------------------------- */

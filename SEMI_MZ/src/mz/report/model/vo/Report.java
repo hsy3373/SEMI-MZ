@@ -2,6 +2,8 @@
 
 import java.sql.Date;
 
+import mz.member.model.vo.Member;
+
 public class Report {
 
 	private int reportNo; //	REPORT_NO
@@ -13,6 +15,8 @@ public class Report {
 	
 	//[han] 관리자페이지용 포맷된 데이트값
 	private String formatDate;
+	//[han] 관리자페이지 신고용 
+	private Member user, receiver;
 	
 	public Report() {
 		super();
@@ -99,6 +103,24 @@ public class Report {
 
 	public void setFormatDate(String formatDate) {
 		this.formatDate = formatDate;
+	}
+	
+	
+
+	public Member getUser() {
+		return user;
+	}
+
+	public void setUser(Member user) {
+		this.user = user;
+	}
+
+	public Member getReceiver() {
+		return receiver;
+	}
+
+	public void setReceiver(Member receiver) {
+		this.receiver = receiver;
 	}
 
 	@Override

@@ -209,8 +209,6 @@ public class MemberDao {
 		like = like.replaceAll("_", "\\_");
 		like = "%" + like + "%";
 
-		System.out.println(sql);
-
 		try {
 			pstmt = conn.prepareStatement(sql);
 
@@ -286,6 +284,41 @@ public class MemberDao {
 		return m;
 	}
 	
+	
+	// [han] 관리자 페이지 신고창용 멤버 조회
+	public Member selectMemberForReport(Connection conn, String userId) {
+		Member m = null;
+			
+		ResultSet rset = null;
+			
+		PreparedStatement pstmt = null;
+			
+		String sql = prop.getProperty("selectMemberForReport");
+			
+		try {
+			pstmt = conn.prepareStatement(sql);
+				
+			pstmt.setString(1, userId);
+			pstmt.setString(2, userId);
+			pstmt.setString(3, userId);
+				
+			rset = pstmt.executeQuery();
+				
+			if(rset.next()) {
+				m = new Member(rset.getString("USER_ID"),
+							   rset.getString("NICKNAME"),
+							   rset.getString("STATUS"),
+							   rset.getInt("USER_COUNT"),
+							   rset.getInt("RECEIVE_COUNT"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return m;
+	}
 	
 	//[가영]
 	public Member selectMember(Connection conn, String userId) {

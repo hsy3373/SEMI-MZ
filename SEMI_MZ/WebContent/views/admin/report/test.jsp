@@ -26,9 +26,9 @@ pageEncoding="UTF-8" %>
             </div>
             <div>
               <select name="search" id="search">
-                <option value="title" selected>제목</option>
-                <option value="userId">신고자</option>
+                <option value="userId" selected>신고자</option>
                 <option value="receveId">대상자</option>
+                <option value="title" >제목</option>
               </select>
             </div>
             <div class="search-input">
@@ -40,24 +40,12 @@ pageEncoding="UTF-8" %>
               <div class="search-result"></div>
             </div>
           </div>
-          <div class="filter">
-            <div>
-              <div>정렬 :</div>
-              <select name="sort" id="sort">
-                <option value="date" selected>신고일</option>
-                <option value="userId">신고자</option>
-                <option value="receveId">대상자</option>
-              </select>
-            </div>
-            <div>
-              <button type="button" id="delete-btn">삭제</button>
-              <button type="button" id="update-btn">수정</button>
-            </div>
-          </div>
+
           <div class="report-wrap">
             <div class="report-list-area">
-              <table>
+              <table class="report-list-table">
                 <tr>
+                  <th>#</th>
                   <th>신고번호</th>
                   <th>제목</th>
                   <th>신고자</th>
@@ -65,24 +53,29 @@ pageEncoding="UTF-8" %>
                   <th>신고일</th>
                 </tr>
                 <tr>
+                  <th>1</th>
                   <td>1</td>
-                  <td>제목</td>
-                  <td>신고자</td>
-                  <td>대상자</td>
-                  <td>신고일</td>
+                  <td>제목 이십글자ddddddddddㅏㅏㅏㅏkkkkkㅏㅏ</td>
+                  <td>dkdleljfkdlsjfdkls</td>
+                  <td>dfkjlsjfkdlsjfkd</td>
+                  <td>13/12/12</td>
                 </tr>
               </table>
             </div>
 
             <div class="detail-area">
+              <div class="btn-area">
+                <button type="button" id="delete-btn">삭제</button>
+                <button type="button" id="update-btn">수정</button>
+              </div>
               <div>
                 <table class="member-detail-table">
                   <tr>
                     <th rowspan="2">신고자</th>
                     <th>아이디</th>
-                    <td>id</td>
+                    <td>열두글자아아아아아</td>
                     <th>닉네임</th>
-                    <td>nic</td>
+                    <td>일이삼사오육칠팔</td>
                     <th>상태</th>
                     <td>y</td>
                   </tr>

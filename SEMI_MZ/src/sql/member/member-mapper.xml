@@ -72,6 +72,24 @@
 		WHERE USER_ID = ?
 	</entry>
 	
+	<!--[han] 어드민 페이지용 멤버 조회 -->
+	<entry key="selectMemberForReport">
+		SELECT M.USER_ID, M.NICKNAME, M.STATUS, USER_COUNT, RECEIVE_COUNT
+		FROM MEMBER M
+		LEFT JOIN (
+		  SELECT USER_ID, COUNT(*) AS USER_COUNT
+		  FROM REPORT
+		  WHERE USER_ID = ?
+		  GROUP BY USER_ID
+		) UC ON M.USER_ID = UC.USER_ID
+		LEFT JOIN (
+		  SELECT RECEIVE_ID, COUNT(*) AS RECEIVE_COUNT
+		  FROM REPORT
+		  WHERE RECEIVE_ID = ?
+		  GROUP BY RECEIVE_ID
+		) RC ON M.USER_ID = RC.RECEIVE_ID
+		WHERE M.USER_ID = ?
+	</entry>
 
 	<!-- [혜린] -->
 	<entry key="loginMember">
