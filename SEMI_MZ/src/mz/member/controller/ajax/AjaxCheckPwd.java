@@ -41,7 +41,7 @@ public class AjaxCheckPwd extends HttpServlet {
 		String inputPwd = request.getParameter("inputPwd");
 		String userPwd = ((Member)request.getSession().getAttribute("loginUser")).getUserPwd();
 		
-		//System.out.println("inputPwd : " + inputPwd +", loginuserPwd : " + userPwd);
+		System.out.println("inputPwd : " + inputPwd +", loginuserPwd : " + userPwd);
 		
 		if(inputPwd.equals(userPwd)) { // 패스워드 일치
 			response.getWriter().print("O");
