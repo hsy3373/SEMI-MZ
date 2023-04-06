@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import mz.member.model.vo.Member;
 import mz.skin.model.service.SkinService;
 
 /**
@@ -35,6 +36,8 @@ public class squareGoHome extends HttpServlet {
 
 		HttpSession session = request.getSession();
 		
+		String userId = ((Member)request.getSession().getAttribute("loginUser")).getUserId();
+		System.out.println("gohome에서 "+userId);
 		//로그인 값 있음
 		if(session.getAttribute("loginUser") == null) {
 			System.out.print("값없음");
@@ -42,7 +45,7 @@ public class squareGoHome extends HttpServlet {
 			
 		}else {// 값있음
 			// 지의추가 - 마이룸에 스킨카운트 포워딩 
-			int closetSkinCount = new SkinService().closetSkinCount();
+			int closetSkinCount = new SkinService().closetSkinCount(userId);
 			request.setAttribute("closetSkinCount", closetSkinCount);
 			
 			request.getRequestDispatcher("views/myroom.jsp").forward(request, response);

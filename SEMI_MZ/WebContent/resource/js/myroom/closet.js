@@ -7,7 +7,6 @@ import { getSessionStorage, setSessionStorage } from "./myroomCommon.js";
 let path = getContextPath();
 
 let closetSkinCount = getSessionStorage('closetSkinCount');
-//console.log("총게시글갯수 : "+closetSkinCount);
 /* 상점 클릭시 모든 리스트가 출력됨
    옷장 클릭시 loginUser의 스킨목록이 있는 것만 출력됨 */
 /*페이지별 스킨리스트 가져오는 함수 num값에 따라서 보여지는 화면이 달라짐)*/
@@ -21,7 +20,7 @@ function selectSkin(num){
 			for(let i = 0; i < list.length; i++){
 				str += "<div class='closet-item'>" 
 						  +"<div class='closet-skin-id' id='skin"+i+"' style='display: none;'>" + list[i].skinId +"</div>"
-						  + "<div class='closet-price'>" + list[i].price +"</div>"
+						  + "<div class='closet-price' id='"+list[i].price+"'>" + list[i].price +"</div>"
 						  + "<div class='closet-skin'>"
 						 	+"<img src='."+ list[i].saveRoot +"/fs.png' id='"+list[i].skinId+"'>"
 						  + "</div>"
@@ -54,36 +53,7 @@ function init() {
     });
   });
 }
-/* 해결 못함 */
-$(function(){
-	$(document).on("click",".store-btn",function(){
-		$.ajax({
-			url : path + "/mySkinList.my",
-			success : function(list){
-				// 내가 보유한 리스트를 조회
-				// 전체 리스트인 closet-skin-id 의 text()와, 조회한 리스트의 skinId 값과 일치한다면
-				// $(".closet-price").text("보유중");
-				
-				//console.log(list);
-				for(let i = 0; i < list.length; i++){
-					//console.log(list[i].skinId);
-					if(list[i].skinId == $(".store-skins #skin"+(i+1)).text()){
-						//console.log("??");
-						$(".store-skins .closet-price").text("보유중");
-					}
-				}
-				/*for(let i=0; i<closetSkinCount; i++){
-					console.log(list[i].skinId); //0 3 5
-					console.log($("#skin"+(i+1)).text());
-					if(i.skinId == $(".closet-skin-id").text()){
-						console.log("일치");
-					}
-				}*/
-			}
-		})
-	})
 
-})
 /* 로그인 유저가 보유한 스킨 */
 function mySkin(){
 	$.ajax({
@@ -131,6 +101,8 @@ $(document).on('click', '.closet-skins img' ,function(){
 $(document).on("click",".closet-wear", function(){
 	updateMySkin();
 });
+
+/*현재 스킨 교체 함수 -> 위의 클릭이벤트에 적용*/
 function updateMySkin(){
 	/*바뀐 스킨값 스킨아이디값 빼냄*/
 	let skinId;
@@ -150,7 +122,7 @@ function updateMySkin(){
 				loginUserSkinId = skinId;
 				/*바꾸고자하는 스킨 경로*/
 				let changeSkin = $(".view-skin .user-skin").attr('src');
-				console.log(changeSkin);
+				//console.log(changeSkin);
 				/*기존 스킨경로 바꾸고자하는 스킨 경로로 변경*/
 				$(".user-skin").attr('src', changeSkin);
 				if(loginUserSkinId == skinId){
@@ -169,48 +141,66 @@ function wearDisabled(){
 	$(".closet-wear").css("cursor", "default");
 }
 
-/*
-	구입버튼 클릭
+/* 구입버튼 클릭
 	1. CHARACTER 테이블에 구입스킨 INSERT
-	2. MEMBER 	 테이블에 COIN  UPDATE -> loginUser 정보 변경
+	2. MEMBER 	 테이블에 COIN  UPDATE -> loginUser 정보 변경 
 */
-/* 상점 -> 스킨박스 스킨 클릭시 왼쪽 대표 스킨에 이미지 적용 + 착용버튼 활성화 */
+
+/* 상점 -> 스킨박스 스킨 클릭시 왼쪽 대표 스킨에 이미지 적용 + 구입버튼 활성화 */
 $(document).on('click', '.store-skins img', function(){
 	/*클릭한 스킨박스의 스킨 src값*/
 	let changeSkin = $(this).attr('src');
 	/*왼쪽 대표스킨 src값에 클릭한 스킨 src값으로 넣어주기*/
 	$(".view-skin img").attr('src', changeSkin);
 	
-	let Id = $(this).attr("id");
-	console.log(Id);
-	$(".view-skin .user-skin").attr("id", Id);
-	/*let skinId = $(".view-skin .user-skin").attr("id");
-	console.log("넘길 스킨 아이디 : "+skinId);*/
+	/* 구입 클릭시 해당 스킨아이디값 필요하기 때문에
+	   이미지 태그의 id에 각 스킨 아이디값 부여해줌 -> 왼쪽 미리보기 스킨에 id값 추가 */
+	let id = $(this).attr("id");
+	$(".view-skin .user-skin").attr("id", id);
+	
+	// 구입버튼 활성화 + 커서 포인터
+	if(loginUserSkinId != id){
+		$(".closet-buy").attr("disabled", false);
+		$(".closet-buy").css("cursor", "pointer");
+	}
 })
 
 /*구입 클릭 이벤트*/
 $(document).on('click', '.closet-buy', function(){
+	
+	if(confirm("구입하시겠습니까? 현재 스킨이 바로 변경됩니다!")){
+		buySkin();
+		
+	}else{
+		return false;
+	}
+});
+/*CHARACTER 테이블에 구입스킨 INSERT + MEMBER 테이블에 COIN UPDATE*/
+function buySkin(){
 	// 스킨 아이디값 얻어와야됨
-	//let skinId = $(".view-skin .user-skin").attr("id");
-	//console.log("넘길 스킨 아이디 : "+skinId)
-
-
-	$(".view-skin .user-skin").attr("id", Id);
 	let skinId = $(".view-skin .user-skin").attr("id");
-	console.log("넘길 스킨 아이디 : "+skinId);
-	
-	
-	
-	
-	/*$.ajax({
+	//console.log("넘길 스킨 아이디 : "+skinId)
+	$.ajax({
 		url : path + "/insertMySkin.my",
 		data : {skinId : skinId},
-		success : function(){
-			console.log("접속성고오옹");
+		success : function(result){
+			if(result > 0){
+				// 현재 스킨 교체 함수 실행
+				updateMySkin();
+
+				// 구입버튼 비활성화
+				$(".closet-buy").attr("disabled", true);
+				$(".closet-buy").css("cursor", "default");
+				
+				// 가격 변경
+				
+				// 상점리스트 첫페이지로 적용
+				selectSkin(1);
+			}
 		},
 		error : function(e){console.log("접속 실패애애애애");}
-	})*/
-});
+	})
+}
 
 
 $(function () {
@@ -228,17 +218,20 @@ $(function () {
 			/*룸마스터 값이 있을 경우 옷장이벤트 x*/
 			$(".icon-closet").off('click');
 		}
+		
 	})
 
     /*옷장 버튼 클릭*/
 	$(document).on("click", ".dress-btn",function(){
         $.dressClick();
 		mySkin();
+		
 	});
     /*상점 버튼 클릭*/
 	$(document).on("click", ".store-btn",function(){
         $.storeClick();
 		selectSkin(1);
+		
 	});
 
     /*옷장 버튼 클릭 함수 생성*/
@@ -256,7 +249,6 @@ $(function () {
         $(".store-btn").css("cursor", "pointer");
         
         // 3. 구입 버튼(class="closet-buy") -> display: "none";
-
         $(".closet-buy").hide();
         $(".closet-wear").show();
         
@@ -266,7 +258,9 @@ $(function () {
         // 미리보기 이미지 현재 로그인유저 이미지로 설정, 착용버튼 비활성화
 		$(".view-skin .user-skin").attr('src',"./resource/img/user/skin"+loginUserSkinId+"/fs.png");
 		wearDisabled();
-
+		
+		// 페이징바가리기
+		$(".paging-closet").css("display", "none");
     }
   
 
@@ -293,6 +287,11 @@ $(function () {
         // 미리보기 이미지 현재 로그인유저 이미지로 설정
 		$(".view-skin .user-skin").attr('src',"./resource/img/user/skin"+loginUserSkinId+"/fs.png");
 
+		// 구입버튼 비활성화
+		$(".closet-buy").attr("disabled", true);
+		
+		// 페이징바 보이게
+		$(".paging-closet").css("display", "block");
 
     }
 });

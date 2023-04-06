@@ -1,12 +1,16 @@
 package mz.skin.controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
+
+import mz.member.model.service.MemberService;
 import mz.member.model.vo.Member;
 import mz.skin.model.service.SkinService;
 
@@ -35,14 +39,18 @@ public class MyroomSkinInsertController extends HttpServlet {
 		// 구입한 스킨 아이디
 		int skinId = Integer.parseInt(request.getParameter("skinId"));
 		
+		//CHARACTER 테이블에 구입스킨 INSERT + MEMBER 테이블에 COIN UPDATE
 		int result = new SkinService().insertMySkin(userId, skinId);
 		
+		response.setContentType("application/json; charset=UTF-8");
 		// 스킨 추가 성공
 		if(result > 0) {
-			// 상점 스킨 전체 조회
-			
-			// 로그인유저가 보유한 스킨 전체 조회
+			Member CoinUpdate = new MemberService().selectMemberAllInfo(userId);
+			request.getSession().setAttribute("loginUser", CoinUpdate);
+
 		}
+		// 데이터 넘기기
+		new Gson().toJson(result, response.getWriter());
 		
 	}
 

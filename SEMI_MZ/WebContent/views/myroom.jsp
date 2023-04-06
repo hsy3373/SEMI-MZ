@@ -27,10 +27,10 @@
  	if(endPage > maxPage){
  		endPage = maxPage;
  	}
-	//System.out.println("총스킨수        : "+closetSkinCount);
-	//System.out.println("총페이지수       : "+maxPage);
-	//System.out.println("페이징바의 시작 수 : "+startPage);
-	//System.out.println("페이징바의 끝 수  : "+endPage);
+	System.out.println("총스킨수        : "+closetSkinCount);
+	System.out.println("총페이지수       : "+maxPage);
+	System.out.println("페이징바의 시작 수 : "+startPage);
+	System.out.println("페이징바의 끝 수  : "+endPage);
 %>
 
 
@@ -282,21 +282,21 @@ ul li.on a {color: #fff;}
 			<div class="store-skins">
 			</div>
 			
-
 			<!-- 페이징 -->
 			<div class="paging-closet">
 				<% for(int i = startPage; i <= endPage; i++){ %>
-					<%-- <% if( i <= maxPage) { %> --%>
+					<% if( i <= maxPage) { %>
 						<% if(i != i*currentPage){ %>
 							<button type="button" class="selected-btn page-btn"><%= i %></button>
 						<%} else{ %>
 		            		<button type="button" class="page-btn"><%= i %></button>
 						<%} %>
-					<%-- <%} else { %>
+					<%} else { %>
 	            		<button type="button" class="disable-btn page-btn"><%= i %></button>	
-            		<% } %> --%>
+            		<% } %>
 				<% } %>
 			</div>
+
 		</div>
 	</div>
 
@@ -332,6 +332,7 @@ ul li.on a {color: #fff;}
 		/* 로그인유저, 방주인 js에서 사용하기 위해 변수에 담기 */
 		var loginUserId = '${loginUser.userId}';
 		var loginUserSkinId = '${loginUser.skinId}';
+		var loginUserCoin = '${loginUser.coin}';
 		var roomMasterId = "${roomMaster}";
 		//console.log("로그인유저 : "+loginUserId);
 		//console.log("로그인유저스킨 : "+loginUserSkinId);
@@ -348,6 +349,8 @@ ul li.on a {color: #fff;}
 	<script type="module" src="${contextPath}/resource/js/myroom/board.js"></script>
 	<script type="module" src="${contextPath}/resource/js/myroom/closet.js"></script>
 	<script type="module" src="${contextPath}/resource/js/buttonList.js"></script>
+	<script type="module" src="${contextPath}/resource/js/buttonList.js"></script>
+	<script src="${contextPath}/resource/js/squareCanvas.js"></script>
 
 
 </body>

@@ -465,6 +465,7 @@ $(function () {
   });
 });
 /* ======================= 방명록 삭제(내마이룸, 친구룸 동일하게 적용) ======================= */
+/*내 마이룸에서 방명록 삭제*/
 function deleteBoard(){
 	let boardNo = $(".board-detail .board-no").text();
 	$.ajax({
@@ -487,8 +488,9 @@ $(function(){
 		}
 	})
 });
+/*친구마이룸에서 내가 쓴 방명록 삭제*/
 function deleteSendBoard(){
-	let boardNo = $(".board-detail .board-no").text();
+	let boardNo = $(".board-send-detail .board-no").text();
 	$.ajax({
 		url : path + "/deleteBoard",
 		data : {boardNo : boardNo},

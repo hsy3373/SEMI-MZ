@@ -64,8 +64,15 @@
 	<!-- 옷장 스킨 총 갯수 : 지의 -->
 	<entry key="closetSkinCount">
 		SELECT COUNT(*) AS COUNT 
-		  FROM CHARACTER_SKIN
-		 WHERE REWARD = 'N'
+		  FROM CHARACTER_SKIN CS
+		 WHERE NOT EXISTS
+         (
+            SELECT SKIN_ID
+                    FROM CHARACTER C      
+                    WHERE USER_ID = ?
+                    AND CS.SKIN_ID = C.SKIN_ID
+         )
+         AND REWARD = 'N'
 	</entry>
 	
 	<!-- 로그인유저가 보유한 스킨 : 지의 -->
@@ -77,8 +84,6 @@
 		 WHERE USER_ID = ?
 	</entry>
 	
-
-
 
 <!-- insert 구역 -->
 	<entry key="insertSkin">
@@ -111,6 +116,18 @@
 		UPDATE MEMBER
 		SET SKIN_ID = ?
 		WHERE USER_ID = ?
+	</entry>
+	
+	<!-- 구입시 코인 차감 -->
+	<entry key="updateCoin">
+		UPDATE MEMBER
+		   SET COIN = 
+		   	   COIN - (
+						SELECT CHARACTER_PRICE
+						FROM CHARACTER_SKIN
+						WHERE SKIN_ID = ?
+					   )
+		 WHERE USER_ID = ?
 	</entry>
 
 </properties>

@@ -248,13 +248,15 @@ public class SkinDao {
 	
 	// [지의]
 	// 옷장 총 스킨 개수 확인
-	public int closetSkinCount(Connection conn) {
+	public int closetSkinCount(Connection conn, String userId) {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		String sql = prop.getProperty("closetSkinCount");
 		try {
 			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, userId);
 			
 			rset = pstmt.executeQuery();
 			
@@ -349,6 +351,30 @@ public class SkinDao {
 			close(pstmt);
 		}
 		return result;
+	}
+	
+	// [지의]
+	// MEMBER 테이블에 COIN  UPDATE
+	public int updateCoin(Connection conn, String userId, int skinId) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateCoin");
+		System.out.println("sql : "+sql);
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, skinId);
+			pstmt.setString(2, userId);
+			
+			result = pstmt.executeUpdate();
+			System.out.println("result : "+result);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+		
 	}
 
 

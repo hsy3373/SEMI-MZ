@@ -137,9 +137,9 @@ public class SkinService {
 	
 	// [지의]
 	// 옷장 총 스킨 개수 확인
-	public int closetSkinCount() {
+	public int closetSkinCount(String userId) {
 		Connection conn = getConnection();
-		int result = new SkinDao().closetSkinCount(conn);
+		int result = new SkinDao().closetSkinCount(conn, userId);
 		close(conn);
 		return result;
 	}
@@ -182,18 +182,26 @@ public class SkinService {
 	}
 	
 	// [지의]
-	// CHARACTER 테이블에 구입한 스킨 INSERT
+	// CHARACTER 테이블에 구입한 스킨 INSERT + MEMBER 테이블에 COIN  UPDATE
 	public int insertMySkin(String userId, int skinId) {
 		Connection conn = getConnection();
-		int result = new SkinDao().insertMySkin(conn, userId, skinId);
-		if(result > 0) {
+		int result1 = new SkinDao().insertMySkin(conn, userId, skinId);
+		int result2 = 0;
+		if(result1 > 0) {
 			commit(conn);
+			
+			result2 = new SkinDao().updateCoin(conn,userId, skinId);
+			if(result2 > 0) {
+				commit(conn);
+			}else {
+				rollback(conn);
+			}
 		} else {
 			rollback(conn);
 		}
-		return result;
+		return result1 * result2;
 	}
-	
+
 
 
 //-------------------------------------------UPDATE 구역 -------------------------------------------------
