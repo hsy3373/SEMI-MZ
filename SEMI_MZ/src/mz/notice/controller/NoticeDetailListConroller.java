@@ -11,22 +11,20 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 
-import mz.member.model.service.MemberService;
-import mz.member.model.vo.Member;
 import mz.notice.model.service.NoticeService;
 import mz.notice.model.vo.Notice;
 
 /**
- * Servlet implementation class NoticeSelectController
+ * Servlet implementation class NoticeDetailListConroller
  */
-@WebServlet("/selectNotice")
-public class NoticeSelectController extends HttpServlet {
+@WebServlet("/detail.list")
+public class NoticeDetailListConroller extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public NoticeSelectController() {
+    public NoticeDetailListConroller() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -35,8 +33,15 @@ public class NoticeSelectController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ArrayList<Notice> list = new NoticeService().selectNoticeList();
-		System.out.println(list);
+		
+		int page = Integer.parseInt(request.getParameter("page"));
+		System.out.println("페이지 : "+page);
+		
+		response.setContentType("application/json; charset=UTF-8");
+		ArrayList<Notice> list = new NoticeService().selectNoticeDetail(page);
+		
+		System.out.println("게시글"+list);
+		System.out.println("리스트 사이즈 : "+list.size());
 		
 		response.setContentType("application/json; charset=UTF-8");
 		new Gson().toJson(list, response.getWriter());
@@ -46,15 +51,8 @@ public class NoticeSelectController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		int noticeNo = Integer.parseInt(request.getParameter("noticeNo"));
-		
-		Notice n = new NoticeService().selectDetailNotice(noticeNo);
-		
-		response.setContentType("application/json; charset=UTF-8");
-		new Gson().toJson(n, response.getWriter());
-		
-		System.out.println(n);
+		// TODO Auto-generated method stub
+		doGet(request, response);
 	}
 
 }
