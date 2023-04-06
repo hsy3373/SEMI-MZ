@@ -5,37 +5,40 @@ import {
 } from "../adminCommon.js";
 
 //페이지별 리스트 가져오는 함수
-let getMember = function (num, sort, api) {
+let getMember = function (num, sort, api, status) {
   let path = getContextPath();
   $.ajax({
-    url: path + "/activelist.member",
+    url: path + "/cancelList.member",
     method: "post",
     data: {
       page: num,
       sort: sort,
       api: api,
+      status: status,
     },
     success: function (data) {
       let memberCount = getSessionStorage("memberCount");
       let str = `<tr>
-                  <th>#</th>
-                  <th>아이디</th>
-                  <th>닉네임</th>
-                  <th>코인</th>
-                  <th>API</th>
-                  <th>가입일</th>
-                  <th>상태</th>
-                </tr>`;
+                    <th>#</th>
+                    <th>아이디</th>
+                    <th>닉네임</th>
+                    <th>코인</th>
+                    <th>API</th>
+                    <th>가입일</th>
+                    <th>상태</th>
+                    <th>비활성일</th>
+                  </tr>`;
       for (let i in data) {
         str += `<tr class="member-item">
-                  <td>${memberCount - i - (num - 1) * 20}</td>
-                  <td>${data[i].userId}</td>
-                  <td>${data[i].nicName}</td>
-                  <td>${data[i].coin}</td>
-                  <td>${data[i].apiKind}</td>
-                  <td>${data[i].formatDate}</td>
-                  <td>${data[i].status}</td>
-                </tr>`;
+                    <td>${memberCount - i - (num - 1) * 20}</td>
+                    <td>${data[i].userId}</td>
+                    <td>${data[i].nicName}</td>
+                    <td>${data[i].coin}</td>
+                    <td>${data[i].apiKind}</td>
+                    <td>${data[i].formatDate}</td>
+                    <td>${data[i].status}</td>
+                    <td>${data[i].cancellationDate}</td>
+                  </tr>`;
       }
 
       document.querySelector(".list-area").innerHTML = str;
@@ -61,10 +64,10 @@ let searchMember = function (option, keyword) {
 
       for (let i in data) {
         str += `<div class="search-result-item">
-                  아이디 : <div> ${data[i].userId}</div>
-                  닉네임 : <div> ${data[i].nicName}</div>
-                  상태 : <div> ${data[i].status}</div>
-                </div>`;
+                    아이디 : <div> ${data[i].userId}</div>
+                    닉네임 : <div> ${data[i].nicName}</div>
+                    상태 : <div> ${data[i].status}</div>
+                  </div>`;
       }
 
       document.querySelector(".search-result").innerHTML = str;
@@ -76,20 +79,20 @@ let searchMember = function (option, keyword) {
   });
 };
 
+let reloadList = function () {
+  let sort = document.getElementById("sort").value;
+  let api = document.querySelector('input[name="api"]:checked').value;
+  let status = document.querySelector('input[name="status"]:checked').value;
+
+  location.href = `${getContextPath()}/cancelList.member?sort=${sort}&api=${api}&status=${status}`;
+};
+
 let init = function () {
-  document.getElementById("sort").addEventListener("change", function () {
-    let sort = document.getElementById("sort").value;
-    let api = document.querySelector('input[name="api"]:checked').value;
+  document.getElementById("sort").addEventListener("change", reloadList);
 
-    location.href = `${getContextPath()}/activelist.member?sort=${sort}&api=${api}`;
-  });
+  $("input[name='api']:radio").change(reloadList);
 
-  $("input[name='api']:radio").change(function () {
-    let sort = document.getElementById("sort").value;
-    let api = document.querySelector('input[name="api"]:checked').value;
-
-    location.href = `${getContextPath()}/activelist.member?sort=${sort}&api=${api}`;
-  });
+  $("input[name='status']:radio").change(reloadList);
 
   $(document.querySelector(".search-result")).on(
     "click",
@@ -121,8 +124,9 @@ let init = function () {
 
       let sort = document.getElementById("sort").value;
       let api = document.querySelector('input[name="api"]:checked').value;
+      let status = document.querySelector('input[name="status"]:checked').value;
 
-      getMember(this.innerText, sort, api);
+      getMember(this.innerText, sort, api, status);
 
       this.className = "selected-btn page-btn";
     });
@@ -181,7 +185,7 @@ let init = function () {
 
   document.querySelector(".member-menu").style.color = "white";
   document.querySelector(".member-menu i").style.color = "white";
-  document.querySelector(".member-menu-item :nth-child(1)").style.color =
+  document.querySelector(".member-menu-item :nth-child(2)").style.color =
     "white";
 
   setTimeout(function () {

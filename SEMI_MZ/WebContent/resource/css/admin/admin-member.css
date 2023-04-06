@@ -115,6 +115,7 @@ select {
   margin-top: 80px;
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
 }
 
 .filter > div {

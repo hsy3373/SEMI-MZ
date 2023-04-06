@@ -23,14 +23,15 @@
 	
 	<!--[han]  어드민 페이지용 멤버 조회 -->
 	<entry key="selectMemberList">
-		SELECT USER_ID, NICKNAME, STATUS , COIN, ENROLL_DATE, API_KIND
+		SELECT USER_ID, NICKNAME,  STATUS , COIN, ENROLL_DATE, API_KIND, CANCELLATION_DATE
 		FROM (
-		  SELECT USER_ID, NICKNAME, STATUS , COIN, ENROLL_DATE, API_KIND, ROWNUM AS RN
+		  SELECT USER_ID, NICKNAME,  STATUS , COIN, ENROLL_DATE, API_KIND, CANCELLATION_DATE, ROWNUM AS RN
 		  FROM (
-		    SELECT USER_ID, NICKNAME, STATUS , COIN, ENROLL_DATE, API_KIND
-		    FROM MEMBER
+		    SELECT USER_ID, NICKNAME,  M.STATUS , COIN, ENROLL_DATE, API_KIND, CANCELLATION_DATE
+		    FROM MEMBER M
             JOIN LOGIN_API USING(USER_ID)
-		    WHERE STATUS IN AND API_KIND IN
+            LEFT JOIN DISABLED_MEMBER USING(USER_ID)
+		    WHERE M.STATUS IN AND API_KIND IN
 		    ORDER BY ## DESC
 		  )
 		)
@@ -205,7 +206,7 @@
 					(USER_ID,
 					 STATUS)
 			 VALUES(?,
-			 		'N')
+			 		?)
 	</entry>
 	
 	<!-- [혜린] -->
@@ -228,10 +229,17 @@
 <!-- [혜린] -->
 	<entry key = "updateStatus">
 		UPDATE MEMBER
-		   SET STATUS = 'N'
+		   SET STATUS =  ?
 		 WHERE USER_ID = ?
 	</entry>
 
+<!-- [han] 관리자 페이지용-->
+	<entry key = "updateMemberInfo">
+		UPDATE MEMBER
+		   SET COIN =  ?,
+				SELF_INFO = ?
+		 WHERE USER_ID = ?
+	</entry>
 
 <!-- ================= delete 구간 ======================== -->
 <!-- [혜린] -->
@@ -258,33 +266,28 @@
 	<entry key = "dltMemFriend">
 		DELETE FROM FRIEND
 		 WHERE USER_ID = ?
+		 	OR FRIEND_ID = ?
 	</entry>
 	<entry key = "dltMemApi">
 		DELETE FROM LOGIN_API
 		 WHERE USER_ID = ?
 	</entry>
 	
-
-
-
-
-
-
-
-
-	
-<!-- [han] -->
-	<entry key="blockMember">
-		UPDATE MEMBER
-		SET STATUS = 'X'
-		WHERE USER_ID = ?
+	<entry key = "dltMemChattingRoom">
+		DELETE FROM CHATTINGROOM
+		 WHERE USER_ID = ?
+		    OR RECEIVE_ID = ?
 	</entry>
-
 	
 
 <!-- [han] -->
 	<entry key="deleteMember">
 		DELETE FROM MEMBER WHERE USER_ID =  ?
+	</entry>
+	
+<!-- [han] -->
+	<entry key="deleteDltMember">
+		DELETE FROM DISABLED_MEMBER WHERE USER_ID =  ?
 	</entry>
 
 
