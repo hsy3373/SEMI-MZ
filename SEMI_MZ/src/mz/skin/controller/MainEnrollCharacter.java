@@ -1,4 +1,4 @@
-package mz.member.controller.ajax;
+package mz.skin.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -6,23 +6,21 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import mz.member.model.service.MemberService;
-import mz.member.model.vo.Member;
 
 /**
  * 작성자 : 김혜린
- * 아이디 패스워드 찾기 => 패스워드 변경 서블릿
+ * 회원가입 시 CHARACTER 테이블 INSERT용 서블릿
  */
-@WebServlet("/updatePwd.me")
-public class AjaxPwdUpdate extends HttpServlet {
+@WebServlet("/insertSkin.id")
+public class MainEnrollCharacter extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AjaxPwdUpdate() {
+    public MainEnrollCharacter() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -40,33 +38,15 @@ public class AjaxPwdUpdate extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String userPwd = request.getParameter("userPwd");
-		String userId = ((Member) request.getSession().getAttribute("loginUser")).getUserId();
+		String userId = request.getParameter("userId");
 		
-		//System.out.println("세션에서 꺼낸 유저아이디 : "+userId);
-
-		Member m = new MemberService().updatePwd(userPwd, userId);
+		int result = new MemberService().insertCharacter(userId);
 		
-//		UPDATE MEMBER
-//		SET USER_PWD = 'userPwd'
-//		WHERE USER_ID = 'userId';
-		
-		
-		HttpSession session = request.getSession();
-		
-		if(m == null) { // 실패
-			response.getWriter().print("0");
-		}else { // update 성공
-			session.setAttribute("loginUser", m);
-			response.getWriter().print("1");
-			//System.out.println(m);
+		if(result > 0) {
+			response.getWriter().print("111");
+		}else {
+			System.out.println("character table insert 실패");
 		}
-		
-		
-		
-		
-		
-		
 		
 		
 	}

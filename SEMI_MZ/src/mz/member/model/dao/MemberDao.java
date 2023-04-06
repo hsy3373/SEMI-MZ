@@ -688,6 +688,53 @@ public class MemberDao {
 		return result;
 	}
 	
+	// [김혜린]
+	public int insertCharacter(Connection conn, String userId) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertCharacter");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userId);
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	
+	// [김혜린]
+	public int insertDltMember(Connection conn, String userId) {
+		System.out.println("멤버DAO / DISABLED_MEMBER 테이블 행추가 실행??");//console
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertDltMember");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userId);
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		System.out.println("멤버DAO / DISABLED_MEMBER 테이블 행추가 결과 : " + result); //console
+		return result;
+	}
+	
+	
+	
+	
+	
 //------------------------------ update 구간 -------------------------------		
 	// [김혜린]
 	public int updatePwd(Connection conn, String userPwd, String userId) {
@@ -711,7 +758,143 @@ public class MemberDao {
 		} finally {
 			close(pstmt);
 		}
+		return result;
+	}
+	
+	// [김혜린]
+	public int updateStatus(Connection conn, String userId) {
+		System.out.println("멤버DAO / updateStatus 실행??");//console
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateStatus");
 		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userId);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		System.out.println("멤버DAO / updateStatus 실행결과 : " + result);//console
+		return result;
+	}
+	
+	
+	
+//------------------------------ delete 구간 -------------------------------		
+	// [김혜린]
+	public int dltMemBoard(Connection conn, String userId) {
+		System.out.println("멤버DAO / dltMemBoard 실행??");//console
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("dltMemBoard");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, userId);
+			pstmt.setString(2, userId);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		System.out.println("멤버DAO / dltMemBoard 실행결과 : " + result);//console
+		return result;
+		
+	}
+	
+	public int dltMemChatting(Connection conn, String userId) {
+		System.out.println("멤버DAO / dltMemChatting 실행??");//console
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("dltMemChatting");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, userId);
+			pstmt.setString(2, userId);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		System.out.println("멤버DAO / dltMemChatting 실행결과 : " + result);//console
+		return result;
+	}
+	
+	public int dltMemHeart(Connection conn, String userId) {
+		System.out.println("멤버DAO / dltMemHeart 실행??");//console
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("dltMemHeart");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, userId);
+			pstmt.setString(2, userId);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		System.out.println("멤버DAO / dltMemHeart 실행결과 : " + result);//console
+		return result;
+	}
+	
+	public int dltMemCharacter(Connection conn, String userId) {
+		System.out.println("멤버DAO / dltMemCharacter 실행??");//console
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("dltMemCharacter");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userId);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		System.out.println("멤버DAO / dltMemCharacter 실행결과 : " + result);//console
+		return result;
+	}
+	
+	public int dltMemFriend(Connection conn, String userId) {
+		System.out.println("멤버DAO / dltMemFriend 실행??");//console
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("dltMemFriend");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userId);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		System.out.println("멤버DAO / dltMemFriend 실행결과 : " + result);//console
+		return result;
+	}
+	
+	public int dltMemApi(Connection conn, String userId) {
+		System.out.println("멤버DAO / dltMemApi 실행??");//console
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("dltMemApi");
 		
 		return result;
 	}
