@@ -35,12 +35,11 @@
 				<div class="ranking-nickname">박가영입니다_</div>
 			</div>
 		</div>
-		<!-- <div class="notice-list">
-			<div class="list-post">
-				<img alt="" class="post-img" src="../resource/img/icon/포스트잇.png">
+		<div class="notice-list">
+			<!-- <div class="list-post">
 				<div class="notice-title">첫번재 공지사항 입니다.</div>
-			</div>
-		</div> -->
+			</div> -->
+		</div>
 		<div class="notice-x-btn">
 			<img id="notice-x-btn" alt="닫기 버튼" src="../resource/img/icon/엑스 버튼.png">
 		</div>
@@ -51,19 +50,22 @@
 			<img id="detail-view" src="../resource/img/icon/상세보기.png" alt="">
 		</div>
 		<div class="notice-detail-name">공지사항</div>
-		<div class="notice-list-item">
-			<!-- <div class="notice-no" style="display: none;">
-				<ul class="notice-detail-list">
+		<!-- <div class="notice-list-item"> -->
+			<!-- <div class="notice-no" style="display: none;"> -->
+				<!-- <ul class="notice-detail-list">
+					<li class="detail-list">공지사항1</li>
 					<li>공지사항1</li>
 					<li>공지사항1</li>
 					<li>공지사항1</li>
 					<li>공지사항1</li>
 					<li>공지사항1</li>
-					<li>공지사항1</li>
-				</ul>
-			</div> -->
-		</div>
+				</ul> -->
+			<!-- </div> -->
+		<!-- </div> -->
 		<!-- 페이징바 자리 -->
+		<div class="notice-pageing-area">
+			<ul id="notice-pagingul"></ul>
+		</div>
 		<div class="notice-date"></div>
 		<div class="notice-detail-title"></div>
 		<div class="notice-content"></div>
