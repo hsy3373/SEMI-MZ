@@ -2,6 +2,7 @@ package mz.member.model.service;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import static mz.common.JDBCTemplate.*;
 
@@ -117,6 +118,43 @@ public class MemberService {
 			//System.out.println("서비스 result : " + result); // cosole용
 			return result;
 		}
+		
+	// [김혜린]	
+		public int insertCharacter(String userId) {
+			
+			Connection conn = getConnection();
+			
+			int result = new MemberDao().insertCharacter(conn, userId);
+			
+			if(result > 0) { // CHARACTER 테이블에 추가 성공
+				commit(conn);
+			}else { // CHARACTER 테이블에 추가 실패
+				rollback(conn);
+			}
+			close(conn);
+			return result;
+		}
+		
+	// [김혜린]
+		public void insertDltMember(String userId) {
+			System.out.println("멤버서비스 / DISABLED_MEMBER 테이블 행추가 실행??");//console
+			Connection conn = getConnection();
+			
+			int result = new MemberDao().insertDltMember(conn, userId);
+			
+			if(result > 0) { //DISABLED_MEMBER 테이블 insert 성공
+				commit(conn);
+			}else{ //DISABLED_MEMBER 테이블 insert 실패
+				rollback(conn);
+			}
+			close(conn);
+			System.out.println("멤버서비스 DISABLED_MEMBER 테이블 행추가 결과:" + result); //console확인
+		}
+		
+		
+		
+		
+		
 //------------------------------ update 구간 -------------------------------
 	// [김혜린]
 		public Member updatePwd(String userPwd, String userId) {
@@ -137,11 +175,127 @@ public class MemberService {
 			//System.out.println("서비스 updatePwd result : " + result);
 			return m;
 		}
+	// [김혜린]
+		public int updateStatus(String userId) {
+			System.out.println("멤버서비스 / updateStatus 실행??"); //console
+			Connection conn = getConnection();
+			
+			int result = new MemberDao().updateStatus(conn, userId);
+			
+			if(result > 0) { //Member테이블 status: update 성공
+				commit(conn);
+			}else { //Member테이블 status: update 실패
+				rollback(conn);
+			}
+			close(conn);
+			System.out.println("멤버서비스 / updateStatus 실행결과 : " + result); //console
+			return result;
+		}
 		
 		
+//------------------------------ delete 구간 -------------------------------
+	// [김혜린]	
+		public void dltMemBoard(String userId) {
+			System.out.println("멤버서비스 / dltMemBoard 실행??"); //console
+			
+			Connection conn = getConnection();
+			
+			int result = new MemberDao().dltMemBoard(conn, userId);
+			
+			if(result > 0) { // 행 delete 성공
+				commit(conn);
+			}else { // 행 delete 실패
+				rollback(conn);
+			}
+			close(conn);
+			System.out.println("멤버서비스 / dltMemBoard 실행 결과 : "+ result); //console			
+		}
 		
+		public void dltMemChatting(String userId) {
+			System.out.println("멤버서비스 / dltMemChatting 실행??"); //console
+			
+			Connection conn = getConnection();
+			
+			int result = new MemberDao().dltMemChatting(conn, userId);
+			
+			if(result > 0) { // 행 delete 성공
+				commit(conn);
+			}else { // 행 delete 실패
+				rollback(conn);
+			}
+			close(conn);
+			System.out.println("멤버서비스 / dltMemChatting 실행 결과 : "+ result); //console			
+		}
 		
+		public void dltMemHeart(String userId) {
+			System.out.println("멤버서비스 / dltMemHeart 실행??"); //console
+			
+			Connection conn = getConnection();
+			
+			int result = new MemberDao().dltMemHeart(conn, userId);
+			
+			if(result > 0) { // 행 delete 성공
+				commit(conn);
+			}else { // 행 delete 실패
+				rollback(conn);
+			}
+			close(conn);
+			System.out.println("멤버서비스 / dltMemHeart 실행 결과 : "+ result); //console
+		}
 		
+		public void dltMemCharacter(String userId) {
+			System.out.println("멤버서비스 / dltMemCharacter 실행??"); //console
+			
+			Connection conn = getConnection();
+			
+			int result = new MemberDao().dltMemCharacter(conn, userId);
+			
+			if(result > 0) { // 행 delete 성공
+				commit(conn);
+			}else { // 행 delete 실패
+				rollback(conn);
+			}
+			close(conn);
+			System.out.println("멤버서비스 / dltMemCharacter 실행 결과 : "+ result); //console
+		}
+		
+		public void dltMemFriend(String userId) {
+			System.out.println("멤버서비스 / dltMemFriend 실행??"); //console
+			
+			Connection conn = getConnection();
+			
+			int result = new MemberDao().dltMemFriend(conn, userId);
+			
+			if(result > 0) { // 행 delete 성공
+				commit(conn);
+			}else { // 행 delete 실패
+				rollback(conn);
+			}
+			close(conn);
+			System.out.println("멤버서비스 / dltMemFriend 실행 결과 : "+ result); //console
+		}
+		
+		public void dltMemApi(String userId) {
+			System.out.println("멤버서비스 / dltMemApi 실행??"); //console
+			
+			Connection conn = getConnection();
+			
+			int result = new MemberDao().dltMemApi(conn, userId);
+			
+			if(result > 0) { // 행 delete 성공
+				commit(conn);
+			}else { // 행 delete 실패
+				rollback(conn);
+			}
+			close(conn);
+			System.out.println("멤버서비스 / dltMemApi 실행 결과 : "+ result); //console
+		}
+			
+			
+			
+			
+			
+			
 		
 		
 		

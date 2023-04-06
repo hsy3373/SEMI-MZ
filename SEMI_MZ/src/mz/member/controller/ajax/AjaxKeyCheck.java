@@ -62,7 +62,6 @@ public class AjaxKeyCheck extends HttpServlet {
 
 		//System.out.println("keycheck 서블릿 담겼?: " + m); // console용
 
-		//System.out.println("status값 : " + m.getStatus());
 		if (m == null) { // 키 DB에 없음 => 회원가입 가능
 			response.getWriter().print("0");
 		}
