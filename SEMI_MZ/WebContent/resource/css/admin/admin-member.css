@@ -1,0 +1,183 @@
+.head-text {
+  font-size: 2rem;
+  font-weight: 600;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 7vh 0px 50px 0px;
+  color: rgba(0, 0, 0, 0.6);
+  position: relative;
+}
+
+/* ----------------------------------- list 화면---------------------------------- */
+
+.inner-wrap {
+  width: 70vw;
+  background-color: white;
+  color: black;
+  padding: 2vw;
+  background-color: white;
+  border-radius: 1%;
+  margin: auto;
+  box-shadow: 0px 0px 50px rgba(0, 0, 0, 0.05);
+  position: relative;
+}
+
+.inner-wrap *:focus-visible {
+  outline: none;
+}
+
+select {
+  cursor: pointer;
+}
+
+.search {
+  position: absolute;
+  transform: translate(-50%, 0);
+  left: 50%;
+  top: 2vw;
+  z-index: 1;
+  background-color: white;
+  width: 70%;
+  display: flex;
+  padding: 8px;
+  border-radius: 20px;
+  box-shadow: 0 2px 5px 1px rgba(64, 60, 67, 0.16);
+}
+
+.search > * {
+  margin: 0px 10px;
+}
+
+.search i {
+  color: black;
+  margin: 0px 10px;
+}
+
+.search * {
+  font-size: 0.9rem;
+}
+
+#search {
+  padding: 0px 4px;
+  border: none;
+}
+
+.search-input {
+  flex: 1;
+}
+
+.search-input input {
+  border: none;
+  width: 100%;
+}
+
+.search-result {
+  display: none;
+  width: 100%;
+  max-height: 160px;
+  overflow: auto;
+  margin-top: 8px;
+  flex-direction: column;
+  background-color: white;
+}
+
+.search-result > div {
+  padding: 6px;
+}
+
+.search-result > div:hover {
+  background-color: rgba(224, 243, 255, 0.486);
+}
+
+.search-result::-webkit-scrollbar {
+  width: 15px;
+}
+.search-result::-webkit-scrollbar-thumb {
+  background-color: rgba(148, 214, 255, 0.486);
+  border-radius: 10px;
+}
+.search-result::-webkit-scrollbar-track {
+  background-color: rgba(224, 243, 255, 0.486);
+  border-radius: 10px;
+  box-shadow: inset 0px 0px 5px rgba(129, 129, 129, 0.26);
+}
+
+.search-result-item div {
+  display: inline-block;
+  margin-right: 1rem;
+}
+
+.filter {
+  width: 90%;
+  font-size: 0.9rem;
+  margin: 0px auto;
+  margin-top: 80px;
+  display: flex;
+  align-items: center;
+}
+
+.filter > div {
+  display: flex;
+  align-items: center;
+  margin-right: 2vw;
+}
+
+.filter > div > * {
+  margin: 0px 10px;
+}
+
+#sort {
+  padding: 2px 4px;
+}
+
+label {
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+table,
+td,
+th {
+  border: 1px solid black;
+  border-collapse: collapse;
+  padding: 6px;
+}
+
+tr:nth-child(1):hover {
+  background-color: rgba(255, 255, 255, 0);
+}
+
+tr:hover {
+  background-color: rgba(224, 243, 255, 0.486);
+}
+
+td {
+  text-align: center;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+.list-area {
+  width: 90%;
+  margin: auto;
+  margin-top: 1vh;
+}
+
+th:nth-child(1) {
+  width: 10%;
+}
+
+th:nth-child(5),
+th:nth-child(6) {
+  width: 6rem;
+}
+
+th:nth-child(7) {
+  width: 8%;
+}
+
+th:nth-child(7) {
+  width: 4rem;
+}

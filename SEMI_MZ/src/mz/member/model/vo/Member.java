@@ -13,22 +13,22 @@ public class Member {
 	private String gender;		//	GENDER	CHAR(1 BYTE)
 	private Date date;			//	ENROLL_DATE	DATE
 	
+	//[han] 시간까지 받아오는 용도의 데이트
+	private String formatDate;
+	//[han] api종류 받아오는 용도
+	private String apiKind;
+	//[han] 비활성화 된 시간 받아오는 용도
+	private String cancellationDate;	// CANCELLATION_DATE
 	
 	public Member() {
 	}
 
-	
-	
-	
 	public Member(String userId, String userPwd, String nicName) {
 		super();
 		this.userId = userId;
 		this.userPwd = userPwd;
 		this.nicName = nicName;
 	}
-
-
-
 
 	public Member(String userId, String userPwd, String nicName, String status, int skinId, int coin, String info,
 			String gender, Date date) {
@@ -65,6 +65,35 @@ public class Member {
 		this.skinId = skinId;
 	}
 
+	
+	// [han] 어드민 멤버 페이지용
+	public Member(String userId, String nicName, String status, int coin, String formatDate, String apiKind) {
+		super();
+		this.userId = userId;
+		this.nicName = nicName;
+		this.status = status;
+		this.coin = coin;
+		this.formatDate = formatDate;
+		this.apiKind = apiKind;
+	}
+	
+	
+
+	// [han] 어드민 멤버 페이지용
+	public Member(String userId, String nicName, String status, int skinId, int coin, String info, String gender,
+			String formatDate, String apiKind, String cancellationDate) {
+		super();
+		this.userId = userId;
+		this.nicName = nicName;
+		this.status = status;
+		this.skinId = skinId;
+		this.coin = coin;
+		this.info = info;
+		this.gender = gender;
+		this.formatDate = formatDate;
+		this.apiKind = apiKind;
+		this.cancellationDate = cancellationDate;
+	}
 
 	@Override
 	public String toString() {
@@ -162,6 +191,45 @@ public class Member {
 	public void setDate(Date date) {
 		this.date = date;
 	}
+
+
+
+
+	public String getFormatDate() {
+		return formatDate;
+	}
+
+
+
+
+	public void setFormatDate(String formatDate) {
+		this.formatDate = formatDate;
+	}
+
+
+
+
+	public String getApiKind() {
+		return apiKind;
+	}
+
+
+
+
+	public void setApiKind(String apiKind) {
+		this.apiKind = apiKind;
+	}
+
+	public String getCancellationDate() {
+		return cancellationDate;
+	}
+
+	public void setCancellationDate(String cancellationDate) {
+		this.cancellationDate = cancellationDate;
+	}
+	
+	
+	
 	
 	
 	

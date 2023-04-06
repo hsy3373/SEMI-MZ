@@ -2,8 +2,7 @@
 pageEncoding="UTF-8" %>
 <%@ page import="mz.skin.model.vo.Skin, java.util.ArrayList" %> 
 <%
- 	String path = request.getContextPath(); 
-	
+	String path = request.getContextPath();	
 	/* 현재 페이지 */
 	int cPage = (int) request.getAttribute("page");
  	
@@ -29,12 +28,7 @@ pageEncoding="UTF-8" %>
   <head>
     <meta charset="UTF-8" />
     <title>Insert title here</title>
-    <link
-      rel="stylesheet"
-      href="<%=path %>/resource/css/admin/admin-common.css"
-    />
     <link rel="stylesheet" href="<%=path %>/resource/css/admin/admin-skin.css" />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
   </head>
   <body>
     <div class="wrapper">
@@ -142,7 +136,6 @@ pageEncoding="UTF-8" %>
     	sessionStorage.setItem("basicSkinCount", JSON.stringify(<%= basicSkinCount%>));
     </script>
     
-    <%--  <script type="module" src="<%= path %>/resource/js/common.js"></script> --%>
     <script type="module" src="<%= path %>/resource/js/admin/skin/skinList.js"></script>
     
   </body>

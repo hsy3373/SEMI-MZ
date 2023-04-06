@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8" import="mz.member.model.vo.Member"%>
 <%
-	Member test = (Member) session.getAttribute("loginUser");
 	String path = request.getContextPath();
+	Member test = (Member) session.getAttribute("loginUser");
 	int userCount = (int) request.getAttribute("userCount");
 	int skinCount = (int) request.getAttribute("skinCount");
 	int noticeCount = (int) request.getAttribute("noticeCount");
@@ -13,13 +13,6 @@ pageEncoding="UTF-8" import="mz.member.model.vo.Member"%>
     <meta charset="UTF-8" />
     <title>Insert title here</title>
     <link rel="stylesheet" href="<%= path %>/resource/css/admin/admin-main.css" />
-    <link rel="stylesheet" href="<%= path %>/resource/css/admin/admin-common.css" />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css"
-    />
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   </head>
   <body>
     <div class="wrapper">
