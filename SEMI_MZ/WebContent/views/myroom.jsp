@@ -44,7 +44,6 @@
 <link href="${contextPath}/resource/css/myroom.css" rel="stylesheet" type="text/css">
 <link href="${contextPath}/resource/css/board.css" rel="stylesheet" type="text/css">
 <link href="${contextPath}/resource/css/closet.css" rel="stylesheet" type="text/css">
-<link href="${contextPath}/resource/css/buttonList.css" rel="stylesheet" type="text/css">
 <link href="${contextPath}/resource/css/alert.css" rel="stylesheet">
 
 <!-- jQuery library -->
@@ -124,15 +123,19 @@ ul li.on a {color: #fff;}
 			<!-- 친구스킨 표현해줘야함 -->
 		</div>
 
+	
+		
+	</div>
+	
 		<!--버튼 모달 jps 가져옴 -->
+		
 		<div class="button-area">
 	        <div class="squareGo" onclick="gosquare();">
 	            <img src="resource/img/icon/home_btn.png">
 	        </div>
 		</div>
-		<%@ include file="./buttonList.jsp" %>
-	</div>
-
+		<%@ include file="./buttonList.jsp"  %>
+		
 	<!-- ============================= 방명록 모달 ============================= -->
 	<div class="board-wrap">
 		<div class="board-modal">
@@ -344,13 +347,13 @@ ul li.on a {color: #fff;}
 		sessionStorage.setItem("closetSkinCount", JSON.stringify(<%= closetSkinCount %>));
 	</script>
 
+
 	
 
 	<%-- <script type="module" src="${contextPath}/resource/js/alert.js"></script> --%>
 	<script type="module" src="${contextPath}/resource/js/common.js"></script>
 	<script type="module" src="${contextPath}/resource/js/myroom/board.js"></script>
 	<script type="module" src="${contextPath}/resource/js/myroom/closet.js"></script>
-
 
 </body>
 </html>

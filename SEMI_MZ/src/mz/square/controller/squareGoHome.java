@@ -45,7 +45,8 @@ public class squareGoHome extends HttpServlet {
 			int closetSkinCount = new SkinService().closetSkinCount();
 			request.setAttribute("closetSkinCount", closetSkinCount);
 			
-			request.getRequestDispatcher("views/myroom.jsp").forward(request, response);
+			response.sendRedirect(request.getContextPath()+"/home");
+			//request.getRequestDispatcher("views/myroom.jsp").forward(request, response);
 			
 		}
 

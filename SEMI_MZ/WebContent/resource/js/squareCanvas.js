@@ -565,7 +565,7 @@ const sendMsg = (keyboardCode) => {
   //문자열 객체 데이터로 바꿔줌
 };
 
-}
+
 
 //재연결 에러주기
 // socket.addEventListener("error", (event) => {

@@ -59,7 +59,7 @@
 	
 	
     <script type="module" src="<%=contextPath%>/resource/js/squareCanvas.js"></script>
-	<script type="module" src="<%=contextPath%>/resource/js/buttonList.js"></script>
+	
     
     <script type="module">
 

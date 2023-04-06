@@ -178,10 +178,17 @@
 
 
 
-      <!--button-list srcipt-->
-      <script type="module" src="<%=contextPath%>/resource/js/buttonList.js"></script>
+    
       <!--유효성 script -->
       <script type="module" src="../resource/js/validation.js"></script>
+        <!--button-list srcipt-->
+      
+      <script type="module" src="<%=contextPath%>/resource/js/buttonList.js"></script>
+      <script type="module">
+        import {init} from '<%=contextPath%>/resource/js/buttonList.js'
+        console.log("?")
+        init();
+    </script>
 
 </body>
 </html>

@@ -4,11 +4,11 @@
 
 /*버튼 css*/
 /* 없어도 문제없어서 주석처리 */
-/* .button-area{
+.button-area{
     width: 1300px;
     position: absolute;
     margin: auto;
-} */
+}
 
 
 .friendList{
@@ -27,6 +27,13 @@
     width: 50px;
     cursor: pointer;
 }
+
+.button-area img:hover{
+    width: 55px;
+    cursor: pointer;
+}
+
+
 
 /*모달용 css*/
 .modal {
@@ -340,18 +347,22 @@ cursor: pointer;
 /* 친구 목록 버튼 */
 .myroom .button-area .friendList{
     position: absolute;
-    bottom: 18px;
+    /*bottom: 18px;*/
     right: 250px;
-}
+    top:730px
+} 
 /*  내 정보 조회 버튼 */
 .myroom .button-area .Listbutton{
     position: absolute;
-    bottom: 18px;
+    /*bottom: 18px;*/
     right: 190px;
-}
+    top:730px
+} 
+
 /* 광장으로 가는 버튼 : */
 .button-area .squareGo{
     position: absolute;
-    bottom: 18px;
+    bottom: 18px; 
     right: 310px;
+    /* top:730px */
 }
