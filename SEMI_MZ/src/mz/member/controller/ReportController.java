@@ -1,7 +1,6 @@
-package mz.board.controller;
+package mz.member.controller;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,20 +9,20 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 
-import mz.board.model.service.BoardService;
-import mz.board.model.vo.Board;
+import mz.member.model.service.MemberService;
+import mz.member.model.vo.Member;
 
 /**
- * Servlet implementation class BoardUpdateController
+ * Servlet implementation class ReportController
  */
-@WebServlet("/updateBoard")
-public class BoardUpdateController extends HttpServlet {
+@WebServlet("/report")
+public class ReportController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public BoardUpdateController() {
+    public ReportController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -36,26 +35,31 @@ public class BoardUpdateController extends HttpServlet {
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
-
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+		String userId = ((Member)request.getSession().getAttribute("loginUser")).getUserId();
+		String receiveId = request.getParameter("receiveId");
+		String reportTitle = request.getParameter("reportTitle");
+		String reportContent = request.getParameter("reportContent");
 		
-		response.setContentType("application/json; charset=UTF-8");
+		System.out.println(userId+receiveId+reportTitle+reportContent);
+		int result = new MemberService().insertReport(userId, receiveId, reportTitle, reportContent);
 		
-		int boardNo = Integer.parseInt(request.getParameter("boardNo"));
-		String boardTitle = request.getParameter("boardTitle");
-		String boardContent = request.getParameter("boardContent");
-		String secret = request.getParameter("secret");
-		
-		Board b = new Board(boardNo, boardTitle, boardContent, secret);
-		Board updateBoard = new BoardService().updateBoard(b);
-		
-		Gson gson = new Gson();
-		
-		gson.toJson(updateBoard, response.getWriter());
+		if (result > 0) {
+			
+			response.setContentType("application/json; charset=UTF-8");
+			
+			new Gson().toJson(result, response.getWriter());
+		} else {
+			System.out.println("글러먹었어...");
+			response.setContentType("application/json; charset=UTF-8");
+			
+			new Gson().toJson(result, response.getWriter());
+		}
+		 
 	}
 
 }
-

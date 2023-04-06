@@ -50,7 +50,7 @@
 		WHERE NICKNAME = ?
 	</entry>
 	
-	<!-- [가영] -->
+	<!-- [가영] 유저 정보 불러오기 -->
 	<entry key="selectMember">
 		SELECT USER_ID,
 			   NICKNAME,
@@ -61,6 +61,60 @@
 		JOIN CHARACTER_SKIN USING(SKIN_ID)
 		WHERE USER_ID = ?
 	</entry>
+	
+	<!-- [가영] 신고 정보 db 저장 -->
+	<entry key="insertReport">
+		INSERT INTO REPORT (REPORT_NO,
+							USER_ID,
+							RECEIVE_ID,
+							REPORT_TITLE,
+							REPORT_CONTENT)
+		VALUES (SEQ_REPORT.NEXTVAL,
+				?,
+				?,
+				?,
+				?)
+	</entry>
+	
+	<!-- [가영] 호감도 추가, 삭제, 조회 -->
+	<entry key="insertHeart">
+		INSERT INTO HEART(USER_ID, RECEIVE_ID)
+		VALUES (?, ?)
+	</entry>
+	
+	<entry key="deleteHeart">
+		DELETE FROM HEART
+		WHERE USER_ID = ?
+		  AND RECEIVE_ID =?
+	</entry>
+	
+	<entry key="selectHeart">
+		SELECT COUNT(*) 
+		FROM HEART
+		WHERE USER_ID = ?
+		  AND RECEIVE_ID =?
+	</entry>
+	
+	<!-- [가영] 친구 추가, 삭제, 조회 -->
+	<entry key="insertFriend">
+		INSERT INTO FRIEND(USER_ID, FRIEND_ID)
+		VALUES (?, ?)
+	</entry>
+	
+	<entry key="deleteFriend">
+		DELETE FROM FRIEND
+		WHERE USER_ID = ?
+		  AND FRIEND_ID =?
+	</entry>
+	
+	<entry key="selectFriend">
+		SELECT COUNT(*) 
+		FROM FRIEND
+		WHERE USER_ID = ?
+		  AND FRIEND_ID =?
+	</entry>
+
+
 	
 	
 	

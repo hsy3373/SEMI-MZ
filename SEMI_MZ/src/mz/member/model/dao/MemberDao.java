@@ -70,37 +70,221 @@ public class MemberDao {
 	
 	//[가영]
 	public Member selectMember(Connection conn, String userId) {
-        
-	      Member m = null;
-	         
-	      ResultSet rset = null;
-	         
-	      PreparedStatement pstmt = null;
-	         
-	      String sql = prop.getProperty("selectMember");
-	         
-	      try {
-	         pstmt = conn.prepareStatement(sql);
-	            
-	         pstmt.setString(1, userId);
-	            
-	         rset = pstmt.executeQuery();
-	            
-	         if(rset.next()) {
-	            m = new Member(rset.getString("USER_ID"),
-	                        rset.getString("NICKNAME"),
-	                        rset.getInt("SKIN_ID"),
-	                        rset.getString("SELF_INFO"),
-	                        rset.getString("GENDER"));
-	         }
-	      } catch (SQLException e) {
-	         e.printStackTrace();
-	      } finally {
-	         close(rset);
-	         close(pstmt);
-	      }
-	      return m;
-	   }
+			
+		Member m = null;
+			
+		ResultSet rset = null;
+			
+		PreparedStatement pstmt = null;
+			
+		String sql = prop.getProperty("selectMember");
+			
+		try {
+			pstmt = conn.prepareStatement(sql);
+				
+			pstmt.setString(1, userId);
+				
+			rset = pstmt.executeQuery();
+				
+			if(rset.next()) {
+				m = new Member(rset.getString("USER_ID"),
+							   rset.getString("NICKNAME"),
+							   rset.getInt("SKIN_ID"),
+							   rset.getString("SELF_INFO"),
+							   rset.getString("GENDER"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return m;
+	}
+	
+	// 신고 정보 db 저장 - 가영
+	public int insertReport(Connection conn, String userId, String receiveId, String reportTitle, String reportContent) {
+		
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("insertReport");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, userId);
+			pstmt.setString(2, receiveId);
+			pstmt.setString(3, reportTitle);
+			pstmt.setString(4, reportContent);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	// 호감도 추가 - 가영
+	public int insertHeart(Connection conn, String loginUser, String receiveId) {
+		
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("insertHeart");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, loginUser);
+			pstmt.setString(2, receiveId);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	// 호감도 삭제 - 가영
+	public int deleteHeart(Connection conn, String loginUser, String receiveId) {
+		
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("deleteHeart");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, loginUser);
+			pstmt.setString(2, receiveId);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	// 호감도 조회 - 가영
+	public int selectHeart(Connection conn, String loginUser, String receiveId) {
+		
+		int result = 0;
+		
+		ResultSet rset = null;
+				
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("selectHeart");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, loginUser);
+			pstmt.setString(2, receiveId);
+			
+			rset = pstmt.executeQuery();
+			
+			if (rset.next()) {
+				result = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	// 친구 추가 - 가영
+	public int insertFriend(Connection conn, String loginUser, String friendId) {
+		
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("insertFriend");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, loginUser);
+			pstmt.setString(2, friendId);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	// 친구 삭제 - 가영
+	public int deleteFriend(Connection conn, String loginUser, String friendId) {
+			
+		int result = 0;
+			
+		PreparedStatement pstmt = null;
+			
+		String sql = prop.getProperty("deleteFriend");
+			
+		try {
+			pstmt = conn.prepareStatement(sql);
+				
+			pstmt.setString(1, loginUser);
+			pstmt.setString(2, friendId);
+				
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+		
+	// 친구 정보 조회 - 가영
+	public int selectFriend(Connection conn, String loginUser, String friendId) {
+			
+		int result = 0;
+			
+		ResultSet rset = null;
+					
+		PreparedStatement pstmt = null;
+			
+		String sql = prop.getProperty("selectFriend");
+			
+		try {
+			pstmt = conn.prepareStatement(sql);
+				
+			pstmt.setString(1, loginUser);
+			pstmt.setString(2, friendId);
+				
+			rset = pstmt.executeQuery();
+				
+			if (rset.next()) {
+				result = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return result;
+	}
 	
 	// [김혜린]
 	public Member loginMember(Connection conn, String userId, String userPwd) {

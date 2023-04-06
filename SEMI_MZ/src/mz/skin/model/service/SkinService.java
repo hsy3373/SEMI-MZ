@@ -11,6 +11,7 @@ import java.util.ArrayList;
 
 import mz.skin.model.dao.SkinDao;
 import mz.skin.model.vo.Skin;
+import mz.skin.model.vo.Character;
 
 public class SkinService {
 
@@ -118,9 +119,33 @@ public class SkinService {
 	}
 	
 	// [지의]
-	public ArrayList<Skin> selectSkinList(){
+	// 마이룸 - 페이지 별 일반 스킨 조회용(한페이지에 12개)
+	public ArrayList<Skin> selectSkinsList(int page) {
+
 		Connection conn = getConnection();
-		ArrayList<Skin> list = new SkinDao().selectSkinList(conn);
+
+		ArrayList<Skin> list = new SkinDao().selectSkinsList(conn, page);
+
+		close(conn);
+
+		return list;
+
+	}
+	
+	// [지의]
+	// 옷장 총 스킨 개수 확인
+	public int closetSkinCount() {
+		Connection conn = getConnection();
+		int result = new SkinDao().closetSkinCount(conn);
+		close(conn);
+		return result;
+	}
+	
+	// [지의]
+	// 로그인 유저가 보유한 스킨 조회
+	public ArrayList<Skin> mySkinList(String userId){
+		Connection conn = getConnection();
+		ArrayList<Skin> list = new SkinDao().mySkinList(conn, userId);
 		close(conn);
 		return list;
 	}

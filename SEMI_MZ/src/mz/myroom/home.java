@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import mz.skin.model.service.SkinService;
+
 /**
  * Servlet implementation class Myroom
  */
@@ -29,10 +31,11 @@ public class home extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String roomMaster = request.getParameter("roomMaster");
-		//System.out.println("roomMaster : "+roomMaster);
+		System.out.println("roomMaster : "+roomMaster);
 		
+		int closetSkinCount = new SkinService().closetSkinCount();
+		request.setAttribute("closetSkinCount", closetSkinCount);
 		request.setAttribute("roomMaster", roomMaster);
-
 		
 		request.getRequestDispatcher("views/myroom.jsp").forward(request, response);
 		  //if(roomMaster != null) { 

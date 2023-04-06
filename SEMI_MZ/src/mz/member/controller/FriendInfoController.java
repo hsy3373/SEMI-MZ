@@ -1,8 +1,6 @@
-package mz.board.controller;
+package mz.member.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,20 +9,20 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 
-import mz.board.model.service.BoardService;
-import mz.board.model.vo.Board;
+import mz.member.model.service.MemberService;
 import mz.member.model.vo.Member;
+
 /**
- * Servlet implementation class BoardListController2
+ * Servlet implementation class FriendInfoController
  */
-@WebServlet("/selectBoardList")
-public class BoardListController extends HttpServlet {
+@WebServlet("/friendInfo")
+public class FriendInfoController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public BoardListController() {
+    public FriendInfoController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,20 +31,24 @@ public class BoardListController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String loginUser = ((Member)request.getSession().getAttribute("loginUser")).getUserId();
+		String friendId = request.getParameter("friendId");
 		
-		response.setContentType("application/json; charset=UTF-8");
+		int result = new MemberService().selectFriend(loginUser, friendId);
+		System.out.println(result);
 		
-		// 로그인 아이디
-		String loginId = ((Member)request.getSession().getAttribute("loginUser")).getUserId();
-		// 방주인 아이디
-		String receive = request.getParameter("receive");
-		System.out.println("누가 "+loginId+" 누구의 " + receive);
-		ArrayList<Board> list = new BoardService().selectBoardList(loginId, receive);
-		//System.out.println(list.size());
-		Gson gson = new Gson();
+		if (result > 0) {
 			
-		gson.toJson(list, response.getWriter());	
-		
+			response.setContentType("application/json; charset=UTF-8");
+			
+			new Gson().toJson(result, response.getWriter());
+		} else {
+			System.out.println("조회 실패");
+			
+			response.setContentType("application/json; charset=UTF-8");
+			
+			new Gson().toJson(result, response.getWriter());
+		}
 	}
 
 	/**
