@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 
+import mz.member.model.service.MemberService;
 import mz.member.model.vo.Member;
 import mz.skin.model.service.SkinService;
 import mz.skin.model.vo.Skin;
@@ -19,13 +20,13 @@ import mz.skin.model.vo.Skin;
  * Servlet implementation class MyrroomSkinChangeController
  */
 @WebServlet("/updateMySkin.my")
-public class MyrroomSkinChangeController extends HttpServlet {
+public class MyroomSkinUpdateController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MyrroomSkinChangeController() {
+    public MyroomSkinUpdateController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -40,13 +41,18 @@ public class MyrroomSkinChangeController extends HttpServlet {
 		int skinId = Integer.parseInt(request.getParameter("skinId"));
 		System.out.println(skinId);
 		System.out.println(userId);
+		
 		//Member loginUser = (Member)request.getSession().getAttribute("loginUser");
 		//System.out.println(loginUser);
-		
 		//loginUser = new SkinService().updateMySkin(userId, skinId);
 		//System.out.println(loginUser);
 		
 		int result = new SkinService().updateMySkin(userId, skinId);
+		if(result > 0) {
+			Member skinUpdate = new MemberService().selectMember();
+			request.getSession().setAttribute("loginUser", skinUpdate);
+		}
+		
 		new Gson().toJson(result, response.getWriter());
 		
 	}
