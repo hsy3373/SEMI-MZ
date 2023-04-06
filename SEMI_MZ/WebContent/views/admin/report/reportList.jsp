@@ -61,82 +61,44 @@ pageEncoding="UTF-8" import = "mz.member.model.vo.Member, java.util.ArrayList"%>
 					<div>
 						<div>정렬 :</div>
 						<select name="sort" id="sort">
-							<% if(sort.equals("userId")){ %>
-							<option value="userId" selected>아이디</option>
-							<option value="cancel">비활성일</option>
-							<% } else {%>
-							<option value="userId">아이디</option>
-							<option value="cancel" selected>비활성일</option>
+							<% if(sort.equals("date")){ %>
+								<option value="date" selected>신고일</option>
+								<option value="userId">신고자</option>
+								<option value="receveId">대상자</option>
+							<% } else if(sort.equals("userId")) {%>
+								<option value="date" >신고일</option>
+								<option value="userId" selected>신고자</option>
+								<option value="receveId">대상자</option>
+							<% } else { %>
+								<option value="date" >신고일</option>
+								<option value="userId">신고자</option>
+								<option value="receveId" selected>대상자</option>
 							<% } %>
 						</select>
-					</div>
-
-					<div>
-						<div>API :</div>
-						<label> <input type="radio" name="api" id="api"
-							value="all" 
-							<% if(api.equals("all")) {%> checked <%} %>
-							/> ALL
-						</label> <label> <input type="radio" name="api" id="api"
-							value="kakao" 
-							<% if(api.equals("kakao")) {%> checked <%} %>
-							/> Kakao
-						</label> <label> <input type="radio" name="api" id="api"
-							value="google" 
-							<% if(api.equals("google")) {%> checked <%} %>
-							/> Google
-						</label>
-					</div>
-					<div>
-						<div>상태 :</div>
-						<label> 
-							<input type="radio" name="status" id="status"
-							value="all" 
-							<% if(status.equals("all")) {%> checked <%} %>
-							/> ALL
-						</label> 
-						<label> 
-							<input type="radio" name="status" id="status"
-							value="N" 
-							<% if(status.equals("N")) {%> checked <%} %>
-							/> 탈퇴
-						</label> 
-						<label> 
-							<input type="radio" name="status" id="status"
-							value="X" 
-							<% if(status.equals("X")) {%> checked <%} %>
-							/> 차단
-						</label>
 					</div>
 				</div>
 				<table class="list-area">
 					<tr>
 						<th>#</th>
-						<th>아이디</th>
-						<th>닉네임</th>
-						<th>코인</th>
-						<th>API</th>
-						<th>가입일</th>
-						<th>상태</th>
-						<th>비활성일</th>
+						<th>제목</th>
+						<th>신고자</th>
+						<th>대상자</th>
+						<th>신고일</th>
 					</tr>
 					<% if (list.isEmpty()) { %>
 					<tr>
-						<td colspan="8">조회된 리스트가 없습니다</td>
+						<td colspan="4">조회된 리스트가 없습니다</td>
 					</tr>
 					<% } else { %>
-					<% for(int i=0; i< list.size(); i++) { %>
-					<tr class="member-item">
-						<td><%= memberCount - i - (cPage - 1) * 20%></td>
-						<td><%= list.get(i).getUserId()%></td>
-						<td><%= list.get(i).getNicName()%></td>
-						<td><%= list.get(i).getCoin()%></td>
-						<td><%= list.get(i).getApiKind()%></td>
-						<td><%= list.get(i).getFormatDate()%></td>
-						<td><%= list.get(i).getStatus()%></td>
-						<td><%= list.get(i).getCancellationDate()%></td>
-					</tr>
-					<% } %>
+						<% for(int i=0; i< list.size(); i++) { %>
+							<tr class="report-item">
+								<td><%= memberCount - i - (cPage - 1) * 20%></td>
+								<td><%= list.get(i).getUserId()%></td>
+								<td><%= list.get(i).getNicName()%></td>
+								<td><%= list.get(i).getCoin()%></td>
+								<td><%= list.get(i).getApiKind()%></td>
+							</tr>
+						<% } %>
 					<% } %>
 				</table>
 

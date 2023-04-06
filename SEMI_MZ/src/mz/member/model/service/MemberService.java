@@ -196,11 +196,11 @@ public class MemberService {
 		}
 		
 	// [김혜린]
-		public void insertDltMember(String userId) {
+		public void insertDltMember(String userId, String status) {
 			System.out.println("멤버서비스 / DISABLED_MEMBER 테이블 행추가 실행??");//console
 			Connection conn = getConnection();
 			
-			int result = new MemberDao().insertDltMember(conn, userId);
+			int result = new MemberDao().insertDltMember(conn, userId, status);
 			
 			if(result > 0) { //DISABLED_MEMBER 테이블 insert 성공
 				commit(conn);
@@ -236,11 +236,11 @@ public class MemberService {
 			return m;
 		}
 	// [김혜린]
-		public int updateStatus(String userId) {
+		public int updateStatus(String userId, String status) {
 			System.out.println("멤버서비스 / updateStatus 실행??"); //console
 			Connection conn = getConnection();
 			
-			int result = new MemberDao().updateStatus(conn, userId);
+			int result = new MemberDao().updateStatus(conn, userId, status);
 			
 			if(result > 0) { //Member테이블 status: update 성공
 				commit(conn);
@@ -249,6 +249,24 @@ public class MemberService {
 			}
 			close(conn);
 			System.out.println("멤버서비스 / updateStatus 실행결과 : " + result); //console
+			return result;
+		}
+		
+		
+		//[han]
+		//어드민페이지에서 코인과 자기소개 변경용 
+		public int updateMemberInfo(String userId, int coin , String info) {
+			Connection conn = getConnection();
+			
+			int result = new MemberDao().updateMemberInfo(conn, userId, coin, info);
+			
+			if(result > 0) { 
+				commit(conn);
+			}else { 
+				rollback(conn);
+			}
+			close(conn);
+			
 			return result;
 		}
 		
@@ -350,24 +368,25 @@ public class MemberService {
 			close(conn);
 			System.out.println("멤버서비스 / dltMemApi 실행 결과 : "+ result); //console
 		}
+		
+		// 채팅룸 삭제로직도 추가
+		public void dltMemChattingRoom(String userId) {
+			System.out.println("멤버서비스 / dltMemChattingRoom 실행??"); //console
+			
+			Connection conn = getConnection();
+			
+			int result = new MemberDao().dltMemChattingRoom(conn, userId);
+			
+			if(result > 0) { // 행 delete 성공
+				commit(conn);
+			}else { // 행 delete 실패
+				rollback(conn);
+			}
+			close(conn);
+			System.out.println("멤버서비스 / dltMemChattingRoom 실행 결과 : "+ result); //console			
+		}
 			
 			
-			
-			
-			
-			
-		
-		
-		
-		
-		
-		
-	
-	
-	
-	
-	
-
 	// 가영 - 신고 정보 db 저장
 	public int insertReport(String userId, String receiveId, String reportTitle, String reportContent) {
 		
@@ -421,12 +440,21 @@ public class MemberService {
 	
 	// [han]
 	// 유저 차단
-	public int blockMember(String userId) {
+	public int blockMember(String userId,  String status) {
+		// 만약 상태가 탈퇴 상태인데 차단처리 하려는 것 로직도 필요
 		Connection conn = getConnection();
 		
-		int result = new MemberDao().blockMember(conn, userId);
+		int result = new MemberDao().updateStatus(conn, userId, status);
 		
-		if(result >0 ) {
+		// 일단 비활성화 테이블에서 한번은 삭제(없으면 어차피 삭제 안되니까 괜춘)
+		int result2 = new MemberDao().deleteDltMember(conn, userId);
+		
+		if(status.equals("X")) {
+			//만약 차단상태로 변경된거다 하면 비활성화 테이블에 행 추가
+			result2 = new MemberDao().insertDltMember(conn, userId, status);
+		}
+		
+		if(result * result2 > 0 ) {
 			commit(conn);
 		}else {
 			rollback(conn);

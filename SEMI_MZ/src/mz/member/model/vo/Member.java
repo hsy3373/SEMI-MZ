@@ -56,7 +56,7 @@ public class Member {
 
 	
 	// [han] 어드민 멤버 페이지용
-	public Member(String userId, String nicName, String status, int coin, String formatDate, String apiKind) {
+	public Member(String userId, String nicName, String status, int coin, String formatDate, String apiKind,  String cancellationDate ) {
 		super();
 		this.userId = userId;
 		this.nicName = nicName;
@@ -64,6 +64,7 @@ public class Member {
 		this.coin = coin;
 		this.formatDate = formatDate;
 		this.apiKind = apiKind;
+		this.cancellationDate = cancellationDate;
 	}
 	
 	

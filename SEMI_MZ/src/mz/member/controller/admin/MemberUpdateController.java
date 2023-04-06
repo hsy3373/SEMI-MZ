@@ -54,42 +54,14 @@ public class MemberUpdateController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
-		String userId = request.getParameter("userId");
-		String order = request.getParameter("order");
-
-		String responseData = "";
-
-		if (order.equals("delete")) {
-			// 멤버 삭제 구역
-			int result = new MemberService().deleteMember(userId);
-
-			if (result > 0) {
-				responseData = "success";
-			} else {
-				responseData = "멤버 삭제에 실패하였습니다";
-
-
-			}
-		} else if (order.equals("blocking")) {
-			// 차단 구역
-			int result = new MemberService().blockMember(userId);
-
-			if (result > 0) {
-				responseData = "success";
-			} else {
-				responseData = "멤버 차단에 실패하였습니다";
-			}
-		} else {
-			System.out.println("잘못된 오더");
-		}
 		
-		// 응답 데이터에 한글이 있을 경우를 대비해서 인코딩 설정
-		response.setContentType("text/html; charset=UTF-8");
-
-		// JSP와의 통로를 열어두기 위해 PrintWriter 객체 생성
-		response.getWriter().print(responseData);
-
+		String userId = request.getParameter("userId");
+		int coin = Integer.parseInt(request.getParameter("coin"));
+		String info = request.getParameter("info");
+		
+		int result = new MemberService().updateMemberInfo(userId, coin, info);
+		
+		response.sendRedirect(request.getContextPath() + "/update.member?userId="+userId);
 	}
 
 }
