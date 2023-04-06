@@ -1,5 +1,6 @@
 package mz.member.model.vo;
 
+//[김혜린]
 public class loginAPI {
 	private String userId;		//USER_ID	VARCHAR2(20 BYTE)
 	private String apiKind;		//API_KIND	NVARCHAR2(5 CHAR)

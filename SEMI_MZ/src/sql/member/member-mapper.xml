@@ -43,13 +43,6 @@
 		WHERE USER_ID = ?
 	</entry>
 	
-	<!-- [혜린] 
-	<entry key="checkPwd">
-		SELECT COUNT(*)
-		FROM MEMBER
-		WHERE USER_PWD = ?
-	</entry>-->
-	
 	<!-- [혜린] -->
 	<entry key="checkNick">
 		SELECT COUNT(*)
@@ -146,6 +139,24 @@
 					   		  ?)
 	</entry>
 	
+	<!-- [혜린] -->
+	<entry key="insertDltMember">
+		INSERT INTO DISABLED_MEMBER
+					(USER_ID,
+					 STATUS)
+			 VALUES(?,
+			 		'N')
+	</entry>
+	
+	<!-- [혜린] -->
+	<entry key="insertCharacter">
+	INSERT INTO CHARACTER
+					(USER_ID,
+					SKIN_ID)
+			 VALUES(?,
+			 		'0')
+	</entry>
+	
 <!-- ================= update 구간 ======================== -->
 <!-- [혜린] -->
 	<entry key = "updatePwd">
@@ -153,6 +164,53 @@
 		   SET USER_PWD = ?
 		 WHERE USER_ID = ?
 	</entry>
+
+<!-- [혜린] -->
+	<entry key = "updateStatus">
+		UPDATE MEMBER
+		   SET STATUS = 'N'
+		 WHERE USER_ID = ?
+	</entry>
+
+
+<!-- ================= delete 구간 ======================== -->
+<!-- [혜린] -->
+	<entry key = "dltMemBoard">
+		DELETE FROM BOARD
+		 WHERE USER_ID = ?
+		    OR RECEIVE_ID = ?
+	</entry>
+	<entry key = "dltMemChatting">
+		DELETE FROM CHATTING
+		 WHERE USER_ID = ?
+		    OR RECEIVE_ID = ?
+	</entry>
+	<entry key = "dltMemHeart">
+		DELETE FROM HEART
+		 WHERE USER_ID = ?
+		    OR RECEIVE_ID = ?
+	</entry>
+<!-- [혜린] -->
+	<entry key = "dltMemCharacter">
+		DELETE FROM CHARACTER
+		 WHERE USER_ID = ?
+	</entry>
+	<entry key = "dltMemFriend">
+		DELETE FROM FRIEND
+		 WHERE USER_ID = ?
+	</entry>
+	<entry key = "dltMemApi">
+		DELETE FROM LOGIN_API
+		 WHERE USER_ID = ?
+	</entry>
+	
+
+
+
+
+
+
+
 
 
 
