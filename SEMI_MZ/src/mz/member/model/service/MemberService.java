@@ -18,14 +18,49 @@ public class MemberService {
 		
 //------------------------------ select 구간 -------------------------------
 	//[han]
-	public int userCount() {
+	public int memberCount( String status, String api) {
 		Connection conn = getConnection();
 		
-		int result = new MemberDao().userCount(conn);
+		int result = new MemberDao().memberCount(conn, status, api);
 		
 		close(conn);
 		
 		return result;
+	}
+	
+	// [han]
+	public ArrayList<Member> selectMemberList(String status, String api, String sort, int page) {
+		Connection conn = getConnection();
+
+		ArrayList<Member> list = new MemberDao().selectMemberList(conn, status, api, sort, page);
+
+		close(conn);
+
+		return list;
+	}
+	
+	//[han]
+	public ArrayList<Member> searchMembers(String option, String keyword){
+		
+		Connection conn = getConnection();
+
+		ArrayList<Member> list = new MemberDao().searchMembers(conn, option, keyword);
+
+		close(conn);
+
+		return list;
+		
+	}
+	
+	//[han]
+	public Member selectMemberAllInfo(String userId) {
+		Connection conn = getConnection();
+
+		Member m = new MemberDao().selectMemberAllInfo(conn, userId);
+
+		close(conn);
+
+		return m;
 	}
 
 	// 유저 정보 불러오기 - 가영
@@ -384,6 +419,24 @@ public class MemberService {
 		return result;
 	}
 	
+	// [han]
+	// 유저 차단
+	public int blockMember(String userId) {
+		Connection conn = getConnection();
+		
+		int result = new MemberDao().blockMember(conn, userId);
+		
+		if(result >0 ) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+	}
+	
 	
 //------------------------------ delete 구간 -------------------------------
 	
@@ -410,9 +463,24 @@ public class MemberService {
 			
 			return result;
 		}
-	
-	
-	
+
+		// [han]
+		// 유저 삭제
+		public int deleteMember(String userId) {
+			Connection conn = getConnection();
+			
+			int result = new MemberDao().deleteMember(conn, userId);
+			
+			if(result >0 ) {
+				commit(conn);
+			}else {
+				rollback(conn);
+			}
+			
+			close(conn);
+			
+			return result;
+		}
 
 }
 
