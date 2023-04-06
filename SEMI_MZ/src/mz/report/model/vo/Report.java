@@ -11,6 +11,9 @@ public class Report {
 	private String reportContent; //	REPORT_CONTENT
 	private Date createDate;//	CREATE_DATE
 	
+	//[han] 관리자페이지용 포맷된 데이트값
+	private String formatDate;
+	
 	public Report() {
 		super();
 	}
@@ -24,6 +27,20 @@ public class Report {
 		this.reportTitle = reportTitle;
 		this.reportContent = reportContent;
 		this.createDate = createDate;
+	}
+	
+	
+	
+
+	public Report(int reportNo, String userId, String receiveId, String reportTitle, String reportContent,
+			String formatDate) {
+		super();
+		this.reportNo = reportNo;
+		this.userId = userId;
+		this.receiveId = receiveId;
+		this.reportTitle = reportTitle;
+		this.reportContent = reportContent;
+		this.formatDate = formatDate;
 	}
 
 	public int getReportNo() {
@@ -72,6 +89,16 @@ public class Report {
 
 	public void setCreateDate(Date createDate) {
 		this.createDate = createDate;
+	}
+	
+	
+
+	public String getFormatDate() {
+		return formatDate;
+	}
+
+	public void setFormatDate(String formatDate) {
+		this.formatDate = formatDate;
 	}
 
 	@Override
