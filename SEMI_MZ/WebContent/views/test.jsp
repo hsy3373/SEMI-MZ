@@ -49,12 +49,6 @@ java.sql.Date.valueOf("2023-03-20"));
     <a href="./main.jsp">메인/로그인</a>
     <br />
     <br />
-    <a href="./userInfo.jsp">유저정보창</a>
-    <br />
-    <br />
-    <a href="./notice.jsp">공지사항</a>
-
-    <br />
     <button id="btn1">관리자로 바꾸기</button>
 
     <script type="module" src="../resource/js/common.js"></script>

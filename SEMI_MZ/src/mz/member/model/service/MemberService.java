@@ -408,24 +408,6 @@ public class MemberService {
 			System.out.println("멤버서비스 / dltMemChattingRoom 실행 결과 : "+ result); //console			
 		}
 			
-			
-	// 가영 - 신고 정보 db 저장
-	public int insertReport(String userId, String receiveId, String reportTitle, String reportContent) {
-		
-		Connection conn = getConnection();
-		
-		int result = new MemberDao().insertReport(conn, userId, receiveId, reportTitle, reportContent);
-		
-		if (result > 0) {
-			commit(conn);
-		} else {
-			rollback(conn);
-		}
-		close(conn);
-		
-		return result;
-	}
-	
 	// 가영 - 호감도 db 저장
 	public int insertHeart(String loginUser, String receiveId) {
 		
