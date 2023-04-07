@@ -185,22 +185,23 @@ public class MemberService {
 			Connection conn = getConnection();
 			
 			int result = new MemberDao().insertCharacter(conn, userId);
-			
+			System.out.println("서비스에서 디에이오에 보낸 결과 담겼?" + result + userId);
 			if(result > 0) { // CHARACTER 테이블에 추가 성공
 				commit(conn);
 			}else { // CHARACTER 테이블에 추가 실패
 				rollback(conn);
 			}
 			close(conn);
+			System.out.println("서비스 캐릭터테이블 결과 : " + result);
 			return result;
 		}
 		
 	// [김혜린]
-		public void insertDltMember(String userId) {
+		public void insertDltMember(String userId, String status) {
 			System.out.println("멤버서비스 / DISABLED_MEMBER 테이블 행추가 실행??");//console
 			Connection conn = getConnection();
 			
-			int result = new MemberDao().insertDltMember(conn, userId);
+			int result = new MemberDao().insertDltMember(conn, userId, status);
 			
 			if(result > 0) { //DISABLED_MEMBER 테이블 insert 성공
 				commit(conn);
@@ -236,11 +237,11 @@ public class MemberService {
 			return m;
 		}
 	// [김혜린]
-		public int updateStatus(String userId) {
+		public int updateStatus(String userId, String status) {
 			System.out.println("멤버서비스 / updateStatus 실행??"); //console
 			Connection conn = getConnection();
 			
-			int result = new MemberDao().updateStatus(conn, userId);
+			int result = new MemberDao().updateStatus(conn, userId, status);
 			
 			if(result > 0) { //Member테이블 status: update 성공
 				commit(conn);
@@ -251,7 +252,27 @@ public class MemberService {
 			System.out.println("멤버서비스 / updateStatus 실행결과 : " + result); //console
 			return result;
 		}
-		
+	// [김혜린]	
+		public Member updateMember(String nickName, String userPwd, String info, String gender, String userId) {
+			System.out.println("멤버서비스 / updateMember 실행"); //console
+			Connection conn = getConnection();
+			
+			int result = new MemberDao().updateMember(conn, nickName, userPwd, info, gender, userId);
+			
+			Member m = null;
+			
+			if(result > 0) { //Member테이블 update 성공
+				commit(conn);
+				m = new MemberDao().selectLoginUser(conn, userId);
+			}else { //Member테이블 update 실패
+				rollback(conn);
+			}
+			close(conn);
+			
+			System.out.println("멤버서비스 / updateMember 실행결과 : " + result);//console
+			System.out.println("멤버서비스 / updateMember m 객체: " + m); //console
+			return m;
+		}
 		
 //------------------------------ delete 구간 -------------------------------
 	// [김혜린]	
