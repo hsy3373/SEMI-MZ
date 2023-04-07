@@ -390,32 +390,6 @@ public class MemberDao {
 		return m;
 	}
 	
-	// 신고 정보 db 저장 - 가영
-	public int insertReport(Connection conn, String userId, String receiveId, String reportTitle, String reportContent) {
-		
-		int result = 0;
-		
-		PreparedStatement pstmt = null;
-		
-		String sql = prop.getProperty("insertReport");
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			
-			pstmt.setString(1, userId);
-			pstmt.setString(2, receiveId);
-			pstmt.setString(3, reportTitle);
-			pstmt.setString(4, reportContent);
-			
-			result = pstmt.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(pstmt);
-		}
-		return result;
-	}
-	
 	// 호감도 추가 - 가영
 	public int insertHeart(Connection conn, String loginUser, String receiveId) {
 		
@@ -573,6 +547,48 @@ public class MemberDao {
 		}
 		return result;
 	}
+	
+	// [김혜린]
+	public Member selectLoginUser(Connection conn, String userId) {
+
+		Member m = null; 
+		ResultSet rset = null;
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("selectLoginUser");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, userId);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				m = new Member(rset.getString("USER_ID"),
+						       rset.getString("USER_PWD"),
+						       rset.getString("NICKNAME"),
+						       rset.getString("STATUS"),
+						       rset.getInt("SKIN_ID"),
+						       rset.getInt("COIN"),
+						       rset.getString("SELF_INFO"),
+						       rset.getString("GENDER"),
+						       rset.getDate("ENROLL_DATE"));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+				close(rset);
+				close(pstmt);
+			} 
+		//System.out.println("dao m : " + m);
+		return m;		
+		
+	}
+	
+	
+	
 	
 	// [김혜린]
 	public Member loginMember(Connection conn, String userId, String userPwd) {
@@ -764,11 +780,11 @@ public class MemberDao {
 	
 	// [김혜린]
 	public int insertCharacter(Connection conn, String userId) {
-		
+		System.out.println("디에이오 들어옴");
 		int result = 0;
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("insertCharacter");
-		
+		System.out.println(sql);
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, userId);
@@ -779,6 +795,7 @@ public class MemberDao {
 		}finally {
 			close(pstmt);
 		}
+		System.out.println("Dao 캐릭터테이블 결과 : " + result);
 		return result;
 	}
 	
@@ -857,6 +874,34 @@ public class MemberDao {
 		return result;
 	}
 	
+	// [김혜린]
+	public int updateMember(Connection conn, String nickName, String userPwd, String info, String gender, String userId) {
+		System.out.println("DAO / updateMember 실행됨"); //console
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateMember");
+		
+		System.out.println(nickName+","+ userPwd+","+ info+","+ gender+","+ userId);
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, nickName);
+			pstmt.setString(2, userPwd);
+			pstmt.setString(3, info);
+			pstmt.setString(4, gender);
+			pstmt.setString(5, userId);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		System.out.println("DAO / updateMember 결과 : "+ result); //console
+		return result;
+	}
 	
 	//[han]
 	//어드민페이지에서 코인과 자기소개 변경용 

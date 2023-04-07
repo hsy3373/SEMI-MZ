@@ -1,26 +1,32 @@
-package mz.member.controller.ajax;
+package mz.notice.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
+
+import mz.member.model.service.MemberService;
 import mz.member.model.vo.Member;
+import mz.notice.model.service.NoticeService;
+import mz.notice.model.vo.Notice;
 
 /**
- * 작성자 : 김혜린
- * 내정보변경 전 비밀번호 일치여부 확인 서블릿
+ * Servlet implementation class NoticeSelectController
  */
-@WebServlet("/checkPwd.me")
-public class AjaxCheckPwd extends HttpServlet {
+@WebServlet("/selectNotice")
+public class NoticeSelectController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AjaxCheckPwd() {
+    public NoticeSelectController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,8 +35,10 @@ public class AjaxCheckPwd extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		ArrayList<Notice> list = new NoticeService().selectNoticeList();
+		
+		response.setContentType("application/json; charset=UTF-8");
+		new Gson().toJson(list, response.getWriter());
 	}
 
 	/**
@@ -38,27 +46,14 @@ public class AjaxCheckPwd extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String inputPwd = request.getParameter("inputPwd");
-		String userPwd = ((Member)request.getSession().getAttribute("loginUser")).getUserPwd();
+		int noticeNo = Integer.parseInt(request.getParameter("noticeNo"));
 		
-		System.out.println("inputPwd : " + inputPwd +", loginuserPwd : " + userPwd);
+		Notice n = new NoticeService().selectDetailNotice(noticeNo);
 		
-		if(inputPwd.equals(userPwd)) { // 패스워드 일치
-			response.getWriter().print("O");
-			
-		}else { // 불일치
-			response.getWriter().print("X");
-		}
+		response.setContentType("application/json; charset=UTF-8");
+		new Gson().toJson(n, response.getWriter());
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+		System.out.println(n);
 	}
 
 }
