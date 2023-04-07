@@ -113,7 +113,8 @@ public class BoardDao {
             			rset.getString("BOARD_TITLE"),
             			rset.getString("BOARD_CONTENT"),
             			rset.getString("SECRET"),
-            			df.format(rset.getDate("CREATE_DATE"))
+            			df.format(rset.getDate("CREATE_DATE")),
+            			rset.getInt("SKIN_ID")
             			);
             }
 		} catch (SQLException e) {

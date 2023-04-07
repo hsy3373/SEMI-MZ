@@ -33,6 +33,33 @@ function selectSkin(num){
 		}
 	});
 };
+
+/* 로그인 유저가 보유한 스킨 */
+function mySkin(num){
+	$.ajax({
+		url : path + "/mySkinList.my",
+		data : {page : num},
+		success : function(list){
+			//console.log(list);
+
+			let str = "";
+			for(let i = 0; i < list.length; i++){
+				str += "<div class='closet-item'>" 
+						  +"<div class='closet-skin-id' id='myskin"+i+"' style='display: none;'>" + list[i].skinId +"</div>"
+						  + "<div class='closet-skin'>"
+						 	+"<img src='."+ list[i].saveRoot +"/fs.png'>"
+						  + "</div>"
+					 + "</div>";
+			}
+			$(".closet-skins").html(str);
+		},
+		error: function (jqXHR, textStatus, errorThrown) {
+      		console.log("Error: " + errorThrown);
+    	}
+	});
+};
+
+
 /*페이징 설정*/
 function init() {
   document.querySelectorAll(".page-btn").forEach(function (item, index) {
@@ -54,29 +81,6 @@ function init() {
   });
 }
 
-/* 로그인 유저가 보유한 스킨 */
-function mySkin(){
-	$.ajax({
-		url : path + "/mySkinList.my",
-		success : function(list){
-			//console.log(list);
-
-			let str = "";
-			for(let i = 0; i < list.length; i++){
-				str += "<div class='closet-item'>" 
-						  +"<div class='closet-skin-id' id='myskin"+i+"' style='display: none;'>" + list[i].skinId +"</div>"
-						  + "<div class='closet-skin'>"
-						 	+"<img src='."+ list[i].saveRoot +"/fs.png'>"
-						  + "</div>"
-					 + "</div>";
-			}
-			$(".closet-skins").html(str);
-		},
-		error: function (jqXHR, textStatus, errorThrown) {
-      		console.log("Error: " + errorThrown);
-    	}
-	});
-};
 
 /* 옷장 -> 스킨박스 스킨 클릭시 왼쪽 대표 스킨에 이미지 적용 + 착용버튼 활성화 */
 $(document).on('click', '.closet-skins img' ,function(){
@@ -159,9 +163,12 @@ $(document).on('click', '.store-skins img', function(){
 	$(".view-skin .user-skin").attr("id", id);
 		
 	// 구입버튼 활성화 + 커서 포인터
-	if(loginUserSkinId != id){
+	if(loginUserSkinId != id && loginUserCoin != 0){
 		$(".closet-buy").attr("disabled", false);
 		$(".closet-buy").css("cursor", "pointer");
+	}else{
+		$(".closet-buy").attr("disabled", true);
+		$(".closet-buy").css("cursor", "default");
 	}
 })
 
@@ -221,7 +228,7 @@ $(function () {
 	        $.dressClick();
 			// 미리보기 이미지 현재 로그인유저 이미지로 설정
 			$(".view-skin .user-skin").attr('src',"./resource/img/user/skin"+loginUserSkinId+"/fs.png");
-			mySkin();
+			mySkin(1);
 		}else{
 			/*룸마스터 값이 있을 경우 옷장이벤트 x*/
 			$(".icon-closet").off('click');
@@ -232,7 +239,7 @@ $(function () {
     /*옷장 버튼 클릭*/
 	$(document).on("click", ".dress-btn",function(){
         $.dressClick();
-		mySkin();
+		mySkin(1);
 		
 	});
     /*상점 버튼 클릭*/
@@ -268,7 +275,7 @@ $(function () {
 		wearDisabled();
 		
 		// 페이징바가리기
-		$(".paging-closet").css("display", "none");
+		$(".paging-store").css("display", "none");
     }
   
 
@@ -299,7 +306,7 @@ $(function () {
 		$(".closet-buy").attr("disabled", true);
 		
 		// 페이징바 보이게
-		$(".paging-closet").css("display", "block");
+		$(".paging-store").css("display", "block");
 
     }
 });

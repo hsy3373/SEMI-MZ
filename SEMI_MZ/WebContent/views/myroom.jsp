@@ -77,7 +77,7 @@ ul li a {
 }
 ul li.on {background: #eda712;}
 ul li.on a {color: #fff;}
-.paging-closet{
+.paging-store{
 	position: absolute;
 	top: 87%;
     left: 60%;
@@ -283,7 +283,22 @@ ul li.on a {color: #fff;}
 			</div>
 			
 			<!-- 페이징 -->
-			<div class="paging-closet">
+			<!-- 상점페이징 -->
+			<div class="paging-store">
+				<% for(int i = startPage; i <= endPage; i++){ %>
+					<% if( i <= maxPage) { %>
+						<% if(i != i*currentPage){ %>
+							<button type="button" class="selected-btn page-btn"><%= i %></button>
+						<%} else{ %>
+		            		<button type="button" class="page-btn"><%= i %></button>
+						<%} %>
+					<%} else { %>
+	            		<button type="button" class="disable-btn page-btn"><%= i %></button>	
+            		<% } %>
+				<% } %>
+			</div>
+			<!-- 옷장 페이징 -->
+			<div class="paging-dress">
 				<% for(int i = startPage; i <= endPage; i++){ %>
 					<% if( i <= maxPage) { %>
 						<% if(i != i*currentPage){ %>

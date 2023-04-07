@@ -237,15 +237,17 @@ $(function () {
         url: path + "/selectBoard",
         data: { boardNo: boardNo },
         success: function (b) {
-          // 제목
+			console.log(b);
+
+			// 제목
           let title = b.boardTitle;
           let no = b.boardNo;
           // 유저스킨
-          let skin = "";
-          skin +=
-            "<img class='friend-skin' src=''>" +
+          let skin = b.skinId;
+          skin =
+            "<img class='friend-skin' src='"+path+"/resource/img/user/skin"+skin+"/fs.png'>" +
             "<div class='friend-id'>" +
-            b.receiveId +
+            b.userId +
             "</div>";
 
           // 방명록 내용

@@ -38,7 +38,9 @@ public class MyroomSkinListController extends HttpServlet {
 		int page = Integer.parseInt(request.getParameter("page"));
 		//System.out.println("페이지 넘버 : "+page);
 		String userId = ((Member)request.getSession().getAttribute("loginUser")).getUserId();
+		
 		response.setContentType("application/json; charset=UTF-8");
+		
 		ArrayList<Skin> list = new SkinService().selectSkinsList(userId, page);
 		//System.out.println("게시글"+list);
 		//System.out.println("리스트 사이즈 : "+list.size());

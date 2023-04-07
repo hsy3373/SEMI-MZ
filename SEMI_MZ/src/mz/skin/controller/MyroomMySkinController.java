@@ -35,11 +35,15 @@ public class MyroomMySkinController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		int page = Integer.parseInt(request.getParameter("page"));
 		String userId = ((Member)request.getSession().getAttribute("loginUser")).getUserId();
 		
 		response.setContentType("application/json; charset=UTF-8");
 
-		ArrayList<Character> list = new SkinService().mySkinList(userId);
+		ArrayList<Character> list = new SkinService().mySkinList(userId, page);
+		System.out.println("게시글"+list);
+		System.out.println("리스트 사이즈 : "+list.size());
 		new Gson().toJson(list, response.getWriter());
 		
 		

@@ -122,7 +122,7 @@ public class SkinService {
 	}
 	
 	// [지의]
-	// 마이룸 - 페이지 별 일반 스킨 조회용(한페이지에 12개)
+	// 마이룸(상점) - 페이지 별 일반 스킨 조회용(한페이지에 12개)
 	public ArrayList<Skin> selectSkinsList(String userId, int page) {
 
 		Connection conn = getConnection();
@@ -145,10 +145,10 @@ public class SkinService {
 	}
 	
 	// [지의]
-	// 로그인 유저가 보유한 스킨 조회
-	public ArrayList<Character> mySkinList(String userId){
+	// 마이룸(옷장) - 페이지 별 로그인 유저가 보유한 스킨 조회용(한페이지에 12개)
+	public ArrayList<Character> mySkinList(String userId, int page){
 		Connection conn = getConnection();
-		ArrayList<Character> list = new SkinDao().mySkinList(conn, userId);
+		ArrayList<Character> list = new SkinDao().mySkinList(conn, userId,page);
 		close(conn);
 		return list;
 	}
