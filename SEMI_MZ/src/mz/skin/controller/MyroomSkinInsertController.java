@@ -41,13 +41,16 @@ public class MyroomSkinInsertController extends HttpServlet {
 		
 		//CHARACTER 테이블에 구입스킨 INSERT + MEMBER 테이블에 COIN UPDATE
 		int result = new SkinService().insertMySkin(userId, skinId);
+		// 실패 -1
 		
 		response.setContentType("application/json; charset=UTF-8");
 		// 스킨 추가 성공
 		if(result > 0) {
 			Member CoinUpdate = new MemberService().selectMemberAllInfo(userId);
+			// 세션로그인 유저에 코인 업데이트
 			request.getSession().setAttribute("loginUser", CoinUpdate);
-
+			//result에 로그인한 유저의 변경된 코인값 가져오기
+			result = CoinUpdate.getCoin();
 		}
 		// 데이터 넘기기
 		new Gson().toJson(result, response.getWriter());

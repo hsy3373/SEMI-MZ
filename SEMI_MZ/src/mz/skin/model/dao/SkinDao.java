@@ -359,15 +359,16 @@ public class SkinDao {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("updateCoin");
-		System.out.println("sql : "+sql);
+		
 		try {
 			pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setInt(1, skinId);
 			pstmt.setString(2, userId);
+			pstmt.setInt(3, skinId);
 			
 			result = pstmt.executeUpdate();
-			System.out.println("result : "+result);
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {

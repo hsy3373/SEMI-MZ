@@ -2,11 +2,11 @@
  * 작성자 : 노지의
  * 마이룸 - 옷장
  */
+//import { getSessionStorage, setSessionStorage } from "./myroomCommon.js";
+//let closetSkinCount = getSessionStorage('closetSkinCount');
 import { getContextPath } from "../common.js";
-import { getSessionStorage, setSessionStorage } from "./myroomCommon.js";
 let path = getContextPath();
 
-let closetSkinCount = getSessionStorage('closetSkinCount');
 /* 상점 클릭시 모든 리스트가 출력됨
    옷장 클릭시 loginUser의 스킨목록이 있는 것만 출력됨 */
 /*페이지별 스킨리스트 가져오는 함수 num값에 따라서 보여지는 화면이 달라짐)*/
@@ -157,7 +157,7 @@ $(document).on('click', '.store-skins img', function(){
 	   이미지 태그의 id에 각 스킨 아이디값 부여해줌 -> 왼쪽 미리보기 스킨에 id값 추가 */
 	let id = $(this).attr("id");
 	$(".view-skin .user-skin").attr("id", id);
-	
+		
 	// 구입버튼 활성화 + 커서 포인터
 	if(loginUserSkinId != id){
 		$(".closet-buy").attr("disabled", false);
@@ -170,7 +170,6 @@ $(document).on('click', '.closet-buy', function(){
 	
 	if(confirm("구입하시겠습니까? 현재 스킨이 바로 변경됩니다!")){
 		buySkin();
-		
 	}else{
 		return false;
 	}
@@ -184,18 +183,27 @@ function buySkin(){
 		url : path + "/insertMySkin.my",
 		data : {skinId : skinId},
 		success : function(result){
-			if(result > 0){
+			// 성공시 result에 로그인유저 코인값 담겨있음
+			// 실패시 result == -1
+			if(result > -1){
 				// 현재 스킨 교체 함수 실행
 				updateMySkin();
-
 				// 구입버튼 비활성화
 				$(".closet-buy").attr("disabled", true);
 				$(".closet-buy").css("cursor", "default");
 				
-				// 가격 변경
+				// myroom.jsp에 보이는 가격 변경
+				$('.coin').html(result);
 				
 				// 상점리스트 첫페이지로 적용
 				selectSkin(1);
+			}else{
+				// 실패할때처리
+				alert("코인이 부족합니다!");
+
+				// 구입버튼 비활성화
+				$(".closet-buy").attr("disabled", true);
+				$(".closet-buy").css("cursor", "default");
 			}
 		},
 		error : function(e){console.log("접속 실패애애애애");}

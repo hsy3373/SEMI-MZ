@@ -185,12 +185,12 @@ public class SkinService {
 	// CHARACTER 테이블에 구입한 스킨 INSERT + MEMBER 테이블에 COIN  UPDATE
 	public int insertMySkin(String userId, int skinId) {
 		Connection conn = getConnection();
-		int result1 = new SkinDao().insertMySkin(conn, userId, skinId);
+		int result1 = new SkinDao().updateCoin(conn,userId, skinId);
 		int result2 = 0;
 		if(result1 > 0) {
 			commit(conn);
 			
-			result2 = new SkinDao().updateCoin(conn,userId, skinId);
+			result2 = new SkinDao().insertMySkin(conn, userId, skinId);
 			if(result2 > 0) {
 				commit(conn);
 			}else {
@@ -198,6 +198,9 @@ public class SkinService {
 			}
 		} else {
 			rollback(conn);
+		}
+		if(result1*result2 == 0) {
+			return -1;
 		}
 		return result1 * result2;
 	}

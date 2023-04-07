@@ -5,15 +5,6 @@
 
 /* js 가져오기 */
 import { getContextPath } from "../common.js";
-/*function getContextPath() {
-  let hostIndex = location.href.indexOf(location.host) + location.host.length;
-  let contextPath = location.href.substring(
-    hostIndex,
-    location.href.indexOf("/", hostIndex + 1)
-  );
-  //console.log("getContextPath 불림");
-  return contextPath;
-}*/
 let path = getContextPath();
 /* chatData.js -> import 참고해서 작업 */
 
@@ -87,7 +78,7 @@ function selectboardList(receiveID) {
     dataType: "json",
     data: { receive: receiveID },
     success: function (list) {
-      console.log(list);
+      //console.log(list);
       //listCount(총 게시글 수)
       listCount = list.length;
       // 수정, 삭제시 게시글 최상단으로 오게하기 위해 배열 초기화 후 다시 배열 담기
@@ -213,7 +204,7 @@ function paging(listCount, boardLimit, pageLimit, currentPage) {
   //페이징 번호 클릭 이벤트
   $("#pagingul li a").click(function () {
     let $id = $(this).attr("id");
-    selectedPage = $(this).text();
+    let selectedPage = $(this).text();
 
     if ($id == "next") selectedPage = next;
     if ($id == "prev") selectedPage = prev;
@@ -466,19 +457,17 @@ $(function () {
 });
 /* ======================= 방명록 삭제(내마이룸, 친구룸 동일하게 적용) ======================= */
 /*내 마이룸에서 방명록 삭제*/
-function deleteBoard(){
-	let boardNo = $(".board-detail .board-no").text();
-	$.ajax({
-		url : path + "/deleteBoard",
-		data : {boardNo : boardNo},
-		success : function(result){}
-	})
-}
-deleteBoard();
 $(function(){
 	$(document).on("click", "#board-delete",function(){
 		if(confirm("삭제하시겠습니까?")){
-			deleteBoard();
+			let boardNo = $(".board-detail .board-no").text();
+			$.ajax({
+				url : path + "/deleteBoard",
+				data : {boardNo : boardNo},
+				success : function(result){
+					console.log(result);
+				}
+			})
 			// 현재 모달 숨기기
 			$(".board-detail").css("display", "none");
 			// 방명록 리스트 불러오는 함수 호출
@@ -488,20 +477,17 @@ $(function(){
 		}
 	})
 });
+
 /*친구마이룸에서 내가 쓴 방명록 삭제*/
-function deleteSendBoard(){
-	let boardNo = $(".board-send-detail .board-no").text();
-	$.ajax({
-		url : path + "/deleteBoard",
-		data : {boardNo : boardNo},
-		success : function(result){}
-	})
-}
-deleteSendBoard();
 $(function(){
 	$(document).on("click", "#board-send-delete",function(){
 		if(confirm("삭제하시겠습니까?")){
-			deleteBoard();
+			let boardNo = $(".board-send-detail .board-no").text();
+			$.ajax({
+				url : path + "/deleteSendBoard",
+				data : {boardNo : boardNo},
+				success : function(result){console.log(result);}
+			})
 			// 현재 모달 숨기기
 			$(".board-send-detail").css("display", "none");
 			// 방명록 리스트 불러오는 함수 호출
@@ -540,27 +526,29 @@ function loadList(receiveID) {
         for (let i = 0; i < list.length; i++) {
           str +=
             "<tr>" +
-            "<td class='myroom-board-title'>" +
-            "<img class='apple' src='./resource/img/icon/사과.png'>" +
-            list[i].boardTitle +
-            "</td>" +
-            "<td class='myroom-board-user'>" +
-            list[i].userId +
-            "</td>" +
+	            "<td class='myroom-board-title'>" +
+	            "<img class='apple' src='./resource/img/icon/사과.png'>" +
+	            list[i].boardTitle +
+	            "</td>" +
+	            "<td class='myroom-board-user'>" +
+	            list[i].userId +
+	            "</td>" +
             "</tr>";
         }
       } else {
         for (let i = 0; i < list.length; i++) {
+			$(".myroom-board-title").html(list[i].boardTitle);
+			$(".myroom-board-user").html(list[i].userId);
           str +=
-            "<tr>" +
-            "<td class='myroom-board-title'>" +
-            "<img class='apple' src='./resource/img/icon/사과.png'>" +
-            list[i].boardTitle +
-            "</td>" +
-            "<td class='myroom-board-user'>" +
-            list[i].userId +
-            "</td>" +
-            "</tr>";
+	            "<tr>" +
+		            "<td class='myroom-board-title'>" +
+		            "<img class='apple' src='./resource/img/icon/사과.png'>" +
+		            list[i].boardTitle +
+		            "</td>" +
+		            "<td class='myroom-board-user'>" +
+		            list[i].userId +
+		            "</td>" +
+	            "</tr>";
         }
       }
       $(".myroom-board-list").html(str);

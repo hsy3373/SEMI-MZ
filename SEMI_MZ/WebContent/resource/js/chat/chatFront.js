@@ -228,7 +228,7 @@ let changeChatColor = function () {
       $(e.target).attr("class") != "resizer"
     ) {
       // 채팅창 외부가 클릭되었을 경우
-      console.log("팝업 외 부분");
+      //console.log("팝업 외 부분");
       setColorClickOutsideVer();
     } else {
       // 채팅창 내부 클릭되었을 경우

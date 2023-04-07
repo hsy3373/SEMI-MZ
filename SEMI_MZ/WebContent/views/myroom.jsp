@@ -104,9 +104,9 @@ ul li.on a {color: #fff;}
 			<div class="myroom-board">
 				<table class="myroom-board-list">
 <%-- 					<tr>
-						<td class="myroom-board-title"><img class="apple"
-							src="${contextPath}/resource/img/icon/사과.png"> 안녕하세요안녕하세요안녕하세요안녕하세요</td>
-						<td class="myroom-board-user">노지의</td>
+						<td class="myroom-board-title">
+						<img class="apple" src="${contextPath}/resource/img/icon/사과.png"></td>
+						<td class="myroom-board-user"></td>
 					</tr> --%>
 				</table>
 			</div>
@@ -267,7 +267,7 @@ ul li.on a {color: #fff;}
 			<!-- =============== 오른쪽 =============== -->
 			<!-- 내 코인 : 로그인유저의 코인 -->
 			<div class="coin">${loginUser.getCoin()}</div>
-
+			
 			<!-- 옷장 버튼 -->
 			<button class="closet-btn-frame dress-btn">옷장</button>
 
@@ -349,8 +349,6 @@ ul li.on a {color: #fff;}
 	<script type="module" src="${contextPath}/resource/js/myroom/board.js"></script>
 	<script type="module" src="${contextPath}/resource/js/myroom/closet.js"></script>
 	<script type="module" src="${contextPath}/resource/js/buttonList.js"></script>
-	<script type="module" src="${contextPath}/resource/js/buttonList.js"></script>
-	<script src="${contextPath}/resource/js/squareCanvas.js"></script>
 
 
 </body>

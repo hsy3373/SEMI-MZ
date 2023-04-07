@@ -128,6 +128,11 @@
 						WHERE SKIN_ID = ?
 					   )
 		 WHERE USER_ID = ?
+         AND COIN >=  (
+						SELECT CHARACTER_PRICE
+						FROM CHARACTER_SKIN
+						WHERE SKIN_ID = ?
+					   )
 	</entry>
 
 </properties>

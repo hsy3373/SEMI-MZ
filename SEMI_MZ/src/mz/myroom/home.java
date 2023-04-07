@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import mz.member.model.vo.Member;
 import mz.skin.model.service.SkinService;
 
 /**
@@ -32,8 +33,11 @@ public class home extends HttpServlet {
 		
 		String roomMaster = request.getParameter("roomMaster");
 		System.out.println("roomMaster : "+roomMaster);
+		String userId = ((Member)request.getSession().getAttribute("loginUser")).getUserId();
+		System.out.println("home에서 "+userId);
 		
-		int closetSkinCount = new SkinService().closetSkinCount();
+		
+		int closetSkinCount = new SkinService().closetSkinCount(userId);
 		request.setAttribute("closetSkinCount", closetSkinCount);
 		request.setAttribute("roomMaster", roomMaster);
 		
