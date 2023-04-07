@@ -10,16 +10,19 @@ import { getUserInfo } from './userInfo.js';
 let path = getContextPath();
 
 
+$('.friendList').click(function(){
+    console.log("실행되나???")
+});
 
- 
 //버튼이벤트
 //버튼세팅 
-const init = function(){
+// const init = function(){
+
     const friendList = document.querySelector(".friendList"); //친구목록버튼
     const Listbutton = document.querySelector(".Listbutton"); //환경설정버튼
     const friendtable = document.getElementById("friendList"); //친구목록 table
     
-    console.log(friendList, Listbutton, friendtable)
+    //console.log(friendList, Listbutton, friendtable)
     
     //친구목록 : 놀러가기 이벤트 
     const fnClick = (fn) => {
@@ -245,5 +248,5 @@ const init = function(){
         })
     
     });
-}
-export { init}
+// }
+// export { init}

@@ -634,6 +634,39 @@ public class MemberDao {
 			}
 			return result;		
 		}
+		
+		
+	// 지영 - 차단유저 체크	
+		public String blockCheck(Connection conn, String userId) {
+			String result = null;
+			PreparedStatement pstmt = null;
+			ResultSet rset =null;
+			
+			String sql = prop.getProperty("blockCheck");
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, userId);
+				
+				rset = pstmt.executeQuery();
+				
+				
+				//여기 하다가 갔음!! 여기 수정!!! 
+				
+//				if(rset.next()) {
+//					result = rset.getstatus();
+//				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				close(rset);
+				close(pstmt);
+			}
+				
+			System.out.print(result);
+			
+			return result;
+		}
+		
 	
 //------------------------------ insert 구간 -------------------------------	
 	// [김혜린]
@@ -943,6 +976,7 @@ public class MemberDao {
 		}
 		return result;
 	}
+
 	
 	
 	

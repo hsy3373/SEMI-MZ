@@ -173,6 +173,14 @@
 		WHERE USER_ID = ?
 		  AND FRIEND_ID =?
 	</entry>
+	
+	
+	<!-- [지영] 차단유저 조회 -->
+	<entry key="blockCheck">
+		SELECT STATUS
+		FROM MEMBER
+		WHERE USER_ID = ?
+	</entry>
 
 
 	

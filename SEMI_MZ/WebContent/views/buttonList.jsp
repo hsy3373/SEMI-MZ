@@ -9,7 +9,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <link href="<%=contextPath%>/resource/css/common.css" rel="stylesheet" type="text/css">
 <link href="<%=contextPath%>/resource/css/buttonList.css" rel="stylesheet" type="text/css">
-<link rel="stylesheet" href="../resource/css/alert.css" />
+<link rel="stylesheet" href="<%=contextPath%>/resource/css/alert.css" />
 </head>
 <body>
     <!-- ========================== [윤지영] 버튼리스트 / 아래떠있는 버튼 리스트 모달 ========================== -->
@@ -68,7 +68,7 @@
     <!-- ======= 내정보변경 시 비밀번호 입력 요청 모달 ======== -->      
     <div class="modal smodalInfo">
         <div class="s-modal-back">
-            <div class="smodal-th"><button class="smodal-xbtn"><img src="../resource/img/icon/엑스 버튼.png" class="sx-btn sx-btn1"></button></div>
+            <div class="smodal-th"><button class="smodal-xbtn"><img src="<%=contextPath%>/resource/img/icon/엑스 버튼.png" class="sx-btn sx-btn1"></button></div>
             <form>
             <table class="smodal-table">
                 <tr class="smodal-tb"><th colspan="2">비밀번호 입력</th></tr>
@@ -85,7 +85,7 @@
         <div>
             <div class="rin-modal-background">
                 <div class="rin-modal-header">내 정보 변경</div>
-                <div class="rin-modal-out-btn"><img src="../resource/img/icon/엑스 버튼.png" class="sx-btn myinfo-xbtn"></div>
+                <div class="rin-modal-out-btn"><img src="<%=contextPath%>/resource/img/icon/엑스 버튼.png" class="sx-btn myinfo-xbtn"></div>
                 <div class="rin-empty-space"></div>
                 <div class="myinfo-modaltxtarea">
                 <form>
@@ -162,7 +162,7 @@
     <!-- ============== 회원탈퇴 버튼 클릭 시 비밀번호 입력 요청 모달 =============== -->      
 	<div class="modal smodalNmem">
 		<div class="s-modal-back">
-			<div class="smodal-th"><button class="smodal-xbtn"><img src="../resource/img/icon/엑스 버튼.png" class="sx-btn sx-btn2"></button></div>
+			<div class="smodal-th"><button class="smodal-xbtn"><img src="<%=contextPath%>/resource/img/icon/엑스 버튼.png" class="sx-btn sx-btn2"></button></div>
 			<form>
 			<table class="smodal-table">
 				<tr class="smodal-tb"><th colspan="2">정말 탈퇴하시겠습니까?</th></tr>
@@ -178,17 +178,17 @@
 
 
 
-    
+     <!--button-list srcipt-->  
+     <script type="module" src="<%=contextPath%>/resource/js/buttonList.js"></script>
+
       <!--유효성 script -->
-      <script type="module" src="../resource/js/validation.js"></script>
-        <!--button-list srcipt-->
-      
-      <script type="module" src="<%=contextPath%>/resource/js/buttonList.js"></script>
-      <script type="module">
+      <script type="module" src="<%=contextPath%>/resource/js/validation.js"></script>
+       
+      <!-- <script type="module">
         import {init} from '<%=contextPath%>/resource/js/buttonList.js'
         console.log("?")
         init();
-    </script>
+    </script> -->
 
 </body>
 </html>
