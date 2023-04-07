@@ -41,7 +41,7 @@ public class MainEnrollCharacter extends HttpServlet {
 		String userId = request.getParameter("userId");
 		
 		int result = new MemberService().insertCharacter(userId);
-		
+		System.out.println("컨트롤러 캐릭터테이블 결과 : " + result);
 		if(result > 0) {
 			response.getWriter().print("111");
 		}else {

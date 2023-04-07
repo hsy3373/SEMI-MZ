@@ -45,14 +45,15 @@ public class AjaxDeleteMember extends HttpServlet {
 		String inputPwd = request.getParameter("inputPwd");
 		String userPwd = ((Member)session.getAttribute("loginUser")).getUserPwd();
 		String userId = ((Member)session.getAttribute("loginUser")).getUserId();
+		String status = "N";
 		
-		int result = new MemberService().updateStatus(userId); // MEMBER : STATUS(N) : UPDATE
+		int result = new MemberService().updateStatus(userId, status); // MEMBER : STATUS(N) : UPDATE
 		
 		
 		if(inputPwd.equals(userPwd)) { // 패스워드 일치
 			if(result > 0) { // MEMBER : STATUS(N) : UPDATE 성공
 				// DISABLED_MEMBER : INSERT
-				new MemberService().insertDltMember(userId);
+				new MemberService().insertDltMember(userId, status);
 				// delete처리
 				new MemberService().dltMemBoard(userId); // BOARD : DELETE
 				new MemberService().dltMemChatting(userId); // CHATTING : DELETE
