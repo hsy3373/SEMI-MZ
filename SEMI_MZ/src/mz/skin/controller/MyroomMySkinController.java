@@ -38,7 +38,7 @@ public class MyroomMySkinController extends HttpServlet {
 		
 		int page = Integer.parseInt(request.getParameter("page"));
 		String userId = ((Member)request.getSession().getAttribute("loginUser")).getUserId();
-		
+		System.out.println("페이지 넘버 : "+page);
 		response.setContentType("application/json; charset=UTF-8");
 
 		ArrayList<Character> list = new SkinService().mySkinList(userId, page);

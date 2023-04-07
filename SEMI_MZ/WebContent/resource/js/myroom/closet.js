@@ -38,7 +38,7 @@ function selectSkin(num){
 function mySkin(num){
 	$.ajax({
 		url : path + "/mySkinList.my",
-		data : {page : num},
+		data : {page : 1},
 		success : function(list){
 			//console.log(list);
 

@@ -27,10 +27,10 @@
  	if(endPage > maxPage){
  		endPage = maxPage;
  	}
-	System.out.println("총스킨수        : "+closetSkinCount);
+/* 	System.out.println("총스킨수        : "+closetSkinCount);
 	System.out.println("총페이지수       : "+maxPage);
 	System.out.println("페이징바의 시작 수 : "+startPage);
-	System.out.println("페이징바의 끝 수  : "+endPage);
+	System.out.println("페이징바의 끝 수  : "+endPage); */
 %>
 
 
