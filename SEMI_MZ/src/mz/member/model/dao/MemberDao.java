@@ -390,32 +390,6 @@ public class MemberDao {
 		return m;
 	}
 	
-	// 신고 정보 db 저장 - 가영
-	public int insertReport(Connection conn, String userId, String receiveId, String reportTitle, String reportContent) {
-		
-		int result = 0;
-		
-		PreparedStatement pstmt = null;
-		
-		String sql = prop.getProperty("insertReport");
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			
-			pstmt.setString(1, userId);
-			pstmt.setString(2, receiveId);
-			pstmt.setString(3, reportTitle);
-			pstmt.setString(4, reportContent);
-			
-			result = pstmt.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(pstmt);
-		}
-		return result;
-	}
-	
 	// 호감도 추가 - 가영
 	public int insertHeart(Connection conn, String loginUser, String receiveId) {
 		

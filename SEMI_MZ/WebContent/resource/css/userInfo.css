@@ -6,7 +6,6 @@
 .hidden{display: none;}
 
 
-
 /*스크롤바 감추기*/
 ::-webkit-scrollbar{display: none;}
 
@@ -207,7 +206,7 @@
     width: 28.6%;
     height: 4.5%;
 }
-.user-nickname{
+.report-user{
     opacity: 0.7;
     border: none;
     border-radius: 5px;
@@ -229,7 +228,7 @@
     top: 27%;
     left: 14.5%;
 }
-.title-box{
+.report-title-box{
 	opacity: 0.7;
     border: none;
     border-radius: 5px;
@@ -252,21 +251,21 @@
     left: 14.5%;
 }
 /*글자수 세기*/
-.text-count{
+.content-text-count{
 	position: absolute;
     z-index: 1;
     top: 35%;
     left: 73%;
     font-size: 13px;
 }
-.text-total{
+.content-text-total{
 	position: absolute;
     z-index: 1;
     top: 35%;
     left: 76.5%;
     font-size: 13px;
 }
-#content-text{
+#report-content-text{
     position: absolute;
     z-index: 1;
     top: 39%;
