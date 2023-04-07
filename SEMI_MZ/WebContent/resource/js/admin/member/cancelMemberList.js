@@ -188,10 +188,8 @@ let init = function () {
   document.querySelector(".member-menu-item :nth-child(2)").style.color =
     "white";
 
-  setTimeout(function () {
-    if (document.querySelector(".member-menu-item").style.display == "none") {
-      document.querySelector(".member-menu").click();
-    }
+  setTimeout(() => {
+    document.querySelector(".member-menu").click();
   }, 100);
 
   // 검색창에서 엔터 눌렸을 때 처리

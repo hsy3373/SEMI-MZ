@@ -34,7 +34,7 @@ public class MainController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		int userCount = new MemberService().userCount();
+		int userCount = new MemberService().memberCount("Y", "all");
 		int noticeCount = new NoticeService().noticeCount();
 		int skinCount = new SkinService().skinCount();
 		

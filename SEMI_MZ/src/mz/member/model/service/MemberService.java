@@ -62,6 +62,28 @@ public class MemberService {
 
 		return m;
 	}
+	
+	// [han] 관리자 페이지 신고창용 멤버 조회
+	public Member selectMemberForReport(String userId) {
+		Connection conn = getConnection();
+
+		Member m = new MemberDao().selectMemberForReport(conn, userId);
+
+		close(conn);
+
+		return m;
+	}
+	
+	//[han] 어드민 페이지용 탈퇴 계정 15일 지난 애들 조회용 
+	public  ArrayList<Member> selectCancelMemberForAdmin(){
+		Connection conn = getConnection();
+
+		ArrayList<Member> list = new MemberDao().selectCancelMemberForAdmin(conn);
+
+		close(conn);
+
+		return list;
+	}
 
 	// 유저 정보 불러오기 - 가영
 	public Member selectMember(String userId) {
@@ -498,6 +520,24 @@ public class MemberService {
 			Connection conn = getConnection();
 			
 			int result = new MemberDao().deleteMember(conn, userId);
+			
+			if(result >0 ) {
+				commit(conn);
+			}else {
+				rollback(conn);
+			}
+			
+			close(conn);
+			
+			return result;
+		}
+
+		// [han]
+		//  어드민페이지용 15일 지난 탈퇴 유저 일괄 삭제
+		public int deleteCancelMemberForAdmin() {
+			Connection conn = getConnection();
+			
+			int result = new MemberDao().deleteCancelMemberForAdmin(conn);
 			
 			if(result >0 ) {
 				commit(conn);

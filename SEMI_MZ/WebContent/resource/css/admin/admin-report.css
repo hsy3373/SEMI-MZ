@@ -1,0 +1,187 @@
+.head-text {
+  font-size: 2rem;
+  font-weight: 600;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 7vh 0px 50px 0px;
+  color: rgba(0, 0, 0, 0.6);
+  position: relative;
+}
+
+/* ----------------------------------- list 화면---------------------------------- */
+
+.inner-wrap {
+  width: 70vw;
+  min-width: 830px;
+  background-color: white;
+  color: black;
+  padding: 2vw;
+  background-color: white;
+  border-radius: 1%;
+  margin: auto;
+  box-shadow: 0px 0px 50px rgba(0, 0, 0, 0.05);
+  position: relative;
+}
+
+.inner-wrap *:focus-visible {
+  outline: none;
+}
+
+select {
+  cursor: pointer;
+}
+
+.search {
+  position: absolute;
+  transform: translate(-50%, 0);
+  left: 50%;
+  top: 2vw;
+  z-index: 1;
+  background-color: white;
+  width: 70%;
+  display: flex;
+  padding: 8px;
+  border-radius: 20px;
+  box-shadow: 0 2px 5px 1px rgba(64, 60, 67, 0.16);
+}
+
+.search > * {
+  margin: 0px 10px;
+}
+
+.search i {
+  color: black;
+  margin: 0px 10px;
+}
+
+.search * {
+  font-size: 0.9rem;
+}
+
+#search {
+  padding: 0px 4px;
+  border: none;
+}
+
+.search-input {
+  flex: 1;
+}
+
+.search-input input {
+  border: none;
+  width: 100%;
+}
+
+.report-wrap {
+  display: flex;
+  margin: auto;
+  margin-top: 70px;
+}
+
+table,
+td,
+th {
+  border: 1px solid black;
+  border-collapse: collapse;
+  padding: 6px;
+  font-size: small;
+  text-align: center;
+}
+
+table {
+  width: 95%;
+  margin: auto;
+}
+
+.report-list-area {
+  width: 50%;
+}
+
+.report-list-area tr:nth-child(1) {
+  background-color: rgba(224, 243, 255, 0.7);
+}
+
+.report-list-area tr:nth-child(1):hover {
+  background-color: rgba(224, 243, 255, 0.7);
+}
+
+.report-list-area tr:hover {
+  background-color: rgba(224, 243, 255, 0.2);
+}
+
+.detail-area {
+  width: 50%;
+  height: max-content;
+  position: sticky;
+  top: 10vh;
+}
+
+.btn-area {
+  width: 100%;
+  font-size: 0.9rem;
+  margin: 0px auto;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+#update-btn {
+  margin-left: 1.5vw;
+  margin-right: 1vw;
+  width: 80px;
+  height: 30px;
+  background-color: white;
+  border-radius: 5%;
+  border: 1px solid black;
+  cursor: pointer;
+}
+
+#delete-btn {
+  width: 80px;
+  height: 30px;
+  color: red;
+  background-color: white;
+  border-radius: 5%;
+  border: 1px solid red;
+  cursor: pointer;
+}
+
+.member-detail-table th {
+  background-color: rgba(224, 243, 255, 0.7);
+  width: 2.5rem;
+}
+
+.report-detail-table th {
+  background-color: rgba(224, 243, 255, 0.7);
+  width: 4rem;
+}
+
+.member-detail-table {
+  margin-bottom: 0.5rem;
+}
+
+.report-detail-table {
+  margin: 0.5rem auto;
+}
+
+.check-member {
+  width: 100%;
+  background-color: rgb(253, 254, 255);
+  border: 1px solid black;
+  border-radius: 5%;
+  cursor: pointer;
+}
+
+#title {
+  width: 100%;
+  padding: 2px 4px;
+}
+
+#content {
+  width: 100%;
+  resize: none;
+  padding: 8px;
+}

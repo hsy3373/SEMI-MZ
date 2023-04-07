@@ -101,7 +101,6 @@ a.selected,
 .content {
   margin-left: 160px;
   flex: 1;
-  height: max-content;
 }
 
 #toast {
@@ -173,4 +172,8 @@ a.selected,
 .paging-bar > button.selected-btn {
   pointer-events: none;
   background-color: rgb(231, 231, 231);
+}
+
+.inner-wrap {
+  margin-bottom: 5vh;
 }

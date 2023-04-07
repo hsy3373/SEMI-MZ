@@ -57,8 +57,7 @@ let init = function () {
     });
 
   document.querySelector(".back").addEventListener("click", function () {
-    let path = getContextPath();
-    location.href = path + "/activelist.member";
+    history.back();
   });
 
   document.querySelector(".member-menu").style.color = "white";

@@ -102,8 +102,6 @@ public class MemberDao {
 	// 어드민 페이지용 멤버 조회 함수
 	public ArrayList<Member> selectMemberList(Connection conn, String status, String api, String sort, int page){
 		ArrayList<Member> list = new ArrayList<>();
-
-		int result = 0;
 		
 		if(sort.equals("userId")) {
 			sort = "USER_ID";
@@ -209,8 +207,6 @@ public class MemberDao {
 		like = like.replaceAll("_", "\\_");
 		like = "%" + like + "%";
 
-		System.out.println(sql);
-
 		try {
 			pstmt = conn.prepareStatement(sql);
 
@@ -286,6 +282,79 @@ public class MemberDao {
 		return m;
 	}
 	
+	
+	// [han] 관리자 페이지 신고창용 멤버 조회
+	public Member selectMemberForReport(Connection conn, String userId) {
+		Member m = null;
+			
+		ResultSet rset = null;
+			
+		PreparedStatement pstmt = null;
+			
+		String sql = prop.getProperty("selectMemberForReport");
+			
+		try {
+			pstmt = conn.prepareStatement(sql);
+				
+			pstmt.setString(1, userId);
+			pstmt.setString(2, userId);
+			pstmt.setString(3, userId);
+				
+			rset = pstmt.executeQuery();
+				
+			if(rset.next()) {
+				m = new Member(rset.getString("USER_ID"),
+							   rset.getString("NICKNAME"),
+							   rset.getString("STATUS"),
+							   rset.getInt("USER_COUNT"),
+							   rset.getInt("RECEIVE_COUNT"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return m;
+	}
+	
+	//[han] 어드민 페이지용 탈퇴 계정 15일 지난 애들 조회용 
+	public  ArrayList<Member> selectCancelMemberForAdmin(Connection conn){
+		ArrayList<Member> list = new ArrayList<>();
+
+		ResultSet rset = null;
+		PreparedStatement pstmt = null;
+
+		String sql = prop.getProperty("selectCancelMemberForAdmin");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			rset= pstmt.executeQuery();
+			
+			//date 포맷용
+			DateFormat df = new SimpleDateFormat("yy/MM/dd HH:mm");  
+			
+			while(rset.next()) {
+
+				Member m = new Member();
+				m.setUserId(rset.getString("USER_ID"));
+				m.setNicName(rset.getString("NICKNAME"));
+				m.setCancellationDate(df.format(rset.getTimestamp("CANCELLATION_DATE")));
+				m.setUserReportCount(rset.getInt("USER_COUNT"));
+				m.setReceiveReportCount(rset.getInt("RECEIVE_COUNT"));
+				
+				list.add(m);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
 	
 	//[가영]
 	public Member selectMember(Connection conn, String userId) {
@@ -985,6 +1054,25 @@ public class MemberDao {
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, userId);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	// [han]
+	//  어드민페이지용 15일 지난 탈퇴 유저 일괄 삭제
+	public int deleteCancelMemberForAdmin(Connection conn) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("deleteCancelMemberForAdmin");
+		try {
+			pstmt = conn.prepareStatement(sql);
 			
 			result = pstmt.executeUpdate();
 			

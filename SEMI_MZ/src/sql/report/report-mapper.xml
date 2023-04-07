@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+
+<!-- han -->
+<!-- select 구역 -->
+
+	<entry key="reportCount">
+		SELECT COUNT(*) AS COUNT
+		FROM (
+		  SELECT R2.*, ROWNUM AS RN
+		  FROM (
+		        SELECT *
+		        FROM (
+		          SELECT R1.* , UTL_MATCH.EDIT_DISTANCE( ## , ?) AS DISTANCE
+		          FROM REPORT R1
+		          WHERE ## LIKE ? escape '\'
+		        ) 
+		        ORDER BY DISTANCE, REPORT_NO DESC
+		  ) R2
+		)
+	</entry>
+	
+	<entry key="selectReportPart">
+		SELECT REPORT_NO, USER_ID, RECEIVE_ID, REPORT_TITLE, REPORT_CONTENT, CREATE_DATE
+		FROM (
+		  SELECT R2.*, ROWNUM AS RN
+		  FROM (
+		        SELECT *
+		        FROM (
+		          SELECT R1.* , UTL_MATCH.EDIT_DISTANCE( ## , ?) AS DISTANCE
+		          FROM REPORT R1
+		          WHERE ## LIKE ? escape '\'
+		        ) 
+		        ORDER BY DISTANCE, REPORT_NO DESC
+		  ) R2
+		)
+		WHERE RN BETWEEN ? AND ?
+	</entry>
+
+	<entry key="selectReport">
+		SELECT REPORT_NO, USER_ID, RECEIVE_ID, REPORT_TITLE, REPORT_CONTENT, CREATE_DATE
+		FROM  REPORT
+		WHERE  REPORT_NO = ?
+	</entry>
+	
+	<entry key="selectUserCount">
+		SELECT COUNT(*) AS COUNT FROM REPORT WHERE USER_ID = ?
+	</entry>
+	
+	<entry key="selectReceiverCount">
+		SELECT COUNT(*) AS COUNT FROM REPORT WHERE RECEIVE_ID = ?
+	</entry>
+
+<!-- insert 구역 -->
+
+<!-- update 구역 -->
+
+	<entry key="updateReport">
+		UPDATE REPORT
+		SET REPORT_TITLE = ?,
+			REPORT_CONTENT = ?
+		WHERE REPORT_NO = ?
+	</entry>
+
+	<entry key="deleteReport">
+		DELETE FROM REPORT
+		WHERE REPORT_NO = ?
+	</entry>
+
+</properties>
