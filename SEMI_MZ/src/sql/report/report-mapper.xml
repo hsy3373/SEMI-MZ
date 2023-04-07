@@ -54,6 +54,20 @@
 
 <!-- insert 구역 -->
 
+<!-- [가영] 신고 정보 db 저장 -->
+	<entry key="insertReport">
+		INSERT INTO REPORT (REPORT_NO,
+							USER_ID,
+							RECEIVE_ID,
+							REPORT_TITLE,
+							REPORT_CONTENT)
+		VALUES (SEQ_REPORT.NEXTVAL,
+				?,
+				?,
+				?,
+				?)
+	</entry>
+	
 <!-- update 구역 -->
 
 	<entry key="updateReport">

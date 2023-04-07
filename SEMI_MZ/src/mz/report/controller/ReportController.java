@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 
-import mz.member.model.service.MemberService;
 import mz.member.model.vo.Member;
+import mz.report.model.service.ReportService;
 
 /**
  * Servlet implementation class ReportController
@@ -46,7 +46,7 @@ public class ReportController extends HttpServlet {
 		String reportContent = request.getParameter("reportContent");
 		
 		System.out.println(userId+receiveId+reportTitle+reportContent);
-		int result = new MemberService().insertReport(userId, receiveId, reportTitle, reportContent);
+		int result = new ReportService().insertReport(userId, receiveId, reportTitle, reportContent);
 		
 		if (result > 0) {
 			
