@@ -33,7 +33,7 @@ pageEncoding="UTF-8"%>
         <hr />
 
         <li>
-          <a href="<%=path%>/main.admin">
+          <a href="<%=path%>/admin.admin">
             <i class="bi bi-key-fill"></i> Admin
           </a>
         </li>
@@ -62,10 +62,10 @@ pageEncoding="UTF-8"%>
     </div>
 
     <script type="text/javascript">
+    $(".member-menu-item").css("display", "none");
       $(document).ready(function () {
         $(".member-menu").click(function () {
           $(".member-menu-item").slideToggle();
-          $(".member-menu-item").css("display", "flex");
         });
       });
     </script>

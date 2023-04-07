@@ -90,6 +90,26 @@
 		) RC ON M.USER_ID = RC.RECEIVE_ID
 		WHERE M.USER_ID = ?
 	</entry>
+	
+	<!-- [han] 어드민페이지용 15일 지난 탈퇴 유저 조회 -->
+	<entry key="selectCancelMemberForAdmin">
+		SELECT M.USER_ID, M.NICKNAME, CANCELLATION_DATE, USER_COUNT, RECEIVE_COUNT
+		FROM MEMBER M
+        LEFT JOIN DISABLED_MEMBER DM ON M.USER_ID = DM.USER_ID
+		LEFT JOIN (
+		  SELECT USER_ID, COUNT(*) AS USER_COUNT
+		  FROM REPORT
+		  GROUP BY USER_ID
+		) UC ON M.USER_ID = UC.USER_ID
+		LEFT JOIN (
+		  SELECT RECEIVE_ID, COUNT(*) AS RECEIVE_COUNT
+		  FROM REPORT
+		  GROUP BY RECEIVE_ID
+		) RC ON M.USER_ID = RC.RECEIVE_ID
+		WHERE M.STATUS ='N' AND SYSDATE - CANCELLATION_DATE >= 15
+        ORDER BY CANCELLATION_DATE
+	</entry>
+
 
 	<!-- [혜린] -->
 	<entry key="loginMember">
@@ -308,5 +328,12 @@
 		DELETE FROM DISABLED_MEMBER WHERE USER_ID =  ?
 	</entry>
 
+<!-- [han] 어드민페이지용 15일 지난 탈퇴 유저 일괄 삭제 -->
+	<entry key="deleteCancelMemberForAdmin">
+		DELETE FROM ( SELECT USER_ID,  M.STATUS,  CANCELLATION_DATE
+            FROM MEMBER M
+            LEFT JOIN DISABLED_MEMBER USING(USER_ID))
+		WHERE STATUS ='N' AND SYSDATE - CANCELLATION_DATE >= 15
+	</entry>
 
 </properties>
