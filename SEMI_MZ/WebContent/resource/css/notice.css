@@ -178,6 +178,7 @@
     top: 26.8%;
     left: 78.2%;
 }
+
 .notice-detail-title{
     position: absolute;
     z-index: 2;
@@ -188,6 +189,7 @@
     height: 6%;
     line-height: 30px;
     padding-left: 8px;
+    padding-right: 8px;
     border-radius: 6px;
 }
 .notice-content{
@@ -205,6 +207,37 @@
     font-size: 14px;
     text-align: justify;
 }
+
+.notice-pageing-area{
+	position: absolute;
+	top: 77%;
+    left: 11.2%;
+}
+#notice-pagingul {
+    text-align: center;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-right: 0;
+	padding-left :0;
+}
+#notice-pagingul li {
+    text-align: center;
+    float: left;
+	list-style:none;
+}
+#notice-pagingul li a {
+    display: block;
+    font-size: 14px;
+	color: black;
+    padding: 0 12px;
+    border-right: solid 1px #ccc;
+    box-sizing: border-box;
+	text-decoration-line:none;	
+    line-height: 30px;
+    font-weight: 300;
+}
+#notice-pagingul li.on {background: tan;}
+#notice-pagingul li.on a {color: #fff;}
 
 
 /*닫기 버튼*/

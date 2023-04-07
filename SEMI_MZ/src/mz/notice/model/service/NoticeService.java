@@ -56,16 +56,6 @@ public class NoticeService {
 		
 	}
 	
-	public ArrayList<Notice> selectNoticeDetail(int page){
-		Connection conn = getConnection();
-		
-		ArrayList<Notice> list = new NoticeDao().selectNoticeDetail(conn, page);
-		
-		close(conn);
-		
-		return list;
-	}
-	
 	
 	public Notice selectDetailNotice(int noticeNo) {
 		Connection conn = getConnection();

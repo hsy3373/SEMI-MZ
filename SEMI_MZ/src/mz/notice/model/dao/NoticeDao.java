@@ -194,50 +194,6 @@ public class NoticeDao {
 		return list;
 	}
 	
-	// 페이지 별 공지 조회용(한페이지에 6개)
-	public ArrayList<Notice> selectNoticeDetail(Connection conn, int page) {
-		
-		ArrayList<Notice> list = new ArrayList<>();
-
-		PreparedStatement pstmt = null;
-		
-		ResultSet rset = null;
-		
-		String sql = prop.getProperty("selectNoticesPart");
-			
-		try {
-			pstmt = conn.prepareStatement(sql);
-				
-			// 이거보다 크거나 같고
-			pstmt.setInt(1, (page-1)*6 +1);
-				
-			//이거보다 작거나 같은
-			pstmt.setInt(2, page*6);
-				
-			rset = pstmt.executeQuery();
-				
-			while (rset.next()) {
-					
-				DateFormat df = new SimpleDateFormat("yyyy/MM/dd");  
-					
-				Notice n = new Notice( rset.getInt("NOTICE_NO"), 
-									   rset.getString("NOTICE_TITLE"), 
-									   rset.getString("NOTICE_CONTENT"),
-									   df.format(rset.getDate("CREATE_DATE"))
-									  );
-					
-				list.add(n);
-			}
-				
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(rset);
-			close(pstmt);
-		}
-		return list;
-	}
-	
 	public Notice selectDetailNotice(Connection conn, int noticeNo) {
 		Notice n = null;;
 

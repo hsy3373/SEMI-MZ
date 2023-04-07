@@ -35,12 +35,13 @@ let endPage; 				// 페이지 하단에 보여질 페이징바의 끝 수
 $(document).ready(function() {
 	NoticeList();
 });
+
 /*공지사항 게시판 하단 공지사항 리스트(4개만 보이게)*/
 function NoticeList() {
 	$.ajax({
 		url: getContextPath() + "/selectNotice",
 		success: function(data) {
-			console.log(data);
+			//console.log(data);
 
 			if (data.length > 4) {
 				data.length = 4;
@@ -58,7 +59,7 @@ function NoticeList() {
 				}
 			} else {
 				for (let i = 0; i == data.length; i++) {
-					str += "<div class='list-post'>"
+					str += "<div class='list-post' style='pointer-events: none;'>"
 						+ "<div class='notice-title'>" + '공지사항이 없습니다.' + "</div>"
 						+ "</div>";
 				}
@@ -70,43 +71,44 @@ function NoticeList() {
 	});
 };
 
-$(".list-post").click(function(){
+$(document).on('click', ".list-post", function() {
 	getNoticeList();
-});
+})
 
 // 공지사항 리스트 조회 함수
 function getNoticeList() {
 	$.ajax({
-		url: path + "/selectNotice",
+		url: getContextPath() + "/selectNotice",
 		success: function(data) {
-			console.log(data);
+			//console.log(data);
 
 			listCount = data.length;
+
 			// 수정, 삭제시 게시글 최상단으로 오게하기 위해 배열 초기화 후 다시 배열 담기			
 			noticeList = [];
 			// 공지사항 리스트 배열에 담기
 			for (let i = 0; i < data.length; i++) {
 				noticeList.push({
 					noticeNo: data[i].noticeNo,
-					noticeTitle: data[i].noticeTitle,
-					noticeContent: data[i].noticeContent,
-					createDate: data[i].createDate
+					noticeTitle: data[i].title,
+					noticeContent: data[i].content,
+					noticeDate: data[i].date
 				})
 			}
-			console.log(noticeList);
 
 			//글 목록 표시 호출 (테이블 생성)
 			displayData(1, noticeLimit);
 
 			//페이징 표시 호출
 			paging(listCount, noticeLimit, pageLimit, 1);
+
 		}
 	});
 }
 
 // 글 목록 표시 함수
 // 현재 페이지(currentPage)와 페이지당 글 개수(noticeLimit) 반영
-function displayData(currentPage, boardLimit) {
+function displayData(currentPage, noticeLimit) {
 
 	let str = "";
 
@@ -116,30 +118,32 @@ function displayData(currentPage, boardLimit) {
 
 	let maxpnum = (currentPage - 1) * noticeLimit + noticeLimit;
 	if (maxpnum > listCount) { maxpnum = listCount; }
+	/*console.log("max : " + maxpnum);
+	console.log("listCount : " + listCount);
+	console.log(noticeList);*/
 
-	for (let i = (currentPage - 1) * boardLimit; i < maxpnum; i++) {
-		let str = "";
+	for (let i = (currentPage - 1) * noticeLimit; i < maxpnum; i++) {
 
 		if (listCount > 0) {
-			for (let i = 0; i < listCount; i++) {
-				str += "<ul class='notice-detail-list'>"
-					+ "<li class='detail-list'>" + noticeList[i].noticeTitle + "</li>"
-			}
-		} else {
-			for (let i = 0; i == listCount; i++) {
-				str += "<ul class='notice-detail-list'>"
-					+ "<li class='detail-list'>" + '공지사항이 없습니다.' + "</li>"
-			}
+			str += "<li class='detail-list' id='" + noticeList[i].noticeNo + "'>" + noticeList[i].noticeTitle + "</li>";
 		}
+		
+		// 공지사항 최신글 보이게
+		$(".notice-date").html(noticeList[0].noticeDate);
+
+		$(".notice-detail-title").html(noticeList[0].noticeTitle);
+
+		$(".notice-content").html(noticeList[0].noticeContent);
 	}
-	$(".notice-list").html(str);
-	console.log(currentPage, noticeLimit, maxpnum)
+
+	$(".notice-detail-list").html(str);
+	//console.log(currentPage, noticeLimit, maxpnum)
 
 }
 
 // 페이징 표시 함수
 function paging(listCount, noticeLimit, pageLimit, currentPage) {
-	console.log("currentPage : " + currentPage);
+	//console.log("currentPage : " + currentPage);
 
 	maxPage = Math.ceil(listCount / noticeLimit); //총 페이지 수
 
@@ -153,7 +157,7 @@ function paging(listCount, noticeLimit, pageLimit, currentPage) {
 		endPage = maxPage;
 	}
 
-	let startPage = parseInt((currentPage - 1) / 5) * 5 + 1;  //화면에 보여질 첫번째 페이지 번호
+	let startPage = parseInt((currentPage - 1) / 4) * 4 + 1;  //화면에 보여질 첫번째 페이지 번호
 
 	let next = endPage + 1;
 	let prev = startPage - 1;
@@ -181,13 +185,23 @@ function paging(listCount, noticeLimit, pageLimit, currentPage) {
 	//페이징 번호 클릭 이벤트 
 	$("#notice-pagingul li a").click(function() {
 		let $id = $(this).attr("id");
-		selectedPage = $(this).text();
+		//console.log('selectedPage', $(this).text());
+
+		let selectedPage = $(this).text();
+		//console.log("전selectedPage : " + selectedPage);
 
 		if ($id == "next") selectedPage = next;
 		if ($id == "prev") selectedPage = prev;
 
+		/*console.log("전globalCurrentPage : " + globalCurrentPage);
+		console.log("전selectedPage : " + selectedPage);*/
+
 		//전역변수에 선택한 페이지 번호를 담는다...
 		globalCurrentPage = selectedPage;
+
+		/*console.log("globalCurrentPage : " + globalCurrentPage);
+		console.log("selectedPage : " + selectedPage);*/
+
 		//페이징 표시 재호출
 		paging(listCount, noticeLimit, pageLimit, selectedPage);
 		//글 목록 표시 재호출
@@ -195,131 +209,36 @@ function paging(listCount, noticeLimit, pageLimit, currentPage) {
 	});
 };
 
+// 공지사항 리스트 클릭 시 상세보기
+$(document).on('click', ".detail-list", function() {
+	let noticeNo = $(this).attr("id");
+	selectNoticeDetail(noticeNo);
+});
 
-
-
-/*function selectNotice(num){
-	console.log('num : ', num);
+function selectNoticeDetail(noticeNo) {
 	$.ajax({
-		url : getContextPath()+"/detail.list",
-		data : {page : num},
-		success : function(data){
-			console.log('공지사항 : ', data);
+		url: getContextPath() + "/selectNotice",
+		method: 'post',
+		data: { noticeNo },
+		success: function(data) {
+			//console.log(data);
 
-			let str = "";
+			let date = data.date;
+			$(".notice-date").html(date);
 
-			for (let i in data){
-				str += `<div class="notice-no">${data[i].noticeNo}>
-						${noticeCount - i - (num - 1) * 6}
-						<ul class='notice-detail-list'>
-						<li class='detail-list'>${data[i].title}</li>
-						</ul>
-						</div>`
-			}
-			(".notice-list-item").html(str);
-		}, error : function(){
-			console.log("실패");
+			let title = data.title;
+			$(".notice-detail-title").html(title);
+
+			let content = data.content;
+			$(".notice-content").html(content);
+
+
+
+		}, error: function() {
+			console.log("가져오기 실패");
 		}
 	});
 }
 
-function init(){
-	$(document.querySelector(".notice-list-item")).on("click", ".detail-list", function () {
 
-    // 앞 공지사항 포스트잇에 notice-no 주기
-    let str = this.querySelector(".notice-title");
-
-    console.log(str);
-    location.href = getContextPath() + "/update.notice?noticeNo=" + str;
-  });
-
-  document.querySelectorAll(".page-btn").forEach(function (el) {
-    el.addEventListener("click", function () {
-      // 기존에 선택되어있던 버튼이 있었다면 선택 해제
-      if (document.querySelector(".selected-btn") != null) {
-        document.querySelector(".selected-btn").className = "page-btn";
-      }
-
-      setSessionStorage("cPage", this.innerText);
-      getNotice(this.innerText);
-
-      this.className = "selected-btn page-btn";
-    });
-  });
-
-  // 페이징바의 앞페이지 버튼 클릭시 동작
-  document.getElementById("prev-btn").addEventListener("click", function () {
-    let btns = document.querySelectorAll(".page-btn");
-    // 버튼들 텍스트 변경
-    btns.forEach(function (el) {
-      el.innerText = Number(el.innerText) - 10;
-      el.className = "page-btn";
-    });
-
-    //만약 가장 처음 버튼이 1번일 경우 앞페이지 버튼 비활성화
-    if (btns[0].innerText == 1) {
-      document.getElementById("prev-btn").className = "disable-btn";
-    }
-
-    // 앞페이지가 눌렸다는 것은 뒷페이지가 있다는 것이므로 뒷페이지 가기 버튼 활성화
-    document.getElementById("next-btn").className = "able-btn";
-
-    // 가장 마지막 버튼이 눌린 것으로 처리
-    btns[btns.length - 1].click();
-  });
-
-  // 페이징바의 뒷페이지 버튼 클릭 시 동작
-  document.getElementById("next-btn").addEventListener("click", function () {
-    let count = Number(getSessionStorage("noticeCount"));
-    //최대 페이지 수
-    count = Math.ceil(count / 20);
-    let btns = document.querySelectorAll(".page-btn");
-    // 버튼들 텍스트 변경
-    btns.forEach(function (el) {
-      el.innerText = Number(el.innerText) + 10;
-
-      if (Number(el.innerText) > count) {
-        //만약 버튼의 숫자가 최대 페이지 수보다 크다면
-        el.className = "disable-btn page-btn";
-      } else {
-        el.className = "page-btn";
-      }
-    });
-
-    // 앞으로 가기 버튼 활성화
-    document.getElementById("prev-btn").className = "able-btn";
-
-    //만약 가장 마지막 버튼이 최대 페이지 수보다 크거나 같은 경우 뒷페이지 버튼 비활성화
-    if (Number(btns[btns.length - 1].innerText) >= count) {
-      document.getElementById("next-btn").className = "disable-btn";
-    }
-
-    //가장 첫 버튼 클릭
-    btns[0].click();
-  });
-}*/
-
-/*function NoticeDetailList(){
-	$.ajax({
-		url : getContextPath()+"/selectNotice",
-		success : function(data){
-			console.log(data);
-
-			let str = "";
-
-			if (data.length > 0) {
-				for (let i = 0; i < data.length; i++) {
-					str += "<li class='detail-list'>" + data[i].title + "</li>"
-				}
-			} else {
-				for (let i = 0; i == data.length; i++) {
-					str += "<li class='detail-list'>" + '공지사항이 없습니다.' + "</li>"
-				}
-			}
-			$(".notice-detail-list").html(str);
-		}, error : function(){
-			console.log("실패");
-		}
-	});
-}*/
 

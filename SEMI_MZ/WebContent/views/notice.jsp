@@ -50,18 +50,14 @@
 			<img id="detail-view" src="../resource/img/icon/상세보기.png" alt="">
 		</div>
 		<div class="notice-detail-name">공지사항</div>
-		<!-- <div class="notice-list-item"> -->
-			<!-- <div class="notice-no" style="display: none;"> -->
-				<!-- <ul class="notice-detail-list">
-					<li class="detail-list">공지사항1</li>
+		<ul class="notice-detail-list">
+<!-- 				<li id="detail-list">공지사항1</li>
 					<li>공지사항1</li>
 					<li>공지사항1</li>
 					<li>공지사항1</li>
 					<li>공지사항1</li>
-					<li>공지사항1</li>
-				</ul> -->
-			<!-- </div> -->
-		<!-- </div> -->
+					<li>공지사항1</li> -->
+		</ul>
 		<!-- 페이징바 자리 -->
 		<div class="notice-pageing-area">
 			<ul id="notice-pagingul"></ul>
