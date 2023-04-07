@@ -4,9 +4,10 @@
  */
 
 /* js 가져오기  */
-import { getContextPath } from "./common.js";
-import { getUserInfo } from "./userInfo.js";
-// import {noticeModal} from './notice.js';
+import { getContextPath } from './common.js';
+import { getUserInfo } from './userInfo.js';
+import {noticeModal} from './notice.js';
+
 
 //캔버스 세팅
 let canvas;
@@ -415,7 +416,8 @@ let FilterUsers = []; //필터링된 유저 1개 만큼 담아줄 배열
 let path = getContextPath();
 let socket = new WebSocket("ws://192.168.120.37:8084" + path + "/multiAccess");
 ///////////////////////////////////////////////////////////////자기 ws로 바꿔주기!!! ///////////////////////////////
-// 가영 ip : 192.168.30.181
+// 가영 학원 ip : 192.168.30.181
+// 가영 집 ip : 192.168.35.221
 
 let fnSocket = {
   onopen: function (e) {

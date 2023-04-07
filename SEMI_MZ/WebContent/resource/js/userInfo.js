@@ -50,7 +50,7 @@ export function getUserInfo(){
 			
 			nickName = data.nicName;
 			$(".info-nickname").html(nickName);
-			$(".user-nickname").html(nickName);
+			$(".report-user").html(nickName);
 				
 			/* 스킨 경로가 비어있어 오류 뜸 */
 			let skinId = data.skinId;
@@ -188,12 +188,12 @@ function report(){
 	$.ajax({
 		url: getContextPath()+"/report",
 		data: {receiveId : sessionStorage.clickedUserId,
-		       reportTitle: $(".title-box").val(),
-		       reportContent: $("#content-text").val()},
+		       reportTitle: $(".report-title-box").val(),
+		       reportContent: $("#report-content-text").val()},
 		method: 'post',
 		success : function(data) {
 			console.log(data);
-			if(result > 0){
+			if(data > 0){
 				close2();
 			}else{
 				alert("에러가 발생했습니다.");
@@ -232,8 +232,8 @@ $('#report-content-text').keyup(function (e) {
     
     // 글자수 세기
     if (content.length == 0 || content == '') {
-    	$('.text-count').text(0);
+    	$('.content-text-count').text(0);
     } else {
-    	$('.text-count').text(content.length);
+    	$('.content-text-count').text(content.length);
     }
 })

@@ -28,6 +28,11 @@
 		WHERE NOTICE_NO = ?
 	</entry>
 	
+	<entry key="selectNoticeList">
+		SELECT *
+		FROM NOTICE
+	</entry>
+	
 
 <!-- insert 구역 -->
 	<entry key="insertNotice">
