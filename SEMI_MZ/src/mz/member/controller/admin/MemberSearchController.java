@@ -1,6 +1,8 @@
-package mz.member.controller;
+package mz.member.controller.admin;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -13,16 +15,16 @@ import mz.member.model.service.MemberService;
 import mz.member.model.vo.Member;
 
 /**
- * Servlet implementation class ReportController
+ * Servlet implementation class MemberSearchController
  */
-@WebServlet("/report")
-public class ReportController extends HttpServlet {
+@WebServlet("/search.member")
+public class MemberSearchController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ReportController() {
+    public MemberSearchController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -39,27 +41,16 @@ public class ReportController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		String userId = ((Member)request.getSession().getAttribute("loginUser")).getUserId();
-		String receiveId = request.getParameter("receiveId");
-		String reportTitle = request.getParameter("reportTitle");
-		String reportContent = request.getParameter("reportContent");
 		
-		System.out.println(userId+receiveId+reportTitle+reportContent);
-		int result = new MemberService().insertReport(userId, receiveId, reportTitle, reportContent);
+		String option = request.getParameter("option");
+		option = option != null ? option : "userId";
 		
-		if (result > 0) {
-			
-			response.setContentType("application/json; charset=UTF-8");
-			
-			new Gson().toJson(result, response.getWriter());
-		} else {
-			System.out.println("글러먹었어...");
-			response.setContentType("application/json; charset=UTF-8");
-			
-			new Gson().toJson(result, response.getWriter());
-		}
-		 
+		String keyword = request.getParameter("keyword");
+		
+		ArrayList<Member> list = new MemberService().searchMembers(option, keyword);
+		
+		response.setContentType("application/json; charset=UTF-8");
+		new Gson().toJson(list, response.getWriter());
 	}
 
 }

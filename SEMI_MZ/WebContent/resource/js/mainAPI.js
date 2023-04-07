@@ -72,7 +72,7 @@ function kakaoLogin(page) {
     $.ajax({
         url : path + "/KeyCheck.me",
         method : 'post',
-        data: {kind : '카카오', key : key},
+        data: {kind : 'kakao', key : key},
         dataType: 'text',
         success: (result) => {  //1,hyerin
             //console.log("ajax 통신 후 결과 값 db에 존재함? : " + result); // console 확인
@@ -113,7 +113,7 @@ function kakaoLogin(page) {
                 if(page == "main"){
                     // 쿠키에 키 저장 => 회원가입
                     Common.setCookie("key" , key);
-                    Common.setCookie("kind", "카카오");
+                    Common.setCookie("kind", "kakao");
 
                    //console.log("회원가입 쿠키에 키 담김? //" + Common.getCookie("key"));
                    //console.log("회원가입 쿠키에 키 종류 담김? //" + Common.getCookie("kind"));
@@ -131,8 +131,8 @@ function kakaoLogin(page) {
                     nicktxt.css('color', 'black');
                     pwdtxt.html("영문, 숫자, 특수기호 포함 8~16자 입력 가능");
                     pwdtxt.css('color', 'black');
-                    
-
+                    $('input[name=enrollId]').prop('readonly', false);
+                    $('input[name=enrollNick]').prop('readonly', false);
 
                 }else if(page == "find"){
                     alert("해당 계정으로 존재하는 아이디가 없습니다.");
@@ -141,12 +141,6 @@ function kakaoLogin(page) {
         }
     })
 };
-//회원가입 모달 
-
-// let insertMem = function(){
-    //     // 쿠키에 저장된 키 가져와서 함께 전송
-    //     // ajax로 멤버 추가 + 키값도 추가
-    // }
 
 
 

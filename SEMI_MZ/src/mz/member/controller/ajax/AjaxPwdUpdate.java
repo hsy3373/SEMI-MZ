@@ -59,6 +59,7 @@ public class AjaxPwdUpdate extends HttpServlet {
 		}else { // update 성공
 			session.setAttribute("loginUser", m);
 			response.getWriter().print("1");
+			//System.out.println(m);
 		}
 		
 		

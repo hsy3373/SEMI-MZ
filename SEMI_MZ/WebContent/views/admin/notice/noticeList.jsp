@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" import = "mz.notice.model.vo.Notice, java.util.ArrayList"%>
 <%
-	String path = request.getContextPath();
+	String path = request.getContextPath();	
 	ArrayList<Notice> list = (ArrayList<Notice>) request.getAttribute("list");
 
 	//현재 페이지
@@ -24,11 +24,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet"
-	href="<%=path%>/resource/css/admin/admin-common.css" />
-<link rel="stylesheet"
 	href="<%=path%>/resource/css/admin/admin-notice.css" />
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 </head>
 <body>
 	<div class="wrapper">

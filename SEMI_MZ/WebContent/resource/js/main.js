@@ -79,7 +79,7 @@ let path = getContextPath();
 		})
 	});
 	
-	/* 회원가입 처리 */   //insert(member / login_api) 
+	/* 회원가입 처리 */   //insert(member / login_api / character) 
 	$('#enroll-btn').on("click", function(){
 
 		let userId = $("[name=enrollId]").val();
@@ -135,6 +135,20 @@ let path = getContextPath();
 				}
 			}
 		})
+		// CHARACTER 테이블에 insert
+		$.ajax({
+			type : "post",
+			url : path + "/insertSkin.id",
+			data : {userId: userId},
+			success : (result) => {
+
+				if(result == "111"){ //성공
+					console.log("캐릭터 테이블 insert 성공");
+				}else{ // 실패
+					console.log("캐릭터 테이블 insert 실패");
+				}
+			}
+		})	
 	});
 
 /* id/pw찾기 => 비밀번호 재설정 */
@@ -157,9 +171,8 @@ $('#newpwd-btn').on("click", function(){
 			}
 		}
 	});
-
-
 });
+
 
 //////////////////////광장 js(내정보변경) (백업용 나중에 지울 것...ㅎㅎ)/////////////////////////////////
 
@@ -248,10 +261,4 @@ $('#newpwd-btn').on("click", function(){
 // 		}
 // 	})
 
-// });
-
-
-
-
-	
-		
+// })

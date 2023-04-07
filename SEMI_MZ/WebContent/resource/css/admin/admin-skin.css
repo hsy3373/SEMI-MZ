@@ -1,3 +1,13 @@
+.side-bar-ul :nth-child(3) a,
+.side-bar-ul :nth-child(3) i {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.side-bar-ul :nth-child(6) a,
+.side-bar-ul :nth-child(6) i {
+  color: white;
+}
+
 .head-text {
   font-size: 2rem;
   font-weight: 600;
@@ -73,7 +83,7 @@
 #delete-btn {
   width: 80px;
   height: 30px;
-  color : red;
+  color: red;
   background-color: white;
   border-radius: 5%;
   border: 1px solid red;
@@ -159,6 +169,15 @@ th {
   border: 1px solid black;
   border-collapse: collapse;
   padding: 10px;
+}
+
+tr:nth-child(1):hover {
+  background-color: rgba(255, 255, 255, 0);
+}
+
+.reward-skin-item:hover,
+tr:hover {
+  background-color: rgba(224, 243, 255, 0.486);
 }
 
 td {
@@ -259,7 +278,7 @@ tr > th:nth-child(2) {
   display: flex;
   margin-bottom: 1.5rem;
 }
-
+/* 
 .paging-bar {
   text-align: center;
   margin-top: 20px;
@@ -295,3 +314,4 @@ tr > th:nth-child(2) {
   pointer-events: none;
   background-color: rgb(231, 231, 231);
 }
+ */
