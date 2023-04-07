@@ -71,6 +71,26 @@ function NoticeList() {
 	});
 };
 
+/*function rankingUser(){
+	$.ajax({
+		url: getContextPath()+"/userInfo",
+		method: 'post',
+		success : function(data) {
+			console.log(data);
+			
+			// 데이터 가져오기	
+			// selectHeart();
+			
+			nickName = data.nicName;
+			$(".ranking-nickname").html(nickName);
+				
+			let skinRoot = data.saveRoot;
+			$("#ranking-user").attr("src", getContextPath()+skinRoot+'/fs.png');
+				
+		}
+	});
+};*/
+
 $(document).on('click', ".list-post", function() {
 	getNoticeList();
 })

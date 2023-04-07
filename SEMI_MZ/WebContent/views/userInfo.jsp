@@ -86,7 +86,7 @@
 
 	<script type="module" src="../resource/js/userInfo.js"></script>
 	<script type="module" src="../resource/js/common.js"></script>
-	<!--<script type="module" src="../resource/js/alert.js"></script>-->
+	<!-- <script type="module" src="../resource/js/alert.js"></script> -->
 	
 </body>
 </html>

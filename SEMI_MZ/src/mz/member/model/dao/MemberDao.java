@@ -379,7 +379,8 @@ public class MemberDao {
 							   rset.getString("NICKNAME"),
 							   rset.getInt("SKIN_ID"),
 							   rset.getString("SELF_INFO"),
-							   rset.getString("GENDER"));
+							   rset.getString("GENDER"),
+							   rset.getString("SAVE_ROOT"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
