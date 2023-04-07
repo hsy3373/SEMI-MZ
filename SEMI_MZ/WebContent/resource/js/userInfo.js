@@ -120,6 +120,8 @@ function selectHeart(){
 				$('#heart-off').css('display', 'none');
 				$('#heart-on').css('display', 'block');
 			}
+			$(".heart-int").html(data);
+			
 		},
 		error: function(){
 			console.log("error");

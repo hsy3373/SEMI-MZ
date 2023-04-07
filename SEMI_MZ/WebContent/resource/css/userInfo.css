@@ -62,10 +62,10 @@
 .heart-int{
 	z-index: 1;
     position: absolute;
-    top: 32.1%;
+    top: 31.8%;
     left: 23.2%;
     color: white;
-    font-size: 33px;
+    font-size: 31px;
     cursor: pointer;
 }
 
