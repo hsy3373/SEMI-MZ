@@ -1,4 +1,4 @@
-package mz.member.controller;
+package mz.report.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;

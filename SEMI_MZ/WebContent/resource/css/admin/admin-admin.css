@@ -1,0 +1,147 @@
+.side-bar-ul :nth-child(3) a,
+.side-bar-ul :nth-child(3) i {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.side-bar-ul :nth-child(5) a,
+.side-bar-ul :nth-child(5) i {
+  color: white;
+}
+
+.content {
+  height: 100vh;
+  display: flex;
+}
+
+.head-text {
+  font-size: 2rem;
+  font-weight: 600;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 7vh 0px 50px 0px;
+  color: rgba(0, 0, 0, 0.6);
+  position: relative;
+}
+
+/* ----------------------------------- list 화면---------------------------------- */
+
+.inner-wrap {
+  width: 70vw;
+  height: 100%;
+  max-height: 90vh;
+  background-color: white;
+  color: black;
+  padding: 2vw;
+  background-color: white;
+  border-radius: 1%;
+  margin: auto;
+  box-shadow: 0px 0px 50px rgba(0, 0, 0, 0.05);
+}
+
+.wrap {
+  display: flex;
+  height: 100%;
+}
+
+.update-info {
+  width: 30%;
+  margin: auto;
+  background-color: rgb(255, 255, 255);
+  box-shadow: 10px 9px 20px rgba(0, 0, 0, 0.068);
+  text-align: center;
+  padding: 20px;
+  border-radius: 5%;
+  border-top: 8px solid rgb(126 146 255);
+}
+
+.delete-cancel {
+  width: 60%;
+  margin: 0px auto;
+  text-align: center;
+  padding: 10px;
+  border-radius: 5%;
+  border-top: 8px solid rgb(126 146 255);
+  background-color: rgb(255, 255, 255);
+  box-shadow: 10px 9px 20px rgba(0, 0, 0, 0.068);
+}
+
+.cancel-table {
+  max-height: 58vh;
+  width: 90%;
+  margin: auto;
+  margin-top: 4px;
+  overflow: auto;
+}
+
+.cancel-table > table {
+  margin: auto;
+  width: 100%;
+}
+
+.delete-cancel-btn,
+.cancel-info {
+  text-align: end;
+  width: 90%;
+  margin: auto;
+  margin-top: 2vh;
+}
+
+.delete-cancel-btn > button {
+  background-color: white;
+  border: 1px solid red;
+  padding: 4px 10px;
+  color: red;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.delete-cancel-btn > button:active {
+  background-color: rgb(224, 224, 224);
+}
+
+table,
+td,
+th {
+  border: 1px solid black;
+  border-collapse: collapse;
+  padding: 6px;
+  color: black;
+}
+
+tr:nth-child(1):hover {
+  background-color: rgba(255, 255, 255, 0);
+}
+
+tr:hover {
+  background-color: rgba(224, 243, 255, 0.486);
+}
+
+td {
+  text-align: center;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+#update-pwd-form > div {
+  text-align: start;
+  margin: 1rem auto 0.5rem auto;
+  font-size: 12px;
+}
+
+#update-pwd-form > button {
+  margin-top: 1rem;
+  padding: 4px 10px;
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+#update-pwd-form > button:active {
+  background-color: rgb(230, 230, 230);
+}
+
+input {
+  width: 80%;
+}

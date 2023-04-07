@@ -77,6 +77,16 @@ td {
   margin-left: 30px;
 }
 
+#update-btn {
+  margin-left: 30px;
+  width: 80px;
+  height: 30px;
+  background-color: white;
+  border-radius: 5%;
+  border: 1px solid black;
+  cursor: pointer;
+}
+
 #delete-btn,
 #blocking-btn {
   width: 80px;
@@ -114,4 +124,9 @@ td {
 .my-skin-item > img {
   width: 50px;
   height: 50px;
+}
+
+#coin {
+  width: 4rem;
+  text-align: center;
 }
