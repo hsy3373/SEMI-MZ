@@ -4,6 +4,8 @@
 <!-- [han] -->
 <properties>
 
+<!-- SELECT 구역 -->
+
 	<entry key="getChatRoom">
 		SELECT
 		    COUNT(*) AS COUNT
@@ -45,6 +47,14 @@
 		WHERE ROWNUM &lt;= 50
 		ORDER BY ROWNUM DESC
 	</entry>
+	
+	<entry key="selectChatCountForDelete">
+		SELECT COUNT(*) AS COUNT
+		FROM CHATTING
+		WHERE SYSDATE-7 >= CREATE_DATE
+	</entry>
+	
+<!-- INSERT 구역 -->
 
 	
 	<entry key="insertChatRoom">
@@ -56,9 +66,21 @@
 	</entry>
 
 
+<!-- DELETE 구역  -->
+
 	<entry key="deleteChatRoom">
 		DELETE FROM CHATTINGROOM
 			WHERE  USER_ID = ? 
 				AND RECEIVE_ID = ?
 	</entry>
+	
+	
+	<entry key="deleteChatLogs">
+			DELETE FROM CHATTING
+			WHERE  SYSDATE-7 >= CREATE_DATE
+	</entry>
+	
+	
+	
+	
 </properties>

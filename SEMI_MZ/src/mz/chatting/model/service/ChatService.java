@@ -31,6 +31,14 @@ public class ChatService {
 		return list;
 	}
 
+	//7일 이상 된 채팅로그 개수 반환용
+	public int selectChatCountForDelete() {
+		Connection conn = getConnection();
+		int result = new ChatDao().selectChatCountForDelete(conn);
+		close(conn);
+		
+		return result;
+	}
 //---------------------------------insert 구간 -------------------------------------	
 	
 	public int insertChatRoom( String userId, String receiver) {
@@ -93,6 +101,24 @@ public class ChatService {
 			commit(conn);
 		}else {
 			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+	}
+	
+	
+	public int deleteChatLogs() {
+		Connection conn = getConnection();
+		int result = new ChatDao().deleteChatLogs(conn);
+		
+		if(result > 0) {
+			System.out.println("삭제 성공");
+			commit(conn);
+		}else {
+			rollback(conn);
+			System.out.println("삭제 할게 없거나 실패");
 		}
 		
 		close(conn);
