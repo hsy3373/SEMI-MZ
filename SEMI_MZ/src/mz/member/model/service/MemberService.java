@@ -85,16 +85,6 @@ public class MemberService {
 		return list;
 	}
 	
-	//[han] 닉네임으로 멤버 찾기용
-	public String selectMemberByNick(String nickname) {
-		Connection conn = getConnection();
-		
-		String userId = new MemberDao().selectMemberByNick(conn, nickname);
-		
-		close(conn);
-		
-		return userId;
-	}
 
 	// 유저 정보 불러오기 - 가영
 	public Member selectMember(String userId) {

@@ -15,7 +15,6 @@ import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 
 import mz.chatting.model.vo.Chat;
-import mz.member.model.service.MemberService;
 import mz.member.model.vo.Member;
 
 @ServerEndpoint(value = "/websocket", 
