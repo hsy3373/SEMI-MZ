@@ -61,8 +61,8 @@
 		WHERE RN BETWEEN ? AND ?
 	</entry>
 	
-	<!-- 상점 스킨 총 갯수 : 지의 -->
-	<entry key="closetSkinCount">
+	<!-- 상점 스킨 총 갯수(보유스킨 제외) : 지의 -->
+	<entry key="storeSkinCount">
 		SELECT COUNT(*) AS COUNT 
 		  FROM CHARACTER_SKIN CS
 		 WHERE NOT EXISTS
@@ -76,12 +76,12 @@
 	</entry>
 	
 	<!-- 마이룸 옷장 : 보유중인 캐릭터만 조회 -->
-	<entry key="">
-		SELECT SKIN_ID, SAVE_ROOT, CHARACTER_PRICE, REWARD
+	<entry key="mySkinList">
+		SELECT SKIN_ID, SAVE_ROOT
 		FROM (
-		  SELECT SKIN_ID, SAVE_ROOT, CHARACTER_PRICE, REWARD, ROWNUM AS RN
+		  SELECT SKIN_ID, SAVE_ROOT, ROWNUM AS RN
 		  FROM (
-		    SELECT SKIN_ID, SAVE_ROOT, CHARACTER_PRICE, REWARD
+		    SELECT SKIN_ID, SAVE_ROOT
             FROM CHARACTER_SKIN CS
             WHERE EXISTS
             (
@@ -97,7 +97,7 @@
 	</entry>
 	
 	<!-- 옷장 스킨 총 갯수 : 지의 -->
-	<entry key="">
+	<entry key="dressSkinCount">
 		SELECT COUNT(*) AS COUNT 
 		  FROM CHARACTER_SKIN CS
 		 WHERE EXISTS
@@ -107,18 +107,14 @@
                     WHERE USER_ID = ?
                     AND CS.SKIN_ID = C.SKIN_ID
          )
-         AND REWARD = 'N';
 	</entry>
 	
-	<!-- 로그인유저가 보유한 스킨 : 지의 -->
-	<entry key="mySkinList">
-		SELECT SKIN_ID,
-               SAVE_ROOT
-		  FROM CHARACTER
-          JOIN CHARACTER_SKIN USING (SKIN_ID)
-		 WHERE USER_ID = ?
+	<!-- 친구 스킨 조회 : 지의 -->
+	<entry key="selectfriendSkin">
+	SELECT SKIN_ID
+	  FROM MEMBER M
+	 WHERE USER_ID = ?
 	</entry>
-	
 
 <!-- insert 구역 -->
 	<entry key="insertSkin">

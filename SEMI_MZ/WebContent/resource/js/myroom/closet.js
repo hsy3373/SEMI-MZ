@@ -3,7 +3,7 @@
  * 마이룸 - 옷장
  */
 //import { getSessionStorage, setSessionStorage } from "./myroomCommon.js";
-//let closetSkinCount = getSessionStorage('closetSkinCount');
+//let storeSkinCount = getSessionStorage('storeSkinCount');
 import { getContextPath } from "../common.js";
 let path = getContextPath();
 
@@ -38,7 +38,7 @@ function selectSkin(num){
 function mySkin(num){
 	$.ajax({
 		url : path + "/mySkinList.my",
-		data : {page : 1},
+		data : {page : num},
 		success : function(list){
 			//console.log(list);
 
@@ -62,25 +62,20 @@ function mySkin(num){
 
 /*페이징 설정*/
 function init() {
-  document.querySelectorAll(".page-btn").forEach(function (item, index) {
-    //console.log(item);
-    //console.log("인덱스 :"+index);
-    item.addEventListener("click", function () {
-      // 기존에 선택된 버튼이 있었다면 선택 해제
-      if (document.querySelector(".selected-btn") != null) {
-        document.querySelector(".selected-btn").className = "page-btn";
-      }
-      // 승은님꺼
-      //selectSkin(this.innerText);
-      selectSkin(index + 1);
-
-      this.className = "selected-btn page-btn";
-      /* ★★★★★★★★★★★★★★★★★★★★★클래스명으로 css 부여해야됨!!!!!!!★★★★★★★★★★★★★★★★★★★★★★★★★ */
-	
-    });
-  });
+	document.querySelectorAll(".page-btn").forEach(function (el) {
+		el.addEventListener("click", function () {
+		// 기존에 선택된 버튼이 있었다면 선택 해제
+		if(document.querySelector(".selected-btn") != null) {
+			document.querySelector(".selected-btn").className = "page-btn";
+		}
+		selectSkin(this.innerText);
+		mySkin(this.innerText);
+		
+		
+		this.className = "selected-btn page-btn";
+		});
+	});
 }
-
 
 /* 옷장 -> 스킨박스 스킨 클릭시 왼쪽 대표 스킨에 이미지 적용 + 착용버튼 활성화 */
 $(document).on('click', '.closet-skins img' ,function(){
@@ -217,11 +212,9 @@ function buySkin(){
 	})
 }
 
-
 $(function () {
 	/* 마이룸에서 옷장 아이콘 클릭*/
 	$(document).on('click','.icon-closet',function(){
-		init();
 		if(roomMasterId == ''){
 	        $(".closet-wrap").show();
 	        $(".closet-modal").show();
@@ -229,6 +222,7 @@ $(function () {
 			// 미리보기 이미지 현재 로그인유저 이미지로 설정
 			$(".view-skin .user-skin").attr('src',"./resource/img/user/skin"+loginUserSkinId+"/fs.png");
 			mySkin(1);
+			init();
 		}else{
 			/*룸마스터 값이 있을 경우 옷장이벤트 x*/
 			$(".icon-closet").off('click');
@@ -240,13 +234,13 @@ $(function () {
 	$(document).on("click", ".dress-btn",function(){
         $.dressClick();
 		mySkin(1);
-		
+		init();
 	});
     /*상점 버튼 클릭*/
 	$(document).on("click", ".store-btn",function(){
         $.storeClick();
 		selectSkin(1);
-		
+		init();
 	});
 
     /*옷장 버튼 클릭 함수 생성*/
@@ -274,8 +268,9 @@ $(function () {
 		$(".view-skin .user-skin").attr('src',"./resource/img/user/skin"+loginUserSkinId+"/fs.png");
 		wearDisabled();
 		
-		// 페이징바가리기
+		// 페이징바 설정
 		$(".paging-store").css("display", "none");
+		$(".paging-dress").css("display", "block");
     }
   
 
@@ -307,6 +302,26 @@ $(function () {
 		
 		// 페이징바 보이게
 		$(".paging-store").css("display", "block");
+		$(".paging-dress").css("display", "none");
 
     }
 });
+
+$(function(){
+	/*방주인 스킨이미지 적용하기*/
+	$.ajax({
+		url : path + "/friendSkin",
+		//method: 'post',
+		data : {roomMasterId : roomMasterId},
+		success : function(id){
+			// id : 방주인의 스킨아이디 -> img 태그에 src 경로 추가
+			$(".friend-skin").attr("src", path+"/resource/img/user/skin"+id+"/fs.png")
+		},
+		error : function(e){
+			console.log(e);
+		}
+	});
+})
+window.onload = function () {
+  init();
+};

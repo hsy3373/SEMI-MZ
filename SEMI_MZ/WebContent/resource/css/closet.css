@@ -32,12 +32,8 @@
     height: 100%;
     background-color: rgba(0, 0, 0, 0.4);
 }
-.fur-img{
-    position: absolute;
-    top: 15%;
-    left: 45%;
-    width: 500px;
-}
+/* 옷장이미지 */
+.fur-img{width: 500px;}
 .coin-label-img{
     position: absolute;
     top: 7%;
@@ -154,9 +150,30 @@
     left: 18%;
 }
 .closet-skin img{height: 100%; cursor: pointer;}
-
-
-
-
-
 .store-modal{display: none;}
+
+
+/* 페이징바 */
+/* 옷장감싸는 div(안에 페이징바 같이 위치해있음) */
+.closet-fur{
+    position: absolute;
+    top: 15%;
+    left: 45%;
+}
+.paging-closet {
+ 	text-align: center;
+	margin-top: 10px;
+}
+.paging-closet > button{
+	font-size: var(--fontsize14);
+	background-color: #edd1a1;
+	border: 1px solid #d4b88a;
+	border-radius: 10px;
+	cursor: pointer;
+}
+
+.paging-closet > button.selected-btn {
+	pointer-events: none;
+	background-color: #ad966f;;
+	border: 1px solid #806d4e;
+} 

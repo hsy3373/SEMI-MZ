@@ -165,6 +165,14 @@ public class MemberService {
 			return result;
 		}
 		
+	// [지의] - 유저별 호감도 총개수
+	public int countHeart(String receiveId) {
+		Connection conn = getConnection();
+		int count = new MemberDao().countHeart(conn, receiveId);
+		close(conn);
+		return count;
+	}
+		
 //------------------------------ insert 구간 -------------------------------
 	
 	// [김혜린]

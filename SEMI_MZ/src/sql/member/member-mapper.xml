@@ -187,6 +187,13 @@
 		  AND RECEIVE_ID =?
 	</entry>
 	
+	<!-- [지의] 유저별 호감도 총 개수 -->
+	<entry key="countHeart">
+ 		SELECT COUNT(*) AS COUNT
+		FROM HEART
+		WHERE RECEIVE_ID = ?
+	</entry>
+	
 	<!-- [가영] 친구 추가, 삭제, 조회 -->
 	<entry key="insertFriend">
 		INSERT INTO FRIEND(USER_ID, FRIEND_ID)

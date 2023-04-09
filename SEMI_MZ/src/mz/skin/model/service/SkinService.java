@@ -136,10 +136,10 @@ public class SkinService {
 	}
 	
 	// [지의]
-	// 옷장 총 스킨 개수 확인
-	public int closetSkinCount(String userId) {
+	// 상점 총 스킨 개수 확인
+	public int storeSkinCount(String userId) {
 		Connection conn = getConnection();
-		int result = new SkinDao().closetSkinCount(conn, userId);
+		int result = new SkinDao().storeSkinCount(conn, userId);
 		close(conn);
 		return result;
 	}
@@ -148,13 +148,28 @@ public class SkinService {
 	// 마이룸(옷장) - 페이지 별 로그인 유저가 보유한 스킨 조회용(한페이지에 12개)
 	public ArrayList<Character> mySkinList(String userId, int page){
 		Connection conn = getConnection();
-		ArrayList<Character> list = new SkinDao().mySkinList(conn, userId,page);
+		ArrayList<Character> list = new SkinDao().mySkinList(conn, userId, page);
 		close(conn);
 		return list;
 	}
 	
 	// [지의]
-
+	// 로그인유저가 보유한 총 스킨 개수 확인
+	public int dressSkinCount(String userId) {
+		Connection conn = getConnection();
+		int result = new SkinDao().dressSkinCount(conn, userId);
+		close(conn);
+		return result;
+	}
+	
+	// [지의]
+	// roomMasterId 값으로 친구 스킨 조회
+	public int selectfriendSkin(String roomMasterId) {
+		Connection conn = getConnection();
+		int id = new SkinDao().selectfriendSkin(conn, roomMasterId);
+		close(conn);
+		return id;
+	}
 
 //-------------------------------------------INSERT 구역 -------------------------------------------------
 

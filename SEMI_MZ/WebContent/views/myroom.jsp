@@ -13,24 +13,28 @@
 	String roomMaster = (String)request.getAttribute("roomMaster");
 	// session에 있는 로그인 유저
 	Member loginUser = (Member) session.getAttribute("loginUser");
-	System.out.println("jsp roomMaster : "+roomMaster);
-	System.out.println("jsp loginUser : "+loginUser);
+	//System.out.println("jsp roomMaster : "+roomMaster);
+	//System.out.println("jsp loginUser : "+loginUser);
 	//Member userId = (Member)request.getAttribute("userId");
 	
+	int storeSkinCount = (int) request.getAttribute("storeSkinCount"); 		// 상점 총 스킨 개수
+	int dressSkinCount = (int)request.getAttribute("dressSkinCount");		// 보유 스킨 총 개수
 	
-	int closetSkinCount = (int) request.getAttribute("closetSkinCount"); 	// 총 스킨 개수
- 	int maxPage = (int) Math.ceil(closetSkinCount / 12.0); 				 	//총 페이지
  	int currentPage = 1;													// 현재페이지 임시로..
- 	int startPage = (currentPage-1) / closetSkinCount * closetSkinCount +1; // 페이징바 시작 수
- 	int endPage = startPage + closetSkinCount - 1;							// 페이징가 끝 수
-
+ 	// 상점 페이징 변수
+ 	int maxPage = (int) Math.ceil(storeSkinCount / 12.0); 				 	// 총 페이지
+ 	int startPage = (currentPage-1) / storeSkinCount * storeSkinCount +1; 	// 페이징바 시작 수
+ 	int endPage = startPage + storeSkinCount - 1;							// 페이징바 끝 수
  	if(endPage > maxPage){
  		endPage = maxPage;
  	}
-/* 	System.out.println("총스킨수        : "+closetSkinCount);
-	System.out.println("총페이지수       : "+maxPage);
-	System.out.println("페이징바의 시작 수 : "+startPage);
-	System.out.println("페이징바의 끝 수  : "+endPage); */
+ 	// 옷장 페이징 변수
+ 	int maxPageD = (int) Math.ceil(dressSkinCount / 12.0);
+ 	int startPageD = (currentPage-1) / dressSkinCount * dressSkinCount +1;
+ 	int endPageD = startPageD + dressSkinCount - 1;
+ 	if(endPageD > maxPageD){
+ 		endPageD = maxPageD;
+ 	}
 %>
 
 
@@ -77,11 +81,6 @@ ul li a {
 }
 ul li.on {background: #eda712;}
 ul li.on a {color: #fff;}
-.paging-store{
-	position: absolute;
-	top: 87%;
-    left: 60%;
-}
 </style>
 <title>My Room</title>
 </head>
@@ -111,17 +110,27 @@ ul li.on a {color: #fff;}
 				</table>
 			</div>
 		</div>
+		<!-- 호감도 -->
+		<div class="my-heart">
+			<!-- 하트이미지 -->
+			<div class="my-heart-img">
+				<img id="my-heart-off" alt="호감도 상태" src="${contextPath}/resource/img/icon/빈하트.png">
+				<img id="my-heart-on" alt="호감도 상태" src="${contextPath}/resource/img/icon/하트2.png">
+			</div>
+			<!-- 호감도 갯수 -->
+			<div class="my-heart-num"></div>
+		</div>
 		<!-- 마이룸 주인 스킨 -->
 		<div class="myroom_user">
-			<!-- 호감도 -->
-			<input type="checkbox" name="heart-ck" id="heart">
-			<label class="font" for="heart">12</label>
-			
-			<% if(roomMaster == null){ %>
-
-				<img class="user-skin" src="${contextPath}/resource/img/user/skin<%= loginUser.getSkinId() %>/fs.png">
-			<%} %>
-			<!-- 친구스킨 표현해줘야함 -->
+			<c:choose>
+				<c:when test="${empty roomMaster}">
+					<img class="user-skin" src="${contextPath}/resource/img/user/skin<%= loginUser.getSkinId() %>/fs.png">
+				</c:when>
+				<c:otherwise>
+					<!-- 친구스킨 표현해줘야함 -->
+					<img class="friend-skin">
+				</c:otherwise>
+			</c:choose>
 		</div>
 
 		<!--버튼 모달 jps 가져옴 -->
@@ -188,6 +197,7 @@ ul li.on a {color: #fff;}
 				<!-- 작성란 전체 감싼 form -->
 				<div class="board-write-area" id="board-update-form">
 					<div class="board-no" style="display: none;"></div>
+					<div class="board-write-id" style="display: none;"></div>
 					<!-- 제목부분(상세 제목이랑 동일) -->
 					<div class='board-detail-title'>
 						<input type='text' class='board-write-title' required maxlength="15" onclick='this.select();'>
@@ -205,7 +215,7 @@ ul li.on a {color: #fff;}
 						<label for='board-ck'>비밀글</label>
 					</div>
 
-					<button type="button" class="button board-send-update-btn" id="board-send-update">수정</button>
+					<button type="button" class="button board-send-update-btn" id="board-send-update" disabled>수정</button>
 					<button class="alert-toggle board-send-delete-btn button" id="board-send-delete">삭제</button>
 
 				</div>
@@ -244,9 +254,42 @@ ul li.on a {color: #fff;}
 	<!-- ============================= 옷장, 상점 모달 ============================= -->
 	<div class="closet-wrap">
 		<!-- 옷장 상점 기본 베이스 배경 -->
-		<img class="fur-img" src="${contextPath}/resource/img/icon/빈옷장.png"> <img
-			class="coin-label-img" src="${contextPath}/resource/img/icon/라벨2.png"> <img
-			class="coin-img" src="${contextPath}/resource/img/icon/coin.png">
+		<div class="closet-fur">
+			<img class="fur-img" src="${contextPath}/resource/img/icon/빈옷장.png">
+			<!-- 페이징 -->
+			<!-- 옷장 페이징 -->
+			<div class="paging-closet paging-dress">
+				<% for(int i = startPageD; i <= endPageD; i++){ %>
+					<% if( i <= maxPageD) { %>
+						<% if(i == currentPage){ %>
+							<button type="button" class="selected-btn page-btn"><%= i %></button>
+						<%} else{ %>
+		            		<button type="button" class="page-btn"><%= i %></button>
+						<%} %>
+					<%} %>
+					<%-- <% else { %>
+	            		<button type="button" class="disable-btn page-btn"><%= i %></button>	
+            		<% } %> --%>
+				<% } %>
+			</div>
+			<!-- 상점페이징 -->
+			<div class="paging-closet paging-store">
+				<% for(int i = startPage; i <= endPage; i++){ %>
+					<% if( i <= maxPage) { %>
+						<% if(i == currentPage){ %>
+							<button type="button" class="selected-btn page-btn"><%= i %></button>
+						<%} else{ %>
+		            		<button type="button" class="page-btn"><%= i %></button>
+						<%} %>
+					<%} %>
+					<%-- <% else { %>
+	            		<button type="button" class="disable-btn page-btn"><%= i %></button>	
+            		<% } %> --%>
+				<% } %>
+			</div>
+		</div>
+		<img class="coin-label-img" src="${contextPath}/resource/img/icon/라벨2.png">
+		<img class="coin-img" src="${contextPath}/resource/img/icon/coin.png">
 		<!-- back 버튼 -->
 		<img class="x-btn" src="${contextPath}/resource/img/icon/엑스 버튼.png">
 		
@@ -257,7 +300,6 @@ ul li.on a {color: #fff;}
 			<div class="view-skin">
 				<img class="user-skin" src="${contextPath}/resource/img/user/skin<%= loginUser.getSkinId() %>/fs.png">
 			</div>
-
 			<!-- 구입 버튼 -->
 			<button class="closet-btn-frame closet-buy" id="closet-buy">구입</button>
 			<!-- 착용 버튼 -->
@@ -281,37 +323,6 @@ ul li.on a {color: #fff;}
 			<!-- 상점박스 -->
 			<div class="store-skins">
 			</div>
-			
-			<!-- 페이징 -->
-			<!-- 상점페이징 -->
-			<div class="paging-store">
-				<% for(int i = startPage; i <= endPage; i++){ %>
-					<% if( i <= maxPage) { %>
-						<% if(i != i*currentPage){ %>
-							<button type="button" class="selected-btn page-btn"><%= i %></button>
-						<%} else{ %>
-		            		<button type="button" class="page-btn"><%= i %></button>
-						<%} %>
-					<%} else { %>
-	            		<button type="button" class="disable-btn page-btn"><%= i %></button>	
-            		<% } %>
-				<% } %>
-			</div>
-			<!-- 옷장 페이징 -->
-			<div class="paging-dress">
-				<% for(int i = startPage; i <= endPage; i++){ %>
-					<% if( i <= maxPage) { %>
-						<% if(i != i*currentPage){ %>
-							<button type="button" class="selected-btn page-btn"><%= i %></button>
-						<%} else{ %>
-		            		<button type="button" class="page-btn"><%= i %></button>
-						<%} %>
-					<%} else { %>
-	            		<button type="button" class="disable-btn page-btn"><%= i %></button>	
-            		<% } %>
-				<% } %>
-			</div>
-
 		</div>
 	</div>
 
@@ -354,13 +365,14 @@ ul li.on a {color: #fff;}
 		//console.log("룸마스터 : "+roomMasterId);
 		
 		/* 스킨 총 개수 closet.js로 넘김 */
-		sessionStorage.setItem("closetSkinCount", JSON.stringify(<%= closetSkinCount %>));
+		sessionStorage.setItem("storeSkinCount", JSON.stringify(<%= storeSkinCount %>));
 	</script>
 
 	
 
 	<%-- <script type="module" src="${contextPath}/resource/js/alert.js"></script> --%>
 	<%-- <script type="module" src="${contextPath}/resource/js/common.js"></script> --%>
+	<script type="module" src="${contextPath}/resource/js/myroom/myroom.js"></script>
 	<script type="module" src="${contextPath}/resource/js/myroom/board.js"></script>
 	<script type="module" src="${contextPath}/resource/js/myroom/closet.js"></script>
 	<script type="module" src="${contextPath}/resource/js/buttonList.js"></script>

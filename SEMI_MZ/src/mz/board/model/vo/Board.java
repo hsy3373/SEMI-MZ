@@ -56,6 +56,18 @@ public class Board {
 	
 	
 
+	public Board(int boardNo, String userId, String receiveId, String boardTitle, String secret, String createDate) {
+		super();
+		this.boardNo = boardNo;
+		this.userId = userId;
+		this.receiveId = receiveId;
+		this.boardTitle = boardTitle;
+		this.secret = secret;
+		this.createDate = createDate;
+	}
+
+
+
 	public Board(int boardNo, String boardTitle, String boardContent, String secret) {
 		super();
 		this.boardNo = boardNo;

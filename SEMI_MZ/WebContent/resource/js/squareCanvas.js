@@ -402,8 +402,9 @@ canvas.addEventListener("click", function (e) {
 //집으로 이동하는 함수
 const gohome = () => {
   let path = getContextPath();
-  console.log(path + "/gohome");
-  location.href = path + "/gohome";
+  console.log(path + "/home");
+  /* home으로 서블릿 합침 : 지의 */
+  location.href = path + "/home";
 };
 
 ///////////////////////////////////////////////////////////////여기!!! ///////////////////////////////
@@ -414,10 +415,10 @@ let FilterUsers = []; //필터링된 유저 1개 만큼 담아줄 배열
 // 웹소켓으로 연결하기
 // 웹소켓 서버 생성 : 학원 192.168.30.171
 let path = getContextPath()
-let socket = new WebSocket("ws://192.168.30.174:8084" + path + "/multiAccess");
+let socket = new WebSocket("ws://192.168.0.16:8084" + path + "/multiAccess");
 ///////////////////////////////////////////////////////////////자기 ws로 바꿔주기!!! ///////////////////////////////
-// 가영 학원 ip : 192.168.30.181
-// 가영 집 ip : 192.168.35.221
+// 지의 학원 ip : 192.168.30.174
+// 지의 집 ip : 192.168.0.16
 
 let fnSocket = {
   onopen: function (e) {
