@@ -6,21 +6,25 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import com.google.gson.Gson;
+
+import mz.member.model.service.MemberService;
 import mz.member.model.vo.Member;
 
 /**
  * 작성자 : 김혜린
- * 내정보변경 전 비밀번호 일치여부 확인 서블릿
+ * 내정보변경 Update 서블릿
  */
-@WebServlet("/checkPwd.me")
-public class AjaxCheckPwd extends HttpServlet {
+@WebServlet("/update.me")
+public class AjaxUpdateMember extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AjaxCheckPwd() {
+    public AjaxUpdateMember() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -38,17 +42,30 @@ public class AjaxCheckPwd extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String inputPwd = request.getParameter("inputPwd");
-		String userPwd = ((Member)request.getSession().getAttribute("loginUser")).getUserPwd();
+		String nickName = request.getParameter("nickName");
+		String userPwd = request.getParameter("chkpwd");
+		String gender = request.getParameter("gender");
+		String info = request.getParameter("info");
 		
-		System.out.println("inputPwd : " + inputPwd +", loginuserPwd : " + userPwd);
+		String userId = ((Member) request.getSession().getAttribute("loginUser")).getUserId();
 		
-		if(inputPwd.equals(userPwd)) { // 패스워드 일치
-			response.getWriter().print("O");
+		Member updateM = new MemberService().updateMember(nickName, userPwd, info, gender, userId);
 			
-		}else { // 불일치
-			response.getWriter().print("X");
+		//String udtName = updateM.getNicName();
+		//String udtInfo = updateM.getInfo();
+		
+		HttpSession session = request.getSession();
+		response.setContentType("apllication/json; charset=UTF-8");
+		
+		if(updateM != null) { // update 성공
+			session.setAttribute("loginUser", updateM);
+			System.out.println("update성공");
+		}else { // 실패
+			System.out.println("update실패");
 		}
+		
+		
+		new Gson().toJson(updateM, response.getWriter());
 		
 		
 		

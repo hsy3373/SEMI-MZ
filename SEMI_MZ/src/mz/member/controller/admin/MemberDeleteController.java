@@ -1,4 +1,4 @@
-package mz.member.controller.ajax;
+package mz.member.controller.admin;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -7,20 +7,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import mz.member.model.vo.Member;
+import mz.member.model.service.MemberService;
 
 /**
- * 작성자 : 김혜린
- * 내정보변경 전 비밀번호 일치여부 확인 서블릿
+ * Servlet implementation class MemberDeleteController
  */
-@WebServlet("/checkPwd.me")
-public class AjaxCheckPwd extends HttpServlet {
+@WebServlet("/delete.member")
+public class MemberDeleteController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AjaxCheckPwd() {
+    public MemberDeleteController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -37,28 +36,11 @@ public class AjaxCheckPwd extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//탈퇴한지 15일 이상 지난 유저들 일괄 삭제
+		int	result = new MemberService().deleteCancelMemberForAdmin();
 		
-		String inputPwd = request.getParameter("inputPwd");
-		String userPwd = ((Member)request.getSession().getAttribute("loginUser")).getUserPwd();
-		
-		System.out.println("inputPwd : " + inputPwd +", loginuserPwd : " + userPwd);
-		
-		if(inputPwd.equals(userPwd)) { // 패스워드 일치
-			response.getWriter().print("O");
-			
-		}else { // 불일치
-			response.getWriter().print("X");
-		}
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+		response.getWriter().print(result);
+	
 	}
 
 }

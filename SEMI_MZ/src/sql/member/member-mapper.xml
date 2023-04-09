@@ -110,6 +110,13 @@
         ORDER BY CANCELLATION_DATE
 	</entry>
 
+	
+	<!-- [혜린] -->
+	<entry key="selectLoginUser">
+		SELECT * 
+		FROM MEMBER
+		WHERE USER_ID = ?
+	</entry>
 
 	<!-- [혜린] -->
 	<entry key="loginMember">
@@ -118,7 +125,7 @@
 		WHERE USER_ID = ?
 		  AND USER_PWD = ?
 	</entry>
-
+	
 	<!-- [혜린] -->
 	<entry key="checkKey">
 		SELECT M.USER_ID,USER_PWD,NICKNAME,STATUS,SKIN_ID,COIN,SELF_INFO,GENDER,ENROLL_DATE
@@ -254,15 +261,24 @@
 <!-- [혜린] -->
 	<entry key = "updateStatus">
 		UPDATE MEMBER
-		   SET STATUS =  ?
+		   SET STATUS = ?
 		 WHERE USER_ID = ?
 	</entry>
-
+	
 <!-- [han] 관리자 페이지용-->
 	<entry key = "updateMemberInfo">
 		UPDATE MEMBER
 		   SET COIN =  ?,
 				SELF_INFO = ?
+		 WHERE USER_ID = ?
+	</entry>
+<!-- [혜린] -->
+	<entry key = "updateMember">
+	UPDATE MEMBER
+		   SET NICKNAME = ?,
+                USER_PWD = ?,
+                SELF_INFO = ?,
+                GENDER = ?
 		 WHERE USER_ID = ?
 	</entry>
 

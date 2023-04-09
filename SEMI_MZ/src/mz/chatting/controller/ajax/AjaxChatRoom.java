@@ -1,7 +1,7 @@
 package mz.chatting.controller.ajax;
 
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 
 import mz.chatting.model.service.ChatService;
+import mz.member.model.service.MemberService;
 import mz.member.model.vo.Member;
 
 /**
@@ -37,8 +38,8 @@ public class AjaxChatRoom extends HttpServlet {
 
 		String userId = ((Member)request.getSession().getAttribute("loginUser")).getUserId();
 		
-		// 전체 채팅 룸 리스트 반환해주기
-		ArrayList<String> list = new ChatService().getChatRooms(userId);
+		// 전체 채팅 룸 리스트 반환해주기 - 닉네임으로 들어옴
+		HashMap<String , String>  list = new ChatService().getChatRooms(userId);
 
 		response.setContentType("application/json; charset=UTF-8");
 		new Gson().toJson(list, response.getWriter());
@@ -50,16 +51,16 @@ public class AjaxChatRoom extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// post방식으로 들어오면 룸 insert or delete
 		String userId = ((Member)request.getSession().getAttribute("loginUser")).getUserId();
-		String receiver = request.getParameter("receiver");
+		String receiveId = request.getParameter("receiveId");
 		String order = request.getParameter("order");
 		int result = 0;
 		
 		if(order.equals("insert")) {
-			result = new ChatService().insertChatRoom(userId, receiver);
+			
+			result = new ChatService().insertChatRoom(userId, receiveId);
 			
 		}else if(order.equals("delete")) {
-			System.out.println(receiver +" 채팅룸삭제 시작");
-			result = new ChatService().deleteChatRoom(userId, receiver);
+			result = new ChatService().deleteChatRoom(userId, receiveId);
 		} else {
 			System.out.println("order의 값이 이상합니다 : " + order);
 			
@@ -68,6 +69,8 @@ public class AjaxChatRoom extends HttpServlet {
 		if(result <= 0) {
 			System.out.println("채팅룸 정보 업데이트 실패");
 		}
+		
+		response.getWriter().print(result);
 	}
 
 }
