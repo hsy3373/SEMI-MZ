@@ -2,7 +2,7 @@
 pageEncoding="UTF-8" import="mz.member.model.vo.Member"%> 
 <% 
 	String path = request.getContextPath(); 
-	String loginUser = ((Member)request.getSession().getAttribute("loginUser")).getUserId();
+	String loginUser2 = ((Member)request.getSession().getAttribute("loginUser")).getUserId();
 	String loginUserNick = ((Member)request.getSession().getAttribute("loginUser")).getNicName();
 %>
 <!DOCTYPE html>
@@ -97,7 +97,7 @@ pageEncoding="UTF-8" import="mz.member.model.vo.Member"%>
     
     <script type="text/javascript">
     
-    	let loginUser = '<%= loginUser%>';
+    	let loginUser = '<%= loginUser2%>';
     	let loginUserNick = '<%= loginUserNick%>';
     	console.log(loginUser, loginUserNick);
     	sessionStorage.setItem("loginUser", JSON.stringify(loginUser));
