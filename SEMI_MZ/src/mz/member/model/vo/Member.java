@@ -12,7 +12,6 @@ public class Member {
 	private String info;		//	SELF_INFO	VARCHAR2(300 BYTE)
 	private String gender;		//	GENDER	CHAR(1 BYTE)
 	private Date date;			//	ENROLL_DATE	DATE
-	private String saveRoot;
 	
 
 	//[han] 시간까지 받아오는 용도의 데이트
@@ -50,14 +49,21 @@ public class Member {
 	}
 	
 	// userInfo - 가영
-	public Member(String userId, String nicName, int skinId, String info, String gender, String saveRoot) {
+	public Member(String userId, String nicName, int skinId, String info, String gender) {
 		super();
 		this.userId = userId;
 		this.nicName = nicName;
 		this.skinId = skinId;
 		this.info = info;
 		this.gender = gender;
-		this.saveRoot = saveRoot;
+	}
+	
+	// 호감도 랭킹 - 가영
+	public Member(String userId, String nicName, int skinId) {
+		super();
+		this.userId = userId;
+		this.nicName = nicName;
+		this.skinId = skinId;
 	}
 
 	
@@ -241,14 +247,6 @@ public class Member {
 
 	public void setReceiveReportCount(int receiveReportCount) {
 		this.receiveReportCount = receiveReportCount;
-	}
-	
-	public String getSaveRoot() {
-		return saveRoot;
-	}
-
-	public void setSaveRoot(String saveRoot) {
-		this.saveRoot = saveRoot;
 	}
 	
 	

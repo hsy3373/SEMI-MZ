@@ -8,7 +8,7 @@
 import { getContextPath } from './common.js';
 import {modalstopfn} from './squareCanvas.js';
 import { openChatRoom } from './chat/chatFront.js';
-import { closeAlert } from './alert.js';
+//import { closeAlert } from './alert.js';
 
 document.querySelector(".info-chatting").addEventListener("click", function(){
 	openChatRoom(sessionStorage.clickedUserId);
