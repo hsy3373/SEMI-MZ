@@ -50,8 +50,8 @@ let resizeChatarea = function () {
     //let newLeftWidth = ((leftWidth + dx) * 100) / resizer.parentNode.getBoundingClientRect().width;
     let newHeight = elHeight + dy;
 
-    if (newHeight < 150) {
-      newHeight = 150;
+    if (newHeight < 100) {
+      newHeight = 100;
     } else if (newHeight > 600) {
       newHeight = 600;
     }

@@ -18,7 +18,7 @@
   left: 20px;
   display: flex;
   flex-direction: column;
-  min-height: 200px;
+  min-height: 150px;
   height: max-content;
   width: 550px;
   z-index: 1;
