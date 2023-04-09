@@ -356,6 +356,36 @@ public class MemberDao {
 		return list;
 	}
 	
+	//[han] 닉네임으로 멤버아이디 찾기용
+	public String selectMemberByNick(Connection conn, String nickname) {
+		String userId = "";
+
+		ResultSet rset = null;
+		PreparedStatement pstmt = null;
+
+		String sql = prop.getProperty("selectMemberByNick");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, nickname);
+			
+			rset= pstmt.executeQuery();
+			
+			if(rset.next()) {
+				userId = rset.getString("USER_ID");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return userId;
+		
+	}
+	
 	//[가영]
 	public Member selectMember(Connection conn, String userId) {
 			

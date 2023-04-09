@@ -13,6 +13,7 @@ import com.google.gson.Gson;
 
 import mz.chatting.model.service.ChatService;
 import mz.chatting.model.vo.Chat;
+import mz.member.model.service.MemberService;
 import mz.member.model.vo.Member;
 
 /**
@@ -37,13 +38,13 @@ public class AjaxChat extends HttpServlet {
 		// get 방식으로 요청오면 select
 		// 해당 상대와의 채팅 내역 가져오기(chatNo가 minNo보다 작은 것들로 0한번에 오십개)
 		
-		String recevier = request.getParameter("recevier");
+		String receiveId = request.getParameter("receiveId");
 		String userId = ((Member)request.getSession().getAttribute("loginUser")).getUserId();
 		int minNo = Integer.parseInt(request.getParameter("minNo"));
 		
-		System.out.println(minNo + recevier + userId);
+		System.out.println(minNo + receiveId + userId);
 		
-		ArrayList<Chat> list = new ChatService().getChattings(userId, recevier, minNo);
+		ArrayList<Chat> list = new ChatService().getChattings(userId, receiveId, minNo);
 		
 		System.out.println(list.size());
 		
@@ -56,16 +57,18 @@ public class AjaxChat extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// post 방식으로 요청오면 채팅 insert
-		String recevier = request.getParameter("recevier");
+		String receiveId = request.getParameter("receiveId");
 		String content = request.getParameter("content");
 		String userId = ((Member)request.getSession().getAttribute("loginUser")).getUserId();
 		
-		Chat c = new Chat(userId, recevier, content);
+		Chat c = new Chat(userId, receiveId, content);
 		System.out.println(c);
 		
 		int result = new ChatService().insertChat(c);
 		if(result <= 0) {
 			System.out.println("채팅 등록 실패");
+		}else {
+			System.out.println("채팅 등록 성공");
 		}
 	}
 

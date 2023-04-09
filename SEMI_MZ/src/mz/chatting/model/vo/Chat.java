@@ -12,6 +12,8 @@ public class Chat {
 	private String content;			//	CONTENT
 	private String date;				//	CREATE_DATE
 	
+	private String userNick;
+
 	
 	public Chat() {
 		super();
@@ -38,6 +40,21 @@ public class Chat {
 		this.userId = userId;
 		this.receiveId = receiveId;
 		this.content = content;
+	}
+
+	
+	
+
+
+	public Chat(int chatNo, String userId, String receiveId, String content, String date, String userNick
+			) {
+		super();
+		this.chatNo = chatNo;
+		this.userId = userId;
+		this.receiveId = receiveId;
+		this.content = content;
+		this.date = date;
+		this.userNick = userNick;
 	}
 
 
@@ -102,7 +119,21 @@ public class Chat {
 
 
 
+	public String getUserNick() {
+		return userNick;
+	}
 
+
+
+	public void setUserNick(String userNick) {
+		this.userNick = userNick;
+	}
+
+
+
+
+
+	
 	
 	
 	

@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.InvalidPropertiesFormatException;
 import java.util.Properties;
 
@@ -40,13 +41,13 @@ public class ChatDao {
 	
 //	------------------------------ select 구간 -------------------------------
 	
-	public int getChatRoom(Connection conn , String userId, String receiver){
+	public int getChatRoomCount(Connection conn , String userId, String receiver){
 		int result = 0;
 		
 		ResultSet rset = null;
 		PreparedStatement pstmt = null;
 		
-		String sql = prop.getProperty("getChatRoom");
+		String sql = prop.getProperty("getChatRoomCount");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -68,8 +69,9 @@ public class ChatDao {
 		return result;
 	}
 	
-	public ArrayList<String> getChatRooms(Connection conn , String userId){
-		ArrayList<String> list = new ArrayList<>();
+	// 로그인한 유저가 가지고 있는 채팅룸 리스트 - 상대 아이디, 닉네임 반환
+	public HashMap<String , String> getChatRooms(Connection conn , String userId){
+		HashMap<String , String>  list = new HashMap<>();
 		
 		ResultSet rset = null;
 		PreparedStatement pstmt = null;
@@ -83,7 +85,8 @@ public class ChatDao {
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
-				list.add(rset.getString("RECEIVE_ID"));
+				
+				list.put(rset.getString("NICKNAME") , rset.getString("RECEIVE_ID"));
 			}
 			
 		} catch (SQLException e) {
@@ -134,7 +137,8 @@ public class ChatDao {
 							rset.getString("CONTENT"),
 							// sql.Date 는 날짜까지만 저장되고 시간은 불러와지지 않음
 							//따라서 시간불러오려면 Timestamp써줘야 함
-							df.format(rset.getTimestamp("CREATE_DATE"))
+							df.format(rset.getTimestamp("CREATE_DATE")),
+							rset.getString("USER_NICK")
 						);
 				list.add(c);
 			}
@@ -148,7 +152,7 @@ public class ChatDao {
 		return list;
 	}
 	
-	//7일 이상 된 채팅로그 개수 반환용
+	//7일 이상 된 채팅로그 개수 반환용 - 어드민 페이지용
 	public int selectChatCountForDelete(Connection conn) {
 		int result = 0;
 		ResultSet rset = null;

@@ -6,7 +6,7 @@
 
 <!-- SELECT 구역 -->
 
-	<entry key="getChatRoom">
+	<entry key="getChatRoomCount">
 		SELECT
 		    COUNT(*) AS COUNT
 		FROM
@@ -17,35 +17,41 @@
 
 	<entry key="getChatRooms">
 		SELECT
-		    RECEIVE_ID
+		    RECEIVE_ID, NICKNAME
 		FROM
-		    CHATTINGROOM
+		    CHATTINGROOM C
+        join MEMBER M on RECEIVE_ID = M.USER_ID
 		WHERE
-		    USER_ID = ?
+		    C.USER_ID = ?
 		ORDER BY
 		    RECEIVE_ID
 	</entry>
 	
 	<entry key="getChattings">
 		SELECT *
-		FROM (	SELECT *
-				FROM CHATTING 
-				WHERE (USER_ID, RECEIVE_ID) IN(( ? , ? ),( ? , ? ))
-					AND CHAT_NO &lt; ?
-					AND CREATE_DATE > SYSDATE-7
-				ORDER BY CREATE_DATE DESC, CHAT_NO DESC )
-		WHERE ROWNUM &lt;= 50
+		FROM (
+		    SELECT C.*,  NICKNAME AS USER_NICK
+		    FROM CHATTING C
+            INNER JOIN MEMBER M ON C.USER_ID = M.USER_ID
+		    WHERE (C.USER_ID, RECEIVE_ID) IN (( ? , ? ), ( ? , ? ))
+		    AND CHAT_NO &lt; ?
+		    AND CREATE_DATE > SYSDATE-7
+		    ORDER BY  CHAT_NO DESC , CREATE_DATE  DESC
+		)
+		WHERE ROWNUM  &lt;= 50
 		ORDER BY ROWNUM DESC
 	</entry>
+	
 	<entry key="getChattingsNew">
 		SELECT *
-		FROM (	SELECT *
-				FROM CHATTING 
-				WHERE (USER_ID, RECEIVE_ID) IN(( ? , ? ),( ? , ? ))
+		FROM (	SELECT C.*,  NICKNAME AS USER_NICK
+			    FROM CHATTING C
+	            INNER JOIN MEMBER M ON C.USER_ID = M.USER_ID
+				WHERE (C.USER_ID, RECEIVE_ID) IN (( ? , ? ), ( ? , ? ))
 					AND CREATE_DATE > SYSDATE-7
 				ORDER BY CREATE_DATE DESC, CHAT_NO DESC )
-		WHERE ROWNUM &lt;= 50
-		ORDER BY ROWNUM DESC
+        WHERE ROWNUM &lt;= 50
+        ORDER BY ROWNUM DESC
 	</entry>
 	
 	<entry key="selectChatCountForDelete">

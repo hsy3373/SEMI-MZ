@@ -5,6 +5,14 @@
 
 <!-- ================= select 구간 ======================== -->
 
+	<!-- [han] 닉네임으로 상대 멤버 아이디 찾기용 -->
+	<entry key="selectMemberByNick">
+		SELECT
+           USER_ID
+		FROM MEMBER
+		WHERE NICKNAME = ?
+	</entry>
+
 	<!--[han]-->
 	<entry key="memberCount">
 		SELECT COUNT(*) AS COUNT

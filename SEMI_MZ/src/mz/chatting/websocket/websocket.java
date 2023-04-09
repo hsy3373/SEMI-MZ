@@ -15,6 +15,7 @@ import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 
 import mz.chatting.model.vo.Chat;
+import mz.member.model.service.MemberService;
 import mz.member.model.vo.Member;
 
 @ServerEndpoint(value = "/websocket", 
@@ -30,7 +31,7 @@ public class websocket {
 		System.out.println("client is now connected...");
 		HttpSession session = (HttpSession) config.getUserProperties().get(HttpSessionConfigurator.Session);
 		String loginUser = ((Member)session.getAttribute("loginUser")).getUserId();
-		//세션에 유저 아이디 값 저장
+		//세션에 유저 아이디값 저장
 		userSession.getUserProperties().put("loginUser", loginUser );
 
 	}

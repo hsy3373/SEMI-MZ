@@ -7,6 +7,7 @@ import static mz.common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import mz.chatting.model.dao.ChatDao;
 import mz.chatting.model.vo.Chat;
@@ -15,9 +16,9 @@ import mz.chatting.model.vo.Chat;
 public class ChatService {
 	
 //------------------------------ select 구간 -------------------------------
-	public ArrayList<String> getChatRooms(String userId){
+	public HashMap<String , String>  getChatRooms(String userId){
 		Connection conn = getConnection();
-		ArrayList<String> list = new ChatDao().getChatRooms(conn, userId);
+		HashMap<String , String>  list = new ChatDao().getChatRooms(conn, userId);
 		close(conn);
 		
 		return list;
@@ -44,8 +45,8 @@ public class ChatService {
 	public int insertChatRoom( String userId, String receiver) {
 		Connection conn = getConnection();
 		ChatDao dao = new ChatDao();
-		int r2 = dao.getChatRoom(conn, receiver,  userId);
-		int r = dao.getChatRoom(conn, userId, receiver);
+		int r2 = dao.getChatRoomCount(conn, receiver,  userId);
+		int r = dao.getChatRoomCount(conn, userId, receiver);
 		
 		int result = 0;
 		int result2 = 0;
