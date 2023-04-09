@@ -7,6 +7,7 @@ import static mz.common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import mz.chatting.model.dao.ChatDao;
 import mz.chatting.model.vo.Chat;
@@ -15,9 +16,9 @@ import mz.chatting.model.vo.Chat;
 public class ChatService {
 	
 //------------------------------ select 구간 -------------------------------
-	public ArrayList<String> getChatRooms(String userId){
+	public HashMap<String , String>  getChatRooms(String userId){
 		Connection conn = getConnection();
-		ArrayList<String> list = new ChatDao().getChatRooms(conn, userId);
+		HashMap<String , String>  list = new ChatDao().getChatRooms(conn, userId);
 		close(conn);
 		
 		return list;
@@ -31,13 +32,21 @@ public class ChatService {
 		return list;
 	}
 
+	//7일 이상 된 채팅로그 개수 반환용
+	public int selectChatCountForDelete() {
+		Connection conn = getConnection();
+		int result = new ChatDao().selectChatCountForDelete(conn);
+		close(conn);
+		
+		return result;
+	}
 //---------------------------------insert 구간 -------------------------------------	
 	
 	public int insertChatRoom( String userId, String receiver) {
 		Connection conn = getConnection();
 		ChatDao dao = new ChatDao();
-		int r2 = dao.getChatRoom(conn, receiver,  userId);
-		int r = dao.getChatRoom(conn, userId, receiver);
+		int r2 = dao.getChatRoomCount(conn, receiver,  userId);
+		int r = dao.getChatRoomCount(conn, userId, receiver);
 		
 		int result = 0;
 		int result2 = 0;
@@ -93,6 +102,24 @@ public class ChatService {
 			commit(conn);
 		}else {
 			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+	}
+	
+	
+	public int deleteChatLogs() {
+		Connection conn = getConnection();
+		int result = new ChatDao().deleteChatLogs(conn);
+		
+		if(result > 0) {
+			System.out.println("삭제 성공");
+			commit(conn);
+		}else {
+			rollback(conn);
+			System.out.println("삭제 할게 없거나 실패");
 		}
 		
 		close(conn);
