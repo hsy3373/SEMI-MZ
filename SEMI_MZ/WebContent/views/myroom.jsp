@@ -110,25 +110,26 @@ ul li.on a {color: #fff;}
 				</table>
 			</div>
 		</div>
-		<!-- 호감도 -->
-		<div class="my-heart">
-			<!-- 하트이미지 -->
-			<div class="my-heart-img">
-				<img id="my-heart-off" alt="호감도 상태" src="${contextPath}/resource/img/icon/빈하트.png">
-				<img id="my-heart-on" alt="호감도 상태" src="${contextPath}/resource/img/icon/하트2.png">
-			</div>
-			<!-- 호감도 갯수 -->
-			<div class="my-heart-num"></div>
-		</div>
 		<!-- 마이룸 주인 스킨 -->
 		<div class="myroom_user">
+			<!-- 호감도 -->
+			<div class="my-heart">
+				<!-- 하트이미지 -->
+				<div class="my-heart-img">
+					<img id="my-heart-off" alt="호감도 상태" src="${contextPath}/resource/img/icon/빈하트.png">
+					<img id="my-heart-on" alt="호감도 상태" src="${contextPath}/resource/img/icon/하트2.png">
+				</div>
+				<!-- 호감도 갯수 -->
+				<div class="my-heart-num"></div>
+			</div>
 			<c:choose>
 				<c:when test="${empty roomMaster}">
 					<img class="user-skin" src="${contextPath}/resource/img/user/skin<%= loginUser.getSkinId() %>/fs.png">
 				</c:when>
 				<c:otherwise>
-					<!-- 친구스킨 표현해줘야함 -->
+					<!-- 친구스킨 표현해줘야함 closet.js 에서 처리 -->
 					<img class="friend-skin">
+					<div class="out-friend-id"><%= roomMaster %></div>
 				</c:otherwise>
 			</c:choose>
 		</div>

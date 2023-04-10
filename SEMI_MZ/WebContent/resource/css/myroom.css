@@ -82,18 +82,20 @@
 
 /* ================================== 유저 ================================== */
 .user-skin, .friend-skin{width: var(--userskin80);}
-.myroom_user .user-skin, .myroom_user .friend-skin{
+.myroom_user{
     position: absolute;
-    top: 70%;
+    top: 53%;
     left: 48%;
 }
+.out-friend-id{
+    text-align: center;
+    font-size: var(--fontsize20);
+    font-weight: var(--fontweight400);
+}
+/* .myroom_user .user-skin, .myroom_user .friend-skin{
+} */
 /* ================================== 호감도 ================================== */
-.my-heart{
-    position: absolute;
-    top: 66%;
-    left: 48%;
-    display: flex;
-}
+.my-heart{display: flex;}
 .my-heart-img img{
 	width: 35px;
     cursor: pointer; 
