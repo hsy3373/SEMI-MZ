@@ -64,6 +64,7 @@ public class SquareServer {
 			});
 			
 		};
+	
 		
 		session.getUserProperties().put("User",  User);
 		

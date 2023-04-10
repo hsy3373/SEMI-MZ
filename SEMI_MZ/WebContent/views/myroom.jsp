@@ -135,6 +135,7 @@ ul li.on a {color: #fff;}
 	        </div>
 		</div>
 		<%@ include file="./buttonList.jsp"  %>
+		<%@ include file="./userInfo.jsp" %>
 		
 	<!-- ============================= 방명록 모달 ============================= -->
 	<div class="board-wrap">
