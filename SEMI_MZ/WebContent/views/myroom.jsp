@@ -132,19 +132,20 @@ ul li.on a {color: #fff;}
 			</c:choose>
 		</div>
 
-	
+	<!--버튼 모달 jps 가져옴 -->
+		
+	<div class="button-area">
+		<div class="squareGo" onclick="gosquare();">
+			<img src="resource/img/icon/home_btn.png">
+		</div>
+	</div>
+	<%@ include file="./buttonList.jsp"  %>
+	<%@ include file="./userInfo.jsp" %>
 		
 	</div>
 	
-		<!--버튼 모달 jps 가져옴 -->
 		
-		<div class="button-area">
-	        <div class="squareGo" onclick="gosquare();">
-	            <img src="resource/img/icon/home_btn.png">
-	        </div>
-		</div>
-		<%@ include file="./buttonList.jsp"  %>
-		<%@ include file="./userInfo.jsp" %>
+		
 		
 	<!-- ============================= 방명록 모달 ============================= -->
 	<div class="board-wrap">

@@ -357,14 +357,12 @@ cursor: pointer;
 /* 친구 목록 버튼 */
 .myroom .button-area .friendList{
     position: absolute;
-    /*bottom: 18px;*/
     right: 250px;
     top:730px
 } 
 /*  내 정보 조회 버튼 */
 .myroom .button-area .Listbutton{
     position: absolute;
-    /*bottom: 18px;*/
     right: 190px;
     top:730px
 } 
@@ -372,7 +370,6 @@ cursor: pointer;
 /* 광장으로 가는 버튼 : */
 .button-area .squareGo{
     position: absolute;
-    bottom: 18px; 
     right: 310px;
-    /* top:730px */
+    top:730px 
 }

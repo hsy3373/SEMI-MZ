@@ -25,12 +25,13 @@
     <!--버튼 모달 jps 가져옴 : 윤지영-->
     <%@ include file="./buttonList.jsp" %>
 
+	
+   	<%@ include file="./chatting.jsp" %>
+	
    <%@ include file="./userInfo.jsp" %>
    <%@ include file="./notice.jsp" %>
    	<!--${loginUser.nicName}  -->
    	
-   	<%@ include file="./chatting.jsp" %>
-	
     <!--game 모달 jps 가져옴 : 윤지영-->
    	<%@ include file="./game.jsp" %>
    		
@@ -56,7 +57,7 @@
 	</script>
 	
 	
-    <script type="module" src="<%=contextPath%>/resource/js/squareCanvas.js"></script>
+    <script type="module" src="<%=contextPath%>/resource/js/squareinit.js"></script>
 	
     
     <script type="module">
