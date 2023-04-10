@@ -155,16 +155,37 @@ public class MemberService {
 	}
 	
 	// 가영 - 친구 정보
-		public int selectFriend(String loginUser, String friendId) {
+	public int selectFriend(String loginUser, String friendId) {
 			
-			Connection conn = getConnection();
+		Connection conn = getConnection();
 			
-			int result = new MemberDao().selectFriend(conn, loginUser, friendId);
+		int result = new MemberDao().selectFriend(conn, loginUser, friendId);
 			
-			close(conn);
+		close(conn);
 			
-			return result;
-		}
+		return result;
+	}
+	
+	public ArrayList<Member> selectRanking(){
+		
+		Connection conn = getConnection();
+		
+		ArrayList<Member> list = new MemberDao().selectRanking(conn);
+		
+		close(conn);
+		
+		return list;
+	}
+	
+		
+		
+	// [지의] - 유저별 호감도 총개수
+	public int countHeart(String receiveId) {
+		Connection conn = getConnection();
+		int count = new MemberDao().countHeart(conn, receiveId);
+		close(conn);
+		return count;
+	}
 		
 	//지영 - 차단유저 확인
 		public String blockCheck(String userId) {

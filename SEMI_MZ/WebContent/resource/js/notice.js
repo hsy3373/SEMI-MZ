@@ -10,7 +10,7 @@ export let noticeModal = document.querySelector('.notice-modal');
 
 /*공지사항 모달창*/
 
-$("body").on("click", function(e) {
+$(".notice-modal, .notice-detail-modal").on("click", function(e) {
 	console.log(e.target);
 	if (e.target.id == 'notice-x-btn') {
 		$(".notice-modal").css('display', 'none');
@@ -27,6 +27,7 @@ let noticeLimit = 6; 		// 한 페이지에 나타낼 게시글 수
 let pageLimit = 4; 			// 페이지 하단에 보여질 페이징바의 페이지 최대 갯수(패이지 목록들 몇개단위로 출력할건지)
 let globalCurrentPage = 1; 	// 현재 페이지(사용자가 요청한 페이지)
 let noticeList = []; 		// 표시하려하는 방명록 리스트
+let memberList = [];
 let maxPage; 				// 가장 마지막 페이지가 몇번 페이지인지(총 페이지 수)
 let startPage; 				// 페이지 하단에 보여질 페이징바의 시작 수
 let endPage; 				// 페이지 하단에 보여질 페이징바의 끝 수
@@ -34,6 +35,10 @@ let endPage; 				// 페이지 하단에 보여질 페이징바의 끝 수
 
 $(document).ready(function() {
 	NoticeList();
+	selectRanking();
+	insertRankingHeart();
+	deleteRankingHeart();
+	selectRankingHeart();
 });
 
 /*공지사항 게시판 하단 공지사항 리스트(4개만 보이게)*/
@@ -70,6 +75,26 @@ function NoticeList() {
 		}
 	});
 };
+
+/*function rankingUser(){
+	$.ajax({
+		url: getContextPath()+"/userInfo",
+		method: 'post',
+		success : function(data) {
+			console.log(data);
+			
+			// 데이터 가져오기	
+			// selectHeart();
+			
+			nickName = data.nicName;
+			$(".ranking-nickname").html(nickName);
+				
+			let skinRoot = data.saveRoot;
+			$("#ranking-user").attr("src", getContextPath()+skinRoot+'/fs.png');
+				
+		}
+	});
+};*/
 
 $(document).on('click', ".list-post", function() {
 	getNoticeList();
@@ -240,5 +265,107 @@ function selectNoticeDetail(noticeNo) {
 	});
 }
 
+function selectRanking(){
+	$.ajax({
+		url: getContextPath()+"/ranking",
+		type: 'get',
+		success: function(data){
+			console.log('유저정보 : ',data);
+			
+			let num = data.length < 3 ? data.length : 3;
+			
+			for (let i = 0; i < num; i++) {
+				$(".ranking-nickname").eq(i).html(data[i].nicName);
+				$(".ranking-user").eq(i).attr("src", getContextPath()+'/resource/img/user/skin'+data[i].skinId+'/fs.png');
+				}
+				
+			
+			
+			/*if (data.length > 0) {
+				for (let i = 0; i < data.length; i++) {
+					
+					$(".ranking-nickname").html(data[i].nicName);
+					$("#ranking-user").attr("src", getContextPath()+'/resource/img/user/skin'+data[i].skinId+'/fs.png');
+				}
+			}*/
+			
+				
+			
+			
+			/*$(".ranking-nickname2").html(memberList[1].NickName);
+				
+			$("#ranking-user2").attr("src", getContextPath()+memberList[1].SkinId+'/fs.png');
+			
+			$(".ranking-nickname3").html(memberList[2].NickName);
+				
+			$("#ranking-user3").attr("src", getContextPath()+memberList[2].SkinId+'/fs.png');*/
+			
+			
+		},
+		error: function(){
+			console.log("error");
+		}
+	});
+}
+$(document).on('click', ".rh-off", function(el) {
+	insertRankingHeart(receiveId);
+});
+function insertRankingHeart(receiveId){
+	$.ajax({
+		url: getContextPath()+"/heart",
+		type: 'post',
+		data: {receiveId},
+		success: function(data){
+			
+			
+			$('.rh-off').css('display', 'none');
+			$('.rh-on').css('display', 'block');
+		},
+		error: function(){
+			console.log("error");
+		}
+	});
+}
 
+//document.querySelector("#rh-off").addEventListener("click", insertRankingHeart);
 
+/*호감도 취소했을 때 db에서 삭제*/
+function deleteRankingHeart(){
+	$.ajax({
+		url: getContextPath()+"/heart",
+		data: {userId : userId},
+		success: function(data){
+			console.log(data);
+			$('.rh-off').css('display', 'block');
+			$('.rh-on').css('display', 'none');
+		},
+		error: function(){
+			console.log("error");
+		}
+	});
+}
+$(document).on('click', ".rh-on", function() {
+	deleteRankingHeart();
+});
+//document.querySelector("#rh-on").addEventListener("click", deleteRankingHeart);
+
+/*db에 저장된 호감도 현상태 불러와서 하트 이미지 바꾸기*/
+function selectRankingHeart(){
+	$.ajax({
+		url: getContextPath()+"/countHeart",
+		type: 'post',
+		data: {userId : userId},
+		success: function(data){
+			console.log(data);
+			if (data == 1) {
+				$('.rh-off').css('display', 'none');
+				$('.rh-on').css('display', 'block');
+			}
+			$(".rh-int").html(data);
+			
+		},
+		error: function(){
+			console.log("error");
+		}
+	});
+}

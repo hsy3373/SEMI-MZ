@@ -225,7 +225,7 @@ let changeChatColor = function () {
       $(e.target).attr('class') != 'resizer'
     ) {
       // 채팅창 외부가 클릭되었을 경우
-      console.log('팝업 외 부분');
+      //console.log('팝업 외 부분');
       setColorClickOutsideVer();
     } else {
       // 채팅창 내부 클릭되었을 경우
@@ -314,7 +314,7 @@ let hideArrow = function (is) {
 // 저장소에서 룸 리스트 불러와서 화면상 표시해주는 함수
 // id 값을 넣어주면 해당 id 값을 가진 탭 자동 선택
 export let setChattingRooms = function (id) {
-  console.log('셋채팅룸에서 불림 : id = ', id);
+  //console.log('셋채팅룸에서 불림 : id = ', id);
   let rooms = Common.getSessionStorage('allChatRooms');
 
   let idList = rooms ? Object.values(rooms) : [];

@@ -40,28 +40,37 @@
     left: 15.8%;
     width: 67.5%;
     height: 37%;
-    display: inline-flex;
+    display: flex;
 }
 
 /*랭킹 1위*/
 .ranking1, .ranking2, .ranking3{
 	width: 23%;
     height: 100%;
+    text-align: center;
 }
-#ranking-heart{
+.rh-on{
 	width: 17%;
 	margin: 19px 0 0 37px;
+	transform: translate(-1px, 6px);
+	display : none;
 }
-.ranking-heart-int{
+.rh-off{
+	width: 17%;
+	margin: 19px 0 0 37px;
+	transform: translate(0px, 5px);
+}
+.rh-int{
 	width: 15%;
     margin: -41px 0 -6px 58px;
     font-size: 21px;
     color: white;
+    transform: translate(3px, 27px);
 }
-#ranking-user{
+.ranking-user{
 	width: 86%;
     height: 40%;
-    margin: 16px 0 0 10px;
+    margin-top: 41px;
 }
 .ranking-nickname{
 	width: 100%;
@@ -69,7 +78,7 @@
     font-size: 12px;
     font-weight: bold;
     color: white;
-    margin: 14px 0 0 -1px;
+    margin-top: 16px;
 }
 .ranking2{margin: auto;}
 

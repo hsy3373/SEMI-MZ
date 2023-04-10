@@ -8,14 +8,19 @@
 import { getContextPath } from './common.js';
 import {modalstopfn} from './squareCanvas.js';
 import { openChatRoom } from './chat/chatFront.js';
+//import { closeAlert } from './alert.js';
+
 
 document.querySelector(".info-chatting").addEventListener("click", function(){
 	openChatRoom(sessionStorage.clickedUserId);
 });
 
-document.querySelector(".friend-home").addEventListener("click", function(){
+
+if (document.querySelector(".friend-home")) {
+	document.querySelector(".friend-home").addEventListener("click", function(){
 	location.href=getContextPath()+'/home?roomMaster='+sessionStorage.clickedUserId;
-});
+	});
+}
 
 /*유저 정보 모달창 띄우기*/
 let open = () => {
@@ -39,7 +44,7 @@ let nickName;
 export function getUserInfo(){
 	$.ajax({
 		url: getContextPath()+"/userInfo",
-		data : {userId : sessionStorage.clickedUserId}, /*'test' 부분에 나중에 session 유저id 객체 넣으면 됨 / sessionStorage.getItem('')*/
+		data : {userId : sessionStorage.clickedUserId}, /*userId = 로그인 유저(나)x , 다른 유저*/
 		method: 'post',
 		success : function(data) {
 			console.log(data);
@@ -54,7 +59,7 @@ export function getUserInfo(){
 				
 			/* 스킨 경로가 비어있어 오류 뜸 */
 			let skinId = data.skinId;
-			$("#info-skin").attr(skinId);
+			$("#info-skin").attr("src", getContextPath()+'/resource/img/user/skin'+skinId+'/fs.png');
 				
 			let info = data.info;
 			$(".info-introduce").html(info);
@@ -120,6 +125,8 @@ function selectHeart(){
 				$('#heart-off').css('display', 'none');
 				$('#heart-on').css('display', 'block');
 			}
+			$(".heart-int").html(data);
+			
 		},
 		error: function(){
 			console.log("error");
@@ -215,15 +222,6 @@ let close2 = () => {
 document.querySelector(".info-report-btn").addEventListener("click", open2);
 document.querySelector(".reset-btn").addEventListener("click", close2);
 
-/* 신고 후 신고창 숨기기 */
-/*document.querySelector(".report-btn").addEventListener("click", close2);*/
-
-/*window.onload = function(){
-	let reset = document.querySelector(".reset-btn");
-	reset.addEventListener("click", function(){
-		console.log('reset 눌림');
-	});
-};*/
 
 /* 신고 내용 글자수 제한 */
 $('#report-content-text').keyup(function (e) {

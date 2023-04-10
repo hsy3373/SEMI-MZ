@@ -5,7 +5,7 @@
 <%
 
     // 현재 로그인 유저의 정보 내정보변경에 표시하기 위한 변수선언
-    System.out.println(loginUser);
+    //System.out.println(loginUser);
     String userId = loginUser.getUserId();
     String nickName = loginUser.getNicName();
     String gender = loginUser.getGender();  // N,M,W
