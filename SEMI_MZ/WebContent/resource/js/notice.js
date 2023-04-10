@@ -3,8 +3,9 @@
  * 공지사항 js
  */
 
-import { getContextPath, setSessionStorage, getSessionStorage } from './common.js';
+import { getContextPath, getSessionStorage } from './common.js';
 import { modalstopfn } from './squareCanvas.js';
+import { getUserInfo } from './userInfo.js';
 
 export let noticeModal = document.querySelector('.notice-modal');
 
@@ -14,11 +15,13 @@ $(".notice-modal, .notice-detail-modal").on("click", function(e) {
 	console.log(e.target);
 	if (e.target.id == 'notice-x-btn') {
 		$(".notice-modal").css('display', 'none');
+		modalstopfn();
 	} else if (e.target.className == 'list-post') {
 		$(".notice-modal").css('display', 'none');
 		$(".notice-detail-modal").css('display', 'block');
 	} else if (e.target.id == 'notice-detail-x-btn') {
 		$(".notice-detail-modal").css('display', 'none');
+		modalstopfn();
 	}
 });
 
@@ -71,26 +74,6 @@ function NoticeList() {
 		}
 	});
 };
-
-/*function rankingUser(){
-	$.ajax({
-		url: getContextPath()+"/userInfo",
-		method: 'post',
-		success : function(data) {
-			console.log(data);
-			
-			// 데이터 가져오기	
-			// selectHeart();
-			
-			nickName = data.nicName;
-			$(".ranking-nickname").html(nickName);
-				
-			let skinRoot = data.saveRoot;
-			$("#ranking-user").attr("src", getContextPath()+skinRoot+'/fs.png');
-				
-		}
-	});
-};*/
 
 $(document).on('click', ".list-post", function() {
 	getNoticeList();
@@ -280,22 +263,29 @@ function selectRanking(){
 					selectRankingHeart(i, data[i].userId);
 				}*/
 				
-				if (num > 0) {
+				
 					for (let i = 0; i < num; i++) {
 						$(".ranking-nickname").eq(i).html(data[i].nicName);
 						$(".ranking-user").eq(i).attr("src", getContextPath()+'/resource/img/user/skin'+data[i].skinId+'/fs.png');
-					
+						$(".rh-on").eq(i).css('display', 'block');
+						$(".ranking-user").eq(i).css('display', 'block');
 						$(".rh-int").eq(i).attr("id",data[i].userId);
 					
 						selectRankingHeart(i, data[i].userId);
+						console.log('i : ',i);
+						if ($(".rh-int").eq(i).attr("id",data[i].userId) != getSessionStorage(loginUser)) {
+							$(document).on('click', ".ranking-user", function() {
+								getUserInfo();
+						});
+						}
 					}
-				} else {
+				/* else {
 					for (let i = 0; i > num; i++) {
 						$(".ranking-nickname").eq(i).css('display', 'none');
 						$(".ranking-user").eq(i).css('display', 'none');
 						$(".rh-on").eq(i).css('display', 'none');
 					}
-				}
+				}*/
 				
 			
 		}, error: function(){
@@ -303,6 +293,10 @@ function selectRanking(){
 		}
 	});
 }
+
+/*$(document).on('click', ".ranking-user", function() {
+	getUserInfo();
+});*/
 
 /*db에 저장된 호감도 카운트 불러오기*/
 function selectRankingHeart(num, receiveId){

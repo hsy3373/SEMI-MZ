@@ -336,7 +336,7 @@ cursor: pointer;
     
     outline-color: var(--iptext-outline-color);
 }
-::-webkit-scrollbar{display: none;}
+
 .scroll-fix{overflow: y}
 
 .rin-green-btn{
