@@ -276,20 +276,15 @@ let eventEnterKey = function () {
       ) {
         //엔터가 눌렸는데 현재 포커스 된 창이 채팅창이 아닐때
         let myroom1 = this.document.querySelector(".board-send-detail");
-        if (
-          !Common.isEmpty(myroom1) &&
-          (myroom1.style.display != "none" ||
-            this.document.querySelector(".board-write").style.display != "none")
-        ) {
-          // 마이룸 요소가 존재할 때 == 마이룸에 들어와있을 때
-          // 마이룸에 들어와있으면서 작성용 모달창이 떠있을 때 == display 값이 none이 아닐때
-          // 마이룸 요소가 없을 때 == 마이룸에 들어와있지 않을 때
-          // 채팅창 선택된 것으로 처리
-          setColorClickInsideVer();
-          document.getElementById("text-send").focus();
+        if (myroom1) {
+          if (
+            document.activeElement.getAttribute("class") !=
+            "board-write-content"
+          ) {
+            setColorClickInsideVer();
+            document.getElementById("text-send").focus();
+          }
         } else {
-          // 마이룸 요소가 없을 때 == 마이룸에 들어와있지 않을 때
-          // 채팅창 선택된 것으로 처리
           setColorClickInsideVer();
           document.getElementById("text-send").focus();
         }
