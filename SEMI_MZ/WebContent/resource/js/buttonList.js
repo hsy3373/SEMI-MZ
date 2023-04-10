@@ -149,7 +149,7 @@ logoutButton.addEventListener("click", () => {
   let logoutok = document.getElementById("logout-ok");
   logoutok.addEventListener("click", () => {
     //console.log("로그아웃 처리")
-
+	localStorage.removeItem('autoLogin');
     location.href = path + "/logout";
   });
 
@@ -192,6 +192,7 @@ $("#rq-btn").on("click", function () {
       if (result == "O") {
         //내정보변경 전 패스워드 체크일 때(패스워드 일치 시)
         // 내정보변경 모달 block 처리
+		smodalInfo.css("display", "none");
         modalMyinfo.css("display", "block");
         //*정보변경 모달띄워질 때 들어갈 기능들*
         //모달 보여질 때 유저 정보변경된거 그대로 띄워지게 하는거!!
@@ -204,6 +205,56 @@ $("#rq-btn").on("click", function () {
     },
   });
 });
+
+console.log("세션로그인유저 비번 : "+orgPwd);
+
+
+
+
+
+
+
+////////////  정보수정 버튼 함수 //////////////
+$('#cge-btn').on("click", function(){
+	// jsp 인풋 값 => 변경할 내용
+	let nickName = $('input[name=cge-nick]').val();
+	let chkpwd = $('#cge-chkpwd').val();
+	let info = $('textarea[name="selfInfo"]').val(); 
+	let gender1 = $('input:radio[name="gender"]:checked').val();
+
+	//gender는 항상 값이 체크되어있음
+	// 닉네임, 패스워드 없을 수도 있음.
+	// 이 때 값이 없으면 원래정보를 넣어줌..
+	// if(nickName == ""){
+	// 	nickName += orgName;
+	// }
+	if(chkpwd == ""){
+		chkpwd += orgPwd;
+	}
+	console.log(nickName +"///"+ chkpwd);
+	$.ajax({
+		type : "post",
+		url : path + "/update.me",
+		dataType: "json",
+		data : {nickName: nickName, chkpwd: chkpwd, gender: gender1, info: info},
+		success : (updateM) => { 
+			if(updateM == null){
+				alert("정보변경에 실패하였습니다. 다시 확인해주세요.");
+			}else{
+				alert("정보 수정 완료.");
+				$('input[name=cge-nick]').attr("value",updateM.nicName);
+				$('textarea[name="selfInfo"]').text(updateM.info);
+				$('input:radio[name="gender"][value="'+updateM.gender+'"]');
+				gender1.val(updateM.gender);
+				
+				setSessionStorage("loginUserNick", updateM.nicName);
+
+
+			}
+		}
+	})
+});
+
 
 /*  회원탈퇴 버튼 클릭 시 비밀번호 입력 요청 모달 열고 닫기 */
 let smodalNmem = $(".smodalNmem");
