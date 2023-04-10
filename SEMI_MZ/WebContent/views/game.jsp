@@ -24,9 +24,17 @@
         </div>
     </div>
 
+    <div id="" class="">
+        <div class="board">
+            <div class="game">
+                <div class="game-board" id="game-board">
+            </div>
+        </div>
+    </div>
+    
     
 
-    <script type="module" src="<%=contextPath%>/resource/js/gamezone.js"></script>
+    <script type="module" src="<%=contextPath%>/resource/js/gamezone/gamezone.js"></script>
    
 
 </html>

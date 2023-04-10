@@ -1,6 +1,6 @@
 //게임존 js : 작성자 윤지영
 
-import { modalstopfn } from "./squareCanvas.js";
+import { modalstopfn } from "../squareCanvas.js";
 
 //게임존 닫는 이벤트
 const gameModal = document.getElementById("game-modal");
@@ -16,3 +16,5 @@ export function gameModalopen() {
 }
 
 const gameStat = document.getElementById("Strat-match");
+
+
