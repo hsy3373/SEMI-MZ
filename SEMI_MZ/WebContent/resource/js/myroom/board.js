@@ -605,6 +605,9 @@ function loadList(receiveID) {
 				list.length = list.length;
 			}
 			let str = "";
+
+			
+
 			if (roomMasterId == "") {
 				for (let i = 0; i < list.length; i++) {
 					str +=
@@ -634,6 +637,7 @@ function loadList(receiveID) {
 						"</tr>";
 				}
 			}
+			
 			$(".myroom-board-list").html(str);
 		},
 		error: function(e) {

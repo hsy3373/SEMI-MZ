@@ -82,7 +82,7 @@ ul li a {
 ul li.on {background: #eda712;}
 ul li.on a {color: #fff;}
 </style>
-<title>My Room</title>
+<title>M-Zone</title>
 </head>
 </head>
 <body>
