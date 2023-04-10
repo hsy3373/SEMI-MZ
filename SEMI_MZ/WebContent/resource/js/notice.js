@@ -307,16 +307,17 @@ function selectRanking(){
 		}
 	});
 }
-$(document).on('click', ".rh-off", function() {
-	insertRankingHeart();
+$(document).on('click', ".rh-off", function(el) {
+	insertRankingHeart(receiveId);
 });
-function insertRankingHeart(){
+function insertRankingHeart(receiveId){
 	$.ajax({
 		url: getContextPath()+"/heart",
 		type: 'post',
-		data: {userId : userId},
+		data: {receiveId},
 		success: function(data){
-			console.log(userId);
+			
+			
 			$('.rh-off').css('display', 'none');
 			$('.rh-on').css('display', 'block');
 		},
@@ -332,7 +333,6 @@ function insertRankingHeart(){
 function deleteRankingHeart(){
 	$.ajax({
 		url: getContextPath()+"/heart",
-		type: 'get',
 		data: {userId : userId},
 		success: function(data){
 			console.log(data);
@@ -352,8 +352,8 @@ $(document).on('click', ".rh-on", function() {
 /*db에 저장된 호감도 현상태 불러와서 하트 이미지 바꾸기*/
 function selectRankingHeart(){
 	$.ajax({
-		url: getContextPath()+"/userInfo",
-		type: 'get',
+		url: getContextPath()+"/countHeart",
+		type: 'post',
 		data: {userId : userId},
 		success: function(data){
 			console.log(data);

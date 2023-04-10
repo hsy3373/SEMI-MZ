@@ -447,7 +447,6 @@ public class MemberDao {
 		return count;
 		
 	}
-
 		
 	// [가영] - 친구 정보 조회
 	public int selectFriend(Connection conn, String loginUser, String friendId) {

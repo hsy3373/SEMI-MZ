@@ -10,15 +10,17 @@ import {modalstopfn} from './squareCanvas.js';
 import { openChatRoom } from './chat/chatFront.js';
 //import { closeAlert } from './alert.js';
 
-if (document.querySelector(".info-chatting")) {
-	document.querySelector(".info-chatting").addEventListener("click", function(){
+
+document.querySelector(".info-chatting").addEventListener("click", function(){
 	openChatRoom(sessionStorage.clickedUserId);
+});
+
+
+if (document.querySelector(".friend-home")) {
+	document.querySelector(".friend-home").addEventListener("click", function(){
+	location.href=getContextPath()+'/home?roomMaster='+sessionStorage.clickedUserId;
 	});
 }
-
-document.querySelector(".friend-home").addEventListener("click", function(){
-	location.href=getContextPath()+'/home?roomMaster='+sessionStorage.clickedUserId;
-});
 
 /*유저 정보 모달창 띄우기*/
 let open = () => {
