@@ -15,11 +15,13 @@ $(".notice-modal, .notice-detail-modal").on("click", function(e) {
 	console.log(e.target);
 	if (e.target.id == 'notice-x-btn') {
 		$(".notice-modal").css('display', 'none');
+		modalstopfn();
 	} else if (e.target.className == 'list-post') {
 		$(".notice-modal").css('display', 'none');
 		$(".notice-detail-modal").css('display', 'block');
 	} else if (e.target.id == 'notice-detail-x-btn') {
 		$(".notice-detail-modal").css('display', 'none');
+		modalstopfn();
 	}
 });
 

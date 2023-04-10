@@ -23,10 +23,6 @@ if (document.querySelector(".friend-home")) {
 }
 
 /*유저 정보 모달창 띄우기*/
-let open = () => {
-	document.querySelector(".info-modal").classList.remove("hidden");
-	modalstopfn();
-}
 
 let close = () => {
 	document.querySelector(".info-modal").classList.add("hidden");
