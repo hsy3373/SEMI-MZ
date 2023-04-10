@@ -105,7 +105,7 @@
         <div>
             <div class="rin-modal-background">
                 <div class="rin-modal-header">내 정보 변경</div>
-                <div class="rin-modal-out-btn"><img src="../resource/img/icon/엑스 버튼.png" class="sx-btn myinfo-xbtn"></div>
+                <div class="rin-modal-out-btn"><img src="<%= contextPath %>/resource/img/icon/엑스 버튼.png" class="sx-btn myinfo-xbtn"></div>
                 <div class="rin-empty-space"></div>
                 <div class="myinfo-modaltxtarea">
                 <form>
@@ -182,7 +182,7 @@
     <!-- ============== 회원탈퇴 버튼 클릭 시 비밀번호 입력 요청 모달 =============== -->      
 	<div class="modal smodalNmem">
 		<div class="s-modal-back">
-			<div class="smodal-th"><button class="smodal-xbtn"><img src="../resource/img/icon/엑스 버튼.png" class="sx-btn sx-btn2"></button></div>
+			<div class="smodal-th"><button class="smodal-xbtn"><img src="<%= contextPath %>/resource/img/icon/엑스 버튼.png" class="sx-btn sx-btn2"></button></div>
 			<form>
 			<table class="smodal-table">
 				<tr class="smodal-tb"><th colspan="2">정말 탈퇴하시겠습니까?</th></tr>
@@ -209,6 +209,6 @@
 
       <script type="module" src="<%=contextPath%>/resource/js/buttonList.js"></script>
       <!--유효성 및 버튼 활성화 script -->
-      <script type="module" src="../resource/js/validation.js"></script>
+      <script type="module" src="<%= contextPath %>/resource/js/validation.js"></script>
 </body>
 </html>

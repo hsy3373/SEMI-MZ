@@ -186,6 +186,10 @@ $('#cge-btn').on("click", function(){
 				$('textarea[name="selfInfo"]').text(updateM.info);
 				$('input:radio[name="gender"][value="'+updateM.gender+'"]');
 				gender1.val(updateM.gender);
+				
+				setSessionStorage("loginUserNick", updateM.nicName);
+
+
 			}
 		}
 	})

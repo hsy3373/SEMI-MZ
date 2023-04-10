@@ -3,13 +3,13 @@
  * 작성자 : 김혜린
  */
 
-import { getCookie } from './common.js';
-import { isEmpty } from './common.js';
-import { setCookie } from './common.js';
+//import { getCookie } from './common.js';
+//import { isEmpty } from './common.js';
+//import { setCookie } from './common.js';
 import { getContextPath } from './common.js';
 import * as Common from "./common.js";
 //import * as API from "./mainAPI.js";
-
+import * as vali from "./validation.js";
 let path = getContextPath();
 
 $(document).ready(function(){
@@ -32,7 +32,7 @@ $(document).ready(function(){
 	}
 
 
-	localStorage.removeItem('autoLogin'); 
+	 
 });
 
 
