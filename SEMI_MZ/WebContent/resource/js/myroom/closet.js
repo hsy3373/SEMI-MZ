@@ -84,7 +84,7 @@ $(document).on('click', '.closet-skins img' ,function(){
 	/*왼쪽 대표스킨 src값에 클릭한 스킨 src값으로 넣어주기*/
 	$(".view-skin img").attr('src', changeSkin);
 	/*loginUserSkinId : 현재 로그인유저의 스킨ID값 (myroom.jsp에서 가져옴)*/
-	let userSkin = "./resource/img/user/skin"+loginUserSkinId+"/fs.png" 
+	let userSkin = path+"resource/img/user/skin"+loginUserSkinId+"/fs.png" 
 	//console.log(changeSkin);
 	//console.log(userSkin);
 	if(changeSkin != userSkin){
@@ -220,7 +220,7 @@ $(function () {
 	        $(".closet-modal").show();
 	        $.dressClick();
 			// 미리보기 이미지 현재 로그인유저 이미지로 설정
-			$(".view-skin .user-skin").attr('src',"./resource/img/user/skin"+loginUserSkinId+"/fs.png");
+			$(".view-skin .user-skin").attr('src',path+"/resource/img/user/skin"+loginUserSkinId+"/fs.png");
 			mySkin(1);
 			init();
 		}else{
