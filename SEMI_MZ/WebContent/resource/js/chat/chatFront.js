@@ -268,14 +268,10 @@ let textareaEnterKey = function () {
 let eventEnterKey = function () {
   window.addEventListener('keyup', function (e) {
     if (e.key == 'Enter') {
-      // 만약 채팅 컨테이너 디스플레이 상태가 none라면 종료
-      if (
-        this.document.querySelector('.chat-container').style.display == 'none'
-      ) {
-        return;
-      }
-
-      if (document.getElementById('text-send') != document.activeElement) {
+      // 채팅 컨테이너 디스플레이 상태가 none이 아니면서 채팅 입력구간이 선택되어있지 않을때
+      if ( this.document.querySelector('.chat-container').style.display == 'none' 
+          && 
+          document.getElementById('text-send') != document.activeElement) {
         //엔터가 눌렸는데 현재 포커스 된 창이 채팅창이 아닐때
         let myroom1 = this.document.querySelector('.board-send-detail');
         if (
