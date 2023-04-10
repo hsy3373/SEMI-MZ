@@ -762,6 +762,7 @@ export let defaultEvent = function () {
         document.querySelector(".info-modal").classList.remove("hidden");
         window.sessionStorage.setItem("clickedUserId", id);
         getUserInfo();
+		modalstopfn();
         break; //sesion에 clickUserId로 id 값 넘겨주기
       }
     }
