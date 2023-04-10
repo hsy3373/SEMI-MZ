@@ -214,6 +214,13 @@
  		 WHERE RANK &lt;= 3
 	</entry>
 	
+	<!-- [지의] 친구유저 닉네임 조회 -->
+	<entry key="friendNickName">
+		SELECT NICKNAME
+		  FROM MEMBER
+		 WHERE USER_ID = ?
+	</entry>
+	
 	
 	
 <!-- ================= insert 구간 ======================== -->

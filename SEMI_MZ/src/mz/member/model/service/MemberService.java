@@ -199,6 +199,14 @@ public class MemberService {
 			return result;
 			
 		}
+	
+	// [지의] - 친구유저 닉네임 조회
+	public String friendNickName(String receiveId) {
+		Connection conn = getConnection();
+		String nickName = new MemberDao().friendNickName(conn, receiveId);
+		close(conn);
+		return nickName;
+	}
 
 		
 //------------------------------ insert 구간 -------------------------------

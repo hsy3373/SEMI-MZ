@@ -57,7 +57,7 @@ public class AjaxEnroll extends HttpServlet {
 			HttpSession session = request.getSession(); 
 			session.setAttribute("loginUser", m); // 로그인유저 정보 세션에 담음
 			
-			//System.out.println("세션로그인유저 정보 : " + session.getAttribute("loginUser"));// console용
+			System.out.println("세션로그인유저 정보 : " + session.getAttribute("loginUser"));// console용
 			
 			response.getWriter().print("1");
 			//System.out.println("멤버테이블 insert 성공"); // console용

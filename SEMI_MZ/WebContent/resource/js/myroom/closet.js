@@ -69,12 +69,13 @@ function init() {
 			document.querySelector(".selected-btn").className = "page-btn";
 		}
 		selectSkin(this.innerText);
-		mySkin(this.innerText);
+		//mySkin(this.innerText);
 		
 		
 		this.className = "selected-btn page-btn";
 		});
 	});
+
 }
 
 /* 옷장 -> 스킨박스 스킨 클릭시 왼쪽 대표 스킨에 이미지 적용 + 착용버튼 활성화 */
@@ -273,9 +274,10 @@ $(function () {
 		$(".paging-dress").css("display", "block");
 		
 		//
-/*		let btns = document.querySelectorAll(".page-btn");
-		// 가장 마지막 버튼이 눌린 것으로 처리
-		btns[btns.length - 1].click();*/
+		let btn = document.querySelectorAll(".page-btn");
+		//가장 첫 버튼 클릭
+		btn[0].className = "selected-btn page-btn";
+	    btn[0].click();
     }
   
 
@@ -309,9 +311,10 @@ $(function () {
 		$(".paging-store").css("display", "block");
 		$(".paging-dress").css("display", "none");
 		
-/*		let btns = document.querySelectorAll(".page-btn");
-		// 가장 마지막 버튼이 눌린 것으로 처리
-		btns[btns.length - 1].click();*/
+		let btn = document.querySelectorAll(".page-btn");
+		//가장 첫 버튼 클릭
+		btn[0].className = "selected-btn page-btn";
+	    btn[0].click();
 
     }
 });

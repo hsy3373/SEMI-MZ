@@ -5,6 +5,7 @@
 
 /* js 가져오기 */
 import { getContextPath } from "../common.js";
+import { getUserInfo } from "../userInfo.js";
 let path = getContextPath();
 
 // 페이징 처리 준비
@@ -418,6 +419,14 @@ $(function() {
 		$(".board-send-detail").hide();
 		$(".board-list").show();
 	});
+	
+	
+	/*내마이룸 방명록 상세조회 -> 친구 스킨 클릭시 userInfo 모달창*/
+	$(document).on("click", ".friend-skin", function(){
+		console.log($(".friend-id").text());
+		document.querySelector(".info-modal").classList.remove("hidden");
+		getUserInfo();
+	});
 });
 
 
@@ -521,10 +530,12 @@ $(function() {
 
 /* ================================= 방명록 작성 ================================= */
 $(function() {
+	/*방명록 리스트에서 글쓰기 버튼*/
 	$(document).on("click", "#boardWrite", function() {
 		$(".board-list").hide();
 		$(".board-write").show();
-
+		
+		// 글쓰기 클릭할때마다 내용 비워주기
 		$(".board-write .board-write-title").val("");
 		$(".board-write .board-write-content").val("");
 		$(".board-write #board-ck").prop("checked", false);
@@ -532,11 +543,25 @@ $(function() {
 });
 
 
-/* 해당 룸마스터 값 boardInsert의 매개변수에 넣어줌 */
 $(function() {
+/*	$(".board-write .board-write-title").on("keyup", function(){
+
+	})
+
+	
+	/* 해당 룸마스터 값 boardInsert의 매개변수에 넣어줌 */
 	$(document).on("click", "#boardInsert", function() {
-		boardInsert(roomMasterId);
-		loadList(roomMasterId);
+		// 제목, 내용이 비어있으면 실행안됨
+		if($(".board-write .board-write-title").val() != "" && $(".board-write .board-write-content").val() != ""){
+			boardInsert(roomMasterId);
+			loadList(roomMasterId);
+		}else if($(".board-write .board-write-title").val() == ""){
+			alert("제목을 입력해주세요.");
+			$(".board-write .board-write-title").focus();
+		}else if($(".board-write .board-write-content").val() == ""){
+			alert("내용을 입력해주세요.");
+			$(".board-write .board-write-content").focus();
+		}
 	});
 });
 /* 방명록 작성 함수 */
@@ -549,7 +574,7 @@ function boardInsert(receiveID) {
 			$(this).attr("value", "N");
 		}
 	});
-	console.log("방작성룸마스터 : " + roomMasterId);
+	//console.log("방작성룸마스터 : " + roomMasterId);
 
 	$.ajax({
 		url: path + "/insertBoard",

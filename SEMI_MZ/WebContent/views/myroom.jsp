@@ -12,9 +12,10 @@
 	// roomMaster == 친구아이디
 	String roomMaster = (String)request.getAttribute("roomMaster");
 	// session에 있는 로그인 유저
-	Member loginUser = (Member) session.getAttribute("loginUser");
+	Member loginUser = (Member)request.getSession().getAttribute("loginUser");
 	//System.out.println("jsp roomMaster : "+roomMaster);
 	//System.out.println("jsp loginUser : "+loginUser);
+	//System.out.println("loginUser coin : "+loginUser.getCoin());
 	//Member userId = (Member)request.getAttribute("userId");
 	
 	int storeSkinCount = (int) request.getAttribute("storeSkinCount"); 		// 상점 총 스킨 개수
@@ -54,6 +55,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 <!-- Popper JS -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
 <style>
 ul {
     text-align: center;
@@ -129,7 +131,7 @@ ul li.on a {color: #fff;}
 				<c:otherwise>
 					<!-- 친구스킨 표현해줘야함 closet.js 에서 처리 -->
 					<img class="friend-skin">
-					<div class="out-friend-id"><%= roomMaster %></div>
+					<div class="out-friend-id"></div>
 				</c:otherwise>
 			</c:choose>
 		</div>
@@ -201,18 +203,18 @@ ul li.on a {color: #fff;}
 			<div class="board-send-detail">
 				<!-- back 버튼 -->
 				<img class="back-btn" src="${contextPath}/resource/img/icon/back2_btn.png">
-				<!-- 작성란 전체 감싼 form -->
+				<!-- 작성란 전체 감싼 -->
 				<div class="board-write-area" id="board-update-form">
 					<div class="board-no" style="display: none;"></div>
 					<div class="board-write-id" style="display: none;"></div>
 					<!-- 제목부분(상세 제목이랑 동일) -->
 					<div class='board-detail-title'>
-						<input type='text' class='board-write-title' required maxlength="15">
+						<input type='text' class='board-write-title' maxlength="15">
 					</div>
 
 					<!-- 방명록 내용 작성부분 -->
 					<!-- onclick="this.select();" : 클릭시 자동으로 선택됨 -->
-					<textarea name='board-write-content' class='board-write-content' required cols='62' rows='8' required>
+					<textarea name='board-write-content' class='board-write-content' cols='62' rows='8'>
 					</textarea>
 
 					<!-- 비밀글 체크박스 -->
@@ -237,7 +239,7 @@ ul li.on a {color: #fff;}
 
 					<!-- 제목부분(상세 제목이랑 동일) -->
 					<div class="board-detail-title">
-						<input type="text" class="board-write-title" required placeholder="제목을 입력해주세요" onclick="this.select();">
+						<input type="text" class="board-write-title"  maxlength="15" required placeholder="제목을 입력해주세요" onclick="this.select();">
 					</div>
 
 					<!-- 방명록 내용 작성부분 -->
@@ -345,18 +347,6 @@ ul li.on a {color: #fff;}
 	
 	
 	<script>
-		/* 상단 스크립틀릿으로 받아온 roomMaster 값 사용하는 방법 */
-<%-- 		let tree = function(){
-			//방법1 스크립틀릿으로 정보 받아와서 함수 작성
-			let roomMaster = <%= roomMaster%>;
-			//방법2 쿠키/세션스토리지에 룸마스터 저장 -> 더 권장!
-		  document.cookie = 'roomMaster='+ encodeURIComponent(roomMaster) + "; path=/mzone; expires=Session";
-		}
- --%>		
-	</script>
-	
-	
-	<script>
 		/* 광장으로 가는 버튼 */
 		function gosquare() {
 			location.href = "${contextPath}/views/square.jsp";
@@ -369,11 +359,14 @@ ul li.on a {color: #fff;}
 		var roomMasterId = "${roomMaster}";
 		//console.log("로그인유저 : "+loginUserId);
 		//console.log("로그인유저스킨 : "+loginUserSkinId);
+		console.log("로그인유저코인 : "+loginUserCoin);
 		//console.log("룸마스터 : "+roomMasterId);
 		
 		/* 스킨 총 개수 closet.js로 넘김 */
 		sessionStorage.setItem("storeSkinCount", JSON.stringify(<%= storeSkinCount %>));
 	</script>
+	
+
 
 
 	

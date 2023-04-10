@@ -718,6 +718,31 @@ public class MemberDao {
 			return result;
 		}
 		
+	public String friendNickName(Connection conn, String receiveId) {
+		String nickName = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("friendNickName");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, receiveId);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				nickName = rset.getString("NICKNAME");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return nickName;
+		
+	}
+		
 	
 //------------------------------ insert 구간 -------------------------------	
 	// [김혜린]
