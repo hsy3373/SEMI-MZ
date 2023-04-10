@@ -43,7 +43,7 @@ export function getUserInfo(){
 		data : {userId : sessionStorage.clickedUserId}, /*userId = 로그인 유저(나)x , 다른 유저*/
 		method: 'post',
 		success : function(data) {
-			console.log(data);
+			console.log('유저 정보 가져왔음 : ',data);
 			
 			// 데이터 가져오기	
 			selectHeart();

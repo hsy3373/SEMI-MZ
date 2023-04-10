@@ -273,10 +273,12 @@ function selectRanking(){
 					
 						selectRankingHeart(i, data[i].userId);
 						console.log('i : ',i);
-						if ($(".rh-int").eq(i).attr("id",data[i].userId) != getSessionStorage(loginUser)) {
+						if ($(".rh-int").eq(i).attr("id",data[i].userId) != loginUserId) {
 							$(document).on('click', ".ranking-user", function() {
 								getUserInfo();
-						});
+							});
+						} else {
+							$(".ranking-user").eq(i).css('pointer-envents', 'none');
 						}
 					}
 				/* else {
