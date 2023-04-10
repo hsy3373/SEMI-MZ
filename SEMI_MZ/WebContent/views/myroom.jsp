@@ -48,7 +48,6 @@
 <link href="${contextPath}/resource/css/myroom.css" rel="stylesheet" type="text/css">
 <link href="${contextPath}/resource/css/board.css" rel="stylesheet" type="text/css">
 <link href="${contextPath}/resource/css/closet.css" rel="stylesheet" type="text/css">
-<link href="${contextPath}/resource/css/buttonList.css" rel="stylesheet" type="text/css">
 <link href="${contextPath}/resource/css/alert.css" rel="stylesheet">
 
 <!-- jQuery library -->
@@ -134,15 +133,21 @@ ul li.on a {color: #fff;}
 			</c:choose>
 		</div>
 
-		<!--버튼 모달 jps 가져옴 -->
-		<div class="button-area">
-	        <div class="squareGo" onclick="gosquare();">
-	            <img src="resource/img/icon/home_btn.png">
-	        </div>
+	<!--버튼 모달 jps 가져옴 -->
+		
+	<div class="button-area">
+		<div class="squareGo" onclick="gosquare();">
+			<img src="resource/img/icon/home_btn.png">
 		</div>
-		<%@ include file="./buttonList.jsp" %>
 	</div>
-
+	<%@ include file="./buttonList.jsp"  %>
+	<%@ include file="./userInfo.jsp" %>
+		
+	</div>
+	
+		
+		
+		
 	<!-- ============================= 방명록 모달 ============================= -->
 	<div class="board-wrap">
 		<div class="board-modal">
@@ -369,6 +374,7 @@ ul li.on a {color: #fff;}
 		sessionStorage.setItem("storeSkinCount", JSON.stringify(<%= storeSkinCount %>));
 	</script>
 
+
 	
 
 	<%-- <script type="module" src="${contextPath}/resource/js/alert.js"></script> --%>
@@ -377,7 +383,6 @@ ul li.on a {color: #fff;}
 	<script type="module" src="${contextPath}/resource/js/myroom/board.js"></script>
 	<script type="module" src="${contextPath}/resource/js/myroom/closet.js"></script>
 	<script type="module" src="${contextPath}/resource/js/buttonList.js"></script>
-
 
 </body>
 </html>

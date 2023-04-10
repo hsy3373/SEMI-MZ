@@ -187,6 +187,20 @@ public class MemberService {
 		return count;
 	}
 		
+	//지영 - 차단유저 확인
+		public String blockCheck(String userId) {
+			
+			Connection conn = getConnection();
+			
+			String result = new MemberDao().blockCheck(conn, userId);
+			
+			close(conn);
+			
+			return result;
+			
+		}
+
+		
 //------------------------------ insert 구간 -------------------------------
 	
 	// [김혜린]
