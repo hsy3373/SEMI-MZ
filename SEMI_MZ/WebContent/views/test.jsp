@@ -46,6 +46,7 @@ java.sql.Date.valueOf("2023-03-20"));
     <br />
     <a href="<%=path%>/main.admin">관리자페이지</a>
     <br />
+    <br />
     <a href="./main.jsp">메인/로그인</a>
     <br />
     <br />

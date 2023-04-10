@@ -45,20 +45,22 @@ public class BoardDao {
 		String sql = prop.getProperty("selectBoardList");
 		
 		// String형은 heap 영역에 주소값으로 저장되므로 == x
-		if(loginId.equals(receive)) {
-			sql = sql.replace("USER_ID = ? AND ", "");
-		}
+//		if(loginId.equals(receive)) {
+//			sql = sql.replace("USER_ID = ? AND ", "");
+//		}
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
 			
-			// 현재 방주인 아이디(test)가 로그인한 아이디와 같다면 받은 방명록들 조회
+			// 현재 방주인 아이디(friend)가 로그인한 아이디와 같다면 받은 방명록들 조회
+			// 자기방에서는 RECEIVE_ID = 가 로그인한 아이디인걸로
 			if(loginId.equals(receive)) {
 				pstmt.setString(1, loginId);
 			} else {
+				// 친구방에서도 RECEIVE_ID = 가 방문한 친구아이디인걸로
 				// 방문한 방주인 아이디(test)가 현재 로그인한 아이디(friend)와 다르다면 쓴 글만 조회
-				pstmt.setString(1, loginId); // friend
-				pstmt.setString(2, receive); // test
+				pstmt.setString(1, receive);
+				//pstmt.setString(2, receive);
 			}
 			
 			rset = pstmt.executeQuery();
@@ -70,6 +72,7 @@ public class BoardDao {
 						rset.getString("USER_ID"),
 						rset.getString("RECEIVE_ID"),
 						rset.getString("BOARD_TITLE"),
+						rset.getString("SECRET"),
 						df.format(rset.getDate("CREATE_DATE")));
 				list.add(b);
 			}
@@ -113,7 +116,8 @@ public class BoardDao {
             			rset.getString("BOARD_TITLE"),
             			rset.getString("BOARD_CONTENT"),
             			rset.getString("SECRET"),
-            			df.format(rset.getDate("CREATE_DATE"))
+            			df.format(rset.getDate("CREATE_DATE")),
+            			rset.getInt("SKIN_ID")
             			);
             }
 		} catch (SQLException e) {
@@ -183,6 +187,7 @@ public class BoardDao {
 			
 			if(rset.next()) {
 				b.setBoardNo(rset.getInt("BOARD_NO"));
+				b.setUserId(rset.getString("USER_ID"));
 				b.setBoardTitle(rset.getString("BOARD_TITLE"));
 				b.setBoardContent(rset.getString("BOARD_CONTENT"));
 				b.setSecret(rset.getString("SECRET"));

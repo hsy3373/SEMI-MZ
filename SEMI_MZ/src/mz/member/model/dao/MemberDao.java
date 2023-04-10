@@ -421,6 +421,34 @@ public class MemberDao {
 		return result;
 	}
 	
+	// [지의] - 유저별 호감도 총 개수
+	public int countHeart(Connection conn, String receiveId) {
+		int count = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("countHeart");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, receiveId);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				count = rset.getInt("COUNT");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return count;
+		
+	}
+
+	
 	public int selectUserHeart(Connection conn, String receiveId) {
 		
 		int result = 0;

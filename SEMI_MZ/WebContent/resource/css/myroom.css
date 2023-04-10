@@ -5,6 +5,7 @@
     --fontsize16 : 16px;
     --fontsize20 : 20px;
     --fontsize24 : 24px;
+    --fontsize30 : 30px;
     --fontweight200: 200;
     --fontweight400: 400;
     --fontweight600: 600;
@@ -66,8 +67,8 @@
 .myroom-board-title{
     width: 120px;
     text-overflow: ellipsis; /* 말줄임표(...) 표시 */
-    overflow: hidden; /* 글자 자름 */
-    white-space: nowrap; /* 줄바꿈 방지 */
+    overflow: hidden; 		 /* 글자 자름 */
+    white-space: nowrap; 	 /* 줄바꿈 방지 */
 }
 /* 방명록 작성자 */
 .myroom-board-user{
@@ -80,33 +81,28 @@
 }
 
 /* ================================== 유저 ================================== */
-.user-skin{width: var(--userskin80);}
-.myroom_user .user-skin{
+.user-skin, .friend-skin{width: var(--userskin80);}
+.myroom_user .user-skin, .myroom_user .friend-skin{
     position: absolute;
     top: 70%;
     left: 48%;
 }
 /* ================================== 호감도 ================================== */
-input[name="heart-ck"]+label {
+.my-heart{
     position: absolute;
     top: 66%;
     left: 48%;
-    display: block;
-    width: 24px;
-    height: 24px;
-    background: url('../img/icon/하트2.png') no-repeat 0 0px / contain;
+    display: flex;
+}
+.my-heart-img img{
+	width: 35px;
     cursor: pointer; 
-    padding-left: 36px; 
 }
-input[name="heart-ck"]:checked+label {
-    background: url('../img/icon/빈하트.png') no-repeat 0 1px / contain;
-}
-/* 기본 체크박스대신 이미지가 와야하므로 감추기 */
-.myroom_user input[type=checkbox] {
-    display:none;
-}
-.myroom_user .font{
+.my-heart-num{
     color: white;
-    font-size: var(--fontsize24);
+    font-size: var(--fontsize30);
     font-weight: var(--fontweight400);
+    margin-left: 10px;
+    cursor: pointer; 
 }
+#my-heart-on{display: none;}
