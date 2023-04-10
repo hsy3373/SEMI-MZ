@@ -65,6 +65,17 @@ public class Member {
 		this.nicName = nicName;
 		this.skinId = skinId;
 	}
+	
+	
+	
+
+	//userList - 지영
+	public Member(String userId, String nicName, int skinId) {
+		super();
+		this.userId = userId;
+		this.nicName = nicName;
+		this.skinId = skinId;
+	}
 
 	
 	// [han] 어드민 멤버 페이지용

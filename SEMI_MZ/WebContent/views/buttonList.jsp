@@ -27,13 +27,15 @@
 <head>
 <meta charset="UTF-8">
 <title>버튼모달</title>
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <link href="<%=contextPath%>/resource/css/common.css" rel="stylesheet" type="text/css">
 <link href="<%=contextPath%>/resource/css/buttonList.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="<%=contextPath%>/resource/css/alert.css" />
 </head>
 <body>
-
-      <!--모달창 분리를 위해 버튼도 따로뻄-->
+    <!-- ========================== [윤지영] 버튼리스트 / 아래떠있는 버튼 리스트 모달 ========================== -->
+       <!-- ======= 항상 아래 떠있는 버튼 2가지 ======== -->    
       <div class="button-area">
         <div class="friendList">
             <img src="<%=contextPath%>/resource/img/icon/친구목록 버튼.png" style=" width: 50px;" > 
@@ -45,50 +47,50 @@
         </div>
     </div>
 
-
-    <!--모달창 : 친구목록 -->
-    <div class="modal modal1">
+    <!-- ======= 모달창 : 친구목록 ======== -->    
+    <div class="modal fn-modal">
         <div class="modal_body">
-            <div class="modal-out-btn"><img src="<%=contextPath%>/resource/img/icon/엑스 버튼.png" class="x-btn1" style=" width: 55px; height: 55px;" ></div>
-            <div class="modal-background">
-                <div class="modal-textarea">
+            <div class="fr-modal-out-btn"><img src="<%=contextPath%>/resource/img/icon/엑스 버튼.png" class="fn-btn" style=" width: 55px; height: 55px;" ></div>
+            <div class="fr-modal-background">
+                <div class="fr-modal-textarea">
                     <table class="display-center"> 
-                        <!--데이터 베이스에서 받아서 적용할 에정 : 10명까지 -->
-                        <tr><td>친구1 :</td><td>접속중</td><td>놀러가기</td></tr>
-                        <tr><td>친구1 :</td><td>접속중</td><td>놀러가기</td></tr>
-                        <tr><td>친구1 :</td><td>접속중</td><td>놀러가기</td></tr>
-                        <tr><td>친구1 :</td><td>접속중</td><td>놀러가기</td></tr>
-                        <tr><td>친구1 :</td><td>접속중</td><td>놀러가기</td></tr>
-                        <tr><td>친구1 :</td><td>접속중</td><td>놀러가기</td></tr>
-                        <tr><td>친구1 :</td><td>접속중</td><td>놀러가기</td></tr>
-                        <tr><td>친구1 :</td><td>접속중</td><td>놀러가기</td></tr>
-                        <tr><td>친구1 :</td><td>접속중</td><td>놀러가기</td></tr>
-                        <tr><td>친구1 :</td><td>접속중</td><td>놀러가기</td></tr>
+                        <tbody id="friendList">
+                        </tbody>
                     </table> 
                 </div> 
             </div>
         </div> 
       </div>
 
-    <!--모달창 : 환경설정 -->
-    <div class="modal modal2" >
+     <!-- ======= 모달창 : 환경설정 ======== -->   
+    <div class="modal pf-modal" >
         <div class="modal_body" id="Preferences">
-            <div class="modal-out-btn2"><img src="<%=contextPath%>/resource/img/icon/엑스 버튼.png" class="x-btn2" style=" width: 55px; height: 55px;"></div>
-            <div class="modal-button1">
-            <a>내 정보 변경</a>
+            <div class="modal-out-btn2"><img src="<%=contextPath%>/resource/img/icon/엑스 버튼.png" class="Pf-btn" style=" width: 55px; height: 55px;"></div>
+            <div class="fn-button">
+            <a class="preferences-text">내 정보 변경</a>
             </div>
-            <div class="modal-button2">
-            <a> 로그아웃 </a>
+            <div class="logout-button" id="userlogout">
+            <a class="preferences-text">로그아웃</a>
             </div>
         </div>
       </div>
+
+
+       <!-- ======= 로그아웃 모달창: 환경설정 ======== -->  
+        <div class="alert" id="logout-alert">
+            <h3 id="alert-text">로그아웃 하시겠습니까?</h3>
+            <div>
+            <button class="button alert-ok" id="logout-ok">확인</button>
+            <button class="button alert-cancel" id="logout-cancel">취소</button>
+            </div>
+        </div>
 
 
     <!-- ========================== [김혜린] 내정보 변경 / 비밀번호 입력 요구 모달 공간 ========================== -->
     <!-- ======= 내정보변경 시 비밀번호 입력 요청 모달 ======== -->      
     <div class="modal smodalInfo">
         <div class="s-modal-back">
-            <div class="smodal-th"><button class="smodal-xbtn"><img src="../resource/img/icon/엑스 버튼.png" class="sx-btn sx-btn1"></button></div>
+            <div class="smodal-th"><button class="smodal-xbtn"><img src="<%=contextPath%>/resource/img/icon/엑스 버튼.png" class="sx-btn sx-btn1"></button></div>
             <form>
             <table class="smodal-table">
                 <tr class="smodal-tb"><th colspan="2">비밀번호 입력</th></tr>
@@ -105,7 +107,7 @@
         <div>
             <div class="rin-modal-background">
                 <div class="rin-modal-header">내 정보 변경</div>
-                <div class="rin-modal-out-btn"><img src="../resource/img/icon/엑스 버튼.png" class="sx-btn myinfo-xbtn"></div>
+                <div class="rin-modal-out-btn"><img src="<%=contextPath%>/resource/img/icon/엑스 버튼.png" class="sx-btn myinfo-xbtn"></div>
                 <div class="rin-empty-space"></div>
                 <div class="myinfo-modaltxtarea">
                 <form>
@@ -182,7 +184,7 @@
     <!-- ============== 회원탈퇴 버튼 클릭 시 비밀번호 입력 요청 모달 =============== -->      
 	<div class="modal smodalNmem">
 		<div class="s-modal-back">
-			<div class="smodal-th"><button class="smodal-xbtn"><img src="../resource/img/icon/엑스 버튼.png" class="sx-btn sx-btn2"></button></div>
+			<div class="smodal-th"><button class="smodal-xbtn"><img src="<%=contextPath%>/resource/img/icon/엑스 버튼.png" class="sx-btn sx-btn2"></button></div>
 			<form>
 			<table class="smodal-table">
 				<tr class="smodal-tb"><th colspan="2">정말 탈퇴하시겠습니까?</th></tr>
@@ -206,9 +208,17 @@
 
 
 
+     <!--button-list srcipt-->  
+     <script type="module" src="<%=contextPath%>/resource/js/buttonList.js"></script>
 
-      <script type="module" src="<%=contextPath%>/resource/js/buttonList.js"></script>
-      <!--유효성 및 버튼 활성화 script -->
-      <script type="module" src="../resource/js/validation.js"></script>
+      <!--유효성 script -->
+      <script type="module" src="<%=contextPath%>/resource/js/validation.js"></script>
+       
+      <!-- <script type="module">
+        import {init} from '<%=contextPath%>/resource/js/buttonList.js'
+        console.log("?")
+        init();
+    </script> -->
+
 </body>
 </html>

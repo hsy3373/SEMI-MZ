@@ -4,11 +4,13 @@
 
 /*버튼 css*/
 /* 없어도 문제없어서 주석처리 */
-/* .button-area{
+.button-area{
     width: 1300px;
     position: absolute;
     margin: auto;
-} */
+}
+
+
 .friendList{
     position: absolute;
     bottom: 18px;
@@ -25,6 +27,13 @@
     width: 50px;
     cursor: pointer;
 }
+
+.button-area img:hover{
+    width: 55px;
+    cursor: pointer;
+}
+
+
 
 /*모달용 css*/
 .modal {
@@ -52,7 +61,7 @@
 /*친구목록 모달 */
 
 /*친구목록 img*/
-.modal-background {
+.fr-modal-background {
     /* border: 1px solid red; */
     width: 238px;
     height: 374px;
@@ -65,7 +74,7 @@
 }
 
 /*친구목록 나가기 버튼*/
-.modal-out-btn{
+.fr-modal-out-btn{
     position: absolute;
     top: 300px;
     left: 1200px;
@@ -74,8 +83,10 @@
 
 
 /*친구목록 text */
-.modal-textarea{
+.fr-modal-textarea{
     margin-top: 30px;
+    overflow-y: scroll;
+    max-height: 300px;
 }
 
 .display-center td {
@@ -85,6 +96,11 @@
 /*창크기 변경시 생기는 여백 오토로 잡기*/
 .display-center {
     margin: auto;
+}
+
+.go-to-fn:hover{
+    text-decoration: underline;
+    cursor: pointer;
 }
 
 
@@ -97,7 +113,7 @@ border: 1px solid rebeccapurple;
 /*환경설정 모달*/
 
 /*내정보 변경 버튼*/
-.modal-button1{
+.fn-button{
     background-image: url(../img/icon/기본텍스트버튼2.png);
     width: 304px;
     height: 104px;
@@ -108,7 +124,7 @@ border: 1px solid rebeccapurple;
 }
 
 /*로그아웃 버튼*/
-.modal-button2{
+.logout-button{
     background-image: url(../img/icon/기본텍스트버튼2.png);
     width: 304px;
     height: 104px;
@@ -118,10 +134,16 @@ border: 1px solid rebeccapurple;
     text-align: center;
 }
 
-a{
+/*환경설정 text*/
+.preferences-text{
     line-height: 100px;
     font-size: 40px;
     font-weight: 300;
+}
+
+.preferences-text:hover{
+    font-size: 45px;
+    cursor: pointer;
 }
 
 
@@ -335,18 +357,19 @@ cursor: pointer;
 /* 친구 목록 버튼 */
 .myroom .button-area .friendList{
     position: absolute;
-    bottom: 18px;
     right: 250px;
-}
+    top:730px
+} 
 /*  내 정보 조회 버튼 */
 .myroom .button-area .Listbutton{
     position: absolute;
-    bottom: 18px;
     right: 190px;
-}
+    top:730px
+} 
+
 /* 광장으로 가는 버튼 : */
 .button-area .squareGo{
     position: absolute;
-    bottom: 18px;
     right: 310px;
+    top:730px 
 }
