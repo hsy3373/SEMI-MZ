@@ -2,7 +2,7 @@
  * 작성자 : 윤지영
  * 광장 및 마이홈에 들어갈 버튼 모달 리스트 js
  */
-console.log(";;;;");
+//console.log(";;;;");
 import { getContextPath, getSessionStorage } from "./common.js";
 import { modalstopfn } from "./squareCanvas.js";
 import { FilterUsers } from "./squareCanvas.js";

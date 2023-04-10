@@ -75,6 +75,7 @@ ul li a {
     border-right: solid 1px #ccc;
     box-sizing: border-box;
 	text-decoration-line:none;	
+	
     line-height: 30px;
     font-weight: 300;
 }
@@ -314,7 +315,8 @@ ul li.on a {color: #fff;}
 
 			<!-- =============== 오른쪽 =============== -->
 			<!-- 내 코인 : 로그인유저의 코인 -->
-			<div class="coin">${loginUser.getCoin()}</div>
+			<div class="coin"><%= loginUser.getCoin() %></div>
+			<% System.out.println(loginUser.getCoin()); %>
 			
 			<!-- 옷장 버튼 -->
 			<button class="closet-btn-frame dress-btn">옷장</button>

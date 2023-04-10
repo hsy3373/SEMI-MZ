@@ -172,8 +172,8 @@
 	cursor: pointer;
 }
 
-/* .paging-closet > button.selected-btn {
+.paging-closet > button.selected-btn {
 	pointer-events: none;
 	background-color: #ad966f;;
 	border: 1px solid #806d4e;
-}  */
+}

@@ -39,7 +39,7 @@ public class FriendListController extends HttpServlet {
 		
 		String userId = request.getParameter("userId");
 		
-		//System.out.println("userId:"+ userId);
+		System.out.println("userId:"+ userId);
 		
 		ArrayList<Member> list = new bottonListSevice().selectFriendList(userId);
 		

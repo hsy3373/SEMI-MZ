@@ -271,6 +271,11 @@ $(function () {
 		// 페이징바 설정
 		$(".paging-store").css("display", "none");
 		$(".paging-dress").css("display", "block");
+		
+		//
+/*		let btns = document.querySelectorAll(".page-btn");
+		// 가장 마지막 버튼이 눌린 것으로 처리
+		btns[btns.length - 1].click();*/
     }
   
 
@@ -303,6 +308,10 @@ $(function () {
 		// 페이징바 보이게
 		$(".paging-store").css("display", "block");
 		$(".paging-dress").css("display", "none");
+		
+/*		let btns = document.querySelectorAll(".page-btn");
+		// 가장 마지막 버튼이 눌린 것으로 처리
+		btns[btns.length - 1].click();*/
 
     }
 });
@@ -322,6 +331,3 @@ $(function(){
 		}
 	});
 })
-window.onload = function () {
-  init();
-};
