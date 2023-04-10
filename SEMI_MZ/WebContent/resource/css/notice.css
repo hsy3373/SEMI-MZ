@@ -40,54 +40,48 @@
     left: 15.8%;
     width: 67.5%;
     height: 37%;
-    display: inline-flex;
+    display: flex;
 }
 
 /*랭킹 1위*/
 .ranking1, .ranking2, .ranking3{
 	width: 23%;
     height: 100%;
+    text-align: center;
 }
-#rh-on{
+.rh-on{
 	width: 17%;
 	margin: 19px 0 0 37px;
+	transform: translate(35px, 18px);
 	display : none;
 }
-#rh-off{
+.rh-off{
 	width: 17%;
 	margin: 19px 0 0 37px;
+	transform: translate(35px, 18px);
 }
 .rh-int{
 	width: 15%;
     margin: -41px 0 -6px 58px;
     font-size: 21px;
     color: white;
+    transform: translate(61px, -1px);
 }
-#ranking-user1{
+.ranking-user{
 	width: 86%;
     height: 40%;
-    margin: 16px 0 0 10px;
+    margin-top: 13px;
 }
-.ranking-nickname1{
+.ranking-nickname{
 	width: 100%;
     text-align: center;
     font-size: 12px;
     font-weight: bold;
     color: white;
-    margin: 14px 0 0 -1px;
+    margin-top: 19px;
 }
 .ranking2{margin: auto;}
 
-#ranking-heart2{
-	width: 17%;
-	margin: 19px 0 0 37px;
-}
-.ranking-heart-int2{
-	width: 15%;
-    margin: -41px 0 -6px 58px;
-    font-size: 21px;
-    color: white;
-}
 #ranking-user2{
 	width: 86%;
     height: 40%;
@@ -99,18 +93,9 @@
     font-size: 12px;
     font-weight: bold;
     color: white;
-    margin: 14px 0 0 -1px;
+    margin-top: 110px;
 }
-#ranking-heart3{
-	width: 17%;
-	margin: 19px 0 0 37px;
-}
-.ranking-heart-int3{
-	width: 15%;
-    margin: -41px 0 -6px 58px;
-    font-size: 21px;
-    color: white;
-}
+
 #ranking-user3{
 	width: 86%;
     height: 40%;
@@ -122,7 +107,7 @@
     font-size: 12px;
     font-weight: bold;
     color: white;
-    margin: 14px 0 0 -1px;
+    margin-top: 110px;
 }
 
 /*공지사항 게시판 포스트잇*/

@@ -36,6 +36,9 @@ let endPage; 				// 페이지 하단에 보여질 페이징바의 끝 수
 $(document).ready(function() {
 	NoticeList();
 	selectRanking();
+	insertRankingHeart();
+	deleteRankingHeart();
+	selectRankingHeart();
 });
 
 /*공지사항 게시판 하단 공지사항 리스트(4개만 보이게)*/
@@ -269,30 +272,33 @@ function selectRanking(){
 		success: function(data){
 			console.log('유저정보 : ',data);
 			
-			memberList = [];
-			// 공지사항 리스트 배열에 담기
-			for (let i = 0; i < data.length; i++) {
-				memberList.push({
-					NickName: data[i].nicName,
-					SkinId: data[i].saveRoot
-				})
-			}
+			let num = data.length < 3 ? data.length : 3;
 			
-			insertRankingHeart();
-			deleteRankingHeart();
-			selectRankingHeart();
-			
-			$(".ranking-nickname1").html(memberList[0].NickName);
+			for (let i = 0; i < num; i++) {
+				$(".ranking-nickname").eq(i).html(data[i].nicName);
+				$(".ranking-user").eq(i).attr("src", getContextPath()+'/resource/img/user/skin'+data[i].skinId+'/fs.png');
+				}
 				
-			$("#ranking-user1").attr("src", getContextPath()+memberList[0].SkinId+'/fs.png');
 			
-			$(".ranking-nickname2").html(memberList[1].NickName);
+			
+			/*if (data.length > 0) {
+				for (let i = 0; i < data.length; i++) {
+					
+					$(".ranking-nickname").html(data[i].nicName);
+					$("#ranking-user").attr("src", getContextPath()+'/resource/img/user/skin'+data[i].skinId+'/fs.png');
+				}
+			}*/
+			
+				
+			
+			
+			/*$(".ranking-nickname2").html(memberList[1].NickName);
 				
 			$("#ranking-user2").attr("src", getContextPath()+memberList[1].SkinId+'/fs.png');
 			
 			$(".ranking-nickname3").html(memberList[2].NickName);
 				
-			$("#ranking-user3").attr("src", getContextPath()+memberList[2].SkinId+'/fs.png');
+			$("#ranking-user3").attr("src", getContextPath()+memberList[2].SkinId+'/fs.png');*/
 			
 			
 		},
@@ -301,18 +307,18 @@ function selectRanking(){
 		}
 	});
 }
-$(document).on('click', "#rh-off", function() {
+$(document).on('click', ".rh-off", function() {
 	insertRankingHeart();
 });
 function insertRankingHeart(){
 	$.ajax({
 		url: getContextPath()+"/heart",
 		type: 'post',
-		data: {receiveId : sessionStorage.clickedUserId},
+		data: {userId : userId},
 		success: function(data){
-			console.log(data);
-			$('#rh-off').css('display', 'none');
-			$('#rh-on').css('display', 'block');
+			console.log(userId);
+			$('.rh-off').css('display', 'none');
+			$('.rh-on').css('display', 'block');
 		},
 		error: function(){
 			console.log("error");
@@ -327,18 +333,18 @@ function deleteRankingHeart(){
 	$.ajax({
 		url: getContextPath()+"/heart",
 		type: 'get',
-		data: {receiveId : sessionStorage.clickedUserId},
+		data: {userId : userId},
 		success: function(data){
 			console.log(data);
-			$('#rh-off').css('display', 'block');
-			$('#rh-on').css('display', 'none');
+			$('.rh-off').css('display', 'block');
+			$('.rh-on').css('display', 'none');
 		},
 		error: function(){
 			console.log("error");
 		}
 	});
 }
-$(document).on('click', "#rh-on", function() {
+$(document).on('click', ".rh-on", function() {
 	deleteRankingHeart();
 });
 //document.querySelector("#rh-on").addEventListener("click", deleteRankingHeart);
@@ -348,12 +354,12 @@ function selectRankingHeart(){
 	$.ajax({
 		url: getContextPath()+"/userInfo",
 		type: 'get',
-		data: {receiveId : sessionStorage.clickedUserId},
+		data: {userId : userId},
 		success: function(data){
 			console.log(data);
 			if (data == 1) {
-				$('#rh-off').css('display', 'none');
-				$('#rh-on').css('display', 'block');
+				$('.rh-off').css('display', 'none');
+				$('.rh-on').css('display', 'block');
 			}
 			$(".rh-int").html(data);
 			

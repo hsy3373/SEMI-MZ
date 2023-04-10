@@ -10,9 +10,11 @@ import {modalstopfn} from './squareCanvas.js';
 import { openChatRoom } from './chat/chatFront.js';
 //import { closeAlert } from './alert.js';
 
-document.querySelector(".info-chatting").addEventListener("click", function(){
+if (document.querySelector(".info-chatting")) {
+	document.querySelector(".info-chatting").addEventListener("click", function(){
 	openChatRoom(sessionStorage.clickedUserId);
-});
+	});
+}
 
 document.querySelector(".friend-home").addEventListener("click", function(){
 	location.href=getContextPath()+'/home?roomMaster='+sessionStorage.clickedUserId;
@@ -54,8 +56,8 @@ export function getUserInfo(){
 			$(".report-user").html(nickName);
 				
 			/* 스킨 경로가 비어있어 오류 뜸 */
-			let skinRoot = data.saveRoot;
-			$("#info-skin").attr("src", getContextPath()+skinRoot+'/fs.png');
+			let skinId = data.skinId;
+			$("#info-skin").attr("src", getContextPath()+'/resource/img/user/skin'+skinId+'/fs.png');
 				
 			let info = data.info;
 			$(".info-introduce").html(info);

@@ -17,27 +17,27 @@
 		<div class="notice-name">공지사항</div>
 		<div class="ranking">
 			<div class="ranking1">
-				<img id="ranking-heart1 rh-on" src="../resource/img/icon/하트.png" alt="호감도 아이콘">
-				<img id="ranking-heart1 rh-off" src="../resource/img/icon/빈하트.png" alt="호감도 아이콘">
+				<img class="ranking-heart1 rh-on" src="../resource/img/icon/하트.png" alt="호감도 아이콘">
+				<img class="ranking-heart1 rh-off" src="../resource/img/icon/빈하트.png" alt="호감도 아이콘">
 				<!-- <img id="heart-off" alt="호강도 상태" src="../resource/img/icon/빈하트.png">
 				<img id="heart-on" alt="호강도 상태" src="../resource/img/icon/하트.png"> -->
 				<div class="ranking-heart-int1 rh-int"></div>
-				<img id="ranking-user1" src="" alt="유저 스킨">
-				<div class="ranking-nickname1"></div>
+				<img class="ranking-user" src="" alt="유저 스킨">
+				<div class="ranking-nickname"></div>
 			</div>
 			<div class="ranking2">
-				<img id="ranking-heart2 rh-on" src="../resource/img/icon/하트.png" alt="호감도 아이콘">
-				<img id="ranking-heart2 rh-off" src="../resource/img/icon/빈하트.png" alt="호감도 아이콘">
+				<img class="ranking-heart2 rh-on" src="../resource/img/icon/하트.png" alt="호감도 아이콘">
+				<img class="ranking-heart2 rh-off" src="../resource/img/icon/빈하트.png" alt="호감도 아이콘">
 				<div class="ranking-heart-int2 rh-int"></div>
-				<img id="ranking-user2" src="" alt="유저 스킨">
-				<div class="ranking-nickname2"></div>
+				<img class="ranking-user" src="" alt="유저 스킨">
+				<div class="ranking-nickname"></div>
 			</div>
 			<div class="ranking3">
-				<img id="ranking-heart3 rh-on" src="../resource/img/icon/하트.png" alt="호감도 아이콘">
-				<img id="ranking-heart3 rh-off" src="../resource/img/icon/빈하트.png" alt="호감도 아이콘">
+				<img class="ranking-heart3 rh-on" src="../resource/img/icon/하트.png" alt="호감도 아이콘">
+				<img class="ranking-heart3 rh-off" src="../resource/img/icon/빈하트.png" alt="호감도 아이콘">
 				<div class="ranking-heart-int3 rh-int"></div>
-				<img id="ranking-user3" src="" alt="유저 스킨">
-				<div class="ranking-nickname3"></div>
+				<img class="ranking-user" src="" alt="유저 스킨">
+				<div class="ranking-nickname"></div>
 			</div>
 		</div>
 		<div class="notice-list">
