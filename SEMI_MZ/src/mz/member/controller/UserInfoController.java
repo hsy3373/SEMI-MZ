@@ -66,14 +66,12 @@ public class UserInfoController extends HttpServlet {
 		System.out.println(userId+loginUser);
 		
 		
-		if(!userId.equals(loginUser)) {
+		Member m = new MemberService().selectMember(userId);
 			
-			Member m = new MemberService().selectMember(userId);
+		response.setContentType("application/json; charset=UTF-8");
 			
-			response.setContentType("application/json; charset=UTF-8");
-			
-			new Gson().toJson(m, response.getWriter());
-		}			
+		new Gson().toJson(m, response.getWriter());
+				
 		// 나를 클릭했을 때 창이 안 뜨게 수정
 		// 뒷단에서 말고 앞단에서 하기 common.js 아래에 있는 export let getSessionStorage = function (name) {
 		//  return JSON.parse(sessionStorage.getItem(name)); 이거 사용하기 name에 loginUser 넣기

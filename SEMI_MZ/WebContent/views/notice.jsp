@@ -21,19 +21,19 @@
 				<!-- <img id="heart-off" alt="호강도 상태" src="../resource/img/icon/빈하트.png">
 				<img id="heart-on" alt="호강도 상태" src="../resource/img/icon/하트.png"> -->
 				<div class="rh-int"></div>
-				<img class="ranking-user" src="" alt="유저 스킨">
+				<img class="ranking-user" src="">
 				<div class="ranking-nickname"></div>
 			</div>
 			<div class="ranking2">
 				<img class="rh-on" src="<%= contextPath %>/resource/img/icon/하트.png" alt="호감도 아이콘">
 				<div class="rh-int"></div>
-				<img class="ranking-user" src="" alt="유저 스킨">
+				<img class="ranking-user" src="">
 				<div class="ranking-nickname"></div>
 			</div>
 			<div class="ranking3">
 				<img class="rh-on" src="<%= contextPath %>/resource/img/icon/하트.png" alt="호감도 아이콘">
 				<div class="rh-int"></div>
-				<img class="ranking-user" src="" alt="유저 스킨">
+				<img class="ranking-user" src="">
 				<div class="ranking-nickname"></div>
 			</div>
 		</div>
@@ -73,5 +73,6 @@
 	</div>
 	<script type="module" src="<%= contextPath %>/resource/js/notice.js"></script>
 	<script type="module" src="<%= contextPath %>/resource/js/common.js"></script>
+	<script type="module" src="<%= contextPath %>/resource/js/userInfo.js"></script>
 </body>
 </html>
