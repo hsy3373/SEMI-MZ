@@ -207,12 +207,12 @@ ul li.on a {color: #fff;}
 					<div class="board-write-id" style="display: none;"></div>
 					<!-- 제목부분(상세 제목이랑 동일) -->
 					<div class='board-detail-title'>
-						<input type='text' class='board-write-title' required maxlength="15" onclick='this.select();'>
+						<input type='text' class='board-write-title' required maxlength="15">
 					</div>
 
 					<!-- 방명록 내용 작성부분 -->
 					<!-- onclick="this.select();" : 클릭시 자동으로 선택됨 -->
-					<textarea name='board-write-content' class='board-write-content' cols='62' rows='8' required>
+					<textarea name='board-write-content' class='board-write-content' required cols='62' rows='8' required>
 					</textarea>
 
 					<!-- 비밀글 체크박스 -->
@@ -316,7 +316,6 @@ ul li.on a {color: #fff;}
 			<!-- =============== 오른쪽 =============== -->
 			<!-- 내 코인 : 로그인유저의 코인 -->
 			<div class="coin"><%= loginUser.getCoin() %></div>
-			<% System.out.println(loginUser.getCoin()); %>
 			
 			<!-- 옷장 버튼 -->
 			<button class="closet-btn-frame dress-btn">옷장</button>
