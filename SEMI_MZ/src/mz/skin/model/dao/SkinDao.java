@@ -15,6 +15,7 @@ import java.util.InvalidPropertiesFormatException;
 import java.util.Properties;
 
 import mz.chatting.model.dao.ChatDao;
+import mz.member.model.vo.Member;
 import mz.skin.model.vo.Skin;
 import mz.skin.model.vo.Character;
 
@@ -208,7 +209,7 @@ public class SkinDao {
 	// [지의]
 	// 마이룸 상점 스킨 조회
 	// 페이지 별 일반 스킨 조회용(한페이지에 12개)
-	public ArrayList<Skin> selectSkinsList(Connection conn, int page) {
+	public ArrayList<Skin> selectSkinsList(Connection conn, String userId, int page) {
 		
 		ArrayList<Skin> list = new ArrayList<>();
 
@@ -218,11 +219,11 @@ public class SkinDao {
 		try {
 			pstmt = conn.prepareStatement(sql);
 			
+			pstmt.setString(1, userId);
 			// 이거보다 크거나 같고
-			pstmt.setInt(1, (page-1)*12 +1);
-			
+			pstmt.setInt(2, (page-1)*12 +1);
 			//이거보다 작거나 같은
-			pstmt.setInt(2, page*12);
+			pstmt.setInt(3, page*12);
 			
 			rset = pstmt.executeQuery();
 
@@ -246,14 +247,16 @@ public class SkinDao {
 	}
 	
 	// [지의]
-	// 옷장 총 스킨 개수 확인
-	public int closetSkinCount(Connection conn) {
+	// 상점 총 스킨 개수 확인
+	public int storeSkinCount(Connection conn, String userId) {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		String sql = prop.getProperty("closetSkinCount");
+		String sql = prop.getProperty("storeSkinCount");
 		try {
 			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, userId);
 			
 			rset = pstmt.executeQuery();
 			
@@ -267,13 +270,12 @@ public class SkinDao {
 			close(pstmt);
 		}
 		return result;
-		
 	}
 	
 	// [지의]
-	// 로그인 유저가 보유한 스킨 조회
-	public ArrayList<Skin> mySkinList(Connection conn, String userId){
-		ArrayList<Skin> list = new ArrayList<>();
+	// 마이룸(옷장) - 페이지 별 로그인 유저가 보유한 스킨 조회용(한페이지에 12개)
+	public ArrayList<Character> mySkinList(Connection conn, String userId, int page){
+		ArrayList<Character> list = new ArrayList<>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		String sql = prop.getProperty("mySkinList");
@@ -281,13 +283,16 @@ public class SkinDao {
 			pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setString(1, userId);
+			// 이거보다 크거나 같고
+			pstmt.setInt(2, (page-1)*12 +1);
+			//이거보다 작거나 같은
+			pstmt.setInt(3, page*12);
 			
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
-				Skin skin = new Skin(rset.getInt("SKIN_ID"),
-									 rset.getString("SAVE_ROOT")
-						);
+				Character skin = new Character(rset.getInt("SKIN_ID"),
+									 		   rset.getString("SAVE_ROOT"));
 				list.add(skin);
 			}
 		} catch (SQLException e) {
@@ -299,6 +304,59 @@ public class SkinDao {
 		return list;
 		
 	}
+	
+	// [지의]
+	// 상점 총 스킨 개수 확인
+	public int dressSkinCount(Connection conn, String userId) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("dressSkinCount");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, userId);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				result = rset.getInt("COUNT");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	public int selectfriendSkin(Connection conn, String roomMasterId) {
+		int id = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectfriendSkin");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, roomMasterId);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				id =  rset.getInt("SKIN_ID");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return id;
+		
+	}
+
+	
 
 //-----------------------------------------insert 영역---------------------------------------------------
 
@@ -323,6 +381,54 @@ public class SkinDao {
 		}
 
 		return result;
+	}
+	
+	// [지의]
+	// CHARACTER 테이블에 구입한 스킨 INSERT
+	public int insertMySkin(Connection conn, String userId, int skinId) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertMySkin");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, userId);
+			pstmt.setInt(2, skinId);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	// [지의]
+	// MEMBER 테이블에 COIN  UPDATE
+	public int updateCoin(Connection conn, String userId, int skinId) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateCoin");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, skinId);
+			pstmt.setString(2, userId);
+			pstmt.setInt(3, skinId);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+		
 	}
 
 
@@ -376,4 +482,28 @@ public class SkinDao {
 		return result;
 	}
 	
+	// [지의]
+	// 로그인유저 스킨 변경
+	public int updateMySkin(Connection conn, String userId, int skinId) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateMySkin");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, skinId);
+			pstmt.setString(2, userId);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	// [지의]
+
 }
