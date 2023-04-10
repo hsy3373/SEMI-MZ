@@ -269,7 +269,7 @@ let eventEnterKey = function () {
   window.addEventListener('keyup', function (e) {
     if (e.key == 'Enter') {
       // 채팅 컨테이너 디스플레이 상태가 none이 아니면서 채팅 입력구간이 선택되어있지 않을때
-      if ( this.document.querySelector('.chat-container').style.display == 'none' 
+      if ( this.document.querySelector('.chat-container').style.display != 'none' 
           && 
           document.getElementById('text-send') != document.activeElement) {
         //엔터가 눌렸는데 현재 포커스 된 창이 채팅창이 아닐때
