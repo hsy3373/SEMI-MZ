@@ -6,8 +6,6 @@
 .hidden{display: none;}
 
 
-/*스크롤바 감추기*/
-::-webkit-scrollbar{display: none;}
 
 /*---------------------------------- 정보창 ----------------------------------*/
 .info-modal{
@@ -117,6 +115,8 @@
 	text-align: justify;
 	font-size: 14px;
 }
+
+.info-introduce::-webkit-scrollbar{display: none;}
 
 /*하단 버튼*/
 .btns1 button, .btns2 button{
@@ -283,6 +283,9 @@
     text-align: justify;
     font-size: 16px;
 }
+
+#report-content-text::-webkit-scrollbar{display: none;}
+
 /*신고하기 버튼*/
 .report-btn{
 	position: absolute;

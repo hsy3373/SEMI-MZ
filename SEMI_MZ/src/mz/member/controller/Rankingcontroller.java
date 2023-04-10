@@ -39,7 +39,7 @@ public class Rankingcontroller extends HttpServlet {
 		response.setContentType("application/json; charset=UTF-8");
 		
 		new Gson().toJson(list, response.getWriter());
-		System.out.println(list);
+		//System.out.println(list);
 	}
 
 	/**
