@@ -51,23 +51,75 @@
   box-shadow: 10px 9px 20px rgba(0, 0, 0, 0.068);
   text-align: center;
   padding: 20px;
-  border-radius: 5%;
+  border-radius: 10px;
   border-top: 8px solid rgb(126 146 255);
 }
 
-.delete-cancel {
+.delete-card-wrap {
   width: 60%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.delete-chat {
+  width: 100%;
+  margin-bottom: 2.5rem;
+  text-align: center;
+  padding: 10px;
+  border-radius: 10px;
+  border-top: 8px solid rgb(126 146 255);
+  background-color: rgb(255, 255, 255);
+  box-shadow: 10px 9px 20px rgba(0, 0, 0, 0.068);
+}
+
+.delete-chat > div:nth-child(1) {
+  display: flex;
+  justify-content: space-around;
+}
+
+.delete-chat > div:nth-child(2) {
+  font-size: small;
+  text-align: end;
+  margin-right: 1rem;
+}
+
+.chat-count {
+  min-width: 16%;
+
+  font-size: x-large;
+  font-weight: 900;
+  color: #000000ab;
+  margin: 1rem;
+  display: flex;
+}
+
+.chat-text {
+  padding-top: 10px;
+  font-weight: 600;
+}
+
+.delete-chat-btn {
+  align-self: center;
+  width: 30%;
+  display: flex;
+  justify-content: end;
+}
+
+.delete-cancel {
+  width: 100%;
   margin: 0px auto;
   text-align: center;
   padding: 10px;
-  border-radius: 5%;
+  border-radius: 10px;
   border-top: 8px solid rgb(126 146 255);
   background-color: rgb(255, 255, 255);
   box-shadow: 10px 9px 20px rgba(0, 0, 0, 0.068);
 }
 
 .cancel-table {
-  max-height: 58vh;
+  height: 48vh;
   width: 90%;
   margin: auto;
   margin-top: 4px;
@@ -87,7 +139,12 @@
   margin-top: 2vh;
 }
 
-.delete-cancel-btn > button {
+.cancel-info {
+  font-size: small;
+}
+
+.delete-cancel-btn > button,
+.delete-chat-btn > button {
   background-color: white;
   border: 1px solid red;
   padding: 4px 10px;

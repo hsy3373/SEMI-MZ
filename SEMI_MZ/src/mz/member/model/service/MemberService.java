@@ -84,6 +84,7 @@ public class MemberService {
 
 		return list;
 	}
+	
 
 	// 유저 정보 불러오기 - 가영
 	public Member selectMember(String userId) {
