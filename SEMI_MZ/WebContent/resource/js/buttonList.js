@@ -149,7 +149,7 @@ logoutButton.addEventListener("click", () => {
   let logoutok = document.getElementById("logout-ok");
   logoutok.addEventListener("click", () => {
     //console.log("로그아웃 처리")
-
+	localStorage.removeItem('autoLogin');
     location.href = path + "/logout";
   });
 
@@ -192,6 +192,7 @@ $("#rq-btn").on("click", function () {
       if (result == "O") {
         //내정보변경 전 패스워드 체크일 때(패스워드 일치 시)
         // 내정보변경 모달 block 처리
+		smodalInfo.css("display", "none");
         modalMyinfo.css("display", "block");
         //*정보변경 모달띄워질 때 들어갈 기능들*
         //모달 보여질 때 유저 정보변경된거 그대로 띄워지게 하는거!!

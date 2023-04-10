@@ -28,7 +28,7 @@
 <!--google API-->
 <meta name="google-signin-scope" content="profile email">
 <meta name ="google-signin-client_id" content="1045494428231-s4dqqtfv276evf9kbrjoisoc5vb8omap.apps.googleusercontent.com">
-<script src="https://accounts.google.com/gsi/client" async defer></script>
+<script src="https://apis.google.com/js/platform.js" async defer></script>
 
 
 <title>M-Zone</title>
@@ -40,7 +40,7 @@
 
 <body>
 	<div class="wrap">
-
+<!--
 		<div id="g_id_onload"
          :data-client_id="1045494428231-s4dqqtfv276evf9kbrjoisoc5vb8omap.apps.googleusercontent.com"
          data-login_uri="http://localhost:8084"
@@ -50,7 +50,7 @@
     <div class="g_id_signin" 
 		 data-type="standard">
 
-	</div>
+	</div>-->
 		<!--
 	<script>
 		function onSignIn(googleUser) {
