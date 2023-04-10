@@ -143,6 +143,17 @@ public class MemberService {
 	}
 	
 	// 가영 - 호감도 상태 불러오기
+	public int selectUserHeart(String receiveId) {
+		
+		Connection conn = getConnection();
+		
+		int result = new MemberDao().selectUserHeart(conn, receiveId);
+		
+		close(conn);
+		
+		return result;
+	}
+	
 	public int selectHeart(String loginUser, String receiveId) {
 		
 		Connection conn = getConnection();

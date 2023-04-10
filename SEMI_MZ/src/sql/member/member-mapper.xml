@@ -176,6 +176,12 @@
 		  AND RECEIVE_ID =?
 	</entry>
 	
+	<entry key="selectUserHeart">
+		SELECT COUNT(*) 
+		FROM HEART
+		WHERE RECEIVE_ID =?
+	</entry>
+	
 	<!-- [가영] 친구 조회 -->
 	<entry key="selectFriend">
 		SELECT COUNT(*) 

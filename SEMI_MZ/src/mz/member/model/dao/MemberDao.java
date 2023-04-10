@@ -420,6 +420,35 @@ public class MemberDao {
 		}
 		return result;
 	}
+	
+	public int selectUserHeart(Connection conn, String receiveId) {
+		
+		int result = 0;
+		
+		ResultSet rset = null;
+				
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("selectHeart");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, receiveId);
+			
+			rset = pstmt.executeQuery();
+			
+			if (rset.next()) {
+				result = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return result;
+	}
 		
 	// [가영] - 친구 정보 조회
 	public int selectFriend(Connection conn, String loginUser, String friendId) {

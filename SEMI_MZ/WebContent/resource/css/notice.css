@@ -52,25 +52,25 @@
 .rh-on{
 	width: 17%;
 	margin: 19px 0 0 37px;
-	transform: translate(35px, 18px);
+	transform: translate(-1px, 6px);
 	display : none;
 }
 .rh-off{
 	width: 17%;
 	margin: 19px 0 0 37px;
-	transform: translate(35px, 18px);
+	transform: translate(0px, 5px);
 }
 .rh-int{
 	width: 15%;
     margin: -41px 0 -6px 58px;
     font-size: 21px;
     color: white;
-    transform: translate(61px, -1px);
+    transform: translate(3px, 27px);
 }
 .ranking-user{
 	width: 86%;
     height: 40%;
-    margin-top: 13px;
+    margin-top: 41px;
 }
 .ranking-nickname{
 	width: 100%;
@@ -78,37 +78,9 @@
     font-size: 12px;
     font-weight: bold;
     color: white;
-    margin-top: 19px;
+    margin-top: 16px;
 }
 .ranking2{margin: auto;}
-
-#ranking-user2{
-	width: 86%;
-    height: 40%;
-    margin: 16px 0 0 10px;
-}
-.ranking-nickname2{
-	width: 100%;
-    text-align: center;
-    font-size: 12px;
-    font-weight: bold;
-    color: white;
-    margin-top: 110px;
-}
-
-#ranking-user3{
-	width: 86%;
-    height: 40%;
-    margin: 16px 0 0 10px;
-}
-.ranking-nickname3{
-	width: 100%;
-    text-align: center;
-    font-size: 12px;
-    font-weight: bold;
-    color: white;
-    margin-top: 110px;
-}
 
 /*공지사항 게시판 포스트잇*/
 .notice-list{
