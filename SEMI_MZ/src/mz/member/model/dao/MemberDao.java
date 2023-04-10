@@ -356,6 +356,7 @@ public class MemberDao {
 		return list;
 	}
 	
+	
 	//[가영]
 	public Member selectMember(Connection conn, String userId) {
 			
