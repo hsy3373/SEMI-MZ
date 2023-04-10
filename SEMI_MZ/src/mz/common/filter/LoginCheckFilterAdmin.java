@@ -17,6 +17,9 @@ import mz.member.model.vo.Member;
 /**
  * Servlet Filter implementation class LoginCheckFilter
  */
+
+//[han] 어드민 로그인 체크용 필터
+
 // 여러개 url에 필터 적용시키려면 {} 로 객체화 시켜서 넘겨주면 됨
 // 나중에 겹치는 url이 생기면 {"/board/*", "/member/*"} 등등으로 설정도 가능하다
 @WebFilter({ "/main.admin", "/admin.admin", "/activelist.member", "/cancelList.member", "/blocking.member",
