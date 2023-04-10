@@ -1,7 +1,6 @@
 @charset "UTF-8";
 /* 공지사항 게시판css - 가영*/
 
-::-webkit-scrollbar{display: none;}
 
 /*공지사항 게시판*/
 .notice-modal{
@@ -52,7 +51,8 @@
 .rh-on{
 	width: 17%;
 	margin: 19px 0 0 37px;
-	transform: translate(-26px, 9px);
+	transform: translate(3px, 7px);
+	display: none;
 }
 .rh-int{
 	width: 15%;
@@ -65,6 +65,8 @@
 	width: 86%;
     height: 40%;
     margin-top: 41px;
+    margin-left: 9px;
+    display: none;
 }
 .ranking-nickname{
 	width: 100%;
@@ -210,6 +212,8 @@
     font-size: 14px;
     text-align: justify;
 }
+
+.notice-content::-webkit-scrollbar{display: none;}
 
 .notice-pageing-area{
 	position: absolute;
