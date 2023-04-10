@@ -3,11 +3,39 @@
  * 작성자 : 김혜린
  */
 
+import { getCookie } from './common.js';
+import { isEmpty } from './common.js';
+import { setCookie } from './common.js';
 import { getContextPath } from './common.js';
 import * as Common from "./common.js";
 //import * as API from "./mainAPI.js";
 
 let path = getContextPath();
+
+$(document).ready(function(){
+	// === 로그인이 안되어있는 상태일 때
+  // === 로컬 스토리지에 저장된 key가 "saveid" 인 userid 값을 불러와서 input 태그 userid 에 넣어주기
+  //if(${empty sessionScope.loginuser}){ // 로그인이 안된 상태라면
+	// alert("loginuser 없음");
+ 
+	const loginUserid = localStorage.getItem("saveid");
+	console.log(loginUserid);
+	if(loginUserid != null){ // 로컬에 저장된 userid 가 있는 경우
+		$("[name=userId]").val(loginUserid);
+	   $("input:checkbox[id='save-id']").prop("checked", true);
+	}
+
+	const autoLogin = localStorage.getItem("autoLogin");
+
+	if(autoLogin != null){
+		location.replace(path+"/views/square.jsp");
+	}
+
+
+	localStorage.removeItem('autoLogin'); 
+});
+
+
 
 
 
@@ -51,17 +79,46 @@ let path = getContextPath();
 	
 
 	
-	/* 메인 기본 로그인 */
+	/* 메인 기본 로그인(로그인처리, 아이디저장, 자동로그인) */
 	$('.login-btn').on("click", function(){
 		
 		let userId = $("[name=userId]").val();
 		let userPwd = $("[name=userPwd]").val();
+
+
+
+		// 아이디 저장 체크박스
+		if($("input:checkbox[id='save-id']").prop("checked")){
+          
+			// local storage에 아이디 정보를 저장해줘야함
+			  localStorage.setItem('saveid', userId );
+			console.log("로컬스토리지 담긴 값 : "+localStorage.getItem("saveid"));
+		 }
+		else { // 아이디 저장 체크 안했다면
+			localStorage.removeItem('saveid');    // 삭제
+		 }
+
+		 // 자동로그인 체크박스
+		 if($("input:checkbox[id='auto-login']").prop("checked")){
+          
+			// local storage에 boolean값 저장해줘야함
+			  localStorage.setItem('autoLogin', userId );
+			console.log("로컬스토리지 담긴 값 : "+localStorage.getItem("autoLogin"));
+		 }
+		else { // 자동로그인 체크 안했다면
+			localStorage.removeItem('autoLogin');    // 삭제
+		 }
+
 		
+		
+///////////////////////////////////////////////////////////////
+
+		// 로그인처리
 		$.ajax({
 			type : "post",
 			url : path + "/login.me",
 			dataType :  "json",
-			data : {userId: userId , userPwd: userPwd},
+			data : {userId: userId , userPwd: userPwd, },
 			success: (result) => {
 				if(result == "0"){ // 로그인 실패
 					alert("로그인에 실패하였습니다. id/pw를 다시 확인해주세요.");
@@ -77,7 +134,14 @@ let path = getContextPath();
 				}
 			} 
 		})
+
+
+
+
 	});
+
+
+
 	
 	/* 회원가입 처리 */   //insert(member / login_api / character) 
 	$('#enroll-btn').on("click", function(){
@@ -181,92 +245,3 @@ $('#newpwd-btn').on("click", function(){
 	});
 });
 
-
-//////////////////////광장 js(내정보변경) (백업용 나중에 지울 것...ㅎㅎ)/////////////////////////////////
-
-// 	/* 내정보변경 시 비밀번호 입력 요청 모달 */
-// 	const modal4 = document.querySelector('.modal4');
-// 	const rqPwdModal = document.querySelector('.rqpwd-modal');
-	
-// 	document.querySelector('.x-btn4').addEventListener('click', () => {
-// 	      modal4.style.display = 'none';
-// 	});
-	
-// 	rqPwdModal.addEventListener('click', () => {
-// 	      modal4.style.display = 'block';
-// 	});
-
-// 	/* 내정보변경 모달 */
-// 	const modal5 = document.querySelector('.modal5');
-	
-// 	document.querySelector('.x-btn5').addEventListener('click', () => {
-// 	      modal5.style.display = 'none';
-// 	      modal4.style.display = 'none';
-// 	});
-	
-
-
-
-// /* 내정보 변경 pw입력요청 모달에서 pw 확인 버튼 클릭 시 */
-// $('#rq-btn').on("click", function(){
-// 	let inputPwd = $('#rqpwd').val();
-
-// 	$.ajax({
-// 		type : "post",
-// 		url : path + "/checkPwd.me",
-// 		dataType : "text",
-// 		data : {inputPwd: inputPwd},
-// 		success : (result) => {
-// 			if(result == "O"){
-// 				//내정보변경 전 패스워드 체크일 때(패스워드 일치 시)
-// 				// 내정보변경 모달 block 처리
-// 				modal5.css('display','block');
-// 			}else{
-// 				alert("비밀번호가 일치하지 않습니다. 다시 확인해주세요.");
-// 			}
-// 		}
-// 	})
-
-// });
-
-
-
-
-
-
-
-
-// /*  회원탈퇴 버튼 클릭 시 비밀번호 입력 요청 모달 열고 닫기 */
-// let modal6 = $('.modal6');
-
-// $('#sec-btn').on("click", function(){
-// 	modal6.css('display', 'block');
-// });
-
-// $('.x-btn6').on('click', () => {
-// 	modal6.css('display', 'none');
-// });
-
-// $('#secsub-btn').on("click", function(){
-// 	let inputPwd = $('#sec-pwdchk').val();
-
-// 	$.ajax({
-// 		type : "post",
-// 		url : path + "/checkPwd.me",
-// 		dataType : "text",
-// 		data : {inputPwd: inputPwd},
-// 		success : (result) => {
-// 			if(result == "O"){
-// 				// 회원탈퇴 전 패스워드 체크일 때(패스워드 일치 시)
-// 				// 탈퇴되었다는 알림과 함께 로그인페이지(메인페이지로 이동하면서)세션정보지우기
-// 				// 그리고 테이블에 탈퇴처리하고, 상태테이블에 추가
-
-
-
-// 			}else{
-// 				alert("비밀번호가 일치하지 않습니다. 다시 확인해주세요.");
-// 			}
-// 		}
-// 	})
-
-// })

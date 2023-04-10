@@ -3,6 +3,8 @@
 <%
 	String contextPath = request.getContextPath();
 %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,8 +24,12 @@
 <link href="<%= contextPath %>/resource/css/common.css" rel="stylesheet" type="text/css">
 <link href="<%= contextPath %>/resource/css/main.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="../resource/css/alert.css">
+<!-- google api -->
+<meta name="google-signin-scope" content="profile email">
+<meta name ="google-signin-client_id" content="1045494428231-s4dqqtfv276evf9kbrjoisoc5vb8omap.apps.googleusercontent.com">
 
-
+<!--google API-->
+<script src="https://apis.google.com/js/platform.js" async defer></script>
 
 
 <title>LoginMainPage</title>
@@ -64,10 +70,12 @@
 	                    </th>
 	                </tr>
 				</table>
+
+				<!-- <button type="button" id="main-googlebtn" class="google-btn other-btn"></button> -->
 <!-- ============================ 2. 카카오/구글로 시작하기 ================================= 회원가입 모달 열리는 클래스 .enroll-modal -->
 				<table class="other-login">
 	                <tr><th><button type="button" id="main-kakaobtn" class="kakao-btn other-btn"></button></th></tr>
-	                <tr><th><button type="button" class="google-btn other-btn"></button></th></tr>
+	                <tr><th><div class="g-signin2" data-onsuccess="onSignIn"></div></th></tr>
 	                
 	                <tr>
 	                    <th colspan="3" style="padding-top: 10px;">
@@ -78,6 +86,27 @@
             </form>
 		</div>
 	</div>
+
+
+<!--
+	<script>
+
+		//$('#main-googlebtn').on("click", function(){onSignIn()});
+
+		function onSignIn(googleUser){
+			var profile = googleUser.getBasicProfile();
+			console.log("id : "+ profile.getId());
+
+			var id_token = googleUser.getAuthResponse().id_token;
+			console.log("id token : " +id_token);
+
+
+		}
+
+
+	</script>
+
+	-->
 <!-- ============================ 아이디/비밀번호 찾기 모달 ================================= -->
 	<div class="modal modal1">
         <div class="modal_body">
@@ -311,8 +340,9 @@
 <script type="module" src="../resource/js/validation.js"></script>
 <!-- API script --> 
 <script type="module" src="../resource/js/mainAPI.js"></script> 
-<!--kakao-->
+<!--kakao API-->
 <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+
 	
 	
 	
