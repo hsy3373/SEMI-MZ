@@ -352,14 +352,12 @@ export let FilterUsers = []; //필터링된 유저 1개 만큼 담아줄 배열
 // 웹소켓으로 연결하기
 // 웹소켓 서버 생성 : 학원 192.168.30.171
 let path = getContextPath();
-//const socket = new WebSocket("ws://192.168.30.174:8084" + path + "/multiAccess");
-//집 : 192.168.35.13
-// 지의 학원: 192.168.30.174:8084
-// 지의 집 : 192.168.0.16:8084
-let socket = new WebSocket("ws://192.168.30.171:8083" + path + "/multiAccess");
+let socket = new WebSocket("ws://192.168.30.180:8082" + path + "/multiAccess");
 ///////////////////////////////////////////////////////////////자기 ws로 바꿔주기!!! ///////////////////////////////
 // 지의 학원 ip : 192.168.30.174
 // 지의 집 ip : 192.168.0.16
+// 가영 학원 : 192.168.30.181:8081
+// 가영 집 : 192.168.35.221:8081
 
 let fnSocket = {
   onopen: function (e) {
@@ -764,6 +762,7 @@ export let defaultEvent = function () {
         document.querySelector(".info-modal").classList.remove("hidden");
         window.sessionStorage.setItem("clickedUserId", id);
         getUserInfo();
+		modalstopfn();
         break; //sesion에 clickUserId로 id 값 넘겨주기
       }
     }
