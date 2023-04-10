@@ -31,7 +31,7 @@ public class logoutController extends HttpServlet {
 		
 		request.getSession().invalidate(); //세션 데이터 삭제
 		
-		response.sendRedirect(request.getContextPath()); //메인으로
+		response.sendRedirect(request.getContextPath()+"/views/main.jsp"); //메인으로
 	}
 
 	/**

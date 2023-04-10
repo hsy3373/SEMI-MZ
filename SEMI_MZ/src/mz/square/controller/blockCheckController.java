@@ -32,14 +32,10 @@ public class blockCheckController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.print("여기왔엉~~");
 		
 		String userId = ((Member)request.getSession().getAttribute("loginUser")).getUserId();
 		
 		String result = new MemberService().blockCheck(userId);
-		
-		
-		System.out.print(result);
 		
 		response.setContentType("application/json; charset=UTF-8");
 		

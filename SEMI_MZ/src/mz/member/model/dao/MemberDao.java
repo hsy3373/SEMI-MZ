@@ -649,12 +649,9 @@ public class MemberDao {
 				
 				rset = pstmt.executeQuery();
 				
-				
-				//여기 하다가 갔음!! 여기 수정!!! 
-				
-//				if(rset.next()) {
-//					result = rset.getstatus();
-//				}
+				if(rset.next()) {
+					result = rset.getString("STATUS");
+			}
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}finally {
@@ -662,8 +659,6 @@ public class MemberDao {
 				close(pstmt);
 			}
 				
-			System.out.print(result);
-			
 			return result;
 		}
 		

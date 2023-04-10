@@ -726,12 +726,27 @@ setTimeout(function () {
       type : "get",
       url : path + "/blockCheck",
       success : (result) => {
-        console.log(result);
+        if(result == "Y"){
+          //일반유저
+        }
+        
+        if(result == "N"){
+         //탈퇴유저
+         location.href = path+"/logout";
+         alert("탈퇴한 유저입니다.")
+        }
+
+        if(result == "X"){
+         //정지유저
+         location.href = path+"/logout";
+        }
+        //console.log(result);
+
       }
   
   })
 
- }, 1000)
+ }, 1000);
 
 
 
