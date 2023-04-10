@@ -7,7 +7,8 @@
 import { getContextPath } from './common.js';
 import { getUserInfo } from './userInfo.js';
 import { gameModal } from './gamezone.js';
-// import {noticeModal} from './notice.js';
+import {noticeModal} from './notice.js';
+
 
 //캔버스 세팅
 let canvas;
@@ -429,7 +430,8 @@ let path = getContextPath()
 // 지의 집 : 192.168.0.16:8084
 let socket = new WebSocket("ws://192.168.30.171:8083" + path + "/multiAccess");
 ///////////////////////////////////////////////////////////////자기 ws로 바꿔주기!!! ///////////////////////////////
-// 가영 ip : 192.168.30.181
+// 가영 학원 ip : 192.168.30.181
+// 가영 집 ip : 192.168.35.221
 
 let fnSocket = {
   onopen: function (e) {

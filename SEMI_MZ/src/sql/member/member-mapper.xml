@@ -23,14 +23,15 @@
 	
 	<!--[han]  어드민 페이지용 멤버 조회 -->
 	<entry key="selectMemberList">
-		SELECT USER_ID, NICKNAME, STATUS , COIN, ENROLL_DATE, API_KIND
+		SELECT USER_ID, NICKNAME,  STATUS , COIN, ENROLL_DATE, API_KIND, CANCELLATION_DATE
 		FROM (
-		  SELECT USER_ID, NICKNAME, STATUS , COIN, ENROLL_DATE, API_KIND, ROWNUM AS RN
+		  SELECT USER_ID, NICKNAME,  STATUS , COIN, ENROLL_DATE, API_KIND, CANCELLATION_DATE, ROWNUM AS RN
 		  FROM (
-		    SELECT USER_ID, NICKNAME, STATUS , COIN, ENROLL_DATE, API_KIND
-		    FROM MEMBER
+		    SELECT USER_ID, NICKNAME,  M.STATUS , COIN, ENROLL_DATE, API_KIND, CANCELLATION_DATE
+		    FROM MEMBER M
             JOIN LOGIN_API USING(USER_ID)
-		    WHERE STATUS IN AND API_KIND IN
+            LEFT JOIN DISABLED_MEMBER USING(USER_ID)
+		    WHERE M.STATUS IN AND API_KIND IN
 		    ORDER BY ## DESC
 		  )
 		)
@@ -71,6 +72,51 @@
 		WHERE USER_ID = ?
 	</entry>
 	
+	<!--[han] 어드민 페이지용 멤버 조회 -->
+	<entry key="selectMemberForReport">
+		SELECT M.USER_ID, M.NICKNAME, M.STATUS, USER_COUNT, RECEIVE_COUNT
+		FROM MEMBER M
+		LEFT JOIN (
+		  SELECT USER_ID, COUNT(*) AS USER_COUNT
+		  FROM REPORT
+		  WHERE USER_ID = ?
+		  GROUP BY USER_ID
+		) UC ON M.USER_ID = UC.USER_ID
+		LEFT JOIN (
+		  SELECT RECEIVE_ID, COUNT(*) AS RECEIVE_COUNT
+		  FROM REPORT
+		  WHERE RECEIVE_ID = ?
+		  GROUP BY RECEIVE_ID
+		) RC ON M.USER_ID = RC.RECEIVE_ID
+		WHERE M.USER_ID = ?
+	</entry>
+	
+	<!-- [han] 어드민페이지용 15일 지난 탈퇴 유저 조회 -->
+	<entry key="selectCancelMemberForAdmin">
+		SELECT M.USER_ID, M.NICKNAME, CANCELLATION_DATE, USER_COUNT, RECEIVE_COUNT
+		FROM MEMBER M
+        LEFT JOIN DISABLED_MEMBER DM ON M.USER_ID = DM.USER_ID
+		LEFT JOIN (
+		  SELECT USER_ID, COUNT(*) AS USER_COUNT
+		  FROM REPORT
+		  GROUP BY USER_ID
+		) UC ON M.USER_ID = UC.USER_ID
+		LEFT JOIN (
+		  SELECT RECEIVE_ID, COUNT(*) AS RECEIVE_COUNT
+		  FROM REPORT
+		  GROUP BY RECEIVE_ID
+		) RC ON M.USER_ID = RC.RECEIVE_ID
+		WHERE M.STATUS ='N' AND SYSDATE - CANCELLATION_DATE >= 15
+        ORDER BY CANCELLATION_DATE
+	</entry>
+
+	
+	<!-- [혜린] -->
+	<entry key="selectLoginUser">
+		SELECT * 
+		FROM MEMBER
+		WHERE USER_ID = ?
+	</entry>
 
 	<!-- [혜린] -->
 	<entry key="loginMember">
@@ -79,7 +125,7 @@
 		WHERE USER_ID = ?
 		  AND USER_PWD = ?
 	</entry>
-
+	
 	<!-- [혜린] -->
 	<entry key="checkKey">
 		SELECT M.USER_ID,USER_PWD,NICKNAME,STATUS,SKIN_ID,COIN,SELF_INFO,GENDER,ENROLL_DATE
@@ -120,20 +166,6 @@
 		FROM MEMBER
 		JOIN CHARACTER_SKIN USING(SKIN_ID)
 		WHERE USER_ID = ?
-	</entry>
-	
-	<!-- [가영] 신고 정보 db 저장 -->
-	<entry key="insertReport">
-		INSERT INTO REPORT (REPORT_NO,
-							USER_ID,
-							RECEIVE_ID,
-							REPORT_TITLE,
-							REPORT_CONTENT)
-		VALUES (SEQ_REPORT.NEXTVAL,
-				?,
-				?,
-				?,
-				?)
 	</entry>
 	
 	<!-- [가영] 호감도 추가, 삭제, 조회 -->
@@ -213,7 +245,7 @@
 					(USER_ID,
 					 STATUS)
 			 VALUES(?,
-			 		'N')
+			 		?)
 	</entry>
 	
 	<!-- [혜린] -->
@@ -236,10 +268,26 @@
 <!-- [혜린] -->
 	<entry key = "updateStatus">
 		UPDATE MEMBER
-		   SET STATUS = 'N'
+		   SET STATUS = ?
 		 WHERE USER_ID = ?
 	</entry>
-
+	
+<!-- [han] 관리자 페이지용-->
+	<entry key = "updateMemberInfo">
+		UPDATE MEMBER
+		   SET COIN =  ?,
+				SELF_INFO = ?
+		 WHERE USER_ID = ?
+	</entry>
+<!-- [혜린] -->
+	<entry key = "updateMember">
+	UPDATE MEMBER
+		   SET NICKNAME = ?,
+                USER_PWD = ?,
+                SELF_INFO = ?,
+                GENDER = ?
+		 WHERE USER_ID = ?
+	</entry>
 
 <!-- ================= delete 구간 ======================== -->
 <!-- [혜린] -->
@@ -266,34 +314,36 @@
 	<entry key = "dltMemFriend">
 		DELETE FROM FRIEND
 		 WHERE USER_ID = ?
+		 	OR FRIEND_ID = ?
 	</entry>
 	<entry key = "dltMemApi">
 		DELETE FROM LOGIN_API
 		 WHERE USER_ID = ?
 	</entry>
 	
-
-
-
-
-
-
-
-
-	
-<!-- [han] -->
-	<entry key="blockMember">
-		UPDATE MEMBER
-		SET STATUS = 'X'
-		WHERE USER_ID = ?
+	<entry key = "dltMemChattingRoom">
+		DELETE FROM CHATTINGROOM
+		 WHERE USER_ID = ?
+		    OR RECEIVE_ID = ?
 	</entry>
-
 	
 
 <!-- [han] -->
 	<entry key="deleteMember">
 		DELETE FROM MEMBER WHERE USER_ID =  ?
 	</entry>
+	
+<!-- [han] -->
+	<entry key="deleteDltMember">
+		DELETE FROM DISABLED_MEMBER WHERE USER_ID =  ?
+	</entry>
 
+<!-- [han] 어드민페이지용 15일 지난 탈퇴 유저 일괄 삭제 -->
+	<entry key="deleteCancelMemberForAdmin">
+		DELETE FROM ( SELECT USER_ID,  M.STATUS,  CANCELLATION_DATE
+            FROM MEMBER M
+            LEFT JOIN DISABLED_MEMBER USING(USER_ID))
+		WHERE STATUS ='N' AND SYSDATE - CANCELLATION_DATE >= 15
+	</entry>
 
 </properties>

@@ -1,8 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8" import="mz.member.model.vo.Member"%> 
-<%
-	String path = request.getContextPath();
-
+<% 
+	String path = request.getContextPath(); 
+	String loginUser2 = ((Member)request.getSession().getAttribute("loginUser")).getUserId();
+	String loginUserNick = ((Member)request.getSession().getAttribute("loginUser")).getNicName();
 %>
 <!DOCTYPE html>
 <html>
@@ -25,18 +26,16 @@ pageEncoding="UTF-8" import="mz.member.model.vo.Member"%>
 
     <style>
       body {
-        background-image: url("<%=path%>/resource/img/background/background_main.png");
+        background-image: url('<%=path%>/resource/img/background/background_main.png');
       }
     </style>
   </head>
   <body>
-    <!--     <div>
+<!--          <div>
       <button type="button" id="insert-room">룸 추가 friend</button>
     </div> -->
     <div class="chat-container">
-      <div class="left"></div>
-      <div class="resizer" id="dragMe"></div>
-      <div class="right">
+      <div class="chat-content-container">
         <div class="chat-room-container">
           <div class="selected-chat chat-all-user" id="chat-all-user">전체</div>
           <div class="chat-room-list">
@@ -66,9 +65,15 @@ pageEncoding="UTF-8" import="mz.member.model.vo.Member"%>
             <button id="chat-next">></button>
           </div>
         </div>
-        <div class="loadingAni">
-          <div class="loader10"></div>
+
+        <div class="loadingAni-container">
+          <div class="loadingAni">
+            <div class="loader10"></div>
+          </div>
         </div>
+
+        <div class="resizer" id="dragMe"></div>
+
         <div class="chat-item-area">
           <!-- 로딩 바 -->
         </div>
@@ -89,5 +94,14 @@ pageEncoding="UTF-8" import="mz.member.model.vo.Member"%>
       type="module"
       src="<%=path%>/resource/js/chat/chatFront.js"
     ></script>
+    
+    <script type="text/javascript">
+    
+    	let loginUser = '<%= loginUser2%>';
+    	let loginUserNick = '<%= loginUserNick%>';
+    	console.log(loginUser, loginUserNick);
+    	sessionStorage.setItem("loginUser", JSON.stringify(loginUser));
+    	sessionStorage.setItem("loginUserNick", JSON.stringify(loginUserNick));
+    </script>
   </body>
 </html>

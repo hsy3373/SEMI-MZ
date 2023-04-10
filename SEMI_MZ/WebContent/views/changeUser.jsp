@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
 	/* 테스트용 유저 객체 */
-	Member m = new Member("friend", "friend", "NIC_test", "Y", 0, 500, "", "N", java.sql.Date.valueOf("2023-03-20"));
+	Member m = new Member("friend", "friend", "NIC_fri", "Y", 0, 500, "", "N", java.sql.Date.valueOf("2023-03-20"));
 	session.setAttribute("loginUser", m);
 	session.setAttribute("testing", "testingtesting");
 	Member test = (Member) session.getAttribute("loginUser");

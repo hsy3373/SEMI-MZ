@@ -6,6 +6,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -101,13 +102,13 @@ public class MemberDao {
 	// 어드민 페이지용 멤버 조회 함수
 	public ArrayList<Member> selectMemberList(Connection conn, String status, String api, String sort, int page){
 		ArrayList<Member> list = new ArrayList<>();
-
-		int result = 0;
 		
 		if(sort.equals("userId")) {
 			sort = "USER_ID";
-		}else {
+		}else if(sort.equals("date")) {
 			sort = "ENROLL_DATE";
+		}else {
+			sort = "CANCELLATION_DATE";
 		}
 
 		ResultSet rset = null;
@@ -120,16 +121,16 @@ public class MemberDao {
 		// 경우에 따라 sql문 변경
 		switch (status) {
 			case "Y":
-				sql = sql.replace("STATUS IN", "STATUS = 'Y' ");
+				sql = sql.replace("M.STATUS IN", "M.STATUS = 'Y' ");
 				break;
 			case "N":
-				sql = sql.replace("STATUS IN", "STATUS = 'N' ");
+				sql = sql.replace("M.STATUS IN", "M.STATUS = 'N' ");
 				break;
 			case "X":
-				sql = sql.replace("STATUS IN", "STATUS = 'X' ");
+				sql = sql.replace("M.STATUS IN", "M.STATUS = 'X' ");
 				break;
 			case "all":
-				sql = sql.replace("STATUS IN", "STATUS IN('N', 'X') ");
+				sql = sql.replace("M.STATUS IN", "M.STATUS IN('N', 'X') ");
 				break;
 		}
 
@@ -145,12 +146,8 @@ public class MemberDao {
 				break;
 		}
 		
-		
-		
-		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			
 			
 			// 페이지 별 멤버 조회용(한페이지에 20개)
 			pstmt.setInt(1, (page-1)*20 +1);
@@ -162,13 +159,17 @@ public class MemberDao {
 			DateFormat df = new SimpleDateFormat("yy/MM/dd");  
 			
 			while(rset.next()) {
+				
+				Date cancel = rset.getDate("CANCELLATION_DATE");
+				
 				Member m = new Member(
 						rset.getString("USER_ID"),
 						rset.getString("NICKNAME"),
 						rset.getString("STATUS"),
 						rset.getInt("COIN"),
 						df.format(rset.getDate("ENROLL_DATE")),
-						rset.getString("API_KIND")
+						rset.getString("API_KIND"),
+						cancel != null ? df.format(cancel) : ""
 						);
 				
 				list.add(m);
@@ -205,8 +206,6 @@ public class MemberDao {
 		String like = keyword.replaceAll("%", "\\%");
 		like = like.replaceAll("_", "\\_");
 		like = "%" + like + "%";
-
-		System.out.println(sql);
 
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -258,13 +257,15 @@ public class MemberDao {
 				//아래거는 null이 들어올수도 있어서 따로 빼서 처리해줌
 				Timestamp ts = rset.getTimestamp("CANCELLATION_DATE");
 				
+				String info = rset.getString("SELF_INFO");
+				
 				m = new Member(
 						rset.getString("USER_ID"),
 						rset.getString("NICKNAME"),
 						rset.getString("STATUS"),
 						rset.getInt("SKIN_ID"),
 						rset.getInt("COIN"),
-						rset.getString("SELF_INFO"),
+						info != null ? info : "",
 						rset.getString("GENDER"),
 						df.format( rset.getTimestamp("ENROLL_DATE")),
 						rset.getString("API_KIND"),
@@ -279,6 +280,80 @@ public class MemberDao {
 		}
 
 		return m;
+	}
+	
+	
+	// [han] 관리자 페이지 신고창용 멤버 조회
+	public Member selectMemberForReport(Connection conn, String userId) {
+		Member m = null;
+			
+		ResultSet rset = null;
+			
+		PreparedStatement pstmt = null;
+			
+		String sql = prop.getProperty("selectMemberForReport");
+			
+		try {
+			pstmt = conn.prepareStatement(sql);
+				
+			pstmt.setString(1, userId);
+			pstmt.setString(2, userId);
+			pstmt.setString(3, userId);
+				
+			rset = pstmt.executeQuery();
+				
+			if(rset.next()) {
+				m = new Member(rset.getString("USER_ID"),
+							   rset.getString("NICKNAME"),
+							   rset.getString("STATUS"),
+							   rset.getInt("USER_COUNT"),
+							   rset.getInt("RECEIVE_COUNT"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return m;
+	}
+	
+	//[han] 어드민 페이지용 탈퇴 계정 15일 지난 애들 조회용 
+	public  ArrayList<Member> selectCancelMemberForAdmin(Connection conn){
+		ArrayList<Member> list = new ArrayList<>();
+
+		ResultSet rset = null;
+		PreparedStatement pstmt = null;
+
+		String sql = prop.getProperty("selectCancelMemberForAdmin");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			rset= pstmt.executeQuery();
+			
+			//date 포맷용
+			DateFormat df = new SimpleDateFormat("yy/MM/dd HH:mm");  
+			
+			while(rset.next()) {
+
+				Member m = new Member();
+				m.setUserId(rset.getString("USER_ID"));
+				m.setNicName(rset.getString("NICKNAME"));
+				m.setCancellationDate(df.format(rset.getTimestamp("CANCELLATION_DATE")));
+				m.setUserReportCount(rset.getInt("USER_COUNT"));
+				m.setReceiveReportCount(rset.getInt("RECEIVE_COUNT"));
+				
+				list.add(m);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
 	}
 	
 	
@@ -314,32 +389,6 @@ public class MemberDao {
 			close(pstmt);
 		}
 		return m;
-	}
-	
-	// 신고 정보 db 저장 - 가영
-	public int insertReport(Connection conn, String userId, String receiveId, String reportTitle, String reportContent) {
-		
-		int result = 0;
-		
-		PreparedStatement pstmt = null;
-		
-		String sql = prop.getProperty("insertReport");
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			
-			pstmt.setString(1, userId);
-			pstmt.setString(2, receiveId);
-			pstmt.setString(3, reportTitle);
-			pstmt.setString(4, reportContent);
-			
-			result = pstmt.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(pstmt);
-		}
-		return result;
 	}
 	
 	// 호감도 추가 - 가영
@@ -499,6 +548,48 @@ public class MemberDao {
 		}
 		return result;
 	}
+	
+	// [김혜린]
+	public Member selectLoginUser(Connection conn, String userId) {
+
+		Member m = null; 
+		ResultSet rset = null;
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("selectLoginUser");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, userId);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				m = new Member(rset.getString("USER_ID"),
+						       rset.getString("USER_PWD"),
+						       rset.getString("NICKNAME"),
+						       rset.getString("STATUS"),
+						       rset.getInt("SKIN_ID"),
+						       rset.getInt("COIN"),
+						       rset.getString("SELF_INFO"),
+						       rset.getString("GENDER"),
+						       rset.getDate("ENROLL_DATE"));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+				close(rset);
+				close(pstmt);
+			} 
+		//System.out.println("dao m : " + m);
+		return m;		
+		
+	}
+	
+	
+	
 	
 	// [김혜린]
 	public Member loginMember(Connection conn, String userId, String userPwd) {
@@ -718,11 +809,11 @@ public class MemberDao {
 	
 	// [김혜린]
 	public int insertCharacter(Connection conn, String userId) {
-		
+		System.out.println("디에이오 들어옴");
 		int result = 0;
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("insertCharacter");
-		
+		System.out.println(sql);
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, userId);
@@ -733,12 +824,13 @@ public class MemberDao {
 		}finally {
 			close(pstmt);
 		}
+		System.out.println("Dao 캐릭터테이블 결과 : " + result);
 		return result;
 	}
 	
 	
 	// [김혜린]
-	public int insertDltMember(Connection conn, String userId) {
+	public int insertDltMember(Connection conn, String userId,  String status) {
 		System.out.println("멤버DAO / DISABLED_MEMBER 테이블 행추가 실행??");//console
 		
 		int result = 0;
@@ -748,6 +840,7 @@ public class MemberDao {
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, userId);
+			pstmt.setString(2, status);
 			result = pstmt.executeUpdate();
 			
 		} catch (SQLException e) {
@@ -790,7 +883,7 @@ public class MemberDao {
 	}
 	
 	// [김혜린]
-	public int updateStatus(Connection conn, String userId) {
+	public int updateStatus(Connection conn, String userId, String status) {
 		System.out.println("멤버DAO / updateStatus 실행??");//console
 		int result = 0;
 		PreparedStatement pstmt = null;
@@ -798,7 +891,8 @@ public class MemberDao {
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, userId);
+			pstmt.setString(1, status);
+			pstmt.setString(2, userId);
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -809,6 +903,56 @@ public class MemberDao {
 		return result;
 	}
 	
+	// [김혜린]
+	public int updateMember(Connection conn, String nickName, String userPwd, String info, String gender, String userId) {
+		System.out.println("DAO / updateMember 실행됨"); //console
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateMember");
+		
+		System.out.println(nickName+","+ userPwd+","+ info+","+ gender+","+ userId);
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, nickName);
+			pstmt.setString(2, userPwd);
+			pstmt.setString(3, info);
+			pstmt.setString(4, gender);
+			pstmt.setString(5, userId);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		System.out.println("DAO / updateMember 결과 : "+ result); //console
+		return result;
+	}
+	
+	//[han]
+	//어드민페이지에서 코인과 자기소개 변경용 
+	public int updateMemberInfo(Connection conn, String userId, int coin , String info) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateMemberInfo");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, coin);
+			pstmt.setString(2, info);
+			pstmt.setString(3, userId);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+		
+	}
 	
 	
 //------------------------------ delete 구간 -------------------------------		
@@ -908,6 +1052,7 @@ public class MemberDao {
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, userId);
+			pstmt.setString(2, userId);
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -927,6 +1072,29 @@ public class MemberDao {
 		return result;
 	}
 	
+	
+	// 채팅룸 삭제도 추가
+	public int dltMemChattingRoom(Connection conn, String userId) {
+		System.out.println("멤버DAO / dltMemChattingRoom 실행??");//console
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("dltMemChattingRoom");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, userId);
+			pstmt.setString(2, userId);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		System.out.println("멤버DAO / dltMemChattingRoom 실행결과 : " + result);//console
+		return result;
+	}
 	
 	
 	
@@ -951,13 +1119,12 @@ public class MemberDao {
 	}
 	
 	
-	
 	// [han]
-	// 유저 차단
-	public int blockMember(Connection conn, String userId) {
+	// 비활성화 테이블에서 비활성화 정보 삭제
+	public int deleteDltMember(Connection conn, String userId) {
 		int result = 0;
 		PreparedStatement pstmt = null;
-		String sql = prop.getProperty("blockMember");
+		String sql = prop.getProperty("deleteDltMember");
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, userId);
@@ -973,16 +1140,24 @@ public class MemberDao {
 	}
 
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	// [han]
+	//  어드민페이지용 15일 지난 탈퇴 유저 일괄 삭제
+	public int deleteCancelMemberForAdmin(Connection conn) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("deleteCancelMemberForAdmin");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
 	
 }	
 	

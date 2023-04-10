@@ -165,6 +165,16 @@ border: 1px solid rebeccapurple;
     --iptext-outline-color: #f5bc60;
 }
 
+.modalMyinfo{
+    z-index: 2;
+}
+.smodalInfo{
+    z-index: 3;
+}
+.smodalNmem{
+    z-index: 4;
+}
+
 /* 비밀번호 입력 요구 모달css */
 .s-modal-back{
     width: 400px;

@@ -19,6 +19,9 @@ public class Member {
 	private String apiKind;
 	//[han] 비활성화 된 시간 받아오는 용도
 	private String cancellationDate;	// CANCELLATION_DATE
+	//[han] 리포트 개수 받아오는 용도 두개
+	//USER_COUNT, RECEIVE_COUNT
+	private int userReportCount, receiveReportCount;
 	
 	public Member() {
 	}
@@ -67,7 +70,7 @@ public class Member {
 
 	
 	// [han] 어드민 멤버 페이지용
-	public Member(String userId, String nicName, String status, int coin, String formatDate, String apiKind) {
+	public Member(String userId, String nicName, String status, int coin, String formatDate, String apiKind,  String cancellationDate ) {
 		super();
 		this.userId = userId;
 		this.nicName = nicName;
@@ -75,6 +78,7 @@ public class Member {
 		this.coin = coin;
 		this.formatDate = formatDate;
 		this.apiKind = apiKind;
+		this.cancellationDate = cancellationDate;
 	}
 	
 	
@@ -94,6 +98,18 @@ public class Member {
 		this.apiKind = apiKind;
 		this.cancellationDate = cancellationDate;
 	}
+	
+	
+	//[han] 어드민 신고창 페이지용
+	public Member(String userId, String nicName, String status, int userReportCount, int receiveReportCount) {
+		super();
+		this.userId = userId;
+		this.nicName = nicName;
+		this.status = status;
+		this.userReportCount = userReportCount;
+		this.receiveReportCount = receiveReportCount;
+	}
+	
 
 	@Override
 	public String toString() {
@@ -101,6 +117,7 @@ public class Member {
 				+ ", skinId=" + skinId + ", coin=" + coin + ", info=" + info + ", gender=" + gender + ", date=" + date
 				+ "]";
 	}
+
 
 
 	public String getUserId() {
@@ -193,28 +210,18 @@ public class Member {
 	}
 
 
-
-
 	public String getFormatDate() {
 		return formatDate;
 	}
-
-
 
 
 	public void setFormatDate(String formatDate) {
 		this.formatDate = formatDate;
 	}
 
-
-
-
 	public String getApiKind() {
 		return apiKind;
 	}
-
-
-
 
 	public void setApiKind(String apiKind) {
 		this.apiKind = apiKind;
@@ -226,6 +233,22 @@ public class Member {
 
 	public void setCancellationDate(String cancellationDate) {
 		this.cancellationDate = cancellationDate;
+	}
+
+	public int getUserReportCount() {
+		return userReportCount;
+	}
+
+	public void setUserReportCount(int userReportCount) {
+		this.userReportCount = userReportCount;
+	}
+
+	public int getReceiveReportCount() {
+		return receiveReportCount;
+	}
+
+	public void setReceiveReportCount(int receiveReportCount) {
+		this.receiveReportCount = receiveReportCount;
 	}
 	
 	

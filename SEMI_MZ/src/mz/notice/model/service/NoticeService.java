@@ -43,6 +43,30 @@ public class NoticeService {
 		return notice;
 	}
 	
+	// 가영
+	public ArrayList<Notice> selectNoticeList(){
+		
+		Connection conn = getConnection();
+		
+		ArrayList<Notice> list = new NoticeDao().selectNoticeList(conn);
+		
+		close(conn);
+		
+		return list;
+		
+	}
+	
+	
+	public Notice selectDetailNotice(int noticeNo) {
+		Connection conn = getConnection();
+		
+		Notice n = new NoticeDao().selectDetailNotice(conn, noticeNo);
+		
+		close(conn);
+		
+		return n;
+	}
+	
 	
 //---------------------------------------insert 구역----------------------------------
 	

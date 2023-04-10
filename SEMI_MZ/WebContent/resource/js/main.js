@@ -85,8 +85,8 @@ let path = getContextPath();
 		let userId = $("[name=enrollId]").val();
 		let nicName = $("[name=enrollNick]").val();
 		let userPwd = $(".enroll-chkpwd").val();
-		let apiKey = Common.getCookie("key");
-		let apiKind = Common.getCookie("kind");
+		//let apiKey = Common.getCookie("key");
+		//let apiKind = Common.getCookie("kind");
 
 		$.ajax({
 			type : "post",
@@ -104,18 +104,26 @@ let path = getContextPath();
 					}else{ // confirm 취소버튼
 						alert("로그인 화면으로 이동합니다.");
 					}
-					//console.log("멤버테이블 insert 성공" + result);
+					console.log("멤버테이블 insert 성공" + result);
 					//alert("회원가입이 완료되었습니다. 로그인 창으로 이동합니다.");
 				}
 				if(result == "0"){ //멤버테이블 insert 실패
 					//console.log("멤버테이블 insert 실패" + result);
 					alert("회원가입에 실패하였습니다. 다시 확인해주세요.");
 				}
-
-
 				modal2.css('display', 'none');
 			}
 		})
+	});
+
+	$('#enroll-btn').on("click", function(){
+
+		let userId = $("[name=enrollId]").val();
+		//let nicName = $("[name=enrollNick]").val();
+		//let userPwd = $(".enroll-chkpwd").val();
+		let apiKey = Common.getCookie("key");
+		let apiKind = Common.getCookie("kind");
+
 		// API테이블에 insert
 		$.ajax({
 			type : "post",
@@ -125,7 +133,7 @@ let path = getContextPath();
 			success : (result) => {
 
 				if(result == "11"){ //API테이블 insert 성공
-					//console.log("API테이블 insert 성공" + result);
+					console.log("API테이블 insert 성공" + result);
 					modal2.css('display', 'none');
 				 	//console.log("전달용 : API키 정보 insert 성공.");
 				}else{ //API테이블 insert 실패
@@ -141,7 +149,7 @@ let path = getContextPath();
 			url : path + "/insertSkin.id",
 			data : {userId: userId},
 			success : (result) => {
-
+				console.log("캐릭터 테이블 insert 성공?" + result);
 				if(result == "111"){ //성공
 					console.log("캐릭터 테이블 insert 성공");
 				}else{ // 실패

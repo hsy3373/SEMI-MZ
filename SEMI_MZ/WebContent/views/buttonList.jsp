@@ -1,5 +1,27 @@
+<%@ page import="mz.member.model.vo.Member" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%
+
+    // 현재 로그인 유저의 정보 내정보변경에 표시하기 위한 변수선언
+    System.out.println(loginUser);
+    String userId = loginUser.getUserId();
+    String nickName = loginUser.getNicName();
+    String gender = loginUser.getGender();  // N,M,W
+    String info = loginUser.getInfo();
+
+
+    if(info == null){
+        info = "";
+    }
+
+
+
+%>
+
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -92,13 +114,13 @@
                     <table class="myinfo-table">
                         <tr>
                             <th class="rin-th1-wid">- 아이디</th>
-                            <td><input type="text" class="rin-inputbox rin-readonly" placeholder="유저 아이디" readonly></td>
+                            <td><input type="text" class="rin-inputbox rin-readonly" placeholder="<%= userId %>" readonly></td>
                             <td></td>
                         </tr>
                         <tr></tr><tr></tr>
                         <tr>
                             <th class="rin-th1-wid">- 닉네임 변경</th>
-                            <td><input type="text" class="rin-inputbox cge-nick" placeholder="유저닉네임"></td>
+                            <td><input type="text" class="rin-inputbox cge-nick" name="cge-nick" value="<%= nickName %>"></td>
                             <td class="rin-td3-wid"><button type="button" class="rncheck-btn" disabled>중복확인</button></td>
                         </tr>
                         <tr class="rin-under-text">
@@ -114,7 +136,7 @@
                         </tr>
                         <tr>
                             <th class="rin-th1-wid"></th>
-                            <td><input type="password" class="rin-inputbox cge-chkpwd" placeholder="비밀번호 확인"></td>
+                            <td><input type="password" class="rin-inputbox cge-chkpwd" id="cge-chkpwd" placeholder="비밀번호 확인"></td>
                             <td></td>
                         </tr>
                         <tr class="rin-under-text">
@@ -138,7 +160,7 @@
                         <tr>
                             <th class="rin-th1-wid">- 자기소개</th>
                             <td>
-                                <textarea class="scroll-fix rself-info" name="selfInfo" cols="53" rows="6" style="resize:none;" placeholder="자기소개 작성란"></textarea>
+                                <textarea class="scroll-fix rself-info" name="selfInfo" cols="53" rows="6" style="resize:none;"><%= info %></textarea>
                             </td>
                             <td></td>
                         </tr>
@@ -149,7 +171,7 @@
                         </tr>
                         <tr>
                             <td></td>
-                            <th><button id="cge-btn" class="rin-green-btn">정보수정</button></th>
+                            <th><button type="button" id="cge-btn" class="rin-green-btn">정보수정</button></th>
                             <td style="text-align: right;"><button type="button" id="sec-btn">회원탈퇴</button></td>
                         </tr>
                     </table>
@@ -175,6 +197,14 @@
 		</div>
 	</div>
      <!-- ============================================================================================================ -->
+
+    <script>
+        var gender = '${loginUser.gender}';
+        var orgName = '${loginUser.nicName}';
+        var orgPwd = '${loginUser.userPwd}';
+        var orgInfo = '${loginUser.info}';
+    </script>
+
 
 
 
