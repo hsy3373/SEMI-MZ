@@ -218,6 +218,8 @@ export let getChattings = function (id, scroll) {
 
       Common.setSessionStorage(keyName + "-no", num);
       Common.setSessionStorage(keyName, str);
+
+      ChatFront.showChattings(keyName, scroll);
     },
     befroeSend: function () {
       $(".loadingAni").fadeIn(300);
@@ -225,8 +227,6 @@ export let getChattings = function (id, scroll) {
     error: function (req, status, error) {
       console.log(req, status, error);
     },
-  }).done(function () {
-    ChatFront.showChattings(keyName, scroll);
   });
 };
 
