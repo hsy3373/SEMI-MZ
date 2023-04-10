@@ -4,10 +4,9 @@
  */
 
 /* js 가져오기  */
-import { getContextPath } from './common.js';
-import { getUserInfo } from './userInfo.js';
-import {noticeModal} from './notice.js';
-
+import { getContextPath } from "./common.js";
+import { getUserInfo } from "./userInfo.js";
+import { noticeModal } from "./notice.js";
 
 //캔버스 세팅
 let canvas;

@@ -13,6 +13,7 @@ public class Member {
 	private String gender;		//	GENDER	CHAR(1 BYTE)
 	private Date date;			//	ENROLL_DATE	DATE
 	
+
 	//[han] 시간까지 받아오는 용도의 데이트
 	private String formatDate;
 	//[han] api종류 받아오는 용도
@@ -55,6 +56,14 @@ public class Member {
 		this.skinId = skinId;
 		this.info = info;
 		this.gender = gender;
+	}
+	
+	// 호감도 랭킹 - 가영
+	public Member(String userId, String nicName, int skinId) {
+		super();
+		this.userId = userId;
+		this.nicName = nicName;
+		this.skinId = skinId;
 	}
 
 	
@@ -239,8 +248,6 @@ public class Member {
 	public void setReceiveReportCount(int receiveReportCount) {
 		this.receiveReportCount = receiveReportCount;
 	}
-	
-	
 	
 	
 	
