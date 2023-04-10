@@ -21,7 +21,7 @@
 <!-- css link -->
 <link href="<%= contextPath %>/resource/css/common.css" rel="stylesheet" type="text/css">
 <link href="<%= contextPath %>/resource/css/main.css" rel="stylesheet" type="text/css">
-<link rel="stylesheet" href="../resource/css/alert.css">
+<link rel="stylesheet" href="<%= contextPath %>/resource/css/alert.css">
 
 
 
@@ -302,15 +302,15 @@
 
 
 <!-- common.js -->
-<script type="module" src="../resource/js/common.js"></script>
+<script type="module" src="<%= contextPath %>/resource/js/common.js"></script>
 <!--alert script -->
 <!--<script  src="../resource/js/alert.js"></script>-->
 <!-- 메인 script(modal) -->
-<script type="module" src="../resource/js/main.js"></script>
+<script type="module" src="<%= contextPath %>/resource/js/main.js"></script>
 <!--유효성 script -->
-<script type="module" src="../resource/js/validation.js"></script>
+<script type="module" src="<%= contextPath %>/resource/js/validation.js"></script>
 <!-- API script --> 
-<script type="module" src="../resource/js/mainAPI.js"></script> 
+<script type="module" src="<%= contextPath %>/resource/js/mainAPI.js"></script> 
 <!--kakao-->
 <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 	
