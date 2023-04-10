@@ -14,3 +14,5 @@ if (document.getElementById("main-square")) {
 export function gameModalopen() {
   gameModal.style.display = "block";
 }
+
+const gameStat = document.getElementById("Strat-match");
