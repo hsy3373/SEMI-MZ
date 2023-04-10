@@ -1,30 +1,23 @@
 package mz.member.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.gson.Gson;
-
-import mz.member.model.service.MemberService;
-import mz.member.model.vo.Member;
-
 /**
- * Servlet implementation class Rankingcontroller
+ * Servlet implementation class LoginPageController
  */
-@WebServlet("/ranking")
-public class Rankingcontroller extends HttpServlet {
+@WebServlet("/login.member")
+public class LoginPageController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Rankingcontroller() {
+    public LoginPageController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,21 +26,17 @@ public class Rankingcontroller extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		ArrayList<Member> list = new MemberService().selectRanking();
 		
-		response.setContentType("application/json; charset=UTF-8");
-		
-		new Gson().toJson(list, response.getWriter());
-		//System.out.println(list);
+		request.getRequestDispatcher("views/main.jsp").forward(request, response);
+	
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		
+		// TODO Auto-generated method stub
+		doGet(request, response);
 	}
 
 }

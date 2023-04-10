@@ -46,7 +46,8 @@ public class HeartCountController extends HttpServlet {
 
 		int count = new MemberService().countHeart(receiveId);
 		
-		//System.out.println("좋아요 갯수 : "+count);
+		//System.out.println("좋아요 갯수 : "+count + receiveId);
+		
 		
 		response.setContentType("application/json; charset=UTF-8");
 		

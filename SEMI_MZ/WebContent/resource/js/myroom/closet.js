@@ -322,6 +322,3 @@ $(function(){
 		}
 	});
 })
-window.onload = function () {
-  init();
-};
