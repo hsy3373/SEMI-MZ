@@ -1,7 +1,6 @@
-package mz.skin.controller;
+package mz.member.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,22 +10,20 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 
+import mz.member.model.service.MemberService;
 import mz.member.model.vo.Member;
-import mz.skin.model.service.SkinService;
-import mz.skin.model.vo.Character;
 
 /**
- * Servlet implementation class MyroomMySkinController
+ * Servlet implementation class HeartCountController
  */
-// 로그인유저가 보유한 스킨 전체 조회
-@WebServlet("/mySkinList.my")
-public class MyroomMySkinController extends HttpServlet {
+@WebServlet("/countHeart")
+public class HeartCountController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MyroomMySkinController() {
+    public HeartCountController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -35,23 +32,26 @@ public class MyroomMySkinController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		int page = Integer.parseInt(request.getParameter("page"));
-		String userId = ((Member)request.getSession().getAttribute("loginUser")).getUserId();
-		response.setContentType("application/json; charset=UTF-8");
-
-		ArrayList<Character> list = new SkinService().mySkinList(userId, page);
-		//System.out.println("게시글"+list);
-		//System.out.println("리스트 사이즈 : "+list.size());
-		new Gson().toJson(list, response.getWriter());
-		
-		
+		// TODO Auto-generated method stub
+		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+		String loginUser = ((Member)request.getSession().getAttribute("loginUser")).getUserId();
+		String receiveId = request.getParameter("receiveId");
+
+		int count = new MemberService().countHeart(receiveId);
+		
+		System.out.println("좋아요 갯수 : "+count + receiveId);
+		
+		
+		response.setContentType("application/json; charset=UTF-8");
+		
+		new Gson().toJson(count, response.getWriter());
 	}
 
 }

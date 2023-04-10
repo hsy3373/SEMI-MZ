@@ -10,7 +10,7 @@ export let noticeModal = document.querySelector('.notice-modal');
 
 /*공지사항 모달창*/
 
-$("body").on("click", function(e) {
+$(".notice-modal, .notice-detail-modal").on("click", function(e) {
 	console.log(e.target);
 	if (e.target.id == 'notice-x-btn') {
 		$(".notice-modal").css('display', 'none');
@@ -34,6 +34,7 @@ let endPage; 				// 페이지 하단에 보여질 페이징바의 끝 수
 
 $(document).ready(function() {
 	NoticeList();
+	selectRanking();
 });
 
 /*공지사항 게시판 하단 공지사항 리스트(4개만 보이게)*/
@@ -70,6 +71,26 @@ function NoticeList() {
 		}
 	});
 };
+
+/*function rankingUser(){
+	$.ajax({
+		url: getContextPath()+"/userInfo",
+		method: 'post',
+		success : function(data) {
+			console.log(data);
+			
+			// 데이터 가져오기	
+			// selectHeart();
+			
+			nickName = data.nicName;
+			$(".ranking-nickname").html(nickName);
+				
+			let skinRoot = data.saveRoot;
+			$("#ranking-user").attr("src", getContextPath()+skinRoot+'/fs.png');
+				
+		}
+	});
+};*/
 
 $(document).on('click', ".list-post", function() {
 	getNoticeList();
@@ -240,5 +261,63 @@ function selectNoticeDetail(noticeNo) {
 	});
 }
 
+function selectRanking(){
+	$.ajax({
+		url: getContextPath()+"/ranking",
+		type: 'get',
+		success: function(data){
+			console.log('유저정보 : ',data);
+			
+			let num = data.length < 3 ? data.length : 3;
+			
+			
+			/*for (let i = 0; i < data.length; i++) {
+					$(".ranking-nickname").eq(i).html(data[i].nicName);
+					$(".ranking-user").eq(i).attr("src", getContextPath()+'/resource/img/user/skin'+data[i].skinId+'/fs.png');
+					
+					$(".rh-int").eq(i).attr("id",data[i].userId);
+					
+					selectRankingHeart(i, data[i].userId);
+				}*/
+				
+				if (num > 0) {
+					for (let i = 0; i < num; i++) {
+						$(".ranking-nickname").eq(i).html(data[i].nicName);
+						$(".ranking-user").eq(i).attr("src", getContextPath()+'/resource/img/user/skin'+data[i].skinId+'/fs.png');
+					
+						$(".rh-int").eq(i).attr("id",data[i].userId);
+					
+						selectRankingHeart(i, data[i].userId);
+					}
+				} else {
+					for (let i = 0; i > num; i++) {
+						$(".ranking-nickname").eq(i).css('display', 'none');
+						$(".ranking-user").eq(i).css('display', 'none');
+						$(".rh-on").eq(i).css('display', 'none');
+					}
+				}
+				
+			
+		}, error: function(){
+			console.log("error");
+		}
+	});
+}
 
-
+/*db에 저장된 호감도 카운트 불러오기*/
+function selectRankingHeart(num, receiveId){
+	$.ajax({
+		url: getContextPath()+"/countHeart",
+		type: 'post',
+		data: {receiveId},
+		success: function(data){
+			console.log(data);
+			
+			$(".rh-int").eq(num).html(data);
+			
+		},
+		error: function(){
+			console.log("error");
+		}
+	});
+}

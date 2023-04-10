@@ -8,14 +8,19 @@
 import { getContextPath } from './common.js';
 import {modalstopfn} from './squareCanvas.js';
 import { openChatRoom } from './chat/chatFront.js';
+//import { closeAlert } from './alert.js';
+
 
 document.querySelector(".info-chatting").addEventListener("click", function(){
 	openChatRoom(sessionStorage.clickedUserId);
 });
 
-document.querySelector(".friend-home").addEventListener("click", function(){
+
+if (document.querySelector(".friend-home")) {
+	document.querySelector(".friend-home").addEventListener("click", function(){
 	location.href=getContextPath()+'/home?roomMaster='+sessionStorage.clickedUserId;
-});
+	});
+}
 
 /*유저 정보 모달창 띄우기*/
 let open = () => {
@@ -39,7 +44,7 @@ let nickName;
 export function getUserInfo(){
 	$.ajax({
 		url: getContextPath()+"/userInfo",
-		data : {userId : sessionStorage.clickedUserId}, /*'test' 부분에 나중에 session 유저id 객체 넣으면 됨 / sessionStorage.getItem('')*/
+		data : {userId : sessionStorage.clickedUserId}, /*userId = 로그인 유저(나)x , 다른 유저*/
 		method: 'post',
 		success : function(data) {
 			console.log(data);
@@ -47,6 +52,7 @@ export function getUserInfo(){
 			// 데이터 가져오기	
 			selectHeart();
 			selectFriend();
+			countHeart();
 			
 			nickName = data.nicName;
 			$(".info-nickname").html(nickName);
@@ -54,7 +60,7 @@ export function getUserInfo(){
 				
 			/* 스킨 경로가 비어있어 오류 뜸 */
 			let skinId = data.skinId;
-			$("#info-skin").attr(skinId);
+			$("#info-skin").attr("src", getContextPath()+'/resource/img/user/skin'+skinId+'/fs.png');
 				
 			let info = data.info;
 			$(".info-introduce").html(info);
@@ -79,9 +85,16 @@ function insertHeart(){
 		type: 'post',
 		data: {receiveId : sessionStorage.clickedUserId},
 		success: function(data){
-			console.log(data);
+			//console.log(data);
 			$('#heart-off').css('display', 'none');
 			$('#heart-on').css('display', 'block');
+			
+			let num = $(".heart-int").text();
+			console.log('num: ',num);
+			num = parseInt(num) + 1;
+			
+			$(".heart-int").html(num);
+			console.log('num: ',num);
 		},
 		error: function(){
 			console.log("error");
@@ -97,9 +110,14 @@ function deleteHeart(){
 		type: 'get',
 		data: {receiveId : sessionStorage.clickedUserId},
 		success: function(data){
-			console.log(data);
+			//console.log(data);
 			$('#heart-off').css('display', 'block');
 			$('#heart-on').css('display', 'none');
+			
+			let num = $(".heart-int").text();
+			num = parseInt(num) - 1;
+			
+			$(".heart-int").html(num);
 		},
 		error: function(){
 			console.log("error");
@@ -120,8 +138,28 @@ function selectHeart(){
 				$('#heart-off').css('display', 'none');
 				$('#heart-on').css('display', 'block');
 			}
+			
+			
 		},
 		error: function(){
+			console.log("error");
+		}
+	});
+}
+
+function countHeart(){
+	/*하트 총 개수 표시*/
+	$.ajax({
+		url : getContextPath() + "/countHeart",
+		type : 'post',
+		data: {receiveId : sessionStorage.clickedUserId},
+		success : function(data){
+			
+			console.log("좋아요 개수 : "+data);
+			
+			$(".heart-int").html(data);
+		},
+		error : function(){
 			console.log("error");
 		}
 	});
@@ -215,15 +253,6 @@ let close2 = () => {
 document.querySelector(".info-report-btn").addEventListener("click", open2);
 document.querySelector(".reset-btn").addEventListener("click", close2);
 
-/* 신고 후 신고창 숨기기 */
-/*document.querySelector(".report-btn").addEventListener("click", close2);*/
-
-/*window.onload = function(){
-	let reset = document.querySelector(".reset-btn");
-	reset.addEventListener("click", function(){
-		console.log('reset 눌림');
-	});
-};*/
 
 /* 신고 내용 글자수 제한 */
 $('#report-content-text').keyup(function (e) {

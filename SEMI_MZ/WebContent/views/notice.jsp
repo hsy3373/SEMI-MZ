@@ -4,35 +4,37 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="../resource/css/common.css">
-<link rel="stylesheet" href="../resource/css/notice.css">
+<link rel="stylesheet" href="<%= contextPath %>/resource/css/common.css">
+<link rel="stylesheet" href="<%= contextPath %>/resource/css/notice.css">
 <title>Insert title here</title>
 </head>
 <body>
 	<!-- 공지사항 게시판 - 가영 -->
 	<div class="notice-modal">
 		<div class="notice-view">
-			<img id="notice-view" src="../resource/img/icon/공지사항.png" alt="공지사항 게시판">
+			<img id="notice-view" src="<%= contextPath %>/resource/img/icon/공지사항.png" alt="공지사항 게시판">
 		</div>
 		<div class="notice-name">공지사항</div>
 		<div class="ranking">
 			<div class="ranking1">
-				<img id="ranking-heart" src="../resource/img/icon/하트.png" alt="호감도 아이콘">
-				<div class="ranking-heart-int">50</div>
-				<img id="ranking-user" src="" alt="유저 스킨">
-				<div class="ranking-nickname">박가영입니다_</div>
+				<img class="rh-on" src="<%= contextPath %>/resource/img/icon/하트.png" alt="호감도 아이콘">
+				<!-- <img id="heart-off" alt="호강도 상태" src="../resource/img/icon/빈하트.png">
+				<img id="heart-on" alt="호강도 상태" src="../resource/img/icon/하트.png"> -->
+				<div class="rh-int"></div>
+				<img class="ranking-user" src="" alt="유저 스킨">
+				<div class="ranking-nickname"></div>
 			</div>
 			<div class="ranking2">
-				<img id="ranking-heart" src="../resource/img/icon/하트.png" alt="호감도 아이콘">
-				<div class="ranking-heart-int">50</div>
-				<img id="ranking-user" src="" alt="유저 스킨">
-				<div class="ranking-nickname">박가영입니다_</div>
+				<img class="rh-on" src="<%= contextPath %>/resource/img/icon/하트.png" alt="호감도 아이콘">
+				<div class="rh-int"></div>
+				<img class="ranking-user" src="" alt="유저 스킨">
+				<div class="ranking-nickname"></div>
 			</div>
 			<div class="ranking3">
-				<img id="ranking-heart" src="../resource/img/icon/하트.png" alt="호감도 아이콘">
-				<div class="ranking-heart-int">50</div>
-				<img id="ranking-user" src="" alt="유저 스킨">
-				<div class="ranking-nickname">박가영입니다_</div>
+				<img class="rh-on" src="<%= contextPath %>/resource/img/icon/하트.png" alt="호감도 아이콘">
+				<div class="rh-int"></div>
+				<img class="ranking-user" src="" alt="유저 스킨">
+				<div class="ranking-nickname"></div>
 			</div>
 		</div>
 		<div class="notice-list">
@@ -41,13 +43,13 @@
 			</div> -->
 		</div>
 		<div class="notice-x-btn">
-			<img id="notice-x-btn" alt="닫기 버튼" src="../resource/img/icon/엑스 버튼.png">
+			<img id="notice-x-btn" alt="닫기 버튼" src="<%= contextPath %>/resource/img/icon/엑스 버튼.png">
 		</div>
 	</div>
 	<!-- 공지사항 게시판 상세보기 -->
 	<div class="notice-detail-modal">
 		<div class="detail-view">
-			<img id="detail-view" src="../resource/img/icon/상세보기.png" alt="">
+			<img id="detail-view" src="<%= contextPath %>/resource/img/icon/상세보기.png" alt="">
 		</div>
 		<div class="notice-detail-name">공지사항</div>
 		<ul class="notice-detail-list">
@@ -66,10 +68,10 @@
 		<div class="notice-detail-title"></div>
 		<div class="notice-content"></div>
 		<div class="notice-detail-x-btn">
-			<img id="notice-detail-x-btn" alt="닫기 버튼" src="../resource/img/icon/엑스 버튼.png">
+			<img id="notice-detail-x-btn" alt="닫기 버튼" src="<%= contextPath %>/resource/img/icon/엑스 버튼.png">
 		</div>
 	</div>
-	<script type="module" src="../resource/js/notice.js"></script>
-	<script type="module" src="../resource/js/common.js"></script>
+	<script type="module" src="<%= contextPath %>/resource/js/notice.js"></script>
+	<script type="module" src="<%= contextPath %>/resource/js/common.js"></script>
 </body>
 </html>

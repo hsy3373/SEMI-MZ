@@ -134,3 +134,5 @@ $("#report-ok").click(function () {
   $("#alert-text").html("신고 되었습니다.");
   alertAddClass("delete");
 });
+
+

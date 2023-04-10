@@ -35,7 +35,7 @@ public class SquareServer {
 	@OnOpen
 	public void open(Session session, EndpointConfig config) {
 		System.out.println("클라이언트 접속");
-		//System.out.println(session.getId());
+		System.out.println(session.getId());
 		
 		//최초접속시 : 다른캐릭터들 위치 정보 받아오기
 		//클라이언트가 접속했을떄 현재 로그인중인 유저정보들을 알려줌 
@@ -47,13 +47,24 @@ public class SquareServer {
 			}
 		}
 		
-		
 	}
 	
 	@OnMessage
 	public void message(Session session, UserData User) {
 		
-		//System.out.println(User);
+		
+		//처음방문시 중복체크
+		if(User.getConnecting().equals("F")) {
+		
+			loginUsers.forEach((key, value) -> {
+				if((User.getUserId().equals(value.getUserId()))) {
+					User.setConnecting("X");
+					System.out.print(User.getConnecting());
+				};
+			});
+			
+		};
+	
 		
 		session.getUserProperties().put("User",  User);
 		
@@ -79,11 +90,11 @@ public class SquareServer {
 			
 			
 		}
-			//user가 나갔을 경우 관리중인 user를 삭제처리 
-			if(User.getConnecting().equals("N")) {
-				loginUsers.remove(session.getId());
-			};
+		//user가 나갔을 경우 관리중인 user를 삭제처리 
+		if(User.getConnecting().equals("N")) {
+			loginUsers.remove(session.getId());
 			//System.out.println(loginUsers);
+		};
 
 		}
 	
