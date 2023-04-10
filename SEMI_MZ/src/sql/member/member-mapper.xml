@@ -170,9 +170,10 @@
 	
 	<!-- [가영] 호감도 총 갯수 조회 -->
 	<entry key="selectHeart">
-		SELECT COUNT(*) 
+		SELECT COUNT(*) AS COUNT
 		FROM HEART
-		WHERE USER_ID = ?
+		WHERE CREATE_DATE >= TRUNC(SYSDATE, 'iw')
+		  AND USER_ID = ?
 		  AND RECEIVE_ID =?
 	</entry>
 	
@@ -198,6 +199,7 @@
  		SELECT COUNT(*) AS COUNT
 		FROM HEART
 		WHERE RECEIVE_ID = ?
+		  AND CREATE_DATE >= TRUNC(SYSDATE, 'iw')
 	</entry>
 	
 	<!-- 호감도 랭킹 조회 -->
@@ -357,7 +359,8 @@
 	<!-- [가영] 호감도 삭제 -->
 	<entry key="deleteHeart">
 		DELETE FROM HEART
-		WHERE USER_ID = ?
+		WHERE CREATE_DATE >= TRUNC(SYSDATE, 'iw')
+		  AND USER_ID = ?
 		  AND RECEIVE_ID =?
 	</entry>
 	
