@@ -52,6 +52,7 @@ export function getUserInfo(){
 			// 데이터 가져오기	
 			selectHeart();
 			selectFriend();
+			countHeart();
 			
 			nickName = data.nicName;
 			$(".info-nickname").html(nickName);
@@ -84,9 +85,16 @@ function insertHeart(){
 		type: 'post',
 		data: {receiveId : sessionStorage.clickedUserId},
 		success: function(data){
-			console.log(data);
+			//console.log(data);
 			$('#heart-off').css('display', 'none');
 			$('#heart-on').css('display', 'block');
+			
+			let num = $(".heart-int").text();
+			console.log('num: ',num);
+			num = parseInt(num) + 1;
+			
+			$(".heart-int").html(num);
+			console.log('num: ',num);
 		},
 		error: function(){
 			console.log("error");
@@ -102,9 +110,14 @@ function deleteHeart(){
 		type: 'get',
 		data: {receiveId : sessionStorage.clickedUserId},
 		success: function(data){
-			console.log(data);
+			//console.log(data);
 			$('#heart-off').css('display', 'block');
 			$('#heart-on').css('display', 'none');
+			
+			let num = $(".heart-int").text();
+			num = parseInt(num) - 1;
+			
+			$(".heart-int").html(num);
 		},
 		error: function(){
 			console.log("error");
@@ -125,10 +138,28 @@ function selectHeart(){
 				$('#heart-off').css('display', 'none');
 				$('#heart-on').css('display', 'block');
 			}
-			$(".heart-int").html(data);
+			
 			
 		},
 		error: function(){
+			console.log("error");
+		}
+	});
+}
+
+function countHeart(){
+	/*하트 총 개수 표시*/
+	$.ajax({
+		url : getContextPath() + "/countHeart",
+		type : 'post',
+		data: {receiveId : sessionStorage.clickedUserId},
+		success : function(data){
+			
+			console.log("좋아요 개수 : "+data);
+			
+			$(".heart-int").html(data);
+		},
+		error : function(){
 			console.log("error");
 		}
 	});

@@ -52,20 +52,14 @@
 .rh-on{
 	width: 17%;
 	margin: 19px 0 0 37px;
-	transform: translate(-1px, 6px);
-	display : none;
-}
-.rh-off{
-	width: 17%;
-	margin: 19px 0 0 37px;
-	transform: translate(0px, 5px);
+	transform: translate(-26px, 9px);
 }
 .rh-int{
 	width: 15%;
     margin: -41px 0 -6px 58px;
     font-size: 21px;
     color: white;
-    transform: translate(3px, 27px);
+    transform: translate(7px, 27px);
 }
 .ranking-user{
 	width: 86%;

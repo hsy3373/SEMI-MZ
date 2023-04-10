@@ -410,7 +410,7 @@ public class MemberDao {
 			rset = pstmt.executeQuery();
 			
 			if (rset.next()) {
-				result = rset.getInt(1);
+				result = rset.getInt("COUNT");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
