@@ -47,22 +47,7 @@ public class Rankingcontroller extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		String receiveId = request.getParameter("receiveId");
 		
-		int result = new MemberService().selectUserHeart(receiveId);
-		
-		if (result > 0) {
-			
-			response.setContentType("application/json; charset=UTF-8");
-			
-			new Gson().toJson(result, response.getWriter());
-		} else {
-			System.out.println("조회 실패");
-			
-			response.setContentType("application/json; charset=UTF-8");
-			
-			new Gson().toJson(result, response.getWriter());
-		}
 	}
 
 }

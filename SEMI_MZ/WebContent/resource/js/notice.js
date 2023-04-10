@@ -352,7 +352,7 @@ $(document).on('click', ".rh-on", function() {
 /*db에 저장된 호감도 현상태 불러와서 하트 이미지 바꾸기*/
 function selectRankingHeart(){
 	$.ajax({
-		url: getContextPath()+"/ranking",
+		url: getContextPath()+"/countHeart",
 		type: 'post',
 		data: {userId : userId},
 		success: function(data){
