@@ -9,17 +9,15 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>광장</title>
+<title>M-Zone</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <link href="<%=contextPath%>/resource/css/common.css" rel="stylesheet" type="text/css">
-
+<script type="module" src="<%=contextPath%>/resource/js/common.js"></script>
 
 </head>
 <body>
 	<!-- 광장 메인 jsp 작성 : 윤지영 -->
 	<div id="main-square" style="display: flex; justify-content : center; position: relative;">
-	<!-- 지의 임시 추가 -->
-    <a id="friendTest" style="position: absolute;" href="<%= request.getContextPath() %>/home?roomMaster=friend">friend룸</a>
 	
 	</div>
         
@@ -27,11 +25,15 @@
     <!--버튼 모달 jps 가져옴 : 윤지영-->
     <%@ include file="./buttonList.jsp" %>
 
+	
+   	<%@ include file="./chatting.jsp" %>
+	
    <%@ include file="./userInfo.jsp" %>
    <%@ include file="./notice.jsp" %>
    	<!--${loginUser.nicName}  -->
    	
-   <%@ include file="./chatting.jsp" %>
+    <!--game 모달 jps 가져옴 : 윤지영-->
+   	<%@ include file="./game.jsp" %>
    		
     
     <!-- 확인용 ^^ --> 
@@ -54,9 +56,9 @@
 		var clickedUserId = sessionStorage.clickedUserId;
 	</script>
 	
-	<script type="module" src="<%=contextPath%>/resource/js/common.js"></script>
-    <script type="module" src="<%=contextPath%>/resource/js/squareCanvas.js"></script>
-	<script type="module" src="<%=contextPath%>/resource/js/buttonList.js"></script>
+	
+    <script type="module" src="<%=contextPath%>/resource/js/squareinit.js"></script>
+	
     
     <script type="module">
 

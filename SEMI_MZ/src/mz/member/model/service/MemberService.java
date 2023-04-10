@@ -179,6 +179,28 @@ public class MemberService {
 	
 		
 		
+	// [지의] - 유저별 호감도 총개수
+	public int countHeart(String receiveId) {
+		Connection conn = getConnection();
+		int count = new MemberDao().countHeart(conn, receiveId);
+		close(conn);
+		return count;
+	}
+		
+	//지영 - 차단유저 확인
+		public String blockCheck(String userId) {
+			
+			Connection conn = getConnection();
+			
+			String result = new MemberDao().blockCheck(conn, userId);
+			
+			close(conn);
+			
+			return result;
+			
+		}
+
+		
 //------------------------------ insert 구간 -------------------------------
 	
 	// [김혜린]

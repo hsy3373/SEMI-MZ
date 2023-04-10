@@ -420,6 +420,33 @@ public class MemberDao {
 		}
 		return result;
 	}
+	
+	// [지의] - 유저별 호감도 총 개수
+	public int countHeart(Connection conn, String receiveId) {
+		int count = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("countHeart");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, receiveId);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				count = rset.getInt("COUNT");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return count;
+		
+	}
 		
 	// [가영] - 친구 정보 조회
 	public int selectFriend(Connection conn, String loginUser, String friendId) {
@@ -663,6 +690,34 @@ public class MemberDao {
 			}
 			return result;		
 		}
+		
+		
+	// 지영 - 차단유저 체크	
+		public String blockCheck(Connection conn, String userId) {
+			String result = null;
+			PreparedStatement pstmt = null;
+			ResultSet rset =null;
+			
+			String sql = prop.getProperty("blockCheck");
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, userId);
+				
+				rset = pstmt.executeQuery();
+				
+				if(rset.next()) {
+					result = rset.getString("STATUS");
+			}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				close(rset);
+				close(pstmt);
+			}
+				
+			return result;
+		}
+		
 	
 //------------------------------ insert 구간 -------------------------------	
 	// [김혜린]
@@ -1094,6 +1149,7 @@ public class MemberDao {
 		}
 		return result;
 	}
+
 	
 	// [han]
 	//  어드민페이지용 15일 지난 탈퇴 유저 일괄 삭제

@@ -184,6 +184,22 @@
 		  AND FRIEND_ID =?
 	</entry>
 	
+	
+	<!-- [지영] 차단유저 조회 -->
+	<entry key="blockCheck">
+		SELECT STATUS
+		FROM MEMBER
+		WHERE USER_ID = ?
+	</entry>
+
+
+	<!-- [지의] 유저별 호감도 총 개수 -->
+	<entry key="countHeart">
+ 		SELECT COUNT(*) AS COUNT
+		FROM HEART
+		WHERE RECEIVE_ID = ?
+	</entry>
+	
 	<!-- 호감도 랭킹 조회 -->
 	<entry key="selectRanking">
 		 SELECT USER_ID, NICKNAME, SKIN_ID, SAVE_ROOT, RANK

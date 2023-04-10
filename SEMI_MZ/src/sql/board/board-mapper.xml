@@ -8,9 +8,10 @@
 			  USER_ID,
 			  RECEIVE_ID,
 			  BOARD_TITLE,
+			  SECRET,
 			  CREATE_DATE
 		FROM BOARD
-		WHERE USER_ID = ? AND RECEIVE_ID = ?
+		WHERE RECEIVE_ID = ?
 		ORDER BY CREATE_DATE DESC
 	</entry>
 
@@ -31,6 +32,7 @@
 	<!-- 친구네룸 - 내가쓴 방명록 상세 조회 -->
 	<entry key="selectSendBoard">
 		SELECT BOARD_NO,
+			   USER_ID,
 			   BOARD_TITLE,
 			   BOARD_CONTENT,
 			   SECRET
