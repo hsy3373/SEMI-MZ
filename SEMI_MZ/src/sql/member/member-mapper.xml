@@ -168,18 +168,7 @@
 		WHERE USER_ID = ?
 	</entry>
 	
-	<!-- [가영] 호감도 추가, 삭제, 조회 -->
-	<entry key="insertHeart">
-		INSERT INTO HEART(USER_ID, RECEIVE_ID)
-		VALUES (?, ?)
-	</entry>
-	
-	<entry key="deleteHeart">
-		DELETE FROM HEART
-		WHERE USER_ID = ?
-		  AND RECEIVE_ID =?
-	</entry>
-	
+	<!-- [가영] 호감도 총 갯수 조회 -->
 	<entry key="selectHeart">
 		SELECT COUNT(*) 
 		FROM HEART
@@ -194,26 +183,24 @@
 		WHERE RECEIVE_ID = ?
 	</entry>
 	
-	<!-- [가영] 친구 추가, 삭제, 조회 -->
-	<entry key="insertFriend">
-		INSERT INTO FRIEND(USER_ID, FRIEND_ID)
-		VALUES (?, ?)
-	</entry>
-	
-	<entry key="deleteFriend">
-		DELETE FROM FRIEND
-		WHERE USER_ID = ?
-		  AND FRIEND_ID =?
-	</entry>
-	
 	<entry key="selectFriend">
 		SELECT COUNT(*) 
 		FROM FRIEND
 		WHERE USER_ID = ?
 		  AND FRIEND_ID =?
 	</entry>
-
-
+	
+	<!-- 호감도 랭킹 조회 -->
+	<entry key="selectRanking">
+		 SELECT USER_ID, NICKNAME, SKIN_ID, SAVE_ROOT, RANK
+ 		 FROM ( SELECT RECEIVE_ID , RANK() OVER (ORDER BY COUNT DESC) RANK 
+         FROM ( SELECT RECEIVE_ID , COUNT(*) AS COUNT FROM HEART
+                GROUP BY RECEIVE_ID )
+         ORDER BY RANK, RECEIVE_ID )
+		 JOIN MEMBER ON RECEIVE_ID = USER_ID
+		 JOIN CHARACTER_SKIN USING(SKIN_ID)
+ 		 WHERE RANK &lt;= 3
+	</entry>
 	
 	
 	
@@ -254,6 +241,18 @@
 					SKIN_ID)
 			 VALUES(?,
 			 		'0')
+	</entry>
+	
+	<!-- [가영] 호감도 추가 -->
+	<entry key="insertHeart">
+		INSERT INTO HEART(USER_ID, RECEIVE_ID)
+		VALUES (?, ?)
+	</entry>
+	
+	<!-- [가영] 친구 추가 -->
+	<entry key="insertFriend">
+		INSERT INTO FRIEND(USER_ID, FRIEND_ID)
+		VALUES (?, ?)
 	</entry>
 	
 <!-- ================= update 구간 ======================== -->
@@ -343,6 +342,20 @@
             FROM MEMBER M
             LEFT JOIN DISABLED_MEMBER USING(USER_ID))
 		WHERE STATUS ='N' AND SYSDATE - CANCELLATION_DATE >= 15
+	</entry>
+	
+	<!-- [가영] 호감도 삭제 -->
+	<entry key="deleteHeart">
+		DELETE FROM HEART
+		WHERE USER_ID = ?
+		  AND RECEIVE_ID =?
+	</entry>
+	
+	<!-- [가영] 친구 삭제 -->
+	<entry key="deleteFriend">
+		DELETE FROM FRIEND
+		WHERE USER_ID = ?
+		  AND FRIEND_ID =?
 	</entry>
 
 </properties>
