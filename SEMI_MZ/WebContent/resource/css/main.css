@@ -113,7 +113,7 @@
         width: 310px;
         height: 50px;
         background-position-x: center;
-        background-image: url(../img/login_img/kakao_login_medium_wide.png);
+        background-image: url(../img/login_img/kakao_login_eng.png);
         background-repeat: no-repeat;
         border: none;
         background-color: var(--backcolor0);
@@ -121,8 +121,11 @@
     .other-btn:hover{
         transform: scale(0.975);
     }
+    .g-signin2 :hover{
+        transform: scale(0.975);
+    }
 
-    .google-btn{
+    /* .g-signin2{
         width: 310px;
         height: 50px;
         background-position-x: center;
@@ -131,8 +134,8 @@
         background-repeat: no-repeat;
         border: none;
         background-color: var(--backcolor0);
-    }
-    .kakao-btn:hover, .google-btn:hover{
+    } */
+    .kakao-btn:hover {
         cursor: pointer;
     }
     .find-text{
