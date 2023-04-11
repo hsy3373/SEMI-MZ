@@ -71,6 +71,7 @@
     position: absolute;
     top: 350px;
     left: 1001px;
+    animation: scaleopen 0.4s;
 }
 
 /*친구목록 나가기 버튼*/
@@ -78,6 +79,7 @@
     position: absolute;
     top: 300px;
     left: 1200px;
+    animation: fadeInUp 0.4s;
 }
     
 
@@ -87,6 +89,11 @@
     margin-top: 30px;
     overflow-y: scroll;
     max-height: 300px;
+    -ms-overflow-style: none; 
+    scrollbar-width: none; /* Firefox */
+}
+.fr-modal-textarea::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera*/
 }
 
 .display-center td {
@@ -103,11 +110,31 @@
     cursor: pointer;
 }
 
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translate3d(0, 100%, 0);
+    }
+    to {
+        opacity: 1;
+        transform: translateZ(0);
+    }
+}
 
-/* .modal-textarea{
-border: 1px solid rebeccapurple;
-확인용 
-}  */
+@keyframes scaleopen {
+    0% {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+
+
+
 
 
 /*환경설정 모달*/
@@ -118,11 +145,12 @@ border: 1px solid rebeccapurple;
     width: 200px;
     height: 70px;
     position: absolute;
-    top: 500px;
+    top: 560px;
     left: 1080px;
     background-repeat: no-repeat;
     text-align: center;
     background-size: contain;
+    animation: fadeInUp 0.4s;
 }
 
 /*로그아웃 버튼*/
@@ -136,26 +164,28 @@ border: 1px solid rebeccapurple;
     text-align: center;
     background-repeat: no-repeat;
     background-size: contain;
+    animation: fadeInUp 0.4s;
+}
+
+.logout-button:hover, .fn-button:hover, .modal-out-btn2:hover, .fr-modal-out-btn:hover{
+    cursor:pointer;
+    transform:scale(1.1);
 }
 
 /*환경설정 text*/
 .preferences-text{
     line-height: 60px;
-    font-size: 25px;
+    font-size: 23px;
     font-weight: 300;
-}
-
-.preferences-text:hover{
-    font-size: 30px;
-    cursor: pointer;
 }
 
 
 /*종료 버튼*/
 .modal-out-btn2{
     position: absolute;
-    top: 445px;
+    top: 500px;
     right: 20px;
+    animation: fadeInUp 0.4s;
 }
 
 

@@ -15,16 +15,21 @@
     <div class="modal-game" id="game-modal">
         <div class="game-area">
             <div class="gamemodal-background">
+                <div class="game-titel">미니게임-Zone</div>
                 <div class="gamemodal-out-btn">
-                    <img src="<%=contextPath%>/resource/img/icon/엑스 버튼.png" class="game_xbtn">
+                    <img src="<%=contextPath%>/resource/img/icon/엑스 버튼.png" class="game_xbtn" id="game_xbtn">
                 </div>
+                <div class="game-strat" id="Strat-match">시작하기</div>
             </div>
         </div>
     </div>
 
     
+    
+    
 
-    <script type="module" src="<%=contextPath%>/resource/js/gamezone.js"></script>
+    <script type="module" src="<%=contextPath%>/resource/js/gamezone/gamezone.js"></script>
+   
    
 
 </html>
