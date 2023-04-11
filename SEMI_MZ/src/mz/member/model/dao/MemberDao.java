@@ -356,7 +356,7 @@ public class MemberDao {
 		return list;
 	}
 	
-	//[han] 어드민 페이지용 탈퇴 계정 15일 지난 애들 조회용 
+	//[han] 어드민 페이지용 호감도 집계에 사용되지 애들 조회용 
 	public  int selectHeartForDel(Connection conn){
 		int result = 0;
 
