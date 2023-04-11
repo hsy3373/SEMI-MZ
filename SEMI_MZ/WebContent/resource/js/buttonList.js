@@ -7,6 +7,7 @@ import { getContextPath, getSessionStorage } from "./common.js";
 import { modalstopfn } from "./squareCanvas.js";
 import { FilterUsers } from "./squareCanvas.js";
 import { getUserInfo } from "./userInfo.js";
+import * as api from "./mainAPI.js";
 let path = getContextPath();
 
 $(".friendList").click(function () {
@@ -151,6 +152,7 @@ logoutButton.addEventListener("click", () => {
     //console.log("로그아웃 처리")
 	localStorage.removeItem('autoLogin');
     location.href = path + "/logout";
+    //api.kakaoLogout();
   });
 
   // 모달  표시
