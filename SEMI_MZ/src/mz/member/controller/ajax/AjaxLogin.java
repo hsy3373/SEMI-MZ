@@ -66,7 +66,7 @@ public class AjaxLogin extends HttpServlet {
 					response.getWriter().print("7"); // 관리자 페이지로
 					
 				}else {
-					
+					checkRanking(userId);
 					response.getWriter().print("1");  // 로그인 처리(성공)
 				}
 				HttpSession session = request.getSession();
@@ -88,8 +88,7 @@ public class AjaxLogin extends HttpServlet {
 		int dayOfWeekValue = SeoulNow.getDayOfWeek().getValue();
 		boolean check = true;
 
-		// 오늘이 월요일일때 아래 로직 실행
-		if (dayOfWeekValue == 1) {
+		
 			ArrayList<Member> ranking = new MemberService().selectRanking();
 			SkinService service = new SkinService();
 			ArrayList<Skin> rewardSkins = service.selectRewardSkins();
@@ -121,7 +120,7 @@ public class AjaxLogin extends HttpServlet {
 				}
 			}
 
-		}
+		
 	}
 
 }
