@@ -4,6 +4,7 @@
  */
 /* js 가져오기 */
 import { getContextPath } from "../common.js";
+import { getUserInfo } from "../userInfo.js";
 let path = getContextPath();
 
 $(function(){
@@ -32,6 +33,16 @@ $(function(){
 //loginUserId
 //roomMasterId
 /*친구룸에서 친구닉네임 조회*/
+/*친구룸 -> 친구 스킨 클릭시 userInfo 모달창*/
+$(document).on("click", ".myroom_user .friend-skin", function(){
+
+	document.querySelector(".info-modal").classList.remove("hidden");
+	// 세션스토리지에 해당 유저 저장
+	window.sessionStorage.setItem("clickedUserId", roomMasterId);
+	getUserInfo();
+});
+
+
 function friendName(){
 	$.ajax({
 		url : path + "/friendNickName",

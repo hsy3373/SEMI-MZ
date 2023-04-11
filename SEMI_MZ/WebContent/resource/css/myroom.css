@@ -70,8 +70,8 @@
     overflow: hidden; 		 /* 글자 자름 */
     white-space: nowrap; 	 /* 줄바꿈 방지 */
 }
-/* 방명록 작성자 */
-.myroom-board-user{
+/* 방명록 작성자 닉네임 설정 */
+.myroom-board-friend-nick{
     width: 100px;
     text-align: right;
 }

@@ -28,7 +28,7 @@
 	
    	<%@ include file="./chatting.jsp" %>
 	
-   <%@ include file="./userInfo.jsp" %>
+
    <%@ include file="./notice.jsp" %>
    	<!--${loginUser.nicName}  -->
    	
@@ -74,6 +74,6 @@
 			
 	 <!--이미지선언-->
     <img id="myhome2" src="<%=contextPath%>/resource/img/icon/home.png" style="display: none;">
-    
+       <%@ include file="./userInfo.jsp" %>
 </body>
 </html>

@@ -142,9 +142,9 @@ ul li.on a {color: #fff;}
 		<div class="squareGo" onclick="gosquare();">
 			<img src="resource/img/icon/home_btn.png">
 		</div>
+		<%@ include file="./buttonList.jsp"  %>
 	</div>
-	<%@ include file="./buttonList.jsp"  %>
-	<%@ include file="./userInfo.jsp" %>
+
 		
 	</div>
 	
@@ -345,6 +345,9 @@ ul li.on a {color: #fff;}
 	</div>
 	<div class="alert-overlay"></div>
 	
+
+	
+
 	
 	<script>
 		/* 광장으로 가는 버튼 */
@@ -377,6 +380,6 @@ ul li.on a {color: #fff;}
 	<script type="module" src="${contextPath}/resource/js/myroom/board.js"></script>
 	<script type="module" src="${contextPath}/resource/js/myroom/closet.js"></script>
 	<script type="module" src="${contextPath}/resource/js/buttonList.js"></script>
-
+	<%@ include file="./userInfo.jsp" %>
 </body>
 </html>

@@ -37,10 +37,13 @@ document.querySelector("#info-x-btn").addEventListener("click", close);
 let nickName;
 
 /*유저 정보 가져오기*/
+/*
+	sessionStorage.clickedUserId
+*/
 export function getUserInfo(){
 	$.ajax({
 		url: getContextPath()+"/userInfo",
-		data : {userId : sessionStorage.clickedUserId}, /*userId = 로그인 유저(나)x , 다른 유저*/
+		data : {userId :  sessionStorage.clickedUserId}, /*userId = 로그인 유저(나)x , 다른 유저*/
 		method: 'post',
 		success : function(data) {
 			console.log(data);
@@ -64,11 +67,11 @@ export function getUserInfo(){
 			let gender = data.gender;
 			console.log(gender);
 			if (gender == 'W') {
-				$("#gender-w").attr("src", "../resource/img/icon/여자.png");
+				$("#gender-w").attr("src", getContextPath()+"/resource/img/icon/여자.png");
 			} else if (gender == 'M') {
-				$("#gender-m").attr("src", "../resource/img/icon/남자.png");
+				$("#gender-m").attr("src", getContextPath()+"/resource/img/icon/남자.png");
 			} else {
-				$("#gender-n").attr("src", "../resource/img/icon/성별비공개.png");
+				$("#gender-n").attr("src", getContextPath()+"/resource/img/icon/성별비공개.png");
 			}
 		}
 	});
