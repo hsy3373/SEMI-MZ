@@ -1,18 +1,30 @@
+/**/
+/* ==================================미니게임존 기본 배경 ================================== */
+.mini-game{
+  margin: auto; 
+  background-color: black;
+  background-image: url('../img/background/minigame.png');
+  background-repeat: no-repeat;
+  background-position: center;    
+  position: relative;
+  background-size: 100%;
+}
+
+
+
 /*미니게임 css : 카드 뒤집기*/
 
 .game{
     position: absolute;
-    top: 230px;
+    top: 100px;
     right: 305px;
   }
   
   .filp-background {
     width: 880px;
     height: 580px;
-    background-image: url(../img/icon/notice.png);
-    background-repeat: no-repeat;
-    margin: 100px auto;
-  
+    margin: 100px auto;  
+    border: 1px solid black;
   }
   
   .game-board {
@@ -23,8 +35,8 @@
   }
   .card {
     position: relative;
-    width: 75px;
-    height: 100px;
+    width: 100px;
+    height: 120px;
     margin: 5px;
     perspective: 1000px;
     cursor: pointer;
@@ -52,8 +64,10 @@
   background-position: center;
   }
   .card-front {
-  background-size: 100% auto;
+  background-size: 80% auto;
   transform: rotateY(180deg); 
+  background-repeat: no-repeat;
+  background-position: center;
   }
   
   /*카드가 뒤집히면 추가될 class : flip*/

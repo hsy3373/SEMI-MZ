@@ -4,6 +4,8 @@
  * 
  */
 
+import { getContextPath } from "../common.js";
+let path = getContextPath();
 
 const CARD_IMG = ['bear', 'cat', 'chick', 'elephant',
     'kitty', 'koala', 'monkey', 'penguin', 'rabbit', 'snail', 'snake', 'whale',
@@ -44,7 +46,7 @@ function render() {
         <div class="card-front"></div>
     </div>`
 
-        cardFront[i].style.backgroundImage = `url("../img/card_img/${cardDeck[i].card}.png")`;
+        cardFront[i].style.backgroundImage = `url(${path}/resource/img/card_img/${cardDeck[i].card}.png)`;
     }
 }
 

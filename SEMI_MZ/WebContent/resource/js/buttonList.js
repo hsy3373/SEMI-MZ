@@ -23,13 +23,17 @@ const friendtable = document.getElementById("friendList"); //친구목록 table
 
 //console.log(friendList, Listbutton, friendtable)
 
+
+
 //친구목록 : 놀러가기 이벤트
+
 const fnClick = (fn) => {
   console.log("클릭함");
   document.querySelector(".info-modal").classList.remove("hidden");
   window.sessionStorage.setItem("clickedUserId", fn);
   getUserInfo();
 };
+
 
 //버튼 클릭 : 친구목록
 friendList.addEventListener("click", () => {
@@ -135,27 +139,32 @@ document.querySelector(".Pf-btn").addEventListener("click", () => {
   }
 });
 
+
 //alert js에서 가져옴 : 주의 !! 충돌가능성 있음!!
 let logoutalert = document.getElementById("logout-alert");
-
+let logoutalertOperate = false;
 //로그아웃창 연결
-logoutButton.addEventListener("click", () => {
-  // 취소버튼 클릭시 alert 창 닫힘
-  let cancelBtn = logoutalert.querySelector(".alert-cancel");
-  cancelBtn.addEventListener("click", () => {
-    logoutalert.style.display = "none";
+
+  logoutButton.addEventListener("click", () => {
+    // 취소버튼 클릭시 alert 창 닫힘
+    let cancelBtn = logoutalert.querySelector(".alert-cancel");
+    cancelBtn.addEventListener("click", () => {
+      logoutalert.style.display = "none";
+      logoutalertOperate = false;
+    });
+
+    let logoutok = document.getElementById("logout-ok");
+    logoutok.addEventListener("click", () => {
+      //console.log("로그아웃 처리")
+    localStorage.removeItem('autoLogin');
+      location.href = path + "/logout";
+    });
+
+    // 모달  표시
+    logoutalert.style.display = "block";
+    logoutalertOperate = true;
   });
 
-  let logoutok = document.getElementById("logout-ok");
-  logoutok.addEventListener("click", () => {
-    //console.log("로그아웃 처리")
-	localStorage.removeItem('autoLogin');
-    location.href = path + "/logout";
-  });
-
-  // 모달  표시
-  logoutalert.style.display = "block";
-});
 
 //////////////////// [내정보변경 - 작성자 : 김혜린] /////////////////////////
 
@@ -163,12 +172,15 @@ logoutButton.addEventListener("click", () => {
 let smodalInfo = $(".smodalInfo"); // 내정보변경 전 비밀번호입력요구 모달창
 let modalMyinfo = $(".modalMyinfo"); // 내정보변경 모달창
 
+if(!logoutalertOperate){
 mydateButton.addEventListener("click", () => { // 설정 => 내정보변경 버튼
   console.log("내정보변경버튼 이벤트 부여 => pw입력요청모달");
   smodalInfo.css("display", "block");
   $('.chat-container').css("display","none");
   $("#rqpwd").val("");
 });
+
+}
 
 document.querySelector(".sx-btn1").addEventListener("click", () => {
   smodalInfo.css("display", "none");
@@ -293,5 +305,6 @@ $("#secsub-btn").on("click", function () {
     },
   });
 });
+
 // }
 // export { init}
