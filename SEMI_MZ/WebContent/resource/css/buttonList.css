@@ -392,18 +392,18 @@ cursor: pointer;
 .myroom .button-area .friendList{
     position: absolute;
     right: 250px;
-    top:730px
+    top:730px;
 } 
 /*  내 정보 조회 버튼 */
 .myroom .button-area .Listbutton{
     position: absolute;
     right: 190px;
-    top:730px
+    top:730px;
 } 
 
 /* 광장으로 가는 버튼 : */
 .button-area .squareGo{
     position: absolute;
     right: 310px;
-    top:730px 
+    top:730px ;
 }

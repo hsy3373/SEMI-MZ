@@ -51,7 +51,7 @@
 .rh-on{
 	width: 17%;
 	margin: 19px 0 0 37px;
-	transform: translate(3px, 7px);
+	transform: translate(0px, 7px);
 	display: none;
 }
 .rh-int{
@@ -59,7 +59,7 @@
     margin: -41px 0 -6px 58px;
     font-size: 21px;
     color: white;
-    transform: translate(7px, 27px);
+    transform: translate(5px, 27px);
 }
 .ranking-user{
 	width: 86%;
@@ -67,6 +67,7 @@
     margin-top: 41px;
     margin-left: 9px;
     display: none;
+    cursor: pointer;
 }
 .ranking-nickname{
 	width: 100%;
@@ -96,9 +97,10 @@
     height: 100%;
     width: 24%;
     background-size: 100% 100%;
+    cursor: pointer;
 }
 .notice-title{
-	width: 63%;
+	width: 80%;
     text-align: center;
     line-height: 24px;
     overflow:hidden;
