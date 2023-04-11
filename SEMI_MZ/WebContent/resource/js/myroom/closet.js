@@ -71,9 +71,10 @@ function init() {
 		// $(".store-btn") / $(".dress-btn")
 		//		상점버튼 	   /		옷장
 		if($(".store-btn").attr("opacity", "1")){
+			console.log("ㅇㅇㅇㅇㅇㅇㅇㅇ상점ㅇㅇ");
 			selectSkin(this.innerText);
-		}
-		mySkin(this.innerText);
+		} 
+		//mySkin(this.innerText);
 		
 		this.className = "selected-btn page-btn";
 		});
@@ -238,7 +239,7 @@ $(function () {
 	$(document).on("click", ".dress-btn",function(){
         $.dressClick();
 		mySkin(1);
-		//init();
+		init();
 	});
     /*상점 버튼 클릭*/
 	$(document).on("click", ".store-btn",function(){
