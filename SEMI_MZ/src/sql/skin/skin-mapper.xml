@@ -38,6 +38,16 @@
 		WHERE SKIN_ID = ?
 	</entry>
 	
+	<!-- [han] 멤버가 보유중인 리워드용 스킨 조회용 -->
+	<entry key="myRewardList">
+		SELECT SKIN_ID
+        FROM CHARACTER  
+        JOIN CHARACTER_SKIN USING(SKIN_ID)
+        WHERE USER_ID = ? 
+            AND REWARD = 'Y' 
+            AND SKIN_ID > 0
+	</entry>
+	
 <!-- 지의 -->
 	<!-- 마이룸 상점 : 보유중인 캐릭터 제외하고 -->
 	<entry key="selectSkinsList">
@@ -140,6 +150,12 @@
 	<entry key="deleteSkin">
 		DELETE FROM CHARACTER_SKIN
 		WHERE SKIN_ID = ?
+	</entry>
+	
+	<!-- [han] 유저가 가진 스킨 삭제용  -->
+	<entry key="deleteMySkin">
+		DELETE FROM CHARACTER
+		WHERE USER_ID= ? AND SKIN_ID = ? 
 	</entry>
 	
 	<!-- 로그인유저 스킨 변경 : 지의 -->

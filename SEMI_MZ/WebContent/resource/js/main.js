@@ -132,7 +132,7 @@ $(document).ready(function(){
 					
 				}
 				if(result == "7"){ // 관리자계정인경우(userid = admin)
-					location.replace(path+"/views/admin/main.jsp");
+					location.href = path+"/main.admin";
 				}
 			} 
 		})

@@ -37,9 +37,11 @@ public class AdminPageController extends HttpServlet {
 
 		ArrayList<Member> list = new MemberService().selectCancelMemberForAdmin();
 		int chatLogCount = new ChatService().selectChatCountForDelete();
+		int heartCount = new MemberService().selectHeartForDel();
 
 		request.setAttribute("list", list);
 		request.setAttribute("chatLogCount", chatLogCount);
+		request.setAttribute("heartCount", heartCount);
 
 		request.getRequestDispatcher("views/admin/admin.jsp").forward(request, response);
 
