@@ -65,6 +65,7 @@ public class SkinService {
 
 		return result;
 	}
+	
 
 //-------------------------------------------SELECT 구역 -------------------------------------------------
 	// [han]
@@ -120,6 +121,18 @@ public class SkinService {
 		return list;
 
 	}
+	
+	
+	// [han]
+	// 멤버가 보유중인 리워드용 스킨 조회용
+	public ArrayList<Integer> myRewardList(String userId){
+		Connection conn = getConnection();
+		ArrayList<Integer> list = new SkinDao().myRewardList(conn, userId);
+		close(conn);
+		return list;
+	}
+	
+	
 	
 	// [지의]
 	// 마이룸(상점) - 페이지 별 일반 스킨 조회용(한페이지에 12개)
@@ -196,6 +209,21 @@ public class SkinService {
 		return result;
 	}
 	
+	// [han]
+	// 보상용 스킨 추가용도 == 코인 차감 없이 바로 스킨 부여
+	public int insertRewardSkin(String userId, int skinId) {
+		Connection conn = getConnection();
+		
+		int result = new SkinDao().insertMySkin(conn, userId, skinId);
+
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		return result;
+	}
+	
 	// [지의]
 	// CHARACTER 테이블에 구입한 스킨 INSERT + MEMBER 테이블에 COIN  UPDATE
 	public int insertMySkin(String userId, int skinId) {
@@ -203,8 +231,6 @@ public class SkinService {
 		int result1 = new SkinDao().updateCoin(conn,userId, skinId);
 		int result2 = 0;
 		if(result1 > 0) {
-			commit(conn);
-			
 			result2 = new SkinDao().insertMySkin(conn, userId, skinId);
 			if(result2 > 0) {
 				commit(conn);
@@ -219,7 +245,6 @@ public class SkinService {
 		}
 		return result1 * result2;
 	}
-
 
 
 //-------------------------------------------UPDATE 구역 -------------------------------------------------
@@ -255,6 +280,22 @@ public class SkinService {
 
 		close(conn);
 
+		return result;
+	}
+	
+	
+	// [han]
+	// 유저가 가진 스킨 삭제용
+	public int deleteMySkin( String userId, int skinId) {
+		Connection conn = getConnection();
+		int result = new SkinDao().updateMySkin(conn, userId, skinId);
+		
+		if(result > 0) {
+			commit(conn);
+			
+		}else {
+			rollback(conn);
+		}
 		return result;
 	}
 	
