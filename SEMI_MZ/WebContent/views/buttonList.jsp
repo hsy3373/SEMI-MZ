@@ -55,7 +55,7 @@ contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
       <div class="modal_body">
         <div class="fr-modal-out-btn">
           <img
-            src="<%=contextPath%>/resource/img/icon/엑스 버튼.png"
+            src="<%=contextPath%>/resource/img/icon/back2_btn.png"
             class="fn-btn"
             style="width: 50px; height: 50px"
           />
@@ -75,7 +75,7 @@ contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
       <div class="modal_body" id="Preferences">
         <div class="modal-out-btn2">
           <img
-            src="<%=contextPath%>/resource/img/icon/엑스 버튼.png"
+            src="<%=contextPath%>/resource/img/icon/back2_btn.png"
             class="Pf-btn"
             style="width: 50px; height: 50px"
           />
