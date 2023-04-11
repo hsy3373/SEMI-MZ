@@ -188,6 +188,7 @@ export let getChattings = function (id, scroll) {
         //불러온 값도 없으면서 세션에 저장된 로그가 없으면 채팅 아이템들 모두 삭제
         if (Common.isEmpty(Common.getSessionStorage('chatLog-' + id))) {
           document.querySelector('.chat-item-area').innerHTML = '';
+          $('.loadingAni-container').fadeOut();
         }
         return;
       }
@@ -216,7 +217,7 @@ export let getChattings = function (id, scroll) {
       ChatFront.showChattings(keyName, scroll);
     },
     befroeSend: function () {
-      $('.loadingAni').fadeIn(300);
+      $('.loadingAni-container').fadeIn();
     },
     error: function (req, status, error) {
       console.log(req, status, error);
