@@ -3,6 +3,8 @@
 <%
 	String contextPath = request.getContextPath();
 %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,21 +25,50 @@
 <link href="<%= contextPath %>/resource/css/main.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="<%= contextPath %>/resource/css/alert.css">
 
+<!--google API-->
+<meta name="google-signin-scope" content="profile email">
+<meta name ="google-signin-client_id" content="1045494428231-s4dqqtfv276evf9kbrjoisoc5vb8omap.apps.googleusercontent.com">
+<script src="https://apis.google.com/js/platform.js" async defer></script>
 
 
-
-<title>LoginMainPage</title>
+<title>M-Zone</title>
 <!-- 로그인 메인 jsp 
 	작성자 : 김혜린 -->
 
 </head>
-
+<!-- data-callback="handleCredentialResponse"-->
 
 <body>
 	<div class="wrap">
+<!--
+		<div id="g_id_onload"
+         :data-client_id="1045494428231-s4dqqtfv276evf9kbrjoisoc5vb8omap.apps.googleusercontent.com"
+         data-login_uri="http://localhost:8084"
+         data-auto_prompt="false"
+		>
+    	</div>
+    <div class="g_id_signin" 
+		 data-type="standard">
+
+	</div>-->
+		<!--
+	<script>
+		function onSignIn(googleUser) {
+
+        var profile = googleUser.getBasicProfile();
+
+        console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+        console.log('Name: ' + profile.getName());
+        
+        var id_token = googleUser.getAuthResponse().id_token;
+        console.log("id token : " + id_token);
+        
+       // checkGoogle(id_token);
+		}
+	</script>-->
 <!-- ============================ 메인 로고 ================================= -->
 		<div class="mz-logo">
-			<button type="button" class="logo-img-btn"><img src="../resource/img/login_img/mz_logo.png"></button>
+			<button type="button" class="logo-img-btn"><img src="<%= contextPath %>/resource/img/login_img/mz_logo.png"></button>
 		</div>
 <!-- ============================ 로그인 ================================= -->
 		<div class="login">
@@ -64,10 +95,12 @@
 	                    </th>
 	                </tr>
 				</table>
+
+				<!-- <button type="button" id="main-googlebtn" class="google-btn other-btn"></button> -->
 <!-- ============================ 2. 카카오/구글로 시작하기 ================================= 회원가입 모달 열리는 클래스 .enroll-modal -->
 				<table class="other-login">
 	                <tr><th><button type="button" id="main-kakaobtn" class="kakao-btn other-btn"></button></th></tr>
-	                <tr><th><button type="button" class="google-btn other-btn"></button></th></tr>
+	                <tr><th><div class="g-signin2" data-width="305" data-height="45" data-longtitle="true" id="main-googlebtn" data-onsuccess="onSignIn"></div></th></tr>
 	                
 	                <tr>
 	                    <th colspan="3" style="padding-top: 10px;">
@@ -78,12 +111,17 @@
             </form>
 		</div>
 	</div>
+
+
+
+
+	
 <!-- ============================ 아이디/비밀번호 찾기 모달 ================================= -->
 	<div class="modal modal1">
         <div class="modal_body">
             <div class="modal-background">
                 <div class="modal-header">아이디 / 비밀번호 찾기</div>
-                <div class="modal-out-btn"><img src="../resource/img/icon/엑스 버튼.png" class="x-btn x-btn1"></div>
+                <div class="modal-out-btn"><img src="<%= contextPath %>/resource/img/icon/엑스 버튼.png" class="x-btn x-btn1"></div>
                 <div class="modal-textarea">
                 	<form>
                     <table class="display-center" style="margin-top: 150px;">
@@ -103,7 +141,7 @@
         <div class="modal_body">
             <div class="modal-background">
                 <div class="modal-header">회원가입</div>
-                <div class="modal-out-btn"><img src="../resource/img/icon/엑스 버튼.png" class="x-btn x-btn2"></div>
+                <div class="modal-out-btn"><img src="<%= contextPath %>/resource/img/icon/엑스 버튼.png" class="x-btn x-btn2"></div>
                 <div class="empty-space"></div>
                 <div class="modal-textarea">
                 	<form id="test2">
@@ -212,7 +250,7 @@
         <div class="modal_body">
             <div class="modal-background">
                 <div class="modal-header">비밀번호 재설정</div>
-                <div class="modal-out-btn"><img src="../resource/img/icon/엑스 버튼.png" class="x-btn x-btn3"></div>
+                <div class="modal-out-btn"><img src="<%= contextPath %>/resource/img/icon/엑스 버튼.png" class="x-btn x-btn3"></div>
                 <div class="empty-space"></div>
                 <div class="modal-textarea">
                 	<form>
@@ -265,7 +303,7 @@
 
 <!-- ============================ alert 창 ================================= -->    
 <!-- ============= 탈퇴 alert 창 ================= -->    
-<div class="alert">
+<!-- <div class="alert">
 	<h3>정말 탈퇴하시겠습니까?</h3>
 	<div>
 	   <button class="button alert-ok" id="alert-ok1" onclick="document.querySelector('#test').submit();">확인</button>
@@ -274,16 +312,15 @@
 </div>
 <div class="alert-overlay"></div>
 
-<!-- ============= 회원가입완료 alert 창 ================= -->    
-<div class="alert2 alert">
+ ============= 회원가입완료 alert 창 ================= -->    
+<!-- <div class="alert2 alert">
 	<h3>회원가입이 완료되었습니다.</h3>
 	<div>
 	   <button class="button alert-ok" id="alert-ok2" onclick="document.querySelector('#test2').submit();">확인</button>
 	   <button class="button alert-cancel">취소</button> 
 	</div>
 </div>
-<div class="alert2-overlay"></div> 
-
+<div class="alert2-overlay"></div>  -->
 
 
 
@@ -311,8 +348,10 @@
 <script type="module" src="<%= contextPath %>/resource/js/validation.js"></script>
 <!-- API script --> 
 <script type="module" src="<%= contextPath %>/resource/js/mainAPI.js"></script> 
-<!--kakao-->
+<!--kakao API-->
 <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+<!--google API-->
+
 	
 	
 	

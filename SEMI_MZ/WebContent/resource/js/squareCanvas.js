@@ -7,7 +7,7 @@
 
 import { getContextPath } from "./common.js";
 import { getUserInfo } from "./userInfo.js";
-import { gameModalopen } from "./gamezone.js";
+import { gameModalopen } from "./gamezone/gamezone.js";
 import { noticeModal } from "./notice.js";
 
 //캔버스 세팅

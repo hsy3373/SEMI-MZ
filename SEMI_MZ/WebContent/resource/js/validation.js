@@ -40,6 +40,7 @@
         agree : false
     }
 
+
 //============아이디 input 하단 텍스트 조건문=============
     $('.enroll-id').keyup(function(){
         let id = this.value;
