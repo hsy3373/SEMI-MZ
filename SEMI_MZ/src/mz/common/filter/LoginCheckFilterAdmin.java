@@ -12,19 +12,25 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import mz.member.model.vo.Member;
+
 /**
  * Servlet Filter implementation class LoginCheckFilter
  */
-//[han]
+
+//[han] 어드민 로그인 체크용 필터
+
 // 여러개 url에 필터 적용시키려면 {} 로 객체화 시켜서 넘겨주면 됨
 // 나중에 겹치는 url이 생기면 {"/board/*", "/member/*"} 등등으로 설정도 가능하다
-@WebFilter({"/home"})
-public class LoginCheckFilter implements Filter {
+@WebFilter({ "/main.admin", "/admin.admin", "/activelist.member", "/cancelList.member", "/blocking.member",
+		"/search.member", "/update.member", "/delete.member", "/delete.notice", "/insert.notice", "/list.notice",
+		"/update.notice", "/list.report", "/update.report", "/list.skin", "/insert.skin", "/update.skin" })
+public class LoginCheckFilterAdmin implements Filter {
 
     /**
      * Default constructor. 
      */
-    public LoginCheckFilter() {
+    public LoginCheckFilterAdmin() {
         // TODO Auto-generated constructor stub
     }
 
@@ -43,11 +49,17 @@ public class LoginCheckFilter implements Filter {
 		// 이곳에서는 ServletRequest를 사용중이라 형변환 필요
 		HttpSession session = ((HttpServletRequest) request).getSession();
 		
+		
+		// 만약 로그인 유저 값이 없거나, admin이 아니면 index페이지로 다시 보내야함
 		if(session == null || session.getAttribute("loginUser") == null) {
-			// TODO! 추후 어디로 보낼건지 수정 필요
 			request.getRequestDispatcher("index.jsp" ).forward(request, response);
 		}else {
-			chain.doFilter(request, response);
+			if(!((Member)session.getAttribute("loginUser")).getUserId().equals("admin")) {
+				request.getRequestDispatcher("index.jsp" ).forward(request, response);
+			}else {
+				
+				chain.doFilter(request, response);
+			}
 		}
 		
 		
