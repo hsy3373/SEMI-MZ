@@ -37,11 +37,14 @@ document.querySelector("#info-x-btn").addEventListener("click", close);
 let nickName;
 
 /*유저 정보 가져오기*/
+/*
+	sessionStorage.clickedUserId
+*/
 export function getUserInfo(){
 	console.log('d')
 	$.ajax({
 		url: getContextPath()+"/userInfo",
-		data : {userId : sessionStorage.clickedUserId}, /*userId = 로그인 유저(나)x , 다른 유저*/
+		data : {userId :  sessionStorage.clickedUserId}, /*userId = 로그인 유저(나)x , 다른 유저*/
 		method: 'post',
 		success : function(data) {
 			console.log('유저 정보 가져왔음 : ',data);

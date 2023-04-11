@@ -85,6 +85,17 @@ public class MemberService {
 		return list;
 	}
 	
+	//[han] 어드민 페이지용 호감도 집계에 사용되지 애들 조회용 - 최근 월요일의 7일 전보다 더 오래된 호감도 기록들
+	public  int selectHeartForDel(){
+		Connection conn = getConnection();
+
+		int result = new MemberDao().selectHeartForDel(conn);
+
+		close(conn);
+
+		return result;
+	}
+	
 
 	// 유저 정보 불러오기 - 가영
 	public Member selectMember(String userId) {
@@ -199,6 +210,14 @@ public class MemberService {
 			return result;
 			
 		}
+	
+	// [지의] - 친구유저 닉네임 조회
+	public String friendNickName(String receiveId) {
+		Connection conn = getConnection();
+		String nickName = new MemberDao().friendNickName(conn, receiveId);
+		close(conn);
+		return nickName;
+	}
 
 		
 //------------------------------ insert 구간 -------------------------------
@@ -589,5 +608,22 @@ public class MemberService {
 			return result;
 		}
 
+		// [han]
+		//  어드민페이지용 호감도 집계에 사용되지 않는 지난 기록 일괄 삭제
+		public int deleteHeartListForAdmin() {
+			Connection conn = getConnection();
+			
+			int result = new MemberDao().deleteHeartListForAdmin(conn);
+			
+			if(result >0 ) {
+				commit(conn);
+			}else {
+				rollback(conn);
+			}
+			
+			close(conn);
+			
+			return result;
+		}
 }
 

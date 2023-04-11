@@ -206,6 +206,31 @@ public class SkinDao {
 		
 	}
 	
+	// [han]
+	// 멤버가 보유중인 리워드용 스킨 조회용
+	public ArrayList<Integer> myRewardList(Connection conn, String userId){
+		ArrayList<Integer> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("myRewardList");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userId);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add( rset.getInt("SKIN_ID"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+	
 	// [지의]
 	// 마이룸 상점 스킨 조회
 	// 페이지 별 일반 스킨 조회용(한페이지에 12개)
@@ -471,6 +496,30 @@ public class SkinDao {
 			pstmt.setInt(1, skinId);
 			
 
+			result = pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+
+		return result;
+	}
+	
+	
+	// [han]
+	// 유저가 가진 스킨 삭제용
+	public int deleteMySkin(Connection conn, String userId, int skinId) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("deleteMySkin");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userId);
+			pstmt.setInt(2, skinId);
+			
 			result = pstmt.executeUpdate();
 
 		} catch (SQLException e) {

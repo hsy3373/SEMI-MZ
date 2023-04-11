@@ -55,7 +55,7 @@ contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
       <div class="modal_body">
         <div class="fr-modal-out-btn">
           <img
-            src="<%=contextPath%>/resource/img/icon/엑스 버튼.png"
+            src="<%=contextPath%>/resource/img/icon/back2_btn.png"
             class="fn-btn"
             style="width: 50px; height: 50px"
           />
@@ -75,7 +75,7 @@ contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
       <div class="modal_body" id="Preferences">
         <div class="modal-out-btn2">
           <img
-            src="<%=contextPath%>/resource/img/icon/엑스 버튼.png"
+            src="<%=contextPath%>/resource/img/icon/back2_btn.png"
             class="Pf-btn"
             style="width: 50px; height: 50px"
           />
@@ -103,12 +103,7 @@ contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
     <div class="modal smodalInfo">
       <div class="s-modal-back">
         <div class="smodal-th">
-          <button class="smodal-xbtn">
-            <img
-              src="<%=contextPath%>/resource/img/icon/엑스 버튼.png"
-              class="sx-btn sx-btn1"
-            />
-          </button>
+          <button class="smodal-xbtn"><img src="<%=contextPath%>/resource/img/icon/엑스 버튼.png" class="sx-btn sx-btn1"></button>
         </div>
         <form>
           <table class="smodal-table">
@@ -117,12 +112,7 @@ contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
             </tr>
             <tr>
               <td><input type="password" class="rqpwd-input" id="rqpwd" /></td>
-              <td>
-                <button type="button" class="rqpwd-submit-btn" id="rq-btn">
-                  확인
-                </button>
-              </td>
-              .
+              <td><button type="button" class="rqpwd-submit-btn" id="rq-btn">확인</button></td>
             </tr>
           </table>
         </form>
@@ -133,53 +123,26 @@ contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
       <div>
         <div class="rin-modal-background">
           <div class="rin-modal-header">내 정보 변경</div>
-          <div class="rin-modal-out-btn">
-            <img
-              src="<%=contextPath%>/resource/img/icon/엑스 버튼.png"
-              class="sx-btn myinfo-xbtn"
-            />
-          </div>
+          <div class="rin-modal-out-btn"><img src="<%=contextPath%>/resource/img/icon/엑스 버튼.png" class="sx-btn myinfo-xbtn"></div>
           <div class="rin-empty-space"></div>
           <div class="myinfo-modaltxtarea">
             <form>
               <table class="myinfo-table">
                 <tr>
                   <th class="rin-th1-wid">- 아이디</th>
-                  <td>
-                    <input
-                      type="text"
-                      class="rin-inputbox rin-readonly"
-                      placeholder="<%= userId %>"
-                      readonly
-                    />
-                  </td>
+                  <td><input type="text" class="rin-inputbox rin-readonly" placeholder="<%= userId %>" readonly></td>
                   <td></td>
                 </tr>
                 <tr></tr>
                 <tr></tr>
                 <tr>
                   <th class="rin-th1-wid">- 닉네임 변경</th>
-                  <td>
-                    <input
-                      type="text"
-                      class="rin-inputbox cge-nick"
-                      name="cge-nick"
-                      value="<%= nickName %>"
-                    />
-                  </td>
-                  <td class="rin-td3-wid">
-                    <button type="button" class="rncheck-btn" disabled>
-                      중복확인
-                    </button>
-                  </td>
+                  <td><input type="text" class="rin-inputbox cge-nick" name="cge-nick" value="<%= nickName %>"></td>
+                  <td class="rin-td3-wid"><button type="button" class="rncheck-btn" disabled>중복확인</button></td>
                 </tr>
                 <tr class="rin-under-text">
                   <td></td>
-                  <td>
-                    <span class="cgenick-txt"
-                      >영문, 한글, 숫자, 특수기호(_) 사용하여 2~8자까지 공백없이
-                      가능</span
-                    >
+                  <td><span class="cgenick-txt">영문, 한글, 숫자, 특수기호(_) 사용하여 2~8자까지 공백없이 가능</span>
                   </td>
                   <td></td>
                 </tr>

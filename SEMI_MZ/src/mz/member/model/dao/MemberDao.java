@@ -356,6 +356,35 @@ public class MemberDao {
 		return list;
 	}
 	
+	//[han] 어드민 페이지용 호감도 집계에 사용되지 애들 조회용 
+	public  int selectHeartForDel(Connection conn){
+		int result = 0;
+
+		ResultSet rset = null;
+		PreparedStatement pstmt = null;
+
+		String sql = prop.getProperty("selectHeartForDel");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			rset= pstmt.executeQuery();
+			
+		
+			if(rset.next()) {
+
+				result = rset.getInt("COUNT");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return result;
+	}
+	
 	//[가영] - 클릭한 유저 정보 불러오기
 	public Member selectMember(Connection conn, String userId) {
 			
@@ -717,6 +746,31 @@ public class MemberDao {
 				
 			return result;
 		}
+		
+	public String friendNickName(Connection conn, String receiveId) {
+		String nickName = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("friendNickName");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, receiveId);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				nickName = rset.getString("NICKNAME");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return nickName;
+		
+	}
 		
 	
 //------------------------------ insert 구간 -------------------------------	
@@ -1157,6 +1211,25 @@ public class MemberDao {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("deleteCancelMemberForAdmin");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	// [han]
+	//  어드민페이지용 호감도 집계에 사용되지 않는 지난 기록 일괄 삭제
+	public int deleteHeartListForAdmin(Connection conn) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("deleteHeartListForAdmin");
 		try {
 			pstmt = conn.prepareStatement(sql);
 			

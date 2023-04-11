@@ -11,8 +11,8 @@ import * as ChatFront from './chatFront.js';
 
 //------------------------웹소켓 관련 구간 -------------------------------------
 
-let ip = ['192.168.30.180', '192.168.0.2', 'localhost'];
-let socketAddress = `ws://${ip[1]}:8082/mzone/websocket`;
+let ip = ["192.168.30.174", "192.168.0.16", "localhost"];
+let socketAddress = `ws://${ip[0]}:8084/SEMI_MZ/websocket`;
 let webSocket = new WebSocket(socketAddress);
 //console.log("기본 웹소켓 객체 : ", webSocket);
 // 지의 학원: 192.168.30.174:8084
@@ -188,6 +188,7 @@ export let getChattings = function (id, scroll) {
         //불러온 값도 없으면서 세션에 저장된 로그가 없으면 채팅 아이템들 모두 삭제
         if (Common.isEmpty(Common.getSessionStorage('chatLog-' + id))) {
           document.querySelector('.chat-item-area').innerHTML = '';
+          $('.loadingAni-container').fadeOut();
         }
         return;
       }
@@ -216,7 +217,7 @@ export let getChattings = function (id, scroll) {
       ChatFront.showChattings(keyName, scroll);
     },
     befroeSend: function () {
-      $('.loadingAni').fadeIn(300);
+      $('.loadingAni-container').fadeIn();
     },
     error: function (req, status, error) {
       console.log(req, status, error);

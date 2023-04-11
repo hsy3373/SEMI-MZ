@@ -4,6 +4,7 @@
  */
 /* js 가져오기 */
 import { getContextPath } from "../common.js";
+import { getUserInfo } from "../userInfo.js";
 let path = getContextPath();
 
 $(function(){
@@ -16,6 +17,7 @@ $(function(){
 		document.querySelector("#my-heart-on").addEventListener("click", deleteHeart);
 		selectHeart();
 		countHeart(roomMasterId);
+		friendName();
 	}
 	else{
 		countHeart(loginUserId);
@@ -23,12 +25,39 @@ $(function(){
 		$('#my-heart-on').css('cursor', 'default');
 		$('.my-heart-num').css('cursor', 'default');
 	}
+	
+	
+
+	
 });
 //loginUserId
 //roomMasterId
-/*
-	
-*/
+/*친구룸에서 친구닉네임 조회*/
+/*친구룸 -> 친구 스킨 클릭시 userInfo 모달창*/
+$(document).on("click", ".myroom_user .friend-skin", function(){
+
+	document.querySelector(".info-modal").classList.remove("hidden");
+	// 세션스토리지에 해당 유저 저장
+	window.sessionStorage.setItem("clickedUserId", roomMasterId);
+	getUserInfo();
+});
+
+
+function friendName(){
+	$.ajax({
+		url : path + "/friendNickName",
+		type : 'post',
+		data : {receiveId : roomMasterId},
+		success : function(name){
+			//console.log(name);
+			$(".out-friend-id").text(name);
+		},
+		error : function(){
+			console.log("접속실패");
+		}
+	});
+}
+
 /*하트 클릭 했을 때 호감도 상태 db에 저장*/
 function insertHeart(){
 	$.ajax({
@@ -58,7 +87,7 @@ function deleteHeart(){
 		type: 'get',
 		data: {receiveId : roomMasterId},
 		success: function(data){
-			console.log(data);
+			//console.log(data);
 			$('#my-heart-off').css('display', 'block');
 			$('#my-heart-on').css('display', 'none');
 			/*1빼기*/
@@ -80,7 +109,7 @@ function selectHeart(){
 		type: 'get',
 		data: {receiveId : roomMasterId},
 		success: function(data){
-			console.log(data);
+			//console.log(data);
 			if (data == 1) {
 				$('#my-heart-off').css('display', 'none');
 				$('#my-heart-on').css('display', 'block');
@@ -99,7 +128,7 @@ function countHeart(receiveID){
 		type : 'post',
 		data: {receiveId : receiveID},
 		success : function(count){
-			console.log("좋아요 개수 : "+count);
+			//console.log("좋아요 개수 : "+count);
 			$(".my-heart-num").text(count);
 			// 내방에서 좋아요개수 있을 때 하트표시
 			if(roomMasterId == ''){

@@ -109,6 +109,13 @@
 		WHERE M.STATUS ='N' AND SYSDATE - CANCELLATION_DATE >= 15
         ORDER BY CANCELLATION_DATE
 	</entry>
+	
+<!-- [han] 어드민용 삭제시킬 호감도 총 갯수 조회 -->
+	<entry key="selectHeartForDel">
+		SELECT COUNT(*) AS COUNT
+		FROM HEART
+		WHERE TRUNC(SYSDATE, 'iw') - 7  > CREATE_DATE 
+	</entry>
 
 	
 	<!-- [혜린] -->
@@ -214,6 +221,13 @@
 		 JOIN MEMBER ON RECEIVE_ID = USER_ID
 		 JOIN CHARACTER_SKIN USING(SKIN_ID)
  		 WHERE RANK &lt;= 3
+	</entry>
+	
+	<!-- [지의] 친구유저 닉네임 조회 -->
+	<entry key="friendNickName">
+		SELECT NICKNAME
+		  FROM MEMBER
+		 WHERE USER_ID = ?
 	</entry>
 	
 	
@@ -356,6 +370,12 @@
             FROM MEMBER M
             LEFT JOIN DISABLED_MEMBER USING(USER_ID))
 		WHERE STATUS ='N' AND SYSDATE - CANCELLATION_DATE >= 15
+	</entry>
+	
+<!-- [han] 어드민용 랭킹집계에 쓰이지 않는 호감도 일괄삭제 -->
+	<entry key="deleteHeartListForAdmin">
+		DELETE FROM HEART
+		WHERE TRUNC(SYSDATE, 'iw') - 7  > CREATE_DATE 
 	</entry>
 	
 	<!-- [가영] 호감도 삭제 -->
