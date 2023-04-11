@@ -163,20 +163,23 @@ logoutButton.addEventListener("click", () => {
 let smodalInfo = $(".smodalInfo"); // 내정보변경 전 비밀번호입력요구 모달창
 let modalMyinfo = $(".modalMyinfo"); // 내정보변경 모달창
 
-mydateButton.addEventListener("click", () => {
+mydateButton.addEventListener("click", () => { // 설정 => 내정보변경 버튼
   console.log("내정보변경버튼 이벤트 부여 => pw입력요청모달");
   smodalInfo.css("display", "block");
+  $('.chat-container').css("display","none");
   $("#rqpwd").val("");
 });
 
-/* 내정보변경 시 비밀번호 입력 요청 모달 닫기 */
 document.querySelector(".sx-btn1").addEventListener("click", () => {
   smodalInfo.css("display", "none");
+  $('.chat-container').css("display","block");
 });
 
+/* 내정보변경모달 닫을 때 동시에 비밀번호 입력 요청 모달 닫기 */
 document.querySelector(".myinfo-xbtn").addEventListener("click", () => {
   modalMyinfo.css("display", "none");
   smodalInfo.css("display", "none");
+  $('.chat-container').css("display","block");
 });
 
 /* 내정보 변경 pw입력요청 모달에서 pw 확인 버튼 클릭 시 */
@@ -192,7 +195,7 @@ $("#rq-btn").on("click", function () {
       if (result == "O") {
         //내정보변경 전 패스워드 체크일 때(패스워드 일치 시)
         // 내정보변경 모달 block 처리
-		smodalInfo.css("display", "none");
+		    smodalInfo.css("display", "none");
         modalMyinfo.css("display", "block");
         //*정보변경 모달띄워질 때 들어갈 기능들*
         //모달 보여질 때 유저 정보변경된거 그대로 띄워지게 하는거!!
@@ -247,8 +250,7 @@ $('#cge-btn').on("click", function(){
 				$('input:radio[name="gender"][value="'+updateM.gender+'"]');
 				gender1.val(updateM.gender);
 				
-				setSessionStorage("loginUserNick", updateM.nicName);
-
+				sessionStorage.setItem("loginUserNick", JSON.stringify(updateM.nicName));
 
 			}
 		}

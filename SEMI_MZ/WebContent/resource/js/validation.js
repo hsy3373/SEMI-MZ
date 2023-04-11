@@ -230,7 +230,7 @@ $('#check-agree').click(function(){
                         validateObj.chkid= false;
                     }else{ // 확인버튼(true 반환)       
                         // readonly 속성 추가 (아이디 다시 못바꾸게)
-                        $('input[name=enrollId]').prop('readonly', true);
+                       $('input[name=enrollId]').prop('readonly', true);
                         $('input[name=enrollId]').css('color','rgb(107, 107, 107)');
                         txt.html("사용가능.");
                         validateObj.chkid= true;
