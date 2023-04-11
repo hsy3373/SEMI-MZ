@@ -70,11 +70,11 @@ function init() {
 		}
 		// $(".store-btn") / $(".dress-btn")
 		//		상점버튼 	   /		옷장
-		if($(".store-btn").attr("opacity", "1")){
-			console.log("ㅇㅇㅇㅇㅇㅇㅇㅇ상점ㅇㅇ");
+		if($(".store-btn").css("opacity") == 1){
 			selectSkin(this.innerText);
-		} 
-		//mySkin(this.innerText);
+		}else if($(".dress-btn").css("opacity") == 1){
+			mySkin(this.innerText);
+		}
 		
 		this.className = "selected-btn page-btn";
 		});
@@ -240,12 +240,16 @@ $(function () {
         $.dressClick();
 		mySkin(1);
 		init();
+		//가장 첫 버튼 클릭
+		document.querySelectorAll(".paging-dress .page-btn")[0].click();
 	});
     /*상점 버튼 클릭*/
 	$(document).on("click", ".store-btn",function(){
         $.storeClick();
 		selectSkin(1);
 		init();
+		//가장 첫 버튼 클릭
+		document.querySelectorAll(".paging-store .page-btn")[0].click();
 	});
 
     /*옷장 버튼 클릭 함수 생성*/
@@ -310,10 +314,7 @@ $(function () {
 		$(".paging-store").css("display", "block");
 		$(".paging-dress").css("display", "none");
 		
-/*		let btn = document.querySelectorAll(".page-btn");
-		//가장 첫 버튼 클릭
-		btn[0].className = "selected-btn page-btn";
-	    btn[0].click();*/
+
 
     }
 });
