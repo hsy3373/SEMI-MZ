@@ -118,7 +118,7 @@ $(document).ready(function(){
 			type : "post",
 			url : path + "/login.me",
 			dataType :  "json",
-			data : {userId: userId , userPwd: userPwd, },
+			data : {userId: userId , userPwd: userPwd },
 			success: (result) => {
 				if(result == "0"){ // 로그인 실패
 					alert("로그인에 실패하였습니다. id/pw를 다시 확인해주세요.");
@@ -127,10 +127,12 @@ $(document).ready(function(){
 					alert("탈퇴 혹은 차단 된 계정입니다. 서비스 이용이 불가능합니다.");
 				}
 				if(result == "1"){ // 로그인 처리(성공). 광장으로.
-					location.replace(path+"/views/square.jsp");
+					//location.replace(path+"/views/square.jsp");
+					location.href = path+"/forwarding.sq";
+					
 				}
 				if(result == "7"){ // 관리자계정인경우(userid = admin)
-					location.replace(path+"/views/admin/main.jsp");
+					location.href = path+"/main.admin";
 				}
 			} 
 		})
@@ -149,79 +151,43 @@ $(document).ready(function(){
 		let userId = $("[name=enrollId]").val();
 		let nicName = $("[name=enrollNick]").val();
 		let userPwd = $(".enroll-chkpwd").val();
-		//let apiKey = Common.getCookie("key");
-		//let apiKind = Common.getCookie("kind");
+		let apiKey = Common.getCookie("key");
+		let apiKind = Common.getCookie("kind");
 
 		$.ajax({
 			type : "post",
 			url : path + "/enroll.me",
 			dataType : "json",
-			data : {userId: userId, nicName: nicName, userPwd: userPwd},
+			data : {userId: userId, nicName: nicName, userPwd: userPwd, apiKey: apiKey, apiKind: apiKind},
 			success : (result) => {
 
 				if(result == "1"){ //멤버테이블 insert 성공
-					let autoLogin = confirm("회원가입이 완료되었습니다. 자동 로그인하시겠습니까?");
+
+					let autoLogin = confirm("회원가입이 완료되었습니다. 바로 접속하시겠습니까?");
 
 					if( autoLogin == 1){ // confirm 확인버튼(true 반환) 
-						location.replace(path+"/views/square.jsp");  // 광장으로 이동
+
+						location.href = path+"/forwarding.sq";
 
 					}else{ // confirm 취소버튼
+
 						alert("로그인 화면으로 이동합니다.");
+
 					}
-					console.log("멤버테이블 insert 성공" + result);
-					//alert("회원가입이 완료되었습니다. 로그인 창으로 이동합니다.");
+					console.log("멤버, 캐릭터, API 테이블 insert 성공(1)? : " + result);
 				}
-				if(result == "0"){ //멤버테이블 insert 실패
+
+				if(result == "0"){ //캐릭터 or API 테이블 insert 실패
 					//console.log("멤버테이블 insert 실패" + result);
 					alert("회원가입에 실패하였습니다. 다시 확인해주세요.");
 				}
+
 				modal2.css('display', 'none');
+
 			}
 		})
 	});
 
-	$('#enroll-btn').on("click", function(){
-
-		let userId = $("[name=enrollId]").val();
-		//let nicName = $("[name=enrollNick]").val();
-		//let userPwd = $(".enroll-chkpwd").val();
-		let apiKey = Common.getCookie("key");
-		let apiKind = Common.getCookie("kind");
-
-		// API테이블에 insert
-		$.ajax({
-			type : "post",
-			url : path + "/enroll.api",
-			dataType : "json",
-			data : {userId: userId, apiKind: apiKind, apiKey: apiKey},
-			success : (result) => {
-
-				if(result == "11"){ //API테이블 insert 성공
-					console.log("API테이블 insert 성공" + result);
-					modal2.css('display', 'none');
-				 	//console.log("전달용 : API키 정보 insert 성공.");
-				}else{ //API테이블 insert 실패
-					//console.log("API테이블 insert 실패" + result);
-				 	modal2.css('display', 'none');
-				 	//console.log("전달용 : API키 정보 insert 실패.");
-				}
-			}
-		})
-		// CHARACTER 테이블에 insert
-		$.ajax({
-			type : "post",
-			url : path + "/insertSkin.id",
-			data : {userId: userId},
-			success : (result) => {
-				console.log("캐릭터 테이블 insert 성공?" + result);
-				if(result == "111"){ //성공
-					console.log("캐릭터 테이블 insert 성공");
-				}else{ // 실패
-					console.log("캐릭터 테이블 insert 실패");
-				}
-			}
-		})	
-	});
 
 /* id/pw찾기 => 비밀번호 재설정 */
 $('#newpwd-btn').on("click", function(){

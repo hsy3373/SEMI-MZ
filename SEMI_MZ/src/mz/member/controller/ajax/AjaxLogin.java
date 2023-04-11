@@ -64,12 +64,14 @@ public class AjaxLogin extends HttpServlet {
 			if(m.getStatus().equals("Y")) { // 정상 회원
 				if(m.getUserId().equals("admin")) { // 정상회원인데 관리자계정인 경우
 					response.getWriter().print("7"); // 관리자 페이지로
+					
 				}else {
-					HttpSession session = request.getSession();
-					session.setAttribute("loginUser", m); // 세션에 로그인유저 정보 담기 					
 					
 					response.getWriter().print("1");  // 로그인 처리(성공)
 				}
+				HttpSession session = request.getSession();
+				session.setAttribute("loginUser", m); // 세션에 로그인유저 정보 담기 					
+				
 			}else { // status = N or X 인 경우
 				response.getWriter().print("6");  // 탈퇴 혹은 차단 계정 알림
 			}
