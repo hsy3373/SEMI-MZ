@@ -31,7 +31,7 @@ export let canvasSeting = function () {
   document.getElementById("main-square").appendChild(canvas);
 
   //캐릭터 세팅
-  userbd.src = "../resource/img/user/skin" + userSkin + "/bd.png";
+  userbd.src = getContextPath()+"/resource/img/user/skin" + userSkin + "/bd.png";
   userbs.src = "../resource/img/user/skin" + userSkin + "/bs.png";
   userfd.src = "../resource/img/user/skin" + userSkin + "/fd.png";
   userfs.src = "../resource/img/user/skin" + userSkin + "/fs.png";
@@ -56,7 +56,7 @@ function loadImage() {
   squarebackground.src = "../resource/img/background/background_main.png";
 
   myhome = new Image();
-  myhome.src = "../resource/img/icon/home.png";
+  myhome.src = getContextPath()+"/resource/img/icon/home.png";
 
   noticeBoard = new Image();
   noticeBoard.src = "../resource/img/icon/notice_icon.png";

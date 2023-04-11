@@ -560,10 +560,6 @@ $(function() {
 
 
 $(function() {
-/*	$(".board-write .board-write-title").on("keyup", function(){
-
-	})
-
 	
 	/* 해당 룸마스터 값 boardInsert의 매개변수에 넣어줌 */
 	$(document).on("click", "#boardInsert", function() {
@@ -648,111 +644,51 @@ function loadList(receiveID) {
 			}
 			let str = "";
 			
-			// 내 마이룸에서
-			if (roomMasterId == "") {
-				for (let i = 0; i < list.length; i++) {
-					if(list[i].secret == 'Y'){
-						str +=
-							"<tr>" +
-								"<td class='myroom-board-title'>" +
-								"<img class='apple' src='./resource/img/icon/secret.png'>" +
-								list[i].boardTitle +
-								"</td>" +
-								"<td class='myroom-board-user' style='display: none;'>" +
-								list[i].userId +
-								"</td>" +
-								"<td class='myroom-board-friend-nick'>" +
-								list[i].nickName +
-								"</td>" +
-							"</tr>";
-					}else{
-						str +=
-							"<tr>" +
-								"<td class='myroom-board-title'>" +
-								"<img class='apple' src='./resource/img/icon/사과.png'>" +
-								list[i].boardTitle +
-								"</td>" +
-								"<td class='myroom-board-user' style='display: none;'>" +
-								list[i].userId +
-								"</td>" +
-								"<td class='myroom-board-friend-nick'>" +
-								list[i].nickName +
-								"</td>" +
-							"</tr>";
+			for (let i = 0; i < list.length; i++){
+				// 본인방
+				if (roomMasterId == "") {
+					if(list[i].secret == 'Y'){ // 비밀글 아이콘 표시
+						str += "<tr>" +
+									"<td class='myroom-board-title'>" +
+									"<img class='apple' src='./resource/img/icon/secret.png'>" + 
+										list[i].boardTitle + 
+									"</td>" +
+									"<td class='myroom-board-user' style='display: none;'>" + list[i].userId + "</td>" +
+									"<td class='myroom-board-friend-nick'>" + list[i].nickName + "</td>" +
+								"</tr>";
+					} else{
+						str += "<tr>" +
+									"<td class='myroom-board-title'>" +
+									"<img class='apple' src='./resource/img/icon/사과.png'>" + 
+										list[i].boardTitle + 
+									"</td>" +
+									"<td class='myroom-board-user' style='display: none;'>" + list[i].userId + "</td>" +
+									"<td class='myroom-board-friend-nick'>" + list[i].nickName + "</td>" +
+								"</tr>";
 					}
-				}
-			} else { // 친구룸에서
-				for (let i = 0; i < list.length; i++) {
-/*					$(".myroom-board-title").html(list[i].boardTitle);
-					$(".myroom-board-user").html(list[i].userId);*/
-					// 방명록작성자 == 로그인아이디
-					if(list[i].userId == loginUserId){
-						// 비밀글이라면 아이콘 비밀글표시
-						if(list[i].secret == 'Y'){
-							str +=
-								"<tr>" +
+				// 친구방
+				}else{
+					if(list[i].secret == 'Y'){ // 비밀글 아이콘 표시 + 비밀글 제목 안보이게
+						str += "<tr>" +
 									"<td class='myroom-board-title'>" +
-									"<img class='apple' src='./resource/img/icon/secret.png'>" +
-									list[i].boardTitle +
+									"<img class='apple' src='./resource/img/icon/secret.png'>" + 
+										"비밀글" + 
 									"</td>" +
-									"<td class='myroom-board-user' style='display: none;'>" +
-									list[i].userId +
-									"</td>" +
-									"<td class='myroom-board-friend-nick'>" +
-									list[i].nickName +
-									"</td>" +
+									"<td class='myroom-board-user' style='display: none;'>" + list[i].userId + "</td>" +
+									"<td class='myroom-board-friend-nick'>" + list[i].nickName + "</td>" +
 								"</tr>";
-						}else{
-							str +=
-								"<tr>" +
+					} else{
+						str += "<tr>" +
 									"<td class='myroom-board-title'>" +
-									"<img class='apple' src='./resource/img/icon/사과.png'>" +
-									list[i].boardTitle +
+									"<img class='apple' src='./resource/img/icon/사과.png'>" + 
+										list[i].boardTitle + 
 									"</td>" +
-									"<td class='myroom-board-user' style='display: none;'>" +
-									list[i].userId +
-									"</td>" +
-									"<td class='myroom-board-friend-nick'>" +
-									list[i].nickName +
-									"</td>" +
+									"<td class='myroom-board-user' style='display: none;'>" + list[i].userId + "</td>" +
+									"<td class='myroom-board-friend-nick'>" + list[i].nickName + "</td>" +
 								"</tr>";
-						}
-					// 방명록작성자 != 로그인아이디
-					}else{
-						// 비밀글이라면 아이콘 비밀글표시 + 제목 : 비밀글
-						if(list[i].secret == 'Y'){
-							str +=
-								"<tr>" +
-									"<td class='myroom-board-title'>" +
-									"<img class='apple' src='./resource/img/icon/secret.png'>" +
-									"비밀글" +
-									"</td>" +
-									"<td class='myroom-board-user' style='display: none;'>" +
-									list[i].userId +
-									"</td>" +
-									"<td class='myroom-board-friend-nick'>" +
-									list[i].nickName +
-									"</td>" +
-								"</tr>";
-						}else{
-							str +=
-								"<tr>" +
-									"<td class='myroom-board-title'>" +
-									"<img class='apple' src='./resource/img/icon/사과.png'>" +
-									list[i].boardTitle +
-									"</td>" +
-									"<td class='myroom-board-user' style='display: none;'>" +
-									list[i].userId +
-									"</td>" +
-									"<td class='myroom-board-friend-nick'>" +
-									list[i].nickName +
-									"</td>" +
-								"</tr>";
-						}
 					}
 				}
 			}
-			
 			$(".myroom-board-list").html(str);
 		},
 		error: function(e) {

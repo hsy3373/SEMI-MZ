@@ -68,9 +68,12 @@ function init() {
 		if(document.querySelector(".selected-btn") != null) {
 			document.querySelector(".selected-btn").className = "page-btn";
 		}
-		selectSkin(this.innerText);
-		//mySkin(this.innerText);
-		
+		// $(".store-btn") / $(".dress-btn")
+		//		상점버튼 	   /		옷장
+		if($(".store-btn").attr("opacity", "1")){
+			selectSkin(this.innerText);
+		}
+		mySkin(this.innerText);
 		
 		this.className = "selected-btn page-btn";
 		});
@@ -235,7 +238,7 @@ $(function () {
 	$(document).on("click", ".dress-btn",function(){
         $.dressClick();
 		mySkin(1);
-		init();
+		//init();
 	});
     /*상점 버튼 클릭*/
 	$(document).on("click", ".store-btn",function(){
@@ -273,11 +276,6 @@ $(function () {
 		$(".paging-store").css("display", "none");
 		$(".paging-dress").css("display", "block");
 		
-		//
-		let btn = document.querySelectorAll(".page-btn");
-		//가장 첫 버튼 클릭
-		btn[0].className = "selected-btn page-btn";
-	    btn[0].click();
     }
   
 
@@ -311,10 +309,10 @@ $(function () {
 		$(".paging-store").css("display", "block");
 		$(".paging-dress").css("display", "none");
 		
-		let btn = document.querySelectorAll(".page-btn");
+/*		let btn = document.querySelectorAll(".page-btn");
 		//가장 첫 버튼 클릭
 		btn[0].className = "selected-btn page-btn";
-	    btn[0].click();
+	    btn[0].click();*/
 
     }
 });
