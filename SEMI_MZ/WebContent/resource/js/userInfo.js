@@ -8,7 +8,7 @@
 import { getContextPath } from './common.js';
 import {modalstopfn} from './squareCanvas.js';
 import { openChatRoom } from './chat/chatFront.js';
-//import { closeAlert } from './alert.js';
+//import * as alert from './alert.js';
 
 
 document.querySelector(".info-chatting").addEventListener("click", function(){
@@ -38,6 +38,7 @@ let nickName;
 
 /*유저 정보 가져오기*/
 export function getUserInfo(){
+	console.log('d')
 	$.ajax({
 		url: getContextPath()+"/userInfo",
 		data : {userId : sessionStorage.clickedUserId}, /*userId = 로그인 유저(나)x , 다른 유저*/
@@ -65,10 +66,24 @@ export function getUserInfo(){
 			console.log(gender);
 			if (gender == 'W') {
 				$("#gender-w").attr("src", "../resource/img/icon/여자.png");
+				
+				$('#gender-w').css('display', 'block');
+				$('#gender-m').css('display', 'none');
+				$('#gender-n').css('display', 'none');
+				
 			} else if (gender == 'M') {
 				$("#gender-m").attr("src", "../resource/img/icon/남자.png");
+				
+				$('#gender-w').css('display', 'none');
+				$('#gender-m').css('display', 'block');
+				$('#gender-n').css('display', 'none');
+				
 			} else {
 				$("#gender-n").attr("src", "../resource/img/icon/성별비공개.png");
+				
+				$('#gender-w').css('display', 'none');
+				$('#gender-m').css('display', 'none');
+				$('#gender-n').css('display', 'block');
 			}
 		}
 	});
@@ -179,6 +194,35 @@ function insertFriend(){
 }
 document.querySelector(".plus").addEventListener("click", insertFriend);
 
+/*alert.closeAlert();
+
+function plusFriend() {
+  // id="alert-text"의 class 속성의 값을 가져와 str 변수에 담아둔다.
+  let str = $("#alert-text").attr("class");
+
+  switch (str) {
+    case "user-delete":
+      // 실행시 구현할 코드 작성
+
+      break;
+
+    case "report-ok-btn":
+      break;
+  }
+  closeAlert();
+}
+
+document.querySelector("#alert-ok").addEventListener("click", plusFriend);
+
+$(".plus").click(function () {
+  $("#alert-text").html("친구 삭제하시겠습니까?");
+  alertAddClass("user-plus");
+});
+$(".report-btn").click(function () {
+  $("#alert-text").html("신고하시겠습니까?");
+  alertAddClass("report-ok-btn");
+});*/
+
 /*친구 삭제*/
 function deleteFriend(){
 	$.ajax({
@@ -252,7 +296,7 @@ document.querySelector(".reset-btn").addEventListener("click", close2);
 
 /* 신고 내용 글자수 제한 */
 $('#report-content-text').keyup(function (e) {
-	console.log(e);
+	//console.log('e : ',e);
 	let content = $(this).val();
     
     // 글자수 세기

@@ -43,7 +43,7 @@
 		<!-- 하단 버튼들 -->
 		<div class="btns1">
 			<button class="plus" type="button">친구추가</button>
-			<button class="delete" type="button">친구삭제</button>
+			<button class="delete alert-toggle" type="button">친구삭제</button>
 			<button class="friend-home" type="button">놀러가기</button>
 		</div>
 		<div class="btns2">
@@ -70,21 +70,21 @@
 			<div class="content-text-total">/ 300</div>
 			<textarea name="report-content-text" id="report-content-text"
 				maxlength='300' required></textarea>
-			<button type="button" class="report-btn">신고하기</button>
+			<button type="button" class="report-btn alert-toggle">신고하기</button>
 			<button type="reset" class="reset-btn">취소</button>
 	</div>
-	<div class="alert">
+	<div class="alert id="check-alert">
 		<h3 id="alert-text"></h3>
 		<div>
-			<button class="button alert-ok" id="report-ok">신고</button>
-			<button class="button alert-cancel">취소</button>
+			<button class="button alert-ok" id="check-ok">확인</button>
+			<button class="button alert-cancel" id="check-cancel">취소</button>
 		</div>
 	</div>
 	<div class="alert-overlay"></div>
 	
 	<script type="module" src="<%= contextPath %>/resource/js/userInfo.js"></script>
 	<script type="module" src="<%= contextPath %>/resource/js/common.js"></script>
-	<!-- <script type="module" src="../resource/js/alert.js"></script> -->
+	<%-- <script type="module" src="<%= contextPath %>/resource/js/alert.js"></script> --%>
 	
 </body>
 </html>

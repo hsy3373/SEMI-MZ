@@ -62,11 +62,9 @@ function NoticeList() {
 						+ "</div>";
 				}
 			} else {
-				for (let i = 0; i == data.length; i++) {
-					str += "<div class='list-post' style='pointer-events: none;'>"
-						+ "<div class='notice-title'>" + '공지사항이 없습니다.' + "</div>"
-						+ "</div>";
-				}
+				str += "<div class='list-post' style='pointer-events: none;'>"
+					+ "<div class='notice-title'>" + '공지사항이 없습니다.' + "</div>"
+					+ "</div>";
 			}
 			$(".notice-list").html(str);
 		}, error: function() {
@@ -131,7 +129,7 @@ function displayData(currentPage, noticeLimit) {
 		if (listCount > 0) {
 			str += "<li class='detail-list' id='" + noticeList[i].noticeNo + "'>" + noticeList[i].noticeTitle + "</li>";
 		}
-		
+
 		// 공지사항 최신글 보이게
 		$(".notice-date").html(noticeList[0].noticeDate);
 
@@ -244,75 +242,67 @@ function selectNoticeDetail(noticeNo) {
 	});
 }
 
-function selectRanking(){
+// 호감도 top3
+function selectRanking() {
 	$.ajax({
-		url: getContextPath()+"/ranking",
+		url: getContextPath() + "/ranking",
 		type: 'get',
-		success: function(data){
-			console.log('유저정보 : ',data);
-			
+		success: function(data) {
+			console.log('유저정보 : ', data);
+
 			let num = data.length < 3 ? data.length : 3;
-			
-			
-			/*for (let i = 0; i < data.length; i++) {
-					$(".ranking-nickname").eq(i).html(data[i].nicName);
-					$(".ranking-user").eq(i).attr("src", getContextPath()+'/resource/img/user/skin'+data[i].skinId+'/fs.png');
-					
-					$(".rh-int").eq(i).attr("id",data[i].userId);
-					
-					selectRankingHeart(i, data[i].userId);
-				}*/
+
+			for (let i = 0; i < num; i++) {
+				$(".ranking-nickname").eq(i).html(data[i].nicName);
+				$(".ranking-user").eq(i).attr("src", getContextPath() + '/resource/img/user/skin' + data[i].skinId + '/fs.png');
+				$(".ranking-user").eq(i).attr("id", data[i].userId);
 				
+				if(getSessionStorage('loginUser') == data[i].userId){
+					$(".ranking-user").eq(i).css('pointer-events', 'none');
+				}
 				
-					for (let i = 0; i < num; i++) {
-						$(".ranking-nickname").eq(i).html(data[i].nicName);
-						$(".ranking-user").eq(i).attr("src", getContextPath()+'/resource/img/user/skin'+data[i].skinId+'/fs.png');
-						$(".rh-on").eq(i).css('display', 'block');
-						$(".ranking-user").eq(i).css('display', 'block');
-						$(".rh-int").eq(i).attr("id",data[i].userId);
-					
-						selectRankingHeart(i, data[i].userId);
-						console.log('i : ',i);
-						if ($(".rh-int").eq(i).attr("id",data[i].userId) != loginUserId) {
-							$(document).on('click', ".ranking-user", function() {
-								getUserInfo();
-							});
-						} else {
-							$(".ranking-user").eq(i).css('pointer-envents', 'none');
-						}
-					}
-				/* else {
-					for (let i = 0; i > num; i++) {
-						$(".ranking-nickname").eq(i).css('display', 'none');
-						$(".ranking-user").eq(i).css('display', 'none');
-						$(".rh-on").eq(i).css('display', 'none');
-					}
-				}*/
-				
-			
-		}, error: function(){
+				$(".rh-on").eq(i).css('display', 'block');
+				$(".ranking-user").eq(i).css('display', 'block');
+
+				selectRankingHeart(i, data[i].userId);
+				console.log('i : ', i);
+			}
+
+		}, error: function() {
 			console.log("error");
 		}
 	});
 }
 
-/*$(document).on('click', ".ranking-user", function() {
+// 호감도 랭킹 유저 클릭 시 해당 유저 정보창 띄우기
+$(document).on('click', '.ranking .ranking-user', function(e) {
+	console.log($(this).attr("id"));
+	
+	let rankingId = $(this).attr("id");
+	
+	document.querySelector(".info-modal").classList.remove("hidden");
+	
+	window.sessionStorage.setItem("clickedUserId", rankingId);
+	
 	getUserInfo();
-});*/
+	modalstopfn();
+});
+
+
 
 /*db에 저장된 호감도 카운트 불러오기*/
-function selectRankingHeart(num, receiveId){
+function selectRankingHeart(num, receiveId) {
 	$.ajax({
-		url: getContextPath()+"/countHeart",
+		url: getContextPath() + "/countHeart",
 		type: 'post',
-		data: {receiveId},
-		success: function(data){
+		data: { receiveId },
+		success: function(data) {
 			console.log(data);
-			
+
 			$(".rh-int").eq(num).html(data);
-			
+
 		},
-		error: function(){
+		error: function() {
 			console.log("error");
 		}
 	});
