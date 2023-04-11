@@ -5,6 +5,8 @@
 
 /* js 가져오기 */
 import { getContextPath } from "../common.js";
+//import { getContextPath, getSessionStorage } from "../common.js";
+import { getUserInfo } from "../userInfo.js";
 let path = getContextPath();
 
 // 페이징 처리 준비
@@ -88,6 +90,7 @@ function selectboardList(receiveID) {
 					boardTitle: list[i].boardTitle,
 					secret : list[i].secret,
 					createDate: list[i].createDate,
+					nickName : list[i].nickName
 				});
 			}
 			//console.log(BoardList);
@@ -125,8 +128,11 @@ function displayData(currentPage, boardLimit) {
 						+ "<td id='board-no' style='display: none;'>"
 							+ BoardList[i].boardNo
 						+ "</td>"
-						+ "<td class='board-userid'>"
+						+ "<td class='board-userid' style='display: none;'>"
 							+ BoardList[i].userId
+						+ "</td>"
+						+ "<td class='board-nick'>"
+							+ BoardList[i].nickName
 						+ "</td>"
 						+ "<td class='board-date'>"
 							+ BoardList[i].createDate
@@ -140,8 +146,11 @@ function displayData(currentPage, boardLimit) {
 						+ "<td id='board-no' style='display: none;'>"
 							+ BoardList[i].boardNo
 						+ "</td>"
-						+ "<td class='board-userid'>"
+						+ "<td class='board-userid' style='display: none;'>"
 							+ BoardList[i].userId
+						+ "</td>"
+						+ "<td class='board-nick'>"
+							+ BoardList[i].nickName
 						+ "</td>"
 						+ "<td class='board-date'>"
 							+ BoardList[i].createDate
@@ -158,8 +167,11 @@ function displayData(currentPage, boardLimit) {
 							+ "<td id='board-no' style='display: none;'>"
 								+ BoardList[i].boardNo
 							+ "</td>"
-							+ "<td class='board-userid'>"
+							+ "<td class='board-userid' style='display: none;'>"
 								+ BoardList[i].userId
+							+ "</td>"
+							+ "<td class='board-nick'>"
+								+ BoardList[i].nickName
 							+ "</td>"
 							+ "<td class='board-secret' style='display: none;'>"
 								+ BoardList[i].secret
@@ -175,8 +187,11 @@ function displayData(currentPage, boardLimit) {
 						+ "<td id='board-no' style='display: none;'>"
 							+ BoardList[i].boardNo
 						+ "</td>"
-						+ "<td class='board-userid'>"
+						+ "<td class='board-userid' style='display: none;'>"
 							+ BoardList[i].userId
+						+ "</td>"
+						+ "<td class='board-nick'>"
+							+ BoardList[i].nickName
 						+ "</td>"
 						+ "<td class='board-secret' style='display: none;'>"
 							+ BoardList[i].secret
@@ -194,8 +209,11 @@ function displayData(currentPage, boardLimit) {
 						+ "<td id='board-no' style='display: none;'>"
 							+ BoardList[i].boardNo
 						+ "</td>"
-						+ "<td class='board-userid'>"
+						+ "<td class='board-userid' style='display: none;'>"
 							+ BoardList[i].userId
+						+ "</td>"
+						+ "<td class='board-nick'>"
+							+ BoardList[i].nickName
 						+ "</td>"
 						+ "<td class='board-secret' style='display: none;'>"
 							+ BoardList[i].secret
@@ -294,22 +312,15 @@ $(function() {
 					let title = b.boardTitle;
 					let no = b.boardNo;
 					// 유저스킨
-					let skin = b.skinId;
-					skin =
-						"<img class='friend-skin' src='" + path + "/resource/img/user/skin" + skin + "/fs.png'>" +
-						"<div class='friend-id'>" +
-						b.userId +
-						"</div>";
+					let skin = "";
+					skin += "<img class='friend-skin' src='" + path + "/resource/img/user/skin" + b.skinId + "/fs.png'>"
+						 + "<div class='friend-id' style='display: none;'>" + b.userId + "</div>"
+						 + "<div class='friend-nick'>" + b.nickName + "</div>";
 
 					// 방명록 내용
 					let content = "";
-					content +=
-						"<div class='detail-table-date'>" +
-						b.createDate +
-						"</div>" +
-						"<div class='detail-table-text'>" +
-						b.boardContent +
-						"</div>";
+					content += "<div class='detail-table-date'>" + b.createDate + "</div>"
+							 + "<div class='detail-table-text'>" + b.boardContent + "</div>";
 
 					// 해당 클래스에 내용 추가
 					$(".board-no").html(no);
@@ -327,7 +338,9 @@ $(function() {
 			let boardId = $(this).children(".board-userid").text();
 			let secret = $(this).children(".board-secret").text();
 			//console.log(boardNo);
-			//console.log("작성한사람 : "+boardId);
+			
+			console.log("loginUserId : "+loginUserId);
+			console.log("작성한사람 : "+boardId);
 			//console.log("비밀글 상태 : "+secret);
 			
 			// 작성자가 다르고 비밀글이라면 클릭이벤트 막기
@@ -418,6 +431,18 @@ $(function() {
 		$(".board-send-detail").hide();
 		$(".board-list").show();
 	});
+	
+	
+	/*내마이룸 방명록 상세조회 -> 친구 스킨 클릭시 userInfo 모달창*/
+	$(document).on("click", ".board-detail .friend-skin", function(){
+		console.log($(".friend-id").text());
+		let friendId = $(".friend-id").text();
+		document.querySelector(".info-modal").classList.remove("hidden");
+		// 세션스토리지에 해당 유저 저장
+		window.sessionStorage.setItem("clickedUserId", friendId);
+		getUserInfo();
+	});
+
 });
 
 
@@ -521,10 +546,12 @@ $(function() {
 
 /* ================================= 방명록 작성 ================================= */
 $(function() {
+	/*방명록 리스트에서 글쓰기 버튼*/
 	$(document).on("click", "#boardWrite", function() {
 		$(".board-list").hide();
 		$(".board-write").show();
-
+		
+		// 글쓰기 클릭할때마다 내용 비워주기
 		$(".board-write .board-write-title").val("");
 		$(".board-write .board-write-content").val("");
 		$(".board-write #board-ck").prop("checked", false);
@@ -532,11 +559,21 @@ $(function() {
 });
 
 
-/* 해당 룸마스터 값 boardInsert의 매개변수에 넣어줌 */
 $(function() {
+	
+	/* 해당 룸마스터 값 boardInsert의 매개변수에 넣어줌 */
 	$(document).on("click", "#boardInsert", function() {
-		boardInsert(roomMasterId);
-		loadList(roomMasterId);
+		// 제목, 내용이 비어있으면 실행안됨
+		if($(".board-write .board-write-title").val() != "" && $(".board-write .board-write-content").val() != ""){
+			boardInsert(roomMasterId);
+			loadList(roomMasterId);
+		}else if($(".board-write .board-write-title").val() == ""){
+			alert("제목을 입력해주세요.");
+			$(".board-write .board-write-title").focus();
+		}else if($(".board-write .board-write-content").val() == ""){
+			alert("내용을 입력해주세요.");
+			$(".board-write .board-write-content").focus();
+		}
 	});
 });
 /* 방명록 작성 함수 */
@@ -549,7 +586,7 @@ function boardInsert(receiveID) {
 			$(this).attr("value", "N");
 		}
 	});
-	console.log("방작성룸마스터 : " + roomMasterId);
+	//console.log("방작성룸마스터 : " + roomMasterId);
 
 	$.ajax({
 		url: path + "/insertBoard",
@@ -591,6 +628,7 @@ $(document).ready(function() {
 	}
 });
 
+/*나무아이콘 방명록 리스트 가져오기*/
 function loadList(receiveID) {
 	$.ajax({
 		url: path + "/selectBoardList",
@@ -605,39 +643,52 @@ function loadList(receiveID) {
 				list.length = list.length;
 			}
 			let str = "";
-
 			
-
-			if (roomMasterId == "") {
-				for (let i = 0; i < list.length; i++) {
-					str +=
-						"<tr>" +
-							"<td class='myroom-board-title'>" +
-							"<img class='apple' src='./resource/img/icon/사과.png'>" +
-							list[i].boardTitle +
-							"</td>" +
-							"<td class='myroom-board-user'>" +
-							list[i].userId +
-							"</td>" +
-						"</tr>";
-				}
-			} else {
-				for (let i = 0; i < list.length; i++) {
-					$(".myroom-board-title").html(list[i].boardTitle);
-					$(".myroom-board-user").html(list[i].userId);
-					str +=
-						"<tr>" +
-						"<td class='myroom-board-title'>" +
-						"<img class='apple' src='./resource/img/icon/사과.png'>" +
-						list[i].boardTitle +
-						"</td>" +
-						"<td class='myroom-board-user'>" +
-						list[i].userId +
-						"</td>" +
-						"</tr>";
+			for (let i = 0; i < list.length; i++){
+				// 본인방
+				if (roomMasterId == "") {
+					if(list[i].secret == 'Y'){ // 비밀글 아이콘 표시
+						str += "<tr>" +
+									"<td class='myroom-board-title'>" +
+									"<img class='apple' src='./resource/img/icon/secret.png'>" + 
+										list[i].boardTitle + 
+									"</td>" +
+									"<td class='myroom-board-user' style='display: none;'>" + list[i].userId + "</td>" +
+									"<td class='myroom-board-friend-nick'>" + list[i].nickName + "</td>" +
+								"</tr>";
+					} else{
+						str += "<tr>" +
+									"<td class='myroom-board-title'>" +
+									"<img class='apple' src='./resource/img/icon/사과.png'>" + 
+										list[i].boardTitle + 
+									"</td>" +
+									"<td class='myroom-board-user' style='display: none;'>" + list[i].userId + "</td>" +
+									"<td class='myroom-board-friend-nick'>" + list[i].nickName + "</td>" +
+								"</tr>";
+					}
+				// 친구방
+				}else{
+					if(list[i].secret == 'Y'){ // 비밀글 아이콘 표시 + 비밀글 제목 안보이게
+						str += "<tr>" +
+									"<td class='myroom-board-title'>" +
+									"<img class='apple' src='./resource/img/icon/secret.png'>" + 
+										"비밀글" + 
+									"</td>" +
+									"<td class='myroom-board-user' style='display: none;'>" + list[i].userId + "</td>" +
+									"<td class='myroom-board-friend-nick'>" + list[i].nickName + "</td>" +
+								"</tr>";
+					} else{
+						str += "<tr>" +
+									"<td class='myroom-board-title'>" +
+									"<img class='apple' src='./resource/img/icon/사과.png'>" + 
+										list[i].boardTitle + 
+									"</td>" +
+									"<td class='myroom-board-user' style='display: none;'>" + list[i].userId + "</td>" +
+									"<td class='myroom-board-friend-nick'>" + list[i].nickName + "</td>" +
+								"</tr>";
+					}
 				}
 			}
-			
 			$(".myroom-board-list").html(str);
 		},
 		error: function(e) {

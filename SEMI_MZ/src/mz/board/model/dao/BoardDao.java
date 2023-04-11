@@ -73,7 +73,8 @@ public class BoardDao {
 						rset.getString("RECEIVE_ID"),
 						rset.getString("BOARD_TITLE"),
 						rset.getString("SECRET"),
-						df.format(rset.getDate("CREATE_DATE")));
+						df.format(rset.getDate("CREATE_DATE")),
+						rset.getString("NICKNAME"));
 				list.add(b);
 			}
 			
@@ -117,7 +118,8 @@ public class BoardDao {
             			rset.getString("BOARD_CONTENT"),
             			rset.getString("SECRET"),
             			df.format(rset.getDate("CREATE_DATE")),
-            			rset.getInt("SKIN_ID")
+            			rset.getInt("SKIN_ID"),
+            			rset.getString("NICKNAME")
             			);
             }
 		} catch (SQLException e) {
@@ -128,44 +130,6 @@ public class BoardDao {
 		}
 		return b;
 		
-	}
-	
-	/**
-	 * @param conn
-	 * @param userId
-	 * @return ArrayList<Board>
-	 * 친구네룸 - 내가 쓴 방명록 리스트 조회
-	 */
-	public ArrayList<Board> selectSendBoardList(Connection conn, String userId){
-		ArrayList<Board> list = new ArrayList<>();
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		String sql = prop.getProperty("selectSendBoardList");
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			
-			pstmt.setString(1, userId);
-			
-			rset = pstmt.executeQuery();
-			
-			DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-			
-			while(rset.next()) {
-				Board b = new Board();
-				b.setBoardNo(rset.getInt("BOARD_NO"));
-				b.setBoardTitle(rset.getString("BOARD_TITLE"));
-				b.setCreateDate(df.format(rset.getDate("CREATE_DATE")));
-				
-				list.add(b);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(rset);
-			close(pstmt);
-		}
-		return list;
 	}
 	
 	/**
