@@ -13,6 +13,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <link href="<%=contextPath%>/resource/css/common.css" rel="stylesheet" type="text/css">
 <script type="module" src="<%=contextPath%>/resource/js/common.js"></script>
+<link href="<%=contextPath%>/resource/css/game.css" rel="stylesheet" type="text/css">
 
 </head>
 <body>
