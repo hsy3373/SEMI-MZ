@@ -1,26 +1,25 @@
-package mz.skin.controller;
+package mz.member.controller;
 
 import java.io.IOException;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import mz.member.model.service.MemberService;
-
 /**
- * 작성자 : 김혜린
- * 회원가입 시 CHARACTER 테이블 INSERT용 서블릿
+ * Servlet implementation class forwardingServlet
  */
-@WebServlet("/insertSkin.id")
-public class MainEnrollCharacter extends HttpServlet {
+@WebServlet("/forwarding.sq")
+public class forwardingServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MainEnrollCharacter() {
+    public forwardingServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,26 +28,22 @@ public class MainEnrollCharacter extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		
+		
+		request.getRequestDispatcher("views/square.jsp").forward(request, response);
+		
+	
+		
+		
+		
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		String userId = request.getParameter("userId");
-		
-		int result = new MemberService().insertCharacter(userId);
-		System.out.println("컨트롤러 캐릭터테이블 결과 : " + result);
-		if(result > 0) {
-			response.getWriter().print("111");
-		}else {
-			System.out.println("character table insert 실패");
-		}
-		
-		
+		// TODO Auto-generated method stub
+		doGet(request, response);
 	}
 
 }

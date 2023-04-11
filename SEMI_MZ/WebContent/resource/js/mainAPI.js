@@ -231,7 +231,8 @@ let checkGoogle = function(key){
             if(one == "1") { // 키값이 DB에 존재함
                 if(page == "main"){
                     // main page =>  광장으로 이동시키기 (로그인유저 정보는 서블릿에서 세션에 담음)
-                    location.replace(path+"/views/square.jsp");
+                    //location.replace(path+"/views/square.jsp");
+                    location.href = path+"/forwarding.sq";
                 }
                 if(page == "find"){
                     // 비밀번호 재설정 모달 열기(세션정보 서블릿에서 저장)
