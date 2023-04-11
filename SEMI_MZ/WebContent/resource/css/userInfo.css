@@ -15,6 +15,7 @@
     left: 50%;
     height: 62%;
     transform: translate(-50%, -50%);
+    z-index: 2;
 }
 .user-info, #info-view{
 	width: 100%;
@@ -24,7 +25,6 @@
 
 /*닉네임*/
 .info-nickname{
-	z-index: 1;
 	position: absolute;
 	top: 45px;
     left: 33.9%;
@@ -38,10 +38,9 @@
 
 /*호감도*/
 .info-heart{
-	z-index: 1;
 	position: absolute;
     top: 32.5%;
-    left: 17%;
+    left: 19%;
     width: 33px;
     height: 29px;
     cursor: pointer;
@@ -58,10 +57,9 @@
 
 /*호감도 갯수*/
 .heart-int{
-	z-index: 1;
     position: absolute;
     top: 31.8%;
-    left: 23.2%;
+    left: 25%;
     color: white;
     font-size: 31px;
     cursor: pointer;
@@ -69,42 +67,39 @@
 
 /*유저 캐릭터*/
 .info-skin{
-	z-index: 1;
     position: absolute;
-    top: 43.5%;
+    top: 44.5%;
     left: 17.5%;
     width: 13%;
-    height: 22%;
 }
 #info-skin{
 	width: 100%;
-	height: 100%;
 }
 
 /*성별*/
 .info-gender{
-    z-index: 1;
     position: absolute;
     left: 10%;
     top: 65.2%;
 }
 #gender-w{
 	width: 18px;
-    transform: translate(50%, 50%);
+    transform: translate(88px, 32px);
+    display: none;
 }
 #gender-m{
 	width: 22px;
-    transform: translate(50%, 50%);
+    transform: translate(87px, 39px);
+    display: none;
 }
 #gender-n{
 	width: 51px;
-    transform: translate(30%, 61%);
+    transform: translate(72px, 21px);
 }
 
 /*자기소개*/
 .info-introduce{
 	position: absolute;
-	z-index: 1;
     width: 46.8%;
     height: 42%;
     top: 24.5%;
@@ -130,7 +125,6 @@
 
 /*친구추가&친구삭제, 놀러가기 버튼*/
 .btns1{
-	z-index: 1;
     position: absolute;
     border: 0;
     top: 72.1%;
@@ -142,7 +136,6 @@
 
 /*1:1채팅, 신고하기 버튼*/
 .btns2{
-	z-index: 1;
     position: absolute;
     border: 0;
     top: 82.5%;
@@ -159,7 +152,6 @@
 
 /*닫기 버튼*/
 .info-x-btn{
-	z-index: 2;
     position: absolute;
     top: 11.5%;
     left: 92.2%;
@@ -177,9 +169,10 @@
 	position: absolute;
     width: 35%;
     top: 37%;
-    left: 58%;
+    left: 50%;
     height: 60%;
     transform: translate(-50%, -50%);
+    z-index: 2;
 }
 .user-report, #report-view{
     width: 100%;
@@ -188,7 +181,6 @@
 }
 #report-bgview{
     position: absolute;
-    z-index: 1;
     left: 13%;
     top: 17%;
     width: 71.9%;
@@ -200,7 +192,6 @@
 /*신고 대상 닉네임*/
 .report-nickname{
     position: absolute;
-    z-index: 1;
     top: 19.5%;
     left: 14.5%;
     width: 28.6%;
@@ -224,7 +215,6 @@
 /*신고 제목*/
 .report-title{
 	position: absolute;
-    z-index: 1;
     top: 27%;
     left: 14.5%;
 }
@@ -232,7 +222,6 @@
 	opacity: 0.7;
     border: none;
     border-radius: 5px;
-    z-index: 1;
     position: absolute;
     top: 26%;
     left: 22%;
@@ -246,14 +235,12 @@
 /*신고 내용*/
 .report-content{
     position: absolute;
-    z-index: 1;
     top: 34%;
     left: 14.5%;
 }
 /*글자수 세기*/
 .content-text-count{
 	position: absolute;
-    z-index: 1;
     top: 35%;
     left: 73%;
     font-size: 13px;
@@ -267,7 +254,6 @@
 }
 #report-content-text{
     position: absolute;
-    z-index: 1;
     top: 39%;
     left: 14.5%;
     background-color: tan;
@@ -289,7 +275,6 @@
 /*신고하기 버튼*/
 .report-btn{
 	position: absolute;
-    z-index: 5;
     top: 86.8%;
     left: 30.4%;
     width: 19%;
@@ -307,7 +292,6 @@
 /*취소 버튼*/
 .reset-btn{
 	position: absolute;
-    z-index: 5;
     top: 86.8%;
     left: 55.4%;
     width: 12.5%;

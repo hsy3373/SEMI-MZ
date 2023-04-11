@@ -65,7 +65,6 @@ public class UserInfoController extends HttpServlet {
 		String userId = request.getParameter("userId");
 		System.out.println(userId+loginUser);
 		
-		
 		Member m = new MemberService().selectMember(userId);
 			
 		response.setContentType("application/json; charset=UTF-8");
