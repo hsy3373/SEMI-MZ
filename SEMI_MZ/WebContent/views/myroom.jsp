@@ -275,10 +275,9 @@ ul li.on a {color: #fff;}
 						<%} else{ %>
 		            		<button type="button" class="page-btn"><%= i %></button>
 						<%} %>
-					<%} %>
-					<%-- <% else { %>
+					<%} else { %>
 	            		<button type="button" class="disable-btn page-btn"><%= i %></button>	
-            		<% } %> --%>
+            		<% } %> 
 				<% } %>
 			</div>
 			<!-- 상점페이징 -->
@@ -290,10 +289,9 @@ ul li.on a {color: #fff;}
 						<%} else{ %>
 		            		<button type="button" class="page-btn"><%= i %></button>
 						<%} %>
-					<%} %>
-					<%-- <% else { %>
+					<%} else { %>
 	            		<button type="button" class="disable-btn page-btn"><%= i %></button>	
-            		<% } %> --%>
+            		<% } %> 
 				<% } %>
 			</div>
 		</div>

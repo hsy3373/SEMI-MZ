@@ -2,8 +2,6 @@
  * 작성자 : 노지의
  * 마이룸 - 옷장
  */
-//import { getSessionStorage, setSessionStorage } from "./myroomCommon.js";
-//let storeSkinCount = getSessionStorage('storeSkinCount');
 import { getContextPath } from "../common.js";
 let path = getContextPath();
 
@@ -68,8 +66,8 @@ function init() {
 		if(document.querySelector(".selected-btn") != null) {
 			document.querySelector(".selected-btn").className = "page-btn";
 		}
+		//		상점	 	   /		옷장
 		// $(".store-btn") / $(".dress-btn")
-		//		상점버튼 	   /		옷장
 		if($(".store-btn").css("opacity") == 1){
 			selectSkin(this.innerText);
 		}else if($(".dress-btn").css("opacity") == 1){
@@ -147,8 +145,7 @@ function wearDisabled(){
 
 /* 구입버튼 클릭
 	1. CHARACTER 테이블에 구입스킨 INSERT
-	2. MEMBER 	 테이블에 COIN  UPDATE -> loginUser 정보 변경 
-*/
+	2. MEMBER 	 테이블에 COIN  UPDATE -> loginUser 정보 변경 */
 
 /* 상점 -> 스킨박스 스킨 클릭시 왼쪽 대표 스킨에 이미지 적용 + 구입버튼 활성화 */
 $(document).on('click', '.store-skins img', function(){
@@ -204,6 +201,8 @@ function buySkin(){
 				
 				// 상점리스트 첫페이지로 적용
 				selectSkin(1);
+				// 첫번째 버튼 클릭
+				document.querySelectorAll(".paging-store .page-btn")[0].click();
 			}else{
 				// 실패할때처리
 				alert("코인이 부족합니다!");

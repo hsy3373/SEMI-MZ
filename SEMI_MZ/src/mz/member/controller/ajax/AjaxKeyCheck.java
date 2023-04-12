@@ -65,7 +65,6 @@ public class AjaxKeyCheck extends HttpServlet {
 
 		Member m = new MemberService().checkKey(apiKind, apiKey);
 
-		String userId = m.getUserId(); // 랭킹체크용
 		
 		//System.out.println("keycheck 서블릿 담겼?: " + m); // console용
 
@@ -83,6 +82,7 @@ public class AjaxKeyCheck extends HttpServlet {
 			session.setAttribute("loginUser", m); // 세션에 유저정보 담기
 
 			String result = "1," + m.getUserId();
+			String userId = m.getUserId(); // 랭킹체크용
 
 			response.getWriter().print(result); // 광장으로
 
