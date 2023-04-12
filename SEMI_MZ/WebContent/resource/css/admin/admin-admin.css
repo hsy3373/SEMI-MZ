@@ -28,8 +28,8 @@
 
 .inner-wrap {
   width: 70vw;
-  height: 100%;
-  max-height: 90vh;
+  min-height: 90vh;
+  max-height: fit-content;
   background-color: white;
   color: black;
   padding: 2vw;
@@ -65,7 +65,7 @@
 
 .delete-chat {
   width: 100%;
-  margin-bottom: 2.5rem;
+  margin-bottom: 1rem;
   text-align: center;
   padding: 10px;
   border-radius: 10px;
@@ -107,6 +107,54 @@
   justify-content: end;
 }
 
+/* ----------- */
+
+.delete-heart {
+  width: 100%;
+  margin-bottom: 2.5rem;
+  text-align: center;
+  padding: 10px;
+  border-radius: 10px;
+  border-top: 8px solid rgb(126 146 255);
+  background-color: rgb(255, 255, 255);
+  box-shadow: 10px 9px 20px rgba(0, 0, 0, 0.068);
+}
+
+.delete-heart > div:nth-child(1) {
+  display: flex;
+  justify-content: space-around;
+}
+
+.delete-heart > div:nth-child(2) {
+  font-size: small;
+  text-align: end;
+  margin-right: 1rem;
+}
+
+.heart-count {
+  min-width: 16%;
+
+  font-size: x-large;
+  font-weight: 900;
+  color: #000000ab;
+  margin: 1rem;
+  display: flex;
+}
+
+.heart-text {
+  padding-top: 10px;
+  font-weight: 600;
+}
+
+.delete-heart-btn {
+  align-self: center;
+  width: 30%;
+  display: flex;
+  justify-content: end;
+}
+
+/* ---------- */
+
 .delete-cancel {
   width: 100%;
   margin: 0px auto;
@@ -119,7 +167,7 @@
 }
 
 .cancel-table {
-  height: 48vh;
+  height: 36vh;
   width: 90%;
   margin: auto;
   margin-top: 4px;
@@ -144,7 +192,8 @@
 }
 
 .delete-cancel-btn > button,
-.delete-chat-btn > button {
+.delete-chat-btn > button,
+.delete-heart-btn > button {
   background-color: white;
   border: 1px solid red;
   padding: 4px 10px;

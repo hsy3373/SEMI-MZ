@@ -64,7 +64,7 @@
     font-weight: var(--fontweight600);
 }
 /* #board-title{width: 320px;} */
-.board-userid{
+.board-nick{
     width: 130px;
     text-align: right;
 }
@@ -148,7 +148,7 @@
     padding: 100px 0;
 }
 .friend-skin{width: var(--friendskin80);}
-.friend-id{
+.friend-nick{
     font-size: var(--fontsize20);
     font-weight: var(--fontweight600);
     margin-top: 10px;

@@ -68,13 +68,17 @@ function init() {
 		if(document.querySelector(".selected-btn") != null) {
 			document.querySelector(".selected-btn").className = "page-btn";
 		}
-		selectSkin(this.innerText);
+		// $(".store-btn") / $(".dress-btn")
+		//		상점버튼 	   /		옷장
+		if($(".store-btn").attr("opacity", "1")){
+			selectSkin(this.innerText);
+		}
 		mySkin(this.innerText);
-		
 		
 		this.className = "selected-btn page-btn";
 		});
 	});
+
 }
 
 /* 옷장 -> 스킨박스 스킨 클릭시 왼쪽 대표 스킨에 이미지 적용 + 착용버튼 활성화 */
@@ -234,7 +238,7 @@ $(function () {
 	$(document).on("click", ".dress-btn",function(){
         $.dressClick();
 		mySkin(1);
-		init();
+		//init();
 	});
     /*상점 버튼 클릭*/
 	$(document).on("click", ".store-btn",function(){
@@ -271,6 +275,7 @@ $(function () {
 		// 페이징바 설정
 		$(".paging-store").css("display", "none");
 		$(".paging-dress").css("display", "block");
+		
     }
   
 
@@ -303,6 +308,11 @@ $(function () {
 		// 페이징바 보이게
 		$(".paging-store").css("display", "block");
 		$(".paging-dress").css("display", "none");
+		
+/*		let btn = document.querySelectorAll(".page-btn");
+		//가장 첫 버튼 클릭
+		btn[0].className = "selected-btn page-btn";
+	    btn[0].click();*/
 
     }
 });

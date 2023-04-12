@@ -9,8 +9,10 @@
 			  RECEIVE_ID,
 			  BOARD_TITLE,
 			  SECRET,
-			  CREATE_DATE
-		FROM BOARD
+			  CREATE_DATE,
+              NICKNAME
+		FROM BOARD B
+        JOIN MEMBER USING (USER_ID)
 		WHERE RECEIVE_ID = ?
 		ORDER BY CREATE_DATE DESC
 	</entry>
@@ -24,11 +26,13 @@
 				BOARD_CONTENT,
 				SECRET,
 				CREATE_DATE,
-				SKIN_ID
+				SKIN_ID,
+				NICKNAME
 		  FROM BOARD B
 		  JOIN MEMBER M USING (USER_ID)
 		 WHERE BOARD_NO = ?
 	</entry>
+	
 	<!-- 친구네룸 - 내가쓴 방명록 상세 조회 -->
 	<entry key="selectSendBoard">
 		SELECT BOARD_NO,

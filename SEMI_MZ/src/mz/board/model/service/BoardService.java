@@ -38,22 +38,7 @@ public class BoardService {
 		
 		return b;
 	}
-	
-	/**
-	 * @param userId
-	 * @return ArrayList<Board>
-	 * 친구네룸 - 내가 쓴 방명록 리스트 조회
-	 */
-	public ArrayList<Board> selectSendBoardList(String userId){
-		Connection conn = getConnection();
-		
-		ArrayList<Board> list = new BoardDao().selectSendBoardList(conn, userId);
-		
-		close(conn);
-		
-		return list;
-	}
-	
+
 	/**
 	 * @param boardNo
 	 * @return Board

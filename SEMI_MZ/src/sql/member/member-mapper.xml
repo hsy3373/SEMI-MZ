@@ -214,11 +214,20 @@
 		 SELECT USER_ID, NICKNAME, SKIN_ID, SAVE_ROOT, RANK
  		 FROM ( SELECT RECEIVE_ID , RANK() OVER (ORDER BY COUNT DESC) RANK 
          FROM ( SELECT RECEIVE_ID , COUNT(*) AS COUNT FROM HEART
+         		WHERE CREATE_DATE &lt; TRUNC(SYSDATE, 'iw')
+                  AND CREATE_DATE >=  TRUNC(SYSDATE, 'iw') - 7
                 GROUP BY RECEIVE_ID )
          ORDER BY RANK, RECEIVE_ID )
 		 JOIN MEMBER ON RECEIVE_ID = USER_ID
 		 JOIN CHARACTER_SKIN USING(SKIN_ID)
  		 WHERE RANK &lt;= 3
+	</entry>
+	
+	<!-- [지의] 친구유저 닉네임 조회 -->
+	<entry key="friendNickName">
+		SELECT NICKNAME
+		  FROM MEMBER
+		 WHERE USER_ID = ?
 	</entry>
 	
 	
