@@ -10,10 +10,23 @@ let path = getContextPath();
 
 let Flipsocket = new WebSocket("ws://192.168.30.171:8083" + path + "/FilpGame");
 
+Flipsocket.onopen = function(e) {
+    console.log("접속성공"); 
+    let msg = userSkin+","+userName;
+    console.log(msg);
+    Flipsocket.send(msg);
+}
 
+Flipsocket.onmessage = function(e){
+    console.log('메세지 감지');
+}
 
-
-
+const sendMsg = () =>{
+    // let msg = new Message( $("#sender").val(), $("#receiver").val(),$("#msg").val());
+		
+		
+	// socket.send(JSON.stringify(msg));
+}    
 
 // let fnSocket = {
 //     onopen: function (e) {
