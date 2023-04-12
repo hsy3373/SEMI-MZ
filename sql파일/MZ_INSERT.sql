@@ -110,7 +110,7 @@ INSERT INTO MEMBER( USER_ID,
                     USER_PWD,
                     NICKNAME )
         VALUES ( 'admin',
-                'admin',
+                'x61Ey612Kl2gpFL56FT9weDnpSo4AV8j8+qx2AuTHdRyY036xxzTTrw10Wq3+4qQyB+XURPWx1ONxp3Y3pB37A==',
                 '관리자');
       
 -- BOARD
