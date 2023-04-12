@@ -19,13 +19,21 @@
 </head>
 <body class="mini-game">
     <div >
+        <div class="game-titel">
+            <div class="game-title-text">짝 맞추기</div>
+        </div>
         
         <div class="filp-modal-game" id="filp-modal">
          <div class="filp-background">
-                <div class="gamemodal-out-btn">
+                <div class="return-square">
                     <img src="<%=contextPath%>/resource/img/icon/back2_btn.png" class="game_xbtn" id="game-back-button">
                 </div>
-                <div class="game-titel">카드 뒤집기</div>
+               <div class="user-Card">
+                    나!!
+               </div>
+               <div class="user2-Card">
+                    상대방!!
+                </div>
                
                 <div class="game">
                     <div class="game-board" id="game-board">

@@ -7,6 +7,122 @@
 import { getContextPath } from "../common.js";
 let path = getContextPath();
 
+
+let Flipsocket = new WebSocket("ws://192.168.30.171:8083" + path + "/FilpGame");
+
+
+
+
+
+
+// let fnSocket = {
+//     onopen: function (e) {
+//       console.log("접속성공");
+//       let User = new UserData(
+//         uesrX,
+//         uesrY,
+//         userSkin,
+//         userId,
+//         userName,
+//         "ArrowDown",
+//         "F"
+//       ); //처음유저
+//       socket.send(JSON.stringify(User)); //첫 접속 알려줌
+//     },
+//     onmessage: function (e) {
+//       // console.log('메세지 감지');
+//       //console.log(e);
+//       //console.log(e.data);
+  
+//       //데이터가 나인 경우 걸러내기
+//       let receivedUser = JSON.parse(e.data);
+//       receivedUserId = receivedUser.userId;
+  
+//       if (receivedUser.connecting == "X") {
+//         alert("이중 로그인 되었습니다. 재 로그인 해주세요");
+//         location.href = path + "/logout"; //둘 다 쫒겨남..^^...
+//       }
+  
+//       if (receivedUser.userId !== userId) {
+//         //console.log(receivedUserId)
+//         UsersData.push(receivedUser);
+//         //userData에 담겨있는 userId 값 기준으로 필터링 : 마지막 값만 남김
+//         FilterUsers = UsersData.filter(
+//           (arr, index, callback) =>
+//             index === callback.findLastIndex((t) => t.userId === arr.userId)
+//         );
+//       }
+  
+//       //떠난 유저 체크해서 삭제하기
+//       FilterUsers = FilterUsers.filter((user) => user.connecting != "N"); //삭제
+  
+//       //UsersData.push(JSON.parse(e.data)); // String -> 배열 변환
+//       //console.log(UsersData)  //object
+  
+//       UsersData = FilterUsers; // Userdate 정보를 Fileter 정보로 바꿔주기
+//       //console.log(FilterUsers);
+  
+//       //userrender 함수 호출
+//       usersreder();
+//     },
+//     onclose: function (e) {
+//       //console.log(e);
+//       console.log("재연결...");
+//       setTimeout(function () {
+//         //재연결하기...
+//         socket = new WebSocket(
+//           "ws://192.168.30.171:8083" + path + "/multiAccess"
+//         );
+//         initSocket(socket);
+//         console.log("재연결...보냈당");
+//       }, 1000);
+//     },
+//     onerror: (event) => {
+//       console.log("WebSocket error: ", event);
+//     },
+//   };
+//   function initSocket(s) {
+//     for (let key in fnSocket) {
+//       s[key] = fnSocket[key];
+//       //console.log(s[key] , fnSocket[key]);
+//     }
+//   }
+  
+//   //데이터 전송 JSON
+//   const sendMsg = (keyboardCode) => {
+//     let connecting = "Y";
+  
+//     //유저객체 넣어주기 : 랜더링에 필요한 정보들 : x, y , skin, id , name, code;
+//     let User = new UserData(
+//       uesrX,
+//       uesrY,
+//       userSkin,
+//       userId,
+//       userName,
+//       keyboardCode,
+//       connecting
+//     );
+//     //console.log(User)
+  
+//     socket.send(JSON.stringify(User));
+//     //문자열 객체 데이터로 바꿔줌
+//   };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 const CARD_IMG = ['bear', 'cat', 'chick', 'elephant',
     'kitty', 'koala', 'monkey', 'penguin', 'rabbit', 'snail', 'snake', 'whale',
     'bear', 'cat', 'chick', 'elephant',
