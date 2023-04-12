@@ -2,7 +2,8 @@
  * 작성자 : 노지의
  * 마이룸 - 옷장
  */
-import { getContextPath } from "../common.js";
+import { getContextPath, getSessionStorage, setSessionStorage, delSessionStorage  } from "../common.js";
+//let dressSkin = getSessionStorage('dressSkin');
 let path = getContextPath();
 
 /* 상점 클릭시 모든 리스트가 출력됨
@@ -77,7 +78,20 @@ function init() {
 		this.className = "selected-btn page-btn";
 		});
 	});
+	//최대 페이지 수
+/*    let btns = document.querySelectorAll(".page-btn");
+    // 버튼들 텍스트 변경
+    btns.forEach(function (el) {
+      el.innerText = Number(el.innerText) + 5;
 
+      if (Number(el.innerText) > maxPage) {
+        //만약 버튼의 숫자가 최대 페이지 수보다 크다면
+        el.className = "disable-btn page-btn";
+      } else {
+        el.className = "page-btn";
+      }
+	});*/
+	
 }
 
 /* 옷장 -> 스킨박스 스킨 클릭시 왼쪽 대표 스킨에 이미지 적용 + 착용버튼 활성화 */
@@ -121,15 +135,17 @@ function updateMySkin(){
 			if(result > 0){
 				/*옷장 왼쪽 스킨, 마이룸 가운데 스킨 이미지 변경*/
 				/* loginUserSkinId : myroom.jsp에서 가져온 skinId값 -> 변경된 skinId로 */
-				loginUserSkinId = skinId;
+				/*loginUserSkinId = skinId;*/
 				/*바꾸고자하는 스킨 경로*/
-				let changeSkin = $(".view-skin .user-skin").attr('src');
+				//let changeSkin = $(".view-skin .user-skin").attr('src');
 				//console.log(changeSkin);
 				/*기존 스킨경로 바꾸고자하는 스킨 경로로 변경*/
-				$(".user-skin").attr('src', changeSkin);
+/*				$(".user-skin").attr('src', changeSkin);
 				if(loginUserSkinId == skinId){
 					wearDisabled();
-				}
+				}*/
+				setSessionStorage('closetskin','closet');
+				location.reload();
 			}
 			
 		},
@@ -173,7 +189,8 @@ $(document).on('click', '.store-skins img', function(){
 $(document).on('click', '.closet-buy', function(){
 	
 	if(confirm("구입하시겠습니까? 현재 스킨이 바로 변경됩니다!")){
-		buySkin();
+		buySkin();		
+		/*store-skins 상점스킨박스*/
 	}else{
 		return false;
 	}
@@ -192,6 +209,8 @@ function buySkin(){
 			if(result > -1){
 				// 현재 스킨 교체 함수 실행
 				updateMySkin();
+				
+				
 				// 구입버튼 비활성화
 				$(".closet-buy").attr("disabled", true);
 				$(".closet-buy").css("cursor", "default");
@@ -234,6 +253,7 @@ $(function () {
 		
 	})
 
+
     /*옷장 버튼 클릭*/
 	$(document).on("click", ".dress-btn",function(){
         $.dressClick();
@@ -249,6 +269,7 @@ $(function () {
 		init();
 		//가장 첫 버튼 클릭
 		document.querySelectorAll(".paging-store .page-btn")[0].click();
+		
 	});
 
     /*옷장 버튼 클릭 함수 생성*/
@@ -312,10 +333,16 @@ $(function () {
 		// 페이징바 보이게
 		$(".paging-store").css("display", "block");
 		$(".paging-dress").css("display", "none");
-		
-
-
     }
+
+
+	if(getSessionStorage('closetskin')){
+		if(getSessionStorage('closetskin') == 'closet'){
+			delSessionStorage('closetskin');
+			$('.icon-closet').click();
+			$('.store-btn').click();
+		}
+	}
 });
 
 $(function(){
@@ -333,3 +360,5 @@ $(function(){
 		}
 	});
 })
+
+

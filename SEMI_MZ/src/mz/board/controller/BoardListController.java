@@ -40,7 +40,7 @@ public class BoardListController extends HttpServlet {
 		String loginId = ((Member)request.getSession().getAttribute("loginUser")).getUserId();
 		// 방주인 아이디
 		String receive = request.getParameter("receive");
-		System.out.println("누가 "+loginId+" 누구의 " + receive);
+		//System.out.println("누가 "+loginId+" 누구의 " + receive);
 		ArrayList<Board> list = new BoardService().selectBoardList(loginId, receive);
 		//System.out.println(list.size());
 		Gson gson = new Gson();

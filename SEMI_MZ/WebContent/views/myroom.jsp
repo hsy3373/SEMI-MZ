@@ -15,8 +15,6 @@
 	Member loginUser = (Member)request.getSession().getAttribute("loginUser");
 	//System.out.println("jsp roomMaster : "+roomMaster);
 	//System.out.println("jsp loginUser : "+loginUser);
-	//System.out.println("loginUser coin : "+loginUser.getCoin());
-	//Member userId = (Member)request.getAttribute("userId");
 	
 	int storeSkinCount = (int) request.getAttribute("storeSkinCount"); 		// 상점 총 스킨 개수
 	int dressSkinCount = (int)request.getAttribute("dressSkinCount");		// 보유 스킨 총 개수
@@ -25,20 +23,22 @@
  	// 상점 페이징 변수
  	int maxPage = (int) Math.ceil(storeSkinCount / 12.0); 				 	// 총 페이지
  	int startPage = (currentPage-1) / storeSkinCount * storeSkinCount +1; 	// 페이징바 시작 수
- 	int endPage = startPage + storeSkinCount - 1;							// 페이징바 끝 수
- 	if(endPage > maxPage){
+ 	int endPage = startPage + maxPage - 1;									// 페이징바 끝 수
+/*  	if(endPage > maxPage){
  		endPage = maxPage;
- 	}
+ 	} */
  	// 옷장 페이징 변수
  	int maxPageD = (int) Math.ceil(dressSkinCount / 12.0);
  	int startPageD = (currentPage-1) / dressSkinCount * dressSkinCount +1;
- 	int endPageD = startPageD + dressSkinCount - 1;
- 	if(endPageD > maxPageD){
+ 	int endPageD = startPageD + maxPageD - 1;
+/*  	if(endPageD > maxPageD){
  		endPageD = maxPageD;
- 	}
+ 	} */
+	int btnRange = currentPage/5; 
+	System.out.println("maxPageD : "+maxPageD);
+	System.out.println("startPageD : "+startPageD);
+	System.out.println("endPageD : "+endPageD);
 %>
-
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -136,21 +136,16 @@ ul li.on a {color: #fff;}
 			</c:choose>
 		</div>
 
-	<!--버튼 모달 jps 가져옴 -->
-		
-	<div class="button-area">
-		<div class="squareGo" onclick="gosquare();">
-			<img src="resource/img/icon/home_btn.png">
+		<!--버튼 모달 jps 가져옴 -->
+		<div class="button-area">
+			<div class="squareGo" onclick="gosquare();">
+				<img src="resource/img/icon/home_btn.png">
+			</div>
+			<%@ include file="./buttonList.jsp"  %>
 		</div>
-		<%@ include file="./buttonList.jsp"  %>
-	</div>
-
 		
 	</div>
 	
-		
-		
-		
 	<!-- ============================= 방명록 모달 ============================= -->
 	<div class="board-wrap">
 		<div class="board-modal">
@@ -268,7 +263,7 @@ ul li.on a {color: #fff;}
 			<!-- 페이징 -->
 			<!-- 옷장 페이징 -->
 			<div class="paging-closet paging-dress">
-				<% for(int i = startPageD; i <= endPageD; i++){ %>
+				<% for(int i=btnRange*5 + 1; i<= btnRange*5 + 5; i++){ %>
 					<% if( i <= maxPageD) { %>
 						<% if(i == currentPage){ %>
 							<button type="button" class="selected-btn page-btn"><%= i %></button>
@@ -282,7 +277,7 @@ ul li.on a {color: #fff;}
 			</div>
 			<!-- 상점페이징 -->
 			<div class="paging-closet paging-store">
-				<% for(int i = startPage; i <= endPage; i++){ %>
+				<% for(int i=btnRange*5 + 1; i<= btnRange*5 + 5; i++){ %>
 					<% if( i <= maxPage) { %>
 						<% if(i == currentPage){ %>
 							<button type="button" class="selected-btn page-btn"><%= i %></button>
@@ -360,11 +355,13 @@ ul li.on a {color: #fff;}
 		var roomMasterId = "${roomMaster}";
 		//console.log("로그인유저 : "+loginUserId);
 		//console.log("로그인유저스킨 : "+loginUserSkinId);
-		console.log("로그인유저코인 : "+loginUserCoin);
+		//console.log("로그인유저코인 : "+loginUserCoin);
 		//console.log("룸마스터 : "+roomMasterId);
 		
 		/* 스킨 총 개수 closet.js로 넘김 */
 		sessionStorage.setItem("storeSkinCount", JSON.stringify(<%= storeSkinCount %>));
+		sessionStorage.setItem("dressSkinCount", JSON.stringify(<%= dressSkinCount %>));
+		sessionStorage.setItem("dressSkin", "dressSkin");
 	</script>
 	
 

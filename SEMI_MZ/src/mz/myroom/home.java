@@ -33,9 +33,8 @@ public class home extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String roomMaster = request.getParameter("roomMaster");
-		System.out.println("roomMaster : "+roomMaster);
 		String userId = ((Member)request.getSession().getAttribute("loginUser")).getUserId();
-		System.out.println("home에서 "+userId);
+		//System.out.println("roomMaster : "+roomMaster);
 		
 		// db에있는 로그인유저 정보 불러와서 myroom.jsp로 넘겨줌
 		Member loginUser = new MemberService().selectMemberAllInfo(userId);
