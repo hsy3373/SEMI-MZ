@@ -71,6 +71,11 @@
 			<img id="notice-detail-x-btn" alt="닫기 버튼" src="<%= contextPath %>/resource/img/icon/엑스 버튼.png">
 		</div>
 	</div>
+	
+	<script>
+		var loginUserId = '${loginUser.userId}';
+	</script>
+	
 	<script type="module" src="<%= contextPath %>/resource/js/notice.js"></script>
 	<script type="module" src="<%= contextPath %>/resource/js/common.js"></script>
 	<script type="module" src="<%= contextPath %>/resource/js/userInfo.js"></script>
