@@ -41,7 +41,7 @@ public class PasswordEncryptFilter implements Filter {
 		
 		
 		
-		chain.doFilter(pew, response);
+		chain.doFilter(request, response);
 	}
 
 	/**

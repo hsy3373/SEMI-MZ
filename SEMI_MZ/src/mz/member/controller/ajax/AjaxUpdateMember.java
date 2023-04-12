@@ -43,7 +43,7 @@ public class AjaxUpdateMember extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String nickName = request.getParameter("nickName");
-		String userPwd = request.getParameter("chkpwd");
+		String userPwd = request.getParameter("userPwd");
 		String gender = request.getParameter("gender");
 		String info = request.getParameter("info");
 		

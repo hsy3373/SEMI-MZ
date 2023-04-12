@@ -7,7 +7,6 @@ import { getContextPath, getSessionStorage } from "./common.js";
 import { modalstopfn } from "./squareCanvas.js";
 import { FilterUsers } from "./squareCanvas.js";
 import { getUserInfo } from "./userInfo.js";
-import * as api from "./mainAPI.js";
 let path = getContextPath();
 
 $(".friendList").click(function () {
@@ -150,9 +149,11 @@ logoutButton.addEventListener("click", () => {
   let logoutok = document.getElementById("logout-ok");
   logoutok.addEventListener("click", () => {
     //console.log("로그아웃 처리")
-	localStorage.removeItem('autoLogin');
+    // Kakao.Auth.getAccessToken();
+    // kakaoLogout();
     location.href = path + "/logout";
-    //api.kakaoLogout();
+	  localStorage.removeItem('autoLogin');
+    
   });
 
   // 모달  표시
@@ -241,7 +242,7 @@ $('#cge-btn').on("click", function(){
 		type : "post",
 		url : path + "/update.me",
 		dataType: "json",
-		data : {nickName: nickName, chkpwd: chkpwd, gender: gender1, info: info},
+		data : {nickName: nickName, userPwd: chkpwd, gender: gender1, info: info},
 		success : (updateM) => { 
 			if(updateM == null){
 				alert("정보변경에 실패하였습니다. 다시 확인해주세요.");

@@ -12,11 +12,12 @@ import * as ChatFront from './chatFront.js';
 //------------------------웹소켓 관련 구간 -------------------------------------
 
 let ip = ['192.168.30.180', '192.168.0.2', 'localhost'];
-let socketAddress = `ws://${ip[1]}:8082/mzone/websocket`;
+let socketAddress = `ws://192.168.120.37:8084/mzone/websocket`;
 let webSocket = new WebSocket(socketAddress);
 //console.log("기본 웹소켓 객체 : ", webSocket);
 // 지의 학원: 192.168.30.174:8084
 // 지의 집 : 192.168.0.16:8084
+// 혜린 : 192.168.120.37:8084
 let socketOpen = function (message) {
   //console.log("소켓오픈");
   //console.log(message);
