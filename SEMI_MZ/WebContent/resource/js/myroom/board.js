@@ -116,53 +116,78 @@ function displayData(currentPage, boardLimit) {
 	if (maxpnum > listCount) {
 		maxpnum = listCount;
 	}
-	
-	for (let i = (currentPage - 1) * boardLimit; i < maxpnum; i++) {
-		// 방명록 받은 유저 == 로그인 유저가 같을 때로 비교한것!
-		if (BoardList[i].receiveId == loginUserId) {
-			if(BoardList[i].secret == 'Y'){
-				str += "<tr>"
-						+ "<td id='board-title" + i +"'><img class='apple' src='./resource/img/icon/secret.png'>"
-							+ BoardList[i].boardTitle
-						+ "</td>"
-						+ "<td id='board-no' style='display: none;'>"
-							+ BoardList[i].boardNo
-						+ "</td>"
-						+ "<td class='board-userid' style='display: none;'>"
-							+ BoardList[i].userId
-						+ "</td>"
-						+ "<td class='board-nick'>"
-							+ BoardList[i].nickName
-						+ "</td>"
-						+ "<td class='board-date'>"
-							+ BoardList[i].createDate
-						+ "</td>"
-					+ "</tr>";
-			}else{
-				str += "<tr>"
-						+ "<td id='board-title" + i +"'><img class='apple' src='./resource/img/icon/사과.png'>"
-							+ BoardList[i].boardTitle
-						+ "</td>"
-						+ "<td id='board-no' style='display: none;'>"
-							+ BoardList[i].boardNo
-						+ "</td>"
-						+ "<td class='board-userid' style='display: none;'>"
-							+ BoardList[i].userId
-						+ "</td>"
-						+ "<td class='board-nick'>"
-							+ BoardList[i].nickName
-						+ "</td>"
-						+ "<td class='board-date'>"
-							+ BoardList[i].createDate
-						+ "</td>"
-					+ "</tr>";
-			}
-		} else { // 친구룸에서 보이는 방명록리스트
-			if(BoardList[i].secret == 'Y'){ // 비밀글일때
-				if(BoardList[i].userId != loginUserId){ // 제목표시 x
+	if(listCount == 0){
+		str = `<tr>
+				<td colspan="3">방명록 없음</td>
+				</tr>`;
+	}else{
+		
+		for (let i = (currentPage - 1) * boardLimit; i < maxpnum; i++) {
+			// 방명록 받은 유저 == 로그인 유저가 같을 때로 비교한것!
+			if (BoardList[i].receiveId == loginUserId) {
+				if(BoardList[i].secret == 'Y'){
 					str += "<tr>"
+							+ "<td id='board-title" + i +"'><img class='apple' src='./resource/img/icon/secret.png'>"
+								+ BoardList[i].boardTitle
+							+ "</td>"
+							+ "<td id='board-no' style='display: none;'>"
+								+ BoardList[i].boardNo
+							+ "</td>"
+							+ "<td class='board-userid' style='display: none;'>"
+								+ BoardList[i].userId
+							+ "</td>"
+							+ "<td class='board-nick'>"
+								+ BoardList[i].nickName
+							+ "</td>"
+							+ "<td class='board-date'>"
+								+ BoardList[i].createDate
+							+ "</td>"
+						+ "</tr>";
+				}else{
+					str += "<tr>"
+							+ "<td id='board-title" + i +"'><img class='apple' src='./resource/img/icon/사과.png'>"
+								+ BoardList[i].boardTitle
+							+ "</td>"
+							+ "<td id='board-no' style='display: none;'>"
+								+ BoardList[i].boardNo
+							+ "</td>"
+							+ "<td class='board-userid' style='display: none;'>"
+								+ BoardList[i].userId
+							+ "</td>"
+							+ "<td class='board-nick'>"
+								+ BoardList[i].nickName
+							+ "</td>"
+							+ "<td class='board-date'>"
+								+ BoardList[i].createDate
+							+ "</td>"
+						+ "</tr>";
+				}
+			} else { // 친구룸에서 보이는 방명록리스트
+				if(BoardList[i].secret == 'Y'){ // 비밀글일때
+					if(BoardList[i].userId != loginUserId){ // 제목표시 x
+						str += "<tr>"
+								+ "<td class='board-list-title' id='board-title" + i + "'><img class='apple' src='./resource/img/icon/secret.png'>"
+									+ "비밀글"
+								+ "</td>"
+								+ "<td id='board-no' style='display: none;'>"
+									+ BoardList[i].boardNo
+								+ "</td>"
+								+ "<td class='board-userid' style='display: none;'>"
+									+ BoardList[i].userId
+								+ "</td>"
+								+ "<td class='board-nick'>"
+									+ BoardList[i].nickName
+								+ "</td>"
+								+ "<td class='board-secret' style='display: none;'>"
+									+ BoardList[i].secret
+								+ "</td>"
+								+ "<td class='board-date'>"
+									+ BoardList[i].createDate
+								+ "</td>"
+					}else{
+						str += "<tr>"
 							+ "<td class='board-list-title' id='board-title" + i + "'><img class='apple' src='./resource/img/icon/secret.png'>"
-								+ "비밀글"
+								+ BoardList[i].boardTitle 
 							+ "</td>"
 							+ "<td id='board-no' style='display: none;'>"
 								+ BoardList[i].boardNo
@@ -179,53 +204,33 @@ function displayData(currentPage, boardLimit) {
 							+ "<td class='board-date'>"
 								+ BoardList[i].createDate
 							+ "</td>"
+						+ "</tr>";
+					}
 				}else{
-					str += "<tr>"
-						+ "<td class='board-list-title' id='board-title" + i + "'><img class='apple' src='./resource/img/icon/secret.png'>"
-							+ BoardList[i].boardTitle 
-						+ "</td>"
-						+ "<td id='board-no' style='display: none;'>"
-							+ BoardList[i].boardNo
-						+ "</td>"
-						+ "<td class='board-userid' style='display: none;'>"
-							+ BoardList[i].userId
-						+ "</td>"
-						+ "<td class='board-nick'>"
-							+ BoardList[i].nickName
-						+ "</td>"
-						+ "<td class='board-secret' style='display: none;'>"
-							+ BoardList[i].secret
-						+ "</td>"
-						+ "<td class='board-date'>"
-							+ BoardList[i].createDate
-						+ "</td>"
-					+ "</tr>";
+						str += "<tr>"
+							+ "<td class='board-list-title' id='board-title" + i + "'><img class='apple' src='./resource/img/icon/사과.png'>"
+								+ BoardList[i].boardTitle 
+							+ "</td>"
+							+ "<td id='board-no' style='display: none;'>"
+								+ BoardList[i].boardNo
+							+ "</td>"
+							+ "<td class='board-userid' style='display: none;'>"
+								+ BoardList[i].userId
+							+ "</td>"
+							+ "<td class='board-nick'>"
+								+ BoardList[i].nickName
+							+ "</td>"
+							+ "<td class='board-secret' style='display: none;'>"
+								+ BoardList[i].secret
+							+ "</td>"
+							+ "<td class='board-date'>"
+								+ BoardList[i].createDate
+							+ "</td>"
+						+ "</tr>";
 				}
-			}else{
-					str += "<tr>"
-						+ "<td class='board-list-title' id='board-title" + i + "'><img class='apple' src='./resource/img/icon/사과.png'>"
-							+ BoardList[i].boardTitle 
-						+ "</td>"
-						+ "<td id='board-no' style='display: none;'>"
-							+ BoardList[i].boardNo
-						+ "</td>"
-						+ "<td class='board-userid' style='display: none;'>"
-							+ BoardList[i].userId
-						+ "</td>"
-						+ "<td class='board-nick'>"
-							+ BoardList[i].nickName
-						+ "</td>"
-						+ "<td class='board-secret' style='display: none;'>"
-							+ BoardList[i].secret
-						+ "</td>"
-						+ "<td class='board-date'>"
-							+ BoardList[i].createDate
-						+ "</td>"
-					+ "</tr>";
 			}
 		}
 	}
-
 	$(".board-list .board-list-area").html(str);
 }
 
