@@ -178,3 +178,34 @@
 	border: 1px solid #806d4e;
 }
 .disable-btn{display: none;}
+
+
+/* ============================= 페이징바 ============================= */
+.pageing-closet{
+	text-align: center;
+}
+.pageing-closet ul {
+    text-align: center;
+    display: inline-block;
+    border-right: 0;
+	padding-left :0;
+}
+.pageing-closet ul li {
+    text-align: center;
+    float: left;
+	list-style:none;
+    border-radius: 10px;
+    background-color: #edd1a1;
+    border: 1px solid #d4b88a;
+    
+}
+.pageing-closet ul li a {
+    display: block;
+    font-size: var(--fontsize16);
+    padding: 0px 10px;
+    box-sizing: border-box;
+	text-decoration-line:none;	
+    line-height: 26px;
+}
+.pageing-closet ul li.on {background: #ad966f;;}
+.pageing-closet ul li.on a {color: #fff;}

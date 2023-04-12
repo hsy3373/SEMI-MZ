@@ -71,6 +71,19 @@
 		WHERE RN BETWEEN ? AND ?
 	</entry>
 	
+	<entry key="selectSkinsList2">
+		SELECT SKIN_ID, SAVE_ROOT, CHARACTER_PRICE, REWARD
+		FROM CHARACTER_SKIN CS
+		WHERE NOT EXISTS
+		(
+		        SELECT SKIN_ID
+		        FROM CHARACTER C      
+		        WHERE USER_ID = ?
+		        AND CS.SKIN_ID = C.SKIN_ID
+		)
+		AND REWARD = 'N'
+	</entry>
+	
 	<!-- 상점 스킨 총 갯수(보유스킨 제외) : 지의 -->
 	<entry key="storeSkinCount">
 		SELECT COUNT(*) AS COUNT 
@@ -104,6 +117,20 @@
 		  )
 		)
 		WHERE RN BETWEEN ? AND ?
+	</entry>
+	
+	<!-- 마이룸 옷장 : 보유중인 캐릭터만 조회 -->
+	<entry key="mySkinList2">
+		    SELECT SKIN_ID, SAVE_ROOT
+            FROM CHARACTER_SKIN CS
+            WHERE EXISTS
+            (
+                    SELECT SKIN_ID
+                    FROM CHARACTER C      
+                    WHERE USER_ID = ?
+                    AND CS.SKIN_ID = C.SKIN_ID
+            )
+            ORDER BY SKIN_ID ASC
 	</entry>
 	
 	<!-- 옷장 스킨 총 갯수 : 지의 -->

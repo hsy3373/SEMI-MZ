@@ -68,21 +68,21 @@ export function getUserInfo(){
 			let gender = data.gender;
 			console.log(gender);
 			if (gender == 'W') {
-				$("#gender-w").attr("src", "../resource/img/icon/여자.png");
+				$("#gender-w").attr("src", getContextPath()+"/resource/img/icon/여자.png");
 				
 				$('#gender-w').css('display', 'block');
 				$('#gender-m').css('display', 'none');
 				$('#gender-n').css('display', 'none');
 				
 			} else if (gender == 'M') {
-				$("#gender-m").attr("src", "../resource/img/icon/남자.png");
+				$("#gender-m").attr("src", getContextPath()+"/resource/img/icon/남자.png");
 				
 				$('#gender-w').css('display', 'none');
 				$('#gender-m').css('display', 'block');
 				$('#gender-n').css('display', 'none');
 				
 			} else {
-				$("#gender-n").attr("src", "../resource/img/icon/성별비공개.png");
+				$("#gender-n").attr("src", getContextPath()+"/resource/img/icon/성별비공개.png");
 				
 				$('#gender-w').css('display', 'none');
 				$('#gender-m').css('display', 'none');

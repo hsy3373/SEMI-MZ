@@ -57,32 +57,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 
 <style>
-ul {
-    text-align: center;
-    display: inline-block;
-    border: 1px solid #ccc;
-    border-right: 0;
-	padding-left :0;
-}
-ul li {
-    text-align: center;
-    float: left;
-	list-style:none;
-}
-ul li a {
-    display: block;
-    font-size: 14px;
-	color: black;
-    padding: 0 12px;
-    border-right: solid 1px #ccc;
-    box-sizing: border-box;
-	text-decoration-line:none;	
-	
-    line-height: 30px;
-    font-weight: 300;
-}
-ul li.on {background: #eda712;}
-ul li.on a {color: #fff;}
+
 </style>
 <title>M-Zone</title>
 </head>
@@ -262,7 +237,7 @@ ul li.on a {color: #fff;}
 			<img class="fur-img" src="${contextPath}/resource/img/icon/빈옷장.png">
 			<!-- 페이징 -->
 			<!-- 옷장 페이징 -->
-			<div class="paging-closet paging-dress">
+<%-- 			<div class="paging-closet paging-dress">
 				<% for(int i=btnRange*5 + 1; i<= btnRange*5 + 5; i++){ %>
 					<% if( i <= maxPageD) { %>
 						<% if(i == currentPage){ %>
@@ -270,13 +245,16 @@ ul li.on a {color: #fff;}
 						<%} else{ %>
 		            		<button type="button" class="page-btn"><%= i %></button>
 						<%} %>
-					<%} else { %>
+				<%} else { %>
 	            		<button type="button" class="disable-btn page-btn"><%= i %></button>	
             		<% } %> 
 				<% } %>
-			</div>
+			</div> --%>
 			<!-- 상점페이징 -->
-			<div class="paging-closet paging-store">
+					<div class="pageing-closet">
+						<ul id="store-pg"></ul>
+					</div>
+<%-- 			<div class="paging-closet paging-store">
 				<% for(int i=btnRange*5 + 1; i<= btnRange*5 + 5; i++){ %>
 					<% if( i <= maxPage) { %>
 						<% if(i == currentPage){ %>
@@ -288,7 +266,7 @@ ul li.on a {color: #fff;}
 	            		<button type="button" class="disable-btn page-btn"><%= i %></button>	
             		<% } %> 
 				<% } %>
-			</div>
+			</div> --%>
 		</div>
 		<img class="coin-label-img" src="${contextPath}/resource/img/icon/라벨2.png">
 		<img class="coin-img" src="${contextPath}/resource/img/icon/coin.png">

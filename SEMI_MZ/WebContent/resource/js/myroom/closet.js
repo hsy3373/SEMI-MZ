@@ -9,7 +9,7 @@ let path = getContextPath();
 /* 상점 클릭시 모든 리스트가 출력됨
    옷장 클릭시 loginUser의 스킨목록이 있는 것만 출력됨 */
 /*페이지별 스킨리스트 가져오는 함수 num값에 따라서 보여지는 화면이 달라짐)*/
-function selectSkin(num){
+/*function selectSkin(num){
 	$.ajax({
 		url : path + "/skinList.my",
 		data : {page : num},
@@ -31,10 +31,169 @@ function selectSkin(num){
 			console.log("접속실패");
 		}
 	});
-};
+};*/
+// 페이징 처리 준비
+let listCount; // 현재 게시판의 총 게시글 갯수
+let skinLimit = 12; // 한 페이지에 나타낼 게시글 수
+let pageLimit = 5; // 페이지 하단에 보여질 페이징바의 페이지 최대 갯수(패이지 목록들 몇개단위로 출력할건지)
+let globalCurrentPage = 1; // 현재 페이지(사용자가 요청한 페이지)
+let skinList = []; // 표시하려하는 방명록 리스트
+let maxPage; // 가장 마지막 페이지가 몇번 페이지인지(총 페이지 수)
+let startPage; // 페이지 하단에 보여질 페이징바의 시작 수
+let endPage; // 페이지 하단에 보여질 페이징바의 끝 수
+
+function selectSkinList(){
+	$.ajax({
+		url : path + "/skinList2.my",
+		success : function(list){
+			console.log(list);
+			listCount = list.length;
+			skinList = [];
+			// 방명록리스트 배열에 담기
+			for (let i = 0; i < list.length; i++) {
+				skinList.push({
+					skinId : list[i].skinId,
+					saveRoot : list[i].saveRoot,
+					price : list[i].price,
+					reward : list[i].reward
+				});
+			}
+			console.log(skinList);
+			//글 목록 표시 호출 (테이블 생성)
+			displayData(1, skinLimit);
+
+			//페이징 표시 호출
+			paging(listCount, skinLimit, pageLimit, 1);
+		}
+	})
+}
+function mySkin(){
+	$.ajax({
+		url : path + "/mySkinList2.my",
+		success : function(list){
+			console.log(list);
+			listCount = list.length;
+			skinList = [];
+			// 방명록리스트 배열에 담기
+			for (let i = 0; i < list.length; i++) {
+				skinList.push({
+					skinId : list[i].skinId,
+					saveRoot : list[i].saveRoot,
+					price : list[i].price,
+					reward : list[i].reward
+				});
+			}
+			console.log(skinList);
+			//글 목록 표시 호출 (테이블 생성)
+			displayData(1, skinLimit);
+
+			//페이징 표시 호출
+			paging(listCount, skinLimit, pageLimit, 1);
+		}
+	});
+}
+
+/* =================================== 스킨 목록 표시 함수 =================================== */
+// 현재 페이지(currentPage)와 페이지당 글 개수(skinLimit) 반영
+function displayData(currentPage, skinLimit) {
+	let str = "";
+
+	//Number로 변환하지 않으면 아래에서 +를 할 경우 스트링 결합이 되어버림..
+	currentPage = Number(currentPage);
+	skinLimit = Number(skinLimit);
+
+	let maxpnum = (currentPage - 1) * skinLimit + skinLimit;
+	if (maxpnum > listCount) {
+		maxpnum = listCount;
+	}
+	//		상점	 	   /		옷장
+	// $(".store-btn") / $(".dress-btn")
+	if($(".store-btn").css("opacity") == 1){
+	for (let i = (currentPage - 1) * skinLimit; i < maxpnum; i++) {
+		str += "<div class='closet-item'>" 
+				  +"<div class='closet-skin-id' id='skin"+i+"' style='display: none;'>" + skinList[i].skinId +"</div>"
+				  + "<div class='closet-price' id='"+skinList[i].price+"'>" + skinList[i].price +"</div>"
+				  + "<div class='closet-skin'>"
+				 	+"<img src='."+ skinList[i].saveRoot +"/fs.png' id='"+skinList[i].skinId+"'>"
+				  + "</div>"
+		 	+ "</div>";
+	}
+	$(".store-skins").html(str);
+	
+	}else if($(".dress-btn").css("opacity") == 1){
+		for (let i = (currentPage - 1) * skinLimit; i < maxpnum; i++) {	
+			str += "<div class='closet-item'>" 
+					  +"<div class='closet-skin-id' id='myskin"+i+"' style='display: none;'>" + skinList[i].skinId +"</div>"
+					  + "<div class='closet-skin'>"
+					 	+"<img src='."+ skinList[i].saveRoot +"/fs.png'>"
+					  + "</div>"
+				 + "</div>";
+		}
+	$(".closet-skins").html(str);
+	}
+}
+/* =================================== 페이징 표시 함수 =================================== */
+function paging(listCount, skinLimit, pageLimit, currentPage) {
+	//console.log("currentPage : " + currentPage);
+
+	maxPage = Math.ceil(listCount / skinLimit); //총 페이지 수
+
+	if (maxPage < pageLimit) {
+		pageLimit = maxPage;
+	}
+	let pageGroup = Math.ceil(currentPage / pageLimit); // 페이지 그룹
+	let endPage = pageGroup * pageLimit; //화면에 보여질 마지막 페이지 번호
+
+	if (endPage > maxPage) {
+		endPage = maxPage;
+	}
+
+	let startPage = parseInt((currentPage - 1) / 5) * 5 + 1; //화면에 보여질 첫번째 페이지 번호
+
+	let next = endPage + 1;
+	let prev = startPage - 1;
+
+	let pageHtml = "";
+
+	if (prev > 0) {
+		pageHtml += "<li><a href='#' id='prev'> &lt; </a></li>";
+	}
+
+	//페이징 번호 표시
+	for (let i = startPage; i <= endPage; i++) {
+		if (currentPage == i) {
+			pageHtml +=
+				"<li class='on'><a href='#' id='" + i + "'>" + i + "</a></li>";
+		} else {
+			pageHtml += "<li><a href='#' id='" + i + "'>" + i + "</a></li>";
+		}
+	}
+	if (endPage < maxPage) {
+		pageHtml += "<li><a href='#' id='next'> &gt; </a></li>";
+	}
+
+	$("#store-pg").html(pageHtml);
+
+	//페이징 번호 클릭 이벤트
+	$("#store-pg li a").click(function() {
+		let $id = $(this).attr("id");
+		let selectedPage = $(this).text();
+
+		if ($id == "next") selectedPage = next;
+		if ($id == "prev") selectedPage = prev;
+
+		//전역변수에 선택한 페이지 번호를 담는다...
+		globalCurrentPage = selectedPage;
+		//페이징 표시 재호출
+		paging(listCount, skinLimit, pageLimit, selectedPage);
+		//글 목록 표시 재호출
+		displayData(selectedPage, skinLimit);
+	});
+}
+
 
 /* 로그인 유저가 보유한 스킨 */
-function mySkin(num){
+/*function mySkin(num){
 	$.ajax({
 		url : path + "/mySkinList.my",
 		data : {page : num},
@@ -56,11 +215,11 @@ function mySkin(num){
       		console.log("Error: " + errorThrown);
     	}
 	});
-};
+};*/
 
 
 /*페이징 설정*/
-function init() {
+/*function init() {
 	document.querySelectorAll(".page-btn").forEach(function (el) {
 		el.addEventListener("click", function () {
 		// 기존에 선택된 버튼이 있었다면 선택 해제
@@ -70,7 +229,7 @@ function init() {
 		//		상점	 	   /		옷장
 		// $(".store-btn") / $(".dress-btn")
 		if($(".store-btn").css("opacity") == 1){
-			selectSkin(this.innerText);
+			//selectSkin(this.innerText);
 		}else if($(".dress-btn").css("opacity") == 1){
 			mySkin(this.innerText);
 		}
@@ -78,21 +237,7 @@ function init() {
 		this.className = "selected-btn page-btn";
 		});
 	});
-	//최대 페이지 수
-/*    let btns = document.querySelectorAll(".page-btn");
-    // 버튼들 텍스트 변경
-    btns.forEach(function (el) {
-      el.innerText = Number(el.innerText) + 5;
-
-      if (Number(el.innerText) > maxPage) {
-        //만약 버튼의 숫자가 최대 페이지 수보다 크다면
-        el.className = "disable-btn page-btn";
-      } else {
-        el.className = "page-btn";
-      }
-	});*/
-	
-}
+}*/
 
 /* 옷장 -> 스킨박스 스킨 클릭시 왼쪽 대표 스킨에 이미지 적용 + 착용버튼 활성화 */
 $(document).on('click', '.closet-skins img' ,function(){
@@ -135,17 +280,17 @@ function updateMySkin(){
 			if(result > 0){
 				/*옷장 왼쪽 스킨, 마이룸 가운데 스킨 이미지 변경*/
 				/* loginUserSkinId : myroom.jsp에서 가져온 skinId값 -> 변경된 skinId로 */
-				/*loginUserSkinId = skinId;*/
+				loginUserSkinId = skinId;
 				/*바꾸고자하는 스킨 경로*/
-				//let changeSkin = $(".view-skin .user-skin").attr('src');
+				let changeSkin = $(".view-skin .user-skin").attr('src');
 				//console.log(changeSkin);
 				/*기존 스킨경로 바꾸고자하는 스킨 경로로 변경*/
-/*				$(".user-skin").attr('src', changeSkin);
+				$(".user-skin").attr('src', changeSkin);
 				if(loginUserSkinId == skinId){
 					wearDisabled();
-				}*/
-				setSessionStorage('closetskin','closet');
-				location.reload();
+				}
+				//setSessionStorage('closetskin','closet');
+				//location.reload();
 			}
 			
 		},
@@ -219,7 +364,8 @@ function buySkin(){
 				$('.coin').html(result);
 				
 				// 상점리스트 첫페이지로 적용
-				selectSkin(1);
+				//selectSkin(1);
+				selectSkinList();
 				// 첫번째 버튼 클릭
 				document.querySelectorAll(".paging-store .page-btn")[0].click();
 			}else{
@@ -244,8 +390,8 @@ $(function () {
 	        $.dressClick();
 			// 미리보기 이미지 현재 로그인유저 이미지로 설정
 			$(".view-skin .user-skin").attr('src',path+"/resource/img/user/skin"+loginUserSkinId+"/fs.png");
-			mySkin(1);
-			init();
+			mySkin();
+			//init();
 		}else{
 			/*룸마스터 값이 있을 경우 옷장이벤트 x*/
 			$(".icon-closet").off('click');
@@ -257,16 +403,17 @@ $(function () {
     /*옷장 버튼 클릭*/
 	$(document).on("click", ".dress-btn",function(){
         $.dressClick();
-		mySkin(1);
-		init();
+		mySkin();
+		//init();
 		//가장 첫 버튼 클릭
 		document.querySelectorAll(".paging-dress .page-btn")[0].click();
 	});
     /*상점 버튼 클릭*/
 	$(document).on("click", ".store-btn",function(){
         $.storeClick();
-		selectSkin(1);
-		init();
+		//selectSkin(1);
+		selectSkinList();
+		//init();
 		//가장 첫 버튼 클릭
 		document.querySelectorAll(".paging-store .page-btn")[0].click();
 		

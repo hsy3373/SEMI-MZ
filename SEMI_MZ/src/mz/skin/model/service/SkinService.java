@@ -145,7 +145,18 @@ public class SkinService {
 		close(conn);
 
 		return list;
-
+	}
+	
+	// 지의 잠시
+	public ArrayList<Skin> selectSkinsList2(String userId) {
+		
+		Connection conn = getConnection();
+		
+		ArrayList<Skin> list = new SkinDao().selectSkinsList2(conn, userId);
+		
+		close(conn);
+		
+		return list;
 	}
 	
 	// [지의]
@@ -162,6 +173,13 @@ public class SkinService {
 	public ArrayList<Character> mySkinList(String userId, int page){
 		Connection conn = getConnection();
 		ArrayList<Character> list = new SkinDao().mySkinList(conn, userId, page);
+		close(conn);
+		return list;
+	}
+	// 임시
+	public ArrayList<Character> mySkinList2(String userId){
+		Connection conn = getConnection();
+		ArrayList<Character> list = new SkinDao().mySkinList2(conn, userId);
 		close(conn);
 		return list;
 	}
