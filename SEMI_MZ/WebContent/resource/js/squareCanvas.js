@@ -416,7 +416,7 @@ let fnSocket = {
     setTimeout(function () {
       //재연결하기...
       socket = new WebSocket(
-        "ws://192.168.30.171:8083" + path + "/multiAccess"
+        "ws://192.168.30.181:8081" + path + "/multiAccess"
       );
       initSocket(socket);
       console.log("재연결...보냈당");
