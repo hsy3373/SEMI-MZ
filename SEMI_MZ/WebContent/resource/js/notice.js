@@ -45,7 +45,7 @@ function NoticeList() {
 	$.ajax({
 		url: getContextPath() + "/selectNotice",
 		success: function(data) {
-			//console.log(data);
+			console.log(data);
 
 			if (data.length > 4) {
 				data.length = 4;
@@ -54,19 +54,22 @@ function NoticeList() {
 			}
 
 			let str = "";
+			let replaced_str = "";
 
 			if (data.length > 0) {
 				for (let i = 0; i < data.length; i++) {
 					str += "<div class='list-post'>"
 						+ "<div class='notice-title'>" + data[i].title + "</div>"
 						+ "</div>";
+
+					data[3].title = '더보기';
 				}
 			} else {
 				str += "<div class='list-post' style='pointer-events: none;'>"
 					+ "<div class='notice-title'>" + '공지사항이 없습니다.' + "</div>"
 					+ "</div>";
 			}
-			$(".notice-list").html(str);
+			$(".notice-list").html(str, replaced_str);
 		}, error: function() {
 			console.log("실패");
 		}
@@ -256,16 +259,17 @@ function selectRanking() {
 				$(".ranking-nickname").eq(i).html(data[i].nicName);
 				$(".ranking-user").eq(i).attr("src", getContextPath() + '/resource/img/user/skin' + data[i].skinId + '/fs.png');
 				$(".ranking-user").eq(i).attr("id", data[i].userId);
-				
-				if(getSessionStorage('loginUser') == data[i].userId){
+
+				if (getSessionStorage('loginUser') == data[i].userId) {
 					$(".ranking-user").eq(i).css('pointer-events', 'none');
 				}
-				
+
 				$(".rh-on").eq(i).css('display', 'block');
 				$(".ranking-user").eq(i).css('display', 'block');
 
 				selectRankingHeart(i, data[i].userId);
-				console.log('i : ', i);
+				//console.log('i : ', i);
+				//console.log('data[i].userId : ', data[i].userId);
 			}
 
 		}, error: function() {
@@ -274,16 +278,16 @@ function selectRanking() {
 	});
 }
 
-// 호감도 랭킹 유저 클릭 시 해당 유저 정보창 띄우기
+// 호감도 랭킹에 있는 유저 클릭 시 해당 유저 정보창 띄우기
 $(document).on('click', '.ranking .ranking-user', function(e) {
 	console.log($(this).attr("id"));
-	
+
 	let rankingId = $(this).attr("id");
-	
+
 	document.querySelector(".info-modal").classList.remove("hidden");
-	
+
 	window.sessionStorage.setItem("clickedUserId", rankingId);
-	
+
 	getUserInfo();
 	modalstopfn();
 });
@@ -297,7 +301,7 @@ function selectRankingHeart(num, receiveId) {
 		type: 'post',
 		data: { receiveId },
 		success: function(data) {
-			console.log(data);
+			//console.log('호감도 개수 : ', data);
 
 			$(".rh-int").eq(num).html(data);
 
