@@ -82,10 +82,7 @@ public class AjaxLogin extends HttpServlet {
 	//[han] 월요일에 로그인 할때마다 보상용 스킨 줘야하는지 빼야하는지 체크해서 진행하는 용도 
 	protected void checkRanking(String userId) {
 		// 로그인 하면서 유저가 보상용 스킨 받아야 하는지 체크 용도
-		// 서울기준 현재 날짜 구하기
-		LocalDate SeoulNow = LocalDate.now(ZoneId.of("Asia/Seoul"));
-		// 값이 1이면 월요일
-		int dayOfWeekValue = SeoulNow.getDayOfWeek().getValue();
+		
 		boolean check = true;
 
 		

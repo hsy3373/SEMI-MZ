@@ -65,7 +65,7 @@ public class AjaxKeyCheck extends HttpServlet {
 
 		Member m = new MemberService().checkKey(apiKind, apiKey);
 
-		String userId = m.getUserId(); // 랭킹체크용
+		
 		
 		//System.out.println("keycheck 서블릿 담겼?: " + m); // console용
 
@@ -81,12 +81,13 @@ public class AjaxKeyCheck extends HttpServlet {
 		else if (m.getStatus().equals("Y")) {
 			HttpSession session = request.getSession();
 			session.setAttribute("loginUser", m); // 세션에 유저정보 담기
-
+			String userId = m.getUserId(); // 랭킹체크용
 			String result = "1," + m.getUserId();
+			checkRanking(userId);
 
+			
 			response.getWriter().print(result); // 광장으로
 
-			checkRanking(userId);
 		}
 
 	}
@@ -95,10 +96,7 @@ public class AjaxKeyCheck extends HttpServlet {
 	//[han] 월요일에 로그인 할때마다 보상용 스킨 줘야하는지 빼야하는지 체크해서 진행하는 용도 
 			protected void checkRanking(String userId) {
 				// 로그인 하면서 유저가 보상용 스킨 받아야 하는지 체크 용도
-				// 서울기준 현재 날짜 구하기
-				LocalDate SeoulNow = LocalDate.now(ZoneId.of("Asia/Seoul"));
-				// 값이 1이면 월요일
-				int dayOfWeekValue = SeoulNow.getDayOfWeek().getValue();
+				
 				boolean check = true;
 
 				
