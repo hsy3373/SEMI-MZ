@@ -259,7 +259,7 @@ $('#cge-btn').on("click", function(){
 		type : "post",
 		url : path + "/update.me",
 		dataType: "json",
-		data : {nickName: nickName, chkpwd: chkpwd, gender: gender1, info: info},
+		data : {nickName: nickName, userPwd: chkpwd, gender: gender1, info: info},
 		success : (updateM) => { 
 			if(updateM == null){
 				alert("정보변경에 실패하였습니다. 다시 확인해주세요.");

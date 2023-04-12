@@ -15,7 +15,7 @@ import mz.common.PasswordEncryptWrapper;
 /**
  * Servlet Filter implementation class PasswordEncryptFilter
  */
-@WebFilter({"/login.me", "/enroll.me", "/checkPwd.me", "/updatePwd.me", "/update.me", "/delete.me"})
+@WebFilter({"/login.me", "/enroll.me", "/checkPwd.me", "/updatePwd.me", "/update.me", "/delete.me", "/KeyCheck.me"})
 public class PasswordEncryptFilter implements Filter {
 
     /**
@@ -37,7 +37,7 @@ public class PasswordEncryptFilter implements Filter {
 	 */
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		
-		PasswordEncryptWrapper pew = new PasswordEncryptWrapper((HttpServletRequest)request);
+		PasswordEncryptWrapper pew = new PasswordEncryptWrapper( (HttpServletRequest)request );
 		
 		
 		

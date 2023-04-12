@@ -300,6 +300,10 @@ contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
     src="<%=contextPath%>/resource/js/alert.js"
   ></script>
 
+    <!-- API script 
+    <script type="module" src="<%= contextPath %>/resource/js/mainAPI.js"></script> 
+    kakao API
+    <script src="https://developers.kakao.com/sdk/js/kakao.js"></script> -->
 
     <!-- <script type="module">
         import {init} from '<%=contextPath%>/resource/js/buttonList.js'
