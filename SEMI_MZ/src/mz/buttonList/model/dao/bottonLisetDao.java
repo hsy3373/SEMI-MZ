@@ -69,7 +69,6 @@ public class bottonLisetDao {
 						   rset.getString("USER_ID"),
 						   rset.getString("NICKNAME"),
 						   rset.getInt("SKIN_ID"));
-				 System.out.println(m);
 				 list.add(m);
 			 }
 				
