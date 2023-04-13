@@ -47,6 +47,10 @@ let nickName;
 */
 export function getUserInfo(){
 	console.log('d')
+	selectHeart();
+			selectFriend();
+			countHeart();
+			
 	$.ajax({
 		url: getContextPath()+"/userInfo",
 		data : {userId :  sessionStorage.clickedUserId}, /*userId = 로그인 유저(나)x , 다른 유저*/
@@ -55,9 +59,7 @@ export function getUserInfo(){
 			console.log('유저 정보 가져왔음 : ',data);
 			
 			// 데이터 가져오기	
-			selectHeart();
-			selectFriend();
-			countHeart();
+			
 			
 			nickName = data.nicName;
 			$(".info-nickname").html(nickName);
@@ -67,8 +69,11 @@ export function getUserInfo(){
 			let skinId = data.skinId;
 			$("#info-skin").attr("src", getContextPath()+'/resource/img/user/skin'+skinId+'/fs.png');
 				
-			let info = data.info;
-			$(".info-introduce").html(info);
+			if (data.info) {
+				$(".info-introduce").html("");
+			} else {
+				$(".info-introduce").html(data.info);
+			}
 			
 			let gender = data.gender;
 			console.log(gender);
@@ -156,6 +161,9 @@ function selectHeart(){
 			if (data == 1) {
 				$('#heart-off').css('display', 'none');
 				$('#heart-on').css('display', 'block');
+			} else {
+				$('#heart-off').css('display', 'block');
+				$('#heart-on').css('display', 'none');
 			}
 			
 			
@@ -261,6 +269,9 @@ function selectFriend(){
 			if (data == 1) {
 				$('.plus').css('display', 'none');
 				$('.delete').css('display', 'block');
+			} else {
+				$('.plus').css('display', 'block');
+				$('.delete').css('display', 'none');
 			}
 		},
 		error: function(){
