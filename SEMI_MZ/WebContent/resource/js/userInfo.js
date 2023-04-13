@@ -8,7 +8,12 @@
 import { getContextPath } from './common.js';
 import {modalstopfn} from './squareCanvas.js';
 import { openChatRoom } from './chat/chatFront.js';
-//import * as alert from './alert.js';
+import * as alert from "./alert.js";
+
+
+let plusBtn = document.querySelector(".plus");
+let deleteBtn = document.querySelector(".delete");
+let reportBtn = document.querySelector(".report-btn");
 
 
 document.querySelector(".info-chatting").addEventListener("click", function(){
@@ -42,6 +47,10 @@ let nickName;
 */
 export function getUserInfo(){
 	console.log('d')
+	selectHeart();
+			selectFriend();
+			countHeart();
+			
 	$.ajax({
 		url: getContextPath()+"/userInfo",
 		data : {userId :  sessionStorage.clickedUserId}, /*userId = 로그인 유저(나)x , 다른 유저*/
@@ -50,9 +59,7 @@ export function getUserInfo(){
 			console.log('유저 정보 가져왔음 : ',data);
 			
 			// 데이터 가져오기	
-			selectHeart();
-			selectFriend();
-			countHeart();
+			
 			
 			nickName = data.nicName;
 			$(".info-nickname").html(nickName);
@@ -62,27 +69,30 @@ export function getUserInfo(){
 			let skinId = data.skinId;
 			$("#info-skin").attr("src", getContextPath()+'/resource/img/user/skin'+skinId+'/fs.png');
 				
-			let info = data.info;
-			$(".info-introduce").html(info);
+			if (data.info) {
+				$(".info-introduce").html("");
+			} else {
+				$(".info-introduce").html(data.info);
+			}
 			
 			let gender = data.gender;
 			console.log(gender);
 			if (gender == 'W') {
-				$("#gender-w").attr("src", "../resource/img/icon/여자.png");
+				$("#gender-w").attr("src", getContextPath()+"/resource/img/icon/여자.png");
 				
 				$('#gender-w').css('display', 'block');
 				$('#gender-m').css('display', 'none');
 				$('#gender-n').css('display', 'none');
 				
 			} else if (gender == 'M') {
-				$("#gender-m").attr("src", "../resource/img/icon/남자.png");
+				$("#gender-m").attr("src", getContextPath()+"/resource/img/icon/남자.png");
 				
 				$('#gender-w').css('display', 'none');
 				$('#gender-m').css('display', 'block');
 				$('#gender-n').css('display', 'none');
 				
 			} else {
-				$("#gender-n").attr("src", "../resource/img/icon/성별비공개.png");
+				$("#gender-n").attr("src", getContextPath()+"/resource/img/icon/성별비공개.png");
 				
 				$('#gender-w').css('display', 'none');
 				$('#gender-m').css('display', 'none');
@@ -151,6 +161,9 @@ function selectHeart(){
 			if (data == 1) {
 				$('#heart-off').css('display', 'none');
 				$('#heart-on').css('display', 'block');
+			} else {
+				$('#heart-off').css('display', 'block');
+				$('#heart-on').css('display', 'none');
 			}
 			
 			
@@ -189,42 +202,28 @@ function insertFriend(){
 			console.log(data);
 			$('.plus').css('display', 'none');
 			$('.delete').css('display', 'block');
-		},
-		error: function(){
+			
+		}, error: function(){
 			console.log("error");
 		}
 	});
 }
-document.querySelector(".plus").addEventListener("click", insertFriend);
 
-/*alert.closeAlert();
-
-function plusFriend() {
-  // id="alert-text"의 class 속성의 값을 가져와 str 변수에 담아둔다.
-  let str = $("#alert-text").attr("class");
-
-  switch (str) {
-    case "user-delete":
-      // 실행시 구현할 코드 작성
-
-      break;
-
-    case "report-ok-btn":
-      break;
-  }
-  closeAlert();
-}
-
-document.querySelector("#alert-ok").addEventListener("click", plusFriend);
-
-$(".plus").click(function () {
-  $("#alert-text").html("친구 삭제하시겠습니까?");
-  alertAddClass("user-plus");
+plusBtn.addEventListener("click", () => {
+	document.getElementById("alert-text").innerText = "친구 추가하시겠습니까?";
+	document.getElementById("alert-ok").innerText = "추가";
+		
+	alert.openAlert("user-plus");
+		
+	let friendPlus = document.querySelector(".user-plus");
+	
+	friendPlus.addEventListener("click", () => {
+		insertFriend();
+		alert.closeAlert();
+	});
+	
 });
-$(".report-btn").click(function () {
-  $("#alert-text").html("신고하시겠습니까?");
-  alertAddClass("report-ok-btn");
-});*/
+
 
 /*친구 삭제*/
 function deleteFriend(){
@@ -242,7 +241,22 @@ function deleteFriend(){
 		}
 	});
 }
-document.querySelector(".delete").addEventListener("click", deleteFriend);
+
+deleteBtn.addEventListener("click", () => {
+	document.getElementById("alert-text").innerText = "친구 삭제하시겠습니까?";
+	document.getElementById("alert-ok").innerText = "삭제";
+		
+	alert.openAlert("user-delete");
+		
+	let friendDelete = document.querySelector(".user-delete");
+	
+	friendDelete.addEventListener("click", () => {
+		deleteFriend();
+		alert.closeAlert();
+	});
+	
+});
+
 
 /*친구 정보 불러와서 버튼 이미지 바꾸기*/
 function selectFriend(){
@@ -255,6 +269,9 @@ function selectFriend(){
 			if (data == 1) {
 				$('.plus').css('display', 'none');
 				$('.delete').css('display', 'block');
+			} else {
+				$('.plus').css('display', 'block');
+				$('.delete').css('display', 'none');
 			}
 		},
 		error: function(){
@@ -274,15 +291,29 @@ function report(){
 		method: 'post',
 		success : function(data) {
 			console.log(data);
-			if(data > 0){
+			if (data > 0) {
 				close2();
-			}else{
+			} else {
 				alert("에러가 발생했습니다.");
 			}			
 		}
 	});
 };
-document.querySelector(".report-btn").addEventListener("click", report);
+
+reportBtn.addEventListener("click", () => {
+	document.getElementById("alert-text").innerText = "신고 하시겠습니까?";
+	document.getElementById("alert-ok").innerText = "신고";
+		
+	alert.openAlert("report-ok");
+		
+	let friendReport = document.querySelector(".report-ok");
+	
+	friendReport.addEventListener("click", () => {
+		report();
+		alert.closeAlert();
+	});
+	
+});
 
 /* 신고하기 모달창 띄우기 */
 let open2 = () => {
@@ -309,3 +340,9 @@ $('#report-content-text').keyup(function (e) {
     	$('.content-text-count').text(content.length);
     }
 })
+
+
+///////////////////////////////// alert js
+
+
+
