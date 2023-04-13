@@ -10,12 +10,23 @@
 /*---------------------------------- 정보창 ----------------------------------*/
 .info-modal{
 	position: absolute;
-	width: 53%;
-    top: 37%;
+	width: 51%;
+    top: 36%;
     left: 50%;
-    height: 62%;
+    height: 58%;
     transform: translate(-50%, -50%);
-    z-index: 2;
+    z-index: 4;
+}
+.info-modal-overlay{
+	width: 100%;
+    height: 100%;
+    z-index: 3;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: none;
+    margin: 0;
+    padding: 0;
 }
 .user-info, #info-view{
 	width: 100%;
@@ -33,7 +44,7 @@
 	font-weight: bold;
     font-size: 28px;
     text-align: center;
-    line-height: 50px;
+    line-height: 43px;
 }
 
 /*호감도*/
@@ -69,8 +80,8 @@
 .info-skin{
     position: absolute;
     top: 44.5%;
-    left: 17.5%;
-    width: 13%;
+    left: 17%;
+    width: 15%;
 }
 #info-skin{
 	width: 100%;
@@ -82,19 +93,23 @@
     left: 10%;
     top: 65.2%;
 }
-#gender-w{
+.gender-w{
 	width: 18px;
-    transform: translate(88px, 32px);
-    display: none;
+	height: 30px;
+    transform: translate(88px, 42px);
+    background: url('../img/icon/여자.png') no-repeat center/contain;
 }
-#gender-m{
+.gender-m{
 	width: 22px;
+	height: 30px;
     transform: translate(87px, 39px);
-    display: none;
+    background: url('../img/icon/남자.png') no-repeat center/contain;
 }
-#gender-n{
+.gender-n{
 	width: 51px;
-    transform: translate(72px, 21px);
+	height: 50px;
+    transform: translate(70px, 31px);
+    background: url('../img/icon/성별비공개.png') no-repeat center/contain;
 }
 
 /*자기소개*/
@@ -172,7 +187,18 @@
     left: 50%;
     height: 60%;
     transform: translate(-50%, -50%);
-    z-index: 2;
+    z-index: 6;
+}
+.report-modal-overlay{
+	width: 100%;
+    height: 100%;
+    z-index: 5;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: none;
+    margin: 0;
+    padding: 0;
 }
 .user-report, #report-view{
     width: 100%;
