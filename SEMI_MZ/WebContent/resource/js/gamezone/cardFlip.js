@@ -12,27 +12,21 @@ let playnum;
 
 Flipsocket.onopen = function (e) {
   console.log("접속성공");
-  let msg = userName + " " + userSkin;
+  let msg = "0,"+userName + "," + userSkin;
   console.log(msg);
   Flipsocket.send(msg);
 };
 
 Flipsocket.onmessage = function (e) {
   console.log("메세지 감지");
-  let msg = e.data.split(" ");
+  let msg = e.data.split(",");
   console.log(msg);
 
-  if(msg == null){
-    console.log("여기1")
-  }
-  if(msg == undefined){
-    console.log("여기2")
-  }
-  if(!msg){
-    console.log("여기 ! ")
-  }
+  //고민해봤는데 공백기준말고 ,기준으로 나누는게 나을듯
+  // 0번은 : 로그인시 msg -> 퍼즐의 경우 1 -> 순서변경시 2 -> 게임 종료시 3 
 
-  if (msg.length > 1) {
+
+  if (msg[0] == 0) {
     if(msg.length > 2){ //내가 늦게들어간 경우
         playnum = true;
         console.log('내가 2p야')
@@ -167,7 +161,7 @@ function render() {
 }
 
 function gamerender() {
-  retunsquare.style.display = "none"; /////////////여기!!!!
+  // retunsquare.style.display = "none"; /////////////여기!!!!
   SettingCardDeck();
   shuffle(cardDeck); ///카드 세팅
 //   SettingCardDeck(); //셋팅된 카드 덱이 넣어주기
