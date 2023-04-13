@@ -285,7 +285,6 @@ function buySkin(){
 				closeAlert();
 			}
 			else{
-				//alert("코인이 부족합니다!")
 				/*alert*/
 				document.getElementById("home-alert-text").innerHTML = "코인이 부족합니다!";
 				/*alert 창 띄우기*/

@@ -5,21 +5,22 @@
 
 /* js 가져오기 */
 import { getContextPath } from "../common.js";
-//import { getContextPath, getSessionStorage } from "../common.js";
 import { getUserInfo } from "../userInfo.js";
 import { openAlert, closeAlert } from "../alert.js";
+import { homeOpenAlert } from "./homeAlert.js";
+//import { getContextPath, getSessionStorage } from "../common.js";
 
 let path = getContextPath();
 
 // 페이징 처리 준비
-let listCount; // 현재 게시판의 총 게시글 갯수
-let boardLimit = 6; // 한 페이지에 나타낼 게시글 수
-let pageLimit = 5; // 페이지 하단에 보여질 페이징바의 페이지 최대 갯수(패이지 목록들 몇개단위로 출력할건지)
-let globalCurrentPage = 1; // 현재 페이지(사용자가 요청한 페이지)
-let BoardList = []; // 표시하려하는 방명록 리스트
-let maxPage; // 가장 마지막 페이지가 몇번 페이지인지(총 페이지 수)
-let startPage; // 페이지 하단에 보여질 페이징바의 시작 수
-let endPage; // 페이지 하단에 보여질 페이징바의 끝 수
+let listCount; 				// 현재 게시판의 총 게시글 갯수
+let boardLimit = 6; 		// 한 페이지에 나타낼 게시글 수
+let pageLimit = 5; 			// 페이지 하단에 보여질 페이징바의 페이지 최대 갯수(페이지 목록들 몇개단위로 출력할건지)
+let globalCurrentPage = 1; 	// 현재 페이지(사용자가 요청한 페이지)
+let BoardList = []; 		// 표시하려하는 방명록 리스트
+let maxPage; 				// 가장 마지막 페이지가 몇번 페이지인지(총 페이지 수)
+let startPage; 				// 페이지 하단에 보여질 페이징바의 시작 수
+let endPage; 				// 페이지 하단에 보여질 페이징바의 끝 수
 
 $(function() {
 	/* 방명록 모달창(공통) */
@@ -48,8 +49,6 @@ $(function() {
 
 		// 마이룸으로 들어왔을 시 룸마스터 == ''
 		// 친구방으로 들어갈 시  룸마스터 == 친구아이디
-		//console.log("로그인유저 : " + loginUserId);
-		//console.log("룸마스터 : " + roomMasterId);
 
 		if (roomMasterId == "") {
 			selectboardList(loginUserId);
@@ -62,40 +61,34 @@ $(function() {
 	});
 });
 
-/* =================================== 방명록 리스트 조회 함수 =================================== */
-// ★ receive_id 값에 따라 보여지는 화면구성이 다름!
-// 마이룸 방문시
-// receive_id('test') == 현재 로그인한 아이디('test')
-// 다른방 방문시
-// receive_id == (방주인 아이디 == 받은사람) && USER_ID == (현재 로그인한 아이디 == 작성자)
+/* ========================= 방명록 리스트 조회 함수 ========================= */
+/*★ receiveID 값에 따라 보여지는 화면구성이 다름!
+	마이룸 방문시 -> receiveID == 현재 로그인한 아이디
+	다른방 방문시 -> receiveID == 방주인 아이디 && USER_ID == (현재 로그인한 아이디 == 작성자)*/
 function selectboardList(receiveID) {
 	$(".board-list").show();
-	//console.log(receiveID);
 
 	$.ajax({
-		// ajax로 데이터 가져오기
 		url: path + "/selectBoardList",
 		dataType: "json",
 		data: { receive: receiveID },
 		success: function(list) {
-			//console.log(list);
 			//listCount(총 게시글 수)
 			listCount = list.length;
-			// 수정, 삭제시 게시글 최상단으로 오게하기 위해 배열 초기화 후 다시 배열 담기
+			// 수정, 삭제시 게시글 최상단으로 오게하기 위해 배열 초기화 후 다시 배열 담음
 			BoardList = [];
 			// 방명록리스트 배열에 담기
 			for (let i = 0; i < list.length; i++) {
 				BoardList.push({
-					boardNo: list[i].boardNo,
-					userId: list[i].userId,
-					receiveId: list[i].receiveId,
+					boardNo	  : list[i].boardNo,
+					userId	  : list[i].userId,
+					receiveId : list[i].receiveId,
 					boardTitle: list[i].boardTitle,
-					secret : list[i].secret,
+					secret	  : list[i].secret,
 					createDate: list[i].createDate,
-					nickName : list[i].nickName
+					nickName  : list[i].nickName
 				});
 			}
-			//console.log(BoardList);
 			//글 목록 표시 호출 (테이블 생성)
 			displayData(1, boardLimit);
 
@@ -105,7 +98,7 @@ function selectboardList(receiveID) {
 	});
 }
 
-/* =================================== 글 목록 표시 함수 =================================== */
+/* ========================= 글 목록 표시 함수 ========================= */
 // 현재 페이지(currentPage)와 페이지당 글 개수(boardLimit) 반영
 function displayData(currentPage, boardLimit) {
 	let str = "";
@@ -114,6 +107,7 @@ function displayData(currentPage, boardLimit) {
 	currentPage = Number(currentPage);
 	boardLimit = Number(boardLimit);
 
+	// maxpnum : 각페이지별 마지막으로 보여질 숫자(ex 1페이지->5 , 2페이지-> 11...)
 	let maxpnum = (currentPage - 1) * boardLimit + boardLimit;
 	if (maxpnum > listCount) {
 		maxpnum = listCount;
@@ -239,7 +233,7 @@ $(function() {
 
 			// 방명록 번호
 			let boardNo = $(this).children("#board-no").text();
-			console.log(boardNo);
+			//console.log(boardNo);
 
 			/* 방명록 상세 조회 */
 			$.ajax({
@@ -283,7 +277,15 @@ $(function() {
 			// 작성자가 다르고 비밀글이라면 클릭이벤트 막기
 			if(loginUserId != boardId && secret == 'Y'){
 				$(this).off("click");
-				alert("비밀글 조회 불가!");
+				/*alert*/
+				document.getElementById("home-alert-text").innerHTML = "비밀글 조회 불가!";
+				/*alert 창 띄우기*/
+				homeOpenAlert();
+				
+				$(".closet-buy").attr("disabled", true);
+				$(".closet-buy").css("cursor", "default");
+				
+				
 			}else{
 				$(".board-wrap").show();
 				$(".board-modal").show();
@@ -328,7 +330,7 @@ $(function() {
 								$("#board-ck").prop("checked", false);
 							}
 							//console.log("작성자?"+userId);
-							// 로그인유저와 작성자가 같지않을 경우
+							// 로그인유저와 작성자가 같지않을 경우 읽기만 가능
 							if(loginUserId != userId){
 								$(".board-send-detail .board-write-title").prop('readonly', true);
 								$(".board-send-detail .board-write-content").prop('readonly', true);
@@ -341,8 +343,41 @@ $(function() {
 								$(".board-send-detail .board-write-title").prop('readonly', false);
 								$(".board-send-detail .board-write-content").prop('readonly', false);
 								$('#board-ck').attr('disabled', false);
-								$("#board-send-update").attr("disabled", false);
 								$("#board-send-delete").attr("disabled", false);
+								
+								/*원래 제목, 내용 값*/
+								let beforeTitle = $(".board-send-detail .board-write-title").val();
+								let beforeContent = $(".board-send-detail .board-write-content").val();
+								//console.log("beforeTitle : "+beforeTitle);
+								
+								/*제목 변경 -> 수정버튼 활성화 (원래 제목값과 비교)*/
+								$(".board-send-detail .board-write-title").on("keyup", function() {
+								    let afterTitle = $(this).val();
+									//console.log("afterTitle : "+afterTitle);
+								    if(beforeTitle == afterTitle) {
+										$("#board-send-update").attr("disabled", true);
+								        return;
+								    }else{
+										$("#board-send-update").attr("disabled", false);
+									}
+								});
+								
+								/*내용 변경 -> 수정버튼 활성화 (원래 내용값과 비교)*/
+								$(".board-send-detail .board-write-content").on("keyup", function() {
+								    let afterContent = $(this).val();
+								    if(beforeContent == afterContent) {
+										$("#board-send-update").attr("disabled", true);
+								        return;
+								    }else{
+										$("#board-send-update").attr("disabled", false);
+									}
+								});
+								
+								/*비밀글 체크상태 변경 -> 수정버튼 활성화*/
+								$("#board-ck").on('change', function(){
+										$("#board-send-update").attr("disabled", false);
+								})
+								
 							}
 						},
 						error: function(e) {console.log(e);},
@@ -369,7 +404,7 @@ $(function() {
 	
 	/*내마이룸 방명록 상세조회 -> 친구 스킨 클릭시 userInfo 모달창*/
 	$(document).on("click", ".board-detail .friend-skin", function(){
-		console.log($(".friend-id").text());
+		//console.log($(".friend-id").text());
 		let friendId = $(".friend-id").text();
 		document.querySelector(".info-modal").classList.remove("hidden");
 		// 세션스토리지에 해당 유저 저장
@@ -420,7 +455,7 @@ function updateBoard() {
 			secret: $("#board-ck").prop("checked") ? "Y" : "N",
 		},
 		success: function(b) {
-			//console.log("수정된 : " + b.boardTitle, b.boardContent);
+			console.log("수정된 : " + b.boardTitle, b.boardContent);
 			if (b != null) {
 				let no = b.boardNo;
 				let title = $(".board-send-detail .board-write-title").val(b.boardTitle);
@@ -441,95 +476,66 @@ function updateBoard() {
 }
 
 
+/*$(document).on('change', '.board-send-detail .board-write-title',function(){
+	$("#board-send-update").attr("disabled", false);
+});
+$(document).on('change', '.board-send-detail .board-write-content',function(){
+	$("#board-send-update").attr("disabled", false);
+});*/
+
 		
-/* ======================= 방명록 삭제(내마이룸, 친구룸 동일하게 적용) ======================= */
-$(".alert").on("click", ".myroom-send-board-delete", function(){
+/* ======================= 방명록 삭제) ======================= */
+/*내 마이룸에서 방명록 삭제*/
+$(document).on("click", "#board-delete", function() {
+	document.getElementById("alert-text").innerText = "삭제하시겠습니까?";
+	openAlert("myroom-board-delete");
+})
+/*alert창 확인버튼 클릭시 요청처리*/
+$(".alert").on("click", ".myroom-board-delete", function(){
 	let boardNo = $(".board-detail .board-no").text();
-	
+	console.log(boardNo);
 	$.ajax({
 		url: path + "/deleteBoard",
 		data: { boardNo: boardNo },
-		success: function(result) {console.log(result);}
-	})
-	// 현재 모달 숨기기
-	$(".board-detail").css("display", "none");
-	// alert 숨기기
-	closeAlert();
-	// 방명록 리스트 불러오는 함수 호출
-	selectboardList(loginUserId);
-	// 나무아이콘에 바로 적용
-	loadList(loginUserId);
-});
-
-
-/*내 마이룸에서 방명록 삭제*/
-$(function() {
-	$(document).on("click", "#board-delete", function() {
-		/*alert*/
-		document.getElementById("alert-text").innerText = "삭제하시겠습니까?";
-		openAlert("myroom-send-board-delete");
+		success: function(result) {
+			// 현재 모달 숨기기
+			$(".board-detail").css("display", "none");
+			// alert 숨기기
+			closeAlert();
+			// 방명록 리스트 불러오는 함수 호출
+			selectboardList(loginUserId);
+			// 나무아이콘에 바로 적용
+			loadList(loginUserId);
+		}
 	})
 });
 
-$(".alert").on("click", ".myroom-board-delete", function(){
+
+/*친구마이룸에서 내가 쓴 방명록 삭제*/
+$(document).on("click", "#board-send-delete", function() {
+	document.getElementById("alert-text").innerText = "삭제하시겠습니까?";
+	openAlert("myroom-send-board-delete");
+});
+/*alert창 확인버튼 클릭시 요청처리*/
+$(".alert").on("click", ".myroom-send-board-delete", function(){
 	let boardNo = $(".board-send-detail .board-no").text();
 	$.ajax({
 		url: path + "/deleteSendBoard",
 		data: { boardNo: boardNo },
-		success: function(result) { console.log(result); }
-	})
-	
-	// 현재 모달 숨기기
-	$(".board-send-detail").css("display", "none");
-	// alert 숨기기
-	closeAlert();
-	// 방명록 리스트 불러오는 함수 호출
-	selectboardList(roomMasterId);
-	loadList(roomMasterId);
-})
-
-/*친구마이룸에서 내가 쓴 방명록 삭제*/
-$(function() {
-	$(document).on("click", "#board-send-delete", function() {
-		
-		/*alert*/
-		document.getElementById("alert-text").innerText = "삭제하시겠습니까?";
-		openAlert("myroom-board-delete");
-
-	})
-});
-
-/* ================================= 방명록 작성 ================================= */
-$(function() {
-	/*방명록 리스트에서 글쓰기 버튼*/
-	$(document).on("click", "#boardWrite", function() {
-		$(".board-list").hide();
-		$(".board-write").show();
-		
-		// 글쓰기 클릭할때마다 내용 비워주기
-		$(".board-write .board-write-title").val("");
-		$(".board-write .board-write-content").val("");
-		$(".board-write #board-ck").prop("checked", false);
-	});
-});
-
-
-$(function() {
-	/* 해당 룸마스터 값 boardInsert의 매개변수에 넣어줌 */
-	$(document).on("click", "#boardInsert", function() {
-		// 제목, 내용이 비어있으면 실행안됨
-		if($(".board-write .board-write-title").val() != "" && $(".board-write .board-write-content").val() != ""){
-			boardInsert(roomMasterId);
+		success: function(result) {
+			// 현재 모달 숨기기
+			$(".board-send-detail").css("display", "none");
+			// alert 숨기기
+			closeAlert();
+			// 방명록 리스트 불러오는 함수 호출
+			selectboardList(roomMasterId);
+			// 나무아이콘에 바로 적용
 			loadList(roomMasterId);
-		}else if($(".board-write .board-write-title").val() == ""){
-			alert("제목을 입력해주세요.");
-			$(".board-write .board-write-title").focus();
-		}else if($(".board-write .board-write-content").val() == ""){
-			alert("내용을 입력해주세요.");
-			$(".board-write .board-write-content").focus();
 		}
-	});
+	})
 });
+
+/* ======================= 방명록 작성 ======================= */
 /* 방명록 작성 함수 */
 function boardInsert(receiveID) {
 	// 비밀글체크시 Y 또는 N값 넣어주기위한 이벤트
@@ -545,26 +551,67 @@ function boardInsert(receiveID) {
 	$.ajax({
 		url: path + "/insertBoard",
 		data: {
-			//userId : loginUserId ,
 			receiveId: receiveID,
-			title: $(".board-write .board-write-title").val(),
-			content: $(".board-write .board-write-content").val(),
-			secret: $(".board-write #board-ck").prop("checked") ? "Y" : "N",
+			title	 : $(".board-write .board-write-title").val(),
+			content  : $(".board-write .board-write-content").val(),
+			secret	 : $(".board-write #board-ck").prop("checked") ? "Y" : "N",
 		},
 		success: function(result) {
-			console.log(result);
-			alert("방명록이 작성되었습니다.");
 			if (result > 0) {
 				$(".board-write").hide();
-
+				
+				// 방명록 리스트 불러오는 함수 호출
 				selectboardList(roomMasterId);
+				
+				// 나무아이콘에 표시
+				loadList(roomMasterId);
+				
+				/*alert*/
+				document.getElementById("home-alert-text").innerHTML = "방명록이 작성되었습니다.";
+				/*alert 창 띄우기*/
+				homeOpenAlert();
 			}
 		},
-		error: function(e) {
-			console.log(e);
-		},
+		error: function(e) {console.log(e);},
 	});
 }
+
+$(function() {
+	/*방명록 리스트에서 글쓰기 버튼*/
+	$(document).on("click", "#boardWrite", function() {
+		$(".board-list").hide();
+		$(".board-write").show();
+		
+		// 글쓰기 클릭할때마다 내용 비워주기
+		$(".board-write .board-write-title").val("");
+		$(".board-write .board-write-content").val("");
+		$(".board-write #board-ck").prop("checked", false);
+	});
+	
+	
+	/* 해당 룸마스터 값 boardInsert의 매개변수에 넣어줌 */
+	$(document).on("click", "#boardInsert", function() {
+		// 제목, 내용이 비어있으면 실행안됨
+		if($(".board-write .board-write-title").val() != "" && $(".board-write .board-write-content").val() != ""){
+			boardInsert(roomMasterId);
+			loadList(roomMasterId);
+		}else if($(".board-write .board-write-title").val() == ""){
+			/*alert*/
+			document.getElementById("home-alert-text").innerHTML = "제목을 입력해주세요.";
+			/*alert 창 띄우기*/
+			homeOpenAlert();
+			
+			$(".board-write .board-write-title").focus();
+		}else if($(".board-write .board-write-content").val() == ""){
+			/*alert*/
+			document.getElementById("home-alert-text").innerHTML = "내용을 입력해주세요.";
+			/*alert 창 띄우기*/
+			homeOpenAlert();
+			
+			$(".board-write .board-write-content").focus();
+		}
+	});
+});
 
 /* 글작성:back-btn 클릭 -> 친구한테 쓴 방명록 리스트 */
 $(".board-write .back-btn").click(function() {

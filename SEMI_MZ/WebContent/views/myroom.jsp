@@ -281,11 +281,10 @@
 	</div>
 	<div class="home-alert-overlay"></div>
 
-
 	<script>
 		/* 광장으로 가는 버튼 */
 		function gosquare() {
-			location.href = "${contextPath}/views/square.jsp";
+			location.href = "${contextPath}/forwarding.sq";
 		};
 		
 		/* 로그인유저, 방주인 js에서 사용하기 위해 변수에 담기 */
@@ -293,25 +292,18 @@
 		var loginUserSkinId = '${loginUser.skinId}';
 		var loginUserCoin = '${loginUser.coin}';
 		var roomMasterId = "${roomMaster}";
-		//console.log("로그인유저 : "+loginUserId);
-		//console.log("로그인유저스킨 : "+loginUserSkinId);
-		//console.log("로그인유저코인 : "+loginUserCoin);
-		//console.log("룸마스터 : "+roomMasterId);
-		
 	</script>
 	
 
-
-
-	
-
-	<script type="module" src="${contextPath}/resource/js/alert.js"></script>
-	<script type="module" src="${contextPath}/resource/js/homeAlert.js"></script>
 	<%-- <script type="module" src="${contextPath}/resource/js/common.js"></script> --%>
+	<script type="module" src="${contextPath}/resource/js/alert.js"></script>
+	<script type="module" src="${contextPath}/resource/js/myroom/homeAlert.js"></script>
 	<script type="module" src="${contextPath}/resource/js/myroom/myroom.js"></script>
 	<script type="module" src="${contextPath}/resource/js/myroom/board.js"></script>
 	<script type="module" src="${contextPath}/resource/js/myroom/closet.js"></script>
 	<script type="module" src="${contextPath}/resource/js/buttonList.js"></script>
+	
+	<!-- 유저정보창 최상단에 띄워야됨 -->
 	<%@ include file="./userInfo.jsp" %>
 </body>
 </html>

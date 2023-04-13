@@ -229,7 +229,7 @@ $("#rq-btn").on("click", function () {
   });
 });
 
-console.log("세션로그인유저 비번 : "+orgPwd);
+//console.log("세션로그인유저 비번 : "+orgPwd);
 
 
 
