@@ -252,9 +252,11 @@ function update() {
   }
 
   //충돌이벤트 구현
-  if (uesrX <= 1020 && uesrX >= 960 && uesrY <= 200 && uesrY >= 191) {
+  if (uesrX <= 1024 && uesrX >= 964 && uesrY <= 204 && uesrY >= 187) {
     console.log("home이벤트");
     gohome();
+    modalstop = true;
+    return;
   }
 
   if (uesrX <= 1130 && uesrX >= 1000 && uesrY <= 463 && uesrY >= 426) {
@@ -643,6 +645,7 @@ export let defaultEvent = function () {
     if (clickX >= 895 && clickX <= 1110 && clickY >= 10 && clickY <= 226) {
       console.log("home 이벤트 부여");
       gohome();
+      return;
     }
 
     //img 안을 클릭할 경우 이벤트 : noticeBoard

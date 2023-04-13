@@ -29,10 +29,12 @@
                     <img src="<%=contextPath%>/resource/img/icon/back2_btn.png" class="game_xbtn" id="game-back-button">
                 </div>
                <div class="user-Card" >
-                    <div class="user-front" style="background-image: url(<%=contextPath%>/resource/img/icon/back2_btn.png);"></div>
+                     <div class="user-front" style="background-image: url(<%=contextPath%>/resource/img/user/skin<%=loginUser.getSkinId()%>/fs.png)">
+                        <div class="user-name"><%=loginUser.getNicName()%></div>
+                    </div> 
                     <div class="user-back"></div>
                </div>
-               <div class="user2-Card">
+               <div class="user2-Card" id="user2-Card">
                     상대방!!
                 </div>
                
