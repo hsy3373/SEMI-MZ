@@ -206,6 +206,7 @@
     box-sizing: border-box;
 	text-decoration-line:none;	
     line-height: 26px;
+    color: black;
 }
 .pageing-closet ul li.on {background: #ad966f;;}
 .pageing-closet ul li.on a {color: #fff;}

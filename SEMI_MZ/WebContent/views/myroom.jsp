@@ -15,29 +15,7 @@
 	Member loginUser = (Member)request.getSession().getAttribute("loginUser");
 	//System.out.println("jsp roomMaster : "+roomMaster);
 	//System.out.println("jsp loginUser : "+loginUser);
-	
-	int storeSkinCount = (int) request.getAttribute("storeSkinCount"); 		// 상점 총 스킨 개수
-	int dressSkinCount = (int)request.getAttribute("dressSkinCount");		// 보유 스킨 총 개수
-	
- 	int currentPage = 1;													// 현재페이지 임시로..
- 	// 상점 페이징 변수
- 	int maxPage = (int) Math.ceil(storeSkinCount / 12.0); 				 	// 총 페이지
- 	int startPage = (currentPage-1) / storeSkinCount * storeSkinCount +1; 	// 페이징바 시작 수
- 	int endPage = startPage + maxPage - 1;									// 페이징바 끝 수
-/*  	if(endPage > maxPage){
- 		endPage = maxPage;
- 	} */
- 	// 옷장 페이징 변수
- 	int maxPageD = (int) Math.ceil(dressSkinCount / 12.0);
- 	int startPageD = (currentPage-1) / dressSkinCount * dressSkinCount +1;
- 	int endPageD = startPageD + maxPageD - 1;
-/*  	if(endPageD > maxPageD){
- 		endPageD = maxPageD;
- 	} */
-	int btnRange = currentPage/5; 
-	System.out.println("maxPageD : "+maxPageD);
-	System.out.println("startPageD : "+startPageD);
-	System.out.println("endPageD : "+endPageD);
+
 %>
 <!DOCTYPE html>
 <html>
@@ -237,36 +215,12 @@
 			<img class="fur-img" src="${contextPath}/resource/img/icon/빈옷장.png">
 			<!-- 페이징 -->
 			<!-- 옷장 페이징 -->
-<%-- 			<div class="paging-closet paging-dress">
-				<% for(int i=btnRange*5 + 1; i<= btnRange*5 + 5; i++){ %>
-					<% if( i <= maxPageD) { %>
-						<% if(i == currentPage){ %>
-							<button type="button" class="selected-btn page-btn"><%= i %></button>
-						<%} else{ %>
-		            		<button type="button" class="page-btn"><%= i %></button>
-						<%} %>
-				<%} else { %>
-	            		<button type="button" class="disable-btn page-btn"><%= i %></button>	
-            		<% } %> 
-				<% } %>
-			</div> --%>
+
 			<!-- 상점페이징 -->
-					<div class="pageing-closet">
-						<ul id="store-pg"></ul>
-					</div>
-<%-- 			<div class="paging-closet paging-store">
-				<% for(int i=btnRange*5 + 1; i<= btnRange*5 + 5; i++){ %>
-					<% if( i <= maxPage) { %>
-						<% if(i == currentPage){ %>
-							<button type="button" class="selected-btn page-btn"><%= i %></button>
-						<%} else{ %>
-		            		<button type="button" class="page-btn"><%= i %></button>
-						<%} %>
-					<%} else { %>
-	            		<button type="button" class="disable-btn page-btn"><%= i %></button>	
-            		<% } %> 
-				<% } %>
-			</div> --%>
+			<div class="pageing-closet">
+				<ul id="store-pg"></ul>
+			</div>
+
 		</div>
 		<img class="coin-label-img" src="${contextPath}/resource/img/icon/라벨2.png">
 		<img class="coin-img" src="${contextPath}/resource/img/icon/coin.png">
@@ -307,6 +261,7 @@
 	</div>
 
 	<!-- ============================= alert ============================= -->
+	<!-- confirm -->
 	<div class="alert">
 		<h3 id="alert-text"></h3>
 		<div>
@@ -316,10 +271,17 @@
 	</div>
 	<div class="alert-overlay"></div>
 	
-
 	
+	<!-- alert(확인만 있음) -->
+	<div class="home-alert">
+		<h3 id="home-alert-text"></h3>
+		<div>
+			<button class="button home-alert-ok">확인</button>
+		</div>
+	</div>
+	<div class="home-alert-overlay"></div>
 
-	
+
 	<script>
 		/* 광장으로 가는 버튼 */
 		function gosquare() {
@@ -336,10 +298,6 @@
 		//console.log("로그인유저코인 : "+loginUserCoin);
 		//console.log("룸마스터 : "+roomMasterId);
 		
-		/* 스킨 총 개수 closet.js로 넘김 */
-		sessionStorage.setItem("storeSkinCount", JSON.stringify(<%= storeSkinCount %>));
-		sessionStorage.setItem("dressSkinCount", JSON.stringify(<%= dressSkinCount %>));
-		sessionStorage.setItem("dressSkin", "dressSkin");
 	</script>
 	
 
@@ -347,7 +305,8 @@
 
 	
 
-	<%-- <script type="module" src="${contextPath}/resource/js/alert.js"></script> --%>
+	<script type="module" src="${contextPath}/resource/js/alert.js"></script>
+	<script type="module" src="${contextPath}/resource/js/homeAlert.js"></script>
 	<%-- <script type="module" src="${contextPath}/resource/js/common.js"></script> --%>
 	<script type="module" src="${contextPath}/resource/js/myroom/myroom.js"></script>
 	<script type="module" src="${contextPath}/resource/js/myroom/board.js"></script>

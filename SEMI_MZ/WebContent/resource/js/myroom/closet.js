@@ -2,36 +2,11 @@
  * 작성자 : 노지의
  * 마이룸 - 옷장
  */
-import { getContextPath, getSessionStorage, setSessionStorage, delSessionStorage  } from "../common.js";
-//let dressSkin = getSessionStorage('dressSkin');
+import { getContextPath} from "../common.js";
+import { openAlert, closeAlert } from "../alert.js";
+import { homeOpenAlert } from "./homeAlert.js";
 let path = getContextPath();
 
-/* 상점 클릭시 모든 리스트가 출력됨
-   옷장 클릭시 loginUser의 스킨목록이 있는 것만 출력됨 */
-/*페이지별 스킨리스트 가져오는 함수 num값에 따라서 보여지는 화면이 달라짐)*/
-/*function selectSkin(num){
-	$.ajax({
-		url : path + "/skinList.my",
-		data : {page : num},
-		success : function(list){
-			//console.log(list);
-			let str = "";
-			for(let i = 0; i < list.length; i++){
-				str += "<div class='closet-item'>" 
-						  +"<div class='closet-skin-id' id='skin"+i+"' style='display: none;'>" + list[i].skinId +"</div>"
-						  + "<div class='closet-price' id='"+list[i].price+"'>" + list[i].price +"</div>"
-						  + "<div class='closet-skin'>"
-						 	+"<img src='."+ list[i].saveRoot +"/fs.png' id='"+list[i].skinId+"'>"
-						  + "</div>"
-					 + "</div>"
-			}
-			$(".store-skins").html(str);
-		},
-		error : function(e){
-			console.log("접속실패");
-		}
-	});
-};*/
 // 페이징 처리 준비
 let listCount; // 현재 게시판의 총 게시글 갯수
 let skinLimit = 12; // 한 페이지에 나타낼 게시글 수
@@ -42,11 +17,12 @@ let maxPage; // 가장 마지막 페이지가 몇번 페이지인지(총 페이�
 let startPage; // 페이지 하단에 보여질 페이징바의 시작 수
 let endPage; // 페이지 하단에 보여질 페이징바의 끝 수
 
+/* ========================= 상점 스킨 리스트 ========================= */
 function selectSkinList(){
 	$.ajax({
-		url : path + "/skinList2.my",
+		url : path + "/skinList.my",
 		success : function(list){
-			console.log(list);
+			//console.log(list);
 			listCount = list.length;
 			skinList = [];
 			// 방명록리스트 배열에 담기
@@ -58,7 +34,6 @@ function selectSkinList(){
 					reward : list[i].reward
 				});
 			}
-			console.log(skinList);
 			//글 목록 표시 호출 (테이블 생성)
 			displayData(1, skinLimit);
 
@@ -67,11 +42,12 @@ function selectSkinList(){
 		}
 	})
 }
+/* ========================= 내가 보유한 스킨리스트 ========================= */
 function mySkin(){
 	$.ajax({
-		url : path + "/mySkinList2.my",
+		url : path + "/mySkinList.my",
 		success : function(list){
-			console.log(list);
+			//console.log(list);
 			listCount = list.length;
 			skinList = [];
 			// 방명록리스트 배열에 담기
@@ -83,8 +59,7 @@ function mySkin(){
 					reward : list[i].reward
 				});
 			}
-			console.log(skinList);
-			//글 목록 표시 호출 (테이블 생성)
+			//스킨 목록 표시 호출 (테이블 생성)
 			displayData(1, skinLimit);
 
 			//페이징 표시 호출
@@ -106,8 +81,8 @@ function displayData(currentPage, skinLimit) {
 	if (maxpnum > listCount) {
 		maxpnum = listCount;
 	}
-	//		상점	 	   /		옷장
-	// $(".store-btn") / $(".dress-btn")
+	//	상점 $(".store-btn") 	   /		옷장
+	// / $(".dress-btn")
 	if($(".store-btn").css("opacity") == 1){
 	for (let i = (currentPage - 1) * skinLimit; i < maxpnum; i++) {
 		str += "<div class='closet-item'>" 
@@ -191,54 +166,6 @@ function paging(listCount, skinLimit, pageLimit, currentPage) {
 	});
 }
 
-
-/* 로그인 유저가 보유한 스킨 */
-/*function mySkin(num){
-	$.ajax({
-		url : path + "/mySkinList.my",
-		data : {page : num},
-		success : function(list){
-			//console.log(list);
-
-			let str = "";
-			for(let i = 0; i < list.length; i++){
-				str += "<div class='closet-item'>" 
-						  +"<div class='closet-skin-id' id='myskin"+i+"' style='display: none;'>" + list[i].skinId +"</div>"
-						  + "<div class='closet-skin'>"
-						 	+"<img src='."+ list[i].saveRoot +"/fs.png'>"
-						  + "</div>"
-					 + "</div>";
-			}
-			$(".closet-skins").html(str);
-		},
-		error: function (jqXHR, textStatus, errorThrown) {
-      		console.log("Error: " + errorThrown);
-    	}
-	});
-};*/
-
-
-/*페이징 설정*/
-/*function init() {
-	document.querySelectorAll(".page-btn").forEach(function (el) {
-		el.addEventListener("click", function () {
-		// 기존에 선택된 버튼이 있었다면 선택 해제
-		if(document.querySelector(".selected-btn") != null) {
-			document.querySelector(".selected-btn").className = "page-btn";
-		}
-		//		상점	 	   /		옷장
-		// $(".store-btn") / $(".dress-btn")
-		if($(".store-btn").css("opacity") == 1){
-			//selectSkin(this.innerText);
-		}else if($(".dress-btn").css("opacity") == 1){
-			mySkin(this.innerText);
-		}
-		
-		this.className = "selected-btn page-btn";
-		});
-	});
-}*/
-
 /* 옷장 -> 스킨박스 스킨 클릭시 왼쪽 대표 스킨에 이미지 적용 + 착용버튼 활성화 */
 $(document).on('click', '.closet-skins img' ,function(){
 	/*클릭한 스킨박스의 스킨 src값*/
@@ -289,8 +216,6 @@ function updateMySkin(){
 				if(loginUserSkinId == skinId){
 					wearDisabled();
 				}
-				//setSessionStorage('closetskin','closet');
-				//location.reload();
 			}
 			
 		},
@@ -330,21 +255,12 @@ $(document).on('click', '.store-skins img', function(){
 	}
 })
 
-/*구입 클릭 이벤트*/
-$(document).on('click', '.closet-buy', function(){
-	
-	if(confirm("구입하시겠습니까? 현재 스킨이 바로 변경됩니다!")){
-		buySkin();		
-		/*store-skins 상점스킨박스*/
-	}else{
-		return false;
-	}
-});
+
 /*CHARACTER 테이블에 구입스킨 INSERT + MEMBER 테이블에 COIN UPDATE*/
 function buySkin(){
 	// 스킨 아이디값 얻어와야됨
 	let skinId = $(".view-skin .user-skin").attr("id");
-	//console.log("넘길 스킨 아이디 : "+skinId)
+	console.log("넘길 스킨 아이디 : "+skinId)
 	$.ajax({
 		url : path + "/insertMySkin.my",
 		data : {skinId : skinId},
@@ -355,7 +271,6 @@ function buySkin(){
 				// 현재 스킨 교체 함수 실행
 				updateMySkin();
 				
-				
 				// 구입버튼 비활성화
 				$(".closet-buy").attr("disabled", true);
 				$(".closet-buy").css("cursor", "default");
@@ -363,23 +278,41 @@ function buySkin(){
 				// myroom.jsp에 보이는 가격 변경
 				$('.coin').html(result);
 				
-				// 상점리스트 첫페이지로 적용
-				//selectSkin(1);
+				// 상점리스트
 				selectSkinList();
-				// 첫번째 버튼 클릭
-				document.querySelectorAll(".paging-store .page-btn")[0].click();
-			}else{
-				// 실패할때처리
-				alert("코인이 부족합니다!");
-
-				// 구입버튼 비활성화
+				
+				// alert 닫기
+				closeAlert();
+			}
+			else{
+				//alert("코인이 부족합니다!")
+				/*alert*/
+				document.getElementById("home-alert-text").innerHTML = "코인이 부족합니다!";
+				/*alert 창 띄우기*/
+				homeOpenAlert();
+				/*기존 alert 닫기*/
+				closeAlert();
+				
 				$(".closet-buy").attr("disabled", true);
 				$(".closet-buy").css("cursor", "default");
+
 			}
 		},
 		error : function(e){console.log("접속 실패애애애애");}
 	})
 }
+
+/*구입 클릭 이벤트*/
+$(document).on('click', '.closet-buy', function(){
+	/*alert*/
+    document.getElementById("alert-text").innerHTML = "구입하시겠습니까?<br> 현재 스킨에 바로 적용됩니다!";  /* 여기 text 만교체하기 */
+    openAlert("myroom-closet-insert");/* 내가쓸 calss 명 고유값 */
+});
+/*동적요소에 이벤트 부여하기 위해 부모요소에게 이벤트를 부여함*/
+$('.alert').on('click', '.myroom-closet-insert', function (){
+	/*본인이 실행할 이벤트를 여기에 적용!!!!!!*/
+	buySkin();
+})
 
 $(function () {
 	/* 마이룸에서 옷장 아이콘 클릭*/
@@ -391,7 +324,6 @@ $(function () {
 			// 미리보기 이미지 현재 로그인유저 이미지로 설정
 			$(".view-skin .user-skin").attr('src',path+"/resource/img/user/skin"+loginUserSkinId+"/fs.png");
 			mySkin();
-			//init();
 		}else{
 			/*룸마스터 값이 있을 경우 옷장이벤트 x*/
 			$(".icon-closet").off('click');
@@ -404,18 +336,11 @@ $(function () {
 	$(document).on("click", ".dress-btn",function(){
         $.dressClick();
 		mySkin();
-		//init();
-		//가장 첫 버튼 클릭
-		document.querySelectorAll(".paging-dress .page-btn")[0].click();
 	});
     /*상점 버튼 클릭*/
 	$(document).on("click", ".store-btn",function(){
         $.storeClick();
-		//selectSkin(1);
 		selectSkinList();
-		//init();
-		//가장 첫 버튼 클릭
-		document.querySelectorAll(".paging-store .page-btn")[0].click();
 		
 	});
 
@@ -482,14 +407,6 @@ $(function () {
 		$(".paging-dress").css("display", "none");
     }
 
-
-	if(getSessionStorage('closetskin')){
-		if(getSessionStorage('closetskin') == 'closet'){
-			delSessionStorage('closetskin');
-			$('.icon-closet').click();
-			$('.store-btn').click();
-		}
-	}
 });
 
 $(function(){

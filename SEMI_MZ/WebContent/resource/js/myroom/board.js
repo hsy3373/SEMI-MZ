@@ -7,6 +7,8 @@
 import { getContextPath } from "../common.js";
 //import { getContextPath, getSessionStorage } from "../common.js";
 import { getUserInfo } from "../userInfo.js";
+import { openAlert, closeAlert } from "../alert.js";
+
 let path = getContextPath();
 
 // 페이징 처리 준비
@@ -379,14 +381,21 @@ $(function() {
 
 
 /* ================================= 친구네룸 - 내가 쓴 방명록 수정 ================================= */
+/*방명록 수정 클릭이벤트*/
 $(document).on("click", "#board-send-update", function() {
-	if (confirm("수정하시겠습니까?")) {
+	/*alert*/
+	document.getElementById("alert-text").innerText = "수정하시겠습니까?";
+	openAlert("myroom-board-update");
+    let alertok = document.querySelector(".myroom-board-update");
+	alertok.addEventListener("click", () => {
+		/*방명록 수정 함수*/
 		updateBoard();
+		/*나무에 방명록 표시*/
 		loadList(roomMasterId);
-	} else {
-		return false;
-	}
+    });
+
 });
+/*방명록 수정*/
 function updateBoard() {
 	// 비밀글체크시 Y 또는 N값 넣어주기위한 이벤트
 	$("#board-ck").change(function() {
@@ -422,8 +431,9 @@ function updateBoard() {
 				$(".board-send-detail").css("display", "none");
 				// 방명록 리스트 불러오는 함수 호출
 				selectboardList(roomMasterId);
+				closeAlert();
 
-				alert("수정되었습니다.");
+				//alert("수정되었습니다.");
 			}
 		},
 		error: function(e) { console.log(e); },
@@ -433,46 +443,59 @@ function updateBoard() {
 
 		
 /* ======================= 방명록 삭제(내마이룸, 친구룸 동일하게 적용) ======================= */
+$(".alert").on("click", ".myroom-send-board-delete", function(){
+	let boardNo = $(".board-detail .board-no").text();
+	
+	$.ajax({
+		url: path + "/deleteBoard",
+		data: { boardNo: boardNo },
+		success: function(result) {console.log(result);}
+	})
+	// 현재 모달 숨기기
+	$(".board-detail").css("display", "none");
+	// alert 숨기기
+	closeAlert();
+	// 방명록 리스트 불러오는 함수 호출
+	selectboardList(loginUserId);
+	// 나무아이콘에 바로 적용
+	loadList(loginUserId);
+});
+
+
 /*내 마이룸에서 방명록 삭제*/
 $(function() {
 	$(document).on("click", "#board-delete", function() {
-		if (confirm("삭제하시겠습니까?")) {
-			let boardNo = $(".board-detail .board-no").text();
-			$.ajax({
-				url: path + "/deleteBoard",
-				data: { boardNo: boardNo },
-				success: function(result) {console.log(result);}
-			})
-			// 현재 모달 숨기기
-			$(".board-detail").css("display", "none");
-			// 방명록 리스트 불러오는 함수 호출
-			selectboardList(loginUserId);
-			// 나무아이콘에 바로 적용
-			loadList(loginUserId);
-		} else {
-			return false;
-		}
+		/*alert*/
+		document.getElementById("alert-text").innerText = "삭제하시겠습니까?";
+		openAlert("myroom-send-board-delete");
 	})
 });
+
+$(".alert").on("click", ".myroom-board-delete", function(){
+	let boardNo = $(".board-send-detail .board-no").text();
+	$.ajax({
+		url: path + "/deleteSendBoard",
+		data: { boardNo: boardNo },
+		success: function(result) { console.log(result); }
+	})
+	
+	// 현재 모달 숨기기
+	$(".board-send-detail").css("display", "none");
+	// alert 숨기기
+	closeAlert();
+	// 방명록 리스트 불러오는 함수 호출
+	selectboardList(roomMasterId);
+	loadList(roomMasterId);
+})
 
 /*친구마이룸에서 내가 쓴 방명록 삭제*/
 $(function() {
 	$(document).on("click", "#board-send-delete", function() {
-		if (confirm("삭제하시겠습니까?")) {
-			let boardNo = $(".board-send-detail .board-no").text();
-			$.ajax({
-				url: path + "/deleteSendBoard",
-				data: { boardNo: boardNo },
-				success: function(result) { console.log(result); }
-			})
-			// 현재 모달 숨기기
-			$(".board-send-detail").css("display", "none");
-			// 방명록 리스트 불러오는 함수 호출
-			selectboardList(roomMasterId);
-			loadList(roomMasterId);
-		} else {
-			return false;
-		}
+		
+		/*alert*/
+		document.getElementById("alert-text").innerText = "삭제하시겠습니까?";
+		openAlert("myroom-board-delete");
+
 	})
 });
 

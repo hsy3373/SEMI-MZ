@@ -248,7 +248,7 @@ function selectRanking() {
 		url: getContextPath() + "/ranking",
 		type: 'get',
 		success: function(data) {
-			console.log('유저정보 : ', data);
+			//console.log('유저정보 : ', data);
 
 			let num = data.length < 3 ? data.length : 3;
 
