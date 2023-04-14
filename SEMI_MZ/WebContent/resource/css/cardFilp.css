@@ -21,7 +21,7 @@
   width: 880px;
   height: 580px;
   margin: 100px auto;
-  border: 1px solid black;
+  /* border: 1px solid black; */
 }
 
 .game-board {
@@ -35,7 +35,7 @@
   background-size: 100% auto;
   background-repeat: no-repeat;
   background-position: center;
-  border: 1px solid;
+  /* border: 1px solid; */
   position: absolute;
   width: 300px;
   height: 100px;
@@ -51,6 +51,8 @@
 }
 
 .return-square{
+
+  display: block;
   position: absolute;
   right: 10px;
   top: 615px;
@@ -73,11 +75,12 @@
 .user-Card, .user2-Card{
   width: 100px;
   height: 120px;
-  background-color: white;
+  /* background-color: white; */
   position: absolute;
   top: 200px;
   border: 2px solid black;
   border-radius: 5px;
+  perspective: 1000px;
 }
 
 .user-Card{
@@ -86,6 +89,31 @@
 .user2-Card{
   right: 100px;
 }
+
+
+.user-front{
+  height: 100%;
+  width: 100%;
+  transform: rotateY(360deg);
+  background-size: 50% auto;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.user-back{
+  transform: rotateY(0deg);
+  background-image: url("../img/card_img/pig.png");
+  background-size: 50% auto;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+/*닉네임 표시*/
+.user-front{
+  text-align: center;
+  line-height: 50px;
+}
+
 
 
 

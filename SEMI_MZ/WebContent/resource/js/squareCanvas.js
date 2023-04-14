@@ -48,7 +48,7 @@ let noticeBoard, myhome, squarebackground, gamezone;
 let modalstop = false;
 export let modalstopfn = function () {
   modalstop = !modalstop;
-  console.log(modalstop, "호출");
+  //console.log(modalstop, "호출");
   main();
 };
 
@@ -252,13 +252,13 @@ function update() {
   }
 
   //충돌이벤트 구현
-  if (uesrX <= 1020 && uesrX >= 960 && uesrY <= 200 && uesrY >= 191) {
-    console.log("home이벤트");
+  if (uesrX <= 1024 && uesrX >= 964 && uesrY <= 204 && uesrY >= 187) {
     gohome();
+    modalstop = true;
+    return;
   }
 
   if (uesrX <= 1130 && uesrX >= 1000 && uesrY <= 463 && uesrY >= 426) {
-    console.log("공지사항 이벤트");
     //캐릭터 좌표 어떻게 처리할지 정하기 : 게시판 보는동안 좌표값
     document;
     notice - modal;
@@ -267,7 +267,6 @@ function update() {
   }
 
   if (uesrX <= 345 && uesrX >= 298 && uesrY <= 330 && uesrY >= 300) {
-    //console.log('게임존 이벤트')
     gameModalopen();
     modalstop = true;
     uesrY = 335;
@@ -358,7 +357,7 @@ let socket = new WebSocket("ws://192.168.30.180:8082" + path + "/multiAccess");
 // 지의 집 ip : 192.168.0.16
 // 가영 학원 : 192.168.30.181:8081
 // 가영 집 : 192.168.35.221:8081
-// 혜린 : 192.168.120.37:8084
+// 혜린 : 192.168.120.38:8084
 let fnSocket = {
   onopen: function (e) {
     console.log("접속성공");
@@ -643,6 +642,7 @@ export let defaultEvent = function () {
     if (clickX >= 895 && clickX <= 1110 && clickY >= 10 && clickY <= 226) {
       console.log("home 이벤트 부여");
       gohome();
+      return;
     }
 
     //img 안을 클릭할 경우 이벤트 : noticeBoard

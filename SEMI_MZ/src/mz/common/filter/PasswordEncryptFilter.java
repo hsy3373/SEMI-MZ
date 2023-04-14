@@ -13,7 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 import mz.common.PasswordEncryptWrapper;
 
 /**
- * Servlet Filter implementation class PasswordEncryptFilter
+ * 작성자 : 김혜린
+ * 비밀번호 암호화 필터
  */
 @WebFilter({"/login.me", "/enroll.me", "/checkPwd.me", "/updatePwd.me", "/update.me", "/delete.me", "/KeyCheck.me"})
 public class PasswordEncryptFilter implements Filter {
@@ -41,7 +42,7 @@ public class PasswordEncryptFilter implements Filter {
 		
 		
 		
-		chain.doFilter(request, response);
+		chain.doFilter(pew, response);
 	}
 
 	/**
