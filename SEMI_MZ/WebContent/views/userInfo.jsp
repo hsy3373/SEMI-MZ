@@ -7,7 +7,6 @@
 <link rel="icon" href="data:;base64,iVBORw0KGgo=">
 <link rel="stylesheet" href="<%= contextPath %>/resource/css/common.css">
 <link rel="stylesheet" href="<%= contextPath %>/resource/css/userInfo.css">
-<link rel="stylesheet" href="<%= contextPath %>/resource/css/alert.css" />
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <title>Insert title here</title>
@@ -42,7 +41,7 @@
 		<div class="info-introduce"></div>
 		<!-- 하단 버튼들 -->
 		<div class="btns1">
-			<button class="plus" type="button">친구추가</button>
+			<button class="plus alert-toggle" type="button">친구추가</button>
 			<button class="delete alert-toggle" type="button">친구삭제</button>
 			<button class="friend-home" type="button">놀러가기</button>
 		</div>
@@ -73,18 +72,10 @@
 			<button type="button" class="report-btn alert-toggle">신고하기</button>
 			<button type="reset" class="reset-btn">취소</button>
 	</div>
-	<div class="alert id="check-alert">
-		<h3 id="alert-text"></h3>
-		<div>
-			<button class="button alert-ok" id="check-ok">확인</button>
-			<button class="button alert-cancel" id="check-cancel">취소</button>
-		</div>
-	</div>
-	<div class="alert-overlay"></div>
 	
 	<script type="module" src="<%= contextPath %>/resource/js/userInfo.js"></script>
 	<script type="module" src="<%= contextPath %>/resource/js/common.js"></script>
-	<%-- <script type="module" src="<%= contextPath %>/resource/js/alert.js"></script> --%>
+	<script type="module" src="<%= contextPath %>/resource/js/alert.js"></script>
 	
 </body>
 </html>
