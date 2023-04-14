@@ -138,7 +138,7 @@ contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
                 <tr>
                   <th class="rin-th1-wid">- 닉네임 변경</th>
                   <td><input type="text" class="rin-inputbox cge-nick" name="cge-nick" value="<%= nickName %>"></td>
-                  <td class="rin-td3-wid"><button type="button" class="rncheck-btn" disabled>중복확인</button></td>
+                  <td class="rin-td3-wid"><button type="button" class="rncheck-btn" id="renick-checkBtn" disabled>중복확인</button></td>
                 </tr>
                 <tr class="rin-under-text">
                   <td></td>
@@ -191,13 +191,7 @@ contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
                     <label for="W">여</label>
                     <input type="radio" id="M" name="gender" value="M" />
                     <label for="M">남</label>
-                    <input
-                      type="radio"
-                      id="N"
-                      name="gender"
-                      value="N"
-                      checked
-                    />
+                    <input type="radio" id="N" name="gender" value="N" checked/>
                     <label for="N">비공개</label>
                   </td>
                   <td></td>
@@ -276,7 +270,8 @@ contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
     <!-- ============================================================================================================ -->
 
     <script>
-      var gender = "${loginUser.gender}";
+      var userId = "${loginUser.userId}";
+      var usergender = "${loginUser.gender}";
       var orgName = "${loginUser.nicName}";
       var orgPwd = "${loginUser.userPwd}";
       var orgInfo = "${loginUser.info}";

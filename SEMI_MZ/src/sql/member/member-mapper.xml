@@ -314,6 +314,17 @@
                 GENDER = ?
 		 WHERE USER_ID = ?
 	</entry>
+<!-- [혜린] -->
+	<entry key = "updateNPwd">
+	UPDATE MEMBER
+		   SET NICKNAME = ?,
+                SELF_INFO = ?,
+                GENDER = ?
+		 WHERE USER_ID = ?
+	</entry>
+	
+	
+	
 
 <!-- ================= delete 구간 ======================== -->
 <!-- [혜린] -->

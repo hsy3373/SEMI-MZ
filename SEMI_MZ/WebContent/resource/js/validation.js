@@ -414,7 +414,7 @@ export function newpwdEnable(){
 ///////////////////////////////////////////////////////////////////////////
 
 //=========== 내 정보 변경 하단 txt ===============
-let cgeInfoObj = {
+export let cgeInfoObj = {
     nick : true,
     chknick : true,
     pwd : true,
@@ -686,7 +686,7 @@ $('.rncheck-btn').on("click", function(){
 // 그러니까 위에서 조건에 맞게 false랑 true 넣어야 함
 
 // 정보수정버튼 활성화 함수
-function cgeInfoEnable(){
+export function cgeInfoEnable(){
     let btn = document.getElementById("cge-btn");
     console.log(cgeInfoObj)
 
