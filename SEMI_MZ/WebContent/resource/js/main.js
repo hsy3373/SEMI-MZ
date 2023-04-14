@@ -9,7 +9,9 @@
 import { getContextPath } from './common.js';
 import * as Common from "./common.js";
 //import * as API from "./mainAPI.js";
-import * as vali from "./validation.js";
+//import * as vali from "./validation.js";
+//import { openAlert, closeAlert } from "./alert.js";  // confirm
+import { homeOpenAlert } from "./homeAlert.js"; // alert
 let path = getContextPath();
 
 $(document).ready(function(){
@@ -121,10 +123,16 @@ $(document).ready(function(){
 			data : {userId: userId , userPwd: userPwd },
 			success: (result) => {
 				if(result == "0"){ // 로그인 실패
-					alert("로그인에 실패하였습니다. id/pw를 다시 확인해주세요.");
+					/*alert*/
+					document.getElementById("home-alert-text").innerHTML = "로그인에 실패하였습니다.<br> id/pw를 다시 확인해주세요.";
+					/*alert 창 띄우기*/
+					homeOpenAlert();
 				}
 				if(result == "6"){ // 탈퇴 혹은 차단 계정
-					alert("탈퇴 혹은 차단 된 계정입니다. 서비스 이용이 불가능합니다.");
+					/*alert*/
+					document.getElementById("home-alert-text").innerHTML = "탈퇴 혹은 차단 된 계정입니다.<br> 서비스 이용이 불가능합니다.";
+					/*alert 창 띄우기*/
+					homeOpenAlert();
 				}
 				if(result == "1"){ // 로그인 처리(성공). 광장으로.
 					//location.replace(path+"/views/square.jsp");
@@ -171,7 +179,14 @@ $(document).ready(function(){
 
 					}else{ // confirm 취소버튼
 
-						alert("로그인 화면으로 이동합니다.");
+						//alert("로그인 화면으로 이동합니다.");
+
+						/*alert*/
+						document.getElementById("home-alert-text").innerHTML = "로그인 화면으로 이동합니다.";
+						/*alert 창 띄우기*/
+						homeOpenAlert();
+
+
 
 					}
 					console.log("멤버, 캐릭터, API 테이블 insert 성공(1)? : " + result);
@@ -179,7 +194,12 @@ $(document).ready(function(){
 
 				if(result == "0"){ //캐릭터 or API 테이블 insert 실패
 					//console.log("멤버테이블 insert 실패" + result);
-					alert("회원가입에 실패하였습니다. 다시 확인해주세요.");
+					//alert("회원가입에 실패하였습니다. 다시 확인해주세요.");
+
+					/*alert*/
+					document.getElementById("home-alert-text").innerHTML = "회원가입에 실패하였습니다.<br> 다시 확인해주세요.";
+					/*alert 창 띄우기*/
+					homeOpenAlert();
 				}
 
 				modal2.css('display', 'none');
@@ -201,11 +221,23 @@ $('#newpwd-btn').on("click", function(){
 		data : {userPwd : userPwd},
 		success : (result) => {
 			if(result == "1"){ //update성공
-				alert("비밀번호가 변경되었습니다. 다시 로그인해주세요.");
+				//alert("비밀번호가 변경되었습니다. 다시 로그인해주세요.");
+
+				/*alert*/
+				document.getElementById("home-alert-text").innerHTML = "비밀번호가 변경되었습니다.<br> 다시 로그인해주세요.";
+				/*alert 창 띄우기*/
+				homeOpenAlert();
+
 				modal3.style.display = 'none';
 				modal1.style.display = 'none';
 			}else{ // update 실패
-				alert("비밀번호 변경에 실패하였습니다. 다시 확인해주세요.");
+				//alert("비밀번호 변경에 실패하였습니다. 다시 확인해주세요.");
+
+			/*alert*/
+			document.getElementById("home-alert-text").innerHTML = "비밀번호 변경에 실패하였습니다.<br> 다시 확인해주세요.";
+			/*alert 창 띄우기*/
+			homeOpenAlert();
+
 			}
 		}
 	});
