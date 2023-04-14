@@ -340,6 +340,7 @@ function gameScore(){
   }else{ // 이겼을 경우 
     console.log("나!! 이겼어!!!!!")
     scoreResult = 50;
+    
   }
 
   $.ajax({
@@ -347,8 +348,14 @@ function gameScore(){
     data: { score: scoreResult },
     success: function (result) {
       console.log(result);
+      goSQuare();
     }
+    
+    
   });
+
+  
+
 
 }
 

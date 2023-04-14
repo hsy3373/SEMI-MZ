@@ -48,7 +48,7 @@ let noticeBoard, myhome, squarebackground, gamezone;
 let modalstop = false;
 export let modalstopfn = function () {
   modalstop = !modalstop;
-  console.log(modalstop, "호출");
+  //console.log(modalstop, "호출");
   main();
 };
 
@@ -253,14 +253,12 @@ function update() {
 
   //충돌이벤트 구현
   if (uesrX <= 1024 && uesrX >= 964 && uesrY <= 204 && uesrY >= 187) {
-    console.log("home이벤트");
     gohome();
     modalstop = true;
     return;
   }
 
   if (uesrX <= 1130 && uesrX >= 1000 && uesrY <= 463 && uesrY >= 426) {
-    console.log("공지사항 이벤트");
     //캐릭터 좌표 어떻게 처리할지 정하기 : 게시판 보는동안 좌표값
     document;
     notice - modal;
@@ -269,7 +267,6 @@ function update() {
   }
 
   if (uesrX <= 345 && uesrX >= 298 && uesrY <= 330 && uesrY >= 300) {
-    //console.log('게임존 이벤트')
     gameModalopen();
     modalstop = true;
     uesrY = 335;
@@ -355,7 +352,7 @@ let UsersData = []; // 유저들 데이터 담아줄 배열
 export let FilterUsers = []; //필터링된 유저 1개 만큼 담아줄 배열
 // 웹소켓으로 연결하기
 // 웹소켓 서버 생성 : 학원 192.168.30.171
-let socket = new WebSocket("ws://192.168.30.174:8084" + path + "/multiAccess");
+let socket = new WebSocket("ws://192.168.30.171:8083" + path + "/multiAccess");
 ///////////////////////////////////////////////////////////////자기 ws로 바꿔주기!!! ///////////////////////////////
 // 지의 학원 ip : 192.168.30.174
 // 지의 집 ip : 192.168.0.16
