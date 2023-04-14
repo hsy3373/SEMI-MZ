@@ -11,7 +11,7 @@ import {openAlert} from "./alert.js";
 let path = getContextPath();
 
 $(".friendList").click(function () {
-  console.log("실행되나???");
+  //console.log("실행되나???");
 });
 
 //버튼이벤트

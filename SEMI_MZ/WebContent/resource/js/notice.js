@@ -45,7 +45,7 @@ function NoticeList() {
 	$.ajax({
 		url: getContextPath() + "/selectNotice",
 		success: function(data) {
-			console.log(data);
+			//console.log(data);
 
 			if (data.length > 4) {
 				data.length = 4;

@@ -240,8 +240,6 @@ $(function() {
 				url: path + "/selectBoard",
 				data: { boardNo: boardNo },
 				success: function(b) {
-					//console.log(b);
-
 					// 제목
 					let title = b.boardTitle;
 					let no = b.boardNo;
@@ -421,15 +419,13 @@ $(document).on("click", "#board-send-update", function() {
 	/*alert*/
 	document.getElementById("alert-text").innerText = "수정하시겠습니까?";
 	openAlert("myroom-board-update");
-    let alertok = document.querySelector(".myroom-board-update");
-	alertok.addEventListener("click", () => {
-		/*방명록 수정 함수*/
-		updateBoard();
-		/*나무에 방명록 표시*/
-		loadList(roomMasterId);
-    });
-
 });
+$('.alert').on('click', '.myroom-board-update', function (){
+	/*방명록 수정 함수*/
+	updateBoard();
+	/*나무에 방명록 표시*/
+	loadList(roomMasterId);
+})
 /*방명록 수정*/
 function updateBoard() {
 	// 비밀글체크시 Y 또는 N값 넣어주기위한 이벤트
@@ -468,24 +464,15 @@ function updateBoard() {
 				selectboardList(roomMasterId);
 				closeAlert();
 
-				//alert("수정되었습니다.");
 			}
 		},
 		error: function(e) { console.log(e); },
 	});
 }
 
-
-/*$(document).on('change', '.board-send-detail .board-write-title',function(){
-	$("#board-send-update").attr("disabled", false);
-});
-$(document).on('change', '.board-send-detail .board-write-content',function(){
-	$("#board-send-update").attr("disabled", false);
-});*/
-
 		
-/* ======================= 방명록 삭제) ======================= */
-/*내 마이룸에서 방명록 삭제*/
+/* ======================= 방명록 삭제 ======================= */
+/*내 마이룸에서 방명록 삭제 클릭 이벤트*/
 $(document).on("click", "#board-delete", function() {
 	document.getElementById("alert-text").innerText = "삭제하시겠습니까?";
 	openAlert("myroom-board-delete");
@@ -511,7 +498,7 @@ $(".alert").on("click", ".myroom-board-delete", function(){
 });
 
 
-/*친구마이룸에서 내가 쓴 방명록 삭제*/
+/*친구마이룸에서 내가 쓴 방명록 삭제 클릭 이벤트*/
 $(document).on("click", "#board-send-delete", function() {
 	document.getElementById("alert-text").innerText = "삭제하시겠습니까?";
 	openAlert("myroom-send-board-delete");
@@ -646,7 +633,7 @@ function loadList(receiveID) {
 			
 			for (let i = 0; i < list.length; i++){
 				str += "<tr>" +
-							"<td id='myroom-board-title"+i+"'>" +
+							"<td class='myroom-board-title' id='myroom-board-title"+i+"'>" +
 								"<img class='apple' src='./resource/img/icon/사과.png'>" + 
 								list[i].boardTitle + 
 							"</td>" +
