@@ -98,13 +98,13 @@ INSERT INTO MEMBER( USER_ID,
                     USER_PWD,
                     NICKNAME )
         VALUES ( 'test',
-                'test',
+                '7iaw3Ur350mqGo7jwQrpkj9hiYB3Lkc/iBml1JQODbJ6wYX4oOHV+E+IvIh/1nsUNzLDBMxfqa2Ob1f1ACio/w==',
                 'NIC_test');
 INSERT INTO MEMBER( USER_ID,
                     USER_PWD,
                     NICKNAME )
         VALUES ( 'friend',
-                'friend',
+                'gwBLsZw9qvO6u+sKqDGsr1LsoSar6NdGKOIrbsaldB3GFoDj/HSXBzkRpJvx25QZaQDf5Jt2au2ReB+Cmn8sAA==',
                 'NIC_fri');
 INSERT INTO MEMBER( USER_ID,
                     USER_PWD,
