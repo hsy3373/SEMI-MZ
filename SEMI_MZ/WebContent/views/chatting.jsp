@@ -99,7 +99,7 @@ pageEncoding="UTF-8" import="mz.member.model.vo.Member"%>
     
     	let loginUser = '<%= loginUser2%>';
     	let loginUserNick = '<%= loginUserNick%>';
-    	console.log(loginUser, loginUserNick);
+    	//console.log(loginUser, loginUserNick);
     	sessionStorage.setItem("loginUser", JSON.stringify(loginUser));
     	sessionStorage.setItem("loginUserNick", JSON.stringify(loginUserNick));
     </script>

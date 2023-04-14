@@ -234,10 +234,10 @@ public class SkinDao {
 	// [지의]
 	// 마이룸 상점 스킨 조회
 	// 페이지 별 일반 스킨 조회용(한페이지에 12개)
-	public ArrayList<Skin> selectSkinsList(Connection conn, String userId, int page) {
+	public ArrayList<Skin> selectSkinsList(Connection conn, String userId) {
 		
 		ArrayList<Skin> list = new ArrayList<>();
-
+		
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		String sql = prop.getProperty("selectSkinsList");
@@ -245,29 +245,25 @@ public class SkinDao {
 			pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setString(1, userId);
-			// 이거보다 크거나 같고
-			pstmt.setInt(2, (page-1)*12 +1);
-			//이거보다 작거나 같은
-			pstmt.setInt(3, page*12);
 			
 			rset = pstmt.executeQuery();
-
+			
 			while (rset.next()) {
 				Skin skin = new Skin( rset.getInt("SKIN_ID"), 
-								rset.getString("SAVE_ROOT"), 
-								rset.getInt("CHARACTER_PRICE"), 
-								rset.getString("REWARD"));
+									rset.getString("SAVE_ROOT"), 
+									rset.getInt("CHARACTER_PRICE"), 
+									rset.getString("REWARD"));
 				
 				list.add(skin);
 			}
-
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			close(rset);
 			close(pstmt);
 		}
-
+		
 		return list;
 	}
 	
@@ -299,7 +295,7 @@ public class SkinDao {
 	
 	// [지의]
 	// 마이룸(옷장) - 페이지 별 로그인 유저가 보유한 스킨 조회용(한페이지에 12개)
-	public ArrayList<Character> mySkinList(Connection conn, String userId, int page){
+	public ArrayList<Character> mySkinList(Connection conn, String userId){
 		ArrayList<Character> list = new ArrayList<>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -308,16 +304,12 @@ public class SkinDao {
 			pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setString(1, userId);
-			// 이거보다 크거나 같고
-			pstmt.setInt(2, (page-1)*12 +1);
-			//이거보다 작거나 같은
-			pstmt.setInt(3, page*12);
-			
+
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
 				Character skin = new Character(rset.getInt("SKIN_ID"),
-									 		   rset.getString("SAVE_ROOT"));
+											rset.getString("SAVE_ROOT"));
 				list.add(skin);
 			}
 		} catch (SQLException e) {
