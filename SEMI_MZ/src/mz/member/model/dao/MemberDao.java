@@ -1047,6 +1047,29 @@ public class MemberDao {
 		
 	}
 	
+	//[지영]
+	//미니게임 coin update 용
+	public int coinUpdate(Connection conn, String userId, int coin) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("coinUpdate");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(2, userId);
+			pstmt.setInt(1, coin);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		
+		
+		return result;
+	}
+	
 	
 //------------------------------ delete 구간 -------------------------------		
 	// [김혜린]
@@ -1318,6 +1341,8 @@ public class MemberDao {
 		}
 		return result;
 	}
+
+	
 	
 }	
 	

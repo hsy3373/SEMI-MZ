@@ -25,7 +25,7 @@
         
         <div class="filp-modal-game" id="filp-modal">
          <div class="filp-background">
-                <div class="return-square">
+                <div class="return-square" id="return-square">
                     <img src="<%=contextPath%>/resource/img/icon/back2_btn.png" class="game_xbtn" id="game-back-button">
                 </div>
                <div class="user-Card" >

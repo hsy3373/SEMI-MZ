@@ -20,38 +20,58 @@ import javax.websocket.server.ServerEndpoint;
 public class FlipGameSever {
 
 	private static String User1 = new String(); //1p에 대한 정보 저장
-	// private static Session player1Session;
-    // private static Session player2Session; //세션으로 저장하는게 나을까? 
+	private static Session player1Session;
+    private static Session player2Session; //세션으로 저장하는게 나을까? 
 	
-	Set<Session> clients = session.getOpenSessions();
-	int numClients = clients.size();
 
 	@OnOpen
 	public void open(Session session, EndpointConfig config) {
 		System.out.println("MINI 클라이언트 접속");
 
-
-		if (numClients == 3) { //게임풀레이 3명부터 삭제
-			session.getBasicRemote().sendText("5,gameFull");
-			session.close();
+		Set<Session> clients = session.getOpenSessions();
+		int numClients = clients.size();
+		
+		System.out.println("클라이언트 숫자"+numClients);
+		
+		if(numClients == 0) {
+			player1Session = session;
+			
 		}
-		if(!User1.isEmpty()) { //2p일 경우 1p정보 전송
-			try {
+		
+		if(numClients == 1) {
+			player2Session = session;
+			
+			try { //2p일 경우 1p정보 전송
 				session.getBasicRemote().sendText(User1);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		}
+
+		if (numClients > 1) { //게임풀레이 3명부터 삭제
+			try {
+				session.getBasicRemote().sendText("5,gameFull");
+				session.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
+		}
+		
+		
 	}
 	
 	@OnMessage
 	public void message(Session session, String msg) {
+
+		Set<Session> clients = session.getOpenSessions();
+		int numClients = clients.size();
 	
 		
 		System.out.println(msg); 
 		
 		if(numClients == 1) { //내가 1p일 경우 저장
-				User1 = msg+" 1p";
+				User1 = msg+",1p";
 		//session.getBasicRemote().sendText(User1);
    		 }	
 		
@@ -63,7 +83,7 @@ public class FlipGameSever {
 		System.out.println(clients);
 		
 		for(Session s : clients) {
-			System.out.println("여기 체크중");
+			
 			if(s != session) { //내가 아닌경우 메세지 전송
 				System.out.println("메세지 전송");
 				try {
@@ -80,10 +100,20 @@ public class FlipGameSever {
 	
 	@OnClose
 	public void onClose(Session session) throws IOException {
+		System.out.println("나감 ");
 		//세션에 재요청 메세지 보내면 될듯
-		for(Session s : clients) {
-			s.getBasicRemote().sendText("4");
+		if(session == player1Session) {
+			System.out.println("1p 나감 ");
+			//나간사람이 1p라면
+			player2Session.getBasicRemote().sendText("4");
+			User1=null;
+		}else {
+			System.out.println("2p 나감 ");
+			//내간사람이 2p라면
+			player1Session.getBasicRemote().sendText("3");
 		}
+		
+	
 	
     }
 

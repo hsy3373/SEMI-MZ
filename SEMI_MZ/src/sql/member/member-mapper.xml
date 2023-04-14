@@ -314,6 +314,7 @@
                 GENDER = ?
 		 WHERE USER_ID = ?
 	</entry>
+<<<<<<< Updated upstream
 <!-- [혜린] -->
 	<entry key = "updateNPwd">
 	UPDATE MEMBER
@@ -325,6 +326,14 @@
 	
 	
 	
+=======
+<!-- [지영] -->
+	<entry key = "coinUpdate">
+	UPDATE MEMBER
+		   SET COIN = COIN + ?
+		 WHERE USER_ID = ?
+	</entry>
+>>>>>>> Stashed changes
 
 <!-- ================= delete 구간 ======================== -->
 <!-- [혜린] -->

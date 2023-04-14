@@ -402,6 +402,24 @@ public class MemberService {
 			return result;
 		}
 		
+		//[지영]
+		//미니게임 coin update 용
+		public int coinUpdate(String userId, int score) {
+			Connection conn = getConnection();
+			
+			int result = new MemberDao().coinUpdate(conn, userId, score);
+			
+			
+			if(result > 0) { 
+				commit(conn);
+			}else { 
+				rollback(conn);
+			}
+			close(conn);
+			
+			return result;
+		}
+		
 		
 //------------------------------ delete 구간 -------------------------------
 	// [김혜린]	
@@ -659,5 +677,7 @@ public class MemberService {
 			
 			return result;
 		}
+
+	
 }
 
