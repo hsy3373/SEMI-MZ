@@ -4,7 +4,7 @@
  */
 import { getContextPath} from "../common.js";
 import { openAlert, closeAlert } from "../alert.js";
-import { homeOpenAlert } from "./homeAlert.js";
+import { homeOpenAlert } from "../homeAlert.js";
 let path = getContextPath();
 
 // 페이징 처리 준비

@@ -297,7 +297,7 @@
 
 	<%-- <script type="module" src="${contextPath}/resource/js/common.js"></script> --%>
 	<script type="module" src="${contextPath}/resource/js/alert.js"></script>
-	<script type="module" src="${contextPath}/resource/js/myroom/homeAlert.js"></script>
+	<script type="module" src="${contextPath}/resource/js/homeAlert.js"></script>
 	<script type="module" src="${contextPath}/resource/js/myroom/myroom.js"></script>
 	<script type="module" src="${contextPath}/resource/js/myroom/board.js"></script>
 	<script type="module" src="${contextPath}/resource/js/myroom/closet.js"></script>
