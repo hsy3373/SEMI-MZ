@@ -314,6 +314,7 @@
                 GENDER = ?
 		 WHERE USER_ID = ?
 	</entry>
+
 <!-- [혜린] -->
 	<entry key = "updateNPwd">
 	UPDATE MEMBER
@@ -323,8 +324,14 @@
 		 WHERE USER_ID = ?
 	</entry>
 	
-	
-	
+
+<!-- [지영] -->
+	<entry key = "coinUpdate">
+	UPDATE MEMBER
+		   SET COIN = COIN + ?
+		 WHERE USER_ID = ?
+	</entry>
+
 
 <!-- ================= delete 구간 ======================== -->
 <!-- [혜린] -->
