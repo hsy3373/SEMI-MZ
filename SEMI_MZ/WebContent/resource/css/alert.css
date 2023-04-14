@@ -33,7 +33,7 @@
 /* --------------- alert 창관련 css --------------- */
 /* --------------- alert 창안에서 버튼 --------------- */
 /* 확인 버튼 */
-.alert-ok {
+.alert-ok, .home-alert-ok {
   background-color: #c8e8c3;
   border: 2.5px solid #a1c49b;
 }
@@ -45,12 +45,13 @@
 /* 버튼 클릭시 커서포인터, 버튼크기 살짝 작아지는 호버효과 */
 .alert-ok:hover,
 .alert-cancel:hover,
-.alert-toggle:hover {
+.alert-toggle:hover,
+.home-alert-ok:hover {
   transform: scale(0.97);
   cursor: pointer;
 }
 /* 전체 틀 */
-.alert {
+.alert, .home-alert {
   width: 300px;
   border-radius: 4px;
   margin-left: auto;
@@ -59,12 +60,12 @@
   background-color: #fff;
   z-index: 3;
   position: fixed;
-  top: 30%;
+  top: 38%;
   left: 50%;
   transform: translate(-50%, -50%);
   display: none;
 }
-.alert-overlay {
+.alert-overlay, .home-alert-overlay {
   width: 100%;
   height: 100%;
   z-index: 2; /* places the modalOverlay between the main page and the modal dialog */
@@ -85,3 +86,4 @@ h3 {
 .alert div {
   text-align: center;
 }
+.home-alert div{text-align: center;}

@@ -31,20 +31,12 @@ public class home extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		String roomMaster = request.getParameter("roomMaster");
-		System.out.println("roomMaster : "+roomMaster);
 		String userId = ((Member)request.getSession().getAttribute("loginUser")).getUserId();
-		System.out.println("home에서 "+userId);
 		
 		// db에있는 로그인유저 정보 불러와서 myroom.jsp로 넘겨줌
 		Member loginUser = new MemberService().selectMemberAllInfo(userId);
 		
-		// 지의추가 - 마이룸에 스킨 카운트 포워딩 
-		int storeSkinCount = new SkinService().storeSkinCount(userId);
-		int dressSkinCount = new SkinService().dressSkinCount(userId);
-		request.setAttribute("storeSkinCount", storeSkinCount);
-		request.setAttribute("dressSkinCount", dressSkinCount);
 		
 		request.getSession().setAttribute("loginUser", loginUser);
 		request.setAttribute("roomMaster", roomMaster);
@@ -57,7 +49,6 @@ public class home extends HttpServlet {
 			//지영님이 값 없이 집 입장시킨거 //로그인 값 있음
 		
 		//}
-
 	}
 
 	/**
