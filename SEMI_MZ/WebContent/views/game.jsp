@@ -20,6 +20,7 @@
                     <img src="<%=contextPath%>/resource/img/icon/엑스 버튼.png" class="game_xbtn" id="game_xbtn">
                 </div>
                 <div class="game-strat" id="Strat-match">시작하기</div>
+                <div  id="skin-pang">스킨팡시작하기</div>
             </div>
         </div>
     </div>
@@ -29,6 +30,7 @@
     
 
     <script type="module" src="<%=contextPath%>/resource/js/gamezone/gamezone.js"></script>
+    <script type="module" src="<%=contextPath%>/resource/js/game/gameCommon.js"></script>
    
    
 
