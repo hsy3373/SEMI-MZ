@@ -11,7 +11,7 @@ import {openAlert} from "./alert.js";
 let path = getContextPath();
 
 $(".friendList").click(function () {
-  console.log("실행되나???");
+  //console.log("실행되나???");
 });
 
 //버튼이벤트
@@ -229,7 +229,7 @@ $("#rq-btn").on("click", function () {
   });
 });
 
-console.log("세션로그인유저 비번 : "+orgPwd);
+//console.log("세션로그인유저 비번 : "+orgPwd);
 
 
 

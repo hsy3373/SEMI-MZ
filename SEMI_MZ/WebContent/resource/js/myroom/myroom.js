@@ -30,8 +30,6 @@ $(function(){
 
 	
 });
-//loginUserId
-//roomMasterId
 /*친구룸에서 친구닉네임 조회*/
 /*친구룸 -> 친구 스킨 클릭시 userInfo 모달창*/
 $(document).on("click", ".myroom_user .friend-skin", function(){
@@ -79,7 +77,7 @@ function insertHeart(){
 		}
 	});
 }
-//document.querySelector("#my-heart-off").addEventListener("click", insertHeart);
+
 /*호감도 취소했을 때 db에서 삭제*/
 function deleteHeart(){
 	$.ajax({
@@ -100,7 +98,6 @@ function deleteHeart(){
 		}
 	});
 }
-//document.querySelector("#my-heart-on").addEventListener("click", deleteHeart);
 
 function selectHeart(){
 	/*db에 저장된 호감도 현상태 불러와서 하트 이미지 바꾸기*/
