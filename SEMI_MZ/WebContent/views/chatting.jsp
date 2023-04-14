@@ -23,12 +23,6 @@ pageEncoding="UTF-8" import="mz.member.model.vo.Member"%>
     />
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
-    <style>
-      body {
-        background-image: url('<%=path%>/resource/img/background/background_main.png');
-      }
-    </style>
   </head>
   <body>
 <!--          <div>
