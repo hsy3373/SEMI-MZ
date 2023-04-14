@@ -51,7 +51,6 @@ public class PasswordEncryptWrapper extends HttpServletRequestWrapper{
 				//System.out.println("암호화 전 pwd : "+super.getParameter(name));
 				value = getSHA512(super.getParameter(name));
 				//System.out.println("암호화 후 pwd : "+value);
-				
 				//System.out.println("pw 최대글자 : "+getSHA512("rlagpflsrlagpfls_0rlagpflsrlagpfls_0rlagpflsrlagpfls_0"));
 				if(name.equals("chkPwd") && super.getParameter(name).equals("")) { // 받아오는 이름이 chkPwd이고 )
 					value = "";
