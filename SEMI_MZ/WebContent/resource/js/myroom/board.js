@@ -7,7 +7,7 @@
 import { getContextPath } from "../common.js";
 import { getUserInfo } from "../userInfo.js";
 import { openAlert, closeAlert } from "../alert.js";
-import { homeOpenAlert } from "./homeAlert.js";
+import { homeOpenAlert } from "../homeAlert.js";
 //import { getContextPath, getSessionStorage } from "../common.js";
 
 let path = getContextPath();
