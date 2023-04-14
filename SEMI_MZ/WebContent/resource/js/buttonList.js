@@ -9,6 +9,7 @@ import { FilterUsers } from "./squareCanvas.js";
 import { getUserInfo } from "./userInfo.js";
 import * as vali from "./validation.js";
 import {openAlert} from "./alert.js";
+import { homeOpenAlert } from "./homeAlert.js";
 let path = getContextPath();
 
 $(".friendList").click(function () {
@@ -275,7 +276,13 @@ $("#rq-btn").on("click", function () {
         });
       }
       if (result == "X") {
-        alert("비밀번호가 일치하지 않습니다. 다시 확인해주세요.");
+        //alert("비밀번호가 일치하지 않습니다. 다시 확인해주세요.");
+
+        /*alert*/
+        document.getElementById("home-alert-text").innerHTML = "비밀번호가 일치하지 않습니다.<br> 다시 확인해주세요.";
+        /*alert 창 띄우기*/
+        homeOpenAlert();
+
       }
     },
   });
@@ -300,9 +307,20 @@ $('#cge-btn').on("click", function(){
 		data : {nickName: nickName, chkPwd: chkPwd, gender: gender1, info: info},
 		success : (updateM) => { 
 			if(updateM == null){
-				alert("정보변경에 실패하였습니다. 다시 확인해주세요.");
+				//alert("정보변경에 실패하였습니다. 다시 확인해주세요.");
+
+        /*alert*/
+        document.getElementById("home-alert-text").innerHTML = "정보변경에 실패하였습니다.<br> 다시 확인해주세요.";
+        /*alert 창 띄우기*/
+        homeOpenAlert();
+        
 			}else{
-				alert("정보 수정 완료.");
+				//alert("정보 수정 완료.");
+
+        /*alert*/
+        document.getElementById("home-alert-text").innerHTML = "정보 수정 완료.";
+        /*alert 창 띄우기*/
+        homeOpenAlert();
         
         sessionStorage.setItem("loginUserNick", JSON.stringify(updateM.nicName));
 
@@ -341,11 +359,24 @@ $("#secsub-btn").on("click", function () {
         // 패스워드 일치 => 회원탈퇴 처리
 
         // 탈퇴되었다는 알림과 함께
-        alert("회원탈퇴 되었습니다.");
+        //alert("회원탈퇴 되었습니다.");
+
+        /*alert*/
+        document.getElementById("home-alert-text").innerHTML = "회원탈퇴 되었습니다.";
+        /*alert 창 띄우기*/
+        homeOpenAlert();
+
+
         //로그인페이지로 이동(메인페이지)
         location.replace(path + "/views/main.jsp");
       } else {
-        alert("비밀번호가 일치하지 않습니다. 다시 확인해주세요.");
+        //alert("비밀번호가 일치하지 않습니다. 다시 확인해주세요.");
+
+        /*alert*/
+        document.getElementById("home-alert-text").innerHTML = "비밀번호가 일치하지 않습니다.<br> 다시 확인해주세요.";
+        /*alert 창 띄우기*/
+        homeOpenAlert();
+
       }
     },
   });

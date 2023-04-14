@@ -302,26 +302,25 @@
 
 
 <!-- ============================ alert 창 ================================= -->    
-<!-- ============= 탈퇴 alert 창 ================= -->    
-<!-- <div class="alert">
-	<h3>정말 탈퇴하시겠습니까?</h3>
+   <!-- confirm -->
+   <div class="alert">
+	<h3 id="alert-text"></h3>
 	<div>
-	   <button class="button alert-ok" id="alert-ok1" onclick="document.querySelector('#test').submit();">확인</button>
-	   <button class="button alert-cancel">취소</button> 
+	   <button class="button alert-ok" id="alert-ok">확인</button>
+	   <button class="button alert-cancel">취소</button>
 	</div>
-</div>
-<div class="alert-overlay"></div>
-
- ============= 회원가입완료 alert 창 ================= -->    
-<!-- <div class="alert2 alert">
-	<h3>회원가입이 완료되었습니다.</h3>
+ </div>
+ <div class="alert-overlay"></div>
+ 
+ 
+ <!-- alert(확인만 있음) -->
+ <div class="home-alert">
+	<h3 id="home-alert-text"></h3>
 	<div>
-	   <button class="button alert-ok" id="alert-ok2" onclick="document.querySelector('#test2').submit();">확인</button>
-	   <button class="button alert-cancel">취소</button> 
+	   <button class="button home-alert-ok">확인</button>
 	</div>
-</div>
-<div class="alert2-overlay"></div>  -->
-
+ </div>
+ <div class="home-alert-overlay"></div>
 
 
 
@@ -350,8 +349,8 @@
 <script type="module" src="<%= contextPath %>/resource/js/mainAPI.js"></script> 
 <!--kakao API-->
 <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
-<!--google API-->
-
+<!--alert -->
+<script type="module" src="<%= contextPath %>/resource/js/homeAlert.js"></script>
 	
 <script type="text/javascript">
 	sessionStorage.clear();

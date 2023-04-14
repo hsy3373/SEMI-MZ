@@ -6,6 +6,7 @@
  */
 
     import { getContextPath } from './common.js';
+    import { homeOpenAlert } from "./homeAlert.js";
     let path = getContextPath();
 
 ////////////////////////// 정규식 /////////////////////////////
@@ -210,7 +211,13 @@ $('#check-agree').click(function(){
 			success: (result) => {
 				
 				if(result == "N"){ // 사용불가(존재하는 아이디)
-					alert("이미 존재하는 아이디입니다. 다시 입력해주세요.");
+					//alert("이미 존재하는 아이디입니다. 다시 입력해주세요.");
+
+                    /*alert*/
+                    document.getElementById("home-alert-text").innerHTML = "이미 존재하는 닉네임입니다.<br> 다시 입력해주세요.";
+                    /*alert 창 띄우기*/
+                    homeOpenAlert();
+
                     $('input[name=enrollId]').val("");
                     $('input[name=enrollId]').focus();
                     txt.css('color', 'black');
@@ -255,7 +262,13 @@ $('.check-nic').on("click", function(){
         success: (result) => {
             
             if(result == "N"){ // 사용불가(존재하는 닉네임)
-                alert("이미 존재하는 닉네임입니다. 다시 입력해주세요.");
+                //alert("이미 존재하는 닉네임입니다. 다시 입력해주세요.");
+
+                /*alert*/
+                document.getElementById("home-alert-text").innerHTML = "이미 존재하는 닉네임입니다.<br> 다시 입력해주세요.";
+                /*alert 창 띄우기*/
+                homeOpenAlert();
+
                 $('input[name=enrollNick]').val("");
                 $('input[name=enrollNick]').focus();
                 txt.css('color', 'black');
@@ -637,7 +650,14 @@ $('.rncheck-btn').on("click", function(){
         success: (result) => {
             
             if(result == "N"){ // 사용불가(존재하는 닉네임)
-                alert("이미 존재하는 닉네임입니다. 다시 입력해주세요.");
+               // alert("이미 존재하는 닉네임입니다. 다시 입력해주세요.");
+
+                 /*alert*/
+                 document.getElementById("home-alert-text").innerHTML = "이미 존재하는 닉네임입니다.<br> 다시 입력해주세요.";
+                 /*alert 창 띄우기*/
+                 homeOpenAlert();
+
+
                 $('.cge-nick').val(orgName);
                 //$('input[name=cge-nick]').val("");
                 $('input[name=cge-nick]').focus();

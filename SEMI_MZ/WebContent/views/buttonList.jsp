@@ -268,6 +268,17 @@ contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
         </form>
       </div>
     </div>
+
+<!--=========================alert=============================-->
+
+    <!-- alert(확인만 있음) -->
+ <div class="home-alert">
+	<h3 id="home-alert-text"></h3>
+	<div>
+	   <button class="button home-alert-ok">확인</button>
+	</div>
+ </div>
+ <div class="home-alert-overlay"></div>
     <!-- ============================================================================================================ -->
 
     <script>

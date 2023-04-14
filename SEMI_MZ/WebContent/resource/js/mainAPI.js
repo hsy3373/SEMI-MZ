@@ -7,6 +7,9 @@
 import { getContextPath } from './common.js';
 import * as Common from "./common.js";
 import * as vali from "./validation.js";
+//import { openAlert, closeAlert } from "../alert.js";
+import { homeOpenAlert } from "./homeAlert.js";
+
 
 let path = getContextPath();
 
@@ -128,7 +131,14 @@ function kakaoLogin(page) {
             }
 
             if(result == "6") { // (status != Y)인 경우
-                alert("탈퇴 혹은 차단 된 계정입니다. 서비스 이용이 불가능합니다.");
+               // alert("탈퇴 혹은 차단 된 계정입니다. 서비스 이용이 불가능합니다.");
+
+                /*alert*/
+                document.getElementById("home-alert-text").innerHTML = "탈퇴 혹은 차단 된 계정입니다.<br> 서비스 이용이 불가능합니다.";
+                /*alert 창 띄우기*/
+                homeOpenAlert();
+
+
                 location.href = path;
             }
 
@@ -143,7 +153,13 @@ function kakaoLogin(page) {
 
                    // console.log(key + kind);
                     // 회원가입 모달 창 띄워지게 (회원가입 창에서 쿠키저장된 키값 활용)
-                    alert("본인인증 완료. 회원가입이 필요합니다.");
+                    //alert("본인인증 완료. 회원가입이 필요합니다.");
+
+                    /*alert*/
+                    document.getElementById("home-alert-text").innerHTML = "본인인증 완료.<br> 회원가입이 필요합니다.";
+                    /*alert 창 띄우기*/
+                    homeOpenAlert();
+
                     $('.modal2').css('display', 'block');
 
                     // 회원가입 모달 나갔다가 다시 들어왔을 때 모달 처음 상태로 리셋
@@ -168,7 +184,13 @@ function kakaoLogin(page) {
                     vali.enabledSubmit();
                     enrollBtn.disabled = true;
                 }else if(page == "find"){
-                    alert("해당 계정으로 존재하는 아이디가 없습니다.");
+                    //alert("해당 계정으로 존재하는 아이디가 없습니다.");
+
+                    /*alert*/
+                    document.getElementById("home-alert-text").innerHTML = "해당 계정으로 존재하는 아이디가 없습니다.";
+                    /*alert 창 띄우기*/
+                    homeOpenAlert();
+
                 }
             }
         }
