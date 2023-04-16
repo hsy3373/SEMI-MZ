@@ -13,7 +13,7 @@ BEGIN
     LOOP 
     -- 실험용 유저 데이터 추가 
         INSERT INTO MEMBER(USER_ID, USER_PWD, NICKNAME)
-		VALUES( 't'||SEQ_TEST.NEXTVAL , '7iaw3Ur350mqGo7jwQrpkj9hiYB3Lkc/iBml1JQODbJ6wYX4oOHV+E+IvIh/1nsUNzLDBMxfqa2Ob1f1ACio/w==', 'NIC'||SEQ_TEST.CURRVAL);
+		VALUES( 't'||SEQ_TEST.NEXTVAL , '7iaw3Ur350mqGo7jwQrpkj9hiYB3Lkc/iBml1JQODbJ6wYX4oOHV+E+IvIh/1nsUNzLDBMxfqa2Ob1f1ACio/w==', SEQ_TEST.CURRVAL||'NIC');
         
         INSERT INTO LOGIN_API(USER_ID, API_KIND, API_KEY)
 		VALUES( 't'||SEQ_TEST.CURRVAL , 'kakao', '가상의kakao키');
@@ -22,7 +22,7 @@ BEGIN
 		VALUES( 't'||SEQ_TEST.CURRVAL , 0);
         
         INSERT INTO MEMBER(USER_ID, USER_PWD, NICKNAME)
-		VALUES( 't'||SEQ_TEST.NEXTVAL , '7iaw3Ur350mqGo7jwQrpkj9hiYB3Lkc/iBml1JQODbJ6wYX4oOHV+E+IvIh/1nsUNzLDBMxfqa2Ob1f1ACio/w==', 'NIC'||SEQ_TEST.CURRVAL);
+		VALUES( 't'||SEQ_TEST.NEXTVAL , '7iaw3Ur350mqGo7jwQrpkj9hiYB3Lkc/iBml1JQODbJ6wYX4oOHV+E+IvIh/1nsUNzLDBMxfqa2Ob1f1ACio/w==', SEQ_TEST.CURRVAL||'NIC');
         
         INSERT INTO LOGIN_API(USER_ID, API_KIND, API_KEY)
 		VALUES( 't'||SEQ_TEST.CURRVAL , 'google', '가상의google키');
@@ -40,7 +40,7 @@ BEGIN
     LOOP 
     -- 실험용 유저 데이터 추가 
         INSERT INTO MEMBER(USER_ID, USER_PWD, NICKNAME)
-		VALUES( 't'||SEQ_TEST.NEXTVAL , '7iaw3Ur350mqGo7jwQrpkj9hiYB3Lkc/iBml1JQODbJ6wYX4oOHV+E+IvIh/1nsUNzLDBMxfqa2Ob1f1ACio/w==', 'NIC'||SEQ_TEST.CURRVAL);
+		VALUES( 't'||SEQ_TEST.NEXTVAL , '7iaw3Ur350mqGo7jwQrpkj9hiYB3Lkc/iBml1JQODbJ6wYX4oOHV+E+IvIh/1nsUNzLDBMxfqa2Ob1f1ACio/w==', SEQ_TEST.CURRVAL||'NIC');
         
         INSERT INTO LOGIN_API(USER_ID, API_KIND, API_KEY)
 		VALUES( 't'||SEQ_TEST.CURRVAL , 'kakao', '가상의kakao키');
@@ -65,7 +65,7 @@ BEGIN
     LOOP 
     -- 실험용 유저 데이터 추가 
         INSERT INTO MEMBER(USER_ID, USER_PWD, NICKNAME, STATUS)
-		VALUES( 't'||SEQ_TEST.NEXTVAL , '7iaw3Ur350mqGo7jwQrpkj9hiYB3Lkc/iBml1JQODbJ6wYX4oOHV+E+IvIh/1nsUNzLDBMxfqa2Ob1f1ACio/w==', 'NIC'||SEQ_TEST.CURRVAL, 'N');
+		VALUES( 't'||SEQ_TEST.NEXTVAL , '7iaw3Ur350mqGo7jwQrpkj9hiYB3Lkc/iBml1JQODbJ6wYX4oOHV+E+IvIh/1nsUNzLDBMxfqa2Ob1f1ACio/w==', SEQ_TEST.CURRVAL||'NIC', 'N');
         
         INSERT INTO LOGIN_API(USER_ID, API_KIND, API_KEY)
 		VALUES( 't'||SEQ_TEST.CURRVAL , 'kakao', '가상의kakao키');
@@ -77,7 +77,7 @@ BEGIN
 		VALUES( 't'||SEQ_TEST.CURRVAL , 'N', SYSDATE - 15);
         
         INSERT INTO MEMBER(USER_ID, USER_PWD, NICKNAME, STATUS)
-		VALUES( 't'||SEQ_TEST.NEXTVAL , '7iaw3Ur350mqGo7jwQrpkj9hiYB3Lkc/iBml1JQODbJ6wYX4oOHV+E+IvIh/1nsUNzLDBMxfqa2Ob1f1ACio/w==', 'NIC'||SEQ_TEST.CURRVAL, 'X');
+		VALUES( 't'||SEQ_TEST.NEXTVAL , '7iaw3Ur350mqGo7jwQrpkj9hiYB3Lkc/iBml1JQODbJ6wYX4oOHV+E+IvIh/1nsUNzLDBMxfqa2Ob1f1ACio/w==', SEQ_TEST.CURRVAL||'NIC', 'X');
         
         INSERT INTO LOGIN_API(USER_ID, API_KIND, API_KEY)
 		VALUES( 't'||SEQ_TEST.CURRVAL , 'google', '가상의google키');
@@ -121,6 +121,19 @@ BEGIN
         
         INSERT INTO HEART(USER_ID, RECEIVE_ID, CREATE_DATE)
 		VALUES( 't'||SEQ_TEST.CURRVAL , 'friend', SYSDATE-7);
+    END LOOP;
+END;
+/
+
+
+
+BEGIN 
+    FOR I IN 1..20
+    LOOP 
+    -- 실험용 유저 데이터 추가 
+        INSERT INTO GAME_RANK(USER_ID, GAME_TITLE, GAME_SCORE)
+		VALUES( 't'||SEQ_TEST.NEXTVAL , 'test', 'SkinPang', SEQ_TEST.CURRVAL);
+
     END LOOP;
 END;
 /

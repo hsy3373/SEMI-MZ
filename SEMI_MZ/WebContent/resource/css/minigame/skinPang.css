@@ -13,7 +13,7 @@
 }
 
 .Tetris_wrap * {
-	margin : 0px auto;
+  margin: 0px auto;
 }
 
 html,
@@ -23,7 +23,7 @@ body {
 }
 
 body {
-  background-image: url("../../img/background/minigame.png");
+  background-image: url('../../img/background/minigame.png');
   background-repeat: no-repeat;
   background-size: cover;
 }
@@ -33,15 +33,17 @@ ul {
 }
 
 body .chat-container {
-	width: 460px;
+  width: 460px;
 }
 
-.back-btn{
-	width: auto;
-	height : 50px;
-	position: absolute;
-	right : 10px;
-	top : 10px
+.back-btn {
+  width: auto;
+  height: 50px;
+  position: absolute;
+  right: 30px;
+  top: 18px;
+
+  cursor: pointer;
 }
 
 .game-title-wrap {
@@ -62,7 +64,7 @@ body .chat-container {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-image: url("../../img/icon/라벨2.png");
+  background-image: url('../../img/icon/라벨2.png');
   background-repeat: no-repeat;
   background-size: cover;
 }
@@ -281,6 +283,12 @@ body .chat-container {
   left: 50%;
   transform: translate(-50%, 0);
   border: 2px solid #d4e6fd82;
+
+  overflow: auto;
+}
+
+.rank-box::-webkit-scrollbar {
+  display: none;
 }
 
 .rank-item {
@@ -413,50 +421,50 @@ body .chat-container {
 
 .one {
   background: #fefff9;
-  background-image: url("../../img/game/skinPang/1.png");
+  background-image: url('../../img/minigame/skinPang/1.png');
 }
 
 .two {
   background: #fff89a;
-  background-image: url("../../img/game/skinPang/2.png");
+  background-image: url('../../img/minigame/skinPang/2.png');
 }
 
 .three {
   background: #7fffb9;
-  background-image: url("../../img/game/skinPang/3.png");
+  background-image: url('../../img/minigame/skinPang/3.png');
 }
 
 .four {
   background: #2afbff;
-  background-image: url("../../img/game/skinPang/4.png");
+  background-image: url('../../img/minigame/skinPang/4.png');
 }
 
 .five {
   background: #ffc9ff;
-  background-image: url("../../img/game/skinPang/5.png");
+  background-image: url('../../img/minigame/skinPang/5.png');
 }
 
 .six {
   background: #ff76d8;
-  background-image: url("../../img/game/skinPang/6.png");
+  background-image: url('../../img/minigame/skinPang/6.png');
 }
 
 .seven {
   background: #e955b0;
-  background-image: url("../../img/game/skinPang/7.png");
+  background-image: url('../../img/minigame/skinPang/7.png');
 }
 
 .eight {
   background: #cb52e9;
-  background-image: url("../../img/game/skinPang/8.png");
+  background-image: url('../../img/minigame/skinPang/8.png');
 }
 
 .nine {
   background: #5d1e6d;
-  background-image: url("../../img/game/skinPang/9.png");
+  background-image: url('../../img/minigame/skinPang/9.png');
 }
 
 .ten {
   background: #162950;
-  background-image: url("../../img/game/skinPang/10.png");
+  background-image: url('../../img/minigame/skinPang/10.png');
 }
