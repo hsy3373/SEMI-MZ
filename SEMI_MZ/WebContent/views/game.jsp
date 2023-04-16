@@ -21,8 +21,8 @@
                 </div>
                 <div class="game-strat" id="Strat-match">시작하기</div>
 
-                <div><img src="<%=contextPath%>/resource/img/icon/before2_btn.png"></div>
-                <div><img src="<%=contextPath%>/resource/img/icon/next2_btn.png"></div>
+                <div><img src="<%=contextPath%>/resource/img/icon/before2_btn.png" class="before_btn"></div>
+                <div><img src="<%=contextPath%>/resource/img/icon/next2_btn.png" class="after_btn"></div>
             </div>
         </div>
     </div>

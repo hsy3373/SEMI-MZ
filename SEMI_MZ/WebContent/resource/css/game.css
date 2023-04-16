@@ -39,12 +39,17 @@
   width: 50px;
 }
 
-.before_btn{
+.before_btn{ /*게임 앞장으로*/
   position: absolute;
+  top: 600px;
+  right: 1000px;
+  display: none;
 }
 
-.after_btn{
+.after_btn{ /*게임 뒷장으로*/
   position: absolute;
+  top: 600px;
+  left: 980px;
 }
 
 .game-titel {

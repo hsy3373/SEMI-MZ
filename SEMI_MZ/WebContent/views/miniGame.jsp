@@ -41,9 +41,10 @@
                     <div class="game-board" id="game-board">
                 </div>
 
-                <div style="width:460px; height: 150px; position: absolute; border: 1px solid red;">채팅창</div>
+                
 
             </div>
+            <div style="width:460px; height: 150px; position: absolute; border: 1px solid red;">채팅창</div>
         </div>
 
 
