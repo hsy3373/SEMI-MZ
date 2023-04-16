@@ -158,9 +158,9 @@ public class SkinService {
 	
 	// [지의]
 	// 마이룸(옷장) - 페이지 별 로그인 유저가 보유한 스킨 조회용(한페이지에 12개)
-	public ArrayList<Character> mySkinList(String userId){
+	public ArrayList<Skin> mySkinList(String userId){
 		Connection conn = getConnection();
-		ArrayList<Character> list = new SkinDao().mySkinList(conn, userId);
+		ArrayList<Skin> list = new SkinDao().mySkinList(conn, userId);
 		close(conn);
 		return list;
 	}
