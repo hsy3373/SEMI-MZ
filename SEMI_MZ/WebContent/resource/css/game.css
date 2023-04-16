@@ -35,8 +35,16 @@
   left: 1032px;
 }
 
-.game_xbtn {
+.game_xbtn ,.before_btn , .after_btn {
   width: 50px;
+}
+
+.before_btn{
+  position: absolute;
+}
+
+.after_btn{
+  position: absolute;
 }
 
 .game-titel {

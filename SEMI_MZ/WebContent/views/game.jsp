@@ -20,6 +20,9 @@
                     <img src="<%=contextPath%>/resource/img/icon/엑스 버튼.png" class="game_xbtn" id="game_xbtn">
                 </div>
                 <div class="game-strat" id="Strat-match">시작하기</div>
+
+                <div><img src="<%=contextPath%>/resource/img/icon/before2_btn.png"></div>
+                <div><img src="<%=contextPath%>/resource/img/icon/next2_btn.png"></div>
             </div>
         </div>
     </div>

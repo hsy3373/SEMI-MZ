@@ -35,16 +35,26 @@
                     <div class="user-back"></div>
                </div>
                <div class="user2-Card" id="user2-Card">
-                    상대방!!
                 </div>
                
                 <div class="game">
                     <div class="game-board" id="game-board">
                 </div>
+
+                <div style="width:460px; height: 150px; position: absolute; border: 1px solid red;">채팅창</div>
+
             </div>
         </div>
 
 
+        <!-- alert(확인만 있음) -->
+        <div class="home-alert">
+            <h3 id="home-alert-text"></h3>
+            <div>
+            <button class="button home-alert-ok">확인</button>
+            </div>
+        </div>
+        <div class="home-alert-overlay"></div>
 
 
     </div>  
