@@ -132,7 +132,7 @@ BEGIN
     LOOP 
     -- 실험용 유저 데이터 추가 
         INSERT INTO GAME_RANK(USER_ID, GAME_TITLE, GAME_SCORE)
-		VALUES( 't'||SEQ_TEST.NEXTVAL , 'test', 'SkinPang', SEQ_TEST.CURRVAL);
+		VALUES( 't'||SEQ_TEST.NEXTVAL , 'SkinPang', SEQ_TEST.CURRVAL);
 
     END LOOP;
 END;
