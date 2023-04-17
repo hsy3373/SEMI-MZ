@@ -81,18 +81,17 @@ function displayData(currentPage, skinLimit) {
 	if (maxpnum > listCount) {
 		maxpnum = listCount;
 	}
-	//	상점 $(".store-btn") 	   /		옷장
-	// / $(".dress-btn")
+	//	상점 $(".store-btn") 	   /	옷장 $(".dress-btn")
 	if($(".store-btn").css("opacity") == 1){
-	for (let i = (currentPage - 1) * skinLimit; i < maxpnum; i++) {
-		str += "<div class='closet-item'>" 
-				  +"<div class='closet-skin-id' id='skin"+i+"' style='display: none;'>" + skinList[i].skinId +"</div>"
-				  + "<div class='closet-price' id='"+skinList[i].price+"'>" + skinList[i].price +"</div>"
-				  + "<div class='closet-skin'>"
-				 	+"<img src='."+ skinList[i].saveRoot +"/fs.png' id='"+skinList[i].skinId+"'>"
-				  + "</div>"
-		 	+ "</div>";
-	}
+		for (let i = (currentPage - 1) * skinLimit; i < maxpnum; i++) {
+			str += "<div class='closet-item'>" 
+					  +"<div class='closet-skin-id' id='skin"+i+"' style='display: none;'>" + skinList[i].skinId +"</div>"
+					  + "<div class='closet-price' id='"+skinList[i].price+"'>" + skinList[i].price +"</div>"
+					  + "<div class='closet-skin'>"
+					 	+"<img src='."+ skinList[i].saveRoot +"/fs.png' id='"+skinList[i].skinId+"'>"
+					  + "</div>"
+			 	+ "</div>";
+		}
 	$(".store-skins").html(str);
 	
 	}else if($(".dress-btn").css("opacity") == 1){
@@ -147,10 +146,10 @@ function paging(listCount, skinLimit, pageLimit, currentPage) {
 		pageHtml += "<li><a href='#' id='next'> &gt; </a></li>";
 	}
 
-	$("#store-pg").html(pageHtml);
+	$("#closet-pg").html(pageHtml);
 
 	//페이징 번호 클릭 이벤트
-	$("#store-pg li a").click(function() {
+	$("#closet-pg li a").click(function() {
 		let $id = $(this).attr("id");
 		let selectedPage = $(this).text();
 
@@ -173,7 +172,7 @@ $(document).on('click', '.closet-skins img' ,function(){
 	/*왼쪽 대표스킨 src값에 클릭한 스킨 src값으로 넣어주기*/
 	$(".view-skin img").attr('src', changeSkin);
 	/*loginUserSkinId : 현재 로그인유저의 스킨ID값 (myroom.jsp에서 가져옴)*/
-	let userSkin = path+"resource/img/user/skin"+loginUserSkinId+"/fs.png" 
+	let userSkin = "./resource/img/user/skin"+loginUserSkinId+"/fs.png" 
 	//console.log(changeSkin);
 	//console.log(userSkin);
 	if(changeSkin != userSkin){
@@ -260,7 +259,7 @@ $(document).on('click', '.store-skins img', function(){
 function buySkin(){
 	// 스킨 아이디값 얻어와야됨
 	let skinId = $(".view-skin .user-skin").attr("id");
-	console.log("넘길 스킨 아이디 : "+skinId)
+	//console.log("넘길 스킨 아이디 : "+skinId)
 	$.ajax({
 		url : path + "/insertMySkin.my",
 		data : {skinId : skinId},
@@ -418,9 +417,7 @@ $(function(){
 			// id : 방주인의 스킨아이디 -> img 태그에 src 경로 추가
 			$(".friend-skin").attr("src", path+"/resource/img/user/skin"+id+"/fs.png")
 		},
-		error : function(e){
-			console.log(e);
-		}
+		error : function(e){console.log(e);}
 	});
 })
 

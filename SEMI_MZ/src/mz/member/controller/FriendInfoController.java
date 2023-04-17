@@ -35,7 +35,6 @@ public class FriendInfoController extends HttpServlet {
 		String friendId = request.getParameter("friendId");
 		
 		int result = new MemberService().selectFriend(loginUser, friendId);
-		System.out.println(result);
 		
 		if (result > 0) {
 			
@@ -43,7 +42,6 @@ public class FriendInfoController extends HttpServlet {
 			
 			new Gson().toJson(result, response.getWriter());
 		} else {
-			System.out.println("조회 실패");
 			
 			response.setContentType("application/json; charset=UTF-8");
 			
