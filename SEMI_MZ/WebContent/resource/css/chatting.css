@@ -125,6 +125,7 @@
 }
 
 .room-name {
+  width: 100%;
   padding-left: 4px;
   text-overflow: ellipsis;
   overflow: hidden;

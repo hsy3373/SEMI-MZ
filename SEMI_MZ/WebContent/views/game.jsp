@@ -21,8 +21,15 @@
                 </div>
                 <div class="game-strat" id="Strat-match">시작하기</div>
 
-                <div><img src="<%=contextPath%>/resource/img/icon/before2_btn.png" class="before_btn"></div>
-                <div><img src="<%=contextPath%>/resource/img/icon/next2_btn.png" class="after_btn"></div>
+                <!-- <div><img src="<%=contextPath%>/resource/img/icon/before2_btn.png" class="before_btn"></div>
+                <div><img src="<%=contextPath%>/resource/img/icon/next2_btn.png" class="after_btn"></div> -->
+                
+               <div >
+               		<img class="skin-pang-title" src="<%=contextPath%>/resource/img/minigame/skinPang/skinPang-title.png">
+               		<div class="skin-pang-text">1인</div>
+                	<div  id="go-skin-pang">시작하기</div>
+               </div>
+               
             </div>
         </div>
     </div>

@@ -1,6 +1,6 @@
 /* game 모달 css : 작성자 윤지영*/
 
-.modal-game{
+.modal-game {
   position: absolute;
   top: 0;
   left: 0;
@@ -25,8 +25,6 @@
   background-repeat: no-repeat;
   margin: 100px auto;
 }
-
-
 
 .gamemodal-out-btn {
   /* border: 1px solid blue;  */
@@ -66,6 +64,31 @@
   bottom: 145px;
 }
 
+.skin-pang-title {
+  width: auto;
+  height: 260px;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: 396px;
+  right: 196px;
+  border-radius: 4px;
+  border: 2px solid white;
+}
 
+.skin-pang-text {
+  width: fit-content;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  right: 550px;
+  bottom: 208px;
+  font-size: larger;
+}
 
-
+#go-skin-pang {
+  width: fit-content;
+  position: absolute;
+  right: 416px;
+  bottom: 145px;
+  font-size: 25px;
+  cursor: pointer;
+}

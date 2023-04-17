@@ -11,7 +11,7 @@ pageEncoding="UTF-8"  import = "mz.member.model.vo.Member, java.util.ArrayList"%
 <html>
   <head>
     <meta charset="UTF-8" />
-    <title>Mzone</title>
+    <title>M-Zone</title>
     <link rel="stylesheet" href="<%=path %>/resource/css/admin/admin-admin.css" />
   </head>
   <body>
