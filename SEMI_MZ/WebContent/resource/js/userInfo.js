@@ -67,7 +67,7 @@ let nickName;
 	sessionStorage.clickedUserId
 */
 export function getUserInfo() {
-	console.log('d')
+	//console.log('d')
 	selectHeart();
 	selectFriend();
 	countHeart();
@@ -77,7 +77,7 @@ export function getUserInfo() {
 		data: { userId: sessionStorage.clickedUserId }, /*userId = 로그인 유저(나)x , 다른 유저*/
 		method: 'post',
 		success: function(data) {
-			console.log('유저 정보 가져왔음 : ', data);
+			// console.log('유저 정보 가져왔음 : ', data);
 
 			// 데이터 가져오기	
 			nickName = data.nicName;
@@ -95,7 +95,7 @@ export function getUserInfo() {
 			}
 
 			let gender = data.gender;
-			console.log(gender);
+			 console.log(gender);
 
 
 			if (gender == 'W') {
@@ -141,14 +141,14 @@ function insertHeart() {
 			$('#heart-on').css('display', 'block');
 
 			let num = $(".heart-int").text();
-			console.log('num: ', num);
+			// console.log('num: ', num);
 			num = parseInt(num) + 1;
 
 			$(".heart-int").html(num);
-			console.log('num: ', num);
+			// console.log('num: ', num);
 		},
 		error: function() {
-			console.log("error");
+			 console.log("error");
 		}
 	});
 }
@@ -171,7 +171,7 @@ function deleteHeart() {
 			$(".heart-int").html(num);
 		},
 		error: function() {
-			console.log("error");
+			 console.log("error");
 		}
 	});
 }
@@ -184,7 +184,7 @@ function selectHeart() {
 		type: 'get',
 		data: { receiveId: sessionStorage.clickedUserId },
 		success: function(data) {
-			console.log(data);
+			// console.log(data);
 			if (data == 1) {
 				$('#heart-off').css('display', 'none');
 				$('#heart-on').css('display', 'block');
@@ -196,7 +196,7 @@ function selectHeart() {
 
 		},
 		error: function() {
-			console.log("error");
+			 console.log("error");
 		}
 	});
 }
@@ -209,7 +209,7 @@ function countHeart() {
 		data: { receiveId: sessionStorage.clickedUserId },
 		success: function(data) {
 
-			console.log("좋아요 개수 : " + data);
+			// console.log("좋아요 개수 : " + data);
 
 			$(".heart-int").html(data);
 		},
@@ -226,7 +226,7 @@ function insertFriend() {
 		type: 'get',
 		data: { friendId: sessionStorage.clickedUserId },
 		success: function(data) {
-			console.log(data);
+			// console.log(data);
 			$('.plus').css('display', 'none');
 			$('.delete').css('display', 'block');
 
@@ -267,7 +267,7 @@ function deleteFriend() {
 		type: 'post',
 		data: { friendId: sessionStorage.clickedUserId },
 		success: function(data) {
-			console.log(data);
+			// console.log(data);
 			$('.plus').css('display', 'block');
 			$('.delete').css('display', 'none');
 		},
@@ -307,7 +307,7 @@ function selectFriend() {
 		type: 'get',
 		data: { friendId: sessionStorage.clickedUserId },
 		success: function(data) {
-			console.log(data);
+			// console.log(data);
 			if (data == 1) {
 				$('.plus').css('display', 'none');
 				$('.delete').css('display', 'block');
@@ -324,7 +324,7 @@ function selectFriend() {
 
 /*신고 상세내용 내보내기*/
 function report() {
-	console.log(nickName);
+	// console.log(nickName);
 	$.ajax({
 		url: getContextPath() + "/report",
 		data: {
@@ -334,7 +334,7 @@ function report() {
 		},
 		method: 'post',
 		success: function(data) {
-			console.log(data);
+			// console.log(data);
 			if (data > 0) {
 				close2();
 			} else {
