@@ -22,8 +22,9 @@
 		<div class="info-nickname"></div>
 		<!-- 호감도 -->
 		<div class="info-heart">
-			<img id="heart-off" alt="호강도 상태" src="<%= contextPath %>/resource/img/icon/빈하트.png">
-			<img id="heart-on" alt="호강도 상태" src="<%= contextPath %>/resource/img/icon/하트.png">
+			<%-- <img id="heart-off" alt="호강도 상태" src="<%= contextPath %>/resource/img/icon/빈하트.png">
+			<img id="heart-on" alt="호강도 상태" src="<%= contextPath %>/resource/img/icon/하트.png"> --%>
+			<div id="user-heart"></div>
 		</div>
 		<!-- 호감도 갯수 -->
 		<div class="heart-int"></div>

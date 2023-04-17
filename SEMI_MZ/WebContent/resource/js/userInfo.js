@@ -15,7 +15,9 @@ import { homeOpenAlert } from "./homeAlert.js";
 let plusBtn = document.querySelector(".plus");
 let deleteBtn = document.querySelector(".delete");
 let reportBtn = document.querySelector(".report-btn");
+
 let userGender = document.querySelector("#user-gender");
+let userHeart = document.querySelector("#user-heart");
 
 let alert = document.querySelector(".alert");
 	alert.classList = "alert " + "infoAlert";
@@ -23,8 +25,8 @@ let alert = document.querySelector(".alert");
 let alertOverlay = document.querySelector(".alert-overlay");
 	alertOverlay.classList = "alert-overlay " + "infoAlert-overlay";
 
+// 유저 정보창에서 alert 떠있을 시 오버레이 클릭 안되게 유저 정보창 전용 오버레이 만듦
 let infoModalOverlay = document.querySelector(".info-modal-overlay");
-let reportModalOverlay = document.querySelector(".report-modal-overlay");
 
 let infoModalOpenOverlay = function() {
 	infoModalOverlay.style.display = "block";
@@ -34,6 +36,9 @@ let infoModalCloseOverlay = function() {
 	infoModalOverlay.style.display = "none";
 }
 
+// 유저 신고창에서 alert 떠있을 시 오버레이 클릭 안되게 유저 신고창 전용 오버레이 만듦
+let reportModalOverlay = document.querySelector(".report-modal-overlay");
+
 let reportModalOpenOverlay = function() {
 	reportModalOverlay.style.display = "block";
 }
@@ -42,20 +47,19 @@ let reportModalCloseOverlay = function() {
 	reportModalOverlay.style.display = "none";
 }
 
-
+// 1:1 채팅 클릭 시 클릭한 해당 유저와의 채팅방 생성
 document.querySelector(".info-chatting").addEventListener("click", function() {
 	openChatRoom(sessionStorage.clickedUserId);
 });
 
-
+// 놀러가기 클릭 시 클릭한 해당 유저의 마이룸으로 이동
 if (document.querySelector(".friend-home")) {
 	document.querySelector(".friend-home").addEventListener("click", function() {
 		location.href = getContextPath() + '/home?roomMaster=' + sessionStorage.clickedUserId;
 	});
 }
 
-/*유저 정보 모달창*/
-
+/*유저 정보 모달창 닫기*/
 let close = () => {
 	document.querySelector(".info-modal").classList.add("hidden");
 	if(!document.getElementById("tree")){
@@ -63,7 +67,6 @@ let close = () => {
 	}
 	infoModalCloseOverlay();
 }
-
 
 document.querySelector("#info-x-btn").addEventListener("click", close);
 
