@@ -20,7 +20,13 @@
                     <img src="<%=contextPath%>/resource/img/icon/엑스 버튼.png" class="game_xbtn" id="game_xbtn">
                 </div>
                 <div class="game-strat" id="Strat-match">시작하기</div>
-                <div  id="skin-pang">스킨팡시작하기</div>
+                
+               <div >
+               		<img class="skin-pang-title" src="<%=contextPath%>/resource/img/minigame/skinPang/skinPang-title.png">
+               		<div class="skin-pang-text">1인</div>
+                	<div  id="go-skin-pang">시작하기</div>
+               </div>
+               
             </div>
         </div>
     </div>
