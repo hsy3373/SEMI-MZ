@@ -79,16 +79,16 @@
 	
 	<!-- 마이룸 옷장 : 보유중인 캐릭터만 조회 -->
 	<entry key="mySkinList">
-		    SELECT SKIN_ID, SAVE_ROOT
-            FROM CHARACTER_SKIN CS
-            WHERE EXISTS
-            (
-                    SELECT SKIN_ID
-                    FROM CHARACTER C      
-                    WHERE USER_ID = ?
-                    AND CS.SKIN_ID = C.SKIN_ID
-            )
-            ORDER BY SKIN_ID ASC
+SELECT SKIN_ID, SAVE_ROOT
+  FROM CHARACTER_SKIN CS
+ WHERE EXISTS
+	(
+		SELECT SKIN_ID
+		FROM CHARACTER C      
+		WHERE USER_ID = ?
+		AND CS.SKIN_ID = C.SKIN_ID
+	)
+ORDER BY SKIN_ID ASC
 	</entry>
 	
 	<!-- 옷장 스킨 총 갯수 : 지의 -->
