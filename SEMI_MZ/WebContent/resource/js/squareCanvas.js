@@ -33,14 +33,14 @@ export let canvasSeting = function () {
   document.getElementById("main-square").appendChild(canvas);
 
   //캐릭터 세팅
-  userbd.src = path+"/resource/img/user/skin" + userSkin + "/bd.png";
-  userbs.src = path+"/resource/img/user/skin" + userSkin + "/bs.png";
-  userfd.src = path+"/resource/img/user/skin" + userSkin + "/fd.png";
-  userfs.src = path+"/resource/img/user/skin" + userSkin + "/fs.png";
-  userld.src = path+"/resource/img/user/skin" + userSkin + "/ld.png";
-  userls.src = path+"/resource/img/user/skin" + userSkin + "/ls.png";
-  userrd.src = path+"/resource/img/user/skin" + userSkin + "/rd.png";
-  userrs.src = path+"/resource/img/user/skin" + userSkin + "/rs.png";
+  userbd.src = path + "/resource/img/user/skin" + userSkin + "/bd.png";
+  userbs.src = path + "/resource/img/user/skin" + userSkin + "/bs.png";
+  userfd.src = path + "/resource/img/user/skin" + userSkin + "/fd.png";
+  userfs.src = path + "/resource/img/user/skin" + userSkin + "/fs.png";
+  userld.src = path + "/resource/img/user/skin" + userSkin + "/ld.png";
+  userls.src = path + "/resource/img/user/skin" + userSkin + "/ls.png";
+  userrd.src = path + "/resource/img/user/skin" + userSkin + "/rd.png";
+  userrs.src = path + "/resource/img/user/skin" + userSkin + "/rs.png";
 };
 let noticeBoard, myhome, squarebackground, gamezone;
 //모달 떠있는 동안 움직임 stop
@@ -48,23 +48,23 @@ let noticeBoard, myhome, squarebackground, gamezone;
 let modalstop = false;
 export let modalstopfn = function () {
   modalstop = !modalstop;
-  console.log(modalstop, "호출");
+  //console.log(modalstop, "호출");
   main();
 };
 
 //배경 이미지 세팅
 function loadImage() {
   squarebackground = new Image();
-  squarebackground.src = path+"/resource/img/background/background_main.png";
+  squarebackground.src = path + "/resource/img/background/background_main.png";
 
   myhome = new Image();
-  myhome.src = path+"/resource/img/icon/home.png";
+  myhome.src = path + "/resource/img/icon/home.png";
 
   noticeBoard = new Image();
-  noticeBoard.src = path+"/resource/img/icon/notice_icon.png";
+  noticeBoard.src = path + "/resource/img/icon/notice_icon.png";
 
   gamezone = new Image();
-  gamezone.src = path+"/resource/img/icon/gamezone.png";
+  gamezone.src = path + "/resource/img/icon/gamezone.png";
 }
 
 //유저 네임 세팅
@@ -252,13 +252,13 @@ function update() {
   }
 
   //충돌이벤트 구현
-  if (uesrX <= 1020 && uesrX >= 960 && uesrY <= 200 && uesrY >= 191) {
-    console.log("home이벤트");
+  if (uesrX <= 1024 && uesrX >= 964 && uesrY <= 204 && uesrY >= 187) {
     gohome();
+    modalstop = true;
+    return;
   }
 
   if (uesrX <= 1130 && uesrX >= 1000 && uesrY <= 463 && uesrY >= 426) {
-    console.log("공지사항 이벤트");
     //캐릭터 좌표 어떻게 처리할지 정하기 : 게시판 보는동안 좌표값
     document;
     notice - modal;
@@ -267,7 +267,6 @@ function update() {
   }
 
   if (uesrX <= 345 && uesrX >= 298 && uesrY <= 330 && uesrY >= 300) {
-    //console.log('게임존 이벤트')
     gameModalopen();
     modalstop = true;
     uesrY = 335;
@@ -340,7 +339,6 @@ function update() {
 
 //집으로 이동하는 함수
 const gohome = () => {
-
   console.log(path + "/home");
   /* home으로 서블릿 합침 : 지의 */
   location.href = path + "/home";
@@ -353,13 +351,13 @@ let UsersData = []; // 유저들 데이터 담아줄 배열
 export let FilterUsers = []; //필터링된 유저 1개 만큼 담아줄 배열
 // 웹소켓으로 연결하기
 // 웹소켓 서버 생성 : 학원 192.168.30.171
-let socket = new WebSocket("ws://192.168.30.181:8081" + path + "/multiAccess");
+let socket = new WebSocket("ws://192.168.30.180:8082" + path + "/multiAccess");
 ///////////////////////////////////////////////////////////////자기 ws로 바꿔주기!!! ///////////////////////////////
 // 지의 학원 ip : 192.168.30.174
 // 지의 집 ip : 192.168.0.16
 // 가영 학원 : 192.168.30.181:8081
 // 가영 집 : 192.168.35.221:8081
-// 혜린 : 192.168.120.37:8084
+// 혜린 : 192.168.120.38:8084
 let fnSocket = {
   onopen: function (e) {
     console.log("접속성공");
@@ -532,7 +530,8 @@ function usersreder() {
     //불러온 img skinimg에 넣어줌
     let img = new Image();
     img.src =
-      path+"/resource/img/user/skin" +
+      path +
+      "/resource/img/user/skin" +
       FilterUsers[i].userSkin +
       "/" +
       imgMotion +
@@ -643,6 +642,7 @@ export let defaultEvent = function () {
     if (clickX >= 895 && clickX <= 1110 && clickY >= 10 && clickY <= 226) {
       console.log("home 이벤트 부여");
       gohome();
+      return;
     }
 
     //img 안을 클릭할 경우 이벤트 : noticeBoard

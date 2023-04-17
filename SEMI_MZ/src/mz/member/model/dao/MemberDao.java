@@ -828,11 +828,11 @@ public class MemberDao {
 	
 	// [김혜린]
 	public int insertCharacter(Connection conn, String userId) {
-		System.out.println("디에이오 들어옴");
+		//System.out.println("디에이오 들어옴");
 		int result = 0;
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("insertCharacter");
-		System.out.println(sql);
+		//System.out.println(sql);
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, userId);
@@ -843,7 +843,7 @@ public class MemberDao {
 		}finally {
 			close(pstmt);
 		}
-		System.out.println("Dao 캐릭터테이블 결과 : " + result);
+		//System.out.println("Dao 캐릭터테이블 결과 : " + result);
 		return result;
 	}
 	
@@ -969,19 +969,19 @@ public class MemberDao {
 	}
 	
 	// [김혜린]
-	public int updateMember(Connection conn, String nickName, String userPwd, String info, String gender, String userId) {
+	public int updateMember(Connection conn, String nickName, String chkPwd, String info, String gender, String userId) {
 		System.out.println("DAO / updateMember 실행됨"); //console
 		int result = 0;
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("updateMember");
 		
-		System.out.println(nickName+","+ userPwd+","+ info+","+ gender+","+ userId);
+		System.out.println(nickName+","+ chkPwd+","+ info+","+ gender+","+ userId);
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setString(1, nickName);
-			pstmt.setString(2, userPwd);
+			pstmt.setString(2, chkPwd);
 			pstmt.setString(3, info);
 			pstmt.setString(4, gender);
 			pstmt.setString(5, userId);
@@ -996,6 +996,34 @@ public class MemberDao {
 		System.out.println("DAO / updateMember 결과 : "+ result); //console
 		return result;
 	}
+	
+	// [김혜린]
+		public int updateNPwd(Connection conn, String nickName, String info, String gender, String userId) {
+			System.out.println("DAO / updateNPwd 실행됨"); //console
+			int result = 0;
+			PreparedStatement pstmt = null;
+			String sql = prop.getProperty("updateNPwd");
+			
+			System.out.println(nickName+","+ info+","+ gender+","+ userId);
+			
+			try {
+				pstmt = conn.prepareStatement(sql);
+				
+				pstmt.setString(1, nickName);
+				pstmt.setString(2, info);
+				pstmt.setString(3, gender);
+				pstmt.setString(4, userId);
+				
+				result = pstmt.executeUpdate();
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				close(pstmt);
+			}
+			System.out.println("DAO / updateNPwd 결과 : "+ result); //console
+			return result;
+		}
 	
 	//[han]
 	//어드민페이지에서 코인과 자기소개 변경용 
@@ -1017,6 +1045,29 @@ public class MemberDao {
 		}
 		return result;
 		
+	}
+	
+	//[지영]
+	//미니게임 coin update 용
+	public int coinUpdate(Connection conn, String userId, int coin) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("coinUpdate");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(2, userId);
+			pstmt.setInt(1, coin);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		
+		
+		return result;
 	}
 	
 	
@@ -1290,6 +1341,8 @@ public class MemberDao {
 		}
 		return result;
 	}
+
+	
 	
 }	
 	

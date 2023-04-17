@@ -110,6 +110,18 @@ public class MemberService {
 	}
 	
 	// [김혜린]
+		public Member selectLoginUser(String userId) {
+			Connection conn = getConnection();
+			
+			Member m = new MemberDao().selectLoginUser(conn, userId);
+			
+			close(conn);
+			//System.out.println("서비스 m : " + m);
+			return m;
+		}
+	
+	
+	// [김혜린]
 	public Member loginMember(String userId, String userPwd) {
 		Connection conn = getConnection();
 		
@@ -262,14 +274,14 @@ public class MemberService {
 			Connection conn = getConnection();
 			
 			int result = new MemberDao().insertCharacter(conn, userId);
-			System.out.println("서비스에서 디에이오에 보낸 결과 담겼?" + result + userId);
+			//System.out.println("서비스에서 디에이오에 보낸 결과 담겼?" + result + userId);
 			if(result > 0) { // CHARACTER 테이블에 추가 성공
 				commit(conn);
 			}else { // CHARACTER 테이블에 추가 실패
 				rollback(conn);
 			}
 			close(conn);
-			System.out.println("서비스 캐릭터테이블 결과 : " + result);
+			//System.out.println("서비스 캐릭터테이블 결과 : " + result);
 			return result;
 		}
 		
@@ -330,11 +342,11 @@ public class MemberService {
 			return result;
 		}
 	// [김혜린]	
-		public Member updateMember(String nickName, String userPwd, String info, String gender, String userId) {
+		public Member updateMember(String nickName, String chkPwd, String info, String gender, String userId) {
 			System.out.println("멤버서비스 / updateMember 실행"); //console
 			Connection conn = getConnection();
 			
-			int result = new MemberDao().updateMember(conn, nickName, userPwd, info, gender, userId);
+			int result = new MemberDao().updateMember(conn, nickName, chkPwd, info, gender, userId);
 			
 			Member m = null;
 			
@@ -351,12 +363,52 @@ public class MemberService {
 			return m;
 		}
 		
+	// [김혜린]	
+		public Member updateNPwd(String nickName, String info, String gender, String userId) {
+			System.out.println("멤버서비스 / updateNPwd 실행"); //console
+			Connection conn = getConnection();
+			
+			int result = new MemberDao().updateNPwd(conn, nickName, info, gender, userId);
+			
+			Member m = null;
+			
+			if(result > 0) { //Member테이블 update 성공
+				commit(conn);
+				m = new MemberDao().selectLoginUser(conn, userId);
+			}else { //Member테이블 update 실패
+				rollback(conn);
+			}
+			close(conn);
+			
+			System.out.println("멤버서비스 / updateNPwd 실행결과 : " + result);//console
+			System.out.println("멤버서비스 / updateNPwd m 객체: " + m); //console
+			return m;
+		}
+		
 		//[han]
 		//어드민페이지에서 코인과 자기소개 변경용 
 		public int updateMemberInfo(String userId, int coin , String info) {
 			Connection conn = getConnection();
 			
 			int result = new MemberDao().updateMemberInfo(conn, userId, coin, info);
+			
+			if(result > 0) { 
+				commit(conn);
+			}else { 
+				rollback(conn);
+			}
+			close(conn);
+			
+			return result;
+		}
+		
+		//[지영]
+		//미니게임 coin update 용
+		public int coinUpdate(String userId, int score) {
+			Connection conn = getConnection();
+			
+			int result = new MemberDao().coinUpdate(conn, userId, score);
+			
 			
 			if(result > 0) { 
 				commit(conn);
@@ -625,5 +677,7 @@ public class MemberService {
 			
 			return result;
 		}
+
+	
 }
 

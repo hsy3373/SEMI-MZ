@@ -6,6 +6,7 @@
  */
 
     import { getContextPath } from './common.js';
+    import { homeOpenAlert } from "./homeAlert.js";
     let path = getContextPath();
 
 ////////////////////////// 정규식 /////////////////////////////
@@ -210,7 +211,13 @@ $('#check-agree').click(function(){
 			success: (result) => {
 				
 				if(result == "N"){ // 사용불가(존재하는 아이디)
-					alert("이미 존재하는 아이디입니다. 다시 입력해주세요.");
+					//alert("이미 존재하는 아이디입니다. 다시 입력해주세요.");
+
+                    /*alert*/
+                    document.getElementById("home-alert-text").innerHTML = "이미 존재하는 닉네임입니다.<br> 다시 입력해주세요.";
+                    /*alert 창 띄우기*/
+                    homeOpenAlert();
+
                     $('input[name=enrollId]').val("");
                     $('input[name=enrollId]').focus();
                     txt.css('color', 'black');
@@ -255,7 +262,13 @@ $('.check-nic').on("click", function(){
         success: (result) => {
             
             if(result == "N"){ // 사용불가(존재하는 닉네임)
-                alert("이미 존재하는 닉네임입니다. 다시 입력해주세요.");
+                //alert("이미 존재하는 닉네임입니다. 다시 입력해주세요.");
+
+                /*alert*/
+                document.getElementById("home-alert-text").innerHTML = "이미 존재하는 닉네임입니다.<br> 다시 입력해주세요.";
+                /*alert 창 띄우기*/
+                homeOpenAlert();
+
                 $('input[name=enrollNick]').val("");
                 $('input[name=enrollNick]').focus();
                 txt.css('color', 'black');
@@ -414,7 +427,7 @@ export function newpwdEnable(){
 ///////////////////////////////////////////////////////////////////////////
 
 //=========== 내 정보 변경 하단 txt ===============
-let cgeInfoObj = {
+export let cgeInfoObj = {
     nick : true,
     chknick : true,
     pwd : true,
@@ -637,7 +650,14 @@ $('.rncheck-btn').on("click", function(){
         success: (result) => {
             
             if(result == "N"){ // 사용불가(존재하는 닉네임)
-                alert("이미 존재하는 닉네임입니다. 다시 입력해주세요.");
+               // alert("이미 존재하는 닉네임입니다. 다시 입력해주세요.");
+
+                 /*alert*/
+                 document.getElementById("home-alert-text").innerHTML = "이미 존재하는 닉네임입니다.<br> 다시 입력해주세요.";
+                 /*alert 창 띄우기*/
+                 homeOpenAlert();
+
+
                 $('.cge-nick').val(orgName);
                 //$('input[name=cge-nick]').val("");
                 $('input[name=cge-nick]').focus();
@@ -686,7 +706,7 @@ $('.rncheck-btn').on("click", function(){
 // 그러니까 위에서 조건에 맞게 false랑 true 넣어야 함
 
 // 정보수정버튼 활성화 함수
-function cgeInfoEnable(){
+export function cgeInfoEnable(){
     let btn = document.getElementById("cge-btn");
     console.log(cgeInfoObj)
 

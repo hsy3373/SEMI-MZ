@@ -15,30 +15,8 @@
 	Member loginUser = (Member)request.getSession().getAttribute("loginUser");
 	//System.out.println("jsp roomMaster : "+roomMaster);
 	//System.out.println("jsp loginUser : "+loginUser);
-	//System.out.println("loginUser coin : "+loginUser.getCoin());
-	//Member userId = (Member)request.getAttribute("userId");
-	
-	int storeSkinCount = (int) request.getAttribute("storeSkinCount"); 		// 상점 총 스킨 개수
-	int dressSkinCount = (int)request.getAttribute("dressSkinCount");		// 보유 스킨 총 개수
-	
- 	int currentPage = 1;													// 현재페이지 임시로..
- 	// 상점 페이징 변수
- 	int maxPage = (int) Math.ceil(storeSkinCount / 12.0); 				 	// 총 페이지
- 	int startPage = (currentPage-1) / storeSkinCount * storeSkinCount +1; 	// 페이징바 시작 수
- 	int endPage = startPage + storeSkinCount - 1;							// 페이징바 끝 수
- 	if(endPage > maxPage){
- 		endPage = maxPage;
- 	}
- 	// 옷장 페이징 변수
- 	int maxPageD = (int) Math.ceil(dressSkinCount / 12.0);
- 	int startPageD = (currentPage-1) / dressSkinCount * dressSkinCount +1;
- 	int endPageD = startPageD + dressSkinCount - 1;
- 	if(endPageD > maxPageD){
- 		endPageD = maxPageD;
- 	}
+
 %>
-
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -57,32 +35,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 
 <style>
-ul {
-    text-align: center;
-    display: inline-block;
-    border: 1px solid #ccc;
-    border-right: 0;
-	padding-left :0;
-}
-ul li {
-    text-align: center;
-    float: left;
-	list-style:none;
-}
-ul li a {
-    display: block;
-    font-size: 14px;
-	color: black;
-    padding: 0 12px;
-    border-right: solid 1px #ccc;
-    box-sizing: border-box;
-	text-decoration-line:none;	
-	
-    line-height: 30px;
-    font-weight: 300;
-}
-ul li.on {background: #eda712;}
-ul li.on a {color: #fff;}
+
 </style>
 <title>M-Zone</title>
 </head>
@@ -136,21 +89,16 @@ ul li.on a {color: #fff;}
 			</c:choose>
 		</div>
 
-	<!--버튼 모달 jps 가져옴 -->
-		
-	<div class="button-area">
-		<div class="squareGo" onclick="gosquare();">
-			<img src="resource/img/icon/home_btn.png">
+		<!--버튼 모달 jps 가져옴 -->
+		<div class="button-area">
+			<div class="squareGo" onclick="gosquare();">
+				<img src="resource/img/icon/home_btn.png">
+			</div>
+			<%@ include file="./buttonList.jsp"  %>
 		</div>
-		<%@ include file="./buttonList.jsp"  %>
-	</div>
-
 		
 	</div>
 	
-		
-		
-		
 	<!-- ============================= 방명록 모달 ============================= -->
 	<div class="board-wrap">
 		<div class="board-modal">
@@ -267,35 +215,12 @@ ul li.on a {color: #fff;}
 			<img class="fur-img" src="${contextPath}/resource/img/icon/빈옷장.png">
 			<!-- 페이징 -->
 			<!-- 옷장 페이징 -->
-			<div class="paging-closet paging-dress">
-				<% for(int i = startPageD; i <= endPageD; i++){ %>
-					<% if( i <= maxPageD) { %>
-						<% if(i == currentPage){ %>
-							<button type="button" class="selected-btn page-btn"><%= i %></button>
-						<%} else{ %>
-		            		<button type="button" class="page-btn"><%= i %></button>
-						<%} %>
-					<%} %>
-					<%-- <% else { %>
-	            		<button type="button" class="disable-btn page-btn"><%= i %></button>	
-            		<% } %> --%>
-				<% } %>
-			</div>
+
 			<!-- 상점페이징 -->
-			<div class="paging-closet paging-store">
-				<% for(int i = startPage; i <= endPage; i++){ %>
-					<% if( i <= maxPage) { %>
-						<% if(i == currentPage){ %>
-							<button type="button" class="selected-btn page-btn"><%= i %></button>
-						<%} else{ %>
-		            		<button type="button" class="page-btn"><%= i %></button>
-						<%} %>
-					<%} %>
-					<%-- <% else { %>
-	            		<button type="button" class="disable-btn page-btn"><%= i %></button>	
-            		<% } %> --%>
-				<% } %>
+			<div class="pageing-closet">
+				<ul id="store-pg"></ul>
 			</div>
+
 		</div>
 		<img class="coin-label-img" src="${contextPath}/resource/img/icon/라벨2.png">
 		<img class="coin-img" src="${contextPath}/resource/img/icon/coin.png">
@@ -336,6 +261,7 @@ ul li.on a {color: #fff;}
 	</div>
 
 	<!-- ============================= alert ============================= -->
+	<!-- confirm -->
 	<div class="alert">
 		<h3 id="alert-text"></h3>
 		<div>
@@ -345,14 +271,20 @@ ul li.on a {color: #fff;}
 	</div>
 	<div class="alert-overlay"></div>
 	
-
 	
+	<!-- alert(확인만 있음) -->
+	<div class="home-alert">
+		<h3 id="home-alert-text"></h3>
+		<div>
+			<button class="button home-alert-ok">확인</button>
+		</div>
+	</div>
+	<div class="home-alert-overlay"></div>
 
-	
 	<script>
 		/* 광장으로 가는 버튼 */
 		function gosquare() {
-			location.href = "${contextPath}/views/square.jsp";
+			location.href = "${contextPath}/forwarding.sq";
 		};
 		
 		/* 로그인유저, 방주인 js에서 사용하기 위해 변수에 담기 */
@@ -360,26 +292,18 @@ ul li.on a {color: #fff;}
 		var loginUserSkinId = '${loginUser.skinId}';
 		var loginUserCoin = '${loginUser.coin}';
 		var roomMasterId = "${roomMaster}";
-		//console.log("로그인유저 : "+loginUserId);
-		//console.log("로그인유저스킨 : "+loginUserSkinId);
-		console.log("로그인유저코인 : "+loginUserCoin);
-		//console.log("룸마스터 : "+roomMasterId);
-		
-		/* 스킨 총 개수 closet.js로 넘김 */
-		sessionStorage.setItem("storeSkinCount", JSON.stringify(<%= storeSkinCount %>));
 	</script>
 	
 
-
-
-	
-
-	<%-- <script type="module" src="${contextPath}/resource/js/alert.js"></script> --%>
 	<%-- <script type="module" src="${contextPath}/resource/js/common.js"></script> --%>
+	<script type="module" src="${contextPath}/resource/js/alert.js"></script>
+	<script type="module" src="${contextPath}/resource/js/homeAlert.js"></script>
 	<script type="module" src="${contextPath}/resource/js/myroom/myroom.js"></script>
 	<script type="module" src="${contextPath}/resource/js/myroom/board.js"></script>
 	<script type="module" src="${contextPath}/resource/js/myroom/closet.js"></script>
 	<script type="module" src="${contextPath}/resource/js/buttonList.js"></script>
+	
+	<!-- 유저정보창 최상단에 띄워야됨 -->
 	<%@ include file="./userInfo.jsp" %>
 </body>
 </html>

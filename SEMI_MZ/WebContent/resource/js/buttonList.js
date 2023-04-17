@@ -7,11 +7,13 @@ import { getContextPath, getSessionStorage } from "./common.js";
 import { modalstopfn } from "./squareCanvas.js";
 import { FilterUsers } from "./squareCanvas.js";
 import { getUserInfo } from "./userInfo.js";
+import * as vali from "./validation.js";
 import {openAlert} from "./alert.js";
+import { homeOpenAlert } from "./homeAlert.js";
 let path = getContextPath();
 
 $(".friendList").click(function () {
-  console.log("실행되나???");
+  //console.log("실행되나???");
 });
 
 //버튼이벤트
@@ -202,6 +204,17 @@ document.querySelector(".myinfo-xbtn").addEventListener("click", () => {
   $('.chat-container').css("display","block");
 });
 
+// 내정보변경 모달 초기화용 변수들
+let nickBox = $('input[name=cge-nick]');
+let infoBox = $('textarea[name=selfInfo]');
+let pwdBox = $('.cge-pwd');
+let chkpwdBox = $('.cge-chkpwd');
+
+let nickTxt = $('.cgenick-txt');
+let pwdTxt = $('.cgepwd-txt');
+let infoTxt = $('#self-txt');
+
+
 /* 내정보 변경 pw입력요청 모달에서 pw 확인 버튼 클릭 시 */
 $("#rq-btn").on("click", function () {
   let inputPwd = $("#rqpwd").val();
@@ -217,64 +230,106 @@ $("#rq-btn").on("click", function () {
         // 내정보변경 모달 block 처리
 		    smodalInfo.css("display", "none");
         modalMyinfo.css("display", "block");
-        //*정보변경 모달띄워질 때 들어갈 기능들*
-        //모달 보여질 때 유저 정보변경된거 그대로 띄워지게 하는거!!
-        // input 입력란 입력하다가 닫고 다시들어왔을 때 기본 정보만 유지
-        //입력하다가 만 건 비워주기!(리셋)
+        nickBox.prop('readonly', false); // 닉네임 readonly풀기
+        pwdBox.val("");  //비밀번호칸 리셋
+        chkpwdBox.val(""); // 비밀번호확인란 리셋
+
+        //txt 닉네임 밑에, 비밀번호 밑에,, 자기ㅗㅅ개 밑에
+        nickTxt.html("영문, 한글, 숫자, 특수기호(_) 사용하여 2~8자까지 공백없이 가능");
+        nickTxt.css('color', 'black');
+        pwdTxt.html("영문, 숫자, 특수기호 포함 8~16자 입력 가능");
+        pwdTxt.css('color', 'black');
+        infoTxt.html("100자 이내로 작성해 주세요.");
+        infoTxt.css('color', 'black');
+
+        // 활성화 처음 상태로 리셋
+        vali.cgeInfoObj.nick = true;
+        vali.cgeInfoObj.chknick = true;
+        vali.cgeInfoObj.pwd = true;
+        vali.cgeInfoObj.chkpwd = true;
+        vali.cgeInfoObj.info = true;
+        vali.cgeInfoEnable();
+
+        console.log("userId 뭐 담겼? : "+userId);
+
+        $.ajax({
+          type: "post",
+          url: path + "/selectUser.me",
+          dataType: "json",
+          data: { userId: userId},
+          success: (m) => {
+            nickBox.val(m.nicName);  
+            console.log(nickBox.val())
+
+            infoBox.val(m.info);
+            console.log(infoBox.val());
+
+            if(m.gender == "M"){
+              $("label[for='M']").click();
+           }else if(m.gender == "W"){
+              $("label[for='W']").click();
+           }else{
+              $("label[for='N']").click();
+           }
+          
+          }
+        });
       }
       if (result == "X") {
-        alert("비밀번호가 일치하지 않습니다. 다시 확인해주세요.");
+        //alert("비밀번호가 일치하지 않습니다. 다시 확인해주세요.");
+
+        /*alert*/
+        document.getElementById("home-alert-text").innerHTML = "비밀번호가 일치하지 않습니다.<br> 다시 확인해주세요.";
+        /*alert 창 띄우기*/
+        homeOpenAlert();
+
       }
     },
   });
 });
-
-console.log("세션로그인유저 비번 : "+orgPwd);
-
-
-
-
-
 
 
 ////////////  정보수정 버튼 함수 //////////////
 $('#cge-btn').on("click", function(){
 	// jsp 인풋 값 => 변경할 내용
 	let nickName = $('input[name=cge-nick]').val();
-	let chkpwd = $('#cge-chkpwd').val();
+	let chkPwd = $('#cge-chkpwd').val();
 	let info = $('textarea[name="selfInfo"]').val(); 
 	let gender1 = $('input:radio[name="gender"]:checked').val();
+  console.log("gender1(라디오버튼 체크된거) 담긴거 : "+gender1);
 
-	//gender는 항상 값이 체크되어있음
-	// 닉네임, 패스워드 없을 수도 있음.
-	// 이 때 값이 없으면 원래정보를 넣어줌..
-	// if(nickName == ""){
-	// 	nickName += orgName;
-	// }
-	if(chkpwd == ""){
-		chkpwd += orgPwd;
-	}
-	console.log(nickName +"///"+ chkpwd);
+	console.log("닉네임///패스워드안에 뭐담겼니? : "+nickName +"///"+ chkPwd);
+  function updateMem(){
 	$.ajax({
 		type : "post",
 		url : path + "/update.me",
 		dataType: "json",
-		data : {nickName: nickName, userPwd: chkpwd, gender: gender1, info: info},
+		data : {nickName: nickName, chkPwd: chkPwd, gender: gender1, info: info},
 		success : (updateM) => { 
 			if(updateM == null){
-				alert("정보변경에 실패하였습니다. 다시 확인해주세요.");
-			}else{
-				alert("정보 수정 완료.");
-				$('input[name=cge-nick]').attr("value",updateM.nicName);
-				$('textarea[name="selfInfo"]').text(updateM.info);
-				$('input:radio[name="gender"][value="'+updateM.gender+'"]');
-				gender1.val(updateM.gender);
-				
-				sessionStorage.setItem("loginUserNick", JSON.stringify(updateM.nicName));
+				//alert("정보변경에 실패하였습니다. 다시 확인해주세요.");
 
+        /*alert*/
+        document.getElementById("home-alert-text").innerHTML = "정보변경에 실패하였습니다.<br> 다시 확인해주세요.";
+        /*alert 창 띄우기*/
+        homeOpenAlert();
+        
+			}else{
+				//alert("정보 수정 완료.");
+
+        /*alert*/
+        document.getElementById("home-alert-text").innerHTML = "정보 수정 완료.";
+        /*alert 창 띄우기*/
+        homeOpenAlert();
+        
+        sessionStorage.setItem("loginUserNick", JSON.stringify(updateM.nicName));
+
+       
 			}
 		}
 	})
+}
+updateMem();
 });
 
 
@@ -304,11 +359,24 @@ $("#secsub-btn").on("click", function () {
         // 패스워드 일치 => 회원탈퇴 처리
 
         // 탈퇴되었다는 알림과 함께
-        alert("회원탈퇴 되었습니다.");
+        //alert("회원탈퇴 되었습니다.");
+
+        /*alert*/
+        document.getElementById("home-alert-text").innerHTML = "회원탈퇴 되었습니다.";
+        /*alert 창 띄우기*/
+        homeOpenAlert();
+
+
         //로그인페이지로 이동(메인페이지)
         location.replace(path + "/views/main.jsp");
       } else {
-        alert("비밀번호가 일치하지 않습니다. 다시 확인해주세요.");
+        //alert("비밀번호가 일치하지 않습니다. 다시 확인해주세요.");
+
+        /*alert*/
+        document.getElementById("home-alert-text").innerHTML = "비밀번호가 일치하지 않습니다.<br> 다시 확인해주세요.";
+        /*alert 창 띄우기*/
+        homeOpenAlert();
+
       }
     },
   });
