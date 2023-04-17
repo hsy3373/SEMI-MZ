@@ -24,7 +24,7 @@
 <html>
 <head>
 <meta charset="UTF-8" />
-<title>Insert title here</title>
+<title>M-Zone</title>
 <link rel="stylesheet"
 	href="<%=path%>/resource/css/admin/admin-report.css" />
 <link rel="stylesheet"

@@ -309,7 +309,7 @@ public class SkinDao {
 			
 			while(rset.next()) {
 				Skin skin = new Skin(rset.getInt("SKIN_ID"),
-									 rset.getString("SAVE_ROOT"));
+											rset.getString("SAVE_ROOT"));
 				list.add(skin);
 			}
 		} catch (SQLException e) {

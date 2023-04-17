@@ -13,7 +13,6 @@ import com.google.gson.Gson;
 
 import mz.member.model.vo.Member;
 import mz.skin.model.service.SkinService;
-import mz.skin.model.vo.Character;
 import mz.skin.model.vo.Skin;
 
 /**
