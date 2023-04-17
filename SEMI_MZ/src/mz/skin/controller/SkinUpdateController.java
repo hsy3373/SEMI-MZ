@@ -79,7 +79,6 @@ public class SkinUpdateController extends HttpServlet {
 			// 체크박스 체크되었을 경우 Y , 안되었을경우 null로 값 들어옴
 			String reward = multi.getParameter("reward");
 			
-			System.out.println("들어온 값 : " + p + reward);
 
 			// price, reward 값이 null일 경우 기본값 삽입
 			int price = p != null ? Integer.parseInt(p) : originSkin.getPrice();
@@ -87,7 +86,6 @@ public class SkinUpdateController extends HttpServlet {
 
 			int result = service.updateSkin(skinId, price, reward);
 
-			System.out.println(result > 0 ? "스킨정보 업데이트 성공" : "스킨정보 업데이트 실패");
 
 			// 저장할 폴더의 물리적 경로
 			savePath = request.getSession().getServletContext().getRealPath("/resource/img/user/")
@@ -130,7 +128,6 @@ public class SkinUpdateController extends HttpServlet {
 
 					}
 
-					System.out.println(newName + "  파일 수정 ");
 
 					// 저장할 저장경로와 파일명을 미리 설정해서 파일 객체 생성
 					File file = new File(savePath, newName);

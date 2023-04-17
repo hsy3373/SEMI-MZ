@@ -70,7 +70,6 @@ public class SkinEnrollController extends HttpServlet {
 			String p = multi.getParameter("price");
 			// 체크박스 체크되었을 경우 Y , 안되었을경우 null로 값 들어옴
 			String reward = multi.getParameter("reward");
-			System.out.println("리워드 들어옴 : " + reward);
 
 			// price, reward 값이 null일 경우 기본값 삽입
 			int price = p != null ? Integer.parseInt(p) : 300;
