@@ -5,16 +5,20 @@
  */
 
 import { getContextPath } from "../common.js";
+import {openAlert} from "../alert.js"
+
 let path = getContextPath();
 
 let Flipsocket = new WebSocket("ws://192.168.30.171:8083" + path + "/FilpGame");
-let playnum;
+let playnum; //나의 턴/ 상대 턴 설정하는 변수
 let firstCard; //첫번쨰 카드 함수
 let secondCard; //두번째 카드함수
 
 let cardCheck = false; //두개 이상 뒤집히지 않게 막아주기
 let openCard = []; // 뒤집혀진 카드 넣어주기
 let score = 0; //점수
+let returnsquare = document.getElementById("return-square")
+
 
 Flipsocket.onopen = function (e) {
   console.log("접속성공");
@@ -67,12 +71,14 @@ Flipsocket.onmessage = function (e) {
   if(msg[0] == 3 ){
     //2p가 나갔음
     userRenderRemove();
+    retunsquareAlert1P();
   }
 
 
   if(msg[0] == 4 ){
     //1p가 나갔음 
     userRenderRemove();
+    retunsquareAlert1P();
     
     let msg = "0," + userName + "," + userSkin; //내가 이제 1p
     Flipsocket.send(msg);
@@ -197,6 +203,7 @@ function gamerender() {
   SettingCardDeck(); //셋팅된 카드 덱이 넣어주기
   shuffle(cardDeck); ///카드 세팅
   render();
+  retunsquareAlert1P();
 }
 
 gamerender();
@@ -226,6 +233,7 @@ function hideDeck() {
 }
 
 function gameStart() {
+  retunsquareAlert2P();
   setTimeout(() => firstOpenDeck(), 1000); //1 초뒤에 시작; : 후에 수정할지도
   mygametrun = playnum;
 }
@@ -315,7 +323,7 @@ function CardMatch() {
 
     //카드가 다 열리면 게임종료
     if (openCard.length == BOARD_SIZE) {
-      alert("클리어!!");
+      //alert("클리어!!");
       console.log("여기왔어!!!");
       Flipsocket.send("9,"+score);
       gameScore();
@@ -327,18 +335,40 @@ function CardMatch() {
   secondCard = null;
 }
 
+
+
+
+// openAlert() : 외부 버튼 클릭시 alert 창 실행시키기 위한 함수
+function homeOpenAlert() {
+  // alert과 오버레이 찾기
+let alert = document.querySelector(".home-alert");
+let alertOverlay = document.querySelector(".home-alert-overlay");
+  // alert 및 오버레이 표시
+  alert.style.display = "block";
+  alertOverlay.style.display = "block";
+
+  let okBtn = alert.querySelector(".home-alert-ok");
+
+  okBtn.addEventListener("click",  goSQuare);
+}
+
+
+
 function gameScore(){
   let scoreResult;
   if(score <= 6){ // 진경우
-    console.log("나!! 졌어!!!")
+    document.getElementById("home-alert-text").innerHTML = "패배하셨습니다.<br> 10포인트 획득!";
+		/*alert 창 띄우기*/
     scoreResult = 10; //질 경우
 
   }else if(score == 6){ //비겼을 경우
-    console.log("나!! 비겼어!! !!!")
+    document.getElementById("home-alert-text").innerHTML = "무승부.<br> 30포인트 획득!";
+    //console.log("나!! 비겼어!! !!!")
     scoreResult = 30;
   
   }else{ // 이겼을 경우 
-    console.log("나!! 이겼어!!!!!")
+    document.getElementById("home-alert-text").innerHTML = "승리하셨습니다. <br> 50포인트 획득! ";
+    //console.log("나!! 이겼어!!!!!")
     scoreResult = 50;
     
   }
@@ -348,10 +378,9 @@ function gameScore(){
     data: { score: scoreResult },
     success: function (result) {
       console.log(result);
-      goSQuare();
+      homeOpenAlert();
+     
     }
-    
-    
   });
 
   
@@ -376,6 +405,38 @@ const goSQuare = () => {
   location.href = path + "/forwarding.sq";
 }
 
-let returnsquare = document.getElementById("return-square")
-returnsquare.addEventListener("click", goSQuare);
+
+
+
+function retunsquareAlert1P(){
+  returnsquare.addEventListener("click", function() { /*광장으로 돌아가는 알람 */
+  document.getElementById("alert-text").innerText = "광장으로 돌아가시겠습니까?";
+  openAlert("cardFilp-square")
+
+});
+
+$('.alert').on('click', '.cardFilp-square', function (){
+  goSQuare();
+})
+}
+
+function retunsquareAlert2P(){
+  returnsquare.addEventListener("click", function() { /*게임시작후 돌아가는 경우 경고 */
+    document.getElementById("alert-text").innerHTML = "게임 시작되었습니다. <br> 지금 광장으로 돌아갈 경우 <br> 패널티가 부과됩니다. <br> 정말 돌아가시겠습니까? ";
+    openAlert("start-acardFilp-square")
+  });
+
+  $('.alert').on('click', '.start-acardFilp-square', function (){
+    let scoreResult = -10;
+    $.ajax({
+      url: path + "/FlipScore",
+      data: { score: scoreResult },
+      success: function (result) {
+        console.log(result);
+        goSQuare();
+      }
+    })
+    
+  })
+}
 
