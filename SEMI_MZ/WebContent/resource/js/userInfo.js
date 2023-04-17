@@ -9,12 +9,19 @@ import { getContextPath } from './common.js';
 import { modalstopfn } from './squareCanvas.js';
 import { openChatRoom } from './chat/chatFront.js';
 import * as Alert from "./alert.js";
+import { homeOpenAlert } from "./homeAlert.js";
 
 
 let plusBtn = document.querySelector(".plus");
 let deleteBtn = document.querySelector(".delete");
 let reportBtn = document.querySelector(".report-btn");
 let userGender = document.querySelector("#user-gender");
+
+let alert = document.querySelector(".alert");
+	alert.classList = "alert " + "infoAlert";
+
+let alertOverlay = document.querySelector(".alert-overlay");
+	alertOverlay.classList = "alert-overlay " + "infoAlert-overlay";
 
 let infoModalOverlay = document.querySelector(".info-modal-overlay");
 let reportModalOverlay = document.querySelector(".report-modal-overlay");
@@ -97,7 +104,7 @@ export function getUserInfo() {
 			}
 
 			let gender = data.gender;
-			 console.log(gender);
+			//console.log(gender);
 
 
 			if (gender == 'W') {
@@ -150,7 +157,7 @@ function insertHeart() {
 			// console.log('num: ', num);
 		},
 		error: function() {
-			 console.log("error");
+			console.log("error");
 		}
 	});
 }
@@ -173,7 +180,7 @@ function deleteHeart() {
 			$(".heart-int").html(num);
 		},
 		error: function() {
-			 console.log("error");
+			console.log("error");
 		}
 	});
 }
@@ -198,7 +205,7 @@ function selectHeart() {
 
 		},
 		error: function() {
-			 console.log("error");
+			console.log("error");
 		}
 	});
 }
@@ -239,11 +246,6 @@ function insertFriend() {
 }
 
 plusBtn.addEventListener("click", () => {
-	let alert = document.querySelector(".alert");
-	alert.classList = "alert " + "infoAlert";
-
-	let alertOverlay = document.querySelector(".alert-overlay");
-	alertOverlay.classList = "alert-overlay " + "infoAlert-overlay";
 
 	document.getElementById("alert-text").innerText = "친구 추가하시겠습니까?";
 	document.getElementById("alert-ok").innerText = "추가";
@@ -280,11 +282,7 @@ function deleteFriend() {
 }
 
 deleteBtn.addEventListener("click", () => {
-	let alert = document.querySelector(".alert");
-	alert.classList = "alert " + "infoAlert";
-
-	let alertOverlay = document.querySelector(".alert-overlay");
-	alertOverlay.classList = "alert-overlay " + "infoAlert-overlay";
+	
 
 	document.getElementById("alert-text").innerText = "친구 삭제하시겠습니까?";
 	document.getElementById("alert-ok").innerText = "삭제";
@@ -294,7 +292,7 @@ deleteBtn.addEventListener("click", () => {
 });
 
 $('.alert').on('click', '.user-delete', function() {
-	/*본인이 실행할 이벤트를 여기에 적용!!!!!!*/
+	
 	deleteFriend();
 	Alert.closeAlert();
 	alert.classList.remove("infoAlert");
@@ -347,32 +345,57 @@ function report() {
 };
 
 reportBtn.addEventListener("click", () => {
-	let alert = document.querySelector(".alert");
-	alert.classList = "alert " + "infoAlert";
-
-	let alertOverlay = document.querySelector(".alert-overlay");
-	alertOverlay.classList = "alert-overlay " + "infoAlert-overlay";
 
 	document.getElementById("alert-text").innerText = "신고 하시겠습니까?";
 	document.getElementById("alert-ok").innerText = "신고";
 
 	Alert.openAlert("report-ok");
-
 });
 
 $('.alert').on('click', '.report-ok', function() {
-	/*본인이 실행할 이벤트를 여기에 적용!!!!!!*/
-	report();
-	Alert.closeAlert();
-	alert.classList.remove("infoAlert");
-	alertOverlay.classList.remove("infoAlert-overlay");
+
+	if ($(".report-title-box").val() != "" && $("#report-content-text").val() != "") {
+		
+		report();
+		
+		Alert.closeAlert();
+		alert.classList.remove("infoAlert");
+		alertOverlay.classList.remove("infoAlert-overlay");
+		
+		document.getElementById("home-alert-text").innerHTML = "신고가 접수되었습니다.";
+		homeOpenAlert();
+	} else if ($(".report-title-box").val() == "") {
+		
+		document.getElementById("home-alert-text").innerHTML = "제목을 입력해주세요.";
+		homeOpenAlert();
+		
+		Alert.closeAlert();
+		alert.classList.remove("infoAlert");
+		alertOverlay.classList.remove("infoAlert-overlay");
+		
+		$(".report-title-box").focus();
+	}  else if ($("#report-content-text").val() == "") {
+		
+		document.getElementById("home-alert-text").innerHTML = "내용을 입력해주세요.";
+		homeOpenAlert();
+		
+		Alert.closeAlert();
+		alert.classList.remove("infoAlert");
+		alertOverlay.classList.remove("infoAlert-overlay");
+		
+		$("#report-content-text").focus();
+	}
 })
 
 
-/* 신고하기 모달창 띄우기 */
+/* 신고하기 모달창*/
 let open2 = () => {
 	document.querySelector(".report-modal").classList.remove("hidden");
 	reportModalOpenOverlay();
+	
+	// 신고하기 누를 때 마다 내용 비워주기
+	$(".report-title-box").val("");
+	$("#report-content-text").val("");
 }
 
 let close2 = () => {

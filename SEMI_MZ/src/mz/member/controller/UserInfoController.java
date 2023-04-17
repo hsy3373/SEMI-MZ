@@ -62,7 +62,7 @@ public class UserInfoController extends HttpServlet {
 		
 		String loginUser = ((Member)request.getSession().getAttribute("loginUser")).getUserId();
 		String userId = request.getParameter("userId");
-		System.out.println(userId+loginUser);
+		//System.out.println(userId+loginUser);
 		
 		Member m = new MemberService().selectMember(userId);
 			
