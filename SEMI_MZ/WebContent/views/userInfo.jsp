@@ -76,6 +76,7 @@
 	<script type="module" src="<%= contextPath %>/resource/js/userInfo.js"></script>
 	<script type="module" src="<%= contextPath %>/resource/js/common.js"></script>
 	<script type="module" src="<%= contextPath %>/resource/js/alert.js"></script>
+	<script type="module" src="<%= contextPath %>/resource/js/homeAlert.js"></script>
 	
 </body>
 </html>
