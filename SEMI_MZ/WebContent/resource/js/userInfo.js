@@ -58,7 +58,9 @@ if (document.querySelector(".friend-home")) {
 
 let close = () => {
 	document.querySelector(".info-modal").classList.add("hidden");
-	modalstopfn();
+	if(!document.getElementById("tree")){
+		modalstopfn();
+	}
 	infoModalCloseOverlay();
 }
 

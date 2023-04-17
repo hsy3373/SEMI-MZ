@@ -89,12 +89,10 @@ public class SkinPangController extends HttpServlet {
 				new Gson().toJson(map, response.getWriter());
 
 			}else {
-				System.out.println("스킨팡 스코어 등록 실패");
 				response.getWriter().print(-2);
 			}
 
 		} else {
-			System.out.println("스킨팡 코인 등록 실패");
 			response.getWriter().print(-1);
 		}
 
