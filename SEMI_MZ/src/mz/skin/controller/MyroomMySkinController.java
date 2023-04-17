@@ -13,7 +13,7 @@ import com.google.gson.Gson;
 
 import mz.member.model.vo.Member;
 import mz.skin.model.service.SkinService;
-import mz.skin.model.vo.Character;
+import mz.skin.model.vo.Skin;
 
 /**
  * Servlet implementation class Myskin1
@@ -37,7 +37,7 @@ public class MyroomMySkinController extends HttpServlet {
 		String userId = ((Member)request.getSession().getAttribute("loginUser")).getUserId();
 		response.setContentType("application/json; charset=UTF-8");
 
-		ArrayList<Character> list = new SkinService().mySkinList(userId);
+		ArrayList<Skin> list = new SkinService().mySkinList(userId);
 		//System.out.println("게시글"+list);
 		//System.out.println("리스트 사이즈 : "+list.size());
 		new Gson().toJson(list, response.getWriter());

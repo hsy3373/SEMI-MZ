@@ -194,14 +194,14 @@
     text-align: center;
     float: left;
 	list-style:none;
-    border-radius: 10px;
+    border-radius: 13px;
     background-color: #edd1a1;
     border: 1px solid #d4b88a;
     
 }
 .pageing-closet ul li a {
     display: block;
-    font-size: var(--fontsize16);
+    font-size: var(--fontsize14);
     padding: 0px 10px;
     box-sizing: border-box;
 	text-decoration-line:none;	

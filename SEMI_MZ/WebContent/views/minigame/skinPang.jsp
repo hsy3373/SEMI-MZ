@@ -1,19 +1,26 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-pageEncoding="UTF-8"%> 
-<% String contextPath = request.getContextPath(); %>
+pageEncoding="UTF-8" import = "java.util.ArrayList, mz.minigame.model.vo.GameRank"%> 
+<% 
+	String contextPath = request.getContextPath(); 
+	ArrayList<GameRank> list = (ArrayList<GameRank>) request.getAttribute("list");
+	GameRank myRank = (GameRank) request.getAttribute("myRank");
+	
+
+%>
 <!DOCTYPE html>
 <html>
   <head>
     <meta charset="UTF-8" />
     <title>M-Zone</title>
-    <link rel="stylesheet" href="<%=contextPath %>/resource/css/game/skinPang.css" />
+    <link rel="stylesheet" href="<%=contextPath %>/resource/css/minigame/skinPang.css" />
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   </head>
   <body>
   
   <%@ include file="../chatting.jsp" %>
   
   
-    <img class="back-btn" src="<%=contextPath %>/resource/img/icon/back2_btn" alt="" />
+    <img class="back-btn" src="<%=contextPath %>/resource/img/icon/back2_btn.png" alt="" />
     <div class="Tetris_wrap">
       <div class="score-box">
         <img src="<%=contextPath %>/resource/img/login_img/구름2.png" alt="" />
@@ -42,47 +49,37 @@ pageEncoding="UTF-8"%>
           </div>
         </div>
         <ul></ul>
-        <img src="<%=contextPath %>/resource/img/game/skinPang/skinPang-board.png" />
+        <img src="<%=contextPath %>/resource/img/minigame/skinPang/skinPang-board.png" />
       </div>
       <div class="right-wrap">
         <div class="best-score">
           <div>내 최고 점수</div>
-          <div>95</div>
+          <div>
+	          <%if (myRank != null){ %>
+	          	<%= myRank.getRank()%>위 <%= myRank.getGameScore() %>점
+	          <% } %>
+          </div>
           <img src="<%=contextPath %>/resource/img/login_img/구름4.png" alt="" />
         </div>
         <div class="ranking">
           <div>✨ 랭킹 ✨</div>
           <div class="rank-box">
-            <div class="rank-item">
-              1위
-              <div class="rank-item-score">96점 [누구누구누구누구]</div>
-            </div>
-            <div class="rank-item">
-              2위
-              <div class="rank-item-score">96점 [누구누구누구누구]</div>
-            </div>
-            <div class="rank-item">
-              3위
-              <div class="rank-item-score">96점 [누구누구누구누구]</div>
-            </div>
-            <div class="rank-item">
-              4위
-              <div class="rank-item-score">96점 [누구누구누구누구]</div>
-            </div>
-            <div class="rank-item">
-              5위
-              <div class="rank-item-score">96점 [누구누구누구누구]</div>
-            </div>
-          </div>
-          <img
-            src="<%=contextPath %>/resource/img/game/skinPang/skinPang-board.png"
-          />
+	          <%if (list != null){ %>
+	          	<% for(int i=0; i<list.size(); i++) { %>
+		            <div class="rank-item">
+		              <%= list.get(i).getRank() %>위
+		              <div class="rank-item-score"><%=list.get(i).getGameScore() %>점 [ <%=list.get(i).getNicName() %> ]</div>
+		            </div>
+	          	<% } %>
+	          <% } %>
         </div>
+        <img
+            src="<%=contextPath %>/resource/img/minigame/skinPang/skinPang-board.png"
+          />
       </div>
     </div>
-    
 
     
-    <script type="module" src="<%=contextPath%>/resource/js/game/skinPang.js"></script>
+    <script type="module" src="<%=contextPath%>/resource/js/minigame/skinPang.js"></script>
   </body>
 </html>
