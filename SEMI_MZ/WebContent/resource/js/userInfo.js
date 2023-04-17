@@ -9,6 +9,7 @@ import { getContextPath } from './common.js';
 import { modalstopfn } from './squareCanvas.js';
 import { openChatRoom } from './chat/chatFront.js';
 import * as Alert from "./alert.js";
+import { homeOpenAlert } from "./homeAlert.js";
 
 
 let plusBtn = document.querySelector(".plus");
@@ -95,7 +96,7 @@ export function getUserInfo() {
 			}
 
 			let gender = data.gender;
-			 console.log(gender);
+			console.log(gender);
 
 
 			if (gender == 'W') {
@@ -148,7 +149,7 @@ function insertHeart() {
 			// console.log('num: ', num);
 		},
 		error: function() {
-			 console.log("error");
+			console.log("error");
 		}
 	});
 }
@@ -171,7 +172,7 @@ function deleteHeart() {
 			$(".heart-int").html(num);
 		},
 		error: function() {
-			 console.log("error");
+			console.log("error");
 		}
 	});
 }
@@ -196,7 +197,7 @@ function selectHeart() {
 
 		},
 		error: function() {
-			 console.log("error");
+			console.log("error");
 		}
 	});
 }
@@ -355,15 +356,30 @@ reportBtn.addEventListener("click", () => {
 	document.getElementById("alert-ok").innerText = "신고";
 
 	Alert.openAlert("report-ok");
-
 });
 
 $('.alert').on('click', '.report-ok', function() {
-	/*본인이 실행할 이벤트를 여기에 적용!!!!!!*/
-	report();
-	Alert.closeAlert();
-	alert.classList.remove("infoAlert");
-	alertOverlay.classList.remove("infoAlert-overlay");
+
+	if ($(".report-title-box").val() != "" && $("#report-content-text").val() != "") {
+		report();
+		Alert.closeAlert();
+		alert.classList.remove("infoAlert");
+		alertOverlay.classList.remove("infoAlert-overlay");
+	} else if ($(".report-title-box").val() == "") {
+		document.getElementById("home-alert-text").innerHTML = "제목을 입력해주세요.";
+		homeOpenAlert();
+		Alert.closeAlert();
+		alert.classList.remove("infoAlert");
+		alertOverlay.classList.remove("infoAlert-overlay");
+		$(".report-title-box").focus();
+	}  else if ($("#report-content-text").val() == "") {
+		document.getElementById("home-alert-text").innerHTML = "내용을 입력해주세요.";
+		homeOpenAlert();
+		Alert.closeAlert();
+		alert.classList.remove("infoAlert");
+		alertOverlay.classList.remove("infoAlert-overlay");
+		$("#report-content-text").focus();
+	}
 })
 
 
@@ -371,6 +387,8 @@ $('.alert').on('click', '.report-ok', function() {
 let open2 = () => {
 	document.querySelector(".report-modal").classList.remove("hidden");
 	reportModalOpenOverlay();
+	$(".report-title-box").val("");
+	$("#report-content-text").val("");
 }
 
 let close2 = () => {

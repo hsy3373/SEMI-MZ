@@ -69,6 +69,7 @@
 	
     <script type="module" src="<%=contextPath%>/resource/js/squareinit.js"></script>
 	<script type="module" src="<%=contextPath%>/resource/js/alert.js"></script>
+	<script type="module" src="<%= contextPath %>/resource/js/homeAlert.js"></script>
 	
     
     <script type="module">
