@@ -281,10 +281,16 @@ function selectRanking() {
 // 호감도 랭킹에 있는 유저 클릭 시 해당 유저 정보창 띄우기
 $(document).on('click', '.ranking .ranking-user', function(e) {
 	console.log($(this).attr("id"));
-
+	
+	//$("#notice-x-btn").css('pointer-events', 'none');
+	
 	let rankingId = $(this).attr("id");
 
 	document.querySelector(".info-modal").classList.remove("hidden");
+	
+	/*if (document.querySelector(".info-modal").classList.add("hidden")){
+		$("#notice-x-btn").css('cursor', 'pointer');
+	}*/
 
 	window.sessionStorage.setItem("clickedUserId", rankingId);
 
