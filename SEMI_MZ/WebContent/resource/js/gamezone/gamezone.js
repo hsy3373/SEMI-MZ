@@ -28,9 +28,9 @@ const gogame = () => {
   location.href = path + '/goGame';
 };
 
-if (document.getElementById('skin-pang')) {
+if (document.getElementById('go-skin-pang')) {
   //[han]스킨팡 게임 이동 이벤트 할당용
-  document.getElementById('skin-pang').addEventListener('click', function () {
+  document.getElementById('go-skin-pang').addEventListener('click', function () {
     location.href = getContextPath() + '/skinPang.game';
   });
 }
