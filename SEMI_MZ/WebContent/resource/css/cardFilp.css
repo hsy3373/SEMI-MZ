@@ -13,7 +13,7 @@
 /*게임보드 css*/
 .game {
   position: absolute;
-  top: 20px;
+  top: 0px;
   right: 305px;
 }
 
@@ -152,4 +152,16 @@
 
 .flip > .card-back {
   transform: rotateY(180deg);
+}
+
+
+/*채팅 css 수정*/
+.mini-game .chat-item-area{
+  height: 100px;
+}
+
+.mini-game .chat-container{
+  position: fixed;
+  left: 0px;
+  bottom: 0px;
 }

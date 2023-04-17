@@ -11,8 +11,8 @@ import * as ChatFront from './chatFront.js';
 
 //------------------------웹소켓 관련 구간 -------------------------------------
 
-let ip = ['192.168.30.180', '192.168.0.16', 'localhost', '192.168.0.2'];
-let socketAddress = `ws://${ip[3]}:8082/mzone/websocket`;
+let ip = ['192.168.30.180:8082', '192.168.0.16', 'localhost', '192.168.0.2'];
+let socketAddress = `ws://${ip[0]}${Common.getContextPath()}/websocket`;
 let webSocket = new WebSocket(socketAddress);
 //console.log("기본 웹소켓 객체 : ", webSocket);
 // 지의 학원: 192.168.30.174:8084

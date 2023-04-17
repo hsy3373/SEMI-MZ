@@ -41,11 +41,8 @@
                 <div class="game">
                     <div class="game-board" id="game-board">
                 </div>
-
-                
-
             </div>
-            <div style="width:460px; height: 150px; position: fixed; bottom: 0px; left: 0px; border: 1px solid red;">채팅창</div>
+            
         </div>
 
 
@@ -69,8 +66,8 @@
         </div>
         <div class="home-alert-overlay"></div>
 
-
-
+        
+		<%@ include file="./chatting.jsp" %>
     </div>  
     <script>
         //유저네임 

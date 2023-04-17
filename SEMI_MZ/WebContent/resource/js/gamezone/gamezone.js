@@ -34,3 +34,22 @@ if (document.getElementById('go-skin-pang')) {
     location.href = getContextPath() + '/skinPang.game';
   });
 }
+
+
+if(document.getElementById('after_btn')){
+  document.getElementById('after_btn').addEventListener('click', function(){
+    document.getElementById('game1').classList.toggle("disPlayNone");
+    document.getElementById('game2').classList.toggle("disPlayNone");
+    this.classList.toggle("disPlayNone");
+    document.getElementById('before_btn').classList.toggle("disPlayNone");
+  })
+}
+
+if(document.getElementById('before_btn')){
+  document.getElementById('before_btn').addEventListener('click', function(){
+    this.classList.toggle("disPlayNone");
+    document.getElementById('game1').classList.toggle("disPlayNone");
+    document.getElementById('game2').classList.toggle("disPlayNone");
+    document.getElementById('after_btn').classList.toggle("disPlayNone");
+  })
+}

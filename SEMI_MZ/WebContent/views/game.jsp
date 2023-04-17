@@ -19,12 +19,17 @@
                 <div class="gamemodal-out-btn">
                     <img src="<%=contextPath%>/resource/img/icon/엑스 버튼.png" class="game_xbtn" id="game_xbtn">
                 </div>
-                <div class="game-strat" id="Strat-match">시작하기</div>
+                <div id="game1" class="">
+                    <img class="card-Filp-title" src="<%=contextPath%>/resource/img/minigame/FlipGame/cardFlipimg.PNG">
+                    <div class="card-Filp-text">2인</div>
+                    <div class="game-strat" id="Strat-match">시작하기</div>
+                </div>
+              
 
-                <!-- <div><img src="<%=contextPath%>/resource/img/icon/before2_btn.png" class="before_btn"></div>
-                <div><img src="<%=contextPath%>/resource/img/icon/next2_btn.png" class="after_btn"></div> -->
+                <div id="before_btn" class="disPlayNone"><img src="<%=contextPath%>/resource/img/icon/before2_btn.png" class="before_btn"></div>
+                <div id="after_btn"><img src="<%=contextPath%>/resource/img/icon/next2_btn.png" class="after_btn"></div> 
                 
-               <div >
+               <div id="game2" class="">
                		<img class="skin-pang-title" src="<%=contextPath%>/resource/img/minigame/skinPang/skinPang-title.png">
                		<div class="skin-pang-text">1인</div>
                 	<div  id="go-skin-pang">시작하기</div>
