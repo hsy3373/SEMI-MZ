@@ -18,6 +18,7 @@ let webSocket = new WebSocket(socketAddress);
 // 지의 학원: 192.168.30.174:8084
 // 지의 집 : 192.168.0.16:8084
 // 혜린 : 192.168.120.37:8084
+// 가영 학원 : 192.168.30.181:8081
 let socketOpen = function (message) {
   //console.log("소켓오픈");
   //console.log(message);

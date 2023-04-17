@@ -162,7 +162,7 @@
 
 					<!-- 방명록 내용 작성부분 -->
 					<!-- onclick="this.select();" : 클릭시 자동으로 선택됨 -->
-					<textarea name='board-write-content' class='board-write-content' cols='62' rows='8'>
+					<textarea name='board-write-content' class='board-write-content' maxlength="500" cols='62' rows='8'>
 					</textarea>
 
 					<!-- 비밀글 체크박스 -->
@@ -187,12 +187,12 @@
 
 					<!-- 제목부분(상세 제목이랑 동일) -->
 					<div class="board-detail-title">
-						<input type="text" class="board-write-title"  maxlength="15" required placeholder="제목을 입력해주세요" onclick="this.select();">
+						<input type="text" class="board-write-title" maxlength="15" required placeholder="제목을 입력해주세요" onclick="this.select();">
 					</div>
 
 					<!-- 방명록 내용 작성부분 -->
 					<!-- onclick="this.select();" : 클릭시 자동으로 선택됨 -->
-					<textarea name="board-write-content" class="board-write-content" cols="62" rows="8" required placeholder="내용을 입력해주세요" onclick="this.select();"></textarea>
+					<textarea name="board-write-content" class="board-write-content" maxlength="500" cols="62" rows="8" required placeholder="내용을 입력해주세요" onclick="this.select();"></textarea>
 
 					<!-- 비밀글 체크박스 -->
 					<div class="board-secret-box">
@@ -218,7 +218,7 @@
 
 			<!-- 상점페이징 -->
 			<div class="pageing-closet">
-				<ul id="store-pg"></ul>
+				<ul id="closet-pg"></ul>
 			</div>
 
 		</div>
