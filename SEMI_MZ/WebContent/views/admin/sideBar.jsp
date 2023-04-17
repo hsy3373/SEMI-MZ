@@ -4,7 +4,7 @@ pageEncoding="UTF-8"%>
 <html>
   <head>
     <meta charset="UTF-8" />
-    <title>admin</title>
+    <title>M-Zone</title>
     <link
       rel="stylesheet"
       href="<%=path%>/resource/css/admin/admin-common.css"
@@ -60,14 +60,26 @@ pageEncoding="UTF-8"%>
         </li>
       </ul>
     </div>
+    
+    <button class = "logout-btn">
+    	로그아웃
+    </button>
 
     <script type="text/javascript">
-    $(".member-menu-item").css("display", "none");
-      $(document).ready(function () {
-        $(".member-menu").click(function () {
-          $(".member-menu-item").slideToggle();
-        });
-      });
+	    $(".member-menu-item").css("display", "none");
+	      $(document).ready(function () {
+	        $(".member-menu").click(function () {
+	          $(".member-menu-item").slideToggle();
+	        });
+	      });
+	      
+	      // 로그아웃 처리 
+	      document.querySelector(".logout-btn").addEventListener("click", () => {
+	           if (confirm("로그아웃 하시겠습니까?")) {
+	    	      localStorage.removeItem('autoLogin'); 
+	    	      location.href = "<%=path%>/logout";
+	    	    }
+	      });
     </script>
   </body>
 </html>

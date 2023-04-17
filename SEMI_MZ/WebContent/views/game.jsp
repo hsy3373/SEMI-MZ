@@ -30,7 +30,6 @@
     
 
     <script type="module" src="<%=contextPath%>/resource/js/gamezone/gamezone.js"></script>
-    <script type="module" src="<%=contextPath%>/resource/js/game/gameCommon.js"></script>
    
    
 
