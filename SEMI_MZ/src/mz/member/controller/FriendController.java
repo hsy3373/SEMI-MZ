@@ -42,7 +42,6 @@ public class FriendController extends HttpServlet {
 			
 			new Gson().toJson(result, response.getWriter());
 		} else {
-			System.out.println("친구 추가 실패");
 			response.setContentType("application/json; charset=UTF-8");
 			
 			new Gson().toJson(result, response.getWriter());
@@ -64,7 +63,6 @@ public class FriendController extends HttpServlet {
 			
 			new Gson().toJson(result, response.getWriter());
 		} else {
-			System.out.println("친구 삭제 실패");
 			
 			response.setContentType("application/json; charset=UTF-8");
 			

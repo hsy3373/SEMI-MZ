@@ -53,7 +53,6 @@ public class NoticeSelectController extends HttpServlet {
 		response.setContentType("application/json; charset=UTF-8");
 		new Gson().toJson(n, response.getWriter());
 		
-		System.out.println(n);
 	}
 
 }
