@@ -260,9 +260,7 @@ $(function() {
 					$(".board-detail-friend").html(skin);
 					$(".board-detail-table").html(content);
 				},
-				error: function() {
-					console.log("실패");
-				},
+				error: function() {console.log("실패");},
 			});
 		/* 친구룸에서 상세조회 */
 		} else {
@@ -451,7 +449,7 @@ function updateBoard() {
 			secret: $("#board-ck").prop("checked") ? "Y" : "N",
 		},
 		success: function(b) {
-			console.log("수정된 : " + b.boardTitle, b.boardContent);
+			//console.log("수정된 : " + b.boardTitle, b.boardContent);
 			if (b != null) {
 				let no = b.boardNo;
 				let title = $(".board-send-detail .board-write-title").val(b.boardTitle);
@@ -480,7 +478,7 @@ $(document).on("click", "#board-delete", function() {
 /*alert창 확인버튼 클릭시 요청처리*/
 $(".alert").on("click", ".myroom-board-delete", function(){
 	let boardNo = $(".board-detail .board-no").text();
-	console.log(boardNo);
+	//console.log(boardNo);
 	$.ajax({
 		url: path + "/deleteBoard",
 		data: { boardNo: boardNo },

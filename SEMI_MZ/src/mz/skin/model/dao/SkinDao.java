@@ -295,8 +295,8 @@ public class SkinDao {
 	
 	// [지의]
 	// 마이룸(옷장) - 페이지 별 로그인 유저가 보유한 스킨 조회용(한페이지에 12개)
-	public ArrayList<Character> mySkinList(Connection conn, String userId){
-		ArrayList<Character> list = new ArrayList<>();
+	public ArrayList<Skin> mySkinList(Connection conn, String userId){
+		ArrayList<Skin> list = new ArrayList<>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		String sql = prop.getProperty("mySkinList");
@@ -308,8 +308,8 @@ public class SkinDao {
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
-				Character skin = new Character(rset.getInt("SKIN_ID"),
-											rset.getString("SAVE_ROOT"));
+				Skin skin = new Skin(rset.getInt("SKIN_ID"),
+									 rset.getString("SAVE_ROOT"));
 				list.add(skin);
 			}
 		} catch (SQLException e) {
