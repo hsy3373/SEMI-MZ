@@ -13,6 +13,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <link href="<%=contextPath%>/resource/css/common.css" rel="stylesheet" type="text/css">
 <link href="<%=contextPath%>/resource/css/cardFilp.css" rel="stylesheet" type="text/css">
+<link href="<%=contextPath%>/resource/css/alert.css" rel="stylesheet" type="text/css">
 <script type="module" src="<%=contextPath%>/resource/js/common.js"></script>
 
 
@@ -25,7 +26,7 @@
         
         <div class="filp-modal-game" id="filp-modal">
          <div class="filp-background">
-                <div class="return-square" id="return-square">
+                <div class="return-square alert-toggle" id="return-square">
                     <img src="<%=contextPath%>/resource/img/icon/back2_btn.png" class="game_xbtn" id="game-back-button">
                 </div>
                <div class="user-Card" >
@@ -44,9 +45,20 @@
                 
 
             </div>
-            <div style="width:460px; height: 150px; position: absolute; border: 1px solid red;">채팅창</div>
+            <div style="width:460px; height: 150px; position: fixed; bottom: 0px; left: 0px; border: 1px solid red;">채팅창</div>
         </div>
 
+
+        <!--alert 창-->
+        <div class="alert">
+            <h3 id="alert-text"></h3>
+            <div>
+              <button class="button alert-ok" id="alert-ok">확인</button>
+              <button class="button alert-cancel">취소</button>
+            </div>
+          </div>
+          <div class="alert-overlay"></div>
+          <!-- alert 창 실행시 뒷배경 오버레이 태그 -->
 
         <!-- alert(확인만 있음) -->
         <div class="home-alert">
@@ -58,6 +70,7 @@
         <div class="home-alert-overlay"></div>
 
 
+
     </div>  
     <script>
         //유저네임 
@@ -67,8 +80,9 @@
 		//console.log(userSkin);
 		var userId = '${loginUser.userId}';
 
-    </script>
-
+    </script>  
+    <script type="model" src ="<%=contextPath%>/resource/js/alert.js"></script>
      <script type="module" src="<%=contextPath%>/resource/js/gamezone/cardFlip.js"></script>
+     
     </body>
 </html>
