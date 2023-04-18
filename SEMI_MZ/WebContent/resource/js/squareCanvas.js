@@ -26,21 +26,21 @@ let userrd = new Image();
 let userrs = new Image();
 
 export let canvasSeting = function () {
-  canvas = document.createElement('canvas');
-  ctx = canvas.getContext('2d');
+  canvas = document.createElement("canvas");
+  ctx = canvas.getContext("2d");
   canvas.width = 1300;
   canvas.height = 800;
-  document.getElementById('main-square').appendChild(canvas);
+  document.getElementById("main-square").appendChild(canvas);
 
   //캐릭터 세팅
-  userbd.src = path + '/resource/img/user/skin' + userSkin + '/bd.png';
-  userbs.src = path + '/resource/img/user/skin' + userSkin + '/bs.png';
-  userfd.src = path + '/resource/img/user/skin' + userSkin + '/fd.png';
-  userfs.src = path + '/resource/img/user/skin' + userSkin + '/fs.png';
-  userld.src = path + '/resource/img/user/skin' + userSkin + '/ld.png';
-  userls.src = path + '/resource/img/user/skin' + userSkin + '/ls.png';
-  userrd.src = path + '/resource/img/user/skin' + userSkin + '/rd.png';
-  userrs.src = path + '/resource/img/user/skin' + userSkin + '/rs.png';
+  userbd.src = path + "/resource/img/user/skin" + userSkin + "/bd.png";
+  userbs.src = path + "/resource/img/user/skin" + userSkin + "/bs.png";
+  userfd.src = path + "/resource/img/user/skin" + userSkin + "/fd.png";
+  userfs.src = path + "/resource/img/user/skin" + userSkin + "/fs.png";
+  userld.src = path + "/resource/img/user/skin" + userSkin + "/ld.png";
+  userls.src = path + "/resource/img/user/skin" + userSkin + "/ls.png";
+  userrd.src = path + "/resource/img/user/skin" + userSkin + "/rd.png";
+  userrs.src = path + "/resource/img/user/skin" + userSkin + "/rs.png";
 };
 let noticeBoard, myhome, squarebackground, gamezone;
 //모달 떠있는 동안 움직임 stop
@@ -54,16 +54,16 @@ export let modalstopfn = function () {
 //배경 이미지 세팅
 function loadImage() {
   squarebackground = new Image();
-  squarebackground.src = path + '/resource/img/background/background_main.png';
+  squarebackground.src = path + "/resource/img/background/background_main.png";
 
   myhome = new Image();
-  myhome.src = path + '/resource/img/icon/home.png';
+  myhome.src = path + "/resource/img/icon/home.png";
 
   noticeBoard = new Image();
-  noticeBoard.src = path + '/resource/img/icon/notice_icon.png';
+  noticeBoard.src = path + "/resource/img/icon/notice_icon.png";
 
   gamezone = new Image();
-  gamezone.src = path + '/resource/img/icon/gamezone.png';
+  gamezone.src = path + "/resource/img/icon/gamezone.png";
 }
 
 
@@ -86,19 +86,19 @@ function render() {
   ctx.drawImage(noticeBoard, 960, 350, 271, 140.5);
   ctx.drawImage(gamezone, 230, 200, 180, 146.4);
   ctx.drawImage(user, uesrX, uesrY, 50, 50);
-  ctx.font = '12px Sans-Serif';
+  ctx.font = "12px Sans-Serif";
   ctx.fillText(userName, uesrX + 2, uesrY + 60);
 }
 
 //keys 다운에 부여하는 캐릭터 이동 이벤트
 let keysDown = {};
 function setupKeyboard() {
-  document.addEventListener('keydown', function (event) {
+  document.addEventListener("keydown", function (event) {
     keysDown[event.keyCode] = true;
     //sendMsg(event.key); //이거 위치를 옮겨보기 => 체크 : 해결. but 호출속도가 빨라서, 문제생길시 다시 back;
   });
 
-  document.addEventListener('keyup', function (event) {
+  document.addEventListener("keyup", function (event) {
     delete keysDown[event.keyCode]; // 키보드를 떼면 이벤트 삭제
   });
 }
@@ -115,7 +115,7 @@ function update() {
       user = userrs;
     }
 
-    sendMsg('ArrowRight'); //소켓에 캐릭터 이동 메세지 전송
+    sendMsg("ArrowRight"); //소켓에 캐릭터 이동 메세지 전송
   }
 
   if (37 in keysDown) {
@@ -127,7 +127,7 @@ function update() {
       user = userls;
     }
 
-    sendMsg('ArrowLeft'); //소켓에 캐릭터 이동 메세지 전송
+    sendMsg("ArrowLeft"); //소켓에 캐릭터 이동 메세지 전송
   }
 
   if (38 in keysDown) {
@@ -140,7 +140,7 @@ function update() {
       user = userbs;
     }
 
-    sendMsg('ArrowUp'); //소켓에 캐릭터 이동 메세지 전송
+    sendMsg("ArrowUp"); //소켓에 캐릭터 이동 메세지 전송
   }
 
   if (40 in keysDown) {
@@ -153,7 +153,7 @@ function update() {
       user = userfs;
     }
 
-    sendMsg('ArrowDown'); //소켓에 캐릭터 이동 메세지 전송
+    sendMsg("ArrowDown"); //소켓에 캐릭터 이동 메세지 전송
   }
 
   //맵 블락 (상하좌우)
@@ -333,11 +333,11 @@ function update() {
 //집으로 이동하는 함수
 const gohome = () => {
   /* home으로 서블릿 합침 : 지의 */
-  location.href = path + '/home';
+  location.href = path + "/home";
 };
 
 
-let receivedUserId = '';
+let receivedUserId = "";
 let UsersData = []; // 유저들 데이터 담아줄 배열
 export let FilterUsers = []; //필터링된 유저 1개 만큼 담아줄 배열
 // 웹소켓으로 연결하기
@@ -352,8 +352,8 @@ let fnSocket = {
       userSkin,
       userId,
       userName,
-      'ArrowDown',
-      'F'
+      "ArrowDown",
+      "F"
     ); //처음유저
     socket.send(JSON.stringify(User)); //첫 접속 알려줌
   },
@@ -362,9 +362,9 @@ let fnSocket = {
     let receivedUser = JSON.parse(e.data);
     receivedUserId = receivedUser.userId;
 
-    if (receivedUser.connecting == 'X') {
-      alert('이중 로그인 되었습니다. 재 로그인 해주세요');
-      location.href = path + '/logout'; //둘 다 쫒겨남..^^...
+    if (receivedUser.connecting == "X") {
+      alert("이중 로그인 되었습니다. 재 로그인 해주세요");
+      location.href = path + "/logout"; //둘 다 쫒겨남..^^...
     }
 
     if (receivedUser.userId !== userId) {
@@ -394,7 +394,7 @@ let fnSocket = {
     }, 1000);
   },
   onerror: (event) => {
-    console.log('WebSocket error: ', event);
+    console.log("WebSocket error: ", event);
   },
 };
 function initSocket(s) {
@@ -405,7 +405,7 @@ function initSocket(s) {
 
 //데이터 전송 JSON
 const sendMsg = (keyboardCode) => {
-  let connecting = 'Y';
+  let connecting = "Y";
 
   //유저객체 넣어주기 : 랜더링에 필요한 정보들 : x, y , skin, id , name, code;
   let User = new UserData(
@@ -449,19 +449,19 @@ let moveMotion = true;
 function usersreder() {
   //필터링된 유저들 img 불러오기
   for (let i = 0; i < FilterUsers.length; i++) {
-    let imgMotion = '';
+    let imgMotion = "";
     switch (FilterUsers[i].keyboardCode) {
-      case 'ArrowDown':
-        imgMotion = 'f';
+      case "ArrowDown":
+        imgMotion = "f";
         break;
-      case 'ArrowLeft':
-        imgMotion = 'l';
+      case "ArrowLeft":
+        imgMotion = "l";
         break;
-      case 'ArrowRight':
-        imgMotion = 'r';
+      case "ArrowRight":
+        imgMotion = "r";
         break;
-      case 'ArrowUp':
-        imgMotion = 'b';
+      case "ArrowUp":
+        imgMotion = "b";
         break;
       default:
         return;
@@ -476,9 +476,9 @@ function usersreder() {
     }
 
     if (moveMotion) {
-      imgMotion += 'd';
+      imgMotion += "d";
     } else {
-      imgMotion += 's';
+      imgMotion += "s";
     }
 
 
@@ -486,11 +486,11 @@ function usersreder() {
     let img = new Image();
     img.src =
       path +
-      '/resource/img/user/skin' +
+      "/resource/img/user/skin" +
       FilterUsers[i].userSkin +
-      '/' +
+      "/" +
       imgMotion +
-      '.png';
+      ".png";
     skinImages[i] = img;
   }
 
@@ -507,7 +507,7 @@ function userDraw() {
     let img = skinImages[i];
 
     ctx.drawImage(img, x, y, 50, 50);
-    ctx.font = '12px Sans-Serif';
+    ctx.font = "12px Sans-Serif";
     ctx.fillText(username, x + 4, y + 60);
   }
 }
@@ -527,7 +527,7 @@ function main() {
 
 //클릭에 부여하는 이벤트
 export let defaultEvent = function () {
-  canvas.addEventListener('click', function (event) {
+  canvas.addEventListener("click", function (event) {
     //내가 클릭한 좌표 얻어오기
     const clickX = event.offsetX;
     const clickY = event.offsetY;
@@ -553,7 +553,7 @@ export let defaultEvent = function () {
   });
 
   //마우스 호버 이벤트 : 미구현
-  canvas.addEventListener('mousemove', function (event) {
+  canvas.addEventListener("mousemove", function (event) {
     //내가 클릭한 좌표 얻어오기
     const clickX = event.offsetX;
     const clickY = event.offsetY;
@@ -564,7 +564,7 @@ export let defaultEvent = function () {
   });
 
   //클릭이벤트로 해당 userid 넘겨주기
-  canvas.addEventListener('click', function (e) {
+  canvas.addEventListener("click", function (e) {
     let x = e.clientX; //클릭좌표값
     let y = e.clientY; //클릭좌표값
 
@@ -575,7 +575,7 @@ export let defaultEvent = function () {
       let id = user.userId;
 
       if (x >= ux && x <= ux + 50 && y >= uy && y <= uy + 50) {
-        window.sessionStorage.setItem('clickedUserId', id);
+        window.sessionStorage.setItem("clickedUserId", id);
         break; //sesion에 clickUserId로 id 값 넘겨주기
       }
     }
@@ -584,7 +584,7 @@ export let defaultEvent = function () {
   });
 
   //클릭이벤트로 해당 userid 넘겨주기
-  canvas.addEventListener('click', function (e) {
+  canvas.addEventListener("click", function (e) {
     let x = e.clientX; //클릭좌표값
     let y = e.clientY; //클릭좌표값
 
@@ -595,8 +595,8 @@ export let defaultEvent = function () {
       let id = user.userId;
 
       if (x >= ux && x <= ux + 50 && y >= uy && y <= uy + 50) {
-        document.querySelector('.info-modal').classList.remove('hidden');
-        window.sessionStorage.setItem('clickedUserId', id);
+        document.querySelector(".info-modal").classList.remove("hidden");
+        window.sessionStorage.setItem("clickedUserId", id);
         getUserInfo();
         modalstopfn();
         break; //sesion에 clickUserId로 id 값 넘겨주기
@@ -606,31 +606,31 @@ export let defaultEvent = function () {
 
   //종료한 user 체크하기
   // 윈도우 종류 이벤트 체크 1
-  window.addEventListener('beforeunload', function (event) {
+  window.addEventListener("beforeunload", function (event) {
     event.preventDefault(); //브라우저를 종료할때
-    let User = new UserData(uesrX, uesrY, userSkin, userId, userName, '', 'N'); //떠난 유저
+    let User = new UserData(uesrX, uesrY, userSkin, userId, userName, "", "N"); //떠난 유저
     socket.send(JSON.stringify(User)); //떠났다고 알려줌
   });
 
   //30분마다 차단체크
   setTimeout(function () {
     $.ajax({
-      type: 'get',
-      url: path + '/blockCheck',
+      type: "get",
+      url: path + "/blockCheck",
       success: (result) => {
-        if (result == 'Y') {
+        if (result == "Y") {
           //일반유저
         }
 
-        if (result == 'N') {
+        if (result == "N") {
           //탈퇴유저
-          location.href = path + '/logout';
-          alert('탈퇴한 유저입니다.');
+          location.href = path + "/logout";
+          alert("탈퇴한 유저입니다.");
         }
 
-        if (result == 'X') {
+        if (result == "X") {
           //정지유저
-          location.href = path + '/logout';
+          location.href = path + "/logout";
         }
         
       },
