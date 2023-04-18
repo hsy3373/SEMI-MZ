@@ -36,15 +36,17 @@ public class PasswordEncryptFilter implements Filter {
 	/**
 	 * @see Filter#doFilter(ServletRequest, ServletResponse, FilterChain)
 	 */
-	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-		
-		PasswordEncryptWrapper pew = new PasswordEncryptWrapper( (HttpServletRequest)request );
-		
-		
-		
-		chain.doFilter(pew, response);
-	}
-
+	   public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+		      
+		      PasswordEncryptWrapper pew = new PasswordEncryptWrapper( (HttpServletRequest)request );
+		      
+		      chain.doFilter(pew, response);
+		   }
+	
+	
+	
+	
+	
 	/**
 	 * @see Filter#init(FilterConfig)
 	 */

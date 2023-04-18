@@ -56,40 +56,42 @@ public class AjaxKeyCheck extends HttpServlet {
 			throws ServletException, IOException {
 		response.setContentType("text/html; charset=UTF-8");
 
-		//System.out.println("keycheck");
-
 		String apiKind = request.getParameter("kind");
 		String apiKey = request.getParameter("key");
 
-		//System.out.println("key: " + apiKey + ", kind : " + apiKind);
-
 		Member m = new MemberService().checkKey(apiKind, apiKey);
-
-		
-		
-		//System.out.println("keycheck 서블릿 담겼?: " + m); // console용
 
 		if (m == null) { // 키 DB에 없음 => 회원가입 가능
 			response.getWriter().print("0");
 		}
 
 		// 키가 DB에 존재
-		else if (m.getStatus().equals("X") || m.getStatus().equals("N")) {
+		else if (m.getStatus().equals("X")) { // 차단계정일 경우(6)
 			response.getWriter().print("6");
-
-		}
-		else if (m.getStatus().equals("Y")) {
+			
+		}else if(m.getStatus().equals("N")) { // 탈퇴계정일 경우(2)
+			
+			String userId = m.getUserId();
+			new MemberService().dltDisabledTable(userId); // 비활성 테이블 기록 삭제
+			String status = "Y";
+			new MemberService().updateStatus(userId, status); // MEMBER : STATUS(Y) : UPDATE
+			
 			HttpSession session = request.getSession();
 			session.setAttribute("loginUser", m); // 세션에 유저정보 담기
-			String userId = m.getUserId(); // 랭킹체크용
-			String result = "1," + m.getUserId();
+			String result = "2," + userId;
 			checkRanking(userId);
-
-			
 			response.getWriter().print(result); // 광장으로
-
+			
+		}else if (m.getStatus().equals("Y")) { // 이용중인 계정일 경우(1)
+			
+			HttpSession session = request.getSession();
+			session.setAttribute("loginUser", m); // 세션에 유저정보 담기
+			String userId = m.getUserId();
+			String result = "1," + userId;
+			checkRanking(userId);
+			response.getWriter().print(result); // 광장으로
+			
 		}
-
 	}
 	
 	

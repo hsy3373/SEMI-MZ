@@ -8,7 +8,9 @@ let alertOverlay = document.querySelector(".alert-overlay");
 
 // alert창 실행시키기 위한 외부버튼
 let alertToggle = document.querySelector(".alert-toggle");
-alertToggle.addEventListener("click", openAlert);
+if(alertToggle){
+  alertToggle.addEventListener("click", openAlert);
+}
 
 let alertOk = document.querySelector(".alert-ok");
 
@@ -30,4 +32,9 @@ export function openAlert(classname) {
 export function closeAlert() {
   alert.style.display = "none";
   alertOverlay.style.display = "none";
+}
+
+export function cancelConfrim(classname){
+  let cancelBtn = alert.querySelector(".alert-cancel");
+  cancelBtn.classList =  "button alert-cancel " + classname;
 }
