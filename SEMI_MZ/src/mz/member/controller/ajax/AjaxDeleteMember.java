@@ -60,7 +60,7 @@ public class AjaxDeleteMember extends HttpServlet {
 				new MemberService().dltMemBoard(userId); // BOARD : DELETE
 				new MemberService().dltMemChatting(userId); // CHATTING : DELETE
 				new MemberService().dltMemHeart(userId); // HEART : DELETE
-				new MemberService().dltMemCharacter(userId); // CHARACTER : DELETE
+				//new MemberService().dltMemCharacter(userId); // CHARACTER : DELETE => 탈퇴계정 살리면서 로직변경
 				new MemberService().dltMemFriend(userId); // FRIEND : DELETE
 				
 				response.getWriter().print("1"); // 스크립트 : alert처리용
