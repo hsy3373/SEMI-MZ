@@ -24,7 +24,7 @@ pageEncoding="UTF-8" import = "mz.member.model.vo.Member, java.util.ArrayList"%>
 <html>
   <head>
     <meta charset="UTF-8" />
-    <title>Insert title here</title>
+    <title>M-Zone</title>
     <link
       rel="stylesheet"
       href="<%= path %>/resource/css/admin/admin-member.css"

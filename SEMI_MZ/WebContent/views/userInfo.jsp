@@ -33,9 +33,7 @@
 		</div>
 		<!-- 유저 성별 -->
 		<div class="info-gender">
-			<img id="gender-m"> 
-			<img id="gender-w"> 
-			<img id="gender-n">
+			<div id="user-gender"></div>
 		</div>
 		<!-- 자기소개 -->
 		<div class="info-introduce"></div>
@@ -53,6 +51,7 @@
 			<img id="info-x-btn" alt="닫기 버튼" src="<%= contextPath %>/resource/img/icon/엑스 버튼.png">
 		</div>
 	</div>
+	<div class="info-modal-overlay"></div>
 	<!------- 신고하기창 ------->
 	<div class="report-modal hidden">
 		<div class="user-report">
@@ -72,10 +71,12 @@
 			<button type="button" class="report-btn alert-toggle">신고하기</button>
 			<button type="reset" class="reset-btn">취소</button>
 	</div>
+	<div class="report-modal-overlay"></div>
 	
 	<script type="module" src="<%= contextPath %>/resource/js/userInfo.js"></script>
 	<script type="module" src="<%= contextPath %>/resource/js/common.js"></script>
 	<script type="module" src="<%= contextPath %>/resource/js/alert.js"></script>
+	<script type="module" src="<%= contextPath %>/resource/js/homeAlert.js"></script>
 	
 </body>
 </html>

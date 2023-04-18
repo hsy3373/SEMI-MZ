@@ -110,7 +110,6 @@ public class ChatDao {
 		}
 		
 		String sql = prop.getProperty(entry);
-		System.out.println(entry);
 		
 		try {
 			pstmt = conn.prepareStatement(sql);

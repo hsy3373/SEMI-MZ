@@ -115,11 +115,9 @@ public class ChatService {
 		int result = new ChatDao().deleteChatLogs(conn);
 		
 		if(result > 0) {
-			System.out.println("삭제 성공");
 			commit(conn);
 		}else {
 			rollback(conn);
-			System.out.println("삭제 할게 없거나 실패");
 		}
 		
 		close(conn);

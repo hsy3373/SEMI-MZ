@@ -325,8 +325,14 @@
 		 WHERE USER_ID = ?
 	</entry>
 	
-	
-	
+
+<!-- [지영] -->
+	<entry key = "coinUpdate">
+	UPDATE MEMBER
+		   SET COIN = COIN + ?
+		 WHERE USER_ID = ?
+	</entry>
+
 
 <!-- ================= delete 구간 ======================== -->
 <!-- [혜린] 회원탈퇴 시 보드 테이블 내 기록 삭제 -->

@@ -12,7 +12,7 @@ export let noticeModal = document.querySelector('.notice-modal');
 /*공지사항 모달창*/
 
 $(".notice-modal, .notice-detail-modal").on("click", function(e) {
-	console.log(e.target);
+	//console.log(e.target);
 	if (e.target.id == 'notice-x-btn') {
 		$(".notice-modal").css('display', 'none');
 		modalstopfn();
@@ -54,7 +54,6 @@ function NoticeList() {
 			}
 
 			let str = "";
-			let replaced_str = "";
 
 			if (data.length > 0) {
 				for (let i = 0; i < data.length; i++) {
@@ -62,14 +61,14 @@ function NoticeList() {
 						+ "<div class='notice-title'>" + data[i].title + "</div>"
 						+ "</div>";
 
-					data[3].title = '더보기';
+					//data[3].title = '더보기';
 				}
 			} else {
 				str += "<div class='list-post' style='pointer-events: none;'>"
-					+ "<div class='notice-title'>" + '공지사항이 없습니다.' + "</div>"
+					+ "<div class='notice-title'>" + '공지사항이'+ "</br>" +'없습니다.' + "</div>"
 					+ "</div>";
 			}
-			$(".notice-list").html(str, replaced_str);
+			$(".notice-list").html(str);
 		}, error: function() {
 			console.log("실패");
 		}
@@ -280,11 +279,17 @@ function selectRanking() {
 
 // 호감도 랭킹에 있는 유저 클릭 시 해당 유저 정보창 띄우기
 $(document).on('click', '.ranking .ranking-user', function(e) {
-	console.log($(this).attr("id"));
-
+	//console.log($(this).attr("id"));
+	
+	//$("#notice-x-btn").css('pointer-events', 'none');
+	
 	let rankingId = $(this).attr("id");
 
 	document.querySelector(".info-modal").classList.remove("hidden");
+	
+	/*if (document.querySelector(".info-modal").classList.add("hidden")){
+		$("#notice-x-btn").css('cursor', 'pointer');
+	}*/
 
 	window.sessionStorage.setItem("clickedUserId", rankingId);
 

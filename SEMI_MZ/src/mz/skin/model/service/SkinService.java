@@ -28,7 +28,6 @@ public class SkinService {
 		if (!Folder.exists()) {
 			try {
 				result = Folder.mkdir(); // 폴더 생성합니다. ("새폴더"만 생성)
-				System.out.println("폴더 생성 : " + result);
 			} catch (Exception e) {
 				e.getStackTrace();
 			}
@@ -51,12 +50,10 @@ public class SkinService {
 				// 해당 폴더 안에 파일이 있다면 폴더가 삭제되지 않으므로 각개별로 파일 삭제 필요
 				for (int i = 0; i < folder_list.length; i++) {
 					folder_list[i].delete(); // 파일 삭제
-					System.out.println("파일이 삭제되었습니다.");
 				}
 
 				if (folder_list.length == 0 && folder.isDirectory()) {
 					result = folder.delete(); // 대상폴더 삭제
-					System.out.println("폴더 삭제 : " + result);
 				}
 			}
 		} catch (Exception e) {
@@ -158,9 +155,9 @@ public class SkinService {
 	
 	// [지의]
 	// 마이룸(옷장) - 페이지 별 로그인 유저가 보유한 스킨 조회용(한페이지에 12개)
-	public ArrayList<Character> mySkinList(String userId){
+	public ArrayList<Skin> mySkinList(String userId){
 		Connection conn = getConnection();
-		ArrayList<Character> list = new SkinDao().mySkinList(conn, userId);
+		ArrayList<Skin> list = new SkinDao().mySkinList(conn, userId);
 		close(conn);
 		return list;
 	}
@@ -194,10 +191,8 @@ public class SkinService {
 		int result = new SkinDao().insertSkin(conn, price, reward);
 
 		if (result > 0) {
-			System.out.println("스킨 저장은 잘됨");
 			// 아직 커밋 전인 요소를 가져올 수 있을까??
 			result = new SkinDao().selectSkinCurval(conn);
-			System.out.println("커밋전에 currval 가져오는거 가능? : " + result);
 			commit(conn);
 		} else {
 			rollback(conn);

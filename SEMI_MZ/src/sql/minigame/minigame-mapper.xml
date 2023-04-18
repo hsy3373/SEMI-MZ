@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+
+<!-- han -->
+<!-- select 구역 -->
+	
+	<!--[han] 게임 랭킹 조회용 -->
+	<entry key="selectRanking">
+		 SELECT GAME_TITLE, USER_ID, NICKNAME, GAME_SCORE, CREATE_DATE, RANK
+ 		 FROM ( SELECT G.* , RANK() OVER (ORDER BY GAME_SCORE DESC) RANK 
+                 FROM ( SELECT  *
+                        FROM GAME_RANK
+                        WHERE GAME_TITLE = ? ) G
+                 ORDER BY RANK, USER_ID )
+         JOIN MEMBER USING(USER_ID)
+ 		 WHERE RANK &lt;= ?
+	</entry>
+	
+	
+	<!--[han] 본인 스코어 조회용 -->
+	<entry key="selectScore">
+		 SELECT GAME_TITLE, USER_ID, GAME_SCORE, CREATE_DATE, RANK
+ 		 FROM ( SELECT G.* , RANK() OVER (ORDER BY GAME_SCORE DESC) RANK 
+                 FROM ( SELECT  *
+                        FROM GAME_RANK
+                        WHERE GAME_TITLE = ? ) G
+                 ORDER BY RANK, USER_ID )
+ 		 WHERE USER_ID = ?
+	</entry>
+	
+	
+<!-- insert 구역 -->
+
+	<!-- [han] 스코어 등록용 -->
+	<entry key="insertScore">
+	 INSERT INTO GAME_RANK(USER_ID, GAME_TITLE, GAME_SCORE)
+		VALUES( ? , ? , ?)
+	</entry>
+
+
+<!-- update 구역 -->
+
+	<!-- [han] 스코어 업데이트용 -->
+	<entry key="updateScore">
+		UPDATE GAME_RANK
+		   SET GAME_SCORE = ?
+		 WHERE USER_ID = ? 
+		 	AND GAME_TITLE = ?
+	</entry>
+
+</properties>

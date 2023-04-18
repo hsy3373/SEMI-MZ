@@ -60,7 +60,22 @@
   background-color: #fff;
   z-index: 10;
   position: fixed;
-  top: 38%;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: none;
+}
+/* 가영 */
+.infoAlert{
+  width: 300px;
+  border-radius: 4px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 24px;
+  background-color: #fff;
+  z-index: 8;
+  position: fixed;
+  top: 39%;
   left: 50%;
   transform: translate(-50%, -50%);
   display: none;
@@ -77,6 +92,20 @@
   display: none;
   margin: 0;
   padding: 0;
+}
+/* 가영 */
+.infoAlert-overlay{
+	width: 100%;
+ 	height: 100%;
+ 	z-index: 7; /* places the modalOverlay between the main page and the modal dialog */
+ 	background-color: #000;
+ 	opacity: 0;
+ 	position: fixed;
+ 	top: 0;
+ 	left: 0;
+ 	display: none;
+ 	margin: 0;
+ 	padding: 0;
 }
 /* alert 실행 문구 */
 h3 {

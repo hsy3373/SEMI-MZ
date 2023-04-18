@@ -2,7 +2,7 @@
  * 작성자 : 윤지영(광장 및 마이홈에 들어갈 버튼 모달 리스트 js)
  *          김혜린(내정보 변경 모달)
  */
-//console.log(";;;;");
+
 import { getContextPath, getSessionStorage } from "./common.js";
 import { modalstopfn } from "./squareCanvas.js";
 import { FilterUsers } from "./squareCanvas.js";
@@ -12,9 +12,7 @@ import {openAlert} from "./alert.js";
 import { homeOpenAlert } from "./homeAlert.js";
 let path = getContextPath();
 
-$(".friendList").click(function () {
-  //console.log("실행되나???");
-});
+
 
 //버튼이벤트
 //버튼세팅
@@ -24,14 +22,10 @@ const friendList = document.querySelector(".friendList"); //친구목록버튼
 const Listbutton = document.querySelector(".Listbutton"); //환경설정버튼
 const friendtable = document.getElementById("friendList"); //친구목록 table
 
-//console.log(friendList, Listbutton, friendtable)
-
-
 
 //친구목록 : 놀러가기 이벤트
 
 const fnClick = (fn) => {
-  console.log("클릭함");
   document.querySelector(".info-modal").classList.remove("hidden");
   window.sessionStorage.setItem("clickedUserId", fn);
   getUserInfo();
@@ -42,8 +36,7 @@ const fnClick = (fn) => {
 friendList.addEventListener("click", () => {
   fnmodal.style.display = "block";
   let listuserId = getSessionStorage("loginUser");
-  console.log("여기옴");
-
+ 
   //친구목록 상세조회
   $.ajax({
     url: path + "/selectFriend",
@@ -79,7 +72,6 @@ friendList.addEventListener("click", () => {
         //생성된 tr에 친구 팝업 이벤트 생성
         gofriend.addEventListener("click", function () {
           fnClick(fn.userId);
-          console.log("이벤트 발생");
         });
 
         //접속 비접속 체크
@@ -146,21 +138,9 @@ document.querySelector(".Pf-btn").addEventListener("click", () => {
 
 
 //alert js에서 가져옴 : 주의 !! 충돌가능성 있음!!
-// let logoutalert = document.getElementById("logout-alert");
 let logoutalertOperate = false;
 //로그아웃창 연결
-
   logoutButton.addEventListener("click", () => {
-    // // 취소버튼 클릭시 alert 창 닫힘
-    // let cancelBtn = logoutalert.querySelector(".alert-cancel");
-    // cancelBtn.addEventListener("click", () => {
-    //   logoutalert.style.display = "none";
-    //   logoutalertOperate = false;
-    // });
-
-    // // 모달  표시
-    // logoutalert.style.display = "block";
-    // logoutalertOperate = true;
 
     document.getElementById("alert-text").innerText = "로그아웃 하시겠습니까?"; /*여기 text 만교체하기 */
 
@@ -168,7 +148,7 @@ let logoutalertOperate = false;
 
     let logoutok = document.querySelector(".sqaue-logout"); /*내가쓸 클래스명으로 교체 */
     logoutok.addEventListener("click", () => {
-      //console.log("로그아웃 처리") /*본인 확인에 들어갈 이벤트! */
+     /*본인 확인에 들어갈 이벤트! */
     localStorage.removeItem('autoLogin'); 
       location.href = path + "/logout";
     });

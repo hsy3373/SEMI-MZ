@@ -63,7 +63,7 @@ function insertHeart(){
 		type: 'post',
 		data: {receiveId : roomMasterId},
 		success: function(data){
-			console.log(data);
+			//console.log(data);
 			$('#my-heart-off').css('display', 'none');
 			$('#my-heart-on').css('display', 'block');
 			/*1 더하기*/
