@@ -43,8 +43,6 @@ public class FriendListController extends HttpServlet {
 		
 		ArrayList<Member> list = new bottonListSevice().selectFriendList(userId);
 		
-		//System.out.println(list.size());
-		
 		response.setContentType("application/json; charset=UTF-8");
 		
 		new Gson().toJson(list, response.getWriter());

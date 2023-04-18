@@ -31,7 +31,6 @@ public class FlipGameController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("게임 스코어 왔어용~~!!! ");
 		
 		int score = Integer.parseInt(request.getParameter("score")); //10점 20점비김 50점 이김
 		String userId = ((Member)request.getSession().getAttribute("loginUser")).getUserId(); //로그인 유저 아이디
@@ -40,11 +39,8 @@ public class FlipGameController extends HttpServlet {
 		System.out.println("score"+score);
 		
 		int result = new MemberService().coinUpdate(userId,score);
-		
-		System.out.println("업데이트 됐어요~ "+result);
-		
+
 		if(result>0) {
-			System.out.println("업데이트 완료");
 			new Gson().toJson("ok", response.getWriter());
 		}else {
 			System.out.println("업데이트 실패");

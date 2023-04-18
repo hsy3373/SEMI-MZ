@@ -26,12 +26,8 @@ public class FlipGameSever {
 
 	@OnOpen
 	public void open(Session session, EndpointConfig config) {
-		System.out.println("MINI 클라이언트 접속");
-
 		Set<Session> clients = session.getOpenSessions();
 		int numClients = clients.size();
-		
-		System.out.println("클라이언트 숫자"+numClients);
 		
 		if(numClients == 0) {
 			player1Session = session;
@@ -67,9 +63,7 @@ public class FlipGameSever {
 		Set<Session> clients = session.getOpenSessions();
 		int numClients = clients.size();
 	
-		
-		System.out.println(msg); 
-		
+
 		if(numClients == 1) { //내가 1p일 경우 저장
 				User1 = msg+",1p";
 		//session.getBasicRemote().sendText(User1);
@@ -100,15 +94,12 @@ public class FlipGameSever {
 	
 	@OnClose
 	public void onClose(Session session) throws IOException {
-		System.out.println("나감 ");
 		//세션에 재요청 메세지 보내면 될듯
 		if(session == player1Session) {
-			System.out.println("1p 나감 ");
 			//나간사람이 1p라면
 			player2Session.getBasicRemote().sendText("4");
 			User1=null;
 		}else {
-			System.out.println("2p 나감 ");
 			//내간사람이 2p라면
 			player1Session.getBasicRemote().sendText("3");
 		}
