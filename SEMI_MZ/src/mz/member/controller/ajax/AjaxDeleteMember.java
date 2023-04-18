@@ -43,14 +43,16 @@ public class AjaxDeleteMember extends HttpServlet {
 		HttpSession session = request.getSession();
 		
 		String inputPwd = request.getParameter("inputPwd");
-		String userPwd = ((Member)session.getAttribute("loginUser")).getUserPwd();
 		String userId = ((Member)session.getAttribute("loginUser")).getUserId();
+		
+		Member m = new MemberService().selectLoginUser(userId);
+		
 		String status = "N";
 		
 		int result = new MemberService().updateStatus(userId, status); // MEMBER : STATUS(N) : UPDATE
 		
 		
-		if(inputPwd.equals(userPwd)) { // 패스워드 일치
+		if(inputPwd.equals(m.getUserPwd())) { // 패스워드 일치
 			if(result > 0) { // MEMBER : STATUS(N) : UPDATE 성공
 				// DISABLED_MEMBER : INSERT
 				new MemberService().insertDltMember(userId, status);
@@ -60,7 +62,6 @@ public class AjaxDeleteMember extends HttpServlet {
 				new MemberService().dltMemHeart(userId); // HEART : DELETE
 				new MemberService().dltMemCharacter(userId); // CHARACTER : DELETE
 				new MemberService().dltMemFriend(userId); // FRIEND : DELETE
-				//new MemberService().dltMemApi(userId); // LOGIN_API : DELETE
 				
 				response.getWriter().print("1"); // 스크립트 : alert처리용
 				

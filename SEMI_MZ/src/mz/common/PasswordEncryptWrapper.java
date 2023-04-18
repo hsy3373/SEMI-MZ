@@ -1,8 +1,8 @@
 package mz.common;
-/*
- * 작성자 : 김혜린 
- * 패스워드 암호화 래퍼 클래스 파일
- */
+
+ // 작성자 : 김혜린
+ // 패스워드 암호화 래퍼 클래스 파일
+ 
 import java.nio.charset.Charset;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -21,28 +21,19 @@ public class PasswordEncryptWrapper extends HttpServletRequestWrapper{
 	
 	// SEMI-MZ 내부에서 쓰이는 패스워드 코드
 	//String userPwd = request.getParameter("userPwd"); => 회원가입(/enroll.me)
-	
 	//String userPwd = request.getParameter("userPwd"); => 기본로그인(/login.me)
-	
-	//String inputPwd = request.getParameter("inputPwd"); => 내정보변경전 확인용(/checkPwd.me)
-										
+	//String inputPwd = request.getParameter("inputPwd"); => 내정보변경전 확인용(/checkPwd.me)							
 	//String userPwd = request.getParameter("userPwd"); => pw변경(/updatePwd.me)
-	
 	//String chkPwd = request.getParameter("chkPwd"); => 내정보변경pw변경(/update.me")
-	
 	//String inputPwd = request.getParameter("inputPwd"); => 회원탈퇴(/delete.me)
-	
-	//String apiKey = request.getParameter("key");
-	
-	//String apiKey = request.getParameter("apiKey");
-	
+	//String apiKey = request.getParameter("key"); => api키
+	//String apiKey = request.getParameter("apiKey"); => api키
 	
 	
 		@Override
 		public String getParameter(String name) {
 			
 			String value = "";
-			//System.out.println("들어옴?");
 			
 			// 매개변수로 전달받은 name변수의 값이 userPwd일 때 암호화 작업 수행하기
 			if(name.equals("userPwd") || name.equals("inputPwd")|| name.equals("chkPwd")|| name.equals("key")|| name.equals("apiKey")) {
@@ -51,8 +42,9 @@ public class PasswordEncryptWrapper extends HttpServletRequestWrapper{
 				//System.out.println("암호화 전 pwd : "+super.getParameter(name));
 				value = getSHA512(super.getParameter(name));
 				//System.out.println("암호화 후 pwd : "+value);
-				//System.out.println("pw 최대글자 : "+getSHA512("rlagpflsrlagpfls_0rlagpflsrlagpfls_0rlagpflsrlagpfls_0"));
-				if(name.equals("chkPwd") && super.getParameter(name).equals("")) { // 받아오는 이름이 chkPwd이고 )
+				//System.out.println("암호화 pwd : "+getSHA512("암호화처리 할 패스워드"));
+				
+				if(name.equals("chkPwd") && super.getParameter(name).equals("")) { // 받아오는 이름이 chkPwd이면서 값이 없을 때)
 					value = "";
 				}
 				

@@ -32,8 +32,6 @@ public class AjaxCheckId extends HttpServlet {
 		
 		String userId = request.getParameter("enrollId");
 		
-		//System.out.println(userId);
-		
 		int checkId = new MemberService().checkId(userId);
 		
 		if(checkId > 0) { // 아이디 존재. 사용불가
