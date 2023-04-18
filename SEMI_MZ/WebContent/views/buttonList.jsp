@@ -88,16 +88,6 @@ contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
       </div>
     </div>
 
-    <!-- ======= 로그아웃 모달창: 환경설정 ======== -->
-    <!-- <div class="alert" id="logout-alert">
-      <h3 id="alert-text">로그아웃 하시겠습니까?</h3>
-      <div>
-        <button class="button alert-ok" id="logout-ok">확인</button>
-        <button class="button alert-cancel" id="logout-cancel">취소</button>
-      </div>
-    </div> -->
-
-    
 
     <!-- ========================== [김혜린] 내정보 변경 / 비밀번호 입력 요구 모달 공간 ========================== -->
     <!-- ======= 내정보변경 시 비밀번호 입력 요청 모달 ======== -->
