@@ -543,7 +543,7 @@ public class MemberDao {
 		return list;
 	}
 	
-	// [김혜린]
+	// [김혜린] - 유저 정보 조회
 	public Member selectLoginUser(Connection conn, String userId) {
 
 		Member m = null; 
@@ -585,7 +585,7 @@ public class MemberDao {
 	
 	
 	
-	// [김혜린]
+	// [김혜린] - 기본 로그인
 	public Member loginMember(Connection conn, String userId, String userPwd) {
 		
 		//System.out.println("dao 까지 옴?"+ userId + userPwd);
@@ -621,12 +621,11 @@ public class MemberDao {
 		} finally {
 				close(rset);
 				close(pstmt);
-			} 
-		//System.out.println("dao m : " + m);
+			}
 		return m;		
 	}
 	
-	// [김혜린]
+	// [김혜린] - api 키 존재유무 확인
 	public Member checkKey(Connection conn, String apiKind, String apiKey) {
 		
 		Member m = null;
@@ -662,11 +661,10 @@ public class MemberDao {
 			close(rset);
 			close(pstmt);
 		}
-		//System.out.println("디에이오에 담겼니?" + m);
 		return m;
 	}
 	
-	// [김혜린]
+	// [김혜린] - 아이디 중복확인
 	public int checkId(Connection conn, String userId) {
 		
 		int result = 0;
@@ -693,7 +691,7 @@ public class MemberDao {
 		return result;		
 	}
 	
-	// [김혜린]
+	// [김혜린] - 닉네임 중복확인
 		public int checkNick(Connection conn, String nicName) {
 			
 			int result = 0;
@@ -774,9 +772,8 @@ public class MemberDao {
 		
 	
 //------------------------------ insert 구간 -------------------------------	
-	// [김혜린]
+	// [김혜린] - Member 테이블 추가
 	public int insertMember(Connection conn, Member m) {
-		//System.out.println("insertMember");
 		
 		int result = 0;
 		PreparedStatement pstmt = null;
@@ -799,11 +796,9 @@ public class MemberDao {
 		return result;
 	}
 	
-	// [김혜린]
+	// [김혜린] - API 테이블 추가
 	public int insertKey(Connection conn, loginAPI a) {
-		//System.out.println("insertKey");
 		
-		//System.out.println("dao 까지 옴?"+ a); // 콘솔용
 		int result = 0;
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("insertKey");
@@ -822,17 +817,16 @@ public class MemberDao {
 		}finally {
 			close(pstmt);
 		}
-		//System.out.println("DAO result : " + result); // cosole용
 		return result;
 	}
 	
-	// [김혜린]
+	// [김혜린] - 캐릭터 테이블 추가
 	public int insertCharacter(Connection conn, String userId) {
-		//System.out.println("디에이오 들어옴");
+		
 		int result = 0;
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("insertCharacter");
-		//System.out.println(sql);
+		
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, userId);
@@ -843,14 +837,11 @@ public class MemberDao {
 		}finally {
 			close(pstmt);
 		}
-		//System.out.println("Dao 캐릭터테이블 결과 : " + result);
 		return result;
 	}
 	
-	
-	// [김혜린]
+	// [김혜린] - 비활성멤버 테이블 추가
 	public int insertDltMember(Connection conn, String userId,  String status) {
-		System.out.println("멤버DAO / DISABLED_MEMBER 테이블 행추가 실행??");//console
 		
 		int result = 0;
 		PreparedStatement pstmt = null;
@@ -867,7 +858,6 @@ public class MemberDao {
 		}finally {
 			close(pstmt);
 		}
-		System.out.println("멤버DAO / DISABLED_MEMBER 테이블 행추가 결과 : " + result); //console
 		return result;
 	}
 	
@@ -922,23 +912,20 @@ public class MemberDao {
 	
 	
 //------------------------------ update 구간 -------------------------------		
-	// [김혜린]
+	// [김혜린] - 비밀번호 변경
 	public int updatePwd(Connection conn, String userPwd, String userId) {
-		//System.out.println("DAO : updatePwd");
-		//System.out.println(userPwd +", "+ userId);
+		
 		int result = 0;
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("updatePwd");
-		//System.out.println(sql);
+		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			//System.out.println("sql들어왔음?");
+			
 			pstmt.setString(1, userPwd);
 			pstmt.setString(2, userId);
-			//System.out.println("result 담기 전");
-			result = pstmt.executeUpdate();
-			//System.out.println("Dao 담겼?: " + result);
 			
+			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -947,9 +934,9 @@ public class MemberDao {
 		return result;
 	}
 	
-	// [김혜린]
+	// [김혜린] - 유저 STATUS 값 변경
 	public int updateStatus(Connection conn, String userId, String status) {
-		System.out.println("멤버DAO / updateStatus 실행??");//console
+		
 		int result = 0;
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("updateStatus");
@@ -964,18 +951,15 @@ public class MemberDao {
 		}finally {
 			close(pstmt);
 		}
-		System.out.println("멤버DAO / updateStatus 실행결과 : " + result);//console
 		return result;
 	}
 	
-	// [김혜린]
+	// [김혜린] - MEMBER 내정보 변경
 	public int updateMember(Connection conn, String nickName, String chkPwd, String info, String gender, String userId) {
-		System.out.println("DAO / updateMember 실행됨"); //console
+		
 		int result = 0;
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("updateMember");
-		
-		System.out.println(nickName+","+ chkPwd+","+ info+","+ gender+","+ userId);
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -993,18 +977,15 @@ public class MemberDao {
 		}finally {
 			close(pstmt);
 		}
-		System.out.println("DAO / updateMember 결과 : "+ result); //console
 		return result;
 	}
 	
-	// [김혜린]
+	// [김혜린] - (패스워드 미포함) MEMBER 내정보 변경
 		public int updateNPwd(Connection conn, String nickName, String info, String gender, String userId) {
-			System.out.println("DAO / updateNPwd 실행됨"); //console
+			
 			int result = 0;
 			PreparedStatement pstmt = null;
 			String sql = prop.getProperty("updateNPwd");
-			
-			System.out.println(nickName+","+ info+","+ gender+","+ userId);
 			
 			try {
 				pstmt = conn.prepareStatement(sql);
@@ -1021,7 +1002,6 @@ public class MemberDao {
 			}finally {
 				close(pstmt);
 			}
-			System.out.println("DAO / updateNPwd 결과 : "+ result); //console
 			return result;
 		}
 	
@@ -1072,9 +1052,9 @@ public class MemberDao {
 	
 	
 //------------------------------ delete 구간 -------------------------------		
-	// [김혜린]
+	// [김혜린] - 회원탈퇴 시 보드 테이블 내 기록 삭제
 	public int dltMemBoard(Connection conn, String userId) {
-		System.out.println("멤버DAO / dltMemBoard 실행??");//console
+		
 		int result = 0;
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("dltMemBoard");
@@ -1091,13 +1071,12 @@ public class MemberDao {
 		}finally {
 			close(pstmt);
 		}
-		System.out.println("멤버DAO / dltMemBoard 실행결과 : " + result);//console
 		return result;
-		
 	}
 	
+	// [김혜린] - 회원탈퇴 시 채팅 테이블 내 기록 삭제
 	public int dltMemChatting(Connection conn, String userId) {
-		System.out.println("멤버DAO / dltMemChatting 실행??");//console
+		
 		int result = 0;
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("dltMemChatting");
@@ -1114,12 +1093,12 @@ public class MemberDao {
 		}finally {
 			close(pstmt);
 		}
-		System.out.println("멤버DAO / dltMemChatting 실행결과 : " + result);//console
 		return result;
 	}
 	
+	// [김혜린] - 회원탈퇴 시 호감도 테이블 내 기록 삭제
 	public int dltMemHeart(Connection conn, String userId) {
-		System.out.println("멤버DAO / dltMemHeart 실행??");//console
+		
 		int result = 0;
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("dltMemHeart");
@@ -1136,12 +1115,12 @@ public class MemberDao {
 		}finally {
 			close(pstmt);
 		}
-		System.out.println("멤버DAO / dltMemHeart 실행결과 : " + result);//console
 		return result;
 	}
 	
+	// [김혜린] - 회원탈퇴 시 캐릭터 테이블 내 기록 삭제
 	public int dltMemCharacter(Connection conn, String userId) {
-		System.out.println("멤버DAO / dltMemCharacter 실행??");//console
+		
 		int result = 0;
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("dltMemCharacter");
@@ -1155,12 +1134,12 @@ public class MemberDao {
 		}finally {
 			close(pstmt);
 		}
-		System.out.println("멤버DAO / dltMemCharacter 실행결과 : " + result);//console
 		return result;
 	}
 	
+	// [김혜린] - 회원탈퇴 시 친구목록 테이블 내 기록 삭제
 	public int dltMemFriend(Connection conn, String userId) {
-		System.out.println("멤버DAO / dltMemFriend 실행??");//console
+		
 		int result = 0;
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("dltMemFriend");
@@ -1175,23 +1154,12 @@ public class MemberDao {
 		}finally {
 			close(pstmt);
 		}
-		System.out.println("멤버DAO / dltMemFriend 실행결과 : " + result);//console
 		return result;
 	}
 	
-	public int dltMemApi(Connection conn, String userId) {
-		System.out.println("멤버DAO / dltMemApi 실행??");//console
-		int result = 0;
-		PreparedStatement pstmt = null;
-		String sql = prop.getProperty("dltMemApi");
-		
-		return result;
-	}
-	
-	
-	// 채팅룸 삭제도 추가
+	// [김혜린] - 회원 탈퇴 시 채팅룸 테이블  행 삭제
 	public int dltMemChattingRoom(Connection conn, String userId) {
-		System.out.println("멤버DAO / dltMemChattingRoom 실행??");//console
+		
 		int result = 0;
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("dltMemChattingRoom");
@@ -1208,9 +1176,28 @@ public class MemberDao {
 		}finally {
 			close(pstmt);
 		}
-		System.out.println("멤버DAO / dltMemChattingRoom 실행결과 : " + result);//console
 		return result;
 	}
+	
+	// [김혜린] - 회원 탈퇴 시 생성되었던 비활성계정 테이블 행 삭제(사용자 탈퇴 후 15일 이내 재로그인 시 사용됨)
+	public int dltDisabledTable(Connection conn, String userId) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("dltDisabledTable");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userId);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
 	
 	
 	
