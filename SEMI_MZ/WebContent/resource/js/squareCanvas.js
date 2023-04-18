@@ -7,6 +7,7 @@
 
 import { getContextPath } from './common.js';
 import { getUserInfo } from './userInfo.js';
+import { getMyInfo } from './userInfo.js';
 import { gameModalopen } from './gamezone/gamezone.js';
 import { noticeModal } from './notice.js';
 
@@ -682,6 +683,11 @@ export let defaultEvent = function () {
     let y = e.clientY; //클릭좌표값
 
     //console.log(x, y);
+	if (x >= uesrX && x <= uesrX + 50 && y >= uesrY && y <= uesrY + 50) {
+		document.querySelector('.my-info-modal').classList.remove('hidden');
+		getMyInfo();
+		modalstopfn();
+	}
 
     for (let user of FilterUsers) {
       //랜더링된 filter user 정보 받아서 좌표값 체크

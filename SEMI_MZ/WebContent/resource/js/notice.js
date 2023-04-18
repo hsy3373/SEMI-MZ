@@ -258,6 +258,7 @@ function selectRanking() {
 				$(".ranking-nickname").eq(i).html(data[i].nicName);
 				$(".ranking-user").eq(i).attr("src", getContextPath() + '/resource/img/user/skin' + data[i].skinId + '/fs.png');
 				$(".ranking-user").eq(i).attr("id", data[i].userId);
+				$(".rh-int").eq(i).html(data[i].heartCount);
 
 				if (getSessionStorage('loginUser') == data[i].userId) {
 					$(".ranking-user").eq(i).css('pointer-events', 'none');
@@ -266,7 +267,7 @@ function selectRanking() {
 				$(".rh-on").eq(i).css('display', 'block');
 				$(".ranking-user").eq(i).css('display', 'block');
 
-				selectRankingHeart(i, data[i].userId);
+				
 				//console.log('i : ', i);
 				//console.log('data[i].userId : ', data[i].userId);
 			}
@@ -299,20 +300,4 @@ $(document).on('click', '.ranking .ranking-user', function(e) {
 
 
 
-/*db에 저장된 호감도 카운트 불러오기*/
-function selectRankingHeart(num, receiveId) {
-	$.ajax({
-		url: getContextPath() + "/countHeart",
-		type: 'post',
-		data: { receiveId },
-		success: function(data) {
-			//console.log('호감도 개수 : ', data);
 
-			$(".rh-int").eq(num).html(data);
-
-		},
-		error: function() {
-			console.log("error");
-		}
-	});
-}

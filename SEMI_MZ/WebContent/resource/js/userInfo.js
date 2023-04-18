@@ -5,7 +5,7 @@
 * 유저 정보창 js
 */
 
-import { getContextPath } from './common.js';
+import { getContextPath, getSessionStorage } from './common.js';
 import { modalstopfn } from './squareCanvas.js';
 import { openChatRoom } from './chat/chatFront.js';
 import * as Alert from "./alert.js";
@@ -16,8 +16,8 @@ let plusBtn = document.querySelector(".plus");
 let deleteBtn = document.querySelector(".delete");
 let reportBtn = document.querySelector(".report-btn");
 
-let userGender = document.querySelector("#user-gender");
-let userHeart = document.querySelector("#user-heart");
+//let userGender = document.querySelector("#user-gender");
+//let userHeart = document.querySelector("#user-heart");
 
 let alert = document.querySelector(".alert");
 	alert.classList = "alert " + "infoAlert";
@@ -70,6 +70,14 @@ let close = () => {
 
 document.querySelector("#info-x-btn").addEventListener("click", close);
 
+// 내 정보 모달창 닫기
+let closeMyInfo = () => {
+	document.querySelector(".my-info-modal").classList.add("hidden");
+		modalstopfn();
+}
+
+document.querySelector("#my-info-x-btn").addEventListener("click", closeMyInfo);
+
 
 
 let nickName;
@@ -82,14 +90,15 @@ export function getUserInfo() {
 	//console.log('d')
 	selectHeart();
 	selectFriend();
-	countHeart();
+	countHeart(sessionStorage.clickedUserId);
+	//console.log('클릭한 유저', sessionStorage.clickedUserId);
 	infoModalOpenOverlay();
 	$.ajax({
 		url: getContextPath() + "/userInfo",
 		data: { userId: sessionStorage.clickedUserId }, /*userId = 로그인 유저(나)x , 다른 유저*/
 		method: 'post',
 		success: function(data) {
-			// console.log('유저 정보 가져왔음 : ', data);
+			 //console.log('유저 정보 가져왔음 : ', data);
 
 			// 데이터 가져오기	
 			nickName = data.nicName;
@@ -101,7 +110,7 @@ export function getUserInfo() {
 			$("#info-skin").attr("src", getContextPath() + '/resource/img/user/skin' + skinId + '/fs.png');
 
 			if (data.info == null) {
-				$(".info-introduce").html("");
+				$(".info-introduce").html("작성된 자기소개가 없습니다.");
 			} else {
 				$(".info-introduce").html(data.info);
 			}
@@ -111,29 +120,90 @@ export function getUserInfo() {
 
 
 			if (gender == 'W') {
-				/*$("#gender-w").attr("src", getContextPath()+"/resource/img/icon/여자.png");
+				$("#gender-w").attr("src", getContextPath()+"/resource/img/icon/여자.png");
 				
 				$('#gender-w').css('display', 'block');
 				$('#gender-m').css('display', 'none');
-				$('#gender-n').css('display', 'none');*/
-				userGender.classList.add("gender-w");
+				$('#gender-n').css('display', 'none');
+				//userGender.classList.add("gender-w");
 
 
 			} else if (gender == 'M') {
-				/*$("#gender-m").attr("src", getContextPath()+"/resource/img/icon/남자.png");
+				$("#gender-m").attr("src", getContextPath()+"/resource/img/icon/남자.png");
 				
 				$('#gender-w').css('display', 'none');
 				$('#gender-m').css('display', 'block');
-				$('#gender-n').css('display', 'none');*/
-				userGender.classList.add("gender-m");
+				$('#gender-n').css('display', 'none');
+				//userGender.classList.add("gender-m");
 
 			} else if (gender == 'N') {
-				/*$("#gender-n").attr("src", getContextPath()+"/resource/img/icon/성별비공개.png");
+				$("#gender-n").attr("src", getContextPath()+"/resource/img/icon/성별비공개.png");
 				
 				$('#gender-w').css('display', 'none');
 				$('#gender-m').css('display', 'none');
-				$('#gender-n').css('display', 'block');*/
-				userGender.classList.add("gender-n");
+				$('#gender-n').css('display', 'block');
+				//userGender.classList.add("gender-n");
+			}
+
+
+		}
+	});
+};
+
+/////////////////////////////// 내 정보 가져와서 정보창 꾸리기
+export function getMyInfo() {
+	//console.log('d')
+	countHeart(getSessionStorage('loginUser'));
+	//console.log('나 클릭함', getSessionStorage('loginUser'));
+	$.ajax({
+		url: getContextPath() + "/userInfo",
+		data: { userId: getSessionStorage('loginUser')}, /*userId = 로그인 유저(나)x , 다른 유저*/
+		method: 'post', 
+		success: function(data) {
+			 console.log('유저 정보 가져왔음 : ', data);
+
+			// 데이터 가져오기	
+			nickName = data.nicName;
+			$(".my-info-nickname").html(nickName);
+
+			/* 스킨 경로가 비어있어 오류 뜸 */
+			let skinId = data.skinId;
+			$("#my-info-skin").attr("src", getContextPath() + '/resource/img/user/skin' + skinId + '/fs.png');
+
+			if (data.info == null) {
+				$(".my-info-introduce").html("작성된 자기소개가 없습니다.");
+			} else {
+				$(".my-info-introduce").html(data.info);
+			}
+
+			let gender = data.gender;
+			//console.log(gender);
+
+
+			if (gender == 'W') {
+				$("#my-gender-w").attr("src", getContextPath()+"/resource/img/icon/여자.png");
+				
+				$('#my-gender-w').css('display', 'block');
+				$('#my-gender-m').css('display', 'none');
+				$('#my-gender-n').css('display', 'none');
+				//userGender.classList.add("gender-w");
+
+
+			} else if (gender == 'M') {
+				$("#my-gender-m").attr("src", getContextPath()+"/resource/img/icon/남자.png");
+				
+				$('#my-gender-w').css('display', 'none');
+				$('#my-gender-m').css('display', 'block');
+				$('#my-gender-n').css('display', 'none');
+				//userGender.classList.add("gender-m");
+
+			} else if (gender == 'N') {
+				$("#my-gender-n").attr("src", getContextPath()+"/resource/img/icon/성별비공개.png");
+				
+				$('#my-gender-w').css('display', 'none');
+				$('#my-gender-m').css('display', 'none');
+				$('#my-gender-n').css('display', 'block');
+				//userGender.classList.add("gender-n");
 			}
 
 
@@ -213,17 +283,21 @@ function selectHeart() {
 	});
 }
 
-function countHeart() {
 	/*하트 총 개수 표시*/
+function countHeart(receiveId) {
 	$.ajax({
 		url: getContextPath() + "/countHeart",
 		type: 'post',
-		data: { receiveId: sessionStorage.clickedUserId },
+		data: { receiveId }, //sessionStorage.clickedUserId
 		success: function(data) {
+			 console.log("좋아요 개수 : " + data);
+			if (receiveId == getSessionStorage('loginUser')) {
+				$(".my-heart-int").html(data);
+			} else if (receiveId == sessionStorage.clickedUserId) {
+				$(".heart-int").html(data);
+			}
+			//$(".heart-int").html(data);
 
-			// console.log("좋아요 개수 : " + data);
-
-			$(".heart-int").html(data);
 		},
 		error: function() {
 			console.log("error");
