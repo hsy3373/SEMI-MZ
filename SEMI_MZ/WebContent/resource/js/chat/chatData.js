@@ -11,7 +11,7 @@ import * as ChatFront from "./chatFront.js";
 
 //------------------------웹소켓 관련 구간 -------------------------------------
 
-let ip = ['192.168.30.180:8082', '192.168.0.16', 'localhost', '192.168.0.2'];
+let ip = ["192.168.30.180:8082", "192.168.0.16", "localhost", "192.168.0.2"];
 let socketAddress = `ws://${ip[0]}${Common.getContextPath()}/websocket`;
 let webSocket = new WebSocket(socketAddress);
 //console.log("기본 웹소켓 객체 : ", webSocket);
@@ -69,19 +69,32 @@ let socketOnmessage = function (e) {
   // 만약 현재 선택되어있는 채팅룸과 들어온 메세지의 발신자가 같다면
   // 채팅구역에 채팅 추가
   let selected = document.querySelector(".selected-chat");
+  let chatArea = document.querySelector(".chat-item-area");
 
   if (selected.id == "chat-all-user" && chat.receiveId == "chatLogAll") {
     // 현재 선택화면 전체채팅이면서 메세지도 전체채팅으로 왔을 때
-    document.querySelector(".chat-item-area").innerHTML += str;
-    ChatFront.checkChatScroll();
+    if (cl == "class='my-chat'") {
+      chatArea.innerHTML += str;
+      //내 채팅이면 스크롤 하단으로
+      chatArea.scrollTop = chatArea.scrollHeight;
+    } else if (ChatFront.checkChatScroll()) {
+      chatArea.innerHTML += str;
+      chatArea.scrollTop = chatArea.scrollHeight;
+    } else {
+      chatArea.innerHTML += str;
+    }
   } else if (
     chat.receiveId != "chatLogAll" &&
     !Common.isEmpty(selected.querySelector(".room-name")) &&
     selected.querySelector(".room-name").innerText == chat.userNick
   ) {
     // 현재 선택화면이 전체 채팅이 아니면서 선택된 화면 텍스트 값이 발신자 닉네임과 같을 때
-    document.querySelector(".chat-item-area").innerHTML += str;
-    ChatFront.checkChatScroll();
+    if (ChatFront.checkChatScroll()) {
+      chatArea.innerHTML += str;
+      chatArea.scrollTop = chatArea.scrollHeight;
+    } else {
+      chatArea.innerHTML += str;
+    }
   }
 };
 
@@ -137,10 +150,10 @@ export const sendChat = (id) => {
   //전체채팅은 소켓에서 전체로 다 뿌려주기 때문에 굳이 여기서 또
   // 세션스토리지에 저장할 필요가 없음 == 그 외 것만 저장하면 됨
   if (id != "chatLogAll") {
-    // 현재 채팅구역 가장 마지막에 지금 작성한 채팅메세지 추가
-    document
-      .querySelector(".chat-item-area")
-      .insertAdjacentHTML("beforeend", str);
+    let chatArea = document.querySelector(".chat-item-area");
+
+    chatArea.insertAdjacentHTML("beforeend", str);
+    chatArea.scrollTop = chatArea.scrollHeight;
 
     if (!Common.isEmpty(Common.getSessionStorage("chatLog-" + id))) {
       str = Common.getSessionStorage("chatLog-" + id) + str;
@@ -157,7 +170,6 @@ export const sendChat = (id) => {
   webSocket.send(JSON.stringify(chat));
   //모두 진행된 후 채팅 입력 구역에 있던 값 삭제
   document.getElementById("text-send").value = "";
-  ChatFront.checkChatScroll();
 };
 
 // 채팅 객체 생성용
