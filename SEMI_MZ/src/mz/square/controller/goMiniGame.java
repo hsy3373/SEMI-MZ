@@ -33,7 +33,7 @@ public class goMiniGame extends HttpServlet {
 		// TODO Auto-generated method stub
 		
 			
-		request.getRequestDispatcher("views/miniGame.jsp").forward(request, response);
+		request.getRequestDispatcher("views/minigame/miniGame.jsp").forward(request, response);
 	
 	
 	}
