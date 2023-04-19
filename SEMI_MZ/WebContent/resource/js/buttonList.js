@@ -303,6 +303,7 @@ $('#cge-btn').on("click", function(){
 
         /*alert*/
         document.getElementById("home-alert-text").innerHTML = "정보 수정 완료.";
+        userName = nickName; //랜러딩 아이디 넣어주기
         /*alert 창 띄우기*/
         homeOpenAlert();
         

@@ -27,8 +27,6 @@ public class logoutController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		//System.out.print("로그아웃 서블릿 도착");
-		
 		request.getSession().invalidate(); //세션 데이터 삭제
 		
 		response.sendRedirect(request.getContextPath()+"/views/main.jsp"); //메인으로
