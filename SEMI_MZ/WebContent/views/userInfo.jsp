@@ -65,6 +65,7 @@
 		<!-- 호감도 -->
 		<div class="my-info-heart">
 			<img id="my-info-heart-on" alt="호강도 상태" src="<%= contextPath %>/resource/img/icon/하트.png">
+			<img id="my-info-heart-off" alt="호강도 상태" src="<%= contextPath %>/resource/img/icon/빈하트.png">
 			<!-- <div id="user-heart"></div> -->
 		</div>
 		<!-- 내 호감도 갯수 -->
@@ -78,6 +79,9 @@
 			<img id="my-gender-w">
 			<img id="my-gender-m">
 			<img id="my-gender-n">
+		</div>
+		<div class="info-my-room">
+			<img id="info-my-room" src="<%= contextPath %>/resource/img/icon/home_btn.png">
 		</div>
 		<!-- 자기소개 -->
 		<div class="my-info-introduce"></div>

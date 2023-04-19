@@ -19,12 +19,6 @@ let reportBtn = document.querySelector(".report-btn");
 //let userGender = document.querySelector("#user-gender");
 //let userHeart = document.querySelector("#user-heart");
 
-let alert = document.querySelector(".alert");
-	alert.classList = "alert " + "infoAlert";
-
-let alertOverlay = document.querySelector(".alert-overlay");
-	alertOverlay.classList = "alert-overlay " + "infoAlert-overlay";
-
 // 유저 정보창에서 alert 떠있을 시 오버레이 클릭 안되게 유저 정보창 전용 오버레이 만듦
 let infoModalOverlay = document.querySelector(".info-modal-overlay");
 
@@ -47,17 +41,29 @@ let reportModalCloseOverlay = function() {
 	reportModalOverlay.style.display = "none";
 }
 
+// 유저 정보창에서만 쓰일 alert
+function infoAlert(){
+	let alert = document.querySelector(".alert");
+	alert.classList = "alert " + "infoAlert";
+
+	let alertOverlay = document.querySelector(".alert-overlay");
+	alertOverlay.classList = "alert-overlay " + "infoAlert-overlay";
+}
+
 // 1:1 채팅 클릭 시 클릭한 해당 유저와의 채팅방 생성
 document.querySelector(".info-chatting").addEventListener("click", function() {
 	openChatRoom(sessionStorage.clickedUserId);
 });
 
-// 놀러가기 클릭 시 클릭한 해당 유저의 마이룸으로 이동
-if (document.querySelector(".friend-home")) {
-	document.querySelector(".friend-home").addEventListener("click", function() {
-		location.href = getContextPath() + '/home?roomMaster=' + sessionStorage.clickedUserId;
-	});
-}
+/* 놀러가기 클릭 시 클릭한 해당 유저의 마이룸으로 이동 */
+document.querySelector(".friend-home").addEventListener("click", function() {
+	location.href = getContextPath() + '/home?roomMaster=' + sessionStorage.clickedUserId;
+});
+/* 홈 버튼 클릭 시 나의 마이룸으로 이동 */
+document.querySelector("#info-my-room").addEventListener("click", function() {
+	location.href = getContextPath() + '/home';
+});
+
 
 /*유저 정보 모달창 닫기*/
 let close = () => {
@@ -74,6 +80,7 @@ document.querySelector("#info-x-btn").addEventListener("click", close);
 let closeMyInfo = () => {
 	document.querySelector(".my-info-modal").classList.add("hidden");
 		modalstopfn();
+		infoModalCloseOverlay();
 }
 
 document.querySelector("#my-info-x-btn").addEventListener("click", closeMyInfo);
@@ -82,12 +89,8 @@ document.querySelector("#my-info-x-btn").addEventListener("click", closeMyInfo);
 
 let nickName;
 
-/*유저 정보 가져오기*/
-/*
-	sessionStorage.clickedUserId
-*/
+/*다른 유저 정보 가져오기*/
 export function getUserInfo() {
-	//console.log('d')
 	selectHeart();
 	selectFriend();
 	countHeart(sessionStorage.clickedUserId);
@@ -95,7 +98,7 @@ export function getUserInfo() {
 	infoModalOpenOverlay();
 	$.ajax({
 		url: getContextPath() + "/userInfo",
-		data: { userId: sessionStorage.clickedUserId }, /*userId = 로그인 유저(나)x , 다른 유저*/
+		data: { userId: sessionStorage.clickedUserId },
 		method: 'post',
 		success: function(data) {
 			 //console.log('유저 정보 가져왔음 : ', data);
@@ -150,14 +153,14 @@ export function getUserInfo() {
 	});
 };
 
-/////////////////////////////// 내 정보 가져와서 정보창 꾸리기
+/* 내 정보 가져오기 */
 export function getMyInfo() {
-	//console.log('d')
 	countHeart(getSessionStorage('loginUser'));
+	infoModalOpenOverlay();
 	//console.log('나 클릭함', getSessionStorage('loginUser'));
 	$.ajax({
 		url: getContextPath() + "/userInfo",
-		data: { userId: getSessionStorage('loginUser')}, /*userId = 로그인 유저(나)x , 다른 유저*/
+		data: { userId: getSessionStorage('loginUser')},
 		method: 'post', 
 		success: function(data) {
 			 console.log('유저 정보 가져왔음 : ', data);
@@ -292,6 +295,14 @@ function countHeart(receiveId) {
 		success: function(data) {
 			 console.log("좋아요 개수 : " + data);
 			if (receiveId == getSessionStorage('loginUser')) {
+				if (data > 0) {
+					$('#my-info-heart-off').css('display', 'none');
+					$('#my-info-heart-on').css('display', 'block');
+				}else{
+					$('#my-info-heart-off').css('display', 'block');
+					$('#my-info-heart-on').css('display', 'none');
+					
+				}
 				$(".my-heart-int").html(data);
 			} else if (receiveId == sessionStorage.clickedUserId) {
 				$(".heart-int").html(data);
@@ -328,16 +339,15 @@ plusBtn.addEventListener("click", () => {
 	document.getElementById("alert-ok").innerText = "추가";
 
 	Alert.openAlert("user-plus");
-
-
+	
+	infoAlert();
 });
+
 /*동적요소에 이벤트 부여하기 위해 부모요소에게 이벤트를 부여함*/
 $('.alert').on('click', '.user-plus', function() {
 	/*본인이 실행할 이벤트를 여기에 적용!!!!!!*/
 	insertFriend();
 	Alert.closeAlert();
-	alert.classList.remove("infoAlert");
-	alertOverlay.classList.remove("infoAlert-overlay");
 })
 
 
@@ -365,6 +375,8 @@ deleteBtn.addEventListener("click", () => {
 	document.getElementById("alert-ok").innerText = "삭제";
 
 	Alert.openAlert("user-delete");
+	
+	infoAlert();
 
 });
 
@@ -372,8 +384,6 @@ $('.alert').on('click', '.user-delete', function() {
 	
 	deleteFriend();
 	Alert.closeAlert();
-	alert.classList.remove("infoAlert");
-	alertOverlay.classList.remove("infoAlert-overlay");
 })
 
 
@@ -427,6 +437,8 @@ reportBtn.addEventListener("click", () => {
 	document.getElementById("alert-ok").innerText = "신고";
 
 	Alert.openAlert("report-ok");
+	
+	infoAlert();
 });
 
 $('.alert').on('click', '.report-ok', function() {
@@ -436,8 +448,6 @@ $('.alert').on('click', '.report-ok', function() {
 		report();
 		
 		Alert.closeAlert();
-		alert.classList.remove("infoAlert");
-		alertOverlay.classList.remove("infoAlert-overlay");
 		
 		document.getElementById("home-alert-text").innerHTML = "신고가 접수되었습니다.";
 		homeOpenAlert();
@@ -447,8 +457,6 @@ $('.alert').on('click', '.report-ok', function() {
 		homeOpenAlert();
 		
 		Alert.closeAlert();
-		alert.classList.remove("infoAlert");
-		alertOverlay.classList.remove("infoAlert-overlay");
 		
 		$(".report-title-box").focus();
 	}  else if ($("#report-content-text").val() == "") {
@@ -457,8 +465,6 @@ $('.alert').on('click', '.report-ok', function() {
 		homeOpenAlert();
 		
 		Alert.closeAlert();
-		alert.classList.remove("infoAlert");
-		alertOverlay.classList.remove("infoAlert-overlay");
 		
 		$("#report-content-text").focus();
 	}
