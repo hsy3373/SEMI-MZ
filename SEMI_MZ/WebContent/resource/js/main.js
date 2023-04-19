@@ -233,3 +233,12 @@ $('#newpwd-btn').on("click", function(){
 		}
 	});
 });
+
+//지영작성  : 더블 로그인 안내문
+const doubleLogin = localStorage.getItem("doubleLogin");
+if(localStorage.getItem('doubleLogin') == "true"){
+	document.getElementById("home-alert-text").innerHTML = "중복로그인 되였습니다. <br> 재 로그인 해주세요.";
+	/*alert 창 띄우기*/
+	homeOpenAlert();
+	localStorage.removeItem('doubleLogin');
+}
