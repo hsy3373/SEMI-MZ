@@ -325,16 +325,17 @@ $(function() {
 							} else {
 								$("#board-ck").prop("checked", false);
 							}
-							//console.log("작성자?"+userId);
+							console.log("작성자?"+userId);
+							console.log("로그인유저?"+loginUserId);
 							// 로그인유저와 작성자가 같지않을 경우 읽기만 가능
 							if(loginUserId != userId){
 								$(".board-send-detail .board-write-title").prop('readonly', true);
 								$(".board-send-detail .board-write-content").prop('readonly', true);
 								$('#board-ck').attr('disabled', 'disabled');
 								/*수정버튼 막기*/
-								$("#board-send-update").attr("disabled", 'disabled');
+								$("#board-send-update").attr("disabled", true);
 								/*삭제버튼 막기*/
-								$("#board-send-delete").attr("disabled", 'disabled');
+								$("#board-send-delete").attr("disabled", true);
 							}else{
 								$(".board-send-detail .board-write-title").prop('readonly', false);
 								$(".board-send-detail .board-write-content").prop('readonly', false);
