@@ -257,5 +257,11 @@ INSERT INTO BOARD( BOARD_NO, USER_ID, RECEIVE_ID, BOARD_TITLE, BOARD_CONTENT, SE
 INSERT INTO BOARD( BOARD_NO, USER_ID, RECEIVE_ID, BOARD_TITLE, BOARD_CONTENT, SECRET) 
      VALUES(SEQ_BOARD.NEXTVAL,'t7', 'shwldml', '알파펫 하나둘셋', 'abcdefghi~~~~!!!~~~~~~~~~!!!!!!!!!!!!', 'Y');
      
-
+-- BOARD(RECEIVE_ID:riddl5076)     
+INSERT INTO BOARD( BOARD_NO, USER_ID, RECEIVE_ID, BOARD_TITLE, BOARD_CONTENT, SECRET) 
+     VALUES(SEQ_BOARD.NEXTVAL,'friend', 'riddl5076', '가영아 안녕', '가영아 안녕! 이건 비밀글로 작성된 방명록이야!ㅎㅎ', 'Y');
+     
+INSERT INTO BOARD( BOARD_NO, USER_ID, RECEIVE_ID, BOARD_TITLE, BOARD_CONTENT, SECRET) 
+     VALUES(SEQ_BOARD.NEXTVAL,'t4', 'riddl5076', '저는 누굴까요??????', '가영님 오늘 밥 뭐드세요?', 'N');
+     
 COMMIT;
