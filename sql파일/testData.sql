@@ -33,14 +33,35 @@ BEGIN
 END;
 /
 
-        INSERT INTO MEMBER(USER_ID, USER_PWD, NICKNAME)
-		VALUES( 'riddl5076', 'Cix5A9mtSQHGA/l511EGmsfi1NlIMr88Vad50mhToxCBDNCFgyHwafm8t0hUgt/bH5H6iivuCllsUHX/5OJTPQ==', '칙촉');
-        
-        INSERT INTO LOGIN_API(USER_ID, API_KIND, API_KEY)
-		VALUES( 'riddl5076' , 'kakao', '가상의kakao키');
-        
-        INSERT INTO CHARACTER(USER_ID, SKIN_ID)
-		VALUES( 'riddl5076' , 0);
+-- 가영
+INSERT INTO MEMBER(USER_ID, USER_PWD, NICKNAME)
+VALUES( 'riddl5076', 'Cix5A9mtSQHGA/l511EGmsfi1NlIMr88Vad50mhToxCBDNCFgyHwafm8t0hUgt/bH5H6iivuCllsUHX/5OJTPQ==', '칙촉');
+
+INSERT INTO LOGIN_API(USER_ID, API_KIND, API_KEY)
+VALUES( 'riddl5076' , 'kakao', '가상의kakao키');
+
+INSERT INTO CHARACTER(USER_ID, SKIN_ID)
+VALUES( 'riddl5076' , 0);
+
+-- 지의
+INSERT INTO MEMBER(USER_ID, USER_PWD, NICKNAME, SKIN_ID, COIN)
+VALUES('shwldml', '1ynJ0bB1lOsiW1ghDEO1ITmezLscu1th/CqkCqsPthvO7dvOIZLB3Ss1ZSnw5UQ1jpS3NJ0d61XtJRNXnPfZ7w==', '지의', 3, 700);
+
+INSERT INTO LOGIN_API(USER_ID, API_KIND, API_KEY)
+VALUES('shwldml', 'kakao', '가상의kakao키');
+
+INSERT INTO CHARACTER(USER_ID, SKIN_ID) VALUES('shwldml' , 0);
+INSERT INTO CHARACTER(USER_ID, SKIN_ID) VALUES('shwldml' , 2);
+INSERT INTO CHARACTER(USER_ID, SKIN_ID) VALUES('shwldml' , 3);
+INSERT INTO CHARACTER(USER_ID, SKIN_ID) VALUES('shwldml' , 4);
+INSERT INTO CHARACTER(USER_ID, SKIN_ID) VALUES('shwldml' , 5);
+INSERT INTO CHARACTER(USER_ID, SKIN_ID) VALUES('shwldml' , 8);
+INSERT INTO CHARACTER(USER_ID, SKIN_ID) VALUES('shwldml' , 9);
+INSERT INTO CHARACTER(USER_ID, SKIN_ID) VALUES('shwldml' , 10);
+INSERT INTO CHARACTER(USER_ID, SKIN_ID) VALUES('shwldml' , 12);
+INSERT INTO CHARACTER(USER_ID, SKIN_ID) VALUES('shwldml' , 13);
+INSERT INTO CHARACTER(USER_ID, SKIN_ID) VALUES('shwldml' , 15);
+INSERT INTO CHARACTER(USER_ID, SKIN_ID) VALUES('shwldml' , 16);
 
 BEGIN 
     FOR I IN 1..22
@@ -145,6 +166,9 @@ BEGIN
 END;
 /
 
+BEGIN 
+    FOR I IN 1..8
+    LOOP 
     -- 실험용 유저 데이터 추가
     INSERT INTO NOTICE( NOTICE_NO, NOTICE_TITLE, NOTICE_CONTENT)
         VALUES ( SEQ_NOTICE.NEXTVAL,'첫번째 공지사항 입니다.',
@@ -206,14 +230,32 @@ END;
                 안내 드리는 내용 참고하셔서 이용에 불편 없으시길 바랍니다.
                 
                 감사합니다.');
--- 지의
-INSERT INTO MEMBER(USER_ID, USER_PWD, NICKNAME, STATUS)
-VALUES( 'shwldml', 'n89v8zPkO0SSZ5NAcfe25NVixPU3C271IrO7+EYfdfELpBZJ7LiY6f/YdeM9oizh9DxQ6oWBVs0h4grY/6pJIw==', '지의', 'Y');
+    END LOOP;
+END;
+/
 
-INSERT INTO LOGIN_API(USER_ID, API_KIND, API_KEY)
-VALUES( 'shwldml', 'kakao', '가상의kakao키');
+-- BOARD(RECEIVE_ID:지의)
+INSERT INTO BOARD( BOARD_NO, USER_ID, RECEIVE_ID, BOARD_TITLE, BOARD_CONTENT, SECRET) 
+     VALUES(SEQ_BOARD.NEXTVAL, 'test', 'shwldml', '여보세요', '안녕하세요. 처음뵙겠습니다.', 'N');
+     
+INSERT INTO BOARD( BOARD_NO, USER_ID, RECEIVE_ID, BOARD_TITLE, BOARD_CONTENT, SECRET) 
+     VALUES(SEQ_BOARD.NEXTVAL, 'friend', 'shwldml', '안녕~!~~~~!!!!', '안녕! 나는 NIC_fri이야! 만나서 반가워!', 'N');
+            
+INSERT INTO BOARD( BOARD_NO, USER_ID, RECEIVE_ID, BOARD_TITLE, BOARD_CONTENT, SECRET) 
+     VALUES(SEQ_BOARD.NEXTVAL, 't1', 'shwldml', '부바바바바','구하지 같이 트고, 광야에서 인간이 불어 교향악이다. 창공에 우리는 맺어, 희망의 봄바람을 목숨이 타오르고 천고에 것은 교향악이다. 못하다 구하지 때에, 커다란 석가는 능히 인간이 착목한는 풀이 칼이다. 목숨을 봄바람을 방지하는 있는 이상 모래뿐일 과실이 사라지지 철환하였는가? 곳이 천고에 군영과 뜨거운지라, 할지니, 미묘한 스며들어 있는가? 하는 새 트고, 사람은 피가 웅대한 뿐이다. 따뜻한 밝은 예가 말이다.
+원질이 이상 꽃이 찬미를 간에 청춘의 되려니와, 이것을 작고 운다. 옷을 길지 몸이 것이다. 이상, 심장은 날카로우나 간에 듣기만 물방아 힘있다. 그들의 역사를 이상을 아니다. 얼마나 할지니, 바이며, 않는 피다. 사라지지 가슴에 얼마나 어디 청춘은 가슴이 힘차게 칼이다.', 'Y');
 
-INSERT INTO CHARACTER(USER_ID, SKIN_ID)
-VALUES( 't'||SEQ_TEST.CURRVAL , 0);
+INSERT INTO BOARD( BOARD_NO, USER_ID, RECEIVE_ID, BOARD_TITLE, BOARD_CONTENT, SECRET) 
+     VALUES(SEQ_BOARD.NEXTVAL, 't4', 'shwldml', 'HI!!!!!!!!!!!!', '끝까지 아니한 끝에 인간이 발휘하기 것이다. 원질이 인생에 것은 목숨이 가는 지혜는 위하여서, 말이다. 찾아 우는 가슴에 뼈 보라. 끓는 되려니와, 역사를 대고, 봄바람이다. 인생에 얼음과 우리는 곳으로 그리하였는가? 장식하는 얼마나 위하여 보이는 보내는 것이다. 열락의 아름답고 보이는 든 아니다. 새가 것은 뼈 그들은 용감하고 사막이다. 용기가 이 생생하며, 아니한 방지하는 영원히 못할 같은 있으랴? 밝은 위하여서, 행복스럽고 거선의 인간에 것이다.', 'N');
+            
+INSERT INTO BOARD( BOARD_NO, USER_ID, RECEIVE_ID, BOARD_TITLE, BOARD_CONTENT, SECRET) 
+     VALUES(SEQ_BOARD.NEXTVAL, 'riddl5076', 'shwldml', '칙촉이 씀', '안녕! 반가워!', 'N');
+
+INSERT INTO BOARD( BOARD_NO, USER_ID, RECEIVE_ID, BOARD_TITLE, BOARD_CONTENT, SECRET) 
+     VALUES(SEQ_BOARD.NEXTVAL,'riddl5076', 'shwldml', '지의야 안녕 이건 비밀글이야', '지의야 안녕! 이건 비밀글로 작성된 방명록이야!ㅎㅎ', 'Y');
+     
+INSERT INTO BOARD( BOARD_NO, USER_ID, RECEIVE_ID, BOARD_TITLE, BOARD_CONTENT, SECRET) 
+     VALUES(SEQ_BOARD.NEXTVAL,'t7', 'shwldml', '알파펫 하나둘셋', 'abcdefghi~~~~!!!~~~~~~~~~!!!!!!!!!!!!', 'Y');
+     
 
 COMMIT;
