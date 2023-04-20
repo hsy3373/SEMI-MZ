@@ -163,7 +163,7 @@ export function getMyInfo() {
 		data: { userId: getSessionStorage('loginUser')},
 		method: 'post', 
 		success: function(data) {
-			 console.log('유저 정보 가져왔음 : ', data);
+			 //console.log('유저 정보 가져왔음 : ', data);
 
 			// 데이터 가져오기	
 			nickName = data.nicName;
