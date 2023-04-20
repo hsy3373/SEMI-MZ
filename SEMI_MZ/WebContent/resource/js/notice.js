@@ -60,11 +60,11 @@ function NoticeList() {
 				for (let i = 0; i < num; i++) {
 					if (i == 3) {
 						str += "<div class='list-post'>"
-							+ "<div class='notice-title'>" + '더보기' + "</div>"
+							+ "<div class='notice-title' onclick='this.parentNode.click();'>" + '더보기' + "</div>"
 							+ "</div>";
 					} else {
 						str += "<div class='list-post'>"
-							+ "<div class='notice-title'>" + data[i].title + "</div>"
+							+ "<div class='notice-title' onclick='this.parentNode.click();'>" + data[i].title + "</div>"
 							+ "</div>";
 					}
 				}
@@ -82,6 +82,7 @@ function NoticeList() {
 
 $(document).on('click', ".list-post", function() {
 	getNoticeList();
+	//console.log('클릭됨');
 })
 
 // 공지사항 리스트 조회 함수
@@ -89,7 +90,7 @@ function getNoticeList() {
 	$.ajax({
 		url: getContextPath() + "/selectNotice",
 		success: function(data) {
-			//console.log(data);
+			console.log(data);
 
 			listCount = data.length;
 
@@ -118,7 +119,6 @@ function getNoticeList() {
 // 글 목록 표시 함수
 // 현재 페이지(currentPage)와 페이지당 글 개수(noticeLimit) 반영
 function displayData(currentPage, noticeLimit) {
-
 	let str = "";
 
 	//Number로 변환하지 않으면 아래에서 +를 할 경우 스트링 결합이 되어버림.. 
