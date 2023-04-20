@@ -282,29 +282,19 @@ function selectRanking() {
 $(document).on('click', '.ranking .ranking-user', function(e) {
 	//console.log($(this).attr("id"));
 	
-	//$("#notice-x-btn").css('pointer-events', 'none');
-	
 	let rankingId = $(this).attr("id");
 
-	document.querySelector(".info-modal").classList.remove("hidden");
-	
-	/*if (document.querySelector(".info-modal").classList.add("hidden")){
-		$("#notice-x-btn").css('cursor', 'pointer');
-	}*/
 
-	/*if (window.sessionStorage.setItem("clickedUserId", rankingId)) {
+	if(getSessionStorage("loginUser") == rankingId){
+		getMyInfo();
+		document.querySelector(".my-info-modal").classList.remove("hidden");
+		modalstopfn();
+	} else {
+		window.sessionStorage.setItem("clickedUserId", rankingId);
 		getUserInfo();
+		document.querySelector(".info-modal").classList.remove("hidden");
 		modalstopfn();
 	}
-	
-	if (window.sessionStorage.setItem("loginUser", rankingId)) {
-		getMyInfo();
-		modalstopfn();
-	}*/
-	window.sessionStorage.setItem("clickedUserId", rankingId);
-
-	getUserInfo();
-	modalstopfn();
 });
 
 
