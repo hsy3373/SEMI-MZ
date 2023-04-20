@@ -5,7 +5,7 @@
 
 import { getContextPath, getSessionStorage } from './common.js';
 import { modalstopfn } from './squareCanvas.js';
-import { getUserInfo } from './userInfo.js';
+import { getUserInfo, getMyInfo } from './userInfo.js';
 
 export let noticeModal = document.querySelector('.notice-modal');
 
@@ -46,22 +46,27 @@ function NoticeList() {
 		url: getContextPath() + "/selectNotice",
 		success: function(data) {
 			//console.log(data);
-
+			let num = 0;
+			
 			if (data.length > 4) {
-				data.length = 4;
+				num = 4;
 			} else {
-				data.length = data.length;
+				num = data.length;
 			}
 
 			let str = "";
 
-			if (data.length > 0) {
-				for (let i = 0; i < data.length; i++) {
-					str += "<div class='list-post'>"
-						+ "<div class='notice-title'>" + data[i].title + "</div>"
-						+ "</div>";
-
-					//data[3].title = '더보기';
+			if (num > 0) {
+				for (let i = 0; i < num; i++) {
+					if (i == 3) {
+						str += "<div class='list-post'>"
+							+ "<div class='notice-title'>" + '더보기' + "</div>"
+							+ "</div>";
+					} else {
+						str += "<div class='list-post'>"
+							+ "<div class='notice-title'>" + data[i].title + "</div>"
+							+ "</div>";
+					}
 				}
 			} else {
 				str += "<div class='list-post' style='pointer-events: none;'>"
@@ -137,7 +142,9 @@ function displayData(currentPage, noticeLimit) {
 
 		$(".notice-detail-title").html(noticeList[0].noticeTitle);
 
-		$(".notice-content").html(noticeList[0].noticeContent);
+		let content = noticeList[0].noticeContent;
+		content = content.replace(/(?:\r\n|\r|\n)/g, "<br/>");
+		$(".notice-content").html(content);
 	}
 
 	$(".notice-detail-list").html(str);
@@ -234,6 +241,7 @@ function selectNoticeDetail(noticeNo) {
 			$(".notice-detail-title").html(title);
 
 			let content = data.content;
+			content = content.replace(/(?:\r\n|\r|\n)/g, "<br/>");
 			$(".notice-content").html(content);
 
 
@@ -258,15 +266,16 @@ function selectRanking() {
 				$(".ranking-nickname").eq(i).html(data[i].nicName);
 				$(".ranking-user").eq(i).attr("src", getContextPath() + '/resource/img/user/skin' + data[i].skinId + '/fs.png');
 				$(".ranking-user").eq(i).attr("id", data[i].userId);
+				$(".rh-int").eq(i).html(data[i].heartCount);
 
-				if (getSessionStorage('loginUser') == data[i].userId) {
+				/*if (getSessionStorage('loginUser') == data[i].userId) {
 					$(".ranking-user").eq(i).css('pointer-events', 'none');
-				}
+				}*/
 
 				$(".rh-on").eq(i).css('display', 'block');
 				$(".ranking-user").eq(i).css('display', 'block');
 
-				selectRankingHeart(i, data[i].userId);
+				
 				//console.log('i : ', i);
 				//console.log('data[i].userId : ', data[i].userId);
 			}
@@ -281,38 +290,21 @@ function selectRanking() {
 $(document).on('click', '.ranking .ranking-user', function(e) {
 	//console.log($(this).attr("id"));
 	
-	//$("#notice-x-btn").css('pointer-events', 'none');
-	
 	let rankingId = $(this).attr("id");
 
-	document.querySelector(".info-modal").classList.remove("hidden");
-	
-	/*if (document.querySelector(".info-modal").classList.add("hidden")){
-		$("#notice-x-btn").css('cursor', 'pointer');
-	}*/
 
-	window.sessionStorage.setItem("clickedUserId", rankingId);
-
-	getUserInfo();
-	modalstopfn();
+	if(getSessionStorage("loginUser") == rankingId){
+		getMyInfo();
+		document.querySelector(".my-info-modal").classList.remove("hidden");
+		modalstopfn();
+	} else {
+		window.sessionStorage.setItem("clickedUserId", rankingId);
+		getUserInfo();
+		document.querySelector(".info-modal").classList.remove("hidden");
+		modalstopfn();
+	}
 });
 
 
 
-/*db에 저장된 호감도 카운트 불러오기*/
-function selectRankingHeart(num, receiveId) {
-	$.ajax({
-		url: getContextPath() + "/countHeart",
-		type: 'post',
-		data: { receiveId },
-		success: function(data) {
-			//console.log('호감도 개수 : ', data);
 
-			$(".rh-int").eq(num).html(data);
-
-		},
-		error: function() {
-			console.log("error");
-		}
-	});
-}

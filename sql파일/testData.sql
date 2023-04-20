@@ -33,7 +33,14 @@ BEGIN
 END;
 /
 
-
+        INSERT INTO MEMBER(USER_ID, USER_PWD, NICKNAME)
+		VALUES( 'riddl5076', 'Cix5A9mtSQHGA/l511EGmsfi1NlIMr88Vad50mhToxCBDNCFgyHwafm8t0hUgt/bH5H6iivuCllsUHX/5OJTPQ==', '칙촉');
+        
+        INSERT INTO LOGIN_API(USER_ID, API_KIND, API_KEY)
+		VALUES( 'riddl5076' , 'kakao', '가상의kakao키');
+        
+        INSERT INTO CHARACTER(USER_ID, SKIN_ID)
+		VALUES( 'riddl5076' , 0);
 
 BEGIN 
     FOR I IN 1..22
@@ -107,7 +114,7 @@ BEGIN
 		VALUES( 't'||SEQ_TEST.NEXTVAL , 'test', SYSDATE);
         
         INSERT INTO HEART(USER_ID, RECEIVE_ID, CREATE_DATE)
-		VALUES( 't'||SEQ_TEST.CURRVAL , 'test', SYSDATE-7);
+		VALUES( 't'||SEQ_TEST.CURRVAL , 'riddl5076', SYSDATE-7);
     END LOOP;
 END;
 /
@@ -138,7 +145,67 @@ BEGIN
 END;
 /
 
-
+    -- 실험용 유저 데이터 추가
+    INSERT INTO NOTICE( NOTICE_NO, NOTICE_TITLE, NOTICE_CONTENT)
+        VALUES ( SEQ_NOTICE.NEXTVAL,'첫번째 공지사항 입니다.',
+                '안녕하세요, MZONE 이용자 여러분.
+                
+                매주 월요일은 MZONE 정기점검입니다.
+                
+                ▣ 점검시간과 작업영향
+                
+                - 4월 24일(월) 오전 9시 ~ 오후 1시
+                
+                : 홈페이지 접속이 원활하지 않습니다.
+                : 게임코인 서비스 이용이 원활하지 않습니다.
+                
+                안내 드리는 내용 참고하셔서 이용에 불편 없으시길 바랍니다.
+                
+                감사합니다.');
+    
+    INSERT INTO NOTICE( NOTICE_NO, NOTICE_TITLE, NOTICE_CONTENT)
+        VALUES ( SEQ_NOTICE.NEXTVAL,'게임 업데이트 사항',
+                '스킨팡이 새롭게 오픈했습니다.
+                많은 이용 부탁드립니다!');
+                
+    INSERT INTO NOTICE( NOTICE_NO, NOTICE_TITLE, NOTICE_CONTENT)
+        VALUES ( SEQ_NOTICE.NEXTVAL,'게임 업데이트 사항',
+                '카드 뒤집기가 새롭게 오픈했습니다.
+                친구와 함께 즐겨주세요!');
+                
+    INSERT INTO NOTICE( NOTICE_NO, NOTICE_TITLE, NOTICE_CONTENT)
+        VALUES ( SEQ_NOTICE.NEXTVAL,'네번째 공지사항 입니다.',
+                '안녕하세요, MZONE 이용자 여러분.
+                
+                매주 월요일은 MZONE 정기점검입니다.
+                
+                ▣ 점검시간과 작업영향
+                
+                - 4월 17일(월) 오전 9시 ~ 오후 1시
+                
+                : 홈페이지 접속이 원활하지 않습니다.
+                : 게임코인 서비스 이용이 원활하지 않습니다.
+                
+                안내 드리는 내용 참고하셔서 이용에 불편 없으시길 바랍니다.
+                
+                감사합니다.');
+                
+    INSERT INTO NOTICE( NOTICE_NO, NOTICE_TITLE, NOTICE_CONTENT)
+        VALUES ( SEQ_NOTICE.NEXTVAL,'다섯번째 공지사항 입니다.',
+                '안녕하세요, MZONE 이용자 여러분.
+                
+                매주 월요일은 MZONE 정기점검입니다.
+                
+                ▣ 점검시간과 작업영향
+                
+                - 4월 10일(월) 오전 9시 ~ 오후 1시
+                
+                : 홈페이지 접속이 원활하지 않습니다.
+                : 게임코인 서비스 이용이 원활하지 않습니다.
+                
+                안내 드리는 내용 참고하셔서 이용에 불편 없으시길 바랍니다.
+                
+                감사합니다.');
 
 
 COMMIT;

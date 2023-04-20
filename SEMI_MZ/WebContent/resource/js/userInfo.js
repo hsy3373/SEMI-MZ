@@ -5,7 +5,7 @@
 * 유저 정보창 js
 */
 
-import { getContextPath } from './common.js';
+import { getContextPath, getSessionStorage } from './common.js';
 import { modalstopfn } from './squareCanvas.js';
 import { openChatRoom } from './chat/chatFront.js';
 import * as Alert from "./alert.js";
@@ -15,16 +15,12 @@ import { homeOpenAlert } from "./homeAlert.js";
 let plusBtn = document.querySelector(".plus");
 let deleteBtn = document.querySelector(".delete");
 let reportBtn = document.querySelector(".report-btn");
-let userGender = document.querySelector("#user-gender");
 
-let alert = document.querySelector(".alert");
-	alert.classList = "alert " + "infoAlert";
+//let userGender = document.querySelector("#user-gender");
+//let userHeart = document.querySelector("#user-heart");
 
-let alertOverlay = document.querySelector(".alert-overlay");
-	alertOverlay.classList = "alert-overlay " + "infoAlert-overlay";
-
+// 유저 정보창에서 alert 떠있을 시 오버레이 클릭 안되게 유저 정보창 전용 오버레이 만듦
 let infoModalOverlay = document.querySelector(".info-modal-overlay");
-let reportModalOverlay = document.querySelector(".report-modal-overlay");
 
 let infoModalOpenOverlay = function() {
 	infoModalOverlay.style.display = "block";
@@ -34,6 +30,9 @@ let infoModalCloseOverlay = function() {
 	infoModalOverlay.style.display = "none";
 }
 
+// 유저 신고창에서 alert 떠있을 시 오버레이 클릭 안되게 유저 신고창 전용 오버레이 만듦
+let reportModalOverlay = document.querySelector(".report-modal-overlay");
+
 let reportModalOpenOverlay = function() {
 	reportModalOverlay.style.display = "block";
 }
@@ -42,20 +41,31 @@ let reportModalCloseOverlay = function() {
 	reportModalOverlay.style.display = "none";
 }
 
+// 유저 정보창에서만 쓰일 alert
+function infoAlert(){
+	let alert = document.querySelector(".alert");
+	alert.classList = "alert " + "infoAlert";
 
+	let alertOverlay = document.querySelector(".alert-overlay");
+	alertOverlay.classList = "alert-overlay " + "infoAlert-overlay";
+}
+
+// 1:1 채팅 클릭 시 클릭한 해당 유저와의 채팅방 생성
 document.querySelector(".info-chatting").addEventListener("click", function() {
 	openChatRoom(sessionStorage.clickedUserId);
 });
 
+/* 놀러가기 클릭 시 클릭한 해당 유저의 마이룸으로 이동 */
+document.querySelector(".friend-home").addEventListener("click", function() {
+	location.href = getContextPath() + '/home?roomMaster=' + sessionStorage.clickedUserId;
+});
+/* 홈 버튼 클릭 시 나의 마이룸으로 이동 */
+document.querySelector("#info-my-room").addEventListener("click", function() {
+	location.href = getContextPath() + '/home';
+});
 
-if (document.querySelector(".friend-home")) {
-	document.querySelector(".friend-home").addEventListener("click", function() {
-		location.href = getContextPath() + '/home?roomMaster=' + sessionStorage.clickedUserId;
-	});
-}
 
-/*유저 정보 모달창*/
-
+/*유저 정보 모달창 닫기*/
 let close = () => {
 	document.querySelector(".info-modal").classList.add("hidden");
 	if(!document.getElementById("tree")){
@@ -64,29 +74,34 @@ let close = () => {
 	infoModalCloseOverlay();
 }
 
-
 document.querySelector("#info-x-btn").addEventListener("click", close);
+
+// 내 정보 모달창 닫기
+let closeMyInfo = () => {
+	document.querySelector(".my-info-modal").classList.add("hidden");
+		modalstopfn();
+		infoModalCloseOverlay();
+}
+
+document.querySelector("#my-info-x-btn").addEventListener("click", closeMyInfo);
 
 
 
 let nickName;
 
-/*유저 정보 가져오기*/
-/*
-	sessionStorage.clickedUserId
-*/
+/*다른 유저 정보 가져오기*/
 export function getUserInfo() {
-	//console.log('d')
 	selectHeart();
 	selectFriend();
-	countHeart();
+	countHeart(sessionStorage.clickedUserId);
+	//console.log('클릭한 유저', sessionStorage.clickedUserId);
 	infoModalOpenOverlay();
 	$.ajax({
 		url: getContextPath() + "/userInfo",
-		data: { userId: sessionStorage.clickedUserId }, /*userId = 로그인 유저(나)x , 다른 유저*/
+		data: { userId: sessionStorage.clickedUserId },
 		method: 'post',
 		success: function(data) {
-			// console.log('유저 정보 가져왔음 : ', data);
+			 //console.log('유저 정보 가져왔음 : ', data);
 
 			// 데이터 가져오기	
 			nickName = data.nicName;
@@ -98,7 +113,7 @@ export function getUserInfo() {
 			$("#info-skin").attr("src", getContextPath() + '/resource/img/user/skin' + skinId + '/fs.png');
 
 			if (data.info == null) {
-				$(".info-introduce").html("");
+				$(".info-introduce").html("작성된 자기소개가 없습니다.");
 			} else {
 				$(".info-introduce").html(data.info);
 			}
@@ -108,29 +123,90 @@ export function getUserInfo() {
 
 
 			if (gender == 'W') {
-				/*$("#gender-w").attr("src", getContextPath()+"/resource/img/icon/여자.png");
+				$("#gender-w").attr("src", getContextPath()+"/resource/img/icon/여자.png");
 				
 				$('#gender-w').css('display', 'block');
 				$('#gender-m').css('display', 'none');
-				$('#gender-n').css('display', 'none');*/
-				userGender.classList.add("gender-w");
+				$('#gender-n').css('display', 'none');
+				//userGender.classList.add("gender-w");
 
 
 			} else if (gender == 'M') {
-				/*$("#gender-m").attr("src", getContextPath()+"/resource/img/icon/남자.png");
+				$("#gender-m").attr("src", getContextPath()+"/resource/img/icon/남자.png");
 				
 				$('#gender-w').css('display', 'none');
 				$('#gender-m').css('display', 'block');
-				$('#gender-n').css('display', 'none');*/
-				userGender.classList.add("gender-m");
+				$('#gender-n').css('display', 'none');
+				//userGender.classList.add("gender-m");
 
 			} else if (gender == 'N') {
-				/*$("#gender-n").attr("src", getContextPath()+"/resource/img/icon/성별비공개.png");
+				$("#gender-n").attr("src", getContextPath()+"/resource/img/icon/성별비공개.png");
 				
 				$('#gender-w').css('display', 'none');
 				$('#gender-m').css('display', 'none');
-				$('#gender-n').css('display', 'block');*/
-				userGender.classList.add("gender-n");
+				$('#gender-n').css('display', 'block');
+				//userGender.classList.add("gender-n");
+			}
+
+
+		}
+	});
+};
+
+/* 내 정보 가져오기 */
+export function getMyInfo() {
+	countHeart(getSessionStorage('loginUser'));
+	infoModalOpenOverlay();
+	//console.log('나 클릭함', getSessionStorage('loginUser'));
+	$.ajax({
+		url: getContextPath() + "/userInfo",
+		data: { userId: getSessionStorage('loginUser')},
+		method: 'post', 
+		success: function(data) {
+			 //console.log('유저 정보 가져왔음 : ', data);
+
+			// 데이터 가져오기	
+			nickName = data.nicName;
+			$(".my-info-nickname").html(nickName);
+
+			/* 스킨 경로가 비어있어 오류 뜸 */
+			let skinId = data.skinId;
+			$("#my-info-skin").attr("src", getContextPath() + '/resource/img/user/skin' + skinId + '/fs.png');
+
+			if (data.info == null) {
+				$(".my-info-introduce").html("작성된 자기소개가 없습니다.");
+			} else {
+				$(".my-info-introduce").html(data.info);
+			}
+
+			let gender = data.gender;
+			//console.log(gender);
+
+
+			if (gender == 'W') {
+				$("#my-gender-w").attr("src", getContextPath()+"/resource/img/icon/여자.png");
+				
+				$('#my-gender-w').css('display', 'block');
+				$('#my-gender-m').css('display', 'none');
+				$('#my-gender-n').css('display', 'none');
+				//userGender.classList.add("gender-w");
+
+
+			} else if (gender == 'M') {
+				$("#my-gender-m").attr("src", getContextPath()+"/resource/img/icon/남자.png");
+				
+				$('#my-gender-w').css('display', 'none');
+				$('#my-gender-m').css('display', 'block');
+				$('#my-gender-n').css('display', 'none');
+				//userGender.classList.add("gender-m");
+
+			} else if (gender == 'N') {
+				$("#my-gender-n").attr("src", getContextPath()+"/resource/img/icon/성별비공개.png");
+				
+				$('#my-gender-w').css('display', 'none');
+				$('#my-gender-m').css('display', 'none');
+				$('#my-gender-n').css('display', 'block');
+				//userGender.classList.add("gender-n");
 			}
 
 
@@ -210,17 +286,29 @@ function selectHeart() {
 	});
 }
 
-function countHeart() {
 	/*하트 총 개수 표시*/
+function countHeart(receiveId) {
 	$.ajax({
 		url: getContextPath() + "/countHeart",
 		type: 'post',
-		data: { receiveId: sessionStorage.clickedUserId },
+		data: { receiveId }, //sessionStorage.clickedUserId
 		success: function(data) {
+			 //console.log("좋아요 개수 : " + data);
+			if (receiveId == getSessionStorage('loginUser')) {
+				if (data > 0) {
+					$('#my-info-heart-off').css('display', 'none');
+					$('#my-info-heart-on').css('display', 'block');
+				}else{
+					$('#my-info-heart-off').css('display', 'block');
+					$('#my-info-heart-on').css('display', 'none');
+					
+				}
+				$(".my-heart-int").html(data);
+			} else if (receiveId == sessionStorage.clickedUserId) {
+				$(".heart-int").html(data);
+			}
+			//$(".heart-int").html(data);
 
-			// console.log("좋아요 개수 : " + data);
-
-			$(".heart-int").html(data);
 		},
 		error: function() {
 			console.log("error");
@@ -251,16 +339,15 @@ plusBtn.addEventListener("click", () => {
 	document.getElementById("alert-ok").innerText = "추가";
 
 	Alert.openAlert("user-plus");
-
-
+	
+	infoAlert();
 });
+
 /*동적요소에 이벤트 부여하기 위해 부모요소에게 이벤트를 부여함*/
 $('.alert').on('click', '.user-plus', function() {
 	/*본인이 실행할 이벤트를 여기에 적용!!!!!!*/
 	insertFriend();
 	Alert.closeAlert();
-	alert.classList.remove("infoAlert");
-	alertOverlay.classList.remove("infoAlert-overlay");
 })
 
 
@@ -288,6 +375,8 @@ deleteBtn.addEventListener("click", () => {
 	document.getElementById("alert-ok").innerText = "삭제";
 
 	Alert.openAlert("user-delete");
+	
+	infoAlert();
 
 });
 
@@ -295,8 +384,6 @@ $('.alert').on('click', '.user-delete', function() {
 	
 	deleteFriend();
 	Alert.closeAlert();
-	alert.classList.remove("infoAlert");
-	alertOverlay.classList.remove("infoAlert-overlay");
 })
 
 
@@ -350,6 +437,8 @@ reportBtn.addEventListener("click", () => {
 	document.getElementById("alert-ok").innerText = "신고";
 
 	Alert.openAlert("report-ok");
+	
+	infoAlert();
 });
 
 $('.alert').on('click', '.report-ok', function() {
@@ -359,8 +448,6 @@ $('.alert').on('click', '.report-ok', function() {
 		report();
 		
 		Alert.closeAlert();
-		alert.classList.remove("infoAlert");
-		alertOverlay.classList.remove("infoAlert-overlay");
 		
 		document.getElementById("home-alert-text").innerHTML = "신고가 접수되었습니다.";
 		homeOpenAlert();
@@ -370,8 +457,6 @@ $('.alert').on('click', '.report-ok', function() {
 		homeOpenAlert();
 		
 		Alert.closeAlert();
-		alert.classList.remove("infoAlert");
-		alertOverlay.classList.remove("infoAlert-overlay");
 		
 		$(".report-title-box").focus();
 	}  else if ($("#report-content-text").val() == "") {
@@ -380,8 +465,6 @@ $('.alert').on('click', '.report-ok', function() {
 		homeOpenAlert();
 		
 		Alert.closeAlert();
-		alert.classList.remove("infoAlert");
-		alertOverlay.classList.remove("infoAlert-overlay");
 		
 		$("#report-content-text").focus();
 	}

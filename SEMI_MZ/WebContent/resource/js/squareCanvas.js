@@ -7,6 +7,7 @@
 
 import { getContextPath,setip } from './common.js';
 import { getUserInfo } from './userInfo.js';
+import { getMyInfo } from './userInfo.js';
 import { gameModalopen } from './gamezone/gamezone.js';
 import { noticeModal } from './notice.js';
 
@@ -253,8 +254,8 @@ function update() {
 
   if (uesrX <= 1130 && uesrX >= 1000 && uesrY <= 463 && uesrY >= 426) {
     //캐릭터 좌표 어떻게 처리할지 정하기 : 게시판 보는동안 좌표값
-    document;
-    notice - modal;
+    noticeModal.style.display = 'block';
+    modalstop = true;
 
     uesrY = 468;
   }
@@ -363,7 +364,7 @@ let fnSocket = {
     receivedUserId = receivedUser.userId;
 
     if (receivedUser.connecting == "X") {
-      alert("이중 로그인 되었습니다. 재 로그인 해주세요");
+      localStorage.setItem("doubleLogin", true)
       location.href = path + "/logout"; //둘 다 쫒겨남..^^...
     }
 
@@ -444,6 +445,7 @@ function UserData(
 
 let skinImages = {};
 let moveMotion = true;
+let receivedUserMotion = true;
 
 //user 랜더링
 function usersreder() {
@@ -467,19 +469,23 @@ function usersreder() {
         return;
     }
 
-    if (receivedUserId == FilterUsers[i].userId) {
-      if (moveMotion) {
-        moveMotion = false;
+    if (receivedUserId == FilterUsers[i].userId){
+      if (receivedUserMotion) {
+        receivedUserMotion = false;
+        imgMotion += "d";
       } else {
-        moveMotion = true;
+        receivedUserMotion = true;
+        imgMotion += "s";
+      }
+    }else{
+      if (moveMotion) {
+        imgMotion += "d";
+      } else {
+        imgMotion += "s";
       }
     }
 
-    if (moveMotion) {
-      imgMotion += "d";
-    } else {
-      imgMotion += "s";
-    }
+   
 
 
     //불러온 img skinimg에 넣어줌
@@ -567,6 +573,13 @@ export let defaultEvent = function () {
   canvas.addEventListener("click", function (e) {
     let x = e.clientX; //클릭좌표값
     let y = e.clientY; //클릭좌표값
+
+    //console.log(x, y);
+	if (x >= uesrX && x <= uesrX + 50 && y >= uesrY && y <= uesrY + 50) {
+		document.querySelector('.my-info-modal').classList.remove('hidden');
+		getMyInfo();
+		modalstopfn();
+	}
 
     for (let user of FilterUsers) {
       //랜더링된 filter user 정보 받아서 좌표값 체크

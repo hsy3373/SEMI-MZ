@@ -530,7 +530,8 @@ public class MemberDao {
 				
 				Member m = new Member(rset.getString("USER_ID"),
 						              rset.getString("NICKNAME"),
-						              rset.getInt("SKIN_ID"));
+						              rset.getInt("SKIN_ID"),
+						              rset.getInt("COUNT"));
 				// df.format(rset.getDate("CREATE_DATE"))
 				list.add(m);
 			}
