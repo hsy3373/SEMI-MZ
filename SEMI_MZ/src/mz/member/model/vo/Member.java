@@ -24,6 +24,9 @@ public class Member {
 	//USER_COUNT, RECEIVE_COUNT
 	private int userReportCount, receiveReportCount;
 	
+	// [가영  - 호감도 랭킹 하트 카운터]
+	private int heartCount;
+	
 	public Member() {
 	}
 
@@ -33,6 +36,7 @@ public class Member {
 		this.userPwd = userPwd;
 		this.nicName = nicName;
 	}
+
 
 	public Member(String userId, String userPwd, String nicName, String status, int skinId, int coin, String info,
 			String gender, Date date) {
@@ -58,7 +62,7 @@ public class Member {
 		this.gender = gender;
 	}
 	
-	// 호감도 랭킹 - 가영
+	
 	//userList - 지영
 	public Member(String userId, String nicName, int skinId) {
 		super();
@@ -66,8 +70,16 @@ public class Member {
 		this.nicName = nicName;
 		this.skinId = skinId;
 	}
-
 	
+	// 호감도 랭킹 - 가영
+	public Member(String userId, String nicName, int skinId, int heartCount) {
+		super();
+		this.userId = userId;
+		this.nicName = nicName;
+		this.skinId = skinId;
+		this.heartCount = heartCount;
+	}
+
 	// [han] 어드민 멤버 페이지용
 	public Member(String userId, String nicName, String status, int coin, String formatDate, String apiKind,  String cancellationDate ) {
 		super();
@@ -118,6 +130,13 @@ public class Member {
 	}
 
 
+	public int getHeartCount() {
+		return heartCount;
+	}
+
+	public void setHeartCount(int heartCount) {
+		this.heartCount = heartCount;
+	}
 
 	public String getUserId() {
 		return userId;
