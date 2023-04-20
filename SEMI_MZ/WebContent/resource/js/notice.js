@@ -46,22 +46,27 @@ function NoticeList() {
 		url: getContextPath() + "/selectNotice",
 		success: function(data) {
 			//console.log(data);
-
+			let num = 0;
+			
 			if (data.length > 4) {
-				data.length = 4;
+				num = 4;
 			} else {
-				data.length = data.length;
+				num = data.length;
 			}
 
 			let str = "";
 
-			if (data.length > 0) {
-				for (let i = 0; i < data.length; i++) {
-					str += "<div class='list-post'>"
-						+ "<div class='notice-title'>" + data[i].title + "</div>"
-						+ "</div>";
-
-					//data[3].title = '더보기';
+			if (num > 0) {
+				for (let i = 0; i < num; i++) {
+					if (i == 3) {
+						str += "<div class='list-post'>"
+							+ "<div class='notice-title'>" + '더보기' + "</div>"
+							+ "</div>";
+					} else {
+						str += "<div class='list-post'>"
+							+ "<div class='notice-title'>" + data[i].title + "</div>"
+							+ "</div>";
+					}
 				}
 			} else {
 				str += "<div class='list-post' style='pointer-events: none;'>"
@@ -137,7 +142,9 @@ function displayData(currentPage, noticeLimit) {
 
 		$(".notice-detail-title").html(noticeList[0].noticeTitle);
 
-		$(".notice-content").html(noticeList[0].noticeContent);
+		let content = noticeList[0].noticeContent;
+		content = content.replace(/(?:\r\n|\r|\n)/g, "<br/>");
+		$(".notice-content").html(content);
 	}
 
 	$(".notice-detail-list").html(str);
@@ -234,6 +241,7 @@ function selectNoticeDetail(noticeNo) {
 			$(".notice-detail-title").html(title);
 
 			let content = data.content;
+			content = content.replace(/(?:\r\n|\r|\n)/g, "<br/>");
 			$(".notice-content").html(content);
 
 
@@ -282,29 +290,19 @@ function selectRanking() {
 $(document).on('click', '.ranking .ranking-user', function(e) {
 	//console.log($(this).attr("id"));
 	
-	//$("#notice-x-btn").css('pointer-events', 'none');
-	
 	let rankingId = $(this).attr("id");
 
-	document.querySelector(".info-modal").classList.remove("hidden");
-	
-	/*if (document.querySelector(".info-modal").classList.add("hidden")){
-		$("#notice-x-btn").css('cursor', 'pointer');
-	}*/
 
-	/*if (window.sessionStorage.setItem("clickedUserId", rankingId)) {
+	if(getSessionStorage("loginUser") == rankingId){
+		getMyInfo();
+		document.querySelector(".my-info-modal").classList.remove("hidden");
+		modalstopfn();
+	} else {
+		window.sessionStorage.setItem("clickedUserId", rankingId);
 		getUserInfo();
+		document.querySelector(".info-modal").classList.remove("hidden");
 		modalstopfn();
 	}
-	
-	if (window.sessionStorage.setItem("loginUser", rankingId)) {
-		getMyInfo();
-		modalstopfn();
-	}*/
-	window.sessionStorage.setItem("clickedUserId", rankingId);
-
-	getUserInfo();
-	modalstopfn();
 });
 
 
