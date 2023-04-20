@@ -7,6 +7,7 @@
 
     import { getContextPath } from './common.js';
     import { homeOpenAlert } from "./homeAlert.js";
+    import { openAlert, closeAlert, cancelConfrim } from "./alert.js";
     let path = getContextPath();
 
 ////////////////////////// 정규식 /////////////////////////////
@@ -21,16 +22,17 @@
     // 숫자, 특수기호만(영문 빠짐)
     let regPwd3 = /^(?=.*[a-zA-Z])(?=.*[!@#$%^&*_])[a-zA-Z!@#$%^&*_]{8,16}$/;
     // 영문, 특수기호만(숫자 빠짐)
-    let regPwd4 = /^(?=.*[a-zA-Z])[a-zA-Z]{8,16}$/;  //영문만
-    let regPwd5 = /^(?=.*[0-9])[0-9]{8,16}$/; //숫자만
-    let regPwd6 = /^(?=.*[!@#$%^&*_])[!@#$%^&*_]{8,16}$/; //특수기호만
+    //let regPwd4 = /^(?=.*[a-zA-Z])[a-zA-Z]{8,16}$/;  //영문만
+    //let regPwd5 = /^(?=.*[0-9])[0-9]{8,16}$/; //숫자만
+    //let regPwd6 = /^(?=.*[!@#$%^&*_])[!@#$%^&*_]{8,16}$/; //특수기호만
 
     let regId = /^[a-zA-Z0-9_]{5,20}$/;
     let regNic = /^[가-힣0-9\w]{2,8}$/;
     let regPwd = /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*_])[a-zA-Z0-9!@#$%^&*_]{8,16}$/;
-    let regself = /{,100}/;
+    //let regself = /{,100}/;  // 자기소개 if문 length로 처리
 
-    /////////////////////회원가입버튼 활성화용 객체/////////////////////////////
+
+    /* 회원가입버튼 활성화용 객체 */
    export let validateObj = {
         id : false,
         chkid : false,
@@ -41,8 +43,7 @@
         agree : false
     }
 
-
-//============아이디 input 하단 텍스트 조건문=============
+//============회원가입 아이디 input 하단 텍스트 조건문=============
     $('.enroll-id').keyup(function(){
         let id = this.value;
         validateObj.id = false;
@@ -76,7 +77,7 @@
         enabledSubmit();
     });
 
-//============닉네임 input 하단 텍스트 조건문=============
+//============회원가입 닉네임 input 하단 텍스트 조건문=============
 $('.enroll-nic').keyup(function(){
     let nic = this.value;
     validateObj.nick = false;
@@ -110,7 +111,8 @@ $('.enroll-nic').keyup(function(){
     enabledSubmit();
 });
 
-//============비밀번호 하단 안내 텍스트 조건문=============
+//============ 회원가입 비밀번호 하단 안내 텍스트 조건문=============
+
 // 영문 숫자 특수기호 각 1개씩 필수로 입력해야하는 조건 추가
 $('.enroll-pwd').keyup(function(){
     let pwd = this.value;
@@ -160,7 +162,7 @@ $('.enroll-pwd').keyup(function(){
     }
     enabledSubmit();
 });
-// 비밀번호 확인 키업
+// 회원가입 비밀번호 확인 키업
 $('.enroll-chkpwd').keyup(function(){
     let chkpwd = this.value;
     let pwd = $('.enroll-pwd').val();
@@ -172,7 +174,7 @@ $('.enroll-chkpwd').keyup(function(){
         txt.html("비밀번호 확인란에 동일하게 입력해 주세요.");
         validateObj.chkpwd = false;
     }
-    if(regPwd.test(pwd) && regPwd.test(chkpwd)){
+    if(regPwd.test(pwd)){
         if(pwd == chkpwd){
             txt.css('color','green');
             txt.html("일치");
@@ -188,7 +190,7 @@ $('.enroll-chkpwd').keyup(function(){
     enabledSubmit();
 });
 
-////////////////회원가입 약관동의체크/////////////////////////
+///////////회원가입 약관동의체크////////////
 $('#check-agree').click(function(){
     if(!$('#check-agree').is(':checked')){
         console.log($('#check-agree').is('checked'))
@@ -210,44 +212,68 @@ $('#check-agree').click(function(){
 			data : {enrollId: enrollId},
 			success: (result) => {
 				
-				if(result == "N"){ // 사용불가(존재하는 아이디)
-					//alert("이미 존재하는 아이디입니다. 다시 입력해주세요.");
+				if(result == "N"){ // 사용불가(이미 존재하는 아이디)
 
                     /*alert*/
-                    document.getElementById("home-alert-text").innerHTML = "이미 존재하는 닉네임입니다.<br> 다시 입력해주세요.";
+                    document.getElementById("home-alert-text").innerHTML = "이미 존재하는 아이디입니다.<br> 다시 입력해주세요.";
                     /*alert 창 띄우기*/
                     homeOpenAlert();
 
+                    // 모달 다시 리셋 (기본 초기화)
                     $('input[name=enrollId]').val("");
                     $('input[name=enrollId]').focus();
                     txt.css('color', 'black');
                     txt.html("영문, 숫자, 특수기호(_) 사용하여 5~20자 공백없이 가능");
 					validateObj.chkid= false;
                     $('.check-id').attr("disabled", true);
+                    enabledSubmit();
 				}
 				if(result == "Y"){ // 사용가능
-                    //alert("사용가능");
-					let useId = confirm("사용가능한 아이디입니다. 사용하시겠습니까?");
-                    console.log("confirm 결과값 : " + useId );
-					if(useId == 0){ // 취소버튼(flase 반환)
-                        $('input[name=enrollId]').val("");
-                        $('input[name=enrollId]').focus();
-                        txt.css('color', 'black');
-                        txt.html("영문, 숫자, 특수기호(_) 사용하여 5~20자 공백없이 가능");
-                        validateObj.chkid= false;
-                    }else{ // 확인버튼(true 반환)       
-                        // readonly 속성 추가 (아이디 다시 못바꾸게)
-                       $('input[name=enrollId]').prop('readonly', true);
-                        $('input[name=enrollId]').css('color','rgb(107, 107, 107)');
-                        txt.html("사용가능.");
-                        validateObj.chkid= true;
-                    }
-                    $('.check-id').attr("disabled", true);
+
+                    /* 아이디 중복확인 후 사용 유무 confirm */
+                    document.getElementById("alert-text").innerHTML = "사용가능한 아이디입니다.<br> 사용하시겠습니까?";
+	                openAlert("checkId-using");
+                    cancelConfrim("checkId-Not-using");
+    
 				}
-                enabledSubmit();
 			}
-		})
+		})        
 	});
+
+    /*confirm창 확인버튼 클릭시 요청처리*/
+    $(".alert").on("click", ".checkId-using", function(){
+       
+		let txt = $('.idcheck-txt');
+        $('input[name=enrollId]').prop('readonly', true);
+        $('input[name=enrollId]').css('color','rgb(107, 107, 107)');
+        txt.html("사용가능.");
+        validateObj.chkid= true;
+        $('.check-id').attr("disabled", true);
+        enabledSubmit();
+        closeAlert();
+
+    });
+
+
+     /*confirm창 취소버튼 클릭시 요청처리*/
+     $(".alert").on("click", ".checkId-Not-using", function(){
+
+        let txt = $('.idcheck-txt');
+        $('input[name=enrollId]').val("");
+        $('input[name=enrollId]').focus();
+        txt.css('color', 'black');
+        txt.html("영문, 숫자, 특수기호(_) 사용하여 5~20자 공백없이 가능");
+        validateObj.chkid= false;
+        $('.check-id').attr("disabled", true);
+        enabledSubmit();
+        document.querySelector(".alert-cancel").classList = "button alert-cancel";
+
+   });
+
+
+
+
+
 
 /////////* 회원가입 닉네임 중복확인 여부 기능*////////////
 $('.check-nic').on("click", function(){
@@ -262,7 +288,6 @@ $('.check-nic').on("click", function(){
         success: (result) => {
             
             if(result == "N"){ // 사용불가(존재하는 닉네임)
-                //alert("이미 존재하는 닉네임입니다. 다시 입력해주세요.");
 
                 /*alert*/
                 document.getElementById("home-alert-text").innerHTML = "이미 존재하는 닉네임입니다.<br> 다시 입력해주세요.";
@@ -275,30 +300,43 @@ $('.check-nic').on("click", function(){
                 txt.html("영문, 한글, 숫자, 특수기호(_) 사용하여 2~8자까지 공백없이 가능");
                 validateObj.chknick= false;
                 $('.check-nic').attr("disabled", true);
+                enabledSubmit();
             }
             if(result == "Y"){ // 사용가능
-                // confirm 창 (확인/취소)
-                let useNick = confirm("사용가능한 닉네임입니다. 사용하시겠습니까?");
-                
-                if(useNick == 0){ // 취소버튼(flase 반환)
-                    $('input[name=enrollNick]').val("");
-                    $('input[name=enrollNick]').focus();
-                    txt.css('color', 'black');
-                    txt.html("영문, 숫자, 특수기호(_) 사용하여 5~20자 공백없이 가능");
-                    validateObj.chknick= false;
-                }else{ // 확인버튼(true 반환)       
-                    // readonly 속성 추가 (닉네임 다시 못바꾸게)
-                    $('input[name=enrollNick]').prop('readonly', true);
-                    $('input[name=enrollNick]').css('color','rgb(107, 107, 107)');
-                    txt.html("사용가능.");
-                    validateObj.chknick= true;
-                }
-                $('.check-nic').attr("disabled", true);
+                /* 닉네임 중복확인 후 사용 유무 confirm */
+                document.getElementById("alert-text").innerHTML = "사용가능한 닉네임입니다.<br> 사용하시겠습니까?";
+	            openAlert("checkNick-using");
+                cancelConfrim("checkNick-Not-using");
+
             }
-            enabledSubmit();
         }
     })
 });
+
+    /*confirm창 확인버튼 클릭시 요청처리*/
+    $(".alert").on("click", ".checkNick-using", function(){
+        let txt = $('.niccheck-txt');
+        $('input[name=enrollNick]').prop('readonly', true);
+        $('input[name=enrollNick]').css('color','rgb(107, 107, 107)');
+        txt.html("사용가능.");
+        validateObj.chknick= true;
+        $('.check-nic').attr("disabled", true);
+        enabledSubmit();
+        closeAlert();
+    });
+
+    /*confirm창 취소버튼 클릭시 요청처리*/
+    $(".alert").on("click", ".checkNick-Not-using", function(){
+        let txt = $('.niccheck-txt');
+        $('input[name=enrollNick]').val("");
+        $('input[name=enrollNick]').focus();
+        txt.css('color', 'black');
+        txt.html("영문, 숫자, 특수기호(_) 사용하여 5~20자 공백없이 가능");
+        validateObj.chknick= false;
+        $('.check-nic').attr("disabled", true);
+        enabledSubmit();
+        document.querySelector(".alert-cancel").classList = "button alert-cancel";
+    });
 
 /* ==========회원가입 버튼 활성화===========*/
 // 1. 아이디 유효성 검사 충족 0
@@ -308,6 +346,7 @@ $('.check-nic').on("click", function(){
 // 5. 비밀번호 유효성 검사 충족 0
 // 6. 비밀번호확인 == 비밀번호 0
 // 7. 이용약관 동의 체크 0
+
 export function enabledSubmit(){
     let enrollBtn = document.getElementById("enroll-btn");
     console.log(validateObj)
@@ -324,10 +363,10 @@ export function enabledSubmit(){
     // 활성화
     enrollBtn.disabled = false;
 }
-/////////////////////////////회원가입 유효성 활성화 끝//////////////////////////////////////
+/* 회원가입 유효성 / 활성화 끝 */
 
-
-//=========== 새 비밀번호 설정 하단 txt ===============
+/* 아이디 비밀번호 찾기 => 비밀번호 재설정 모달 */
+// 비밀번호 하단 txt
 export let newPwdObj = {
     pwd : false,
     chkpwd : false
@@ -393,7 +432,7 @@ $('.re-chkpwd').keyup(function(){
         txt.html("비밀번호 확인란에 동일하게 입력해 주세요.");
         newPwdObj.chkpwd = false;
     }
-    if(regPwd.test(pwd) && regPwd.test(chkpwd)){
+    if(regPwd.test(pwd)){
         if(pwd == chkpwd){
             txt.css('color','green');
             txt.html("일치");
@@ -409,24 +448,23 @@ $('.re-chkpwd').keyup(function(){
 
 });
 
-///============비밀번호 재설정 활성화 함수===============//
+//비밀번호 재설정 활성화 함수
 export function newpwdEnable(){
     let btn = document.getElementById("newpwd-btn");
-    //console.log(newPwdObj)
 
     for(let key in newPwdObj){
-        //console.log(newPwdObj[key])
         if(!newPwdObj[key]){
-            //console.log(newPwdObj[key])
             btn.disabled = true;
             return;
         }
     }
     btn.disabled = false;
 }
-///////////////////////////////////////////////////////////////////////////
 
-//=========== 내 정보 변경 하단 txt ===============
+/* 비밀번호 재설정 끝 */
+
+
+/* 내정보 변경 모달 */
 export let cgeInfoObj = {
     nick : true,
     chknick : true,
@@ -435,14 +473,11 @@ export let cgeInfoObj = {
     info : true
 }
 
-//===== 닉네임 변경 =====
+// 내정보변경(닉네임)
 $('.cge-nick').keyup(function(){
     let nic = this.value;
     let txt = $('.cgenick-txt');
     
-    // if(regNic.test(nic) == 0){
-    //     $('.rncheck-btn').attr("disabled", true);
-    // }
     if(nic == ""){
         txt.css('color','black');
         txt.html("영문, 한글, 숫자, 특수기호(_) 사용하여 2~8자까지 공백없이 가능");
@@ -487,7 +522,7 @@ $('.cge-nick').keyup(function(){
     //console.log(cgeInfoObj)
 });
 
-//===== 자기소개 textarea =====
+// 내정보변경(자기소개 textarea)
 $('.rself-info').keyup(function(){
     let selfInfo = this.value;
     let txt = $('#self-txt');
@@ -510,7 +545,7 @@ $('.rself-info').keyup(function(){
     cgeInfoEnable();
 });
 
-//=====  내정보 pw 변경 =======
+//내정보변경(비밀번호)
 $('.cge-pwd').keyup(function(){
     let pwd = this.value;
     let chkpwd = $('.cge-chkpwd').val();
@@ -587,7 +622,7 @@ $('.cge-pwd').keyup(function(){
     cgeInfoEnable();
 });
 
-//=========내정보변경 pw확인 =============
+//내정보변경(비밀번호 확인)
 $('.cge-chkpwd').keyup(function(){
     let chkpwd = this.value;
     let pwd = $('.cge-pwd').val();
@@ -625,7 +660,7 @@ $('.cge-chkpwd').keyup(function(){
         }
     }
 
-    if(regPwd.test(pwd)==1 && regPwd.test(chkpwd)==1){
+    if(regPwd.test(pwd)==1){
         if(pwd != chkpwd){
             cgeInfoObj.chkpwd = false;
         }
@@ -639,7 +674,7 @@ $('.cge-chkpwd').keyup(function(){
     cgeInfoEnable();
 });
 
-/////////* 내정보변경 닉네임 중복확인 여부 기능*////////////
+//내정보변경(닉네임 중복확인버튼-중복여부) 
 $('.rncheck-btn').on("click", function(){
 		
     let infoNick = $('input[name=cge-nick]').val();
@@ -650,44 +685,56 @@ $('.rncheck-btn').on("click", function(){
         success: (result) => {
             
             if(result == "N"){ // 사용불가(존재하는 닉네임)
-               // alert("이미 존재하는 닉네임입니다. 다시 입력해주세요.");
-
+                
                  /*alert*/
                  document.getElementById("home-alert-text").innerHTML = "이미 존재하는 닉네임입니다.<br> 다시 입력해주세요.";
                  /*alert 창 띄우기*/
                  homeOpenAlert();
 
-
                 $('.cge-nick').val(orgName);
-                //$('input[name=cge-nick]').val("");
                 $('input[name=cge-nick]').focus();
                 $('.cgenick-txt').css('color', 'black');
                 $('.cgenick-txt').html("영문, 한글, 숫자, 특수기호(_) 사용하여 2~8자까지 공백없이 가능");
                 cgeInfoObj.chknick = true;
                 $('.rncheck-btn').attr("disabled", true); // 중복확인 버튼은 disabled
+                cgeInfoEnable();
             }
             if(result == "Y"){ // 사용가능
-                // confirm 창 (확인/취소)
-                let useNick = confirm("사용가능한 닉네임입니다. 사용하시겠습니까?");
-                
-                if(useNick == 0){ // 취소버튼(flase 반환)
-                    $('input[name=cge-nick]').val("");
-                    $('input[name=cge-nick]').focus();
-                    $('.cgenick-txt').css('color', 'black');
-                    $('.cgenick-txt').html("영문, 숫자, 특수기호(_) 사용하여 5~20자 공백없이 가능");
-                }else{ // 확인버튼(true 반환)       
-                    // readonly 속성 추가 (닉네임 다시 못바꾸게)
-                    $('input[name=cge-nick]').prop('readonly', true);
-                    $('input[name=cge-nick]').css('color','rgb(107, 107, 107)');
-                    $('.cgenick-txt').html("사용가능.");
-                }
-                cgeInfoObj.chknick = true;
-                $('.rncheck-btn').attr("disabled", true);
+                /* 닉네임 중복확인 후 사용여부 confirm */
+                document.getElementById("alert-text").innerHTML = "사용가능한 닉네임입니다.<br> 사용하시겠습니까?";
+	            openAlert("checkNick-using-info");
+                cancelConfrim("checkNick-Not-using-info");
             }
-            cgeInfoEnable();
         }
     })
 });
+
+    /*confirm창 확인버튼 클릭시 요청처리*/
+    $(".alert").on("click", ".checkNick-using-info", function(){
+       
+        $('input[name=cge-nick]').prop('readonly', true);
+        $('input[name=cge-nick]').css('color','rgb(107, 107, 107)');
+        $('.cgenick-txt').html("사용가능.");
+        cgeInfoObj.chknick = true;
+        $('.rncheck-btn').attr("disabled", true);
+        cgeInfoEnable();
+        closeAlert();
+    });
+
+    /*confirm창 취소버튼 클릭시 요청처리*/
+    $(".alert").on("click", ".checkNick-Not-using-info", function(){
+        
+        $('input[name=cge-nick]').val("");
+        $('input[name=cge-nick]').focus();
+        $('.cgenick-txt').css('color', 'black');
+        $('.cgenick-txt').html("영문, 숫자, 특수기호(_) 사용하여 5~20자 공백없이 가능");
+        cgeInfoObj.chknick = true;
+        $('.rncheck-btn').attr("disabled", true);
+        cgeInfoEnable();
+
+        document.querySelector(".alert-cancel").classList = "button alert-cancel";
+    });
+
 ///============ 내정보변경 정보수정버튼 활성화 함수===============//
 
 // -활성화 조건
@@ -720,4 +767,4 @@ export function cgeInfoEnable(){
         }
     }
     btn.disabled = false;
-}
+};

@@ -5,8 +5,9 @@
 
 /* js 가져오기  */
 
-import { getContextPath } from './common.js';
+import { getContextPath,setip } from './common.js';
 import { getUserInfo } from './userInfo.js';
+import { getMyInfo } from './userInfo.js';
 import { gameModalopen } from './gamezone/gamezone.js';
 import { noticeModal } from './notice.js';
 
@@ -26,21 +27,21 @@ let userrd = new Image();
 let userrs = new Image();
 
 export let canvasSeting = function () {
-  canvas = document.createElement('canvas');
-  ctx = canvas.getContext('2d');
+  canvas = document.createElement("canvas");
+  ctx = canvas.getContext("2d");
   canvas.width = 1300;
   canvas.height = 800;
-  document.getElementById('main-square').appendChild(canvas);
+  document.getElementById("main-square").appendChild(canvas);
 
   //캐릭터 세팅
-  userbd.src = path + '/resource/img/user/skin' + userSkin + '/bd.png';
-  userbs.src = path + '/resource/img/user/skin' + userSkin + '/bs.png';
-  userfd.src = path + '/resource/img/user/skin' + userSkin + '/fd.png';
-  userfs.src = path + '/resource/img/user/skin' + userSkin + '/fs.png';
-  userld.src = path + '/resource/img/user/skin' + userSkin + '/ld.png';
-  userls.src = path + '/resource/img/user/skin' + userSkin + '/ls.png';
-  userrd.src = path + '/resource/img/user/skin' + userSkin + '/rd.png';
-  userrs.src = path + '/resource/img/user/skin' + userSkin + '/rs.png';
+  userbd.src = path + "/resource/img/user/skin" + userSkin + "/bd.png";
+  userbs.src = path + "/resource/img/user/skin" + userSkin + "/bs.png";
+  userfd.src = path + "/resource/img/user/skin" + userSkin + "/fd.png";
+  userfs.src = path + "/resource/img/user/skin" + userSkin + "/fs.png";
+  userld.src = path + "/resource/img/user/skin" + userSkin + "/ld.png";
+  userls.src = path + "/resource/img/user/skin" + userSkin + "/ls.png";
+  userrd.src = path + "/resource/img/user/skin" + userSkin + "/rd.png";
+  userrs.src = path + "/resource/img/user/skin" + userSkin + "/rs.png";
 };
 let noticeBoard, myhome, squarebackground, gamezone;
 //모달 떠있는 동안 움직임 stop
@@ -48,28 +49,24 @@ let noticeBoard, myhome, squarebackground, gamezone;
 let modalstop = false;
 export let modalstopfn = function () {
   modalstop = !modalstop;
-  //console.log(modalstop, "호출");
   main();
 };
 
 //배경 이미지 세팅
 function loadImage() {
   squarebackground = new Image();
-  squarebackground.src = path + '/resource/img/background/background_main.png';
+  squarebackground.src = path + "/resource/img/background/background_main.png";
 
   myhome = new Image();
-  myhome.src = path + '/resource/img/icon/home.png';
+  myhome.src = path + "/resource/img/icon/home.png";
 
   noticeBoard = new Image();
-  noticeBoard.src = path + '/resource/img/icon/notice_icon.png';
+  noticeBoard.src = path + "/resource/img/icon/notice_icon.png";
 
   gamezone = new Image();
-  gamezone.src = path + '/resource/img/icon/gamezone.png';
+  gamezone.src = path + "/resource/img/icon/gamezone.png";
 }
 
-//유저 네임 세팅
-//console.log(userName)
-//console.log(userSkin)
 
 //캐릭터 좌표(스타팅 x,y)
 export let uesrX = 0;
@@ -90,22 +87,19 @@ function render() {
   ctx.drawImage(noticeBoard, 960, 350, 271, 140.5);
   ctx.drawImage(gamezone, 230, 200, 180, 146.4);
   ctx.drawImage(user, uesrX, uesrY, 50, 50);
-  ctx.font = '12px Sans-Serif';
+  ctx.font = "12px Sans-Serif";
   ctx.fillText(userName, uesrX + 2, uesrY + 60);
 }
 
 //keys 다운에 부여하는 캐릭터 이동 이벤트
 let keysDown = {};
 function setupKeyboard() {
-  document.addEventListener('keydown', function (event) {
+  document.addEventListener("keydown", function (event) {
     keysDown[event.keyCode] = true;
-
-    //이벤트 호출
-    //console.log(event.key)
     //sendMsg(event.key); //이거 위치를 옮겨보기 => 체크 : 해결. but 호출속도가 빨라서, 문제생길시 다시 back;
   });
 
-  document.addEventListener('keyup', function (event) {
+  document.addEventListener("keyup", function (event) {
     delete keysDown[event.keyCode]; // 키보드를 떼면 이벤트 삭제
   });
 }
@@ -122,7 +116,7 @@ function update() {
       user = userrs;
     }
 
-    sendMsg('ArrowRight'); //소켓에 캐릭터 이동 메세지 전송
+    sendMsg("ArrowRight"); //소켓에 캐릭터 이동 메세지 전송
   }
 
   if (37 in keysDown) {
@@ -134,7 +128,7 @@ function update() {
       user = userls;
     }
 
-    sendMsg('ArrowLeft'); //소켓에 캐릭터 이동 메세지 전송
+    sendMsg("ArrowLeft"); //소켓에 캐릭터 이동 메세지 전송
   }
 
   if (38 in keysDown) {
@@ -147,7 +141,7 @@ function update() {
       user = userbs;
     }
 
-    sendMsg('ArrowUp'); //소켓에 캐릭터 이동 메세지 전송
+    sendMsg("ArrowUp"); //소켓에 캐릭터 이동 메세지 전송
   }
 
   if (40 in keysDown) {
@@ -160,7 +154,7 @@ function update() {
       user = userfs;
     }
 
-    sendMsg('ArrowDown'); //소켓에 캐릭터 이동 메세지 전송
+    sendMsg("ArrowDown"); //소켓에 캐릭터 이동 메세지 전송
   }
 
   //맵 블락 (상하좌우)
@@ -260,8 +254,8 @@ function update() {
 
   if (uesrX <= 1130 && uesrX >= 1000 && uesrY <= 463 && uesrY >= 426) {
     //캐릭터 좌표 어떻게 처리할지 정하기 : 게시판 보는동안 좌표값
-    document;
-    notice - modal;
+    noticeModal.style.display = 'block';
+    modalstop = true;
 
     uesrY = 468;
   }
@@ -339,55 +333,42 @@ function update() {
 
 //집으로 이동하는 함수
 const gohome = () => {
-  console.log(path + '/home');
   /* home으로 서블릿 합침 : 지의 */
-  location.href = path + '/home';
+  location.href = path + "/home";
 };
 
-///////////////////////////////////////////////////////////////여기!!! ///////////////////////////////
 
-let receivedUserId = '';
+let receivedUserId = "";
 let UsersData = []; // 유저들 데이터 담아줄 배열
 export let FilterUsers = []; //필터링된 유저 1개 만큼 담아줄 배열
 // 웹소켓으로 연결하기
-// 웹소켓 서버 생성 : 학원 192.168.30.171
-let socket = new WebSocket("ws://192.168.30.174:8084" + path + "/multiAccess");
-///////////////////////////////////////////////////////////////자기 ws로 바꿔주기!!! ///////////////////////////////
-// 지의 학원 ip : 192.168.30.174
-// 지의 집 ip : 192.168.0.16
-// 가영 학원 : 192.168.30.181:8081
-// 가영 집 : 192.168.35.221:8081
-// 혜린 : 192.168.120.38:8084
+let ip = setip;
+let socket = new WebSocket(`ws://${ip}${path}/multiAccess`);
+
 let fnSocket = {
   onopen: function (e) {
-    console.log('접속성공');
     let User = new UserData(
       uesrX,
       uesrY,
       userSkin,
       userId,
       userName,
-      'ArrowDown',
-      'F'
+      "ArrowDown",
+      "F"
     ); //처음유저
     socket.send(JSON.stringify(User)); //첫 접속 알려줌
   },
   onmessage: function (e) {
-    // console.log('메세지 감지');
-    //console.log(e);
-    //console.log(e.data);
-
     //데이터가 나인 경우 걸러내기
     let receivedUser = JSON.parse(e.data);
     receivedUserId = receivedUser.userId;
 
-    if (receivedUser.connecting == 'X') {
-      alert('이중 로그인 되었습니다. 재 로그인 해주세요');
-      location.href = path + '/logout'; //둘 다 쫒겨남..^^...
+    if (receivedUser.connecting == "X") {
+      localStorage.setItem("doubleLogin", true)
+      location.href = path + "/logout"; //둘 다 쫒겨남..^^...
     }
 
     if (receivedUser.userId !== userId) {
-      //console.log(receivedUserId)
       UsersData.push(receivedUser);
       //userData에 담겨있는 userId 값 기준으로 필터링 : 마지막 값만 남김
       FilterUsers = UsersData.filter(
@@ -399,41 +380,33 @@ let fnSocket = {
     //떠난 유저 체크해서 삭제하기
     FilterUsers = FilterUsers.filter((user) => user.connecting != 'N'); //삭제
 
-    //UsersData.push(JSON.parse(e.data)); // String -> 배열 변환
-    //console.log(UsersData)  //object
-
     UsersData = FilterUsers; // Userdate 정보를 Fileter 정보로 바꿔주기
-    //console.log(FilterUsers);
 
     //userrender 함수 호출
     usersreder();
   },
   onclose: function (e) {
-    //console.log(e);
-    console.log('재연결...');
     setTimeout(function () {
       //재연결하기...
       socket = new WebSocket(
-        'ws://192.168.30.181:8081' + path + '/multiAccess'
+        `ws://${ip}${path}/multiAccess`
       );
       initSocket(socket);
-      console.log('재연결...보냈당');
     }, 1000);
   },
   onerror: (event) => {
-    console.log('WebSocket error: ', event);
+    console.log("WebSocket error: ", event);
   },
 };
 function initSocket(s) {
   for (let key in fnSocket) {
     s[key] = fnSocket[key];
-    //console.log(s[key] , fnSocket[key]);
   }
 }
 
 //데이터 전송 JSON
 const sendMsg = (keyboardCode) => {
-  let connecting = 'Y';
+  let connecting = "Y";
 
   //유저객체 넣어주기 : 랜더링에 필요한 정보들 : x, y , skin, id , name, code;
   let User = new UserData(
@@ -445,27 +418,11 @@ const sendMsg = (keyboardCode) => {
     keyboardCode,
     connecting
   );
-  //console.log(User)
 
   socket.send(JSON.stringify(User));
   //문자열 객체 데이터로 바꿔줌
 };
 
-//재연결 에러주기
-// socket.addEventListener("error", (event) => {
-//     console.log("WebSocket error: ", event);
-// });
-
-// socket.onclose = function(e){
-//     console.log(e);
-//     console.log('재연결...')
-//     setTimeout(function () {
-//        //재연결하기...
-//        socket = new WebSocket("ws://192.168.30.171:8083" + path + "/multiAccess");
-//        console.log('재연결...보냈당')
-//     }, 1000)
-
-// }
 
 //넘겨줄 데이터 유저 좌표, 유저스킨, 유저아이디 : 유저 정보 컨트롤
 function UserData(
@@ -488,58 +445,61 @@ function UserData(
 
 let skinImages = {};
 let moveMotion = true;
+let receivedUserMotion = true;
 
 //user 랜더링
 function usersreder() {
   //필터링된 유저들 img 불러오기
   for (let i = 0; i < FilterUsers.length; i++) {
-    let imgMotion = '';
+    let imgMotion = "";
     switch (FilterUsers[i].keyboardCode) {
-      case 'ArrowDown':
-        imgMotion = 'f';
+      case "ArrowDown":
+        imgMotion = "f";
         break;
-      case 'ArrowLeft':
-        imgMotion = 'l';
+      case "ArrowLeft":
+        imgMotion = "l";
         break;
-      case 'ArrowRight':
-        imgMotion = 'r';
+      case "ArrowRight":
+        imgMotion = "r";
         break;
-      case 'ArrowUp':
-        imgMotion = 'b';
+      case "ArrowUp":
+        imgMotion = "b";
         break;
       default:
         return;
     }
 
-    if (receivedUserId == FilterUsers[i].userId) {
-      if (moveMotion) {
-        moveMotion = false;
+    if (receivedUserId == FilterUsers[i].userId){
+      if (receivedUserMotion) {
+        receivedUserMotion = false;
+        imgMotion += "d";
       } else {
-        moveMotion = true;
+        receivedUserMotion = true;
+        imgMotion += "s";
+      }
+    }else{
+      if (moveMotion) {
+        imgMotion += "d";
+      } else {
+        imgMotion += "s";
       }
     }
 
-    if (moveMotion) {
-      imgMotion += 'd';
-    } else {
-      imgMotion += 's';
-    }
+   
 
-    //console.log(imgMotion);
 
     //불러온 img skinimg에 넣어줌
     let img = new Image();
     img.src =
       path +
-      '/resource/img/user/skin' +
+      "/resource/img/user/skin" +
       FilterUsers[i].userSkin +
-      '/' +
+      "/" +
       imgMotion +
-      '.png';
+      ".png";
     skinImages[i] = img;
   }
 
-  //console.log(skinImages);
 }
 
 //만든 유저 img 하나씩 뽑아서 캔버스에 draw
@@ -553,7 +513,7 @@ function userDraw() {
     let img = skinImages[i];
 
     ctx.drawImage(img, x, y, 50, 50);
-    ctx.font = '12px Sans-Serif';
+    ctx.font = "12px Sans-Serif";
     ctx.fillText(username, x + 4, y + 60);
   }
 }
@@ -570,118 +530,56 @@ function main() {
   }
 }
 
-//소켓 끊어보기
-// setTimeout(function () {
-//     //소켓끊어보기
-//     console.log('끊어졌당...')
-//     socket.close();
-//  }, 10000)
-
-//소켓 버벅이는거 해결해보기...!!
-//1 번 : 키보드 이벤트 제한하기 ..!!
-// function 제한..(callback, delay) {
-//     let timeoutId;
-
-// return function() {
-//       const context = this;
-//       const args = arguments;
-
-//       clearTimeout(timeoutId);
-//       timeoutId = setTimeout(() => {
-//         callback.apply(context, args);
-//       }, delay);
-//     };
-//   }
-
-//   debounce(event => {
-//     const message = event.target.value;
-//     sendSocketMessage(message);
-//   }, 500));
-
-//2 번 : 버퍼..써보기...잘모르겠지만..
-//let messageBuffer = []; 버퍼에 담아서...
-//function addToMessageBuffer(message) {
-//     messageBuffer.push(message);
-// // }
-
-// inputElement.addEventListener('keyup', event => {
-//     const message = event.target.value;
-//     addToMessageBuffer(message);
-//   });
-// setInterval(() => {
-//     // 버퍼에 보낼 메세지 확인
-//     if (messageBuffer.length > 0) {
-
-//       //소켓에 메세지 보내기
-//       sendSocketMessage(messages);
-
-//       // 버퍼 비워주기
-//       messageBuffer = [];
-//     }
-//   }, 1000);
-
-//3번 : 둘다 안되면.. 서버에서 필터링해보기. 찾아보니 관련함수 있는듯?? 잘모르겠지만..해보는걸로...
-
-// 4번 : 끊어짐 감지해서 재 연결시키기
-//
-// webSocket.onclose = async (e) => {
-//     console.log('Socket is closed. Reconnect will be attempted in 1 second.', e);
-//     setTimeout(function() {
-//       twelveDataConnect();
-//     }, 1000);
-//   }
 
 //클릭에 부여하는 이벤트
 export let defaultEvent = function () {
-  canvas.addEventListener('click', function (event) {
+  canvas.addEventListener("click", function (event) {
     //내가 클릭한 좌표 얻어오기
     const clickX = event.offsetX;
     const clickY = event.offsetY;
 
     //img 안을 클릭할 경우 이벤트 : my home
     if (clickX >= 895 && clickX <= 1110 && clickY >= 10 && clickY <= 226) {
-      console.log('home 이벤트 부여');
       gohome();
       return;
     }
 
     //img 안을 클릭할 경우 이벤트 : noticeBoard
     if (clickX >= 1030 && clickX <= 1140 && clickY >= 411 && clickY <= 442) {
-      console.log('notice 이벤트 부여');
-      console.log(noticeModal);
-
       noticeModal.style.display = 'block';
       modalstop = true;
     }
 
     //img 안을 클릭할 경우 이벤트 :gamegone
     if (clickX >= 240 && clickX <= 400 && clickY >= 200 && clickY <= 350) {
-      console.log('gamegone 이벤트 부여');
       gameModalopen();
       modalstop = true;
     }
 
-    //console.log(clickX, clickY);
   });
 
   //마우스 호버 이벤트 : 미구현
-  canvas.addEventListener('mousemove', function (event) {
+  canvas.addEventListener("mousemove", function (event) {
     //내가 클릭한 좌표 얻어오기
     const clickX = event.offsetX;
     const clickY = event.offsetY;
 
     //img 안을 들어올 경우
     if (clickX >= 892 && clickX <= 1111 && clickY >= 10 && clickY <= 226) {
-      //console.log("집안으로 들어옴")
     }
   });
 
   //클릭이벤트로 해당 userid 넘겨주기
-  canvas.addEventListener('click', function (e) {
+  canvas.addEventListener("click", function (e) {
     let x = e.clientX; //클릭좌표값
     let y = e.clientY; //클릭좌표값
 
     //console.log(x, y);
+	if (x >= uesrX && x <= uesrX + 50 && y >= uesrY && y <= uesrY + 50) {
+		document.querySelector('.my-info-modal').classList.remove('hidden');
+		getMyInfo();
+		modalstopfn();
+	}
 
     for (let user of FilterUsers) {
       //랜더링된 filter user 정보 받아서 좌표값 체크
@@ -690,20 +588,18 @@ export let defaultEvent = function () {
       let id = user.userId;
 
       if (x >= ux && x <= ux + 50 && y >= uy && y <= uy + 50) {
-        window.sessionStorage.setItem('clickedUserId', id);
+        window.sessionStorage.setItem("clickedUserId", id);
         break; //sesion에 clickUserId로 id 값 넘겨주기
       }
     }
 
-    //console.log(sessionStorage.clickedUserId)
+
   });
 
   //클릭이벤트로 해당 userid 넘겨주기
-  canvas.addEventListener('click', function (e) {
+  canvas.addEventListener("click", function (e) {
     let x = e.clientX; //클릭좌표값
     let y = e.clientY; //클릭좌표값
-
-    //console.log(x, y);
 
     for (let user of FilterUsers) {
       //랜더링된 filter user 정보 받아서 좌표값 체크
@@ -712,46 +608,44 @@ export let defaultEvent = function () {
       let id = user.userId;
 
       if (x >= ux && x <= ux + 50 && y >= uy && y <= uy + 50) {
-        document.querySelector('.info-modal').classList.remove('hidden');
-        window.sessionStorage.setItem('clickedUserId', id);
+        document.querySelector(".info-modal").classList.remove("hidden");
+        window.sessionStorage.setItem("clickedUserId", id);
         getUserInfo();
         modalstopfn();
         break; //sesion에 clickUserId로 id 값 넘겨주기
       }
     }
-
-    //console.log(sessionStorage.clickedUserId)
   });
 
   //종료한 user 체크하기
   // 윈도우 종류 이벤트 체크 1
-  window.addEventListener('beforeunload', function (event) {
+  window.addEventListener("beforeunload", function (event) {
     event.preventDefault(); //브라우저를 종료할때
-    let User = new UserData(uesrX, uesrY, userSkin, userId, userName, '', 'N'); //떠난 유저
+    let User = new UserData(uesrX, uesrY, userSkin, userId, userName, "", "N"); //떠난 유저
     socket.send(JSON.stringify(User)); //떠났다고 알려줌
   });
 
   //30분마다 차단체크
   setTimeout(function () {
     $.ajax({
-      type: 'get',
-      url: path + '/blockCheck',
+      type: "get",
+      url: path + "/blockCheck",
       success: (result) => {
-        if (result == 'Y') {
+        if (result == "Y") {
           //일반유저
         }
 
-        if (result == 'N') {
+        if (result == "N") {
           //탈퇴유저
-          location.href = path + '/logout';
-          alert('탈퇴한 유저입니다.');
+          location.href = path + "/logout";
+          alert("탈퇴한 유저입니다.");
         }
 
-        if (result == 'X') {
+        if (result == "X") {
           //정지유저
-          location.href = path + '/logout';
+          location.href = path + "/logout";
         }
-        //console.log(result);
+        
       },
     });
   }, 1800000);

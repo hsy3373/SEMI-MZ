@@ -8,7 +8,7 @@
 
 
 /*---------------------------------- 정보창 ----------------------------------*/
-.info-modal{
+.info-modal, .my-info-modal{
 	position: absolute;
 	width: 51%;
     top: 36%;
@@ -28,14 +28,14 @@
     margin: 0;
     padding: 0;
 }
-.user-info, #info-view{
+.user-info, #info-view, .my-info, #my-info-view{
 	width: 100%;
 	height: 100%;
 	position: absolute;
 }
 
 /*닉네임*/
-.info-nickname{
+.info-nickname, .my-info-nickname{
 	position: absolute;
 	top: 45px;
     left: 33.9%;
@@ -56,60 +56,82 @@
     height: 29px;
     cursor: pointer;
 }
-#heart-off{
-	width: 100%;
-	height: 100%;
+.my-info-heart{
+	position: absolute;
+    top: 32.5%;
+    left: 19%;
+    width: 33px;
+    height: 29px;
 }
-#heart-on{
-	display: none;
+#heart-off, #my-info-heart-off{
 	width: 100%;
 	height: 100%;
+	/* background: url('../img/icon/빈하트.png') no-repeat center/contain; */
+}
+#heart-on, #my-info-heart-on{
+	width: 100%;
+	height: 100%;
+	display: none;
+	/* background: url('../img/icon/하트.png') no-repeat center/contain; */
 }
 
 /*호감도 갯수*/
-.heart-int{
+.heart-int, .my-heart-int{
     position: absolute;
     top: 31.8%;
     left: 25%;
     color: white;
     font-size: 31px;
-    cursor: pointer;
 }
 
 /*유저 캐릭터*/
-.info-skin{
+.info-skin, .my-info-skin{
     position: absolute;
     top: 44.5%;
     left: 17%;
     width: 15%;
 }
-#info-skin{
+#info-skin, #my-info-skin{
 	width: 100%;
 }
 
 /*성별*/
-.info-gender{
+.info-gender, .my-info-gender{
     position: absolute;
     left: 10%;
     top: 65.2%;
 }
-.gender-w{
+#gender-w, #my-gender-w{
 	width: 18px;
 	height: 30px;
     transform: translate(88px, 42px);
-    background: url('../img/icon/여자.png') no-repeat center/contain;
+    display: none;
+    /* background: url('../img/icon/여자.png') no-repeat center/contain; */
 }
-.gender-m{
+#gender-m, #my-gender-m{
 	width: 22px;
 	height: 30px;
     transform: translate(87px, 39px);
-    background: url('../img/icon/남자.png') no-repeat center/contain;
+    display: none;
+    /* background: url('../img/icon/남자.png') no-repeat center/contain; */
 }
-.gender-n{
+#gender-n, #my-gender-n{
 	width: 51px;
 	height: 50px;
     transform: translate(70px, 31px);
-    background: url('../img/icon/성별비공개.png') no-repeat center/contain;
+    /* background: url('../img/icon/성별비공개.png') no-repeat center/contain; */
+}
+
+.info-my-room {
+	position: absolute;
+    left: 63%;
+    top: 80.2%;
+    width: 6.5%;
+    cursor: pointer;
+    z-index: 2;
+}
+#info-my-room {
+	width: 100%;
 }
 
 /*자기소개*/
@@ -117,16 +139,32 @@
 	position: absolute;
     width: 46.8%;
     height: 42%;
-    top: 24.5%;
+    top: 25%;
     left: 41.5%;
-	overflow-y: scroll;
 	padding: 0.8rem 1rem;
 	line-height: 22px;
 	text-align: justify;
 	font-size: 14px;
+	box-sizing: border-box;
+	display: flex;
+    justify-content: center;
+    align-items: center;
 }
-
-.info-introduce::-webkit-scrollbar{display: none;}
+.my-info-introduce{
+	position: absolute;
+    width: 46.8%;
+    height: 60%;
+    top: 25%;
+    left: 41.5%;
+	padding: 0.8rem 1rem;
+	line-height: 22px;
+	text-align: justify;
+	font-size: 14px;
+	box-sizing: border-box;
+	display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
 /*하단 버튼*/
 .btns1 button, .btns2 button{
@@ -143,9 +181,9 @@
     position: absolute;
     border: 0;
     top: 72.1%;
-    left: 46.5%;
+    left: 46%;
     display: inline-block;
-    width: 36.3%;
+    width: 37%;
     height: 4%;
 }
 
@@ -154,9 +192,9 @@
     position: absolute;
     border: 0;
     top: 82.5%;
-    left: 47%;
+    left: 46.4%;
     display: inline-block;
-    width: 35.7%;
+    width: 36.7%;
     height: 4%;
 }
 .plus, .delete, .info-chatting{float: left;}
@@ -166,7 +204,7 @@
 }
 
 /*닫기 버튼*/
-.info-x-btn{
+.info-x-btn, .my-info-x-btn{
     position: absolute;
     top: 11.5%;
     left: 92.2%;
@@ -174,7 +212,7 @@
     height: 8.2%;
     cursor: pointer;
 }
-#info-x-btn{
+#info-x-btn, #my-info-x-btn{
 	width: 100%;
 	height: 100%;
 }
@@ -235,7 +273,7 @@
     width: 31%;
     height: 6%;
     text-align: center;
-    line-height: 27px;
+    line-height: 32px;
     font-size: 16px;
 }
 /*신고 제목*/
@@ -286,7 +324,7 @@
     opacity: 0.7;
     resize: none;
     width: 66.2%;
-    height: 41.9%;
+    height: 34.9%;
     border: none;
     outline: none;
     border-radius: 5px;
@@ -297,6 +335,15 @@
 }
 
 #report-content-text::-webkit-scrollbar{display: none;}
+
+.report-precautions{
+	top: 79%;
+    left: 14%;
+    position: absolute;
+    font-size: 12px;
+    font-weight: bold;
+    color: #ff0000b8;
+}
 
 /*신고하기 버튼*/
 .report-btn{
