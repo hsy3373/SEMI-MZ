@@ -5,7 +5,7 @@
 
 import { getContextPath, getSessionStorage } from './common.js';
 import { modalstopfn } from './squareCanvas.js';
-import { getUserInfo } from './userInfo.js';
+import { getUserInfo, getMyInfo } from './userInfo.js';
 
 export let noticeModal = document.querySelector('.notice-modal');
 
@@ -260,9 +260,9 @@ function selectRanking() {
 				$(".ranking-user").eq(i).attr("id", data[i].userId);
 				$(".rh-int").eq(i).html(data[i].heartCount);
 
-				if (getSessionStorage('loginUser') == data[i].userId) {
+				/*if (getSessionStorage('loginUser') == data[i].userId) {
 					$(".ranking-user").eq(i).css('pointer-events', 'none');
-				}
+				}*/
 
 				$(".rh-on").eq(i).css('display', 'block');
 				$(".ranking-user").eq(i).css('display', 'block');
@@ -292,6 +292,15 @@ $(document).on('click', '.ranking .ranking-user', function(e) {
 		$("#notice-x-btn").css('cursor', 'pointer');
 	}*/
 
+	/*if (window.sessionStorage.setItem("clickedUserId", rankingId)) {
+		getUserInfo();
+		modalstopfn();
+	}
+	
+	if (window.sessionStorage.setItem("loginUser", rankingId)) {
+		getMyInfo();
+		modalstopfn();
+	}*/
 	window.sessionStorage.setItem("clickedUserId", rankingId);
 
 	getUserInfo();

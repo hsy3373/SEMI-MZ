@@ -293,7 +293,7 @@ function countHeart(receiveId) {
 		type: 'post',
 		data: { receiveId }, //sessionStorage.clickedUserId
 		success: function(data) {
-			 console.log("좋아요 개수 : " + data);
+			 //console.log("좋아요 개수 : " + data);
 			if (receiveId == getSessionStorage('loginUser')) {
 				if (data > 0) {
 					$('#my-info-heart-off').css('display', 'none');
