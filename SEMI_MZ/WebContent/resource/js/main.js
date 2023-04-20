@@ -40,7 +40,7 @@ $(document).ready(function(){
 				if(result == "1"){ // 로그인 처리(성공). 광장으로.
 					location.href = path+"/forwarding.sq";
 				}
-				
+
 			} 
 		})
 	}
@@ -198,6 +198,10 @@ $(document).ready(function(){
 					openAlert("enroll-login");
 					cancelConfrim("enroll-not-login");
 					//console.log("멤버, 캐릭터, API 테이블 insert 성공(1)? : " + result);
+					
+					//회원가입에 사용하려고 저장되어있는 쿠키 지우기
+					Common.delCookie("key");
+					Common.delCookie("kind");
 				}
 				if(result == "0"){ //캐릭터 or API 테이블 insert 실패
 					/*alert*/
