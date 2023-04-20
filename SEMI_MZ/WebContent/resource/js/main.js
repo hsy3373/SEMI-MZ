@@ -20,7 +20,29 @@ $(document).ready(function(){
 	//[자동 로그인]
 	const autoLogin = localStorage.getItem("autoLogin");
 	if(autoLogin != null){ // 로컬에 자동로그인 남아있는 경우
-		location.replace(path+"/views/square.jsp"); //바로 광장으로 자동로그인 처리
+		//location.replace(path+"/views/square.jsp"); 
+		//바로 광장으로 자동로그인 처리
+		
+		// [자동로그인 세션처리]
+		$.ajax({
+			type : "post",
+			url : path + "/autoLogin.me",
+			data : {userId: autoLogin},
+			success: (result) => {
+				if(result == "0"){ // 로그인 실패
+					/*alert*/
+					document.getElementById("home-alert-text").innerHTML = "자동로그인에 실패하였습니다.";
+					/*alert 창 띄우기*/
+					homeOpenAlert();
+					localStorage.removeItem("autoLogin");
+				}
+				
+				if(result == "1"){ // 로그인 처리(성공). 광장으로.
+					location.href = path+"/forwarding.sq";
+				}
+				
+			} 
+		})
 	}
 });
 
@@ -92,6 +114,10 @@ $(document).ready(function(){
 			// local storage에 boolean값 저장해줘야함
 			  localStorage.setItem('autoLogin', userId );
 			console.log("로컬스토리지 담긴 값 : "+localStorage.getItem("autoLogin"));
+
+
+
+
 		 }
 		else { // 자동로그인 체크 안했다면
 			localStorage.removeItem('autoLogin');    // 로컬 삭제
