@@ -33,7 +33,14 @@ BEGIN
 END;
 /
 
-
+        INSERT INTO MEMBER(USER_ID, USER_PWD, NICKNAME)
+		VALUES( 'riddl5076', 'Cix5A9mtSQHGA/l511EGmsfi1NlIMr88Vad50mhToxCBDNCFgyHwafm8t0hUgt/bH5H6iivuCllsUHX/5OJTPQ==', '칙촉');
+        
+        INSERT INTO LOGIN_API(USER_ID, API_KIND, API_KEY)
+		VALUES( 'riddl5076' , 'kakao', '가상의kakao키');
+        
+        INSERT INTO CHARACTER(USER_ID, SKIN_ID)
+		VALUES( 'riddl5076' , 0);
 
 BEGIN 
     FOR I IN 1..22
@@ -107,7 +114,7 @@ BEGIN
 		VALUES( 't'||SEQ_TEST.NEXTVAL , 'test', SYSDATE);
         
         INSERT INTO HEART(USER_ID, RECEIVE_ID, CREATE_DATE)
-		VALUES( 't'||SEQ_TEST.CURRVAL , 'riddl065', SYSDATE-7);
+		VALUES( 't'||SEQ_TEST.CURRVAL , 'riddl5076', SYSDATE-7);
     END LOOP;
 END;
 /
