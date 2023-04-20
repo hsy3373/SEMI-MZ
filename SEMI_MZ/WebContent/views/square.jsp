@@ -40,21 +40,12 @@
    	<%@ include file="./chatting.jsp" %>
 	
    <%@ include file="./notice.jsp" %>
-   	<!--${loginUser.nicName}  -->
    	
     <!--game 모달 jps 가져옴 : 윤지영-->
    	<%@ include file="./game.jsp" %>
    		
-    
-    <!-- 확인용 ^^ --> 
-	<%
-		//System.out.print(contextPath);
-		//System.out.print(loginUser);
-		//Member [userId=test, userPwd=test, nicName=NIC_test, status=Y, skinId=0, coin=500, info=, gender=N, date=2023-03-20]
-	%>
 	
 	<script>
-		//console.log(contextPath);
 		//유저네임 
 		var userName = '${loginUser.nicName}';
 		//유저 skin
@@ -72,19 +63,9 @@
 	
     
     <script type="module">
-
-
 	import {uesrX , uesrY} from '<%=contextPath%>/resource/js/squareCanvas.js';
-    
-
-
 	</script>
 
-		
- 
-			
-	 <!--이미지선언-->
-    <img id="myhome2" src="<%=contextPath%>/resource/img/icon/home.png" style="display: none;">
     <%@ include file="./userInfo.jsp" %>
 </body>
 </html>

@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import mz.member.model.service.MemberService;
 import mz.member.model.vo.Member;
 
 /**
@@ -39,11 +40,13 @@ public class AjaxCheckPwd extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String inputPwd = request.getParameter("inputPwd");
-		String userPwd = ((Member)request.getSession().getAttribute("loginUser")).getUserPwd();
+		String userId = request.getParameter("userId");
 		
-		System.out.println("inputPwd : " + inputPwd +", loginuserPwd : " + userPwd);
+		Member m = new MemberService().selectLoginUser(userId);
 		
-		if(inputPwd.equals(userPwd)) { // 패스워드 일치
+		System.out.println("inputPwd : " + inputPwd +", loginuserPwd : " + m.getUserPwd());
+		
+		if(inputPwd.equals(m.getUserPwd())) { // 패스워드 일치
 			response.getWriter().print("O");
 			
 		}else { // 불일치

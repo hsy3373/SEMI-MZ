@@ -67,7 +67,7 @@
         <div class="home-alert-overlay"></div>
 
         
-		<%@ include file="./chatting.jsp" %>
+		<%@ include file="../chatting.jsp" %>
     </div>  
     <script>
         //유저네임 
@@ -79,7 +79,7 @@
 
     </script>  
     <script type="model" src ="<%=contextPath%>/resource/js/alert.js"></script>
-     <script type="module" src="<%=contextPath%>/resource/js/gamezone/cardFlip.js"></script>
+     <script type="module" src="<%=contextPath%>/resource/js/minigame/cardFlip.js"></script>
      
     </body>
 </html>

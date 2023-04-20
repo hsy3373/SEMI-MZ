@@ -117,7 +117,10 @@ export let checkChatScroll = function () {
   // 스크롤이 최하단 근처 일때만 고정
   if (Math.abs(chatArea.scrollHeight - eh) <= 60) {
     // scrollHeight   : 요소에 들어있는 컨텐츠의 전체 높이, 패딩/테두리포함, 마진은 제외
-    chatArea.scrollTop = chatArea.scrollHeight;
+    //chatArea.scrollTop = chatArea.scrollHeight;
+    return true;
+  } else {
+    return false;
   }
 };
 
@@ -273,11 +276,18 @@ let eventEnterKey = function () {
       ) {
         //엔터가 눌렸는데 현재 포커스 된 창이 채팅창이 아닐때
         let myroom1 = this.document.querySelector(".board-send-detail");
+        let report = this.document.querySelector(".report-modal");
         if (myroom1) {
           if (
             document.activeElement.getAttribute("class") !=
-            "board-write-content"
+              "board-write-content" &&
+            report.classList.contains("hidden")
           ) {
+            setColorClickInsideVer();
+            document.getElementById("text-send").focus();
+          }
+        } else if (report) {
+          if (report.classList.contains("hidden")) {
             setColorClickInsideVer();
             document.getElementById("text-send").focus();
           }
@@ -466,7 +476,13 @@ export let openChatRoom = function (id) {
 //------------ 요소 이벤트들 부여 구역 --------------
 
 let setDefaultEvents = function () {
-  document.querySelector("#btn-send").addEventListener("click", sendChat);
+  document.querySelector("#btn-send").addEventListener("click", function () {
+    if (document.querySelector("#text-send").value.length != 0) {
+      // 채팅 길이가 하나라도 있어야 채팅 전송
+      sendChat();
+      handleResizeHeight();
+    }
+  });
 
   document.querySelector("#chat-prev").addEventListener("click", function () {
     showNextRooms("<");

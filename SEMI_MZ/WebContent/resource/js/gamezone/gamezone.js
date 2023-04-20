@@ -13,11 +13,13 @@ if (document.getElementById('main-square')) {
     modalstopfn();
   });
 
+  //cardFlip으로 이동
   gameStat.addEventListener('click', () => {
     gogame();
   });
 }
 
+//모달 오픈 이벤트
 export function gameModalopen() {
   gameModal.style.display = 'block';
 }
@@ -36,6 +38,7 @@ if (document.getElementById('go-skin-pang')) {
 }
 
 
+//게임존 앞뒤 게임 변경 이벤트 
 if(document.getElementById('after_btn')){
   document.getElementById('after_btn').addEventListener('click', function(){
     document.getElementById('game1').classList.toggle("disPlayNone");

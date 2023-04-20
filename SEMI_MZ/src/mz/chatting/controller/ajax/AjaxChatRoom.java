@@ -66,10 +66,6 @@ public class AjaxChatRoom extends HttpServlet {
 			
 		}
 		
-		if(result <= 0) {
-			System.out.println("채팅룸 정보 업데이트 실패");
-		}
-		
 		response.getWriter().print(result);
 	}
 
