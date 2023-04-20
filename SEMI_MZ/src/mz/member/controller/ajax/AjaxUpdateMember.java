@@ -47,16 +47,9 @@ public class AjaxUpdateMember extends HttpServlet {
 		String gender = request.getParameter("gender");
 		String info = request.getParameter("info");
 		
-		System.out.println("userPwd에 어떤 값 담김 ? : " + chkPwd);
-		// 그리고 js에서 원래패스워드 담지 말고 input값 그래도 넘겨받게 수정하기
-		//그리고 여기 콘솔에 어떤 값 null인지? 빈문자열인지 체크하고 뒤에 코드 수정하기
 		String userId = ((Member) request.getSession().getAttribute("loginUser")).getUserId();
 		
-		//Member updateM = new MemberService().updateMember(nickName, chkPwd, info, gender, userId);
-		
-		//Member updateNP = new MemberService().updateNPwd(nickName, info, gender, userId);
-		
-		//여기서 if문으로 userPwd 값에 따라 다른 멤버 객체 리턴시키기
+		//if문으로 pwd 유무에 따라 다른 메소드 실행 후 객체에 담기
 		Member updateM = null;
 		
 		if(chkPwd.equals("")) {
@@ -65,22 +58,16 @@ public class AjaxUpdateMember extends HttpServlet {
 			updateM = new MemberService().updateMember(nickName, chkPwd, info, gender, userId);
 		}
 		
-		System.out.println("updateM 객체 : "+updateM);
-		//String udtName = updateM.getNicName();
-		//String udtInfo = updateM.getInfo();
-		
 		HttpSession session = request.getSession();
 		response.setContentType("apllication/json; charset=UTF-8");
 		
 		if(updateM != null) { // update 성공
 			
 			session.setAttribute("loginUser", updateM);
-			System.out.println("update성공");
+			//System.out.println("update성공");
 		}else { // 실패
-			System.out.println("update실패");
+			//System.out.println("update실패");
 		}
-		
-		
 		
 		new Gson().toJson(updateM, response.getWriter());
 		

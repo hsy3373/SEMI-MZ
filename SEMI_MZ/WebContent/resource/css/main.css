@@ -1,5 +1,6 @@
 @charset "UTF-8";
 /* 작성자 : 김혜린 */
+
 /*==================== css 변수지정 및 공통 속성 =======================*/
 	:root{
 			--backcolor0:rgba(0, 0, 0, 0);
@@ -36,7 +37,7 @@
 /*==================== 메인로고 =======================*/    
     .mz-logo{
     	margin-top: 220px;
-    	display:none;  /*나중에 block으로 변경*/  
+    	display: block;
     }
 	.logo-img-btn{
 		width:450px;
@@ -63,7 +64,7 @@
         background-image: url(../img/login_img/로그인판.png);
         background-size: 400px 600px;
         background-repeat: no-repeat;
-        /*display:none;  로그인판 나중에는 none으로 설정*/
+        display: none;
     }
 /*==================== 1. 기본로그인 =======================*/    
     .login-box{
@@ -103,10 +104,10 @@
     .check-area{
         padding-top: 10px;
     }
-/*==================== 2. 카카오/구글로 시작하기 =======================*/
+/*==================== 2. 카카오로 시작하기 =======================*/
     .other-login{
         width: 300px;
-        margin-top: 110px;
+        margin-top: 140px;
         margin-inline-start: 10%;
     }
     .kakao-btn{
@@ -121,20 +122,7 @@
     .other-btn:hover{
         transform: scale(0.975);
     }
-    .g-signin2 :hover{
-        transform: scale(0.975);
-    }
-
-    /* .g-signin2{
-        width: 310px;
-        height: 50px;
-        background-position-x: center;
-        background-image: url(../img/login_img/btn_google_signin_light_normal_web@2x.png);
-        background-size: 310px 50px;
-        background-repeat: no-repeat;
-        border: none;
-        background-color: var(--backcolor0);
-    } */
+    
     .kakao-btn:hover {
         cursor: pointer;
     }
@@ -164,16 +152,11 @@
       }
 /*==================== 큰 모달 공통적용 =======================*/
       .modal-background{
-        border: 0px solid red;
         width: 880px;
         height: 580px;
         background-image: url(../img/icon/notice_in.png);
         background-repeat: no-repeat;
         margin: 100px auto;
-      }
-      .modal-background *{
-        border: 0px solid red;
-		/* 없애도 되는 코드 */
       }
       .modal-header{
         height: 11%;
@@ -203,8 +186,8 @@
         display: flex;
         justify-content: center;
       }
-/*==================== 작은 모달(비밀번호 입력 요청) =======================*/   
-    /*   -------작은모달 main.jsp에 있는지 확인 후에 지울 css------- */
+
+/*==================== 작은 모달 공통적용 =======================*/   
     .s-modal-back{
         width: 400px;
         height: 230px;
@@ -261,30 +244,24 @@
     	transform: scale(0.970);
         cursor: pointer;
     }
-
-
-/*   -------작은모달 main.jsp에 있는지 확인 후에 지울 css------- */
-/* ==================== 내정보변경 모달 =======================  */
+*/
+/* ==================== 모달 공통적용 =======================  */
 	.change-info-table{
-		border: 0px solid red;
 		display: flex;
 		justify-content:center;
-	}
-	.change-info-table *{
-		border: 0px solid red;
 	}
 	.under-text{
 		font-size: 12px;
         font-weight: 600;
 	}
 	.inputbox{
+        border: 0px;
 		width: var(--iptext-width);
 		height: var(--iptext-height);
         font-size: 14;
         background-color: rgba(255, 255, 255, 0.5);
         outline-color: var(--iptext-outline-color);
 	}
-
 	.th1-wid{
 		width:120px;
 		text-align:left;
@@ -297,7 +274,6 @@
 		height: 30px;
 	}
 	.modal-textarea7{
-		border: 0px solid red;
 		width:640px;
 		height:380px;
 		margin: auto;
@@ -313,14 +289,6 @@
         font-weight: 600;
         transition-duration: 0.3s;
     }
-	/* #cge-btn{  // 주석처리 되어있었음(확인하고 지우기)
-        background-color: #c8e8c3;
-        border: 2.5px solid #a1c49b;
-        padding: 5px 10px;
-        cursor: pointer;
-        font-weight: 600;
-        transition-duration: 0.3s;
-	} */
     .ncheck-btn:hover,#sec-btn:hover{
         transform: scale(0.97);
     }
@@ -337,15 +305,9 @@
 .modal2{
     display: none;
 }
-
-.display-center{  /*테이블 클래스*/
-    border: 0px solid red;
-}
 .enroll-table{
     margin-top: 0px;
-    border: 0px solid red;
 }
-
 .green-btn{
     background-color: #c8e8c3;
         border: 2.5px solid #a1c49b;
@@ -362,6 +324,7 @@
     font-size: 13px;;
 }
 .agree-text{
+    border: 0px;
     background-color: rgba(255, 255, 255, 0.5);
     font-family: 'Noto Sans KR', sans-serif !important;
     font-size: 8px !important;
@@ -370,8 +333,3 @@
 .agree-text:focus{
     outline-color: var(--iptext-outline-color);
 }
-/* span{
-    color: red !important;
-} */
-
-

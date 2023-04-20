@@ -42,15 +42,8 @@ public class AjaxPwdUpdate extends HttpServlet {
 		
 		String userPwd = request.getParameter("userPwd");
 		String userId = ((Member) request.getSession().getAttribute("loginUser")).getUserId();
-		
-		//System.out.println("세션에서 꺼낸 유저아이디 : "+userId);
 
 		Member m = new MemberService().updatePwd(userPwd, userId);
-		
-//		UPDATE MEMBER
-//		SET USER_PWD = 'userPwd'
-//		WHERE USER_ID = 'userId';
-		
 		
 		HttpSession session = request.getSession();
 		
@@ -59,7 +52,6 @@ public class AjaxPwdUpdate extends HttpServlet {
 		}else { // update 성공
 			session.setAttribute("loginUser", m);
 			response.getWriter().print("1");
-			//System.out.println(m);
 		}
 		
 		
