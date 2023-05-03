@@ -18,11 +18,7 @@
 <br>
 
 - [[PPT] 링크](https://www.miricanvas.com/v/11ytu1c)
-- <a href="./SEMI_MZ/WebContent/resource/etc/MZONE_PPT.pdf" download> [PPT] 다운로드</a>
-  - 박가영(49p)
-  - 노지의(58p)
-  - 윤지영()
-  - 한승은(72p)
+- <a href="./SEMI_MZ/WebContent/resource/etc/MZONE_PPT.pdf" download="Mzone.pdf"> [PPT] 다운로드</a>
 
 ---
 
@@ -43,7 +39,7 @@
 
 ## 김혜린 - [PPT] 11p 참조
 
-- - test
+- test
 
 ---
 
@@ -59,8 +55,7 @@
 
 ---
 
-<span style="font-size:24px; font-weight:900;">한승은 </span>
-<span style="font-size:13px"> - [PPT] 72p 참조 </span>
+## 한승은 - [PPT] 72p 참조
 
 ---
 
