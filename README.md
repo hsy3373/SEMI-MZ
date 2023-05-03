@@ -1,18 +1,30 @@
 # SEMI-MZ
 
-> ## 프로젝트 소개
+> ## 팀원
 
-프로젝트 소개 내용 구간
+- 한승은(조장)
+- 김혜린
+- 노지의
+- 박가영
+- 윤지영
 
 ---
 
-> ## 소개 ppt
+> ## 프로젝트 소개
 
-ppt주소 구간
+- 비디오 넣고
+- 소개넣고
+
+<br>
+
+- [ppt 자료](https://www.miricanvas.com/v/11ytu1c)
+- <a href="./SEMI_MZ/WebContent/resource/etc/MZONE_PPT.pdf" download>
 
 ---
 
 > ## 주요 기능
+
+- 전체 기능 소개
 
 ---
 
@@ -27,8 +39,7 @@ ppt주소 구간
 
 ## 김혜린
 
-- test
-  - test
+- - test
 
 ---
 
