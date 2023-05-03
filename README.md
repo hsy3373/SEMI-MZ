@@ -18,7 +18,7 @@
 <br>
 
 - [ppt 자료](https://www.miricanvas.com/v/11ytu1c)
-- <a href="./SEMI_MZ/WebContent/resource/etc/MZONE_PPT.pdf" download>
+- <a href="./SEMI_MZ/WebContent/resource/etc/MZONE_PPT.pdf" download>다운로드</a>
 
 ---
 
