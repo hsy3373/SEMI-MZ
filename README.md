@@ -59,7 +59,7 @@
 
 ---
 
-<span style="font-size:24px;">한승은 </span>
+<span style="font-size:24px; font-weight:900;">한승은 </span>
 <span style="font-size:13px"> - [PPT] 72p 참조 </span>
 
 ---
