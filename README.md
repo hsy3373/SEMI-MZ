@@ -69,7 +69,7 @@ MZONE만의 코인 시스템 체계
 
 ## 공통
 
-- test
+-  [common.js](./SEMI_MZ/WebContent/resource/js/common.js)
   - test
 
 ---
