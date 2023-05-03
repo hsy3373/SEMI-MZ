@@ -1,24 +1,22 @@
 # SEMI-MZ
 
-> ## 프로젝트 소개
+## 프로젝트 소개
 
 프로젝트 소개 내용 구간
 
 ---
 
-> ## 소개 ppt
+## 소개 ppt
 
 ppt주소 구간
 
 ---
 
-> ## 주요 기능
-
-주요 기능
+## 주요 기능
 
 ---
 
-> ## 담당 기능
+## 담당 기능
 
 ### 공통
 
@@ -50,16 +48,36 @@ ppt주소 구간
 
 ---
 
-## 사용 언어 & API & 라이브러리
+## 사용 기술 스택
 
-Java(11.0.17, eclipse 2020.09), Oracle DataBase(sqldeveloper 11g Standard Edition), JavaScript html css
+### 협업 툴
 
-Apach Tomcat 9.0 , JQuery 3.6.3
+- 미리캔버스
 
-Bootstrap 4.5.3 , Tabulator , sweetalert2 , summernote, AOS(Animate on scroll) ,
+### 사용 언어
 
-slick , FullCalendar, chart.js
+- FE(Front End)
 
-KaKao , Naver , Google Login API
+  - JSP
+  - CSS
+  - Javascript
+  - jQuery
+
+- BE(Back-End)
+
+  - Language: Java, Ajax
+  - WAS(Web-Application-Server): Apache Tomcat 9.0
+  - Database
+    - RDBMS: Oracle 11g XE
+  - Developer tool
+    - Java: Eclipse
+    - Oracle: SQL-Developer
+
+- 사용 디자인 패턴: **MVC 패턴**
+
+### 사용한 오픈 API
+
+- BootStrap
+- 카카오 Login API
 
 ---
