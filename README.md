@@ -21,18 +21,9 @@ MZONE만의 코인 시스템 체계
 
 - 비디오 넣고
 
-<video controls width="250">
-    <source src="./SEMI_MZ/WebContent/resource/etc/" type="video/webm">
-
-    <source src="/media/cc0-videos/flower.mp4" type="video/mp4">
-
-    Download the
-    <a href="/media/cc0-videos/flower.webm">WEBM</a>
-    or
-    <a href="/media/cc0-videos/flower.mp4">MP4</a>
-    video.
-
-</video>
+<p align="center">
+  <img src="./SEMI_MZ/WebContent/resource/etc/test.gif">
+</p>
 
 <br>
 
