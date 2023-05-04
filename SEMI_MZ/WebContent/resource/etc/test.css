@@ -5,3 +5,8 @@
 .page {
   font-size: 12px;
 }
+
+span {
+  font-size: 24px;
+  font-weight: 900;
+}
