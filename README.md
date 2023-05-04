@@ -1,7 +1,4 @@
-<style type='text/css'>
-  .name { font-size : 24px; font-weight: 900; }
-  .page { font-size : 12px; }
-</style>
+<link rel="stylesheet" type="text/css" media="all" href="./SEMI_MZ/WebContent/resource/etc/test.css" />
 
 # SEMI-MZ
 
