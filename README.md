@@ -23,11 +23,9 @@ MZONE만의 코인 시스템 체계
 
 <br>
 
-[[PPT] 링크](https://www.miricanvas.com/v/11ytu1c)
+- [[PPT] 링크](https://www.miricanvas.com/v/11ytu1c)
 
-<div>
-    <a href="./SEMI_MZ/WebContent/resource/etc/MZONE_PPT.pdf" download="Mzone.pdf"> [PPT] 다운로드</a>
-</div>
+- <a href="./SEMI_MZ/WebContent/resource/etc/MZONE_PPT.pdf" download="Mzone.pdf">[PPT] 다운로드</a>
 
 ---
 
@@ -79,13 +77,6 @@ MZONE만의 코인 시스템 체계
 - test
 
 ---
-
-<span >
-
-<h1>김혜린</h1>[PPT] 11p 참조
-
-</span>
-\
 
 ## 김혜린 - [PPT] 11p 참조
 
