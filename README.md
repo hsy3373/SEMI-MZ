@@ -1,5 +1,3 @@
-<link rel="stylesheet" type="text/css" media="all" href="./SEMI_MZ/WebContent/resource/etc/test.css" />
-
 # SEMI-MZ
 
 > ## 팀원
@@ -82,8 +80,12 @@ MZONE만의 코인 시스템 체계
 
 ---
 
-<span class="name">김혜린</span>
-<span class="page" >[PPT] 11p 참조</span>
+<span >
+
+<h1>김혜린</h1>[PPT] 11p 참조
+
+</span>
+\
 
 ## 김혜린 - [PPT] 11p 참조
 
