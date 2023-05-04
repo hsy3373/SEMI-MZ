@@ -1,3 +1,8 @@
+<style type='text/css'>
+  .name { font-size : 24px; font-weight: 900; }
+  .page { font-size : 12px; }
+</style>
+
 # SEMI-MZ
 
 > ## 팀원
@@ -25,7 +30,9 @@ MZONE만의 코인 시스템 체계
 
 [[PPT] 링크](https://www.miricanvas.com/v/11ytu1c)
 
-<a href="./SEMI_MZ/WebContent/resource/etc/MZONE_PPT.pdf" download="Mzone.pdf"> [PPT] 다운로드</a>
+<div>
+    <a href="./SEMI_MZ/WebContent/resource/etc/MZONE_PPT.pdf" download="Mzone.pdf"> [PPT] 다운로드</a>
+</div>
 
 ---
 
@@ -78,6 +85,9 @@ MZONE만의 코인 시스템 체계
 
 ---
 
+<span class="name">김혜린</span>
+<span class="page" >[PPT] 11p 참조</span>
+
 ## 김혜린 - [PPT] 11p 참조
 
 - test
@@ -102,11 +112,11 @@ MZONE만의 코인 시스템 체계
 
 > ## 사용 기술 스택
 
-## 협업 툴
+### 협업 툴
 
 - 미리캔버스
 
-## 사용 언어
+### 사용 언어
 
 - FE(Front End)
 
@@ -127,7 +137,7 @@ MZONE만의 코인 시스템 체계
 
 - 사용 디자인 패턴: **MVC 패턴**
 
-## 사용한 오픈 API
+### 사용한 오픈 API
 
 - BootStrap
 - 카카오 Login API
