@@ -25,6 +25,17 @@ MZONE만의 코인 시스템 체계
   <img src="./SEMI_MZ/WebContent/resource/etc/test.gif">
 </p>
 
+- 비디오 넣고
+
+<p align="center">
+  <img src="./SEMI_MZ/WebContent/resource/etc/test.gif">
+</p>
+
+- 비디오 넣고
+
+<p align="center">
+  <img src="./SEMI_MZ/WebContent/resource/etc/test.gif">
+</p>
 <br>
 
 - [[PPT] 링크](https://www.miricanvas.com/v/11ytu1c) / <a href="./SEMI_MZ/WebContent/resource/etc/MZONE_PPT.pdf" download="Mzone.pdf">[PPT] 다운로드</a>
