@@ -22,7 +22,7 @@ MZONE만의 코인 시스템 체계
 - 비디오 넣고
 
 <p align="center">
-  <img src="./SEMI_MZ/WebContent/resource/etc/test.gif">
+  <img src="./SEMI_MZ/WebContent/resource/etc/video/myroom.gif">
 </p>
 
 - 비디오 넣고
