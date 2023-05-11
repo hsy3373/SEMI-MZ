@@ -112,6 +112,7 @@ MZONE만의 코인 시스템 체계
 - 시작 페이지 
   - [Main.jsp](./SEMI_MZ/WebContent/views/main.jsp) 
   - [Main.js](./SEMI_MZ/WebContent/resource/js/main.js)
+  
   - 회원가입
     - [Validation.js](./SEMI_MZ/WebContent/resource/js/validation.js) : 회원가입 유효성검사 JS
     - [EnrollAPICheck.java](./SEMI_MZ/src/mz/member/controller/ajax/AjaxKeyCheck.java) : API 회원 유무 확인
