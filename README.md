@@ -119,7 +119,7 @@ MZONE만의 코인 시스템 체계
 
 - 유저 정보창
 
-  - [userInfo.jsp](./SEMI_MZ/WebContent/views/userInfo.jsp) : 유저의 정보창
+  - [userInfo.jsp](./SEMI_MZ/WebContent/views/userInfo.jsp) : 유저 정보창 
   - [userInfo.js](./SEMI_MZ/WebContent/resource/js/userInfo.js) : 유저 정보 관련 데이터 처리
   - [userInfo.java](./SEMI_MZ/src/mz/member/controller/UserInfoController) : 유저 정보 조회
   - [heart.java](./SEMI_MZ/src/mz/member/controller/HeartController) : 호감도 데이터 처리
@@ -128,7 +128,12 @@ MZONE만의 코인 시스템 체계
   - [friendInfo.java](./SEMI_MZ/src/mz/member/controller/FriendInfoController) : 친구 조회
   - [report.java](./SEMI_MZ/src/mz/report/controller/ReportController) : 신고 등록 처리
 
+- 공지사항
 
+  - [notice.jsp](./SEMI_MZ/WebContent/views/notice.jsp) : 공지사항창 외관
+  - [notice.js](./SEMI_MZ/WebContent/resource/js/notice.js) : 공지사항 관련 데이터 처리
+  - [noticeList.java](./SEMI-MZ/src/mz/notice/controller/NoticeSelectController.java) : 공지사항 조회
+  - [heartRanking.java](./SEMI_MZ/src/mz/member/controller/Rankingcontroller) : 호감도 랭킹 처리
 
 ---
 
