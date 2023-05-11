@@ -19,16 +19,10 @@ MZONE만의 코인 시스템 체계
 실시간 채팅 , 방명록 '소통'을 통한 교류공간  
 홀로접속 & 동시접속 모두 재미를 느낄 수 있도록 기획
 
-- 비디오 넣고
+- 회원
 
 <p align="center">
-  <img src="./SEMI_MZ/WebContent/resource/etc/test.gif">
-</p>
-
-- 비디오 넣고
-
-<p align="center">
-  <img src="./SEMI_MZ/WebContent/resource/etc/test.gif">
+  <img src="./SEMI_MZ/WebContent/resource/etc/video/member.gif">
 </p>
 
 - 마이룸
@@ -36,6 +30,19 @@ MZONE만의 코인 시스템 체계
 <p align="center">
   <img src="./SEMI_MZ/WebContent/resource/etc/video/myroom.gif">
 </p>
+
+- 미니게임
+
+<p align="center">
+  <img src="./SEMI_MZ/WebContent/resource/etc/video/minigame.gif">
+</p>
+
+- 관리자
+
+<p align="center">
+  <img src="./SEMI_MZ/WebContent/resource/etc/video/admin.gif">
+</p>
+
 <br>
 
 - [[PPT] 링크](https://www.miricanvas.com/v/11ytu1c) / <a href="./SEMI_MZ/WebContent/resource/etc/MZONE_PPT.pdf" download="Mzone.pdf">[PPT] 다운로드</a>
