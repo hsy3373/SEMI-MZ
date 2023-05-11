@@ -19,6 +19,12 @@ MZONE만의 코인 시스템 체계
 실시간 채팅 , 방명록 '소통'을 통한 교류공간  
 홀로접속 & 동시접속 모두 재미를 느낄 수 있도록 기획
 
+- 로그인
+
+<p align="center">
+  <img src="./SEMI_MZ/WebContent/resource/etc/video/square.gif">
+</p>
+
 - 광장
 
 <p align="center">
