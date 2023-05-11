@@ -121,19 +121,19 @@ MZONE만의 코인 시스템 체계
 
   - [userInfo.jsp](./SEMI_MZ/WebContent/views/userInfo.jsp) : 유저 정보창 
   - [userInfo.js](./SEMI_MZ/WebContent/resource/js/userInfo.js) : 유저 정보 관련 데이터 처리
-  - [UserInfo.java](./SEMI_MZ/src/mz/member/controller/UserInfoController) : 유저 정보 조회
-  - [Heart.java](./SEMI_MZ/src/mz/member/controller/HeartController) : 호감도 데이터 처리
-  - [HeartCount.java](./SEMI_MZ/src/mz/member/controller/HeartCountController) : 호감도 데이터 처리
-  - [Friend.java](./SEMI_MZ/src/mz/member/controller/FriendController) : 친구 데이터 처리
-  - [FriendInfo.java](./SEMI_MZ/src/mz/member/controller/FriendInfoController) : 친구 조회
-  - [Report.java](./SEMI_MZ/src/mz/report/controller/ReportController) : 신고 등록 처리
+  - [UserInfo.java](./SEMI_MZ/src/mz/member/controller/UserInfoController.java) : 유저 정보 조회
+  - [Heart.java](./SEMI_MZ/src/mz/member/controller/HeartController.java) : 호감도 데이터 처리
+  - [HeartCount.java](./SEMI_MZ/src/mz/member/controller/HeartCountController.java) : 호감도 데이터 처리
+  - [Friend.java](./SEMI_MZ/src/mz/member/controller/FriendController.java) : 친구 데이터 처리
+  - [FriendInfo.java](./SEMI_MZ/src/mz/member/controller/FriendInfoController.java) : 친구 조회
+  - [Report.java](./SEMI_MZ/src/mz/report/controller/ReportController.java) : 신고 등록 처리
 
 - 공지사항
 
   - [notice.jsp](./SEMI_MZ/WebContent/views/notice.jsp) : 공지사항창 외관
   - [notice.js](./SEMI_MZ/WebContent/resource/js/notice.js) : 공지사항 관련 데이터 처리
   - [NoticeList.java](./SEMI-MZ/src/mz/notice/controller/NoticeSelectController.java) : 공지사항 조회
-  - [HeartRanking.java](./SEMI_MZ/src/mz/member/controller/Rankingcontroller) : 호감도 랭킹 처리
+  - [HeartRanking.java](./SEMI_MZ/src/mz/member/controller/Rankingcontroller.java) : 호감도 랭킹 처리
 
 ---
 
