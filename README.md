@@ -109,7 +109,39 @@ MZONE만의 코인 시스템 체계
 
 ## 김혜린 - [PPT] 11p 참조
 
-- test
+- 메인 
+  - [Main.jsp](./SEMI_MZ/WebContent/views/main.jsp) : JSP
+  - [Main.js](./SEMI_MZ/WebContent/resource/js/main.js) : JS
+
+  - 회원가입(0)
+    - [Validation.js](./SEMI_MZ/WebContent/resource/js/validation.js) : 회원가입 유효성검사 JS
+    - [EnrollAPICheck.java](./SEMI_MZ/src/mz/member/controller/ajax/AjaxKeyCheck.java) : API 회원 유무 확인
+    - [CheckId.java](./SEMI_MZ/src/mz/member/controller/ajax/AjaxCheckId.java) : 아이디 중복확인
+    - [CheckNickName.java](./SEMI_MZ/src/mz/member/controller/ajax/ AjaxCheckNickname.java) : 닉네임 중복확인
+    - [Enroll.java](./SEMI_MZ/src/mz/member/controller/ajax/AjaxEnroll.java) : 회원가입 처리
+
+  - 로그인 (0)
+    - [LoginAPI.java](./SEMI_MZ/src/mz/member/controller/ajax/AjaxKeyCheck.java) : API로그인
+    - [LoginBasic.java](./SEMI_MZ/src/mz/member/controller/ajax/AjaxLogin.java) : Id/Pwd 로그인(일반유저, 비활성 유저, 관리자)
+    - [AutoLogin.java](./SEMI_MZ/src/mz/member/controller/ajax/AjaxAutoLogin.java) : 자동 로그인
+
+  - 아이디/비밀번호 찾기 (0)
+    - [FindAPICheck.java](./SEMI_MZ/src/mz/member/controller/ajax/AjaxKeyCheck.java) : API 계정인증
+    - [ValiPwd.js](./SEMI_MZ/WebContent/resource/js/validation.js) : 비밀번호 유효성검사 JS
+    - [NewPassword.java](./SEMI_MZ/src/mz/member/controller/ajax/AjaxPwdUpdate.java) : 비밀번호 재설정
+
+- 회원정보변경 / 회원탈퇴 (0)
+  - [UpdateMember.jsp](./SEMI_MZ/WebContent/views/buttonList.jsp) : JSP
+  - [UpdateMember.js](./SEMI_MZ/WebContent/resource/js/buttonList.js) : JS
+  - [CheckPwd.java](./SEMI_MZ/src/mz/member/controller/ajax/AjaxCheckPwd.java) : 정보변경 전 유저 비밀번호 확인
+  - [LoginUserInfo.java](./SEMI_MZ/src/mz/member/controller/ajax/AjaxSelectLoginUser.java)  : 현재 유저 정보 조회
+  - [CheckNickname.java](./SEMI_MZ/src/mz/member/controller/ajax/ AjaxCheckNickname.java) : 닉네임 중복확인
+  - [UpdateMember.java](./SEMI_MZ/src/mz/member/controller/ajax/AjaxUpdateMember.java) : 유저 정보 변경 처리
+  - [DeleteMember.java](./SEMI_MZ/src/mz/member/controller/ajax/AjaxDeleteMember.java) : 회원탈퇴 처리
+
+- 암호화 (0)
+  - [PwdFilter.java](./SEMI_MZ/src/mz/common/filter/PasswordEncryptFilter.java) : 암호화 필터
+  - [PwdEncrypt.java](./SEMI_MZ/src/mz/common/PasswordEncryptWrapper.java) : API키, 패스워드 암호화
 
 ---
 
