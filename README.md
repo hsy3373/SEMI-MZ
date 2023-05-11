@@ -117,7 +117,7 @@ MZONE만의 코인 시스템 체계
     - [Validation.js](./SEMI_MZ/WebContent/resource/js/validation.js) : 회원가입 유효성검사 JS
     - [EnrollAPICheck.java](./SEMI_MZ/src/mz/member/controller/ajax/AjaxKeyCheck.java) : API 회원 유무 확인
     - [CheckId.java](./SEMI_MZ/src/mz/member/controller/ajax/AjaxCheckId.java) : 아이디 중복확인
-    - [CheckNickName.java](./SEMI_MZ/src/mz/member/controller/ajax/ AjaxCheckNickname.java) : 닉네임 중복확인
+    - [CheckNickName.java](./SEMI_MZ/src/mz/member/controller/ajax/AjaxCheckNickname.java) : 닉네임 중복확인
     - [Enroll.java](./SEMI_MZ/src/mz/member/controller/ajax/AjaxEnroll.java) : 회원가입 처리
 
   - 로그인
@@ -131,11 +131,11 @@ MZONE만의 코인 시스템 체계
     - [NewPassword.java](./SEMI_MZ/src/mz/member/controller/ajax/AjaxPwdUpdate.java) : 비밀번호 재설정
 
 - 회원정보변경 / 회원탈퇴
-  - [UpdateMember.jsp](./SEMI_MZ/WebContent/views/buttonList.jsp) : JSP
-  - [UpdateMember.js](./SEMI_MZ/WebContent/resource/js/buttonList.js) : JS
+  - [UpdateMember.jsp](./SEMI_MZ/WebContent/views/buttonList.jsp)
+  - [UpdateMember.js](./SEMI_MZ/WebContent/resource/js/buttonList.js)
   - [CheckPwd.java](./SEMI_MZ/src/mz/member/controller/ajax/AjaxCheckPwd.java) : 정보변경 전 유저 비밀번호 확인
   - [LoginUserInfo.java](./SEMI_MZ/src/mz/member/controller/ajax/AjaxSelectLoginUser.java)  : 현재 유저 정보 조회
-  - [CheckNickname.java](./SEMI_MZ/src/mz/member/controller/ajax/ AjaxCheckNickname.java) : 닉네임 중복확인
+  - [CheckNickname.java](./SEMI_MZ/src/mz/member/controller/ajax/AjaxCheckNickname.java) : 닉네임 중복확인
   - [UpdateMember.java](./SEMI_MZ/src/mz/member/controller/ajax/AjaxUpdateMember.java) : 유저 정보 변경 처리
   - [DeleteMember.java](./SEMI_MZ/src/mz/member/controller/ajax/AjaxDeleteMember.java) : 회원탈퇴 처리
 
