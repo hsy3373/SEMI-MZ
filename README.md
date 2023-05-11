@@ -117,6 +117,12 @@ MZONE만의 코인 시스템 체계
 
 ## 박가영 - [PPT] 49p 참조
 
+- 유저 정보창
+
+  - [userInfo.jsp](./SEMI_MZ/WebContent/views/userInfo.jsp) : 유저의 정보창
+  - [userInfo.js](./SEMI_MZ/WebContent/resource/js/userInfo.js) : 유저 정보 관련 데이터 처리
+
+
 ---
 
 ## 노지의 - [PPT] 58p 참조
