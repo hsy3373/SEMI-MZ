@@ -122,11 +122,11 @@ MZONE만의 코인 시스템 체계
   - [userInfo.jsp](./SEMI_MZ/WebContent/views/userInfo.jsp) : 유저의 정보창
   - [userInfo.js](./SEMI_MZ/WebContent/resource/js/userInfo.js) : 유저 정보 관련 데이터 처리
   - [userInfo.java](./SEMI_MZ/src/mz/member/controller/UserInfoController) : 유저 정보 조회
-  - [userInfo.java](./SEMI_MZ/src/mz/member/controller/HeartController) : 호감도 데이터 처리
-  - [userInfo.java](./SEMI_MZ/src/mz/member/controller/HeartCountController) : 호감도 데이터 처리
-  - [userInfo.java](./SEMI_MZ/src/mz/member/controller/FriendController) : 친구 데이터 처리
-  - [userInfo.java](./SEMI_MZ/src/mz/member/controller/FriendInfoController) : 친구 조회
-  - [userInfo.java](./SEMI_MZ/src/mz/report/controller/ReportController) : 신고 등록 처리
+  - [heart.java](./SEMI_MZ/src/mz/member/controller/HeartController) : 호감도 데이터 처리
+  - [heartCount.java](./SEMI_MZ/src/mz/member/controller/HeartCountController) : 호감도 데이터 처리
+  - [friend.java](./SEMI_MZ/src/mz/member/controller/FriendController) : 친구 데이터 처리
+  - [friendInfo.java](./SEMI_MZ/src/mz/member/controller/FriendInfoController) : 친구 조회
+  - [report.java](./SEMI_MZ/src/mz/report/controller/ReportController) : 신고 등록 처리
 
 
 
