@@ -20,28 +20,29 @@ MZONE만의 코인 시스템 체계
 홀로접속 & 동시접속 모두 재미를 느낄 수 있도록 기획
 
 - 회원
+  <p align="center">
+    <img src="./SEMI_MZ/WebContent/resource/etc/video/member.gif">
+  </p>
 
-<p align="center">
-  <img src="./SEMI_MZ/WebContent/resource/etc/video/member.gif">
-</p>
+- 광장
+  <p align="center">
+    <img src="./SEMI_MZ/WebContent/resource/etc/video/square.gif">
+  </p>
 
 - 마이룸
-
-<p align="center">
-  <img src="./SEMI_MZ/WebContent/resource/etc/video/myroom.gif">
-</p>
+  <p align="center">
+    <img src="./SEMI_MZ/WebContent/resource/etc/video/myroom.gif">
+  </p>
 
 - 미니게임
-
-<p align="center">
-  <img src="./SEMI_MZ/WebContent/resource/etc/video/minigame.gif">
-</p>
+  <p align="center">
+    <img src="./SEMI_MZ/WebContent/resource/etc/video/minigame.gif">
+  </p>
 
 - 관리자
-
-<p align="center">
-  <img src="./SEMI_MZ/WebContent/resource/etc/video/admin.gif">
-</p>
+  <p align="center">
+    <img src="./SEMI_MZ/WebContent/resource/etc/video/admin.gif">
+  </p>
 
 <br>
 
