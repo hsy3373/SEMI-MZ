@@ -95,7 +95,13 @@ MZONE만의 코인 시스템 체계
 ## 공통
 
 - [common.js](./SEMI_MZ/WebContent/resource/js/common.js)
-- test
+  - 위 파일 상 setip의 ip주소를 본인 환경에 맞게 변경하여 사용
+- [common.css](./SEMI_MZ/WebContent/resource/css/common.css)
+- [common java(하위 파일 전체)](./SEMI_MZ/src/mz/common) : 공용 java 파일들
+- SQL
+  - [MZONE.sql](./SEMI_MZ/sql파일/MZONE.sql) : 기본 테이블 세팅용 SQL
+  - [MZ_INSERT.sql](./SEMI_MZ/sql파일/MZ_INSERT.sql) : 기본 데이터 세팅용 SQL
+  - [testData.sql](./SEMI_MZ/sql파일/testData.sql) : 테스트 데이터 세팅용 SQL
 
 ---
 
@@ -118,6 +124,36 @@ MZONE만의 코인 시스템 체계
 ---
 
 ## 한승은 - [PPT] 72p 참조
+
+- 채팅
+
+  - [chatting.jsp](./SEMI_MZ/WebContent/views/chatting.jsp) : 채팅창 외관
+  - [chatData.js](./SEMI_MZ/WebContent/resource/js/chat/chatData.js) : DB와 통신하는 등 채팅 데이터관련 처리
+  - [chatFront.js](./SEMI_MZ/WebContent/resource/js/chat/chatFront.js) : 사용자 이용에 따른 채팅창 동작 관련 이벤트 처리
+  - [AjaxChat.java](./SEMI_MZ/src/mz/chatting/controller/ajax/AjaxChat.java) : 채팅 관련 데이터 처리
+  - [AjaxChatRoom.java](./SEMI_MZ/src/mz/chatting/controller/ajax/AjaxChatRoom.java) : 채팅방 관련 데이터 처리
+  - [websocket(하위 파일 전체)](./SEMI_MZ/src/mz/chatting/websocket) : 채팅용 웹소켓 파일들
+
+- 미니게임(스킨팡)
+
+  - [skinPang.js](./SEMI_MZ/WebContent/resource/js/minigame/skinPang.js)
+  - [skinPang.jsp](./SEMI_MZ/WebContent/views/minigame/skinPang.jsp)
+  - [SkinPangController.java](./SEMI_MZ/src/mz/minigame/controller/SkinPangController.java)
+
+- 관리자
+  - [admin view(하위 파일 전체)](./SEMI_MZ/WebContent/views/admin)
+  - [admin js(하위 파일 전체)](./SEMI_MZ/WebContent/resource/js/admin)
+  - [AdminPageController.java](./SEMI_MZ/src/mz/admin/controller/AdminPageController.java) : 어드민 메뉴 관련
+  - [MainController.java](./SEMI_MZ/src/mz/admin/controller/MainController.java) : 대시보드 메뉴 관련
+  - [ChatLogDeleteController.java](./SEMI_MZ/src/mz/chatting/controller/ChatLogDeleteController.java) : 채팅 기록 삭제용
+  - [member(하위 파일 전체)](./SEMI_MZ/src/mz/member/controller/admin) : 사용자 메뉴 관련
+  - [notice(하위 파일 전체)](./SEMI_MZ/src/mz/notice/controller) : 공지 메뉴 관련
+  - [report(하위 파일 전체)](./SEMI_MZ/src/mz/report/controller/admin) : 신고 메뉴 관련
+  - 캐릭터 스킨 메뉴 관련
+    - [SkinDeleteController.java](./SEMI_MZ/src/mz/skin/controller/SkinDeleteController.java)
+    - [SkinEnrollController.java](./SEMI_MZ/src/mz/skin/controller/SkinEnrollController.java)
+    - [SkinListController.java](./SEMI_MZ/src/mz/skin/controller/SkinListController.java)
+    - [SkinUpdateController.java](./SEMI_MZ/src/mz/skin/controller/SkinUpdateController.java)
 
 ---
 
