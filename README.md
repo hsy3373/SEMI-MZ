@@ -109,10 +109,11 @@ MZONE만의 코인 시스템 체계
 
 ## 김혜린 - [PPT] 11p 참조
 
-- 시작 페이지 
-  - [Main.jsp](./SEMI_MZ/WebContent/views/main.jsp) 
+- 시작 페이지
+
+  - [Main.jsp](./SEMI_MZ/WebContent/views/main.jsp)
   - [Main.js](./SEMI_MZ/WebContent/resource/js/main.js)
-  
+
   - 회원가입
     - [Validation.js](./SEMI_MZ/WebContent/resource/js/validation.js) : 회원가입 유효성검사 JS
     - [EnrollAPICheck.java](./SEMI_MZ/src/mz/member/controller/ajax/AjaxKeyCheck.java) : API 회원 유무 확인
@@ -129,10 +130,11 @@ MZONE만의 코인 시스템 체계
     - [NewPassword.java](./SEMI_MZ/src/mz/member/controller/ajax/AjaxPwdUpdate.java) : 비밀번호 재설정
 
 - 회원정보변경 / 회원탈퇴
-  - [UpdateMember.jsp](./SEMI_MZ/WebContent/views/buttonList.jsp) 
+
+  - [UpdateMember.jsp](./SEMI_MZ/WebContent/views/buttonList.jsp)
   - [UpdateMember.js](./SEMI_MZ/WebContent/resource/js/buttonList.js)
   - [CheckPwd.java](./SEMI_MZ/src/mz/member/controller/ajax/AjaxCheckPwd.java) : 정보변경 전 유저 비밀번호 확인
-  - [LoginUserInfo.java](./SEMI_MZ/src/mz/member/controller/ajax/AjaxSelectLoginUser.java)  : 현재 유저 정보 조회
+  - [LoginUserInfo.java](./SEMI_MZ/src/mz/member/controller/ajax/AjaxSelectLoginUser.java) : 현재 유저 정보 조회
   - [CheckNickname.java](./SEMI_MZ/src/mz/member/controller/ajax/AjaxCheckNickname.java) : 닉네임 중복확인
   - [UpdateMember.java](./SEMI_MZ/src/mz/member/controller/ajax/AjaxUpdateMember.java) : 유저 정보 변경 처리
   - [DeleteMember.java](./SEMI_MZ/src/mz/member/controller/ajax/AjaxDeleteMember.java) : 회원탈퇴 처리
@@ -144,37 +146,38 @@ MZONE만의 코인 시스템 체계
 ---
 
 ## 윤지영 - [PPT] 27p 참조
+
 - 광장
- - [square.jsp](./SEMI_MZ/WebContent/views/square.jsp) : 광장 view페이지
- - [squareCanvas.js](./SEMI_MZ/WebContent/resource/js/squareCanvas.js) : 광장 데이터 처리
- - [squareinit.js](./SEMI_MZ/WebContent/resource/js/squareinit.js) :  광장 시작 
- - [blockCheckController.java](./SEMI_MZ/src/mz/square/controller/blockCheckController.java) : 차단/신고 유저 강제퇴장
- - [squareGoHome.java](./SEMI_MZ/src/mz/square/controller/squareGoHome.java) : 마이룸 이동 
- - [goMiniGame.java](./SEMI_MZ/src/mz/square/controller/goMiniGame.java) : 미니게임 이동
 
- - 광장소켓
-	- [JSONDecoder.java](./SEMI_MZ/src/mz/square/JSONDecoder.java) : 소켓 데이터 처리
-	- [JSONEncoder.java](./SEMI_MZ/src/mz/square/JSONEncoder.java) :  소켓 데이터 처리
-	- [SquareServer.java](./SEMI_MZ/src/mz/square/SquareServer.java) :  소켓 데이터 처리
+  - [square.jsp](./SEMI_MZ/WebContent/views/square.jsp) : 광장 view페이지
+  - [squareCanvas.js](./SEMI_MZ/WebContent/resource/js/squareCanvas.js) : 광장 데이터 처리
+  - [squareinit.js](./SEMI_MZ/WebContent/resource/js/squareinit.js) : 광장 시작
+  - [blockCheckController.java](./SEMI_MZ/src/mz/square/controller/blockCheckController.java) : 차단/신고 유저 강제퇴장
+  - [squareGoHome.java](./SEMI_MZ/src/mz/square/controller/squareGoHome.java) : 마이룸 이동
+  - [goMiniGame.java](./SEMI_MZ/src/mz/square/controller/goMiniGame.java) : 미니게임 이동
 
+  - 광장소켓
 
- - 미니게임 리스트창
-	- [game.jsp](./SEMI_MZ/WebContent/views/game.jsp) : 미니게임 리스트창 외관
-	- [gamezone.js](./SEMI_MZ/WebContent/resource/js/gamezone/gamezone.js) : 미니게임 리스트창 데이터 처리
+    - [JSONDecoder.java](./SEMI_MZ/src/mz/square/JSONDecoder.java) : 소켓 데이터 처리
+    - [JSONEncoder.java](./SEMI_MZ/src/mz/square/JSONEncoder.java) : 소켓 데이터 처리
+    - [SquareServer.java](./SEMI_MZ/src/mz/square/SquareServer.java) : 소켓 데이터 처리
 
+  - 미니게임 리스트창
 
- - 설정/친구 버튼
-	- [buttonList.jsp](./SEMI_MZ/WebContent/views/buttonList.jsp) : 버튼 외관
-	- [buttonList.js](./SEMI_MZ/WebContent/resource/js/buttonList.js) : 버튼 데이터 처리
-	- [FriendListController.java](./SEMI_MZ/src/mz/buttonList/controller/FriendListController.java) :  친구 리스트 조회
-	- [logoutController.java](./SEMI_MZ/src/mz/buttonList/controller/logoutController.java) :  로그아웃
+    - [game.jsp](./SEMI_MZ/WebContent/views/game.jsp) : 미니게임 리스트창 외관
+    - [gamezone.js](./SEMI_MZ/WebContent/resource/js/gamezone/gamezone.js) : 미니게임 리스트창 데이터 처리
 
+  - 설정/친구 버튼
+    - [buttonList.jsp](./SEMI_MZ/WebContent/views/buttonList.jsp) : 버튼 외관
+    - [buttonList.js](./SEMI_MZ/WebContent/resource/js/buttonList.js) : 버튼 데이터 처리
+    - [FriendListController.java](./SEMI_MZ/src/mz/buttonList/controller/FriendListController.java) : 친구 리스트 조회
+    - [logoutController.java](./SEMI_MZ/src/mz/buttonList/controller/logoutController.java) : 로그아웃
 
- - 미니게임(카드뒤집기)
-	- [miniGame.jsp](./SEMI_MZ/WebContent/views/minigame/miniGame.jsp) : 미니게임 view 페이지
-	- [cardFlip.js](./SEMI_MZ/WebContent/resource/js/minigame/cardFlip.js) :  미니게임 관련 데이터 처리
-	- [FlipGameController.java](./SEMI_MZ/src/mz/minigame/controller/FlipGameController.java) :  미니게임 데이터 처리
-	- [FlipGameSever.java](./SEMI_MZ/src/mz/minigame/websocket/FlipGameSever.java) :  미니게임 웹소켓 
+- 미니게임(카드뒤집기)
+  - [miniGame.jsp](./SEMI_MZ/WebContent/views/minigame/miniGame.jsp) : 미니게임 view 페이지
+  - [cardFlip.js](./SEMI_MZ/WebContent/resource/js/minigame/cardFlip.js) : 미니게임 관련 데이터 처리
+  - [FlipGameController.java](./SEMI_MZ/src/mz/minigame/controller/FlipGameController.java) : 미니게임 데이터 처리
+  - [FlipGameSever.java](./SEMI_MZ/src/mz/minigame/websocket/FlipGameSever.java) : 미니게임 웹소켓
 
 ---
 
@@ -182,10 +185,10 @@ MZONE만의 코인 시스템 체계
 
 - 유저 정보창
 
-  - [userInfo.jsp](./SEMI_MZ/WebContent/views/userInfo.jsp) : 유저 정보창 
+  - [userInfo.jsp](./SEMI_MZ/WebContent/views/userInfo.jsp) : 유저 정보창
   - [userInfo.js](./SEMI_MZ/WebContent/resource/js/userInfo.js) : 유저 정보 관련 데이터 처리
   - [UserInfo.java](./SEMI_MZ/src/mz/member/controller/UserInfoController.java) : 상호 호감도 조회 / 유저 정보 조회
-  - [Heart.java](./SEMI_MZ/src/mz/member/controller/HeartController.java) : 호감도 추가 /  삭제
+  - [Heart.java](./SEMI_MZ/src/mz/member/controller/HeartController.java) : 호감도 추가 / 삭제
   - [HeartCount.java](./SEMI_MZ/src/mz/member/controller/HeartCountController.java) : 누적 호감도 조회
   - [Friend.java](./SEMI_MZ/src/mz/member/controller/FriendController.java) : 친구 추가 / 삭제
   - [FriendInfo.java](./SEMI_MZ/src/mz/member/controller/FriendInfoController.java) : 친구 조회
@@ -202,27 +205,25 @@ MZONE만의 코인 시스템 체계
 
 ## 노지의 - [PPT] 58p 참조
 
-- 마이룸  
-	- [myroom.jsp](./SEMI_MZ/WebContent/views/myroom.jsp) : 마이룸 view 페이지
-	- [myroom.js](./SEMI_MZ/WebContent/resource/js/myroom/myroom.js) : 마이룸 시작 화면 데이터 처리
-	- [home.java](./SEMI_MZ/src/mz/myroom/home.java) : 접속 유저 판별
-	- [MyroomFriendSkinController.java](./SEMI_MZ/src/mz/skin/controller/MyroomFriendSkinController.java) : 접속 유저 캐릭터 스킨 조회
-	- 방명록
-		- [board.js](./SEMI_MZ/WebContent/resource/js/myroom/board.js) : 방명록 관련 데이터 처리
-		- [BoardListController.java](./SEMI_MZ/src/mz/board/controller/BoardListController.java) : 방명록 목록 조회
-		- [BoardDetailController.java](./SEMI_MZ/src/mz/board/controller/BoardDetailController.java) : 방명록 상세조회(로그인 유저)
-		- [BoardInsertController.java](./SEMI_MZ/src/mz/board/controller/BoardInsertController.java) : 방명록 작성
-		- [BoardUpdateController.java](./SEMI_MZ/src/mz/board/controller/BoardUpdateController.java) : 방명록 수정
-		- [BoardDeleteController.java](./SEMI_MZ/src/mz/board/controller/BoardDeleteController.java) : 방명록 삭제
-		- [SendBoardDetailController.java](./SEMI_MZ/src/mz/board/controller/SendBoardDetailController.java) : 방명록 상세 조회(접속 유저)
-	- 옷장/상점
-		- [closet.js](./SEMI_MZ/WebContent/resource/js/myroom/closet.js) : 옷장/상점 관련 데이터 처리
-		- [MyroomMySkinController.java](./SEMI_MZ/src/mz/skin/controller/MyroomMySkinController.java) : 보유 캐릭터 스킨 조회
-		- [MyroomSkinListController.java](./SEMI_MZ/src/mz/skin/controller/MyroomSkinListController.java) : 상점 캐릭터 스킨 목록 조회
-		- [MyroomSkinInsertController.java](./SEMI_MZ/src/mz/skin/controller/MyroomSkinInsertController.java) : 캐릭터 스킨 구매
-		- [MyroomSkinUpdateController.java](./SEMI_MZ/src/mz/skin/controller/MyroomSkinUpdateController.java) : 캐릭터 스킨 착용
-
-
+- 마이룸
+  - [myroom.jsp](./SEMI_MZ/WebContent/views/myroom.jsp) : 마이룸 view 페이지
+  - [myroom.js](./SEMI_MZ/WebContent/resource/js/myroom/myroom.js) : 마이룸 시작 화면 데이터 처리
+  - [home.java](./SEMI_MZ/src/mz/myroom/home.java) : 접속 유저 판별
+  - [MyroomFriendSkinController.java](./SEMI_MZ/src/mz/skin/controller/MyroomFriendSkinController.java) : 접속 유저 캐릭터 스킨 조회
+  - 방명록
+    - [board.js](./SEMI_MZ/WebContent/resource/js/myroom/board.js) : 방명록 관련 데이터 처리
+    - [BoardListController.java](./SEMI_MZ/src/mz/board/controller/BoardListController.java) : 방명록 목록 조회
+    - [BoardDetailController.java](./SEMI_MZ/src/mz/board/controller/BoardDetailController.java) : 방명록 상세조회(로그인 유저)
+    - [BoardInsertController.java](./SEMI_MZ/src/mz/board/controller/BoardInsertController.java) : 방명록 작성
+    - [BoardUpdateController.java](./SEMI_MZ/src/mz/board/controller/BoardUpdateController.java) : 방명록 수정
+    - [BoardDeleteController.java](./SEMI_MZ/src/mz/board/controller/BoardDeleteController.java) : 방명록 삭제
+    - [SendBoardDetailController.java](./SEMI_MZ/src/mz/board/controller/SendBoardDetailController.java) : 방명록 상세 조회(접속 유저)
+  - 옷장/상점
+    - [closet.js](./SEMI_MZ/WebContent/resource/js/myroom/closet.js) : 옷장/상점 관련 데이터 처리
+    - [MyroomMySkinController.java](./SEMI_MZ/src/mz/skin/controller/MyroomMySkinController.java) : 보유 캐릭터 스킨 조회
+    - [MyroomSkinListController.java](./SEMI_MZ/src/mz/skin/controller/MyroomSkinListController.java) : 상점 캐릭터 스킨 목록 조회
+    - [MyroomSkinInsertController.java](./SEMI_MZ/src/mz/skin/controller/MyroomSkinInsertController.java) : 캐릭터 스킨 구매
+    - [MyroomSkinUpdateController.java](./SEMI_MZ/src/mz/skin/controller/MyroomSkinUpdateController.java) : 캐릭터 스킨 착용
 
 ## 한승은 - [PPT] 72p 참조
 
