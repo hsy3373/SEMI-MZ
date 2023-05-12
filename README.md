@@ -154,7 +154,7 @@ MZONE만의 코인 시스템 체계
 
 - 광장
 
-  - [square.jsp](./SEMI_MZ/WebContent/views/square.jsp) : 광장 view페이지
+  - [square.jsp](./SEMI_MZ/WebContent/views/square.jsp) : 광장 view페이지 ?
   - [squareCanvas.js](./SEMI_MZ/WebContent/resource/js/squareCanvas.js) : 광장 데이터 처리
   - [squareinit.js](./SEMI_MZ/WebContent/resource/js/squareinit.js) : 광장 시작
   - [blockCheckController.java](./SEMI_MZ/src/mz/square/controller/blockCheckController.java) : 차단/신고 유저 강제퇴장
