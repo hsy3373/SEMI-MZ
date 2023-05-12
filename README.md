@@ -22,19 +22,19 @@ MZONE만의 코인 시스템 체계
 - [[PPT] 링크](https://www.miricanvas.com/v/11ytu1c) / <a href="./SEMI_MZ/WebContent/resource/etc/MZONE_PPT.pdf" download="Mzone.pdf">[PPT] 다운로드</a>
 
 - 회원
-  [![회원](./SEMI_MZ/WebContent/resource/etc/video/member.gif)](#프로젝트-소개)
+  [![회원](./SEMI_MZ/WebContent/resource/etc/video/member.gif)]()
 
 - 광장
-  [![광장](./SEMI_MZ/WebContent/resource/etc/video/square.gif)](#프로젝트-소개)
+  [![광장](./SEMI_MZ/WebContent/resource/etc/video/square.gif)]()
 
 - 마이룸
-  [![마이룸](./SEMI_MZ/WebContent/resource/etc/video/myroom.gif)](#프로젝트-소개)
+  [![마이룸](./SEMI_MZ/WebContent/resource/etc/video/myroom.gif)]()
 
 - 미니게임
-  [![미니게임](./SEMI_MZ/WebContent/resource/etc/video/minigame.gif)](#프로젝트-소개)
+  [![미니게임](./SEMI_MZ/WebContent/resource/etc/video/minigame.gif)]()
 
 - 관리자
-  [![관리자](./SEMI_MZ/WebContent/resource/etc/video/admin.gif)](#프로젝트-소개)
+  [![관리자](./SEMI_MZ/WebContent/resource/etc/video/admin.gif)]()
 
 <br>
 
