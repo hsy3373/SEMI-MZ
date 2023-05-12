@@ -145,32 +145,32 @@ MZONE만의 코인 시스템 체계
 
 ## 윤지영 - [PPT] 27p 참조
 - 광장
-	- [square.jsp](./SEMI_MZ/WebContent/views/square.jsp) : 광장 view페이지
-	- [squareCanvas.js](./SEMI_MZ/WebContent/resource/js/squareCanvas.js) : 광장 데이터 처리
-	- [squareinit.js](./SEMI_MZ/WebContent/resource/js/squareinit.js) :  광장 시작 
-	- [blockCheckController.java](./SEMI_MZ/src/mz/square/controller/blockCheckController.java) : 차단/신고 유저 강제퇴장
-	- [squareGoHome.java](./SEMI_MZ/src/mz/square/controller/squareGoHome.java) : 마이룸 이동 
-	- [goMiniGame.java](./SEMI_MZ/src/mz/square/controller/goMiniGame.java) : 미니게임 이동
+ - [square.jsp](./SEMI_MZ/WebContent/views/square.jsp) : 광장 view페이지
+ - [squareCanvas.js](./SEMI_MZ/WebContent/resource/js/squareCanvas.js) : 광장 데이터 처리
+ - [squareinit.js](./SEMI_MZ/WebContent/resource/js/squareinit.js) :  광장 시작 
+ - [blockCheckController.java](./SEMI_MZ/src/mz/square/controller/blockCheckController.java) : 차단/신고 유저 강제퇴장
+ - [squareGoHome.java](./SEMI_MZ/src/mz/square/controller/squareGoHome.java) : 마이룸 이동 
+ - [goMiniGame.java](./SEMI_MZ/src/mz/square/controller/goMiniGame.java) : 미니게임 이동
 
-	- 광장소켓
-		- [JSONDecoder.java](./SEMI_MZ/src/mz/square/JSONDecoder.java) : 소켓 데이터 처리
-		- [JSONEncoder.java](./SEMI_MZ/src/mz/square/JSONEncoder.java) :  소켓 데이터 처리
-		- [SquareServer.java](./SEMI_MZ/src/mz/square/SquareServer.java) :  소켓 데이터 처리
-
-
-	- 미니게임 리스트창
-		- [game.jsp](./SEMI_MZ/WebContent/views/game.jsp) : 미니게임 리스트창 외관
-		- [gamezone.js](./SEMI_MZ/WebContent/resource/js/gamezone/gamezone.js) : 미니게임 리스트창 데이터 처리
+ - 광장소켓
+	- [JSONDecoder.java](./SEMI_MZ/src/mz/square/JSONDecoder.java) : 소켓 데이터 처리
+	- [JSONEncoder.java](./SEMI_MZ/src/mz/square/JSONEncoder.java) :  소켓 데이터 처리
+	- [SquareServer.java](./SEMI_MZ/src/mz/square/SquareServer.java) :  소켓 데이터 처리
 
 
-	- 설정/친구 버튼
-		- [buttonList.jsp](./SEMI_MZ/WebContent/views/buttonList.jsp) : 버튼 외관
-		- [buttonList.js](./SEMI_MZ/WebContent/resource/js/buttonList.js) : 버튼 데이터 처리
-		- [FriendListController.java](./SEMI_MZ/src/mz/buttonList/controller/FriendListController.java) :  친구 리스트 조회
-		- [logoutController.java](./SEMI_MZ/src/mz/buttonList/controller/logoutController.java) :  로그아웃
+ - 미니게임 리스트창
+	- [game.jsp](./SEMI_MZ/WebContent/views/game.jsp) : 미니게임 리스트창 외관
+	- [gamezone.js](./SEMI_MZ/WebContent/resource/js/gamezone/gamezone.js) : 미니게임 리스트창 데이터 처리
 
 
-- 미니게임(카드뒤집기)
+ - 설정/친구 버튼
+	- [buttonList.jsp](./SEMI_MZ/WebContent/views/buttonList.jsp) : 버튼 외관
+	- [buttonList.js](./SEMI_MZ/WebContent/resource/js/buttonList.js) : 버튼 데이터 처리
+	- [FriendListController.java](./SEMI_MZ/src/mz/buttonList/controller/FriendListController.java) :  친구 리스트 조회
+	- [logoutController.java](./SEMI_MZ/src/mz/buttonList/controller/logoutController.java) :  로그아웃
+
+
+ - 미니게임(카드뒤집기)
 	- [miniGame.jsp](./SEMI_MZ/WebContent/views/minigame/miniGame.jsp) : 미니게임 view 페이지
 	- [cardFlip.js](./SEMI_MZ/WebContent/resource/js/minigame/cardFlip.js) :  미니게임 관련 데이터 처리
 	- [FlipGameController.java](./SEMI_MZ/src/mz/minigame/controller/FlipGameController.java) :  미니게임 데이터 처리
