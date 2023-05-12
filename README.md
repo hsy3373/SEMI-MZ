@@ -147,6 +147,11 @@ MZONE만의 코인 시스템 체계
 
 ## 윤지영 - [PPT] 27p 참조
 
+- 암호화
+
+  - [PwdFilter.java](./SEMI_MZ/src/mz/common/filter/PasswordEncryptFilter.java) : 암호화 필터
+  - [PwdEncrypt.java](./SEMI_MZ/src/mz/common/PasswordEncryptWrapper.java) : API키, 패스워드 암호화
+
 - 광장
 
   - [square.jsp](./SEMI_MZ/WebContent/views/square.jsp) : 광장 view페이지
