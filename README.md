@@ -22,6 +22,9 @@ MZONE만의 코인 시스템 체계
 - [[PPT] 링크](https://www.miricanvas.com/v/11ytu1c) / <a href="./SEMI_MZ/WebContent/resource/etc/MZONE_PPT.pdf" download="Mzone.pdf">[PPT] 다운로드</a>
 
 - 회원
+[![회원](./SEMI_MZ/WebContent/resource/etc/video/member.gif)](#김혜린---ppt-11p-참조)
+
+
   <p align="center">
     <img src="./SEMI_MZ/WebContent/resource/etc/video/member.gif">
   </p>
