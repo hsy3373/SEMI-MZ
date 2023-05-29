@@ -43,7 +43,6 @@ public class HeartController extends HttpServlet {
 			
 			new Gson().toJson(result, response.getWriter());
 		} else {
-			System.out.println("삭제 실패");
 			
 			response.setContentType("application/json; charset=UTF-8");
 			
@@ -60,7 +59,6 @@ public class HeartController extends HttpServlet {
 		String receiveId = request.getParameter("receiveId");
 		
 		int result = new MemberService().insertHeart(loginUser, receiveId);
-		System.out.println("하트 받는 사람"+receiveId+"하트 주는 사람"+loginUser+"결과"+result);
 		
 		if (result > 0) {
 			
@@ -68,7 +66,6 @@ public class HeartController extends HttpServlet {
 			
 			new Gson().toJson(result, response.getWriter());
 		} else {
-			System.out.println("하트 클릭 실패");
 			response.setContentType("application/json; charset=UTF-8");
 			
 			new Gson().toJson(result, response.getWriter());

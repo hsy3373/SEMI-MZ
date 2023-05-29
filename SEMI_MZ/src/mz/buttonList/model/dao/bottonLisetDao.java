@@ -51,12 +51,8 @@ public class bottonLisetDao {
 		 PreparedStatement pstmt = null;
 		 ResultSet rset = null;
 		 String sql = prop.getProperty("selectFriendList");
-		 
-		 //System.out.println(sql); 연결 됐음
-		 System.out.println(userId); 
-		 
-		 try {
-			 //System.out.println("여기까지옴11");		 
+		
+		 try {		
 			 
 			 pstmt = conn.prepareStatement(sql);
 			 
@@ -69,7 +65,6 @@ public class bottonLisetDao {
 						   rset.getString("USER_ID"),
 						   rset.getString("NICKNAME"),
 						   rset.getInt("SKIN_ID"));
-				 System.out.println(m);
 				 list.add(m);
 			 }
 				
@@ -80,8 +75,6 @@ public class bottonLisetDao {
 				close(pstmt);
 			}
 		
-		 //System.out.print("dao list :"+list);
-
 		return list;
 	}
 

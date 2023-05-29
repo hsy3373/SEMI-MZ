@@ -28,7 +28,6 @@ contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
       rel="stylesheet"
       type="text/css"
     />
-    <link rel="stylesheet" href="<%=contextPath%>/resource/css/alert.css" />
   </head>
   <body>
     <!-- ========================== [윤지영] 버튼리스트 / 아래떠있는 버튼 리스트 모달 ========================== -->
@@ -55,7 +54,7 @@ contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
       <div class="modal_body">
         <div class="fr-modal-out-btn">
           <img
-            src="<%=contextPath%>/resource/img/icon/엑스 버튼.png"
+            src="<%=contextPath%>/resource/img/icon/back2_btn.png"
             class="fn-btn"
             style="width: 50px; height: 50px"
           />
@@ -75,7 +74,7 @@ contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
       <div class="modal_body" id="Preferences">
         <div class="modal-out-btn2">
           <img
-            src="<%=contextPath%>/resource/img/icon/엑스 버튼.png"
+            src="<%=contextPath%>/resource/img/icon/back2_btn.png"
             class="Pf-btn"
             style="width: 50px; height: 50px"
           />
@@ -89,43 +88,25 @@ contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
       </div>
     </div>
 
-    <!-- ======= 로그아웃 모달창: 환경설정 ======== -->
-    <div class="alert" id="logout-alert">
-      <h3 id="alert-text">로그아웃 하시겠습니까?</h3>
-      <div>
-        <button class="button alert-ok" id="logout-ok">확인</button>
-        <button class="button alert-cancel" id="logout-cancel">취소</button>
-      </div>
-    </div>
 
     <!-- ========================== [김혜린] 내정보 변경 / 비밀번호 입력 요구 모달 공간 ========================== -->
     <!-- ======= 내정보변경 시 비밀번호 입력 요청 모달 ======== -->
     <div class="modal smodalInfo">
       <div class="s-modal-back">
         <div class="smodal-th">
-          <button class="smodal-xbtn">
-            <img
-              src="<%=contextPath%>/resource/img/icon/엑스 버튼.png"
-              class="sx-btn sx-btn1"
-            />
-          </button>
+          <button class="smodal-xbtn"><img src="<%=contextPath%>/resource/img/icon/엑스 버튼.png" class="sx-btn sx-btn1"></button>
         </div>
-        <form>
+        <div>
           <table class="smodal-table">
             <tr class="smodal-tb">
               <th colspan="2">비밀번호 입력</th>
             </tr>
             <tr>
-              <td><input type="password" class="rqpwd-input" id="rqpwd" /></td>
-              <td>
-                <button type="button" class="rqpwd-submit-btn" id="rq-btn">
-                  확인
-                </button>
-              </td>
-              .
+              <td><input type="password" class="rqpwd-input pwdInput" id="rqpwd" /></td>
+              <td><button type="button" class="rqpwd-submit-btn pwdcheckBtn" id="rq-btn">확인</button></td>
             </tr>
           </table>
-        </form>
+        </div>
       </div>
     </div>
     <!-- ========================= 내정보변경 모달 ========================= -->
@@ -133,53 +114,26 @@ contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
       <div>
         <div class="rin-modal-background">
           <div class="rin-modal-header">내 정보 변경</div>
-          <div class="rin-modal-out-btn">
-            <img
-              src="<%=contextPath%>/resource/img/icon/엑스 버튼.png"
-              class="sx-btn myinfo-xbtn"
-            />
-          </div>
+          <div class="rin-modal-out-btn"><img src="<%=contextPath%>/resource/img/icon/엑스 버튼.png" class="sx-btn myinfo-xbtn"></div>
           <div class="rin-empty-space"></div>
           <div class="myinfo-modaltxtarea">
             <form>
               <table class="myinfo-table">
                 <tr>
                   <th class="rin-th1-wid">- 아이디</th>
-                  <td>
-                    <input
-                      type="text"
-                      class="rin-inputbox rin-readonly"
-                      placeholder="<%= userId %>"
-                      readonly
-                    />
-                  </td>
+                  <td><input type="text" class="rin-inputbox rin-readonly" placeholder="<%= userId %>" readonly></td>
                   <td></td>
                 </tr>
                 <tr></tr>
                 <tr></tr>
                 <tr>
                   <th class="rin-th1-wid">- 닉네임 변경</th>
-                  <td>
-                    <input
-                      type="text"
-                      class="rin-inputbox cge-nick"
-                      name="cge-nick"
-                      value="<%= nickName %>"
-                    />
-                  </td>
-                  <td class="rin-td3-wid">
-                    <button type="button" class="rncheck-btn" disabled>
-                      중복확인
-                    </button>
-                  </td>
+                  <td><input type="text" class="rin-inputbox cge-nick" name="cge-nick" value="<%= nickName %>"></td>
+                  <td class="rin-td3-wid"><button type="button" class="rncheck-btn" id="renick-checkBtn" disabled>중복확인</button></td>
                 </tr>
                 <tr class="rin-under-text">
                   <td></td>
-                  <td>
-                    <span class="cgenick-txt"
-                      >영문, 한글, 숫자, 특수기호(_) 사용하여 2~8자까지 공백없이
-                      가능</span
-                    >
+                  <td><span class="cgenick-txt">영문, 한글, 숫자, 특수기호(_) 사용하여 2~8자까지 공백없이 가능</span>
                   </td>
                   <td></td>
                 </tr>
@@ -228,13 +182,7 @@ contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
                     <label for="W">여</label>
                     <input type="radio" id="M" name="gender" value="M" />
                     <label for="M">남</label>
-                    <input
-                      type="radio"
-                      id="N"
-                      name="gender"
-                      value="N"
-                      checked
-                    />
+                    <input type="radio" id="N" name="gender" value="N" checked/>
                     <label for="N">비공개</label>
                   </td>
                   <td></td>
@@ -290,30 +238,41 @@ contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
             />
           </button>
         </div>
-        <form>
+        <div>
           <table class="smodal-table">
             <tr class="smodal-tb">
               <th colspan="2">정말 탈퇴하시겠습니까?</th>
             </tr>
             <tr>
               <td>
-                <input type="password" class="rqpwd-input" id="sec-pwdchk" />
+                <input type="password" class="rqpwd-input pwdInput2" id="sec-pwdchk" />
               </td>
               <td>
-                <button type="button" class="rqpwd-submit-btn" id="secsub-btn">
+                <button type="button" class="rqpwd-submit-btn pwdcheckBtn2" id="secsub-btn">
                   확인
                 </button>
               </td>
-              .
             </tr>
           </table>
-        </form>
+        </div>
       </div>
     </div>
+
+<!--=========================alert=============================-->
+
+    <!-- alert(확인만 있음) -->
+ <div class="home-alert">
+	<h3 id="home-alert-text"></h3>
+	<div>
+	   <button class="button home-alert-ok">확인</button>
+	</div>
+ </div>
+ <div class="home-alert-overlay"></div>
     <!-- ============================================================================================================ -->
 
     <script>
-      var gender = "${loginUser.gender}";
+      var userId = "${loginUser.userId}";
+      var usergender = "${loginUser.gender}";
       var orgName = "${loginUser.nicName}";
       var orgPwd = "${loginUser.userPwd}";
       var orgInfo = "${loginUser.info}";
@@ -331,10 +290,13 @@ contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
       src="<%=contextPath%>/resource/js/validation.js"
     ></script>
 
-    <!-- <script type="module">
-        import {init} from '<%=contextPath%>/resource/js/buttonList.js'
-        console.log("?")
-        init();
-    </script> -->
+    <script
+    type="module"
+    src="<%=contextPath%>/resource/js/alert.js"
+  ></script>
+
+
+
+  
   </body>
 </html>

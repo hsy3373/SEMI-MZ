@@ -15,9 +15,10 @@ import javax.servlet.http.HttpSession;
 /**
  * Servlet Filter implementation class LoginCheckFilter
  */
+//[han]
 // 여러개 url에 필터 적용시키려면 {} 로 객체화 시켜서 넘겨주면 됨
 // 나중에 겹치는 url이 생기면 {"/board/*", "/member/*"} 등등으로 설정도 가능하다
-@WebFilter({"/예시"})
+@WebFilter({"/home", "/forwarding.sq"})
 public class LoginCheckFilter implements Filter {
 
     /**
@@ -44,7 +45,7 @@ public class LoginCheckFilter implements Filter {
 		
 		if(session == null || session.getAttribute("loginUser") == null) {
 			// TODO! 추후 어디로 보낼건지 수정 필요
-			request.getRequestDispatcher("views/test.jsp" ).forward(request, response);
+			request.getRequestDispatcher("index.jsp" ).forward(request, response);
 		}else {
 			chain.doFilter(request, response);
 		}

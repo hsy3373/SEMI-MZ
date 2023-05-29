@@ -117,7 +117,10 @@ export let checkChatScroll = function () {
   // 스크롤이 최하단 근처 일때만 고정
   if (Math.abs(chatArea.scrollHeight - eh) <= 60) {
     // scrollHeight   : 요소에 들어있는 컨텐츠의 전체 높이, 패딩/테두리포함, 마진은 제외
-    chatArea.scrollTop = chatArea.scrollHeight;
+    //chatArea.scrollTop = chatArea.scrollHeight;
+    return true;
+  } else {
+    return false;
   }
 };
 
@@ -125,10 +128,10 @@ export let checkChatScroll = function () {
 
 //채팅룸 리스트 아이템 클릭시 해당 채팅룸 선택되며 내용 표시
 export let clickChatRoom = function (e) {
-  // 만약 동일한 것을 클릭했다면 함수 종료
-  if ($(".selected-chat") == $(e)) {
-    return;
-  }
+  // // 만약 동일한 것을 클릭했다면 함수 종료
+  // if ($(".selected-chat") == $(e)) {
+  //   return;
+  // }
 
   //모든 채팅룸들 width 값 리셋
   $(".chat-room-item").css({ width: "20%" });
@@ -166,6 +169,7 @@ export let clickChatRoom = function (e) {
         $(e).children(".room-name").text()
       ];
   }
+
   if (id == "chatLogAll") {
     //전체채팅은 따로 DB에 저장되어있지 않기때문에 그냥 보여주기
     showChattings(id, "bottom");
@@ -222,7 +226,8 @@ let changeChatColor = function () {
       $(e.target).attr("class") != "chat-container" &&
       $(e.target).parents(".div-send").length < 1 &&
       $(e.target).attr("class") != "div-send" &&
-      $(e.target).attr("class") != "resizer"
+      $(e.target).attr("class") != "resizer" &&
+      e.target != document.querySelector(".info-chatting")
     ) {
       // 채팅창 외부가 클릭되었을 경우
       //console.log('팝업 외 부분');
@@ -243,15 +248,10 @@ let textareaEnterKey = function () {
     .addEventListener("keydown", function (e) {
       // 엔터키면 보내기 후 내용 없애기, shift+enter 면 줄바꿈 처리
       if (e.key == "Enter") {
-        console.log(
-          "현재 입력창 글자 : ",
-          document.querySelector("#text-send").value.length,
-          document.querySelector("#text-send").value == "\n"
-        );
         if (!e.shiftKey) {
           if (document.querySelector("#text-send").value.length == 0) {
             e.preventDefault(); // 개행 삽입 막음
-            console.log("연속으로 엔터만 입력할때는 채팅 전송 안되게 막음");
+            // console.log('연속으로 엔터만 입력할때는 채팅 전송 안되게 막음');
           } else {
             //todo 중복 엔터 막기
             e.preventDefault(); // 개행 삽입 막음
@@ -276,20 +276,22 @@ let eventEnterKey = function () {
       ) {
         //엔터가 눌렸는데 현재 포커스 된 창이 채팅창이 아닐때
         let myroom1 = this.document.querySelector(".board-send-detail");
-        if (
-          !Common.isEmpty(myroom1) &&
-          (myroom1.style.display != "none" ||
-            this.document.querySelector(".board-write").style.display != "none")
-        ) {
-          // 마이룸 요소가 존재할 때 == 마이룸에 들어와있을 때
-          // 마이룸에 들어와있으면서 작성용 모달창이 떠있을 때 == display 값이 none이 아닐때
-          // 마이룸 요소가 없을 때 == 마이룸에 들어와있지 않을 때
-          // 채팅창 선택된 것으로 처리
-          setColorClickInsideVer();
-          document.getElementById("text-send").focus();
+        let report = this.document.querySelector(".report-modal");
+        if (myroom1) {
+          if (
+            document.activeElement.getAttribute("class") !=
+              "board-write-content" &&
+            report.classList.contains("hidden")
+          ) {
+            setColorClickInsideVer();
+            document.getElementById("text-send").focus();
+          }
+        } else if (report) {
+          if (report.classList.contains("hidden")) {
+            setColorClickInsideVer();
+            document.getElementById("text-send").focus();
+          }
         } else {
-          // 마이룸 요소가 없을 때 == 마이룸에 들어와있지 않을 때
-          // 채팅창 선택된 것으로 처리
           setColorClickInsideVer();
           document.getElementById("text-send").focus();
         }
@@ -348,11 +350,11 @@ export let setChattingRooms = function (id) {
   // 페이지 값 세션스토리지에 저장
   Common.setSessionStorage("roomPage", page);
 
-  // 해당 페이지에 표시해야하는 룸 개수가 실제 총 룸 길이보다 크면 화살표 숨기기
-  hideArrow(page * 5 + 5 >= idList.length);
+  // 1페이지에 표시해야하는 룸 개수가  5개 이하면 화살표 숨기기
+  hideArrow(5 >= idList.length);
 
   // 현재 페이지에 해당하는 룸 이름 부여
-  for (let i = Number(page); i < Number(page) + 5; i++) {
+  for (let i = Number(page) * 5; i < Number(page) * 5 + 5; i++) {
     let num = i % 5;
     if (i < idList.length) {
       $(".chat-room-item").eq(num).css({
@@ -373,13 +375,13 @@ export let setChattingRooms = function (id) {
     // 기존에 선택되어있던 것이 전체 채팅일 때
     $(".loadingAni-container").fadeOut();
   } else {
-    console.log(
-      "기존에 선택되어 있는 것이 전체 채팅이 아님 : ",
-      document.querySelector(".selected-chat").style.display
-    );
+    // console.log(
+    //   '기존에 선택되어 있는 것이 전체 채팅이 아님 : ',
+    //   document.querySelector('.selected-chat').style.display
+    // );
     // 만약 다 끝났는데 현재 선택된 탭의 display 값이 none일 경우 전체 채팅으로 자동 선택되도록
     if (document.querySelector(".selected-chat").style.display == "none") {
-      console.log("룸삭제 했는데 기존 선택된 탭이 none임");
+      // console.log('룸삭제 했는데 기존 선택된 탭이 none임');
       document.querySelector(".chat-all-user").click();
     } else {
       // 기존에 선택되어있는 것이 전체채팅이 아닐때 현재 페이지 내용이 바뀌면서
@@ -399,7 +401,6 @@ export let setChattingRooms = function (id) {
 // 저장소에서 채팅 내용 가져와 보여주기용 함수
 // keyName = 저장소 키값
 export let showChattings = function (keyName, scroll) {
-  console.log("채팅 보여주기 불림 : ", keyName);
   let chatArea = document.querySelector(".chat-item-area");
   let cHeight = chatArea.scrollHeight;
   let chatLog = Common.getSessionStorage(keyName);
@@ -409,12 +410,12 @@ export let showChattings = function (keyName, scroll) {
 
   document.querySelector(".chat-item-area").innerHTML = chatLog;
 
-  console.log(
-    "채팅 보여주기 안에서 스크롤 높이 체크 : ",
-    document.querySelector(".chat-item-area").scrollTop,
-    "  :  ",
-    document.querySelector(".chat-item-area").scrollHeight
-  );
+  // console.log(
+  //   '채팅 보여주기 안에서 스크롤 높이 체크 : ',
+  //   document.querySelector('.chat-item-area').scrollTop,
+  //   '  :  ',
+  //   document.querySelector('.chat-item-area').scrollHeight
+  // );
 
   // 스크롤 위치를 어디로 할 것인지 받아서 해당 위치로 세팅
   if (scroll == "top") {
@@ -475,7 +476,13 @@ export let openChatRoom = function (id) {
 //------------ 요소 이벤트들 부여 구역 --------------
 
 let setDefaultEvents = function () {
-  document.querySelector("#btn-send").addEventListener("click", sendChat);
+  document.querySelector("#btn-send").addEventListener("click", function () {
+    if (document.querySelector("#text-send").value.length != 0) {
+      // 채팅 길이가 하나라도 있어야 채팅 전송
+      sendChat();
+      handleResizeHeight();
+    }
+  });
 
   document.querySelector("#chat-prev").addEventListener("click", function () {
     showNextRooms("<");

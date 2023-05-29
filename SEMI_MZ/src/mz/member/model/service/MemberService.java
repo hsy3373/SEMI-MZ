@@ -85,6 +85,17 @@ public class MemberService {
 		return list;
 	}
 	
+	//[han] 어드민 페이지용 호감도 집계에 사용되지 애들 조회용 - 최근 월요일의 7일 전보다 더 오래된 호감도 기록들
+	public  int selectHeartForDel(){
+		Connection conn = getConnection();
+
+		int result = new MemberDao().selectHeartForDel(conn);
+
+		close(conn);
+
+		return result;
+	}
+	
 
 	// 유저 정보 불러오기 - 가영
 	public Member selectMember(String userId) {
@@ -98,29 +109,40 @@ public class MemberService {
 		return m;
 	}
 	
-	// [김혜린]
+	// [김혜린] - 유저 정보 조회
+	public Member selectLoginUser(String userId) {
+		Connection conn = getConnection();
+		
+		Member m = new MemberDao().selectLoginUser(conn, userId);
+		
+		close(conn);
+		
+		return m;
+	}
+	
+	// [김혜린] - 기본 로그인
 	public Member loginMember(String userId, String userPwd) {
 		Connection conn = getConnection();
 		
 		Member m = new MemberDao().loginMember(conn, userId, userPwd);
 		
 		close(conn);
-		//System.out.println("서비스 m : " + m);
+		
 		return m;
 	}
 
-	// [김혜린]
+	// [김혜린] - api 키 존재유무 확인
 	public Member checkKey(String apiKind, String apiKey) {
 		Connection conn = getConnection();
 		
 		Member m = new MemberDao().checkKey(conn, apiKind, apiKey);
 		
 		close(conn);
-		//System.out.println("서비스에 담겼니?" + m); // console용
+		
 		return m;
 	}
 		
-	// [김혜린]
+	// [김혜린] - 아이디 중복확인
 	public int checkId(String userId) {
 		Connection conn = getConnection();
 		
@@ -131,7 +153,7 @@ public class MemberService {
 		return result;
 	}
 	
-	// [김혜린]
+	// [김혜린] - 닉네임 중복확인
 	public int checkNick(String nicName) {
 		Connection conn = getConnection();
 		
@@ -199,11 +221,19 @@ public class MemberService {
 			return result;
 			
 		}
+	
+	// [지의] - 친구유저 닉네임 조회
+	public String friendNickName(String receiveId) {
+		Connection conn = getConnection();
+		String nickName = new MemberDao().friendNickName(conn, receiveId);
+		close(conn);
+		return nickName;
+	}
 
 		
 //------------------------------ insert 구간 -------------------------------
 	
-	// [김혜린]
+	// [김혜린] - Member 테이블 추가
 	public int insertMember(Member m) {
 		
 		Connection conn = getConnection();
@@ -220,124 +250,156 @@ public class MemberService {
 		return result;
 	}
 	
-	// [김혜린]
-		public int insertKey(loginAPI a) {
-			
-			Connection conn = getConnection();
-			
-			int result = new MemberDao().insertKey(conn, a);
-			
-			if(result > 0) { // API테이블에 추가 성공
-				commit(conn);
-			}else { // API테이블에 추가 실패
-				rollback(conn);
-			}
-			close(conn);
-			//System.out.println("서비스 result : " + result); // cosole용
-			return result;
+	// [김혜린] - API 테이블 추가
+	public int insertKey(loginAPI a) {
+		
+		Connection conn = getConnection();
+		
+		int result = new MemberDao().insertKey(conn, a);
+		
+		if(result > 0) { // API테이블에 추가 성공
+			commit(conn);
+		}else { // API테이블에 추가 실패
+			rollback(conn);
 		}
+		close(conn);
+		return result;
+	}
+	
+	// [김혜린] - 캐릭터 테이블 추가
+	public int insertCharacter(String userId) {
 		
-	// [김혜린]	
-		public int insertCharacter(String userId) {
-			
-			Connection conn = getConnection();
-			
-			int result = new MemberDao().insertCharacter(conn, userId);
-			System.out.println("서비스에서 디에이오에 보낸 결과 담겼?" + result + userId);
-			if(result > 0) { // CHARACTER 테이블에 추가 성공
-				commit(conn);
-			}else { // CHARACTER 테이블에 추가 실패
-				rollback(conn);
-			}
-			close(conn);
-			System.out.println("서비스 캐릭터테이블 결과 : " + result);
-			return result;
+		Connection conn = getConnection();
+		
+		int result = new MemberDao().insertCharacter(conn, userId);
+		
+		if(result > 0) { // CHARACTER 테이블에 추가 성공
+			commit(conn);
+		}else { // CHARACTER 테이블에 추가 실패
+			rollback(conn);
 		}
+		close(conn);
 		
-	// [김혜린]
-		public void insertDltMember(String userId, String status) {
-			System.out.println("멤버서비스 / DISABLED_MEMBER 테이블 행추가 실행??");//console
-			Connection conn = getConnection();
-			
-			int result = new MemberDao().insertDltMember(conn, userId, status);
-			
-			if(result > 0) { //DISABLED_MEMBER 테이블 insert 성공
-				commit(conn);
-			}else{ //DISABLED_MEMBER 테이블 insert 실패
-				rollback(conn);
-			}
-			close(conn);
-			System.out.println("멤버서비스 DISABLED_MEMBER 테이블 행추가 결과:" + result); //console확인
+		return result;
+	}
+	
+	// [김혜린] - 비활성멤버 테이블 추가
+	public void insertDltMember(String userId, String status) {
+		
+		Connection conn = getConnection();
+		
+		int result = new MemberDao().insertDltMember(conn, userId, status);
+		
+		if(result > 0) { //DISABLED_MEMBER 테이블 insert 성공
+			commit(conn);
+		}else{ //DISABLED_MEMBER 테이블 insert 실패
+			rollback(conn);
 		}
-		
-		
+		close(conn);
+	}
+	
 		
 		
 		
 //------------------------------ update 구간 -------------------------------
-	// [김혜린]
-		public Member updatePwd(String userPwd, String userId) {
-			//System.out.println("멤버서비스 updatePwd 실행");
-			Connection conn = getConnection();
-			
-			int result = new MemberDao().updatePwd(conn, userPwd, userId);
-			
-			Member m = null;
-			
-			if(result > 0) { // update성공
-				commit(conn);
-				m = new MemberDao().loginMember(conn, userId, userPwd);
-			}else { // update실패
-				rollback(conn);
-			}
-			close(conn);
-			//System.out.println("서비스 updatePwd result : " + result);
-			return m;
-		}
-	// [김혜린]
-		public int updateStatus(String userId, String status) {
-			System.out.println("멤버서비스 / updateStatus 실행??"); //console
-			Connection conn = getConnection();
-			
-			int result = new MemberDao().updateStatus(conn, userId, status);
-			
-			if(result > 0) { //Member테이블 status: update 성공
-				commit(conn);
-			}else { //Member테이블 status: update 실패
-				rollback(conn);
-			}
-			close(conn);
-			System.out.println("멤버서비스 / updateStatus 실행결과 : " + result); //console
-			return result;
-		}
-	// [김혜린]	
-		public Member updateMember(String nickName, String userPwd, String info, String gender, String userId) {
-			System.out.println("멤버서비스 / updateMember 실행"); //console
-			Connection conn = getConnection();
-			
-			int result = new MemberDao().updateMember(conn, nickName, userPwd, info, gender, userId);
-			
-			Member m = null;
-			
-			if(result > 0) { //Member테이블 update 성공
-				commit(conn);
-				m = new MemberDao().selectLoginUser(conn, userId);
-			}else { //Member테이블 update 실패
-				rollback(conn);
-			}
-			close(conn);
-			
-			System.out.println("멤버서비스 / updateMember 실행결과 : " + result);//console
-			System.out.println("멤버서비스 / updateMember m 객체: " + m); //console
-			return m;
-		}
+	// [김혜린] - 비밀번호 변경
+	public Member updatePwd(String userPwd, String userId) {
+		Connection conn = getConnection();
 		
-		//[han]
-		//어드민페이지에서 코인과 자기소개 변경용 
-		public int updateMemberInfo(String userId, int coin , String info) {
+		int result = new MemberDao().updatePwd(conn, userPwd, userId);
+		
+		Member m = null;
+		
+		if(result > 0) { // update성공
+			commit(conn);
+			m = new MemberDao().loginMember(conn, userId, userPwd);
+		}else { // update실패
+			rollback(conn);
+		}
+		close(conn);
+		return m;
+	}
+	
+	// [김혜린] - 유저 STATUS 값 변경
+	public int updateStatus(String userId, String status) {
+		
+		Connection conn = getConnection();
+		
+		int result = new MemberDao().updateStatus(conn, userId, status);
+		
+		if(result > 0) { //Member테이블 status: update 성공
+			commit(conn);
+		}else { //Member테이블 status: update 실패
+			rollback(conn);
+		}
+		close(conn); 
+		return result;
+	}
+		
+	// [김혜린] - MEMBER 내정보 변경
+	public Member updateMember(String nickName, String chkPwd, String info, String gender, String userId) {
+		
+		Connection conn = getConnection();
+		
+		int result = new MemberDao().updateMember(conn, nickName, chkPwd, info, gender, userId);
+		
+		Member m = null;
+		
+		if(result > 0) { //Member테이블 update 성공
+			commit(conn);
+			m = new MemberDao().selectLoginUser(conn, userId);
+		}else { //Member테이블 update 실패
+			rollback(conn);
+		}
+		close(conn);
+		
+		return m;
+	}
+		
+	// [김혜린] - (패스워드 미포함) MEMBER 내정보 변경
+	public Member updateNPwd(String nickName, String info, String gender, String userId) {
+		
+		Connection conn = getConnection();
+		
+		int result = new MemberDao().updateNPwd(conn, nickName, info, gender, userId);
+		
+		Member m = null;
+		
+		if(result > 0) { //Member테이블 update 성공
+			commit(conn);
+			m = new MemberDao().selectLoginUser(conn, userId);
+		}else { //Member테이블 update 실패
+			rollback(conn);
+		}
+		close(conn);
+		
+		return m;
+	}
+	
+	//[han]
+	//어드민페이지에서 코인과 자기소개 변경용 
+	public int updateMemberInfo(String userId, int coin , String info) {
+		Connection conn = getConnection();
+		
+		int result = new MemberDao().updateMemberInfo(conn, userId, coin, info);
+		
+		if(result > 0) { 
+			commit(conn);
+		}else { 
+			rollback(conn);
+		}
+		close(conn);
+		
+		return result;
+	}
+		
+		//[지영]
+		//미니게임 coin update 용
+		public int coinUpdate(String userId, int score) {
 			Connection conn = getConnection();
 			
-			int result = new MemberDao().updateMemberInfo(conn, userId, coin, info);
+			int result = new MemberDao().coinUpdate(conn, userId, score);
+			
 			
 			if(result > 0) { 
 				commit(conn);
@@ -351,119 +413,115 @@ public class MemberService {
 		
 		
 //------------------------------ delete 구간 -------------------------------
-	// [김혜린]	
-		public void dltMemBoard(String userId) {
-			System.out.println("멤버서비스 / dltMemBoard 실행??"); //console
-			
-			Connection conn = getConnection();
-			
-			int result = new MemberDao().dltMemBoard(conn, userId);
-			
-			if(result > 0) { // 행 delete 성공
-				commit(conn);
-			}else { // 행 delete 실패
-				rollback(conn);
-			}
-			close(conn);
-			System.out.println("멤버서비스 / dltMemBoard 실행 결과 : "+ result); //console			
-		}
+	// [김혜린] - 회원탈퇴 시 보드 테이블 내 기록 삭제
+	public void dltMemBoard(String userId) {
 		
-		public void dltMemChatting(String userId) {
-			System.out.println("멤버서비스 / dltMemChatting 실행??"); //console
-			
-			Connection conn = getConnection();
-			
-			int result = new MemberDao().dltMemChatting(conn, userId);
-			
-			if(result > 0) { // 행 delete 성공
-				commit(conn);
-			}else { // 행 delete 실패
-				rollback(conn);
-			}
-			close(conn);
-			System.out.println("멤버서비스 / dltMemChatting 실행 결과 : "+ result); //console			
-		}
+		Connection conn = getConnection();
 		
-		public void dltMemHeart(String userId) {
-			System.out.println("멤버서비스 / dltMemHeart 실행??"); //console
-			
-			Connection conn = getConnection();
-			
-			int result = new MemberDao().dltMemHeart(conn, userId);
-			
-			if(result > 0) { // 행 delete 성공
-				commit(conn);
-			}else { // 행 delete 실패
-				rollback(conn);
-			}
-			close(conn);
-			System.out.println("멤버서비스 / dltMemHeart 실행 결과 : "+ result); //console
-		}
+		int result = new MemberDao().dltMemBoard(conn, userId);
 		
-		public void dltMemCharacter(String userId) {
-			System.out.println("멤버서비스 / dltMemCharacter 실행??"); //console
-			
-			Connection conn = getConnection();
-			
-			int result = new MemberDao().dltMemCharacter(conn, userId);
-			
-			if(result > 0) { // 행 delete 성공
-				commit(conn);
-			}else { // 행 delete 실패
-				rollback(conn);
-			}
-			close(conn);
-			System.out.println("멤버서비스 / dltMemCharacter 실행 결과 : "+ result); //console
+		if(result > 0) { // 행 delete 성공
+			commit(conn);
+		}else { // 행 delete 실패
+			rollback(conn);
 		}
+		close(conn);
+	}
+	
+	// [김혜린] - 회원탈퇴 시 채팅 테이블 내 기록 삭제
+	public void dltMemChatting(String userId) {
 		
-		public void dltMemFriend(String userId) {
-			System.out.println("멤버서비스 / dltMemFriend 실행??"); //console
-			
-			Connection conn = getConnection();
-			
-			int result = new MemberDao().dltMemFriend(conn, userId);
-			
-			if(result > 0) { // 행 delete 성공
-				commit(conn);
-			}else { // 행 delete 실패
-				rollback(conn);
-			}
-			close(conn);
-			System.out.println("멤버서비스 / dltMemFriend 실행 결과 : "+ result); //console
-		}
+		Connection conn = getConnection();
 		
-		public void dltMemApi(String userId) {
-			System.out.println("멤버서비스 / dltMemApi 실행??"); //console
-			
-			Connection conn = getConnection();
-			
-			int result = new MemberDao().dltMemApi(conn, userId);
-			
-			if(result > 0) { // 행 delete 성공
-				commit(conn);
-			}else { // 행 delete 실패
-				rollback(conn);
-			}
-			close(conn);
-			System.out.println("멤버서비스 / dltMemApi 실행 결과 : "+ result); //console
-		}
+		int result = new MemberDao().dltMemChatting(conn, userId);
 		
-		// 채팅룸 삭제로직도 추가
-		public void dltMemChattingRoom(String userId) {
-			System.out.println("멤버서비스 / dltMemChattingRoom 실행??"); //console
-			
-			Connection conn = getConnection();
-			
-			int result = new MemberDao().dltMemChattingRoom(conn, userId);
-			
-			if(result > 0) { // 행 delete 성공
-				commit(conn);
-			}else { // 행 delete 실패
-				rollback(conn);
-			}
-			close(conn);
-			System.out.println("멤버서비스 / dltMemChattingRoom 실행 결과 : "+ result); //console			
+		if(result > 0) { // 행 delete 성공
+			commit(conn);
+		}else { // 행 delete 실패
+			rollback(conn);
 		}
+		close(conn);
+	}
+	
+	// [김혜린] - 회원탈퇴 시 호감도 테이블 내 기록 삭제
+	public void dltMemHeart(String userId) {
+		
+		Connection conn = getConnection();
+		
+		int result = new MemberDao().dltMemHeart(conn, userId);
+		
+		if(result > 0) { // 행 delete 성공
+			commit(conn);
+		}else { // 행 delete 실패
+			rollback(conn);
+		}
+		close(conn);
+	}
+	
+	// [김혜린] - 회원탈퇴 시 캐릭터 테이블 내 기록 삭제
+	public void dltMemCharacter(String userId) {
+		
+		Connection conn = getConnection();
+		
+		int result = new MemberDao().dltMemCharacter(conn, userId);
+		
+		if(result > 0) { // 행 delete 성공
+			commit(conn);
+		}else { // 행 delete 실패
+			rollback(conn);
+		}
+		close(conn);
+	}
+	
+	// [김혜린] - 회원탈퇴 시 친구목록 테이블 내 기록 삭제
+	public void dltMemFriend(String userId) {
+		
+		Connection conn = getConnection();
+		
+		int result = new MemberDao().dltMemFriend(conn, userId);
+		
+		if(result > 0) { // 행 delete 성공
+			commit(conn);
+		}else { // 행 delete 실패
+			rollback(conn);
+		}
+		close(conn);
+	}
+	
+	// [김혜린] - 회원 탈퇴 시 채팅룸 테이블  행 삭제
+	public void dltMemChattingRoom(String userId) {
+		
+		Connection conn = getConnection();
+		
+		int result = new MemberDao().dltMemChattingRoom(conn, userId);
+		
+		if(result > 0) { // 행 delete 성공
+			commit(conn);
+		}else { // 행 delete 실패
+			rollback(conn);
+		}
+		close(conn);
+	}
+	
+	// [김혜린] - 회원 탈퇴 시 생성되었던 비활성계정 테이블 행 삭제(사용자 탈퇴 후 15일 이내 재로그인 시 사용됨)
+	public void dltDisabledTable(String userId) {
+		
+		Connection conn = getConnection();
+		
+		int result = new MemberDao().dltDisabledTable(conn, userId);
+		
+		if(result > 0) { // 행 delete 성공
+			commit(conn);
+		}else { // 행 delete 실패
+			rollback(conn);
+		}
+		close(conn);
+	}
+		
+		
+		
+		
+		
 			
 	// 가영 - 호감도 db 저장
 	public int insertHeart(String loginUser, String receiveId) {
@@ -589,5 +647,24 @@ public class MemberService {
 			return result;
 		}
 
+		// [han]
+		//  어드민페이지용 호감도 집계에 사용되지 않는 지난 기록 일괄 삭제
+		public int deleteHeartListForAdmin() {
+			Connection conn = getConnection();
+			
+			int result = new MemberDao().deleteHeartListForAdmin(conn);
+			
+			if(result >0 ) {
+				commit(conn);
+			}else {
+				rollback(conn);
+			}
+			
+			close(conn);
+			
+			return result;
+		}
+
+	
 }
 

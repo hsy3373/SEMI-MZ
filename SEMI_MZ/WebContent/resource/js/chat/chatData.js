@@ -11,12 +11,15 @@ import * as ChatFront from "./chatFront.js";
 
 //------------------------웹소켓 관련 구간 -------------------------------------
 
-let ip = ["192.168.30.180", "192.168.0.2", "localhost"];
-let socketAddress = `ws://192.168.35.221:8081/mzone/websocket`;
+//let ip = ['192.168.30.180:8082', '192.168.0.16', 'localhost', '192.168.0.2'];
+let ip = Common.setip
+let socketAddress = `ws://${ip}${Common.getContextPath()}/websocket`;
 let webSocket = new WebSocket(socketAddress);
 //console.log("기본 웹소켓 객체 : ", webSocket);
 // 지의 학원: 192.168.30.174:8084
 // 지의 집 : 192.168.0.16:8084
+// 혜린 : 192.168.120.37:8084
+// 가영 학원 : 192.168.30.181:8081
 let socketOpen = function (message) {
   //console.log("소켓오픈");
   //console.log(message);
@@ -24,12 +27,9 @@ let socketOpen = function (message) {
 
 // 2. 웹 소켓 서버에서 sendText, sendObject메소드를 실행하면 실행되는 함수
 let socketOnmessage = function (e) {
-  console.log("메세지 수신");
   // 수신된 데이터를 받으려면 이벤트 객체(e)의 data속성을 이용
   //Object형태의 String데이터를 객체로 변환해주기 (JSONObject)
   let chat = JSON.parse(e.data);
-  console.log(chat);
-  console.log("날짜 " + chat.date);
   //만약 작성자가 현재 로그인된 유저와 같으면 본인 메세지용 클래스 추가
   let cl =
     Common.getSessionStorage("loginUser") == chat.userId
@@ -46,7 +46,6 @@ let socketOnmessage = function (e) {
     let chats = Common.getSessionStorage("chatLogAll");
     chats = Common.isEmpty(chats) ? "" : chats;
     Common.setSessionStorage("chatLogAll", chats + str);
-    console.log("채팅하나 all에 저장됨");
   } else {
     // 받는이가 전체 채팅이 아닐때 == 받는이는 무조건 본인 아이디로 되어있음
 
@@ -55,7 +54,6 @@ let socketOnmessage = function (e) {
     // 현재 1:1 채팅이 열려있지 않은 유저에게서 채팅이 왔을 경우
     // 다시 방 정보 불러오도록
     if (!rooms[chat.userNick]) {
-      console.log("채팅 열려있지 않음" + chat.userId);
       // 새로 열려야 할 채팅방 닉네임 값 전달
       getChatRoomList(null, chat.userNick);
     }
@@ -66,27 +64,38 @@ let socketOnmessage = function (e) {
     if (!Common.isEmpty(chats)) {
       // 채팅 로그가 있는 채팅방일 경우 == 이미 한번 이상 해당 방의 채팅 데이터를 불러왔다는 뜻
       Common.setSessionStorage("chatLog-" + chat.userId, chats + str);
-      console.log(`채팅하나 ${chat.userId}에 저장됨`);
     }
   }
 
   // 만약 현재 선택되어있는 채팅룸과 들어온 메세지의 발신자가 같다면
   // 채팅구역에 채팅 추가
   let selected = document.querySelector(".selected-chat");
+  let chatArea = document.querySelector(".chat-item-area");
 
   if (selected.id == "chat-all-user" && chat.receiveId == "chatLogAll") {
     // 현재 선택화면 전체채팅이면서 메세지도 전체채팅으로 왔을 때
-    document.querySelector(".chat-item-area").innerHTML += str;
-    ChatFront.checkChatScroll();
+    if (cl == "class='my-chat'") {
+      chatArea.innerHTML += str;
+      //내 채팅이면 스크롤 하단으로
+      chatArea.scrollTop = chatArea.scrollHeight;
+    } else if (ChatFront.checkChatScroll()) {
+      chatArea.innerHTML += str;
+      chatArea.scrollTop = chatArea.scrollHeight;
+    } else {
+      chatArea.innerHTML += str;
+    }
   } else if (
     chat.receiveId != "chatLogAll" &&
     !Common.isEmpty(selected.querySelector(".room-name")) &&
     selected.querySelector(".room-name").innerText == chat.userNick
   ) {
-    console.log("기타 채팅에 들어옴");
     // 현재 선택화면이 전체 채팅이 아니면서 선택된 화면 텍스트 값이 발신자 닉네임과 같을 때
-    document.querySelector(".chat-item-area").innerHTML += str;
-    ChatFront.checkChatScroll();
+    if (ChatFront.checkChatScroll()) {
+      chatArea.innerHTML += str;
+      chatArea.scrollTop = chatArea.scrollHeight;
+    } else {
+      chatArea.innerHTML += str;
+    }
   }
 };
 
@@ -94,7 +103,7 @@ let fnSocket = {
   onopen: socketOpen,
   onmessage: socketOnmessage,
   onclose: function (e) {
-    console.log("재연결...");
+    // console.log('재연결...');
     setTimeout(function () {
       //재연결하기...
       webSocket = new WebSocket(socketAddress);
@@ -136,34 +145,32 @@ export const sendChat = (id) => {
     content,
     sendTime
   );
-  console.log("채팅객체 : ", chat);
 
   let str = `<div class='my-chat'>[${sendTime}]${chat.userNick} : ${content}</div>`;
 
   //전체채팅은 소켓에서 전체로 다 뿌려주기 때문에 굳이 여기서 또
   // 세션스토리지에 저장할 필요가 없음 == 그 외 것만 저장하면 됨
   if (id != "chatLogAll") {
-    Common.setSessionStorage(
-      "chatLog-" + id,
-      Common.getSessionStorage("chatLog-" + id) + str
-    );
+    let chatArea = document.querySelector(".chat-item-area");
+
+    chatArea.insertAdjacentHTML("beforeend", str);
+    chatArea.scrollTop = chatArea.scrollHeight;
+
+    if (!Common.isEmpty(Common.getSessionStorage("chatLog-" + id))) {
+      str = Common.getSessionStorage("chatLog-" + id) + str;
+    }
+    Common.setSessionStorage("chatLog-" + id, str);
 
     //DB에 채팅내역 등록
     insertChat(id, content);
     // 채팅룸 등록하되 포커스 되지는 않도록
     insertChatRoom(id, false);
-
-    // 현재 채팅구역 가장 마지막에 지금 작성한 채팅메세지 추가
-    document
-      .querySelector(".chat-item-area")
-      .insertAdjacentHTML("beforeend", str);
   }
 
   // 웹 소켓 서버로 메세지를 전송
   webSocket.send(JSON.stringify(chat));
   //모두 진행된 후 채팅 입력 구역에 있던 값 삭제
   document.getElementById("text-send").value = "";
-  ChatFront.checkChatScroll();
 };
 
 // 채팅 객체 생성용
@@ -180,8 +187,6 @@ let Chat = function (userId, userNick, receiveId, content, date) {
 // 상대 닉네임값 받아서 해당 상대와의 채팅 내역 불러오기
 // 스크롤 위치 받아서 끝난 후 채팅화면 스크롤 위치 적용
 export let getChattings = function (id, scroll) {
-  console.log("채팅 가져오는중");
-
   let keyName = "chatLog-" + id;
   let path = Common.getContextPath();
   //저장소상 저장되어있는 마지막 chatNo값
@@ -195,6 +200,11 @@ export let getChattings = function (id, scroll) {
     success: (result) => {
       //만약 불러온 값이 없으면 함수 종료
       if (result.length <= 0) {
+        //불러온 값도 없으면서 세션에 저장된 로그가 없으면 채팅 아이템들 모두 삭제
+        if (Common.isEmpty(Common.getSessionStorage("chatLog-" + id))) {
+          document.querySelector(".chat-item-area").innerHTML = "";
+          $(".loadingAni-container").fadeOut();
+        }
         return;
       }
 
@@ -222,7 +232,7 @@ export let getChattings = function (id, scroll) {
       ChatFront.showChattings(keyName, scroll);
     },
     befroeSend: function () {
-      $(".loadingAni").fadeIn(300);
+      $(".loadingAni-container").fadeIn();
     },
     error: function (req, status, error) {
       console.log(req, status, error);
@@ -256,8 +266,6 @@ export let getChatRoomList = function (id, newRoom) {
     url: path + "/room.chat",
     success: (result) => {
       // 닉네임 : [아이디, 닉네임] , .... 형식으로 들어옴
-      console.log(result);
-
       Common.setSessionStorage("allChatRooms", result);
     },
     error: function (req, status, error) {
@@ -285,8 +293,6 @@ export let deleteChatroom = function (id) {
     url: path + "/room.chat",
     data: { receiveId: id, order: "delete" },
     success: (result) => {
-      console.log(id, " 채팅룸 삭제 완료 : ", result);
-
       Common.delSessionStorage("chatLog-" + id);
       Common.delSessionStorage("chatLog-" + id + "-no");
 
@@ -306,7 +312,6 @@ export let insertChatRoom = function (id, focus) {
     url: path + "/room.chat",
     data: { receiveId: id, order: "insert" },
     success: (result) => {
-      console.log(id, " 채팅룸 추가 완료 : ", result);
       //룸 추가가 완료되면 채팅룸 다시부름
       //다시부를때 해당 채팅룸 포커스 할건지 선택하여 진행
       if (focus) {
@@ -322,20 +327,3 @@ export let insertChatRoom = function (id, focus) {
     },
   });
 };
-
-// let checkChatRoom = function(){
-//   let path = Common.getContextPath();
-//   $.ajax({
-//     type: "post",
-//     url: path + "/room.chat",
-//     data: { receiver: id, order: "insert" },
-//     success: (result) => {
-//       console.log(id, " 채팅룸 추가 완료 : ", result);
-//       //룸 추가가 완료되면 채팅룸 다시부름 + 해당 채팅룸 자동선택
-//       getChatRoomList(id);
-//     },
-//     error: function (req, status, error) {
-//       console.log(req, status, error);
-//     },
-//   });
-// }

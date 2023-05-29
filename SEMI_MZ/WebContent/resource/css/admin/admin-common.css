@@ -175,5 +175,23 @@ a.selected,
 }
 
 .inner-wrap {
-  margin-bottom: 5vh;
+  margin: auto;
+  margin-bottom: 2vh;
+}
+
+.logout-btn {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+
+  background-color: rgb(255, 255, 255);
+  font-size: medium;
+  text-align: center;
+  padding: 4px 8px;
+  border: 1px solid black;
+  cursor: pointer;
+}
+
+.logout-btn:active {
+  background-color: rgb(240, 248, 255);
 }

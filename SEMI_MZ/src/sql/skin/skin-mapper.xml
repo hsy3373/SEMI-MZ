@@ -38,27 +38,29 @@
 		WHERE SKIN_ID = ?
 	</entry>
 	
+	<!-- [han] 멤버가 보유중인 리워드용 스킨 조회용 -->
+	<entry key="myRewardList">
+		SELECT SKIN_ID
+        FROM CHARACTER  
+        JOIN CHARACTER_SKIN USING(SKIN_ID)
+        WHERE USER_ID = ? 
+            AND REWARD = 'Y' 
+            AND SKIN_ID > 0
+	</entry>
+	
 <!-- 지의 -->
 	<!-- 마이룸 상점 : 보유중인 캐릭터 제외하고 -->
 	<entry key="selectSkinsList">
 		SELECT SKIN_ID, SAVE_ROOT, CHARACTER_PRICE, REWARD
-		FROM (
-		  SELECT SKIN_ID, SAVE_ROOT, CHARACTER_PRICE, REWARD, ROWNUM AS RN
-		  FROM (
-		    SELECT SKIN_ID, SAVE_ROOT, CHARACTER_PRICE, REWARD
-            FROM CHARACTER_SKIN CS
-            WHERE NOT EXISTS
-            (
-                    SELECT SKIN_ID
-                    FROM CHARACTER C      
-                    WHERE USER_ID = ?
-                    AND CS.SKIN_ID = C.SKIN_ID
-            )
-            AND REWARD = 'N' AND SKIN_ID != 0
-            ORDER BY SKIN_ID ASC
-		  )
+		FROM CHARACTER_SKIN CS
+		WHERE NOT EXISTS
+		(
+		        SELECT SKIN_ID
+		        FROM CHARACTER C      
+		        WHERE USER_ID = ?
+		        AND CS.SKIN_ID = C.SKIN_ID
 		)
-		WHERE RN BETWEEN ? AND ?
+		AND REWARD = 'N'
 	</entry>
 	
 	<!-- 상점 스킨 총 갯수(보유스킨 제외) : 지의 -->
@@ -77,23 +79,16 @@
 	
 	<!-- 마이룸 옷장 : 보유중인 캐릭터만 조회 -->
 	<entry key="mySkinList">
-		SELECT SKIN_ID, SAVE_ROOT
-		FROM (
-		  SELECT SKIN_ID, SAVE_ROOT, ROWNUM AS RN
-		  FROM (
-		    SELECT SKIN_ID, SAVE_ROOT
-            FROM CHARACTER_SKIN CS
-            WHERE EXISTS
-            (
-                    SELECT SKIN_ID
-                    FROM CHARACTER C      
-                    WHERE USER_ID = ?
-                    AND CS.SKIN_ID = C.SKIN_ID
-            )
-            ORDER BY SKIN_ID ASC
-		  )
-		)
-		WHERE RN BETWEEN ? AND ?
+SELECT SKIN_ID, SAVE_ROOT
+  FROM CHARACTER_SKIN CS
+ WHERE EXISTS
+	(
+		SELECT SKIN_ID
+		FROM CHARACTER C      
+		WHERE USER_ID = ?
+		AND CS.SKIN_ID = C.SKIN_ID
+	)
+ORDER BY SKIN_ID ASC
 	</entry>
 	
 	<!-- 옷장 스킨 총 갯수 : 지의 -->
@@ -140,6 +135,12 @@
 	<entry key="deleteSkin">
 		DELETE FROM CHARACTER_SKIN
 		WHERE SKIN_ID = ?
+	</entry>
+	
+	<!-- [han] 유저가 가진 스킨 삭제용  -->
+	<entry key="deleteMySkin">
+		DELETE FROM CHARACTER
+		WHERE USER_ID= ? AND SKIN_ID = ? 
 	</entry>
 	
 	<!-- 로그인유저 스킨 변경 : 지의 -->

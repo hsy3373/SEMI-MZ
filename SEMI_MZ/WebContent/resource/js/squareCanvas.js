@@ -5,14 +5,17 @@
 
 /* js 가져오기  */
 
-import { getContextPath } from "./common.js";
-import { getUserInfo } from "./userInfo.js";
-import { gameModalopen } from "./gamezone.js";
-import { noticeModal } from "./notice.js";
+import { getContextPath,setip } from './common.js';
+import { getUserInfo } from './userInfo.js';
+import { getMyInfo } from './userInfo.js';
+import { gameModalopen } from './gamezone/gamezone.js';
+import { noticeModal } from './notice.js';
 
 //캔버스 세팅
 let canvas;
 let ctx;
+
+let path = getContextPath();
 
 let userbd = new Image();
 let userbs = new Image();
@@ -31,14 +34,14 @@ export let canvasSeting = function () {
   document.getElementById("main-square").appendChild(canvas);
 
   //캐릭터 세팅
-  userbd.src = "../resource/img/user/skin" + userSkin + "/bd.png";
-  userbs.src = "../resource/img/user/skin" + userSkin + "/bs.png";
-  userfd.src = "../resource/img/user/skin" + userSkin + "/fd.png";
-  userfs.src = "../resource/img/user/skin" + userSkin + "/fs.png";
-  userld.src = "../resource/img/user/skin" + userSkin + "/ld.png";
-  userls.src = "../resource/img/user/skin" + userSkin + "/ls.png";
-  userrd.src = "../resource/img/user/skin" + userSkin + "/rd.png";
-  userrs.src = "../resource/img/user/skin" + userSkin + "/rs.png";
+  userbd.src = path + "/resource/img/user/skin" + userSkin + "/bd.png";
+  userbs.src = path + "/resource/img/user/skin" + userSkin + "/bs.png";
+  userfd.src = path + "/resource/img/user/skin" + userSkin + "/fd.png";
+  userfs.src = path + "/resource/img/user/skin" + userSkin + "/fs.png";
+  userld.src = path + "/resource/img/user/skin" + userSkin + "/ld.png";
+  userls.src = path + "/resource/img/user/skin" + userSkin + "/ls.png";
+  userrd.src = path + "/resource/img/user/skin" + userSkin + "/rd.png";
+  userrs.src = path + "/resource/img/user/skin" + userSkin + "/rs.png";
 };
 let noticeBoard, myhome, squarebackground, gamezone;
 //모달 떠있는 동안 움직임 stop
@@ -46,28 +49,24 @@ let noticeBoard, myhome, squarebackground, gamezone;
 let modalstop = false;
 export let modalstopfn = function () {
   modalstop = !modalstop;
-  console.log(modalstop, "호출");
   main();
 };
 
 //배경 이미지 세팅
 function loadImage() {
   squarebackground = new Image();
-  squarebackground.src = "../resource/img/background/background_main.png";
+  squarebackground.src = path + "/resource/img/background/background_main.png";
 
   myhome = new Image();
-  myhome.src = "../resource/img/icon/home.png";
+  myhome.src = path + "/resource/img/icon/home.png";
 
   noticeBoard = new Image();
-  noticeBoard.src = "../resource/img/icon/notice_icon.png";
+  noticeBoard.src = path + "/resource/img/icon/notice_icon.png";
 
   gamezone = new Image();
-  gamezone.src = "../resource/img/icon/gamezone.png";
+  gamezone.src = path + "/resource/img/icon/gamezone.png";
 }
 
-//유저 네임 세팅
-//console.log(userName)
-//console.log(userSkin)
 
 //캐릭터 좌표(스타팅 x,y)
 export let uesrX = 0;
@@ -97,9 +96,6 @@ let keysDown = {};
 function setupKeyboard() {
   document.addEventListener("keydown", function (event) {
     keysDown[event.keyCode] = true;
-
-    //이벤트 호출
-    //console.log(event.key)
     //sendMsg(event.key); //이거 위치를 옮겨보기 => 체크 : 해결. but 호출속도가 빨라서, 문제생길시 다시 back;
   });
 
@@ -250,22 +246,21 @@ function update() {
   }
 
   //충돌이벤트 구현
-  if (uesrX <= 1020 && uesrX >= 960 && uesrY <= 200 && uesrY >= 191) {
-    console.log("home이벤트");
+  if (uesrX <= 1024 && uesrX >= 964 && uesrY <= 204 && uesrY >= 187) {
     gohome();
+    modalstop = true;
+    return;
   }
 
   if (uesrX <= 1130 && uesrX >= 1000 && uesrY <= 463 && uesrY >= 426) {
-    console.log("공지사항 이벤트");
     //캐릭터 좌표 어떻게 처리할지 정하기 : 게시판 보는동안 좌표값
-    document;
-    notice - modal;
+    noticeModal.style.display = 'block';
+    modalstop = true;
 
     uesrY = 468;
   }
 
   if (uesrX <= 345 && uesrX >= 298 && uesrY <= 330 && uesrY >= 300) {
-    //console.log('게임존 이벤트')
     gameModalopen();
     modalstop = true;
     uesrY = 335;
@@ -338,31 +333,28 @@ function update() {
 
 //집으로 이동하는 함수
 const gohome = () => {
-  let path = getContextPath();
-  console.log(path + "/home");
   /* home으로 서블릿 합침 : 지의 */
   location.href = path + "/home";
 };
 
-///////////////////////////////////////////////////////////////여기!!! ///////////////////////////////
 
 let receivedUserId = "";
 let UsersData = []; // 유저들 데이터 담아줄 배열
 export let FilterUsers = []; //필터링된 유저 1개 만큼 담아줄 배열
 // 웹소켓으로 연결하기
 // 웹소켓 서버 생성 : 학원 192.168.30.171
-let path = getContextPath();
-let socket = new WebSocket("ws://192.168.35.221:8081" + path + "/multiAccess");
+// let path = getContextPath();
+// let socket = new WebSocket("ws://192.168.35.221:8081" + path + "/multiAccess");
 ///////////////////////////////////////////////////////////////자기 ws로 바꿔주기!!! ///////////////////////////////
 // 지의 학원 ip : 192.168.30.174
 // 지의 집 ip : 192.168.0.16
 // 가영 학원 : 192.168.30.181:8081
 // 가영 집 : 192.168.35.221:8081
+let ip = setip;
+let socket = new WebSocket(`ws://${ip}${path}/multiAccess`);
 
 let fnSocket = {
   onopen: function (e) {
-    console.log("접속성공");
-    console.log(e);
     let User = new UserData(
       uesrX,
       uesrY,
@@ -375,22 +367,16 @@ let fnSocket = {
     socket.send(JSON.stringify(User)); //첫 접속 알려줌
   },
   onmessage: function (e) {
-    // console.log('메세지 감지');
-    //console.log(e);
-    //console.log(e.data);
-
     //데이터가 나인 경우 걸러내기
     let receivedUser = JSON.parse(e.data);
     receivedUserId = receivedUser.userId;
 
-    console.log(receivedUser.connecting);
     if (receivedUser.connecting == "X") {
-      alert("이중 로그인 되었습니다. 재 로그인 해주세요");
+      localStorage.setItem("doubleLogin", true)
       location.href = path + "/logout"; //둘 다 쫒겨남..^^...
     }
 
     if (receivedUser.userId !== userId) {
-      //console.log(receivedUserId)
       UsersData.push(receivedUser);
       //userData에 담겨있는 userId 값 기준으로 필터링 : 마지막 값만 남김
       FilterUsers = UsersData.filter(
@@ -400,27 +386,21 @@ let fnSocket = {
     }
 
     //떠난 유저 체크해서 삭제하기
-    FilterUsers = FilterUsers.filter((user) => user.connecting != "N"); //삭제
-
-    //UsersData.push(JSON.parse(e.data)); // String -> 배열 변환
-    //console.log(UsersData)  //object
+    FilterUsers = FilterUsers.filter((user) => user.connecting != 'N'); //삭제
 
     UsersData = FilterUsers; // Userdate 정보를 Fileter 정보로 바꿔주기
-    //console.log(FilterUsers);
 
     //userrender 함수 호출
     usersreder();
   },
   onclose: function (e) {
-    //console.log(e);
-    console.log("재연결...");
     setTimeout(function () {
       //재연결하기...
       socket = new WebSocket(
-        "ws://192.168.35.221:8081" + path + "/multiAccess"
+        // "ws://192.168.35.221:8081" + path + "/multiAccess"
+        `ws://${ip}${path}/multiAccess`
       );
       initSocket(socket);
-      console.log("재연결...보냈당");
     }, 1000);
   },
   onerror: (event) => {
@@ -428,57 +408,10 @@ let fnSocket = {
   },
 };
 function initSocket(s) {
-  console.log(s);
   for (let key in fnSocket) {
     s[key] = fnSocket[key];
-    //console.log(s[key] , fnSocket[key]);
   }
 }
-
-//소켓 설정
-// socket.onopen = function (e) {
-//     console.log("접속성공");
-//     console.log(e);
-//     sendMsg("ArrowRight")
-
-// }
-//웝소켓서버에서 sendObjcet 메소드를 실행하면 실행되는 함수
-// socket.onmessage = function (e) {
-//     // console.log('메세지 감지');
-//     // console.log(e);
-//     // console.log(e.data);
-
-//     //데이터가 나인 경우 걸러내기
-//     let receivedUser = JSON.parse(e.data);
-//     receivedUserId = receivedUser.userId;
-
-//     if (receivedUser.userId !== userId) {
-
-//         //console.log(receivedUserId)
-//         UsersData.push(receivedUser);
-//         //userData에 담겨있는 userId 값 기준으로 필터링 : 마지막 값만 남김
-//         FilterUsers = UsersData.filter(
-//             (arr, index, callback) =>
-//                 index === callback.findLastIndex(t =>
-//                     t.userId === arr.userId
-//                 )
-//         )
-
-//     }
-
-//     //떠난 유저 체크해서 삭제하기
-//     FilterUsers = FilterUsers.filter(user => user.connecting != 'N'); //삭제
-
-//     //UsersData.push(JSON.parse(e.data)); // String -> 배열 변환
-//     //console.log(UsersData)  //object
-
-//     UsersData = FilterUsers; // Userdate 정보를 Fileter 정보로 바꿔주기
-//     //console.log(FilterUsers);
-
-//     //userrender 함수 호출
-//     usersreder();
-
-// }
 
 //데이터 전송 JSON
 const sendMsg = (keyboardCode) => {
@@ -494,27 +427,11 @@ const sendMsg = (keyboardCode) => {
     keyboardCode,
     connecting
   );
-  //console.log(User)
 
   socket.send(JSON.stringify(User));
   //문자열 객체 데이터로 바꿔줌
 };
 
-//재연결 에러주기
-// socket.addEventListener("error", (event) => {
-//     console.log("WebSocket error: ", event);
-// });
-
-// socket.onclose = function(e){
-//     console.log(e);
-//     console.log('재연결...')
-//     setTimeout(function () {
-//        //재연결하기...
-//        socket = new WebSocket("ws://192.168.30.171:8083" + path + "/multiAccess");
-//        console.log('재연결...보냈당')
-//     }, 1000)
-
-// }
 
 //넘겨줄 데이터 유저 좌표, 유저스킨, 유저아이디 : 유저 정보 컨트롤
 function UserData(
@@ -537,6 +454,7 @@ function UserData(
 
 let skinImages = {};
 let moveMotion = true;
+let receivedUserMotion = true;
 
 //user 랜더링
 function usersreder() {
@@ -560,26 +478,30 @@ function usersreder() {
         return;
     }
 
-    if (receivedUserId == FilterUsers[i].userId) {
-      if (moveMotion) {
-        moveMotion = false;
+    if (receivedUserId == FilterUsers[i].userId){
+      if (receivedUserMotion) {
+        receivedUserMotion = false;
+        imgMotion += "d";
       } else {
-        moveMotion = true;
+        receivedUserMotion = true;
+        imgMotion += "s";
+      }
+    }else{
+      if (moveMotion) {
+        imgMotion += "d";
+      } else {
+        imgMotion += "s";
       }
     }
 
-    if (moveMotion) {
-      imgMotion += "d";
-    } else {
-      imgMotion += "s";
-    }
+   
 
-    //console.log(imgMotion);
 
     //불러온 img skinimg에 넣어줌
     let img = new Image();
     img.src =
-      "../resource/img/user/skin" +
+      path +
+      "/resource/img/user/skin" +
       FilterUsers[i].userSkin +
       "/" +
       imgMotion +
@@ -587,7 +509,6 @@ function usersreder() {
     skinImages[i] = img;
   }
 
-  //console.log(skinImages);
 }
 
 //만든 유저 img 하나씩 뽑아서 캔버스에 draw
@@ -618,66 +539,6 @@ function main() {
   }
 }
 
-//소켓 끊어보기
-// setTimeout(function () {
-//     //소켓끊어보기
-//     console.log('끊어졌당...')
-//     socket.close();
-//  }, 10000)
-
-//소켓 버벅이는거 해결해보기...!!
-//1 번 : 키보드 이벤트 제한하기 ..!!
-// function 제한..(callback, delay) {
-//     let timeoutId;
-
-// return function() {
-//       const context = this;
-//       const args = arguments;
-
-//       clearTimeout(timeoutId);
-//       timeoutId = setTimeout(() => {
-//         callback.apply(context, args);
-//       }, delay);
-//     };
-//   }
-
-//   debounce(event => {
-//     const message = event.target.value;
-//     sendSocketMessage(message);
-//   }, 500));
-
-//2 번 : 버퍼..써보기...잘모르겠지만..
-//let messageBuffer = []; 버퍼에 담아서...
-//function addToMessageBuffer(message) {
-//     messageBuffer.push(message);
-// // }
-
-// inputElement.addEventListener('keyup', event => {
-//     const message = event.target.value;
-//     addToMessageBuffer(message);
-//   });
-// setInterval(() => {
-//     // 버퍼에 보낼 메세지 확인
-//     if (messageBuffer.length > 0) {
-
-//       //소켓에 메세지 보내기
-//       sendSocketMessage(messages);
-
-//       // 버퍼 비워주기
-//       messageBuffer = [];
-//     }
-//   }, 1000);
-
-//3번 : 둘다 안되면.. 서버에서 필터링해보기. 찾아보니 관련함수 있는듯?? 잘모르겠지만..해보는걸로...
-
-// 4번 : 끊어짐 감지해서 재 연결시키기
-//
-// webSocket.onclose = async (e) => {
-//     console.log('Socket is closed. Reconnect will be attempted in 1 second.', e);
-//     setTimeout(function() {
-//       twelveDataConnect();
-//     }, 1000);
-//   }
 
 //클릭에 부여하는 이벤트
 export let defaultEvent = function () {
@@ -688,27 +549,22 @@ export let defaultEvent = function () {
 
     //img 안을 클릭할 경우 이벤트 : my home
     if (clickX >= 895 && clickX <= 1110 && clickY >= 10 && clickY <= 226) {
-      console.log("home 이벤트 부여");
       gohome();
+      return;
     }
 
     //img 안을 클릭할 경우 이벤트 : noticeBoard
     if (clickX >= 1030 && clickX <= 1140 && clickY >= 411 && clickY <= 442) {
-      console.log("notice 이벤트 부여");
-      console.log(noticeModal);
-
-      noticeModal.style.display = "block";
+      noticeModal.style.display = 'block';
       modalstop = true;
     }
 
     //img 안을 클릭할 경우 이벤트 :gamegone
     if (clickX >= 240 && clickX <= 400 && clickY >= 200 && clickY <= 350) {
-      console.log("gamegone 이벤트 부여");
       gameModalopen();
       modalstop = true;
     }
 
-    console.log(clickX, clickY);
   });
 
   //마우스 호버 이벤트 : 미구현
@@ -719,7 +575,6 @@ export let defaultEvent = function () {
 
     //img 안을 들어올 경우
     if (clickX >= 892 && clickX <= 1111 && clickY >= 10 && clickY <= 226) {
-      //console.log("집안으로 들어옴")
     }
   });
 
@@ -728,7 +583,12 @@ export let defaultEvent = function () {
     let x = e.clientX; //클릭좌표값
     let y = e.clientY; //클릭좌표값
 
-    console.log(x, y);
+    //console.log(x, y);
+	if (x >= uesrX && x <= uesrX + 50 && y >= uesrY && y <= uesrY + 50) {
+		document.querySelector('.my-info-modal').classList.remove('hidden');
+		getMyInfo();
+		modalstopfn();
+	}
 
     for (let user of FilterUsers) {
       //랜더링된 filter user 정보 받아서 좌표값 체크
@@ -742,15 +602,13 @@ export let defaultEvent = function () {
       }
     }
 
-    //console.log(sessionStorage.clickedUserId)
+
   });
 
   //클릭이벤트로 해당 userid 넘겨주기
   canvas.addEventListener("click", function (e) {
     let x = e.clientX; //클릭좌표값
     let y = e.clientY; //클릭좌표값
-
-    //console.log(x, y);
 
     for (let user of FilterUsers) {
       //랜더링된 filter user 정보 받아서 좌표값 체크
@@ -762,12 +620,10 @@ export let defaultEvent = function () {
         document.querySelector(".info-modal").classList.remove("hidden");
         window.sessionStorage.setItem("clickedUserId", id);
         getUserInfo();
-		modalstopfn();
+        modalstopfn();
         break; //sesion에 clickUserId로 id 값 넘겨주기
       }
     }
-
-    console.log('sessionStorage.clickedUserId : ',sessionStorage.clickedUserId)
   });
 
   //종료한 user 체크하기
@@ -798,7 +654,7 @@ export let defaultEvent = function () {
           //정지유저
           location.href = path + "/logout";
         }
-        //console.log(result);
+        
       },
     });
   }, 1800000);

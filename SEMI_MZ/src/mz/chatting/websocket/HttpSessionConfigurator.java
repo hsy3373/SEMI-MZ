@@ -18,7 +18,6 @@ public class HttpSessionConfigurator extends Configurator {
 	public void modifyHandshake(ServerEndpointConfig config, HandshakeRequest request, HandshakeResponse response) {
 		HttpSession session = (HttpSession) request.getHttpSession();
 		
-		System.out.println("Configurator : 들어옴 ");
 		ServletContext context = session.getServletContext();
 		
 		

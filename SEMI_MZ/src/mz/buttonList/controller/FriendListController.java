@@ -39,11 +39,9 @@ public class FriendListController extends HttpServlet {
 		
 		String userId = request.getParameter("userId");
 		
-		//System.out.println("userId:"+ userId);
+		System.out.println("userId:"+ userId);
 		
 		ArrayList<Member> list = new bottonListSevice().selectFriendList(userId);
-		
-		//System.out.println(list.size());
 		
 		response.setContentType("application/json; charset=UTF-8");
 		

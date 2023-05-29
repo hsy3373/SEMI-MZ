@@ -109,16 +109,23 @@
 		WHERE M.STATUS ='N' AND SYSDATE - CANCELLATION_DATE >= 15
         ORDER BY CANCELLATION_DATE
 	</entry>
+	
+<!-- [han] 어드민용 삭제시킬 호감도 총 갯수 조회 -->
+	<entry key="selectHeartForDel">
+		SELECT COUNT(*) AS COUNT
+		FROM HEART
+		WHERE TRUNC(SYSDATE, 'iw') - 7  > CREATE_DATE 
+	</entry>
 
 	
-	<!-- [혜린] -->
+	<!-- [혜린] 유저 정보 조회 -->
 	<entry key="selectLoginUser">
 		SELECT * 
 		FROM MEMBER
 		WHERE USER_ID = ?
 	</entry>
 
-	<!-- [혜린] -->
+	<!-- [혜린] 기본 로그인 -->
 	<entry key="loginMember">
 		SELECT * 
 		FROM MEMBER
@@ -126,7 +133,7 @@
 		  AND USER_PWD = ?
 	</entry>
 	
-	<!-- [혜린] -->
+	<!-- [혜린] api 키 존재유무 확인 -->
 	<entry key="checkKey">
 		SELECT M.USER_ID,USER_PWD,NICKNAME,STATUS,SKIN_ID,COIN,SELF_INFO,GENDER,ENROLL_DATE
 		FROM MEMBER M, LOGIN_API A
@@ -135,21 +142,21 @@
 		AND API_KEY = ?
 	</entry>
 
-	<!-- [혜린] -->
+	<!-- [혜린] API 테이블 조회 -->
 	<entry key = "loginApi">
 		SELECT *
 		FORM LOGIN_API
 		WHERE API_KEY = ?
 	</entry>
 	
-	<!-- [혜린] -->
+	<!-- [혜린] 아이디 중복확인 -->
 	<entry key="checkId">
 		SELECT COUNT(*)
 		FROM MEMBER
 		WHERE USER_ID = ?
 	</entry>
 	
-	<!-- [혜린] -->
+	<!-- [혜린] 닉네임 중복확인 -->
 	<entry key="checkNick">
 		SELECT COUNT(*)
 		FROM MEMBER
@@ -204,9 +211,11 @@
 	
 	<!-- 호감도 랭킹 조회 -->
 	<entry key="selectRanking">
-		 SELECT USER_ID, NICKNAME, SKIN_ID, SAVE_ROOT, RANK
- 		 FROM ( SELECT RECEIVE_ID , RANK() OVER (ORDER BY COUNT DESC) RANK 
+		 SELECT USER_ID, NICKNAME, SKIN_ID, SAVE_ROOT, COUNT, RANK
+ 		 FROM ( SELECT RECEIVE_ID , COUNT,  RANK() OVER (ORDER BY COUNT DESC) RANK 
          FROM ( SELECT RECEIVE_ID , COUNT(*) AS COUNT FROM HEART
+         		WHERE CREATE_DATE &lt; TRUNC(SYSDATE, 'iw')
+                  AND CREATE_DATE >=  TRUNC(SYSDATE, 'iw') - 7
                 GROUP BY RECEIVE_ID )
          ORDER BY RANK, RECEIVE_ID )
 		 JOIN MEMBER ON RECEIVE_ID = USER_ID
@@ -214,10 +223,17 @@
  		 WHERE RANK &lt;= 3
 	</entry>
 	
+	<!-- [지의] 친구유저 닉네임 조회 -->
+	<entry key="friendNickName">
+		SELECT NICKNAME
+		  FROM MEMBER
+		 WHERE USER_ID = ?
+	</entry>
+	
 	
 	
 <!-- ================= insert 구간 ======================== -->
-	<!-- [혜린] -->
+	<!-- [혜린] Member 테이블 추가 -->
 	<entry key="insertMember">
 		INSERT INTO MEMBER( USER_ID,
 							USER_PWD,
@@ -227,7 +243,7 @@
 							?)
 	</entry>
 
-	<!-- [혜린] -->
+	<!-- [혜린] API 테이블 추가 -->
 	<entry key = "insertKey">
 		INSERT INTO LOGIN_API(USER_ID,
 							  API_KIND,
@@ -237,7 +253,7 @@
 					   		  ?)
 	</entry>
 	
-	<!-- [혜린] -->
+	<!-- [혜린] 비활성멤버 테이블 추가 -->
 	<entry key="insertDltMember">
 		INSERT INTO DISABLED_MEMBER
 					(USER_ID,
@@ -246,7 +262,7 @@
 			 		?)
 	</entry>
 	
-	<!-- [혜린] -->
+	<!-- [혜린] 캐릭터 테이블 추가 -->
 	<entry key="insertCharacter">
 	INSERT INTO CHARACTER
 					(USER_ID,
@@ -268,14 +284,14 @@
 	</entry>
 	
 <!-- ================= update 구간 ======================== -->
-<!-- [혜린] -->
+<!-- [혜린] 비밀번호 변경 -->
 	<entry key = "updatePwd">
 		UPDATE MEMBER
 		   SET USER_PWD = ?
 		 WHERE USER_ID = ?
 	</entry>
 	
-<!-- [혜린] -->
+<!-- [혜린] 유저 STATUS 값 변경 -->
 	<entry key = "updateStatus">
 		UPDATE MEMBER
 		   SET STATUS = ?
@@ -289,7 +305,8 @@
 				SELF_INFO = ?
 		 WHERE USER_ID = ?
 	</entry>
-<!-- [혜린] -->
+	
+<!-- [혜린] MEMBER 내정보 변경 -->
 	<entry key = "updateMember">
 	UPDATE MEMBER
 		   SET NICKNAME = ?,
@@ -298,45 +315,72 @@
                 GENDER = ?
 		 WHERE USER_ID = ?
 	</entry>
+	
+<!-- [혜린] (패스워드 미포함) MEMBER 내정보 변경 -->
+	<entry key = "updateNPwd">
+	UPDATE MEMBER
+		   SET NICKNAME = ?,
+                SELF_INFO = ?,
+                GENDER = ?
+		 WHERE USER_ID = ?
+	</entry>
+	
+
+<!-- [지영] -->
+	<entry key = "coinUpdate">
+	UPDATE MEMBER
+		   SET COIN = COIN + ?
+		 WHERE USER_ID = ?
+	</entry>
+
 
 <!-- ================= delete 구간 ======================== -->
-<!-- [혜린] -->
+<!-- [혜린] 회원탈퇴 시 보드 테이블 내 기록 삭제 -->
 	<entry key = "dltMemBoard">
 		DELETE FROM BOARD
 		 WHERE USER_ID = ?
 		    OR RECEIVE_ID = ?
 	</entry>
+	
+<!-- [혜린] 회원탈퇴 시 채팅 테이블 내 기록 삭제 -->
 	<entry key = "dltMemChatting">
 		DELETE FROM CHATTING
 		 WHERE USER_ID = ?
 		    OR RECEIVE_ID = ?
 	</entry>
+	
+<!-- [혜린] 회원탈퇴 시 호감도 테이블 내 기록 삭제 -->	
 	<entry key = "dltMemHeart">
 		DELETE FROM HEART
 		 WHERE USER_ID = ?
 		    OR RECEIVE_ID = ?
 	</entry>
-<!-- [혜린] -->
+	
+<!-- [혜린] 회원탈퇴 시 캐릭터 테이블 내 기록 삭제 -->
 	<entry key = "dltMemCharacter">
 		DELETE FROM CHARACTER
 		 WHERE USER_ID = ?
 	</entry>
+	
+<!-- [혜린] 회원탈퇴 시 친구목록 테이블 내 기록 삭제 -->	
 	<entry key = "dltMemFriend">
 		DELETE FROM FRIEND
 		 WHERE USER_ID = ?
 		 	OR FRIEND_ID = ?
 	</entry>
-	<entry key = "dltMemApi">
-		DELETE FROM LOGIN_API
-		 WHERE USER_ID = ?
-	</entry>
 	
+<!-- [혜린] 회원 탈퇴 시 채팅룸 테이블  행 삭제 -->	
 	<entry key = "dltMemChattingRoom">
 		DELETE FROM CHATTINGROOM
 		 WHERE USER_ID = ?
 		    OR RECEIVE_ID = ?
 	</entry>
 	
+<!-- [혜린] 회원 탈퇴 시 생성되었던 비활성계정 테이블 행 삭제(사용자 탈퇴 후 15일 이내 재로그인 시 사용됨) -->	
+	<entry key = "dltDisabledTable">
+		DELETE FROM DISABLED_MEMBER
+		 WHERE USER_ID = ?
+	</entry>
 
 <!-- [han] -->
 	<entry key="deleteMember">
@@ -354,6 +398,12 @@
             FROM MEMBER M
             LEFT JOIN DISABLED_MEMBER USING(USER_ID))
 		WHERE STATUS ='N' AND SYSDATE - CANCELLATION_DATE >= 15
+	</entry>
+	
+<!-- [han] 어드민용 랭킹집계에 쓰이지 않는 호감도 일괄삭제 -->
+	<entry key="deleteHeartListForAdmin">
+		DELETE FROM HEART
+		WHERE TRUNC(SYSDATE, 'iw') - 7  > CREATE_DATE 
 	</entry>
 	
 	<!-- [가영] 호감도 삭제 -->

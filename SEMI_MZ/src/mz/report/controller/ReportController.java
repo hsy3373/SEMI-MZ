@@ -45,7 +45,7 @@ public class ReportController extends HttpServlet {
 		String reportTitle = request.getParameter("reportTitle");
 		String reportContent = request.getParameter("reportContent");
 		
-		System.out.println(userId+receiveId+reportTitle+reportContent);
+		//System.out.println(userId+receiveId+reportTitle+reportContent);
 		int result = new ReportService().insertReport(userId, receiveId, reportTitle, reportContent);
 		
 		if (result > 0) {
@@ -54,7 +54,6 @@ public class ReportController extends HttpServlet {
 			
 			new Gson().toJson(result, response.getWriter());
 		} else {
-			System.out.println("글러먹었어...");
 			response.setContentType("application/json; charset=UTF-8");
 			
 			new Gson().toJson(result, response.getWriter());

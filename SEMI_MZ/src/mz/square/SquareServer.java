@@ -34,8 +34,6 @@ public class SquareServer {
 	
 	@OnOpen
 	public void open(Session session, EndpointConfig config) {
-		System.out.println("클라이언트 접속");
-		System.out.println(session.getId());
 		
 		//최초접속시 : 다른캐릭터들 위치 정보 받아오기
 		//클라이언트가 접속했을떄 현재 로그인중인 유저정보들을 알려줌 

@@ -5,12 +5,13 @@ pageEncoding="UTF-8"  import = "mz.member.model.vo.Member, java.util.ArrayList"%
 
 	ArrayList<Member> list = (ArrayList<Member>) request.getAttribute("list");
 	int chatLogCount = (int) request.getAttribute("chatLogCount");
+	int heartCount = (int) request.getAttribute("heartCount");
 %>
 <!DOCTYPE html>
 <html>
   <head>
     <meta charset="UTF-8" />
-    <title>Mzone</title>
+    <title>M-Zone</title>
     <link rel="stylesheet" href="<%=path %>/resource/css/admin/admin-admin.css" />
   </head>
   <body>
@@ -45,6 +46,19 @@ pageEncoding="UTF-8"  import = "mz.member.model.vo.Member, java.util.ArrayList"%
 	            	</div>
 	            	<div>
 	            		※7일이상 지난 채팅내역을 삭제합니다
+	            	</div>
+	            	
+	            </div>
+	            <div class= "delete-heart">
+	            	<div>
+		        	    <div  class= "heart-text">호감도내역 삭제</div>
+				        <div class= "heart-count"><%= heartCount %> 개</div>
+			            <div class="delete-heart-btn">
+							<button>일괄삭제</button>
+			            </div>
+	            	</div>
+	            	<div>
+	            		※현재 랭킹 집계기간 이전의 호감도내역을 삭제합니다
 	            	</div>
 	            	
 	            </div>

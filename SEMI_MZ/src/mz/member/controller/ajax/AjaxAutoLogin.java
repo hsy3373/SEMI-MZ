@@ -1,4 +1,4 @@
-package mz.skin.controller;
+package mz.member.controller.ajax;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -8,19 +8,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import mz.member.model.service.MemberService;
+import mz.member.model.vo.Member;
 
 /**
  * 작성자 : 김혜린
- * 회원가입 시 CHARACTER 테이블 INSERT용 서블릿
+ * 자동 로그인 서블릿
  */
-@WebServlet("/insertSkin.id")
-public class MainEnrollCharacter extends HttpServlet {
+@WebServlet("/autoLogin.me")
+public class AjaxAutoLogin extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MainEnrollCharacter() {
+    public AjaxAutoLogin() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -40,12 +41,13 @@ public class MainEnrollCharacter extends HttpServlet {
 		
 		String userId = request.getParameter("userId");
 		
-		int result = new MemberService().insertCharacter(userId);
-		System.out.println("컨트롤러 캐릭터테이블 결과 : " + result);
-		if(result > 0) {
-			response.getWriter().print("111");
+		Member m = new MemberService().selectLoginUser(userId);
+		
+		if(m != null) {
+			request.getSession().setAttribute("loginUser", m);
+			response.getWriter().print("1");
 		}else {
-			System.out.println("character table insert 실패");
+			response.getWriter().print("0");
 		}
 		
 		
