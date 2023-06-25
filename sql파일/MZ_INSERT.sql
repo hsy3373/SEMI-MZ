@@ -1,6 +1,9 @@
 
 
+-- GAME
 
+INSERT INTO GAME (GAME_TITLE, PAYMENT_COIN)
+        VALUES('SkinPang', 0);
 
 -- CHARACTER_SKIN
 INSERT INTO CHARACTER_SKIN(SKIN_ID,
@@ -98,13 +101,13 @@ INSERT INTO MEMBER( USER_ID,
                     USER_PWD,
                     NICKNAME )
         VALUES ( 'test',
-                'test',
+                '7iaw3Ur350mqGo7jwQrpkj9hiYB3Lkc/iBml1JQODbJ6wYX4oOHV+E+IvIh/1nsUNzLDBMxfqa2Ob1f1ACio/w==',
                 'NIC_test');
 INSERT INTO MEMBER( USER_ID,
                     USER_PWD,
                     NICKNAME )
         VALUES ( 'friend',
-                'friend',
+                'gwBLsZw9qvO6u+sKqDGsr1LsoSar6NdGKOIrbsaldB3GFoDj/HSXBzkRpJvx25QZaQDf5Jt2au2ReB+Cmn8sAA==',
                 'NIC_fri');
 INSERT INTO MEMBER( USER_ID,
                     USER_PWD,
@@ -165,8 +168,6 @@ INSERT INTO LOGIN_API VALUES('admin', '관리자', '관리자');
 -- CHATTINGROOM
 
 INSERT INTO CHATTINGROOM VALUES( 'test' , 'friend' );
-INSERT INTO CHATTINGROOM VALUES( 'test' , 'admin' );
-INSERT INTO CHATTINGROOM VALUES( 'admin' , 'test' );
 INSERT INTO CHATTINGROOM VALUES( 'friend' , 'test' );
 
 -- CHATTING
@@ -181,13 +182,6 @@ INSERT INTO CHATTING VALUES(SEQ_CHAT.NEXTVAL, 'test' , 'friend' , 'ㅇㅇ 보임
 INSERT INTO CHATTING VALUES(SEQ_CHAT.NEXTVAL, 'friend' , 'test' , '엔터도 쳐볼게<br>보여?', SYSDATE);
 INSERT INTO CHATTING VALUES(SEQ_CHAT.NEXTVAL, 'test' , 'friend' , 'ㅇㅇㅇ 엔터도 다 보여', SYSDATE);
 
-INSERT INTO CHATTING VALUES(SEQ_CHAT.NEXTVAL, 'test' , 'admin' , '1111', SYSDATE);
-INSERT INTO CHATTING VALUES(SEQ_CHAT.NEXTVAL, 'test' , 'admin' , '1111222', SYSDATE);
-INSERT INTO CHATTING VALUES(SEQ_CHAT.NEXTVAL, 'test' , 'admin' , '1111333', SYSDATE);
-INSERT INTO CHATTING VALUES(SEQ_CHAT.NEXTVAL, 'test' , 'admin' , '1111444', SYSDATE);
-INSERT INTO CHATTING VALUES(SEQ_CHAT.NEXTVAL, 'test' , 'admin' , '11115555', SYSDATE);
-
-INSERT INTO CHATTING VALUES(SEQ_CHAT.NEXTVAL, 'friend' , 'test' , 'f11115555', SYSDATE);
 
 COMMIT;
 

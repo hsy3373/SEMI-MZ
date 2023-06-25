@@ -218,9 +218,11 @@
 .notice-content::-webkit-scrollbar{display: none;}
 
 .notice-pageing-area{
-	position: absolute;
-	top: 77%;
-    left: 11.2%;
+	position: fixed;
+	text-align: center;
+	line-height: 40px;
+	left: 11.1%;
+    bottom: 45px;
 }
 #notice-pagingul {
     text-align: center;

@@ -41,7 +41,6 @@ public class SkinDeleteController extends HttpServlet {
 		if(result >0) {
 			String path = request.getSession().getServletContext().getRealPath(skin.getSaveRoot());
 			boolean del = service.deleteFolder(path);
-			System.out.println("폴더 삭제 여부 : "+del);
 		}
 		
 		response.sendRedirect(request.getContextPath() + "/list.skin");

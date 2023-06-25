@@ -47,14 +47,11 @@ public class AjaxLogin extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html; charset=UTF-8");
 		
-		System.out.println("loginMember");
-		
 		String userId = request.getParameter("userId");
 		String userPwd = request.getParameter("userPwd");
 		
 		Member m = new MemberService().loginMember(userId, userPwd);
-		
-		//System.out.println("서블릿 m : " + m);
+		HttpSession session = request.getSession();
 		
 		if(m == null) { // 해당 id/pw의 유저 정보 없음
 			
@@ -69,11 +66,14 @@ public class AjaxLogin extends HttpServlet {
 					checkRanking(userId);
 					response.getWriter().print("1");  // 로그인 처리(성공)
 				}
-				HttpSession session = request.getSession();
+				
 				session.setAttribute("loginUser", m); // 세션에 로그인유저 정보 담기 					
 				
-			}else { // status = N or X 인 경우
-				response.getWriter().print("6");  // 탈퇴 혹은 차단 계정 알림
+			}else if(m.getStatus().equals("X")){ // status = X 인 경우
+				response.getWriter().print("6");  // 차단 계정 알림
+			}else { //status = N 
+				response.getWriter().print("5"); //탈퇴계정 재로그인
+				session.setAttribute("loginUser", m); 
 			}
 		}	
 			

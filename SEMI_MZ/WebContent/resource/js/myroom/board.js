@@ -7,7 +7,7 @@
 import { getContextPath } from "../common.js";
 import { getUserInfo } from "../userInfo.js";
 import { openAlert, closeAlert } from "../alert.js";
-import { homeOpenAlert } from "./homeAlert.js";
+import { homeOpenAlert } from "../homeAlert.js";
 //import { getContextPath, getSessionStorage } from "../common.js";
 
 let path = getContextPath();
@@ -240,8 +240,6 @@ $(function() {
 				url: path + "/selectBoard",
 				data: { boardNo: boardNo },
 				success: function(b) {
-					//console.log(b);
-
 					// 제목
 					let title = b.boardTitle;
 					let no = b.boardNo;
@@ -262,9 +260,7 @@ $(function() {
 					$(".board-detail-friend").html(skin);
 					$(".board-detail-table").html(content);
 				},
-				error: function() {
-					console.log("실패");
-				},
+				error: function() {console.log("실패");},
 			});
 		/* 친구룸에서 상세조회 */
 		} else {
@@ -329,16 +325,17 @@ $(function() {
 							} else {
 								$("#board-ck").prop("checked", false);
 							}
-							//console.log("작성자?"+userId);
+							console.log("작성자?"+userId);
+							console.log("로그인유저?"+loginUserId);
 							// 로그인유저와 작성자가 같지않을 경우 읽기만 가능
 							if(loginUserId != userId){
 								$(".board-send-detail .board-write-title").prop('readonly', true);
 								$(".board-send-detail .board-write-content").prop('readonly', true);
 								$('#board-ck').attr('disabled', 'disabled');
 								/*수정버튼 막기*/
-								$("#board-send-update").attr("disabled", 'disabled');
+								$("#board-send-update").attr("disabled", true);
 								/*삭제버튼 막기*/
-								$("#board-send-delete").attr("disabled", 'disabled');
+								$("#board-send-delete").attr("disabled", true);
 							}else{
 								$(".board-send-detail .board-write-title").prop('readonly', false);
 								$(".board-send-detail .board-write-content").prop('readonly', false);
@@ -421,15 +418,13 @@ $(document).on("click", "#board-send-update", function() {
 	/*alert*/
 	document.getElementById("alert-text").innerText = "수정하시겠습니까?";
 	openAlert("myroom-board-update");
-    let alertok = document.querySelector(".myroom-board-update");
-	alertok.addEventListener("click", () => {
-		/*방명록 수정 함수*/
-		updateBoard();
-		/*나무에 방명록 표시*/
-		loadList(roomMasterId);
-    });
-
 });
+$('.alert').on('click', '.myroom-board-update', function (){
+	/*방명록 수정 함수*/
+	updateBoard();
+	/*나무에 방명록 표시*/
+	loadList(roomMasterId);
+})
 /*방명록 수정*/
 function updateBoard() {
 	// 비밀글체크시 Y 또는 N값 넣어주기위한 이벤트
@@ -455,7 +450,7 @@ function updateBoard() {
 			secret: $("#board-ck").prop("checked") ? "Y" : "N",
 		},
 		success: function(b) {
-			console.log("수정된 : " + b.boardTitle, b.boardContent);
+			//console.log("수정된 : " + b.boardTitle, b.boardContent);
 			if (b != null) {
 				let no = b.boardNo;
 				let title = $(".board-send-detail .board-write-title").val(b.boardTitle);
@@ -468,24 +463,15 @@ function updateBoard() {
 				selectboardList(roomMasterId);
 				closeAlert();
 
-				//alert("수정되었습니다.");
 			}
 		},
 		error: function(e) { console.log(e); },
 	});
 }
 
-
-/*$(document).on('change', '.board-send-detail .board-write-title',function(){
-	$("#board-send-update").attr("disabled", false);
-});
-$(document).on('change', '.board-send-detail .board-write-content',function(){
-	$("#board-send-update").attr("disabled", false);
-});*/
-
 		
-/* ======================= 방명록 삭제) ======================= */
-/*내 마이룸에서 방명록 삭제*/
+/* ======================= 방명록 삭제 ======================= */
+/*내 마이룸에서 방명록 삭제 클릭 이벤트*/
 $(document).on("click", "#board-delete", function() {
 	document.getElementById("alert-text").innerText = "삭제하시겠습니까?";
 	openAlert("myroom-board-delete");
@@ -493,7 +479,7 @@ $(document).on("click", "#board-delete", function() {
 /*alert창 확인버튼 클릭시 요청처리*/
 $(".alert").on("click", ".myroom-board-delete", function(){
 	let boardNo = $(".board-detail .board-no").text();
-	console.log(boardNo);
+	//console.log(boardNo);
 	$.ajax({
 		url: path + "/deleteBoard",
 		data: { boardNo: boardNo },
@@ -511,7 +497,7 @@ $(".alert").on("click", ".myroom-board-delete", function(){
 });
 
 
-/*친구마이룸에서 내가 쓴 방명록 삭제*/
+/*친구마이룸에서 내가 쓴 방명록 삭제 클릭 이벤트*/
 $(document).on("click", "#board-send-delete", function() {
 	document.getElementById("alert-text").innerText = "삭제하시겠습니까?";
 	openAlert("myroom-send-board-delete");
@@ -646,7 +632,7 @@ function loadList(receiveID) {
 			
 			for (let i = 0; i < list.length; i++){
 				str += "<tr>" +
-							"<td id='myroom-board-title"+i+"'>" +
+							"<td class='myroom-board-title' id='myroom-board-title"+i+"'>" +
 								"<img class='apple' src='./resource/img/icon/사과.png'>" + 
 								list[i].boardTitle + 
 							"</td>" +

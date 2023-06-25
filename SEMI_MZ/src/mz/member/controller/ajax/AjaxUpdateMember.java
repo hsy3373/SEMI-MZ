@@ -43,27 +43,31 @@ public class AjaxUpdateMember extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String nickName = request.getParameter("nickName");
-		String userPwd = request.getParameter("userPwd");
+		String chkPwd = request.getParameter("chkPwd");
 		String gender = request.getParameter("gender");
 		String info = request.getParameter("info");
 		
 		String userId = ((Member) request.getSession().getAttribute("loginUser")).getUserId();
 		
-		Member updateM = new MemberService().updateMember(nickName, userPwd, info, gender, userId);
-			
-		//String udtName = updateM.getNicName();
-		//String udtInfo = updateM.getInfo();
+		//if문으로 pwd 유무에 따라 다른 메소드 실행 후 객체에 담기
+		Member updateM = null;
+		
+		if(chkPwd.equals("")) {
+			updateM = new MemberService().updateNPwd(nickName, info, gender, userId);
+		}else {
+			updateM = new MemberService().updateMember(nickName, chkPwd, info, gender, userId);
+		}
 		
 		HttpSession session = request.getSession();
 		response.setContentType("apllication/json; charset=UTF-8");
 		
 		if(updateM != null) { // update 성공
+			
 			session.setAttribute("loginUser", updateM);
-			System.out.println("update성공");
+			//System.out.println("update성공");
 		}else { // 실패
-			System.out.println("update실패");
+			//System.out.println("update실패");
 		}
-		
 		
 		new Gson().toJson(updateM, response.getWriter());
 		

@@ -39,12 +39,12 @@ public class MyroomSkinInsertController extends HttpServlet {
 		// 구입한 스킨 아이디
 		int skinId = Integer.parseInt(request.getParameter("skinId"));
 		
-		System.out.println("userId : "+userId);
-		System.out.println("구입한 skinId : "+skinId);
+		//System.out.println("userId : "+userId);
+		//System.out.println("구입한 skinId : "+skinId);
 		
 		//CHARACTER 테이블에 구입스킨 INSERT + MEMBER 테이블에 COIN UPDATE
 		int result = new SkinService().insertMySkin(userId, skinId);
-		System.out.println("result : "+result);
+		//System.out.println("result : "+result);
 		// 실패 -1
 		
 		response.setContentType("application/json; charset=UTF-8");

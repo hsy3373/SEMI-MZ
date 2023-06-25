@@ -6,7 +6,6 @@
 window.resizeTo(1316, 868);
 window.onresize = (_) => {
   window.resizeTo(1316, 868);
-  console.log("onresize 불림");
 };
 
 //현재 페이지의 contextPath 가져오는 함수
@@ -37,7 +36,6 @@ export let isEmpty = function (str) {
 
 // 쿠키 추가하는 함수
 export function setCookie(cname, cvalue) {
-  console.log("쿠키 세팅중 : ", cname);
   // 특수문자가 포함되었을 경우를 대비하여 인코딩 수행
   document.cookie =
     cname + "=" + encodeURIComponent(cvalue) + "; path=/; expires=Session";
@@ -64,12 +62,10 @@ export let delAllCookies = () => {
   let path = "/mzone";
 
   const cookies = document.cookie.split("; "); // 배열로 반환
-  console.log(cookies);
   const expiration = "Sat, 01 Jan 1972 00:00:00 GMT";
 
   // 반목문 순회하면서 쿠키 전체 삭제
   if (!document.cookie) {
-    console.log("삭제할 쿠키가 없습니다.");
   } else {
     for (let i = 0; i < cookies.length; i++) {
       // const uname = cookies[i].split('=')[0];
@@ -78,7 +74,6 @@ export let delAllCookies = () => {
         cookies[i].split("=")[0] + "=; path=/mzone; expires=" + expiration;
       // document.cookie = cookies[i].split('=')[0] + '=; expires=' + expiration + '; domain =' + domain;
     }
-    console.log("쿠키 전부 삭제완료!!");
   }
 };
 
@@ -89,7 +84,6 @@ export let delCookie = (cname) => {
   const expiration = "Sat, 01 Jan 1972 00:00:00 GMT";
   setCookie(cname, "", 0);
   document.cookie = cname + "=; path=/;  expires=" + expiration;
-  console.log("쿠키를 삭제했습니다.");
 };
 
 //---------------- sessionstorage로 데이터 저장/조회/삭제 -----------------------------------
@@ -110,3 +104,22 @@ export let delSessionStorage = function (name) {
 export let delAllSessionStorage = function () {
   sessionStorage.clear();
 };
+
+//[지영] : 작성
+//---------------------ip값 하나로 고정시키기 ------------------------------------------------------
+
+//각자 자기 아이피번호로 설정 [0, 1, 2, 3, 지영(4), 지의 학원(5),지의 집(6), 가영 학원(7) ,가영 집(8), 혜린(9)]
+const ip = [
+  "192.168.30.180:8082",
+  "192.168.0.16",
+  "localhost",
+  "192.168.0.2",
+  "192.168.30.171:8083",
+  "192.168.30.174:8084",
+  "192.168.0.16:8084",
+  "192.168.30.181:8081",
+  "192.168.35.221:8081",
+  "192.168.120.38:8084",
+];
+
+export let setip = ip[0]; //////////////////////여기 자기 ws 번호 바꿔주시면 됩니다!!

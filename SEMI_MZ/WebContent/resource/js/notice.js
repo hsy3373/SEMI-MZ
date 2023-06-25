@@ -5,14 +5,14 @@
 
 import { getContextPath, getSessionStorage } from './common.js';
 import { modalstopfn } from './squareCanvas.js';
-import { getUserInfo } from './userInfo.js';
+import { getUserInfo, getMyInfo } from './userInfo.js';
 
 export let noticeModal = document.querySelector('.notice-modal');
 
 /*공지사항 모달창*/
 
 $(".notice-modal, .notice-detail-modal").on("click", function(e) {
-	console.log(e.target);
+	//console.log(e.target);
 	if (e.target.id == 'notice-x-btn') {
 		$(".notice-modal").css('display', 'none');
 		modalstopfn();
@@ -46,24 +46,31 @@ function NoticeList() {
 		url: getContextPath() + "/selectNotice",
 		success: function(data) {
 			//console.log(data);
-
+			let num = 0;
+			
 			if (data.length > 4) {
-				data.length = 4;
+				num = 4;
 			} else {
-				data.length = data.length;
+				num = data.length;
 			}
 
 			let str = "";
 
-			if (data.length > 0) {
-				for (let i = 0; i < data.length; i++) {
-					str += "<div class='list-post'>"
-						+ "<div class='notice-title'>" + data[i].title + "</div>"
-						+ "</div>";
+			if (num > 0) {
+				for (let i = 0; i < num; i++) {
+					if (i == 3) {
+						str += "<div class='list-post'>"
+							+ "<div class='notice-title' onclick='this.parentNode.click();'>" + '더보기' + "</div>"
+							+ "</div>";
+					} else {
+						str += "<div class='list-post'>"
+							+ "<div class='notice-title' onclick='this.parentNode.click();'>" + data[i].title + "</div>"
+							+ "</div>";
+					}
 				}
 			} else {
 				str += "<div class='list-post' style='pointer-events: none;'>"
-					+ "<div class='notice-title'>" + '공지사항이 없습니다.' + "</div>"
+					+ "<div class='notice-title'>" + '공지사항이'+ "</br>" +'없습니다.' + "</div>"
 					+ "</div>";
 			}
 			$(".notice-list").html(str);
@@ -75,6 +82,7 @@ function NoticeList() {
 
 $(document).on('click', ".list-post", function() {
 	getNoticeList();
+	//console.log('클릭됨');
 })
 
 // 공지사항 리스트 조회 함수
@@ -82,7 +90,7 @@ function getNoticeList() {
 	$.ajax({
 		url: getContextPath() + "/selectNotice",
 		success: function(data) {
-			//console.log(data);
+			console.log(data);
 
 			listCount = data.length;
 
@@ -111,7 +119,6 @@ function getNoticeList() {
 // 글 목록 표시 함수
 // 현재 페이지(currentPage)와 페이지당 글 개수(noticeLimit) 반영
 function displayData(currentPage, noticeLimit) {
-
 	let str = "";
 
 	//Number로 변환하지 않으면 아래에서 +를 할 경우 스트링 결합이 되어버림.. 
@@ -135,7 +142,9 @@ function displayData(currentPage, noticeLimit) {
 
 		$(".notice-detail-title").html(noticeList[0].noticeTitle);
 
-		$(".notice-content").html(noticeList[0].noticeContent);
+		let content = noticeList[0].noticeContent;
+		content = content.replace(/(?:\r\n|\r|\n)/g, "<br/>");
+		$(".notice-content").html(content);
 	}
 
 	$(".notice-detail-list").html(str);
@@ -232,6 +241,7 @@ function selectNoticeDetail(noticeNo) {
 			$(".notice-detail-title").html(title);
 
 			let content = data.content;
+			content = content.replace(/(?:\r\n|\r|\n)/g, "<br/>");
 			$(".notice-content").html(content);
 
 
@@ -256,16 +266,18 @@ function selectRanking() {
 				$(".ranking-nickname").eq(i).html(data[i].nicName);
 				$(".ranking-user").eq(i).attr("src", getContextPath() + '/resource/img/user/skin' + data[i].skinId + '/fs.png');
 				$(".ranking-user").eq(i).attr("id", data[i].userId);
-				
-				if(getSessionStorage('loginUser') == data[i].userId){
+				$(".rh-int").eq(i).html(data[i].heartCount);
+
+				/*if (getSessionStorage('loginUser') == data[i].userId) {
 					$(".ranking-user").eq(i).css('pointer-events', 'none');
-				}
-				
+				}*/
+
 				$(".rh-on").eq(i).css('display', 'block');
 				$(".ranking-user").eq(i).css('display', 'block');
 
-				selectRankingHeart(i, data[i].userId);
-				console.log('i : ', i);
+				
+				//console.log('i : ', i);
+				//console.log('data[i].userId : ', data[i].userId);
 			}
 
 		}, error: function() {
@@ -274,36 +286,25 @@ function selectRanking() {
 	});
 }
 
-// 호감도 랭킹 유저 클릭 시 해당 유저 정보창 띄우기
+// 호감도 랭킹에 있는 유저 클릭 시 해당 유저 정보창 띄우기
 $(document).on('click', '.ranking .ranking-user', function(e) {
-	console.log($(this).attr("id"));
+	//console.log($(this).attr("id"));
 	
 	let rankingId = $(this).attr("id");
-	
-	document.querySelector(".info-modal").classList.remove("hidden");
-	
-	window.sessionStorage.setItem("clickedUserId", rankingId);
-	
-	getUserInfo();
-	modalstopfn();
+
+
+	if(getSessionStorage("loginUser") == rankingId){
+		getMyInfo();
+		document.querySelector(".my-info-modal").classList.remove("hidden");
+		modalstopfn();
+	} else {
+		window.sessionStorage.setItem("clickedUserId", rankingId);
+		getUserInfo();
+		document.querySelector(".info-modal").classList.remove("hidden");
+		modalstopfn();
+	}
 });
 
 
 
-/*db에 저장된 호감도 카운트 불러오기*/
-function selectRankingHeart(num, receiveId) {
-	$.ajax({
-		url: getContextPath() + "/countHeart",
-		type: 'post',
-		data: { receiveId },
-		success: function(data) {
-			console.log(data);
 
-			$(".rh-int").eq(num).html(data);
-
-		},
-		error: function() {
-			console.log("error");
-		}
-	});
-}

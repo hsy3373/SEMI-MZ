@@ -25,47 +25,13 @@
 <link href="<%= contextPath %>/resource/css/main.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="<%= contextPath %>/resource/css/alert.css">
 
-<!--google API-->
-<meta name="google-signin-scope" content="profile email">
-<meta name ="google-signin-client_id" content="1045494428231-s4dqqtfv276evf9kbrjoisoc5vb8omap.apps.googleusercontent.com">
-<script src="https://apis.google.com/js/platform.js" async defer></script>
-
-
 <title>M-Zone</title>
 <!-- 로그인 메인 jsp 
 	작성자 : 김혜린 -->
-
 </head>
-<!-- data-callback="handleCredentialResponse"-->
 
 <body>
 	<div class="wrap">
-<!--
-		<div id="g_id_onload"
-         :data-client_id="1045494428231-s4dqqtfv276evf9kbrjoisoc5vb8omap.apps.googleusercontent.com"
-         data-login_uri="http://localhost:8084"
-         data-auto_prompt="false"
-		>
-    	</div>
-    <div class="g_id_signin" 
-		 data-type="standard">
-
-	</div>-->
-		<!--
-	<script>
-		function onSignIn(googleUser) {
-
-        var profile = googleUser.getBasicProfile();
-
-        console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-        console.log('Name: ' + profile.getName());
-        
-        var id_token = googleUser.getAuthResponse().id_token;
-        console.log("id token : " + id_token);
-        
-       // checkGoogle(id_token);
-		}
-	</script>-->
 <!-- ============================ 메인 로고 ================================= -->
 		<div class="mz-logo">
 			<button type="button" class="logo-img-btn"><img src="<%= contextPath %>/resource/img/login_img/mz_logo.png"></button>
@@ -78,12 +44,12 @@
 					<tr style="font-size:30px; cursor: default;">
 	                    <th>ID</th>
 	                    <th><input type="text" class="login-inputbox" name="userId"></th>
-	                    <th rowspan="2"><button type="button" class="login-btn" >Login</button></th>
+	                    <th rowspan="2"><button type="button" class="login-btn enterLogin" >Login</button></th>
 	
 	                </tr>
 	                <tr style="font-size:30px; cursor: default;">
 	                    <th>PW</th>
-	                    <th><input type="password" class="login-inputbox" name="userPwd"></th>
+	                    <th><input type="password" class="login-inputbox enter-pwd" name="userPwd"></th>
 	                </tr>
 	               
 	                <tr>
@@ -100,7 +66,7 @@
 <!-- ============================ 2. 카카오/구글로 시작하기 ================================= 회원가입 모달 열리는 클래스 .enroll-modal -->
 				<table class="other-login">
 	                <tr><th><button type="button" id="main-kakaobtn" class="kakao-btn other-btn"></button></th></tr>
-	                <tr><th><div class="g-signin2" data-width="305" data-height="45" data-longtitle="true" id="main-googlebtn" data-onsuccess="onSignIn"></div></th></tr>
+	                <tr></tr>
 	                
 	                <tr>
 	                    <th colspan="3" style="padding-top: 10px;">
@@ -129,7 +95,7 @@
                         <tr><th style="color: rgba(119, 117, 117, 0.918);">-----------------------------------------</th></tr>
                         <tr><th><button type="button" id="find-kakaobtn" class="kakao-btn other-btn"></button></th></tr>
                         <tr></tr>
-                        <tr><th><button type="button" class="google-btn other-btn changepwd-modal"></button></th></tr>
+                        <tr></tr>
                     </table>
                     </form>
                 </div>
@@ -284,54 +250,28 @@
         </div>
       </div>
 
-	  
-
-
-
-
-
-
-
-<!-- ============================ //// ================================= -->      
-	
-
-	
-	
-
-
 
 
 <!-- ============================ alert 창 ================================= -->    
-<!-- ============= 탈퇴 alert 창 ================= -->    
-<!-- <div class="alert">
-	<h3>정말 탈퇴하시겠습니까?</h3>
+   <!-- confirm -->
+   <div class="alert">
+	<h3 id="alert-text"></h3>
 	<div>
-	   <button class="button alert-ok" id="alert-ok1" onclick="document.querySelector('#test').submit();">확인</button>
-	   <button class="button alert-cancel">취소</button> 
+	   <button class="button alert-ok" id="alert-ok">확인</button>
+	   <button class="button alert-cancel">취소</button>
 	</div>
-</div>
-<div class="alert-overlay"></div>
-
- ============= 회원가입완료 alert 창 ================= -->    
-<!-- <div class="alert2 alert">
-	<h3>회원가입이 완료되었습니다.</h3>
+ </div>
+ <div class="alert-overlay"></div>
+ 
+ 
+ <!-- alert(확인만 있음) -->
+ <div class="home-alert">
+	<h3 id="home-alert-text"></h3>
 	<div>
-	   <button class="button alert-ok" id="alert-ok2" onclick="document.querySelector('#test2').submit();">확인</button>
-	   <button class="button alert-cancel">취소</button> 
+	   <button class="button home-alert-ok">확인</button>
 	</div>
-</div>
-<div class="alert2-overlay"></div>  -->
-
-
-
-
-
-
-
-
-
-
-
+ </div>
+ <div class="home-alert-overlay"></div>
 
 
 
@@ -340,8 +280,6 @@
 
 <!-- common.js -->
 <script type="module" src="<%= contextPath %>/resource/js/common.js"></script>
-<!--alert script -->
-<!--<script  src="../resource/js/alert.js"></script>-->
 <!-- 메인 script(modal) -->
 <script type="module" src="<%= contextPath %>/resource/js/main.js"></script>
 <!--유효성 script -->
@@ -350,12 +288,17 @@
 <script type="module" src="<%= contextPath %>/resource/js/mainAPI.js"></script> 
 <!--kakao API-->
 <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
-<!--google API-->
-
+<!--alert -->
+<script type="module" src="<%= contextPath %>/resource/js/homeAlert.js"></script>
 	
+<!-- 세션스토리지 비우기 -->
 <script type="text/javascript">
 	sessionStorage.clear();
 </script>	
 	
+
+
+
+
 </body>
 </html>

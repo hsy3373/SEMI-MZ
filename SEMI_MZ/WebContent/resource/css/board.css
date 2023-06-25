@@ -190,16 +190,9 @@
 /* 스크롤 안보이게 */
 ::-webkit-scrollbar{display: none;}
 
-
-
-
-
-
-
 /* ======================= 친구한테 쓴 방명록 상세 ======================= */
 .board-send-detail{display: none;}
-/* ============================= 방명록 작성 ============================= */
-.board-send-detail{display: none;}
+/* =========================== 방명록 작성 =========================== */
 .board-write{display: none;}
 .board-write-area{
     width: 600px;
@@ -242,7 +235,7 @@
 }
 
 /* back 버튼 */
-/* 방명록 상세          / 친구한테 쓴 방명록 상세        / 방명록 작성  */
+/* 		방명록 상세          / 		친구한테 쓴 방명록 상세        / 		방명록 작성  	*/
 .board-detail .back-btn, .board-send-detail .back-btn, .board-write .back-btn{
     position: absolute;
     top: 2%;
